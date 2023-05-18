@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class GM : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static GM _;
+    public Player pl;
+    public TouchControl touchCtr;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Awake() {
+        _ = this;
     }
 }
