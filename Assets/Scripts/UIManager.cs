@@ -8,10 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button woodSignArrowLeftBtn;
     [SerializeField] Button woodSignArrowRightBtn;
     void Start() {
-        
     }
 
     void Update() {
-        
     }
 }
