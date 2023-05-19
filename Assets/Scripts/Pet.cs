@@ -7,14 +7,10 @@ public class Pet : MonoBehaviour
     const float CHASE_DELAY = 0.5f;
     Vector2 targetPos;
     [SerializeField] float moveSpeed;
-    void Start() {
-    }
 
     void Update() {
-        targetPos = new Vector2(
-            GM._.pl.transform.position.x + 1, 
-            GM._.pl.transform.position.y - 0.5f
-        );
+        //* プレイヤー隣
+        targetPos = new Vector2(GM._.pl.transform.position.x + 1, GM._.pl.transform.position.y - 0.5f);
 
         if(targetPos.x != transform.position.x
         || targetPos.y != transform.position.y) {

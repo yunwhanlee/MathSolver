@@ -6,8 +6,11 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] Color selectedTypeBtnClr;
+
     [Header("WOOD SIGN")]
     [SerializeField] int curHomeSceneIdx = 0;
+    [SerializeField] GameObject woodSignObj;  public GameObject WoodSignObj {get => woodSignObj; set => woodSignObj = value;}
     [SerializeField] TextMeshProUGUI woodSignTxt;  public TextMeshProUGUI WoodSignTxt {get => woodSignTxt; set => woodSignTxt = value;}
     [SerializeField] Button woodSignArrowLeftBtn;
     [SerializeField] Button woodSignArrowRightBtn;
@@ -21,6 +24,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject clothShopPanel; public GameObject ClothShopPanel {get => clothShopPanel; set => clothShopPanel = value;}
     [SerializeField] GameObject inventoryPanel; public GameObject InventoryPanel {get => inventoryPanel; set => inventoryPanel = value;}
 
+    [Header("ACHIVE & RANK")]
+    [SerializeField] TextMeshProUGUI achiveRankTitleTxt; public TextMeshProUGUI AchiveRankTitleTxt {get => achiveRankTitleTxt; set => achiveRankTitleTxt = value;}
+    [SerializeField] Button[] achiveRankTypeBtns; public Button[] AchiveRankTypeBtns {get => achiveRankTypeBtns; set => achiveRankTypeBtns = value;}
+    [SerializeField] GameObject[] achiveRankScrollFrames; public GameObject[] AchiveRankScrollFrames {get => achiveRankScrollFrames; set => achiveRankScrollFrames = value;}
+
     [Header("SPACE")]
     [SerializeField] GameObject room; public GameObject Room {get => room; set => room = value;}
     [SerializeField] GameObject inventorySpace; public GameObject InventorySpace {get => inventorySpace;}
@@ -33,14 +41,17 @@ public class UIManager : MonoBehaviour
 
 
     void Start() {
+        //* 初期化
         woodSignTxt.text = Enum.HOME.Room.ToString();
+        for(int i=0; i<achiveRankTypeBtns.Length; i++) {
+            achiveRankTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
+            achiveRankScrollFrames[i].SetActive(i == 0);
+        }
+        achiveRankTitleTxt.text = Enum.ACHIVERANK.Achivement.ToString();
         
         homeScenePanelArr = new GameObject[] {
             roomPanel, ikeaShopPanel, clothShopPanel, inventoryPanel
         };
-    }
-
-    void Update() {
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -87,20 +98,39 @@ public class UIManager : MonoBehaviour
         }
     }
     public void onClickAchiveRankIconBtn() {
+        woodSignObj.SetActive(false);
         achiveRankPanel.SetActive(true);
     }
+    public void onClickAchiveRankCloseBtn() {
+        woodSignObj.SetActive(true);
+        achiveRankPanel.SetActive(false);
+    }
     public void onClickDecorateModeIconBtn() {
+        woodSignObj.SetActive(false);
         decorateModePanel.SetActive(true);
         GM._.pl.gameObject.SetActive(false);
         GM._.pet.gameObject.SetActive(false);
     }
     public void onClickDecorateModeCloseBtn() {
+        woodSignObj.SetActive(true);
         decorateModePanel.SetActive(false);
         GM._.pl.gameObject.SetActive(true);
         GM._.pet.gameObject.SetActive(true);
     }
     public void onClickGoGameDialogYesBtn() {
         GM._.GoToLoadingScene();
+    }
+    public void onClickAchiveRankTypeBtn(int idx) {
+        //* Title
+        achiveRankTitleTxt.text = (idx == 0)? Enum.ACHIVERANK.Achivement.ToString()
+            : (idx == 1)? Enum.ACHIVERANK.Mission.ToString()
+            : Enum.ACHIVERANK.Rank.ToString(); // idx == 2
+
+        //* Display
+        for(int i=0; i<achiveRankTypeBtns.Length; i++) {
+            achiveRankTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
+            achiveRankScrollFrames[i].SetActive(i == idx);
+        }
     }
 #endregion
 }
