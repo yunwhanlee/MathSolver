@@ -10,7 +10,7 @@ public class Pet : MonoBehaviour
 
     void Update() {
         //* プレイヤー隣
-        targetPos = new Vector2(GM._.pl.transform.position.x + 1, GM._.pl.transform.position.y - 0.5f);
+        targetPos = new Vector2(HM._.pl.transform.position.x + 1, HM._.pl.transform.position.y - 0.5f);
 
         if(targetPos.x != transform.position.x
         || targetPos.y != transform.position.y) {

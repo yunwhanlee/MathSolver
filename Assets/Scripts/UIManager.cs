@@ -100,8 +100,8 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < homeScenePanelArr.Length; i++) {
             homeScenePanelArr[i].SetActive(curHomeSceneIdx == i);
             //* タッチの動き
-            GM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
-            GM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
+            HM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
+            HM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
         }
 
         //* 看板 テキスト
@@ -112,14 +112,14 @@ public class UIManager : MonoBehaviour
 
         //* RoomとInventoryスペース 表示。
         if(curHomeSceneIdx == (int)Enum.HOME.Room) {
-            GM._.pl.transform.position = GM._.pl.TargetPos;
-            GM._.pet.transform.position = roomDefPetPos;
+            HM._.pl.transform.position = HM._.pl.TargetPos;
+            HM._.pet.transform.position = roomDefPetPos;
             room.SetActive(true);
             inventorySpace.SetActive(false);
         }
         else if(curHomeSceneIdx == (int)Enum.HOME.Inventory){
-            GM._.pl.transform.position = invSpacePlayerPos;
-            GM._.pet.transform.position = invSpacePetPos;
+            HM._.pl.transform.position = invSpacePlayerPos;
+            HM._.pet.transform.position = invSpacePetPos;
             room.SetActive(false);
             inventorySpace.SetActive(true);
         }
@@ -135,17 +135,17 @@ public class UIManager : MonoBehaviour
     public void onClickDecorateModeIconBtn() {
         woodSignObj.SetActive(false);
         decorateModePanel.SetActive(true);
-        GM._.pl.gameObject.SetActive(false);
-        GM._.pet.gameObject.SetActive(false);
+        HM._.pl.gameObject.SetActive(false);
+        HM._.pet.gameObject.SetActive(false);
     }
     public void onClickDecorateModeCloseBtn() {
         woodSignObj.SetActive(true);
         decorateModePanel.SetActive(false);
-        GM._.pl.gameObject.SetActive(true);
-        GM._.pet.gameObject.SetActive(true);
+        HM._.pl.gameObject.SetActive(true);
+        HM._.pet.gameObject.SetActive(true);
     }
     public void onClickGoGameDialogYesBtn() {
-        GM._.GoToLoadingScene();
+        HM._.GoToLoadingScene();
     }
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
