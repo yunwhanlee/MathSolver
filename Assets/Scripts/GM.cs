@@ -6,6 +6,7 @@ public class GM : MonoBehaviour
 {
     public static GM _;
     public Player pl;
+    public GameObject pet;
     public TouchControl touchCtr;
 
     void Awake() {
