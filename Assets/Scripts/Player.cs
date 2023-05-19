@@ -7,16 +7,16 @@ public class Player : MonoBehaviour
     public Collider2D col;
 
     [SerializeField] float moveSpeed;
-    [SerializeField] Vector2 moveTargetPos; public Vector2 MoveTargetPos {get => moveTargetPos; set => moveTargetPos = value;}
+    [SerializeField] Vector2 targetPos; public Vector2 TargetPos {get => targetPos; set => targetPos = value;}
     void Start() {
         col = GetComponent<Collider2D>();
-        moveTargetPos = transform.position;
+        targetPos = transform.position;
     }
 
     void Update() {
-        if(moveTargetPos.x != transform.position.x
-        || moveTargetPos.y != transform.position.y) {
-            transform.position = Vector2.Lerp(transform.position, moveTargetPos, moveSpeed * Time.deltaTime);
+        if(targetPos.x != transform.position.x
+        || targetPos.y != transform.position.y) {
+            transform.position = Vector2.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
         }
     }
 
