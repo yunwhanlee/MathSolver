@@ -28,6 +28,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] Vector3 invSpacePlayerPos;
     [SerializeField] Vector3 invSpacePetPos;
 
+    [Header("DIALOG")]
+    [SerializeField] GameObject goGameDialog; public GameObject GoGameDialog {get => goGameDialog; set => goGameDialog = value;}
+
 
     void Start() {
         woodSignTxt.text = Enum.HOME.Room.ToString();
@@ -67,6 +70,7 @@ public class UIManager : MonoBehaviour
             : (curHomeSceneIdx == 2)? Enum.HOME.ClothShop.ToString()
             : Enum.HOME.Inventory.ToString();
 
+        //* RoomとInventoryスペース 表示。
         if(curHomeSceneIdx == (int)Enum.HOME.Room) {
             GM._.pl.enabled = true; // 動ける
             GM._.pl.transform.position = GM._.pl.MoveTargetPos;
@@ -87,6 +91,9 @@ public class UIManager : MonoBehaviour
     }
     public void onClickDecorateModeIconBtn() {
         decorateModePanel.SetActive(true);
+    }
+    public void onClickGoGameDialogYesBtn() {
+        GM._.GoToLoadingScene();
     }
 #endregion
 }

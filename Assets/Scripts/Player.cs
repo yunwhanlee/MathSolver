@@ -20,4 +20,14 @@ public class Player : MonoBehaviour
             transform.position = Vector2.Lerp(transform.position, moveTargetPos, moveSpeed * Time.deltaTime);
         }
     }
+
+///------------------------------------------------------------------------------------------
+#region Collider
+///------------------------------------------------------------------------------------------
+    private void OnTriggerEnter2D(Collider2D col) {
+        if(col.CompareTag(Enum.TAG.GoGame.ToString())) {
+            GM._.ui.GoGameDialog.SetActive(true);
+        }
+    }
+#endregion
 }
