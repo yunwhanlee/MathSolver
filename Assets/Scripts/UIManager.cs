@@ -29,6 +29,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button[] achiveRankTypeBtns; public Button[] AchiveRankTypeBtns {get => achiveRankTypeBtns; set => achiveRankTypeBtns = value;}
     [SerializeField] GameObject[] achiveRankScrollFrames; public GameObject[] AchiveRankScrollFrames {get => achiveRankScrollFrames; set => achiveRankScrollFrames = value;}
 
+    [Header("FUNITURE SHOP")] //* スクロールではなく、９個のリストをタイプによって切り替えるだけ
+    [SerializeField] Button[] funitureTypeBtns; public Button[] FunitureTypeBtns {get => funitureTypeBtns; set => funitureTypeBtns = value;}
+
+
+    [Header("INVENTORY")]
+    [SerializeField] Button[] invTypeBtns; public Button[] InvTypeBtns {get => invTypeBtns; set => invTypeBtns = value;}
+    [SerializeField] GameObject[] invListFrames; public GameObject[] InvListFrames {get => invListFrames; set => invListFrames = value;}
+
     [Header("SPACE")]
     [SerializeField] GameObject room; public GameObject Room {get => room; set => room = value;}
     [SerializeField] GameObject inventorySpace; public GameObject InventorySpace {get => inventorySpace;}
@@ -41,17 +49,35 @@ public class UIManager : MonoBehaviour
 
 
     void Start() {
-        //* 初期化
+        //* ホームシーンのパンネル配列 初期化
+        homeScenePanelArr = new GameObject[] {
+            roomPanel, ikeaShopPanel, clothShopPanel, inventoryPanel
+        };
+
+        //* ルームオブジェクト
+        room.SetActive(true);
+        inventorySpace.SetActive(false);
+
+        //* 看板
         woodSignTxt.text = Enum.HOME.Room.ToString();
-        for(int i=0; i<achiveRankTypeBtns.Length; i++) {
+
+        //* 業績・ランク
+        for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
         achiveRankTitleTxt.text = Enum.ACHIVERANK.Achivement.ToString();
-        
-        homeScenePanelArr = new GameObject[] {
-            roomPanel, ikeaShopPanel, clothShopPanel, inventoryPanel
-        };
+
+        //* 家具店
+        for(int i = 0; i < funitureTypeBtns.Length; i++) {
+            funitureTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
+        }
+
+        //* インベントリー
+        for(int i = 0; i < invTypeBtns.Length; i++) {
+            invTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
+            invListFrames[i].SetActive(i == 0);
+        }        
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -75,6 +101,7 @@ public class UIManager : MonoBehaviour
             homeScenePanelArr[i].SetActive(curHomeSceneIdx == i);
             //* タッチの動き
             GM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
+            GM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
         }
 
         //* 看板 テキスト
@@ -127,9 +154,22 @@ public class UIManager : MonoBehaviour
             : Enum.ACHIVERANK.Rank.ToString(); // idx == 2
 
         //* Display
-        for(int i=0; i<achiveRankTypeBtns.Length; i++) {
+        for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == idx);
+        }
+    }
+    public void onClickFunitureShopTypeBtn(int idx) {
+        //* Display
+        for(int i = 0; i < funitureTypeBtns.Length; i++) {
+            funitureTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
+        }
+    }
+    public void onClickinventoryTypeBtn(int idx) {
+        //* Display
+        for(int i = 0; i < invTypeBtns.Length; i++) {
+            invTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
+            invListFrames[i].SetActive(i == idx);
         }
     }
 #endregion
