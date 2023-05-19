@@ -62,6 +62,8 @@ public class UIManager : MonoBehaviour
         //* 表示・非表示
         for(int i = 0; i < homeScenePanelArr.Length; i++) {
             homeScenePanelArr[i].SetActive(curHomeSceneIdx == i);
+            //* タッチの動き
+            GM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
         }
 
         //* 看板 テキスト
@@ -72,14 +74,12 @@ public class UIManager : MonoBehaviour
 
         //* RoomとInventoryスペース 表示。
         if(curHomeSceneIdx == (int)Enum.HOME.Room) {
-            GM._.pl.enabled = true; // 動ける
             GM._.pl.transform.position = GM._.pl.MoveTargetPos;
             GM._.pet.transform.position = roomDefPetPos;
             room.SetActive(true);
             inventorySpace.SetActive(false);
         }
         else if(curHomeSceneIdx == (int)Enum.HOME.Inventory){
-            GM._.pl.enabled = false; // 動かない
             GM._.pl.transform.position = invSpacePlayerPos;
             GM._.pet.transform.position = invSpacePetPos;
             room.SetActive(false);
@@ -91,6 +91,13 @@ public class UIManager : MonoBehaviour
     }
     public void onClickDecorateModeIconBtn() {
         decorateModePanel.SetActive(true);
+        GM._.pl.gameObject.SetActive(false);
+        GM._.pet.gameObject.SetActive(false);
+    }
+    public void onClickDecorateModeCloseBtn() {
+        decorateModePanel.SetActive(false);
+        GM._.pl.gameObject.SetActive(true);
+        GM._.pet.gameObject.SetActive(true);
     }
     public void onClickGoGameDialogYesBtn() {
         GM._.GoToLoadingScene();

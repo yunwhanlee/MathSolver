@@ -12,6 +12,8 @@ public class TouchControl : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, transform.forward, MAX_DISTANCE);
             if(hit) {
                 Debug.Log($"hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
+                if(hit.transform.name == "IconArea") return;
+                
                 GM._.pl.MoveTargetPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
             }
             Debug.DrawRay(mouseWorldPos, transform.forward * 50, Color.red, 0.3f);

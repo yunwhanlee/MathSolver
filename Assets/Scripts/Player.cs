@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     [SerializeField] Vector2 moveTargetPos; public Vector2 MoveTargetPos {get => moveTargetPos; set => moveTargetPos = value;}
     void Start() {
         col = GetComponent<Collider2D>();
-
         moveTargetPos = transform.position;
     }
 
