@@ -59,14 +59,14 @@ public class UIManager : MonoBehaviour
         inventorySpace.SetActive(false);
 
         //* 看板
-        woodSignTxt.text = Enum.HOME.Room.ToString();
+        woodSignTxt.text = "서재";//Enum.HOME.Room.ToString();
 
         //* 業績・ランク
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
-        achiveRankTitleTxt.text = Enum.ACHIVERANK.Achivement.ToString();
+        achiveRankTitleTxt.text = "업적";//Enum.ACHIVERANK.Achivement.ToString();
 
         //* 家具店
         for(int i = 0; i < funitureTypeBtns.Length; i++) {
@@ -105,10 +105,10 @@ public class UIManager : MonoBehaviour
         }
 
         //* 看板 テキスト
-        woodSignTxt.text = (curHomeSceneIdx == 0)? Enum.HOME.Room.ToString()
-            : (curHomeSceneIdx == 1)? Enum.HOME.IkeaShop.ToString()
-            : (curHomeSceneIdx == 2)? Enum.HOME.ClothShop.ToString()
-            : Enum.HOME.Inventory.ToString();
+        woodSignTxt.text = (curHomeSceneIdx == 0)? "서재"//Enum.HOME.Room.ToString()
+            : (curHomeSceneIdx == 1)? "가구점"//Enum.HOME.IkeaShop.ToString()
+            : (curHomeSceneIdx == 2)? "의류점"//Enum.HOME.ClothShop.ToString()
+            : "인벤토리";//Enum.HOME.Inventory.ToString();
 
         //* RoomとInventoryスペース 表示。
         if(curHomeSceneIdx == (int)Enum.HOME.Room) {
@@ -149,9 +149,9 @@ public class UIManager : MonoBehaviour
     }
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
-        achiveRankTitleTxt.text = (idx == 0)? Enum.ACHIVERANK.Achivement.ToString()
-            : (idx == 1)? Enum.ACHIVERANK.Mission.ToString()
-            : Enum.ACHIVERANK.Rank.ToString(); // idx == 2
+        achiveRankTitleTxt.text = (idx == 0)? "업적"//Enum.ACHIVERANK.Achivement.ToString()
+            : (idx == 1)? "임무"//Enum.ACHIVERANK.Mission.ToString()
+            : "랭킹";//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
 
         //* Display
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
