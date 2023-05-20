@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
 
     [Header("FUNITURE SHOP")] //* スクロールではなく、９個のリストをタイプによって切り替えるだけ
     [SerializeField] Button[] funitureTypeBtns; public Button[] FunitureTypeBtns {get => funitureTypeBtns; set => funitureTypeBtns = value;}
+    [SerializeField] GameObject[] funitureListFrames; public GameObject[] FunitureListFrames {get => funitureListFrames; set => funitureListFrames = value;}
 
 
     [Header("INVENTORY")]
@@ -71,13 +72,14 @@ public class UIManager : MonoBehaviour
         //* 家具店
         for(int i = 0; i < funitureTypeBtns.Length; i++) {
             funitureTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
+            funitureListFrames[i].SetActive(i == 0);
         }
 
         //* インベントリー
         for(int i = 0; i < invTypeBtns.Length; i++) {
             invTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
             invListFrames[i].SetActive(i == 0);
-        }        
+        }
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -163,6 +165,7 @@ public class UIManager : MonoBehaviour
         //* Display
         for(int i = 0; i < funitureTypeBtns.Length; i++) {
             funitureTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
+            funitureListFrames[i].SetActive(i == idx);
         }
     }
     public void onClickinventoryTypeBtn(int idx) {
