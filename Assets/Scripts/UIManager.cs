@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
     [Header("INVENTORY")]
     [SerializeField] Button[] invTypeBtns; public Button[] InvTypeBtns {get => invTypeBtns; set => invTypeBtns = value;}
     [SerializeField] GameObject[] invListFrames; public GameObject[] InvListFrames {get => invListFrames; set => invListFrames = value;}
+    [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
 
     [Header("SPACE")]
     [SerializeField] GameObject room; public GameObject Room {get => room; set => room = value;}
@@ -174,6 +175,9 @@ public class UIManager : MonoBehaviour
             invTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
             invListFrames[i].SetActive(i == idx);
         }
+    }
+    public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
+        infoDialog.SetActive(true);
     }
 #endregion
 }
