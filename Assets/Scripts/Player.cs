@@ -5,9 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Collider2D col;
+    public Animator anim;
 
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 targetPos; public Vector2 TargetPos {get => targetPos; set => targetPos = value;}
+    [SerializeField] bool doIdle;
+    [SerializeField] bool doWalk;
     void Start() {
         col = GetComponent<Collider2D>();
         targetPos = transform.position;
@@ -16,7 +19,22 @@ public class Player : MonoBehaviour
     void Update() {
         if(targetPos.x != transform.position.x
         || targetPos.y != transform.position.y) {
-            transform.position = Vector2.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            float distX = Mathf.Abs(targetPos.x - transform.position.x);
+            float distY = Mathf.Abs(targetPos.y - transform.position.y);
+            
+            const float WALK_STOP_VAL = 0.05f;
+            if(distX < WALK_STOP_VAL && distY < WALK_STOP_VAL) {
+                transform.position = targetPos;
+                if(!doIdle) { doIdle = true; anim.SetTrigger(Enum.ANIM.DoIdle.ToString());}
+                if(doWalk) doWalk = false;
+            }
+            else {
+                transform.position = Vector2.Lerp(transform.position, targetPos, moveSpeed * Time.deltaTime);
+                if(doIdle) doIdle = false;
+                if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
+            }
+
+            Debug.Log($"pl.transform.position -> distance x= {distX}, y= {distY}");
         }
     }
 

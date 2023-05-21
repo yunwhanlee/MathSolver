@@ -8,8 +8,11 @@ public class HM : MonoBehaviour
     public static HM _;
     public Player pl;
     public UIManager ui;
-    public GameObject pet;
     public TouchControl touchCtr;
+
+    public GameObject pet;
+    public GameObject funitureModeShadowFrameObj;
+    public GameObject funitureModeItem;
 
     void Awake() => _ = this;    
 

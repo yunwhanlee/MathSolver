@@ -9,4 +9,5 @@ public class Enum : MonoBehaviour
     public enum ACHIVERANK {Achivement, Mission, Rank};
     public enum FUNITURE {Funiture, Decoration, Wall, Carpet};
     public enum TAG {GoGame};
+    public enum ANIM {DoIdle, DoWalk};
 }   

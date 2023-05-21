@@ -9,13 +9,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] Color selectedTypeBtnClr;
 
     [Header("WOOD SIGN")]
-    [SerializeField] int curHomeSceneIdx = 0;
+    [SerializeField] int curHomeSceneIdx = 0; public int CurHomeSceneIdx {get => curHomeSceneIdx; set => curHomeSceneIdx = value;}
     [SerializeField] GameObject woodSignObj;  public GameObject WoodSignObj {get => woodSignObj; set => woodSignObj = value;}
     [SerializeField] TextMeshProUGUI woodSignTxt;  public TextMeshProUGUI WoodSignTxt {get => woodSignTxt; set => woodSignTxt = value;}
     [SerializeField] Button woodSignArrowLeftBtn;
     [SerializeField] Button woodSignArrowRightBtn;
 
     [Header("HOME PANEL")]
+    [SerializeField] GameObject topGroup; public GameObject TopGroup {get => topGroup; set => topGroup = value;}
     [SerializeField] GameObject[] homeScenePanelArr;
     [SerializeField] GameObject achiveRankPanel; public GameObject AchiveRankPanel {get => achiveRankPanel; set => achiveRankPanel = value;}
     [SerializeField] GameObject decorateModePanel; public GameObject DecorateModePanel {get => decorateModePanel; set => decorateModePanel = value;}
@@ -32,6 +33,7 @@ public class UIManager : MonoBehaviour
     [Header("FUNITURE SHOP")] //* スクロールではなく、９個のリストをタイプによって切り替えるだけ
     [SerializeField] Button[] funitureTypeBtns; public Button[] FunitureTypeBtns {get => funitureTypeBtns; set => funitureTypeBtns = value;}
     [SerializeField] GameObject[] funitureListFrames; public GameObject[] FunitureListFrames {get => funitureListFrames; set => funitureListFrames = value;}
+    [SerializeField] GameObject funitureItemPf;
 
 
     [Header("INVENTORY")]
@@ -41,6 +43,7 @@ public class UIManager : MonoBehaviour
 
     [Header("SPACE")]
     [SerializeField] GameObject room; public GameObject Room {get => room; set => room = value;}
+    [SerializeField] Transform roomObjectGroupTf; public Transform RoomObjectGroupTf {get => roomObjectGroupTf; set => roomObjectGroupTf = value;}
     [SerializeField] GameObject inventorySpace; public GameObject InventorySpace {get => inventorySpace;}
     [SerializeField] Vector3 roomDefPetPos;
     [SerializeField] Vector3 invSpacePlayerPos;
@@ -83,6 +86,10 @@ public class UIManager : MonoBehaviour
         }
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNC
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickWoodSignArrowBtn(int dirVal) { //* directionValue : -1 or 1にすること。
@@ -99,13 +106,12 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("onClickWoodSignArrowBtn()イベントメソッドのパラメータ値を -1 とか1に設定してください。");
         }
 
-        //* 表示・非表示
-        for(int i = 0; i < homeScenePanelArr.Length; i++) {
+        //* パンネル 表示・非表示
+        for(int i = 0; i < homeScenePanelArr.Length; i++)
             homeScenePanelArr[i].SetActive(curHomeSceneIdx == i);
-            //* タッチの動き
-            HM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
-            HM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
-        }
+        //* タッチの動き
+        HM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
+        HM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
 
         //* 看板 テキスト
         woodSignTxt.text = (curHomeSceneIdx == 0)? "서재"//Enum.HOME.Room.ToString()
@@ -127,6 +133,16 @@ public class UIManager : MonoBehaviour
             inventorySpace.SetActive(true);
         }
     }
+    public void onClickGoRoom() {
+        while(curHomeSceneIdx > (int)Enum.HOME.Room) {
+            onClickWoodSignArrowBtn(dirVal: -1);
+        }
+    }
+    public void onClickGoClothShop() {
+        while(curHomeSceneIdx > (int)Enum.HOME.ClothShop) {
+            onClickWoodSignArrowBtn(dirVal: -1);
+        }
+    }
     public void onClickAchiveRankIconBtn() {
         woodSignObj.SetActive(false);
         achiveRankPanel.SetActive(true);
@@ -136,14 +152,22 @@ public class UIManager : MonoBehaviour
         achiveRankPanel.SetActive(false);
     }
     public void onClickDecorateModeIconBtn() {
-        woodSignObj.SetActive(false);
-        decorateModePanel.SetActive(true);
+        //* パンネル 表示・非表示
+        for(int i = 0; i < homeScenePanelArr.Length; i++) {
+            homeScenePanelArr[i].SetActive(false);
+        }
+        topGroup.SetActive(false);
+        HM._.funitureModeShadowFrameObj.SetActive(true);
+        
         HM._.pl.gameObject.SetActive(false);
         HM._.pet.gameObject.SetActive(false);
     }
     public void onClickDecorateModeCloseBtn() {
-        woodSignObj.SetActive(true);
-        decorateModePanel.SetActive(false);
+        curHomeSceneIdx = 0;
+        woodSignTxt.text = "서재";
+        roomPanel.SetActive(true);
+        topGroup.SetActive(true);
+        HM._.funitureModeShadowFrameObj.SetActive(false);
         HM._.pl.gameObject.SetActive(true);
         HM._.pet.gameObject.SetActive(true);
     }
@@ -178,6 +202,18 @@ public class UIManager : MonoBehaviour
     }
     public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
         infoDialog.SetActive(true);
+    }
+    public void onClickFunitureItemListBtn() { //TODO Just Decorating Test
+        //* 飾り
+        createFunitureItem();
+        onClickDecorateModeIconBtn();
+    }
+    public void createFunitureItem() { //TODO Just Decorating Test
+        var item = Instantiate(funitureItemPf, roomObjectGroupTf);
+        item.GetComponent<RoomObject>().IsSelect = true;
+        item.GetComponent<RoomObject>().FunitureModeCanvasRectTf.gameObject.SetActive(true);
+        //* 飾りモードの影よりレイヤーを前に配置
+        item.GetComponent<SpriteRenderer>().sortingOrder = 11;
     }
 #endregion
 }
