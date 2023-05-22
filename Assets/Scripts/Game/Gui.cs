@@ -54,6 +54,9 @@ public class Gui : MonoBehaviour
         yield return new WaitForSeconds(1);
         for(int i = 0; i < answerBtns.Length; i++) 
             answerBtns[i].gameObject.SetActive(true);
+        
+        yield return new WaitForSeconds(1.5f);
+        GM._.PlTypingEFObj.SetActive(true);
     }
     public IEnumerator coFailAnswer() {
         GM._.PlayerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
@@ -70,10 +73,18 @@ public class Gui : MonoBehaviour
         hintFrame.SetActive(false);
 
         yield return new WaitForSeconds(1.2f);
+        //* Success Effect
+        GM._.SuccessEFAnim.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(4);
+        GM._.rigidPopStuffObjs();
+
+        yield return new WaitForSeconds(1.5f);
         //* success Result
         successResultFrame.SetActive(true);
     }
     public void onClickAnswerBtn(int idx) {
+        GM._.PlTypingEFObj.SetActive(false);
         int val = int.Parse(answerBtns[idx].GetComponentInChildren<TextMeshProUGUI>().text);
         if(val == GM._.Problems[0].res) {
             Debug.Log("正解！");

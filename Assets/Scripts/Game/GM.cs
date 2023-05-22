@@ -9,9 +9,13 @@ public class GM : MonoBehaviour
     public static GM _;
     public Gui gui;
 
+    [Header("CHARA")]
+    [SerializeField] GameObject plTypingEFObj; public GameObject PlTypingEFObj {get => plTypingEFObj; set => plTypingEFObj = value;}
+
     [Header("ANIM")]
     [SerializeField] Animator playerAnim;   public Animator PlayerAnim {get => playerAnim; set => playerAnim = value;}
     [SerializeField] Animator customerAnim; public Animator CustomerAnim {get => customerAnim; set => customerAnim = value;}
+    [SerializeField] Animator successEFAnim; public Animator SuccessEFAnim {get => successEFAnim; set => successEFAnim = value;}
 
     [Header("CHARA SPRITE")]
     [SerializeField] Sprite[] playerSprs; public Sprite[] PlayerSprs {get => playerSprs; set => playerSprs = value;}
@@ -36,6 +40,9 @@ public class GM : MonoBehaviour
     void Awake() {
         _ = this;
         problems[0].sentence = $"<sprite name=apple>{problems[0].n1}개를 친구 {problems[0].n2}마리에게 똑같이 나눠주고 싶어요, 몇 판씩 줘야하죠?";
+        //* Anim
+        successEFAnim.gameObject.SetActive(false);
+
         //* Chara Expression
         playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
         customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
@@ -62,6 +69,21 @@ public class GM : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             var stuff = Instantiate(stuffObjPf, stuffGroupTf);
             stuff.transform.position = new Vector2(0, 5);
+        }
+    }
+    public void rigidPopStuffObjs() {
+        for(int i = 0; i < stuffGroupTf.childCount; i++) {
+            var rigid = stuffGroupTf.GetChild(i).GetComponent<Rigidbody2D>();
+            rigid.constraints = RigidbodyConstraints2D.None;
+
+            const int POWER = 25;
+            float rX = Random.Range(-1.0f, 1.0f);
+            Debug.Log("rX=>" + rX);
+            var dir = new Vector2(rX, 1);
+            rigid.AddForce(dir * POWER, ForceMode2D.Impulse);
+            float rot = Random.Range(-30.0f, 30.0f);
+            Debug.Log("rot=>" + rot);
+            rigid.AddTorque(rot, ForceMode2D.Impulse);
         }
     }
 #endregion
