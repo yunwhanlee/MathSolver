@@ -6,13 +6,18 @@ using TMPro;
 
 public class Gui : MonoBehaviour
 {
+    TextTeleType txtTeleType;
+
     public Button[] answerBtns; public Button[] AnswerBtns {get => answerBtns; set => answerBtns = value;}
     [SerializeField] GameObject questionFrame;  public GameObject QuestionFrame {get => questionFrame; set => questionFrame = value;}
     [SerializeField] TextMeshProUGUI questionTxt; public TextMeshProUGUI QuestionTxt {get => questionTxt; set => questionTxt = value;}
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
     void Start() {
+        txtTeleType = GetComponent<TextTeleType>();
+
         var pb = GM._.Problems[0];
+
         // stageTxt.gameObject.SetActive(false);
         questionFrame.SetActive(false);
 
@@ -37,6 +42,7 @@ public class Gui : MonoBehaviour
     }
     public IEnumerator coShowQuestion() {
         questionFrame.gameObject.SetActive(true);
+        StartCoroutine(txtTeleType.coTextVisible());
 
         yield return new WaitForSeconds(1);
         for(int i = 0; i < answerBtns.Length; i++) 
