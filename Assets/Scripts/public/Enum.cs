@@ -9,7 +9,7 @@ public class Enum : MonoBehaviour
     public enum ACHIVERANK {Achivement, Mission, Rank};
     public enum FUNITURE {Funiture, Decoration, Wall, Carpet};
     public enum TAG {GoGame};
-    public enum ANIM {DoIdle, DoWalk};
+    public enum ANIM {DoIdle, DoWalk, DoBounce};
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};
 }   

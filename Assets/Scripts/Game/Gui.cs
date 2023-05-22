@@ -45,6 +45,7 @@ public class Gui : MonoBehaviour
         stageTxt.gameObject.SetActive(false);
     }
     public IEnumerator coShowQuestion() {
+        GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         questionFrame.gameObject.SetActive(true);
         StartCoroutine(txtTeleType.coTextVisible());
 
@@ -53,12 +54,16 @@ public class Gui : MonoBehaviour
             answerBtns[i].gameObject.SetActive(true);
     }
     public IEnumerator coFailAnswer() {
+        GM._.PlayerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+        GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         questionFrame.SetActive(false);
         yield return new WaitForSeconds(1.2f);
         //* Retry With Hint
         questionFrame.SetActive(true);
     }
     public IEnumerator coSuccessAnswer() {
+        GM._.PlayerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+        GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         questionFrame.SetActive(false);
         hintFrame.SetActive(false);
 
