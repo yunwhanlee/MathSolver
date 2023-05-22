@@ -394,7 +394,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "<sprite name=apple>50\uAC1C\uB97C \uCE5C\uAD6C 5\uB9C8\uB9AC\uC5D0\uAC8C
-    \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0 \uC2F6\uC5B4\uC694, \uBA87 \uD310\uC529
+    \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0 \uC2F6\uC5B4\uC694, \uBA87 \uAC1C\uC529
     \uC918\uC57C\uD558\uC8E0?\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2617162495
+    rgba: 4294884095
   m_fontColor: {r: 1, g: 0.7311321, b: 0.995283, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -12193,7 +12193,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4261412863
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

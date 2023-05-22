@@ -39,7 +39,7 @@ public class GM : MonoBehaviour
 
     void Awake() {
         _ = this;
-        problems[0].sentence = $"<sprite name=apple>{problems[0].n1}개를 친구 {problems[0].n2}마리에게 똑같이 나눠주고 싶어요, 몇 판씩 줘야하죠?";
+        problems[0].sentence = $"<sprite name=apple>{problems[0].n1}개를 친구 {problems[0].n2}마리에게 똑같이 나눠주고 싶어요, 몇 개씩 줘야하죠?";
         //* Anim
         successEFAnim.gameObject.SetActive(false);
 
