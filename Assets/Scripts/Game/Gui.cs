@@ -12,6 +12,7 @@ public class Gui : MonoBehaviour
     [SerializeField] GameObject questionFrame;  public GameObject QuestionFrame {get => questionFrame; set => questionFrame = value;}
     [SerializeField] GameObject hintFrame;  public GameObject HintFrame {get => hintFrame; set => hintFrame = value;}
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
+    [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
     [SerializeField] TextMeshProUGUI questionTxt; public TextMeshProUGUI QuestionTxt {get => questionTxt; set => questionTxt = value;}
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
@@ -24,6 +25,7 @@ public class Gui : MonoBehaviour
         // stageTxt.gameObject.SetActive(false);
         questionFrame.SetActive(false);
         hintFrame.SetActive(false);
+        successEffectFrame.SetActive(false);
 
         //* 質問文章
         questionTxt.text = pb.sentence;
