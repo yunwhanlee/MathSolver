@@ -4,8 +4,28 @@ using UnityEngine;
 
 public class RoomObject : MonoBehaviour
 {
+    const int DECARATION_FRONT = -1, REVERSE_Y = -1;
+    Transform tf;
+    [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
+    [SerializeField] bool isDecoration; public bool IsDecoration  {get => isDecoration; set => isDecoration = value;}
     [SerializeField] RectTransform funitureModeCanvasRectTf; public RectTransform FunitureModeCanvasRectTf {get => funitureModeCanvasRectTf; set => funitureModeCanvasRectTf = value;}
+
+    void Start() {
+        tf = this.transform;
+
+        //* レイヤー
+        if(isDecoration) {
+            tf.position = new Vector3(tf.position.x, tf.position.y, DECARATION_FRONT); //* Z値 -1にして目の前に
+            var prSr = GetComponentInParent<SpriteRenderer>();
+            sr.sortingOrder = prSr.sortingOrder;
+        }
+        else {
+            tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+            sr = GetComponent<SpriteRenderer>();
+            sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
+        }
+    }
 //---------------------------------------------------------------------------------------------------------------
 #region MOUSE EVENT
 //---------------------------------------------------------------------------------------------------------------
