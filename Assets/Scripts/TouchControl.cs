@@ -13,8 +13,7 @@ public class TouchControl : MonoBehaviour
             if(hit) {
                 Debug.Log($"TouchControl:: hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
                 if(hit.transform.name == Enum.NAME.IconGroupArea.ToString()) return;
-
-                HM._.pl.TargetPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+                HM._.pl.TgPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
             }
             Debug.DrawRay(mouseWorldPos, transform.forward * 50, Color.red, 0.3f);
         }

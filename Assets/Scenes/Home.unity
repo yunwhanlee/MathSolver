@@ -27809,7 +27809,7 @@ MonoBehaviour:
   anim: {fileID: 1327448385}
   sr: {fileID: 1327448381}
   moveSpeed: 2
-  targetPos: {x: 0, y: 0}
+  tgPos: {x: 0, y: 0}
   doIdle: 0
   doWalk: 0
 --- !u!95 &1327448385

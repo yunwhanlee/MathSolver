@@ -121,7 +121,7 @@ public class UIManager : MonoBehaviour
 
         //* RoomとInventoryスペース 表示。
         if(curHomeSceneIdx == (int)Enum.HOME.Room) {
-            HM._.pl.transform.position = HM._.pl.TargetPos;
+            HM._.pl.transform.position = HM._.pl.TgPos;
             HM._.pet.transform.position = roomDefPetPos;
             room.SetActive(true);
             inventorySpace.SetActive(false);
