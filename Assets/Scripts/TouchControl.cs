@@ -11,8 +11,8 @@ public class TouchControl : MonoBehaviour
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, transform.forward, MAX_DISTANCE);
             if(hit) {
-                Debug.Log($"hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
-                if(hit.transform.name == "IconArea") return;
+                Debug.Log($"TouchControl:: hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
+                if(hit.transform.name == Enum.NAME.IconGroupArea.ToString()) return;
 
                 HM._.pl.TargetPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
             }
