@@ -37,7 +37,7 @@ public class RoomObject : MonoBehaviour {
     private void OnMouseDown() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
 
-        //* 既に選択されたオブジェクトが有るか？
+        //* 既に選択されたオブジェクトが有ったら、他が選択できないように
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
         bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
 
@@ -83,6 +83,8 @@ public class RoomObject : MonoBehaviour {
 
         //* Z値 ０に戻す
         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+        //* アウトライン 消す
+        sr.material = HM._.sprUnlitMt;
 
         //* タッチの動き
         HM._.touchCtr.enabled = true;
@@ -107,13 +109,14 @@ public class RoomObject : MonoBehaviour {
         const float MAX_SC = 1.3f;
         const float DURATION = 0.1f; // アニメー再生時間
 
-        //* お先に、他のオブジェクトは 初期化
+        //* 他のオブジェクトは 初期化
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
         Array.ForEach(roomObjs, obj => {
             if(obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Mat.ToString()
             || obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Default.ToString()){
                 obj.FunitureModeCanvasRectTf.gameObject.SetActive(false);
                 obj.IsSelect = false;
+                obj.Sr.material = HM._.sprUnlitMt;
             }
         });
 
@@ -147,7 +150,7 @@ public class RoomObject : MonoBehaviour {
         //* ドラッグ操作 ON
         this.FunitureModeCanvasRectTf.gameObject.SetActive(true);
         this.IsSelect = true;
-
+        this.sr.material = HM._.outlineAnimMt;
     }
 #endregion
 }
