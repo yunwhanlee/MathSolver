@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomObject : MonoBehaviour {
-    const int DECARATION_FRONT = -1, 
-        REVERSE_Y = -1, 
+    const int REVERSE_Y = -1, 
         PIVOT_OFFSET_Y = -1, 
         OFFSET_Z = -1;
     Transform tf;
@@ -21,15 +20,13 @@ public class RoomObject : MonoBehaviour {
         if(HM._.state == HM.STATE.DECORATION_MODE) return;
 
         if(isDecoration) {
-            tf.position = new Vector3(tf.position.x, tf.position.y, DECARATION_FRONT); //* Z値 -1にして目の前に
+            tf.position = new Vector3(tf.position.x, tf.position.y, 0);
             var prSr = tf.parent.GetComponentInParent<SpriteRenderer>();
             sr.sortingOrder = prSr.sortingOrder;
             Debug.Log($"SORTING BB RoomObject:: isDecoration:: {sr.gameObject.name}.sortingOrder({sr.sortingOrder}) = {prSr.gameObject.name}.sortingOrder({prSr.sortingOrder})");
         }
         else {
-            tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-            sr = GetComponent<SpriteRenderer>();
-            sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
+            setSortingOrderByPosY();
             Debug.Log($"SORTING BB RoomObject:: {sr.gameObject.name}.sortingOrder= {sr.sortingOrder})");
         }
     }
@@ -69,7 +66,7 @@ public class RoomObject : MonoBehaviour {
     }
     public void onClickFunitureModeItemSetUpBtn() {
         HM._.ui.onClickDecorateModeCloseBtn();
-        this.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        setSortingOrderByPosY();
         funitureModeCanvasRectTf.gameObject.SetActive(false);
         isSelect = false;
 
@@ -80,5 +77,15 @@ public class RoomObject : MonoBehaviour {
         HM._.touchCtr.enabled = true;
         HM._.pl.enabled = true;
     }
+#endregion
+//---------------------------------------------------------------------------------------------------------------
+#region FUNC
+//---------------------------------------------------------------------------------------------------------------
+    private void setSortingOrderByPosY() {
+        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+        sr = GetComponent<SpriteRenderer>();
+        sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
+    }
+
 #endregion
 }
