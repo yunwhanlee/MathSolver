@@ -152,6 +152,8 @@ public class UIManager : MonoBehaviour
         achiveRankPanel.SetActive(false);
     }
     public void onClickDecorateModeIconBtn() {
+        HM._.state = HM.STATE.DECORATION_MODE;
+
         //* パンネル 表示・非表示
         for(int i = 0; i < homeScenePanelArr.Length; i++) {
             homeScenePanelArr[i].SetActive(false);
@@ -163,6 +165,8 @@ public class UIManager : MonoBehaviour
         HM._.pet.gameObject.SetActive(false);
     }
     public void onClickDecorateModeCloseBtn() {
+        HM._.state = HM.STATE.NORMAL;
+
         curHomeSceneIdx = 0;
         woodSignTxt.text = "서재";
         roomPanel.SetActive(true);
@@ -209,11 +213,18 @@ public class UIManager : MonoBehaviour
         onClickDecorateModeIconBtn();
     }
     public void createFunitureItem() { //TODO Just Decorating Test
+        HM._.state = HM.STATE.DECORATION_MODE;
         var item = Instantiate(funitureItemPf, roomObjectGroupTf);
         item.GetComponent<RoomObject>().IsSelect = true;
         item.GetComponent<RoomObject>().FunitureModeCanvasRectTf.gameObject.SetActive(true);
+
+        //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
+        const float OFFSET_Z = -1;
+        item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, OFFSET_Z);
+
         //* 飾りモードの影よりレイヤーを前に配置
         item.GetComponent<SpriteRenderer>().sortingOrder = 100;
+        Debug.Log($"SORTING AA createFunitureItem:: {item.name}.sortingOrder= {item.GetComponent<SpriteRenderer>().sortingOrder}");
     }
 #endregion
 }

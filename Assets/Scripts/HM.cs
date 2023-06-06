@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HM : MonoBehaviour
-{
+public class HM : MonoBehaviour {
     public static HM _;
+    public enum STATE {NORMAL, DECORATION_MODE};
+    public STATE state;
     public Player pl;
     public UIManager ui;
     public TouchControl touchCtr;
