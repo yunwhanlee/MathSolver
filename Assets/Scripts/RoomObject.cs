@@ -39,7 +39,7 @@ public class RoomObject : MonoBehaviour
 
         funitureModeCanvasRectTf.gameObject.SetActive(false);
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector2(transform.position.x, transform.position.y);
+        transform.position = new Vector2(transform.position.x, transform.position.y - 1);
         
     }
     private void OnMouseUp() {
