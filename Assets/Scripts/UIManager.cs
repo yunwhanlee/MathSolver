@@ -213,7 +213,7 @@ public class UIManager : MonoBehaviour
         item.GetComponent<RoomObject>().IsSelect = true;
         item.GetComponent<RoomObject>().FunitureModeCanvasRectTf.gameObject.SetActive(true);
         //* 飾りモードの影よりレイヤーを前に配置
-        item.GetComponent<SpriteRenderer>().sortingOrder = 11;
+        item.GetComponent<SpriteRenderer>().sortingOrder = 100;
     }
 #endregion
 }

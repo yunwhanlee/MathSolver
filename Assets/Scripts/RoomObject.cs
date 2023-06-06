@@ -13,12 +13,14 @@ public class RoomObject : MonoBehaviour
 
     void Start() {
         tf = this.transform;
+        sr = GetComponent<SpriteRenderer>();
 
         //* レイヤー
         if(isDecoration) {
             tf.position = new Vector3(tf.position.x, tf.position.y, DECARATION_FRONT); //* Z値 -1にして目の前に
-            var prSr = GetComponentInParent<SpriteRenderer>();
+            var prSr = transform.parent.GetComponentInParent<SpriteRenderer>();
             sr.sortingOrder = prSr.sortingOrder;
+            Debug.Log($"RoomObject:: isDecoration:: {sr.gameObject.name}.sortingOrder({sr.sortingOrder}) = {prSr.gameObject.name}.sortingOrder({prSr.sortingOrder})");
         }
         else {
             tf.position = new Vector3(tf.position.x, tf.position.y, 0);
