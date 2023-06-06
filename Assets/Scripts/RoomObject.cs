@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RoomObject : MonoBehaviour {
     const int REVERSE_Y = -1, 
@@ -34,10 +35,14 @@ public class RoomObject : MonoBehaviour {
 #region MOUSE EVENT
 //---------------------------------------------------------------------------------------------------------------
     private void OnMouseDown() {
-        if(!isSelect) return;
+        if(HM._.state != HM.STATE.DECORATION_MODE) return;
+        if(!isSelect) {
+            StartCoroutine(coPlayItemBounceAnim());
+        }
         Debug.Log("OnMouseDown");
     }
     private void OnMouseDrag() {
+        if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
         Debug.Log("OnMouseDrag");
         funitureModeCanvasRectTf.gameObject.SetActive(false);
@@ -45,6 +50,7 @@ public class RoomObject : MonoBehaviour {
         tf.position = new Vector3(tf.position.x, tf.position.y + PIVOT_OFFSET_Y, OFFSET_Z);
     }
     private void OnMouseUp() {
+        if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
         Debug.Log("OnMouseUp");
 
@@ -86,6 +92,59 @@ public class RoomObject : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
     }
+#endregion
+//---------------------------------------------------------------------------------------------------------------
+#region ANIM
+//---------------------------------------------------------------------------------------------------------------
+    IEnumerator coPlayItemBounceAnim() {
+        float ORG_SC_X = tf.localScale.x;
+        float ORG_SC_Y = tf.localScale.y;
+        const float MAX_SC = 1.3f;
+        const float DURATION = 0.1f; // アニメー再生時間
 
+        //* スケール増加 アニメー
+        float elapsedTime = 0.0f;
+        while (elapsedTime < DURATION) {
+            float time = elapsedTime / DURATION; // 経過時間の比率
+            float scaleFactor = Mathf.Lerp(1.0f, MAX_SC, time);
+
+            tf.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //* スケール減衰 アニメー
+        elapsedTime = 0.0f;
+        while (elapsedTime < DURATION) {
+            float time = elapsedTime / DURATION; // 経過時間の比率
+            float scaleFactor = Mathf.Lerp(MAX_SC, 1.0f, time);
+
+            tf.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        //* 最後のフレームで、元のサイズに戻す
+        tf.localScale = new Vector2(ORG_SC_X, ORG_SC_Y);
+
+        //* 操作 ボタンUI 表示
+        RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
+        Array.ForEach(roomObjs, obj => {
+            if(obj.Sr.sortingLayerName == "Mat" || obj.Sr.sortingLayerName == "Default") {
+                Debug.Log($"coPlayItemBounceAnim:: obj.name= {obj.name}");
+                obj.FunitureModeCanvasRectTf.gameObject.SetActive(false);
+                IsSelect = false;
+            }
+        });
+        
+        FunitureModeCanvasRectTf.gameObject.SetActive(true);
+
+        //* ドラッグ操作 ON
+        IsSelect = true;
+
+    }
 #endregion
 }
+

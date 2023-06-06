@@ -14,6 +14,7 @@ public class HM : MonoBehaviour {
     public GameObject pet;
     public GameObject funitureModeShadowFrameObj;
     public GameObject funitureModeItem;
+    public GameObject roomObjectGroup;
 
     void Awake() => _ = this;    
 

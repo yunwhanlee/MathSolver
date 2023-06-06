@@ -43,7 +43,9 @@ public class Player : MonoBehaviour {
             }
             else {
                 tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
-                tf.position = new Vector3(tf.position.x, tf.position.y, FRONT_Z);
+                const float MIN_Y = -4.5f;
+                const float MAX_Y = 2.0f;
+                tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
                 if(doIdle) doIdle = false;
                 if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
             }
