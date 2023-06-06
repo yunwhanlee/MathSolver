@@ -36,7 +36,12 @@ public class RoomObject : MonoBehaviour {
 //---------------------------------------------------------------------------------------------------------------
     private void OnMouseDown() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
-        if(!isSelect) {
+
+        //* 既に選択されたオブジェクトが有るか？
+        RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
+        bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
+
+        if(!isSelect && !isExistSelectedObj) {
             StartCoroutine(coPlayItemBounceAnim());
         }
         Debug.Log("OnMouseDown");
@@ -102,6 +107,16 @@ public class RoomObject : MonoBehaviour {
         const float MAX_SC = 1.3f;
         const float DURATION = 0.1f; // アニメー再生時間
 
+        //* お先に、他のオブジェクトは 初期化
+        RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
+        Array.ForEach(roomObjs, obj => {
+            if(obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Mat.ToString()
+            || obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Default.ToString()){
+                obj.FunitureModeCanvasRectTf.gameObject.SetActive(false);
+                obj.IsSelect = false;
+            }
+        });
+
         //* スケール増加 アニメー
         float elapsedTime = 0.0f;
         while (elapsedTime < DURATION) {
@@ -128,21 +143,10 @@ public class RoomObject : MonoBehaviour {
 
         //* 最後のフレームで、元のサイズに戻す
         tf.localScale = new Vector2(ORG_SC_X, ORG_SC_Y);
-
-        //* 操作 ボタンUI 表示
-        RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
-        Array.ForEach(roomObjs, obj => {
-            if(obj.Sr.sortingLayerName == "Mat" || obj.Sr.sortingLayerName == "Default") {
-                Debug.Log($"coPlayItemBounceAnim:: obj.name= {obj.name}");
-                obj.FunitureModeCanvasRectTf.gameObject.SetActive(false);
-                IsSelect = false;
-            }
-        });
         
-        FunitureModeCanvasRectTf.gameObject.SetActive(true);
-
         //* ドラッグ操作 ON
-        IsSelect = true;
+        this.FunitureModeCanvasRectTf.gameObject.SetActive(true);
+        this.IsSelect = true;
 
     }
 #endregion
