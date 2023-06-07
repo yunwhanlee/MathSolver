@@ -2,6 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region アイテム
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public abstract class Item {
+    [SerializeField] string name;   public string Name {get => name;}
+    [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
+    [SerializeField] int id;    public int Id {get => id; set => id = value;}
+    [SerializeField] int price; public int Price {get => price; set => price = value;}
+    [SerializeField] bool isLock;    public bool IsLock {get => isLock; set => isLock = value;}
+    [SerializeField] bool isNotify;    public bool IsNotify {get => isNotify; set => isNotify = value;}
+
+    public abstract void updateItem();
+}
+
+[System.Serializable]
+public class Funiture : Item {
+    public override void updateItem() {
+
+    }
+}
+
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region 問題
+///---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Problem {
     public float n1;
@@ -18,4 +44,6 @@ public class Problem {
         this.res = res;
         this.answers = answers;
     }
+#endregion
+
 }

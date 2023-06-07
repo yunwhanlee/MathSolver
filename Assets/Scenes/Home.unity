@@ -8204,7 +8204,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &412710459
 MonoBehaviour:
@@ -12362,7 +12362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621534738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6, y: 2.6, z: 0}
+  m_LocalPosition: {x: 0.6, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14101,6 +14101,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 203068471}
     m_Modifications:
+    - target: {fileID: 742249281, guid: 89812ce87312da34788748daf3985932, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3933582543245780394, guid: 89812ce87312da34788748daf3985932, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -18138,7 +18142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913856629}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 3, z: 0}
+  m_LocalPosition: {x: -0.6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22664,6 +22668,108 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105065253}
   m_CullTransparentMesh: 0
+--- !u!1 &1106386575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1106386576}
+  - component: {fileID: 1106386577}
+  m_Layer: 0
+  m_Name: DBManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1106386576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106386575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1106386577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106386575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isReset: 0
+  dt:
+    bgs: []
+    decorations:
+    - name: GlassHorse
+      prefab: {fileID: 3933582543245780397, guid: 672aeab66606bf245bac1b1176c0f70a, type: 3}
+      id: 0
+      price: 500
+      isLock: 0
+      isNotify: 0
+    - name: GoldTrophy
+      prefab: {fileID: 3933582543245780397, guid: 05a5f6a09a7eb3b44bcb8a8905e41e97, type: 3}
+      id: 1
+      price: 500
+      isLock: 0
+      isNotify: 0
+    - name: VaseKettle
+      prefab: {fileID: 3933582543245780397, guid: ebf4bc044179b5746b84eba58aba4ce9, type: 3}
+      id: 2
+      price: 0
+      isLock: 0
+      isNotify: 0
+    - name: VaseMountain
+      prefab: {fileID: 3933582543245780397, guid: 8a5c43682c160954db0c45f22a6b1bd9, type: 3}
+      id: 3
+      price: 0
+      isLock: 0
+      isNotify: 0
+    funitures:
+    - name: WoodChair
+      prefab: {fileID: 3933582543245780397, guid: bec8a66b651e5614ab33e58e566f8468, type: 3}
+      id: 0
+      price: 0
+      isLock: 0
+      isNotify: 0
+    - name: GamingChair
+      prefab: {fileID: 3933582543245780397, guid: 668051afc43901f41836259a24fb27b2, type: 3}
+      id: 1
+      price: 0
+      isLock: 0
+      isNotify: 0
+    - name: WoodTable
+      prefab: {fileID: 3933582543245780397, guid: 89812ce87312da34788748daf3985932, type: 3}
+      id: 2
+      price: 0
+      isLock: 0
+      isNotify: 0
+    mats:
+    - name: RedCarpet
+      prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
+      id: 0
+      price: 0
+      isLock: 0
+      isNotify: 0
+    playerId: 0
+    petId: 0
+    coin: 0
+    bestScore: 0
 --- !u!1 &1108621733
 GameObject:
   m_ObjectHideFlags: 0
@@ -28986,7 +29092,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1430744926
 GameObject:
@@ -29549,7 +29655,7 @@ Transform:
   - {fileID: 1500287047}
   - {fileID: 645594663}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448768232
 GameObject:
@@ -33233,7 +33339,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1585848656
 MonoBehaviour:
@@ -37683,7 +37789,7 @@ RectTransform:
   - {fileID: 949284987}
   - {fileID: 997610873}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -37838,7 +37944,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -4
   m_Sprite: {fileID: 21300000, guid: 85b340e7bcedf4f1793df945f6874c6b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -41701,7 +41807,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1999118337
 MonoBehaviour:
