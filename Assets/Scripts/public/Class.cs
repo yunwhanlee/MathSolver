@@ -43,10 +43,10 @@ public class FunitureShopItemBtn : ItemFrameBtn {
 
     public override void updateItemFrame(Enum.FUNITURE_CATE cate, int i) {
         try {
-            Img.sprite = (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Prefab.GetComponent<SpriteRenderer>().sprite
-                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Prefab.GetComponent<SpriteRenderer>().sprite
-                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Prefab.GetComponent<SpriteRenderer>().sprite
-                : DB.Dt.Mats[i].Prefab.GetComponent<SpriteRenderer>().sprite;
+            Img.sprite = (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Spr
+                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Spr
+                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Spr
+                : DB.Dt.Mats[i].Spr;
 
             LockFrameObj.SetActive(
                 (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsLock
@@ -81,6 +81,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
 public abstract class Item {
     [SerializeField] string name;   public string Name {get => name;}
     [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
+    [SerializeField] Sprite spr;    public Sprite Spr {get => spr; set => spr = value;}
     [SerializeField] int id;    public int Id {get => id; set => id = value;}
     [SerializeField] int price; public int Price {get => price; set => price = value;}
     [SerializeField] bool isLock;    public bool IsLock {get => isLock; set => isLock = value;}

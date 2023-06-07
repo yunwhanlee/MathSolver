@@ -40,8 +40,10 @@ public class FunitureUIManager : MonoBehaviour
 #region BTN CLICK EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickCategoryBtn(int idx) {
+        Debug.Log($"BBB onClickCategoryBtn(idx: {idx})");
         //* 初期化
         Array.ForEach(itemBtns, ib => ib.init());
+        page = 0;
 
         //* カテゴリ IDX
         setCategoryIdx(idx);
@@ -78,6 +80,7 @@ public class FunitureUIManager : MonoBehaviour
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
         int end = Mathf.Clamp(start + ITEM_BTN_CNT, min: start, max: len);
+        Debug.Log($"showItemList():: getCategoryItemLenght= {len}");
 
         //* ページ 表示
         const int PG_IDX_OFFSET = 1;

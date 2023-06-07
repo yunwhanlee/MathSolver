@@ -33,26 +33,34 @@ public class Data {
 #region 「データ管理マネージャー」
 //* -----------------------------------------------------------------------------------------------------------------
 public class DB : MonoBehaviour {
-    public static DB ins {get; private set;}
+    public static DB _ {get; private set;}
     [SerializeField] bool isReset;
     const string Database = "DB";
-    [SerializeField] Data dt;   public static Data Dt {get => ins.dt; set => ins.dt = value;}
+    [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
 
     void Awake() {
         if(isReset) reset();
 
     #region SINGLETON
-        Debug.Log($"Awake {ins == null}");
-        if(ins == null) {
-            ins = this;
-            DontDestroyOnLoad(this.gameObject);            
+        Debug.Log($"Awake {_ == null}");
+        if(_ == null) {
+            _ = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-        else 
+        else
             Destroy(this.gameObject);
     #endregion
 
         if(load() == null) reset();
         else dt = load();
+
+        //? SINGLETONの場合、DontDestroyOnLoad
+        Debug.Log("AAA Spr割り当て");
+        //* Funiture型のオブジェクトのSpr変数を設定
+        Array.ForEach(dt.Funitures, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
+        Array.ForEach(dt.Decorations, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
+        Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
+        Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region SAVE
