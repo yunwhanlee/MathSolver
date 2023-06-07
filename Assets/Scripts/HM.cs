@@ -22,9 +22,7 @@ public class HM : MonoBehaviour {
     public GameObject funitureModeShadowFrameObj;
     public GameObject funitureModeItem;
     public GameObject roomObjectGroup;
-
-    
-
+    public RoomObject selectedDecorationItem;
 
     void Awake() => _ = this;    
 

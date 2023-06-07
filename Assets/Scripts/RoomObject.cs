@@ -11,7 +11,6 @@ public class RoomObject : MonoBehaviour {
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
     [SerializeField] bool isDecoration; public bool IsDecoration  {get => isDecoration; set => isDecoration = value;}
-    [SerializeField] RectTransform funitureModeCanvasRectTf; public RectTransform FunitureModeCanvasRectTf {get => funitureModeCanvasRectTf; set => funitureModeCanvasRectTf = value;}
 
     void Start() {
         tf = this.transform;
@@ -42,6 +41,7 @@ public class RoomObject : MonoBehaviour {
         bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
 
         if(!isSelect && !isExistSelectedObj) {
+            HM._.selectedDecorationItem = this;
             StartCoroutine(coPlayItemBounceAnim());
         }
         Debug.Log("OnMouseDown");
@@ -50,7 +50,7 @@ public class RoomObject : MonoBehaviour {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
         Debug.Log("OnMouseDrag");
-        funitureModeCanvasRectTf.gameObject.SetActive(false);
+        HM._.ui.DecorateModePanel.SetActive(false);
         tf.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         tf.position = new Vector3(tf.position.x, tf.position.y + PIVOT_OFFSET_Y, OFFSET_Z);
     }
@@ -59,42 +59,40 @@ public class RoomObject : MonoBehaviour {
         if(!isSelect) return;
         Debug.Log("OnMouseUp");
 
-        funitureModeCanvasRectTf.gameObject.SetActive(true);
+        HM._.ui.DecorateModePanel.SetActive(true);
     }
 #endregion
-
 //---------------------------------------------------------------------------------------------------------------
-#region CLICK EVENT
+#region DECORATE CLICK EVENT
 //---------------------------------------------------------------------------------------------------------------
-    public void onClickFunitureModeItemCloseBtn() {
-        HM._.ui.onClickDecorateModeCloseBtn();
-        Destroy(this.gameObject);
-    }
-    public void onClickFunitureModeItemFlatBtn() {
-        float sx = tf.localScale.x * -1;
-        tf.localScale = new Vector2(sx, 1);
-        funitureModeCanvasRectTf.localScale = new Vector2(sx, 1);
-    }
-    public void onClickFunitureModeItemSetUpBtn() {
-        HM._.ui.onClickDecorateModeCloseBtn();
-        setSortingOrderByPosY();
-        funitureModeCanvasRectTf.gameObject.SetActive(false);
-        isSelect = false;
+//     public void onClickFunitureModeItemCloseBtn() {
+//         HM._.ui.onClickDecorateModeCloseBtn();
+//         Destroy(this.gameObject);
+//     }
+//     public void onClickFunitureModeItemFlatBtn() {
+//         float sx = tf.localScale.x * -1;
+//         tf.localScale = new Vector2(sx, 1);
+//     }
+//     public void onClickFunitureModeItemSetUpBtn() {
+//         HM._.ui.onClickDecorateModeCloseBtn();
+//         setSortingOrderByPosY();
+//         HM._.ui.DecorateModePanel.SetActive(false);
+//         isSelect = false;
 
-        //* Z値 ０に戻す
-        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-        //* アウトライン 消す
-        sr.material = HM._.sprUnlitMt;
+//         //* Z値 ０に戻す
+//         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+//         //* アウトライン 消す
+//         sr.material = HM._.sprUnlitMt;
 
-        //* タッチの動き
-        HM._.touchCtr.enabled = true;
-        HM._.pl.enabled = true;
-    }
+//         //* タッチの動き
+//         HM._.touchCtr.enabled = true;
+//         HM._.pl.enabled = true;
+//     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------
 #region FUNC
 //---------------------------------------------------------------------------------------------------------------
-    private void setSortingOrderByPosY() {
+    public void setSortingOrderByPosY() {
         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
         sr = GetComponent<SpriteRenderer>();
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
@@ -114,7 +112,7 @@ public class RoomObject : MonoBehaviour {
         Array.ForEach(roomObjs, obj => {
             if(obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Mat.ToString()
             || obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Default.ToString()){
-                obj.FunitureModeCanvasRectTf.gameObject.SetActive(false);
+                HM._.ui.DecorateModePanel.SetActive(false);
                 obj.IsSelect = false;
                 obj.Sr.material = HM._.sprUnlitMt;
             }
@@ -148,7 +146,7 @@ public class RoomObject : MonoBehaviour {
         tf.localScale = new Vector2(ORG_SC_X, ORG_SC_Y);
         
         //* ドラッグ操作 ON
-        this.FunitureModeCanvasRectTf.gameObject.SetActive(true);
+        HM._.ui.DecorateModePanel.SetActive(true);
         this.IsSelect = true;
         this.sr.material = HM._.outlineAnimMt;
     }

@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIManager : MonoBehaviour
-{
+public class UIManager : MonoBehaviour {
     [SerializeField] Color selectedTypeBtnClr;
 
     [Header("WOOD SIGN")]
@@ -61,6 +60,7 @@ public class UIManager : MonoBehaviour
 
         //* ルームオブジェクト
         room.SetActive(true);
+        decorateModePanel.SetActive(false);
         inventorySpace.SetActive(false);
 
         //* 看板
@@ -88,6 +88,36 @@ public class UIManager : MonoBehaviour
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNITURE MODE CLICK EVENT
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void onClickFunitureModeItemDeleteBtn() {
+        Destroy(HM._.selectedDecorationItem.gameObject);
+        onClickDecorateModeCloseBtn();
+    }
+    public void onClickFunitureModeItemFlatBtn() {
+        float sx = HM._.selectedDecorationItem.transform.localScale.x * -1;
+        HM._.selectedDecorationItem.transform.localScale = new Vector2(sx, 1);
+    }
+    public void onClickFunitureModeItemSetUpBtn() {
+        HM._.selectedDecorationItem.setSortingOrderByPosY();
+        HM._.ui.DecorateModePanel.SetActive(false);
+        HM._.selectedDecorationItem.IsSelect = false;
+
+        //* Z値 ０に戻す
+        var tf = HM._.selectedDecorationItem.transform;
+        var sr = HM._.selectedDecorationItem.Sr;
+        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+        //* アウトライン 消す
+        sr.material = HM._.sprUnlitMt;
+
+        //* タッチの動き
+        HM._.touchCtr.enabled = true;
+        HM._.pl.enabled = true;
+
+        HM._.ui.onClickDecorateModeCloseBtn();
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -155,22 +185,23 @@ public class UIManager : MonoBehaviour
         HM._.state = HM.STATE.DECORATION_MODE;
 
         //* パンネル 表示・非表示
-        for(int i = 0; i < homeScenePanelArr.Length; i++) {
-            homeScenePanelArr[i].SetActive(false);
-        }
+        for(int i = 0; i < homeScenePanelArr.Length; i++) homeScenePanelArr[i].SetActive(false);
         topGroup.SetActive(false);
+        decorateModePanel.SetActive(true);
         HM._.funitureModeShadowFrameObj.SetActive(true);
-        
         HM._.pl.gameObject.SetActive(false);
         HM._.pet.gameObject.SetActive(false);
     }
     public void onClickDecorateModeCloseBtn() {
         HM._.state = HM.STATE.NORMAL;
+        HM._.selectedDecorationItem = null;
 
         curHomeSceneIdx = 0;
         woodSignTxt.text = "서재";
+        
         roomPanel.SetActive(true);
         topGroup.SetActive(true);
+        decorateModePanel.SetActive(false);
         HM._.funitureModeShadowFrameObj.SetActive(false);
         HM._.pl.gameObject.SetActive(true);
         HM._.pet.gameObject.SetActive(true);
@@ -216,7 +247,7 @@ public class UIManager : MonoBehaviour
         HM._.state = HM.STATE.DECORATION_MODE;
         var item = Instantiate(funitureItemPf, roomObjectGroupTf);
         item.GetComponent<RoomObject>().IsSelect = true;
-        item.GetComponent<RoomObject>().FunitureModeCanvasRectTf.gameObject.SetActive(true);
+        HM._.ui.DecorateModePanel.SetActive(true);
 
         //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
         const float OFFSET_Z = -1;
