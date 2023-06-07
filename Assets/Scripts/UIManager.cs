@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIManager : MonoBehaviour
-{
+public class UIManager : MonoBehaviour {
     [SerializeField] Color selectedTypeBtnClr;
 
     [Header("WOOD SIGN")]
@@ -31,7 +30,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject[] achiveRankScrollFrames; public GameObject[] AchiveRankScrollFrames {get => achiveRankScrollFrames; set => achiveRankScrollFrames = value;}
 
     [Header("FUNITURE SHOP")] //* スクロールではなく、９個のリストをタイプによって切り替えるだけ
-    [SerializeField] Button[] funitureTypeBtns; public Button[] FunitureTypeBtns {get => funitureTypeBtns; set => funitureTypeBtns = value;}
     [SerializeField] GameObject[] funitureListFrames; public GameObject[] FunitureListFrames {get => funitureListFrames; set => funitureListFrames = value;}
     [SerializeField] GameObject funitureItemPf;
 
@@ -61,6 +59,7 @@ public class UIManager : MonoBehaviour
 
         //* ルームオブジェクト
         room.SetActive(true);
+        decorateModePanel.SetActive(false);
         inventorySpace.SetActive(false);
 
         //* 看板
@@ -73,12 +72,6 @@ public class UIManager : MonoBehaviour
         }
         achiveRankTitleTxt.text = "업적";//Enum.ACHIVERANK.Achivement.ToString();
 
-        //* 家具店
-        for(int i = 0; i < funitureTypeBtns.Length; i++) {
-            funitureTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
-            funitureListFrames[i].SetActive(i == 0);
-        }
-
         //* インベントリー
         for(int i = 0; i < invTypeBtns.Length; i++) {
             invTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
@@ -88,6 +81,36 @@ public class UIManager : MonoBehaviour
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNITURE MODE CLICK EVENT
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void onClickFunitureModeItemDeleteBtn() {
+        Destroy(HM._.selectedDecorationItem.gameObject);
+        onClickDecorateModeCloseBtn();
+    }
+    public void onClickFunitureModeItemFlatBtn() {
+        float sx = HM._.selectedDecorationItem.transform.localScale.x * -1;
+        HM._.selectedDecorationItem.transform.localScale = new Vector2(sx, 1);
+    }
+    public void onClickFunitureModeItemSetUpBtn() {
+        HM._.selectedDecorationItem.setSortingOrderByPosY();
+        HM._.ui.DecorateModePanel.SetActive(false);
+        HM._.selectedDecorationItem.IsSelect = false;
+
+        //* Z値 ０に戻す
+        var tf = HM._.selectedDecorationItem.transform;
+        var sr = HM._.selectedDecorationItem.Sr;
+        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+        //* アウトライン 消す
+        sr.material = HM._.sprUnlitMt;
+
+        //* タッチの動き
+        HM._.touchCtr.enabled = true;
+        HM._.pl.enabled = true;
+
+        HM._.ui.onClickDecorateModeCloseBtn();
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -152,21 +175,26 @@ public class UIManager : MonoBehaviour
         achiveRankPanel.SetActive(false);
     }
     public void onClickDecorateModeIconBtn() {
+        HM._.state = HM.STATE.DECORATION_MODE;
+
         //* パンネル 表示・非表示
-        for(int i = 0; i < homeScenePanelArr.Length; i++) {
-            homeScenePanelArr[i].SetActive(false);
-        }
+        for(int i = 0; i < homeScenePanelArr.Length; i++) homeScenePanelArr[i].SetActive(false);
         topGroup.SetActive(false);
+        decorateModePanel.SetActive(true);
         HM._.funitureModeShadowFrameObj.SetActive(true);
-        
         HM._.pl.gameObject.SetActive(false);
         HM._.pet.gameObject.SetActive(false);
     }
     public void onClickDecorateModeCloseBtn() {
+        HM._.state = HM.STATE.NORMAL;
+        HM._.selectedDecorationItem = null;
+
         curHomeSceneIdx = 0;
         woodSignTxt.text = "서재";
+        
         roomPanel.SetActive(true);
         topGroup.SetActive(true);
+        decorateModePanel.SetActive(false);
         HM._.funitureModeShadowFrameObj.SetActive(false);
         HM._.pl.gameObject.SetActive(true);
         HM._.pet.gameObject.SetActive(true);
@@ -186,13 +214,6 @@ public class UIManager : MonoBehaviour
             achiveRankScrollFrames[i].SetActive(i == idx);
         }
     }
-    public void onClickFunitureShopTypeBtn(int idx) {
-        //* Display
-        for(int i = 0; i < funitureTypeBtns.Length; i++) {
-            funitureTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
-            funitureListFrames[i].SetActive(i == idx);
-        }
-    }
     public void onClickinventoryTypeBtn(int idx) {
         //* Display
         for(int i = 0; i < invTypeBtns.Length; i++) {
@@ -209,11 +230,18 @@ public class UIManager : MonoBehaviour
         onClickDecorateModeIconBtn();
     }
     public void createFunitureItem() { //TODO Just Decorating Test
+        HM._.state = HM.STATE.DECORATION_MODE;
         var item = Instantiate(funitureItemPf, roomObjectGroupTf);
         item.GetComponent<RoomObject>().IsSelect = true;
-        item.GetComponent<RoomObject>().FunitureModeCanvasRectTf.gameObject.SetActive(true);
+        HM._.ui.DecorateModePanel.SetActive(true);
+
+        //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
+        const float OFFSET_Z = -1;
+        item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, OFFSET_Z);
+
         //* 飾りモードの影よりレイヤーを前に配置
-        item.GetComponent<SpriteRenderer>().sortingOrder = 11;
+        item.GetComponent<SpriteRenderer>().sortingOrder = 100;
+        Debug.Log($"SORTING AA createFunitureItem:: {item.name}.sortingOrder= {item.GetComponent<SpriteRenderer>().sortingOrder}");
     }
 #endregion
 }
