@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour {
     [SerializeField] Vector3 roomDefPetPos;
     [SerializeField] Vector3 invSpacePlayerPos;
     [SerializeField] Vector3 invSpacePetPos;
+    [SerializeField] GameObject funitureShopObj;
 
     [Header("DIALOG")]
     [SerializeField] GameObject goGameDialog; public GameObject GoGameDialog {get => goGameDialog; set => goGameDialog = value;}
@@ -83,7 +84,7 @@ public class UIManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region FUNITURE MODE CLICK EVENT
+#region FUNITURE MODE EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
         Destroy(HM._.selectedDecorationItem.gameObject);
@@ -224,14 +225,30 @@ public class UIManager : MonoBehaviour {
     public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
         infoDialog.SetActive(true);
     }
-    public void onClickFunitureItemListBtn() { //TODO Just Decorating Test
+    public void onClickFunitureItemListBtn(int idx) { //TODO Just Decorating Test
         //* 飾り
-        createFunitureItem();
+        createFunitureItem(idx);
         onClickDecorateModeIconBtn();
     }
-    public void createFunitureItem() { //TODO Just Decorating Test
+    public void createFunitureItem(int idx) { //TODO Just Decorating Test
         HM._.state = HM.STATE.DECORATION_MODE;
-        var item = Instantiate(funitureItemPf, roomObjectGroupTf);
+
+        GameObject ins = null;
+        if(HM._.fUI.Category == Enum.FUNITURE_CATE.Funiture) {
+            ins = DB.Dt.Funitures[idx].Prefab;
+        }
+        else if(HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration) {
+            ins = DB.Dt.Decorations[idx].Prefab;
+        }
+        else if(HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration) {
+            ins = DB.Dt.Bgs[idx].Prefab;
+        }
+        else {
+            ins = DB.Dt.Mats[idx].Prefab;
+        }
+        funitureShopObj = ins;
+
+        var item = Instantiate(ins, roomObjectGroupTf);
         item.GetComponent<RoomObject>().IsSelect = true;
         HM._.ui.DecorateModePanel.SetActive(true);
 

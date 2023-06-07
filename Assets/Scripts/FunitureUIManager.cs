@@ -9,7 +9,7 @@ using TMPro;
 public class FunitureUIManager : MonoBehaviour
 {
     const int ITEM_BTN_CNT = 9;
-    [SerializeField] Enum.FUNITURE_CATE category;
+    [SerializeField] Enum.FUNITURE_CATE category; public Enum.FUNITURE_CATE Category {get => category;}
 
     [SerializeField] Button[] categoryBtns; public Button[] CategoryBtns {get => categoryBtns; set => categoryBtns = value;}
     [SerializeField] int page;

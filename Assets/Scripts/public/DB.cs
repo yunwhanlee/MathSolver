@@ -34,13 +34,9 @@ public class Data {
 //* -----------------------------------------------------------------------------------------------------------------
 public class DB : MonoBehaviour {
     public static DB _ {get; private set;}
-    [SerializeField] bool isReset;
     const string Database = "DB";
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
-
     void Awake() {
-        if(isReset) reset();
-
     #region SINGLETON
         Debug.Log($"Awake {_ == null}");
         if(_ == null) {

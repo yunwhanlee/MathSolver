@@ -12,6 +12,7 @@ public class HM : MonoBehaviour {
     public Player pl;
     public UIManager ui;
     public TouchControl touchCtr;
+    public FunitureUIManager fUI;
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;

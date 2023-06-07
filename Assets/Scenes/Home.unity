@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 10415319}
   - component: {fileID: 10415318}
   m_Layer: 5
-  m_Name: ItemListBtn (6)
+  m_Name: ItemListBtn6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 10415320}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &10415320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8515,6 +8527,7 @@ MonoBehaviour:
   pl: {fileID: 1327448384}
   ui: {fileID: 1999118337}
   touchCtr: {fileID: 1585848656}
+  fUI: {fileID: 1144530824}
   sprUnlitMt: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   outlineAnimMt: {fileID: 2100000, guid: db37f9e7df5ad2348acdaffb2613eed9, type: 2}
   pet: {fileID: 64751377}
@@ -24285,18 +24298,21 @@ MonoBehaviour:
     funitures:
     - name: WoodChair
       prefab: {fileID: 3933582543245780397, guid: bec8a66b651e5614ab33e58e566f8468, type: 3}
+      spr: {fileID: 0}
       id: 0
       price: 0
       isLock: 0
       isNotify: 0
     - name: GamingChair
       prefab: {fileID: 3933582543245780397, guid: 668051afc43901f41836259a24fb27b2, type: 3}
+      spr: {fileID: 0}
       id: 1
       price: 0
       isLock: 0
       isNotify: 0
     - name: WoodTable
       prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
+      spr: {fileID: 0}
       id: 2
       price: 0
       isLock: 0
@@ -24304,24 +24320,28 @@ MonoBehaviour:
     decorations:
     - name: GlassHorse
       prefab: {fileID: 3933582543245780397, guid: 672aeab66606bf245bac1b1176c0f70a, type: 3}
+      spr: {fileID: 0}
       id: 0
       price: 500
       isLock: 0
       isNotify: 0
     - name: GoldTrophy
       prefab: {fileID: 3933582543245780397, guid: 05a5f6a09a7eb3b44bcb8a8905e41e97, type: 3}
+      spr: {fileID: 0}
       id: 1
       price: 500
       isLock: 0
       isNotify: 0
     - name: VaseKettle
       prefab: {fileID: 3933582543245780397, guid: ebf4bc044179b5746b84eba58aba4ce9, type: 3}
+      spr: {fileID: 0}
       id: 2
       price: 0
       isLock: 0
       isNotify: 0
     - name: VaseMountain
       prefab: {fileID: 3933582543245780397, guid: 8a5c43682c160954db0c45f22a6b1bd9, type: 3}
+      spr: {fileID: 0}
       id: 3
       price: 0
       isLock: 0
@@ -24330,6 +24350,7 @@ MonoBehaviour:
     mats:
     - name: RedCarpet
       prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
+      spr: {fileID: 0}
       id: 0
       price: 0
       isLock: 0
@@ -27951,7 +27972,7 @@ GameObject:
   - component: {fileID: 1244902897}
   - component: {fileID: 1244902896}
   m_Layer: 5
-  m_Name: ItemListBtn (2)
+  m_Name: ItemListBtn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28039,7 +28060,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1244902898}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1244902898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29786,7 +29819,7 @@ GameObject:
   - component: {fileID: 1322611534}
   - component: {fileID: 1322611533}
   m_Layer: 5
-  m_Name: ItemListBtn (5)
+  m_Name: ItemListBtn5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29874,7 +29907,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1322611535}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1322611535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32001,7 +32046,7 @@ GameObject:
   - component: {fileID: 1427642091}
   - component: {fileID: 1427642090}
   m_Layer: 5
-  m_Name: ItemListBtn (7)
+  m_Name: ItemListBtn7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32089,7 +32134,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1427642092}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1427642092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33879,7 +33936,7 @@ GameObject:
   - component: {fileID: 1499873170}
   - component: {fileID: 1499873169}
   m_Layer: 5
-  m_Name: ItemListBtn (8)
+  m_Name: ItemListBtn8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33967,7 +34024,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1499873171}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1499873171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40116,7 +40185,7 @@ GameObject:
   - component: {fileID: 1706481346}
   - component: {fileID: 1706481349}
   m_Layer: 5
-  m_Name: ItemListBtn
+  m_Name: ItemListBtn0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40189,7 +40258,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1706481347}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1706481347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40920,7 +41001,7 @@ GameObject:
   - component: {fileID: 1727077958}
   - component: {fileID: 1727077957}
   m_Layer: 5
-  m_Name: ItemListBtn (3)
+  m_Name: ItemListBtn3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41008,7 +41089,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1727077959}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1727077959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46081,7 +46174,7 @@ GameObject:
   - component: {fileID: 1999493308}
   - component: {fileID: 1999493307}
   m_Layer: 5
-  m_Name: ItemListBtn (1)
+  m_Name: ItemListBtn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46169,7 +46262,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1999493309}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1999493309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46390,7 +46495,7 @@ GameObject:
   - component: {fileID: 2024266840}
   - component: {fileID: 2024266839}
   m_Layer: 5
-  m_Name: ItemListBtn (4)
+  m_Name: ItemListBtn4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46478,7 +46583,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2024266841}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: onClickFunitureItemListBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2024266841
 MonoBehaviour:
   m_ObjectHideFlags: 0
