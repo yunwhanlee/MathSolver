@@ -1,7 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region UI アイテム フレーム ボタン
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public abstract class ItemFrameBtn {
+    [SerializeField] GameObject obj; public GameObject Obj {get => obj; set => obj = value;}
+    [SerializeField] Image img; public Image Img {get => img; set => img = value;}
+    [SerializeField] GameObject lockFrameObj; public GameObject LockFrameObj {get => lockFrameObj; set => lockFrameObj = value;}
+    [SerializeField] GameObject notifyObj; public GameObject NotifyObj {get => notifyObj; set => notifyObj = value;}
+
+    // public ItemFrameBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject priceFrameObj)
+    // {
+    //     this.obj = obj;
+    //     this.img = img;
+    //     this.lockFrameObj = lockFrameObj;
+    //     this.notifyObj = notifyObj;
+    // }
+
+    public abstract void initInvFrame();
+    // {
+        // img.sprite = null;
+        // lockFrameObj.SetActive(true);
+        // notifyObj.SetActive(false);
+    // }
+
+    // public void updateInvFrame(Enum.InvCategory cate, int i) {
+        // img.sprite = (cate == Enum.InvCategory.Chara)? DB.Dt.Players[i].IdleSpr: DB.Dt.Pets[i].IdleSpr; //TODO :Theme
+        // lockFrameObj.SetActive((cate == Enum.InvCategory.Chara)? DB.Dt.Players[i].IsLock : DB.Dt.Pets[i].IsLock); //TODO :Theme
+        // notifyObj.SetActive((cate == Enum.InvCategory.Chara)? DB.Dt.Players[i].IsNotify : DB.Dt.Pets[i].IsNotify); //TODO :Theme
+        // outlineObj.SetActive((cate == Enum.InvCategory.Chara)? i == DB.Dt.PlayerId : i == DB.Dt.PetId); //TODO :Theme
+    // }
+}
+
+[System.Serializable]
+public class FunitureShopItemBtn : ItemFrameBtn {
+    [SerializeField] GameObject priceFrameObj; public GameObject PriceFrameObj {get => priceFrameObj; set => priceFrameObj = value;}
+
+    public FunitureShopItemBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject priceFrameObj) {
+        this.Obj = obj;
+        this.Img = img;
+        this.LockFrameObj = lockFrameObj;
+        this.NotifyObj = notifyObj;
+        this.PriceFrameObj = priceFrameObj;
+    }
+
+    public override void initInvFrame() {
+        Img.sprite = null;
+        LockFrameObj.SetActive(true);
+        PriceFrameObj.SetActive(true);
+        NotifyObj.SetActive(false);
+    }
+}
+
+#endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region アイテム
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

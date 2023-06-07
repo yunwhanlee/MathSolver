@@ -12,9 +12,9 @@ using System;
 public class Data {
     //* Value
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
-    [SerializeField] Funiture[] bgs;    public Funiture[] Bgs {get => bgs; set => bgs = value;}
-    [SerializeField] Funiture[] decorations;    public Funiture[] Decorations {get => decorations; set => decorations = value;}
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
+    [SerializeField] Funiture[] decorations;    public Funiture[] Decorations {get => decorations; set => decorations = value;}
+    [SerializeField] Funiture[] bgs;    public Funiture[] Bgs {get => bgs; set => bgs = value;}
     [SerializeField] Funiture[] mats;    public Funiture[] Mats {get => mats; set => mats = value;}
 
     [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
