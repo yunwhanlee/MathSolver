@@ -164,10 +164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e6f6546eff80947b41718fa30b9ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sr: {fileID: 0}
+  sr: {fileID: 3933582543245780395}
   isSelect: 0
   isDecoration: 0
-  funitureModeCanvasRectTf: {fileID: 0}
 --- !u!212 &3933582543245780395
 SpriteRenderer:
   m_ObjectHideFlags: 0

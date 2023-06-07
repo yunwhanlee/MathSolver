@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region UI アイテム フレーム ボタン
@@ -19,6 +20,7 @@ public abstract class ItemFrameBtn {
     public abstract void updateItemFrame(Enum.FUNITURE_CATE cate, int i);
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class FunitureShopItemBtn : ItemFrameBtn {
     [SerializeField] TextMeshProUGUI priceTxt; public TextMeshProUGUI PriceTxt {get => priceTxt; set => priceTxt = value;}
@@ -40,29 +42,34 @@ public class FunitureShopItemBtn : ItemFrameBtn {
     }
 
     public override void updateItemFrame(Enum.FUNITURE_CATE cate, int i) {
-        Img.sprite = (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Prefab.GetComponent<SpriteRenderer>().sprite
-            : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Prefab.GetComponent<SpriteRenderer>().sprite
-            : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Prefab.GetComponent<SpriteRenderer>().sprite
-            : DB.Dt.Mats[i].Prefab.GetComponent<SpriteRenderer>().sprite;
+        try {
+            Img.sprite = (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Prefab.GetComponent<SpriteRenderer>().sprite
+                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Prefab.GetComponent<SpriteRenderer>().sprite
+                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Prefab.GetComponent<SpriteRenderer>().sprite
+                : DB.Dt.Mats[i].Prefab.GetComponent<SpriteRenderer>().sprite;
 
-        LockFrameObj.SetActive(
-            (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsLock
-            : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].IsLock
-            : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].IsLock
-            : DB.Dt.Mats[i].IsLock
-        );
+            LockFrameObj.SetActive(
+                (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsLock
+                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].IsLock
+                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].IsLock
+                : DB.Dt.Mats[i].IsLock
+            );
 
-        NotifyObj.SetActive(
-            (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsNotify
-            : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].IsNotify
-            : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].IsNotify
-            : DB.Dt.Mats[i].IsNotify
-        );
+            NotifyObj.SetActive(
+                (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsNotify
+                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].IsNotify
+                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].IsNotify
+                : DB.Dt.Mats[i].IsNotify
+            );
 
-        priceTxt.text = ((cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Price
-            : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Price
-            : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Price
-            : DB.Dt.Mats[i].Price).ToString();        
+            priceTxt.text = ((cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Price
+                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Price
+                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Price
+                : DB.Dt.Mats[i].Price).ToString();
+        }
+        catch(NullReferenceException err) {
+            Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullが有るかを確認してください。</color>" + "\n " + err);
+        }
     }
 }
 
@@ -81,7 +88,7 @@ public abstract class Item {
 
     public abstract void updateItem();
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Funiture : Item {
     public override void updateItem() {

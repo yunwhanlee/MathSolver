@@ -66,12 +66,14 @@ public class FunitureUIManager : MonoBehaviour
             : (idx == 2)? Enum.FUNITURE_CATE.Bg
             : Enum.FUNITURE_CATE.Mat; //(idx == 3)? Enum.FUNITURE_CATE.Mat
     }
+
     private int getCategoryItemLenght() {
         return (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures.Length
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations.Length
             : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs.Length
             : DB.Dt.Mats.Length;
     }
+
     private void showItemList() {
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
