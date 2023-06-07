@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour {
     [SerializeField] GameObject[] achiveRankScrollFrames; public GameObject[] AchiveRankScrollFrames {get => achiveRankScrollFrames; set => achiveRankScrollFrames = value;}
 
     [Header("FUNITURE SHOP")] //* スクロールではなく、９個のリストをタイプによって切り替えるだけ
-    [SerializeField] Button[] funitureTypeBtns; public Button[] FunitureTypeBtns {get => funitureTypeBtns; set => funitureTypeBtns = value;}
     [SerializeField] GameObject[] funitureListFrames; public GameObject[] FunitureListFrames {get => funitureListFrames; set => funitureListFrames = value;}
     [SerializeField] GameObject funitureItemPf;
 
@@ -72,12 +71,6 @@ public class UIManager : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
         achiveRankTitleTxt.text = "업적";//Enum.ACHIVERANK.Achivement.ToString();
-
-        //* 家具店
-        for(int i = 0; i < funitureTypeBtns.Length; i++) {
-            funitureTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
-            funitureListFrames[i].SetActive(i == 0);
-        }
 
         //* インベントリー
         for(int i = 0; i < invTypeBtns.Length; i++) {
@@ -219,13 +212,6 @@ public class UIManager : MonoBehaviour {
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == idx);
-        }
-    }
-    public void onClickFunitureShopTypeBtn(int idx) {
-        //* Display
-        for(int i = 0; i < funitureTypeBtns.Length; i++) {
-            funitureTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
-            funitureListFrames[i].SetActive(i == idx);
         }
     }
     public void onClickinventoryTypeBtn(int idx) {
