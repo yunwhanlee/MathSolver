@@ -43,18 +43,15 @@ public class FunitureUIManager : MonoBehaviour
     public void onClickCategoryBtn(int idx) {
         Debug.Log($"BBB onClickCategoryBtn(idx: {idx})");
         //* 初期化
-        Array.ForEach(itemBtns, ib => ib.init());
         page = 0;
+        Array.ForEach(itemBtns, ib => ib.init());
 
         //* カテゴリ IDX
         setCategoryIdx(idx);
 
         //* カテゴリ 背景色
-        int i=0;
-        Array.ForEach(categoryBtns, btn => {
-            btn.image.color = (i == idx)? Color.green : Color.white;
-            i++;
-        });
+        for(int i = 0; i < categoryBtns.Length; i++) 
+            categoryBtns[i].image.color = (i == idx)? Color.green : Color.white;
 
         //* アイテム リスト 最新化して並べる
         showItemList();
@@ -67,7 +64,6 @@ public class FunitureUIManager : MonoBehaviour
         setPageByArrowBtn(pageDir: +1); //* ページ
         showItemList(); //* アイテムリスト 並べる
     }
-
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNITURE MODE EVENT
@@ -101,8 +97,21 @@ public class FunitureUIManager : MonoBehaviour
         HM._.ui.onClickDecorateModeCloseBtn();
     }
     public void onClickItemListBtn(int idx) {
-        createFunitureItem(idx); //* 生成
-        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        //* ペースも含めた 実際のINDEX
+        idx = idx + (page * ITEM_BTN_CNT);
+
+        //* 値段
+        int price = getSelectedItem(idx).Price;
+
+        //* 購入
+        if(DB.Dt.Coin > price) {
+            DB.Dt.setCoin(-price);
+            createFunitureItem(idx); //* 生成
+            HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        }
+        else {
+            Debug.Log("💰😢 お金がたりない！！！");
+        }
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
@@ -119,6 +128,12 @@ public class FunitureUIManager : MonoBehaviour
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations.Length
             : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs.Length
             : DB.Dt.Mats.Length;
+    }
+    private Funiture getSelectedItem(int idx) {
+        return (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx]
+            : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx]
+            : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx]
+            : DB.Dt.Mats[idx];
     }
     private void setPageByArrowBtn(int pageDir) { // @param pageDir : -1(Left) or 1(Right)
         //* 初期化
@@ -152,12 +167,12 @@ public class FunitureUIManager : MonoBehaviour
     public void createFunitureItem(int idx) {
         HM._.state = HM.STATE.DECORATION_MODE;
 
-        GameObject ins = (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
+        GameObject pref = (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
             : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx].Prefab
-            : ins = DB.Dt.Mats[idx].Prefab;
+            : pref = DB.Dt.Mats[idx].Prefab;
 
-        GameObject item = Instantiate(ins, HM._.ui.RoomObjectGroupTf);
+        GameObject item = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
         RoomObject rObj = item.GetComponent<RoomObject>();
         rObj.Start(); //* 初期化 必要
 

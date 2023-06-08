@@ -12,14 +12,16 @@ using System;
 public class Data {
     //* Value
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
+    [Header("FUNITURE ITEM DATA")]
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
     [SerializeField] Funiture[] decorations;    public Funiture[] Decorations {get => decorations; set => decorations = value;}
     [SerializeField] Funiture[] bgs;    public Funiture[] Bgs {get => bgs; set => bgs = value;}
     [SerializeField] Funiture[] mats;    public Funiture[] Mats {get => mats; set => mats = value;}
 
+    [Header("VALUE")]
+    [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
     [SerializeField] int petId; public int PetId {get => petId; set => petId = value;}
-    [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int bestScore; public int BestScore {get => bestScore; set => bestScore = value;}
 
     public void setCoin(int value) {
@@ -90,21 +92,17 @@ public class DB : MonoBehaviour {
     public void reset() {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
-        init();
-    }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region FUNC
-/// -----------------------------------------------------------------------------------------------------------------
-    public void init() {
         //* 選択したキャラ
         dt.PlayerId = 0;
         dt.PetId = 0;
         //* 財貨
         dt.Coin = 5000;
-        dt.BestScore = 0;
         //* ロック
     }
+#endregion
+/// -----------------------------------------------------------------------------------------------------------------
+#region FUNC
+/// -----------------------------------------------------------------------------------------------------------------
 #endregion
 }
 #endregion

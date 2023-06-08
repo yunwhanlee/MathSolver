@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 using TMPro;
+using System;
+using Random = UnityEngine.Random;
 
 public class UIManager : MonoBehaviour {
     [SerializeField] Color selectedTypeBtnClr;
+
+    [SerializeField] TextMeshProUGUI coinTxt; public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
 
     [Header("WOOD SIGN")]
     [SerializeField] int curHomeSceneIdx = 0; public int CurHomeSceneIdx {get => curHomeSceneIdx; set => curHomeSceneIdx = value;}
@@ -52,6 +57,8 @@ public class UIManager : MonoBehaviour {
 
 
     void Start() {
+        StartCoroutine(coUpdateUI());
+
         //* ホームシーンのパンネル配列 初期化
         homeScenePanelArr = new GameObject[] {
             roomPanel, ikeaShopPanel, clothShopPanel, inventoryPanel
@@ -78,10 +85,6 @@ public class UIManager : MonoBehaviour {
             invListFrames[i].SetActive(i == 0);
         }
     }
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region FUNC
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-#endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -199,5 +202,23 @@ public class UIManager : MonoBehaviour {
     public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
         infoDialog.SetActive(true);
     }
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNC
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+IEnumerator coUpdateUI() {
+    while(true) {
+        try {
+            //* コイン
+        coinTxt.text = DB.Dt.Coin.ToString();
+        }
+        catch(Exception err) {
+            Debug.LogWarning($"ERROR: {err}");
+            break;
+        }
+        yield return new WaitForSeconds(0.2f);
+    }
+    
+}
 #endregion
 }
