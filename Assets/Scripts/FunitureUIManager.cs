@@ -9,14 +9,22 @@ using TMPro;
 public class FunitureUIManager : MonoBehaviour
 {
     const int ITEM_BTN_CNT = 9;
+    [Header("CATEGORY")]
     [SerializeField] Enum.FUNITURE_CATE category; public Enum.FUNITURE_CATE Category {get => category;}
-
     [SerializeField] Button[] categoryBtns; public Button[] CategoryBtns {get => categoryBtns; set => categoryBtns = value;}
+    [Header("PAGE")]
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
+    [Header("ITEM")]
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
+    [Header("INFO DIALOG")]
+    [SerializeField] int curSelectedItemIdx;
+    [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
+    [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;
+    [SerializeField] Image infoDlgItemImg;
+    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -98,19 +106,42 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickItemListBtn(int idx) {
         //* ペースも含めた 実際のINDEX
-        idx = idx + (page * ITEM_BTN_CNT);
+        curSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
 
-        //* 値段
-        int price = getSelectedItem(idx).Price;
+        //* Get Item
+        Funiture item = getSelectedItem(curSelectedItemIdx);
+        bool isLock = item.IsLock;
+        int price = item.Price;
+
+        //* ロック
+        if(isLock) {
+            infoDialog.SetActive(true);
+            infoDlgItemNameTxt.text = item.Name;
+            infoDlgItemImg.sprite = item.Spr;
+            infoDlgItemPriceTxt.text = item.Price.ToString();
+        }
+        //* 配置
+        else {
+            createFunitureItem(curSelectedItemIdx); //* 生成
+            HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        }
+    }
+    public void onClickInfoDialogPurchaseBtn() {
+        //* Get Item
+        var item = getSelectedItem(curSelectedItemIdx);
+        int price = item.Price;
 
         //* 購入
         if(DB.Dt.Coin > price) {
+            Debug.Log("💰購入成功！！");
+            item.IsLock = false;
             DB.Dt.setCoin(-price);
-            createFunitureItem(idx); //* 生成
+            createFunitureItem(curSelectedItemIdx); //* 生成
             HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+            onClickShopLeftArrow(); //* Unlock Item 最新化
         }
         else {
-            Debug.Log("💰😢 お金がたりない！！！");
+            Debug.Log("😢 お金がたりない！！");
         }
     }
 #endregion
@@ -158,7 +189,8 @@ public class FunitureUIManager : MonoBehaviour
         //* 画像 表示
         for(int i = start; i < end; i++) {
             FunitureShopItemBtn itemBtn = itemBtns[i % ITEM_BTN_CNT];
-            itemBtn.updateItemFrame(category, i);
+            Funiture item = getSelectedItem(i);
+            itemBtn.updateItemFrame(item);
         }
 
         //* 有効なフレームのみ 表示
@@ -179,6 +211,7 @@ public class FunitureUIManager : MonoBehaviour
         rObj.IsSelect = true;
         rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
         curSelectedObj = rObj.gameObject;
+        infoDialog.SetActive(false);
         HM._.ui.DecorateModePanel.SetActive(true);
 
         //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。

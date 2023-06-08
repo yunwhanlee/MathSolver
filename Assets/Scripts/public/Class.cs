@@ -17,7 +17,7 @@ public abstract class ItemFrameBtn {
 
     public abstract void init();
 
-    public abstract void updateItemFrame(Enum.FUNITURE_CATE cate, int i);
+    public abstract void updateItemFrame(Funiture item);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,31 +41,12 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         NotifyObj.SetActive(false);
     }
 
-    public override void updateItemFrame(Enum.FUNITURE_CATE cate, int i) {
+    public override void updateItemFrame(Funiture item) {
         try {
-            Img.sprite = (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Spr
-                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Spr
-                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Spr
-                : DB.Dt.Mats[i].Spr;
-
-            LockFrameObj.SetActive(
-                (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsLock
-                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].IsLock
-                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].IsLock
-                : DB.Dt.Mats[i].IsLock
-            );
-
-            NotifyObj.SetActive(
-                (cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].IsNotify
-                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].IsNotify
-                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].IsNotify
-                : DB.Dt.Mats[i].IsNotify
-            );
-
-            priceTxt.text = ((cate == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[i].Price
-                : (cate == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[i].Price
-                : (cate == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[i].Price
-                : DB.Dt.Mats[i].Price).ToString();
+            Img.sprite = item.Spr;
+            LockFrameObj.SetActive(item.IsLock);
+            NotifyObj.SetActive(item.IsNotify);
+            priceTxt.text = item.Price.ToString();
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullが有るかを確認してください。</color>" + "\n " + err);
@@ -92,6 +73,7 @@ public abstract class Item {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Funiture : Item {
+    [SerializeField] bool isUsed;   public bool IsUsed {get => isUsed; set => isUsed = value;}
     public override void updateItem() {
 
     }

@@ -36,9 +36,12 @@ public class Data {
 //* -----------------------------------------------------------------------------------------------------------------
 public class DB : MonoBehaviour {
     public static DB _ {get; private set;}
+    bool isReset;
     const string Database = "DB";
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
+        if(isReset) reset();
+
     #region SINGLETON
         Debug.Log($"Awake {_ == null}");
         if(_ == null) {
@@ -98,6 +101,10 @@ public class DB : MonoBehaviour {
         //* 財貨
         dt.Coin = 5000;
         //* ロック
+        Array.ForEach(dt.Funitures, item => item.IsLock = true);
+        Array.ForEach(dt.Decorations, item => item.IsLock = true);
+        Array.ForEach(dt.Bgs, item => item.IsLock = true);
+        Array.ForEach(dt.Mats, item => item.IsLock = true);
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
