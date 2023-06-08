@@ -23,9 +23,8 @@ public class HM : MonoBehaviour {
     public GameObject funitureModeShadowFrameObj;
     public GameObject funitureModeItem;
     public GameObject roomObjectGroup;
-    public RoomObject selectedDecorationItem;
 
-    void Awake() => _ = this;    
+    void Awake() => _ = this;
 
     public void GoToLoadingScene() => SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
 }

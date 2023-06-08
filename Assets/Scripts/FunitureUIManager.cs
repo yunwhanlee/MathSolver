@@ -16,6 +16,7 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI pageTxt;
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
+    [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -37,7 +38,7 @@ public class FunitureUIManager : MonoBehaviour
         onClickCategoryBtn((int)Enum.FUNITURE_CATE.Funiture);
     }
 /// -----------------------------------------------------------------------------------------------------------------
-#region BTN CLICK EVENT
+#region EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickCategoryBtn(int idx) {
         Debug.Log($"BBB onClickCategoryBtn(idx: {idx})");
@@ -57,6 +58,42 @@ public class FunitureUIManager : MonoBehaviour
 
         //* アイテム リスト 最新化して並べる
         showItemList();
+    }
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNITURE MODE EVENT
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void onClickFunitureModeItemDeleteBtn() {
+        Destroy(curSelectedObj);
+        HM._.ui.onClickDecorateModeCloseBtn();
+    }
+    public void onClickFunitureModeItemFlatBtn() {
+        float sx = curSelectedObj.transform.localScale.x * -1;
+        curSelectedObj.transform.localScale = new Vector2(sx, 1);
+    }
+    public void onClickFunitureModeItemSetUpBtn() {
+        RoomObject curRoomObject = curSelectedObj.GetComponent<RoomObject>();
+        curRoomObject.setSortingOrderByPosY();
+        curRoomObject.IsSelect = false;
+        HM._.ui.DecorateModePanel.SetActive(false);
+
+        //* Z値 ０に戻す
+        var tf = curSelectedObj.transform;
+        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+
+        //* アウトライン 消す
+        var sr = curRoomObject.Sr;
+        sr.material = HM._.sprUnlitMt;
+
+        //* タッチの動き
+        HM._.touchCtr.enabled = true;
+        HM._.pl.enabled = true;
+
+        HM._.ui.onClickDecorateModeCloseBtn();
+    }
+    public void onClickItemListBtn(int idx) {
+        createFunitureItem(idx); //* 生成
+        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
@@ -94,6 +131,31 @@ public class FunitureUIManager : MonoBehaviour
 
         //* 有効なフレームのみ 表示
         Array.ForEach(itemBtns, ib => ib.Obj.SetActive(ib.Img.sprite));
+    }
+    public void createFunitureItem(int idx) {
+        HM._.state = HM.STATE.DECORATION_MODE;
+
+        GameObject ins = (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
+            : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
+            : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Bgs[idx].Prefab
+            : ins = DB.Dt.Mats[idx].Prefab;
+
+        GameObject item = Instantiate(ins, HM._.ui.RoomObjectGroupTf);
+        RoomObject rObj = item.GetComponent<RoomObject>();
+        rObj.Start(); //* 初期化 必要
+
+        rObj.IsSelect = true;
+        rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
+        curSelectedObj = rObj.gameObject;
+        HM._.ui.DecorateModePanel.SetActive(true);
+
+        //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
+        const float OFFSET_Z = -1;
+        rObj.transform.position = new Vector3(rObj.transform.position.x, rObj.transform.position.y, OFFSET_Z);
+
+        //* 飾りモードの影よりレイヤーを前に配置
+        rObj.Sr.sortingOrder = 100;
+        Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
     }
 #endregion
 }

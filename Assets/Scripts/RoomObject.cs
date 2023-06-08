@@ -12,7 +12,7 @@ public class RoomObject : MonoBehaviour {
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
     [SerializeField] bool isDecoration; public bool IsDecoration  {get => isDecoration; set => isDecoration = value;}
 
-    void Start() {
+    public void Start() {
         tf = this.transform;
         sr = GetComponent<SpriteRenderer>();
 
@@ -41,7 +41,7 @@ public class RoomObject : MonoBehaviour {
         bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
 
         if(!isSelect && !isExistSelectedObj) {
-            HM._.selectedDecorationItem = this;
+            HM._.fUI.CurSelectedObj = this.gameObject;
             StartCoroutine(coPlayItemBounceAnim());
         }
         Debug.Log("OnMouseDown");
@@ -49,6 +49,7 @@ public class RoomObject : MonoBehaviour {
     private void OnMouseDrag() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
+
         Debug.Log("OnMouseDrag");
         HM._.ui.DecorateModePanel.SetActive(false);
         tf.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -57,37 +58,10 @@ public class RoomObject : MonoBehaviour {
     private void OnMouseUp() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
-        Debug.Log("OnMouseUp");
 
+        Debug.Log("OnMouseUp");
         HM._.ui.DecorateModePanel.SetActive(true);
     }
-#endregion
-//---------------------------------------------------------------------------------------------------------------
-#region DECORATE CLICK EVENT
-//---------------------------------------------------------------------------------------------------------------
-//     public void onClickFunitureModeItemCloseBtn() {
-//         HM._.ui.onClickDecorateModeCloseBtn();
-//         Destroy(this.gameObject);
-//     }
-//     public void onClickFunitureModeItemFlatBtn() {
-//         float sx = tf.localScale.x * -1;
-//         tf.localScale = new Vector2(sx, 1);
-//     }
-//     public void onClickFunitureModeItemSetUpBtn() {
-//         HM._.ui.onClickDecorateModeCloseBtn();
-//         setSortingOrderByPosY();
-//         HM._.ui.DecorateModePanel.SetActive(false);
-//         isSelect = false;
-
-//         //* Z値 ０に戻す
-//         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-//         //* アウトライン 消す
-//         sr.material = HM._.sprUnlitMt;
-
-//         //* タッチの動き
-//         HM._.touchCtr.enabled = true;
-//         HM._.pl.enabled = true;
-//     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------
 #region FUNC

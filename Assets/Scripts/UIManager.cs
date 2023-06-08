@@ -46,7 +46,6 @@ public class UIManager : MonoBehaviour {
     [SerializeField] Vector3 roomDefPetPos;
     [SerializeField] Vector3 invSpacePlayerPos;
     [SerializeField] Vector3 invSpacePetPos;
-    [SerializeField] GameObject funitureShopObj;
 
     [Header("DIALOG")]
     [SerializeField] GameObject goGameDialog; public GameObject GoGameDialog {get => goGameDialog; set => goGameDialog = value;}
@@ -82,36 +81,6 @@ public class UIManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-#endregion
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region FUNITURE MODE EVENT
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void onClickFunitureModeItemDeleteBtn() {
-        Destroy(HM._.selectedDecorationItem.gameObject);
-        onClickDecorateModeCloseBtn();
-    }
-    public void onClickFunitureModeItemFlatBtn() {
-        float sx = HM._.selectedDecorationItem.transform.localScale.x * -1;
-        HM._.selectedDecorationItem.transform.localScale = new Vector2(sx, 1);
-    }
-    public void onClickFunitureModeItemSetUpBtn() {
-        HM._.selectedDecorationItem.setSortingOrderByPosY();
-        HM._.ui.DecorateModePanel.SetActive(false);
-        HM._.selectedDecorationItem.IsSelect = false;
-
-        //* Z値 ０に戻す
-        var tf = HM._.selectedDecorationItem.transform;
-        var sr = HM._.selectedDecorationItem.Sr;
-        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-        //* アウトライン 消す
-        sr.material = HM._.sprUnlitMt;
-
-        //* タッチの動き
-        HM._.touchCtr.enabled = true;
-        HM._.pl.enabled = true;
-
-        HM._.ui.onClickDecorateModeCloseBtn();
-    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -167,6 +136,9 @@ public class UIManager : MonoBehaviour {
             onClickWoodSignArrowBtn(dirVal: -1);
         }
     }
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+#region HOME ICON EVENT
+//---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickAchiveRankIconBtn() {
         woodSignObj.SetActive(false);
         achiveRankPanel.SetActive(true);
@@ -188,7 +160,7 @@ public class UIManager : MonoBehaviour {
     }
     public void onClickDecorateModeCloseBtn() {
         HM._.state = HM.STATE.NORMAL;
-        HM._.selectedDecorationItem = null;
+        HM._.fUI.CurSelectedObj = null;
 
         curHomeSceneIdx = 0;
         woodSignTxt.text = "서재";
@@ -200,6 +172,8 @@ public class UIManager : MonoBehaviour {
         HM._.pl.gameObject.SetActive(true);
         HM._.pet.gameObject.SetActive(true);
     }
+#endregion
+//---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickGoGameDialogYesBtn() {
         HM._.GoToLoadingScene();
     }
@@ -224,41 +198,6 @@ public class UIManager : MonoBehaviour {
     }
     public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
         infoDialog.SetActive(true);
-    }
-    public void onClickFunitureItemListBtn(int idx) { //TODO Just Decorating Test
-        //* 飾り
-        createFunitureItem(idx);
-        onClickDecorateModeIconBtn();
-    }
-    public void createFunitureItem(int idx) { //TODO Just Decorating Test
-        HM._.state = HM.STATE.DECORATION_MODE;
-
-        GameObject ins = null;
-        if(HM._.fUI.Category == Enum.FUNITURE_CATE.Funiture) {
-            ins = DB.Dt.Funitures[idx].Prefab;
-        }
-        else if(HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration) {
-            ins = DB.Dt.Decorations[idx].Prefab;
-        }
-        else if(HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration) {
-            ins = DB.Dt.Bgs[idx].Prefab;
-        }
-        else {
-            ins = DB.Dt.Mats[idx].Prefab;
-        }
-        funitureShopObj = ins;
-
-        var item = Instantiate(ins, roomObjectGroupTf);
-        item.GetComponent<RoomObject>().IsSelect = true;
-        HM._.ui.DecorateModePanel.SetActive(true);
-
-        //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
-        const float OFFSET_Z = -1;
-        item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, OFFSET_Z);
-
-        //* 飾りモードの影よりレイヤーを前に配置
-        item.GetComponent<SpriteRenderer>().sortingOrder = 100;
-        Debug.Log($"SORTING AA createFunitureItem:: {item.name}.sortingOrder= {item.GetComponent<SpriteRenderer>().sortingOrder}");
     }
 #endregion
 }
