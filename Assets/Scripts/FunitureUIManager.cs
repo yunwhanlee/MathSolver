@@ -16,6 +16,7 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
     [Header("ITEM")]
+    [SerializeField] Vector3 befModePos;
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
