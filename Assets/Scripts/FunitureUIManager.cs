@@ -28,7 +28,7 @@ public class FunitureUIManager : MonoBehaviour
 
     void Start() {
         //* アイテムボタン 割り当て
-        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, PRICE = 3; //* Index 
+        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, PRICE = 3, ARRANGE = 4; //* Index 
         page = 0;
         itemBtns = new FunitureShopItemBtn[content.childCount];
         for(int i = 0; i < content.childCount; i++) {
@@ -38,7 +38,9 @@ public class FunitureUIManager : MonoBehaviour
                 img: tf.GetChild(IMG).GetComponent<Image>(),
                 lockFrameObj: tf.GetChild(LOCKFRAME).gameObject,
                 notifyObj: tf.GetChild(NOTIFY).gameObject,
-                priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>()
+                //* 子 要素
+                priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>(),
+                arrangeObj: tf.GetChild(ARRANGE).gameObject
             );
         }
 
@@ -135,6 +137,7 @@ public class FunitureUIManager : MonoBehaviour
         if(DB.Dt.Coin > price) {
             Debug.Log("💰購入成功！！");
             item.IsLock = false;
+            item.IsArranged = true;
             DB.Dt.setCoin(-price);
             createFunitureItem(curSelectedItemIdx); //* 生成
             HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード

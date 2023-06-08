@@ -24,21 +24,25 @@ public abstract class ItemFrameBtn {
 [System.Serializable]
 public class FunitureShopItemBtn : ItemFrameBtn {
     [SerializeField] TextMeshProUGUI priceTxt; public TextMeshProUGUI PriceTxt {get => priceTxt; set => priceTxt = value;}
+    [SerializeField] GameObject arrangeObj; public GameObject ArrangeObj {get => arrangeObj; set => arrangeObj = value;} 
 
-    public FunitureShopItemBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, TextMeshProUGUI priceTxt) {
+    public FunitureShopItemBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, TextMeshProUGUI priceTxt, GameObject arrangeObj) {
         this.Obj = obj;
         this.Img = img;
         this.LockFrameObj = lockFrameObj;
         this.NotifyObj = notifyObj;
-        //* 個人
+        //* 子 要素
         this.priceTxt = priceTxt;
+        this.arrangeObj = arrangeObj;
     }
 
     public override void init() {
         Img.sprite = null;
         LockFrameObj.SetActive(true);
-        priceTxt.text = "";
         NotifyObj.SetActive(false);
+        //* 子 要素
+        priceTxt.text = "";
+        arrangeObj.SetActive(false);
     }
 
     public override void updateItemFrame(Funiture item) {
@@ -46,7 +50,9 @@ public class FunitureShopItemBtn : ItemFrameBtn {
             Img.sprite = item.Spr;
             LockFrameObj.SetActive(item.IsLock);
             NotifyObj.SetActive(item.IsNotify);
+            //* 子 要素
             priceTxt.text = item.Price.ToString();
+            arrangeObj.SetActive(item.IsArranged);
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullが有るかを確認してください。</color>" + "\n " + err);
@@ -73,7 +79,7 @@ public abstract class Item {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Funiture : Item {
-    [SerializeField] bool isUsed;   public bool IsUsed {get => isUsed; set => isUsed = value;}
+    [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
     public override void updateItem() {
 
     }
