@@ -53,6 +53,9 @@ public class FunitureShopItemBtn : ItemFrameBtn {
             //* 子 要素
             priceTxt.text = item.Price.ToString();
             arrangeObj.SetActive(item.IsArranged);
+            //* priceTxtObj (非)表示
+            if(!item.IsLock)
+                priceTxt.transform.parent.gameObject.SetActive(false);
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullが有るかを確認してください。</color>" + "\n " + err);

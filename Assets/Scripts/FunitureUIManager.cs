@@ -112,11 +112,9 @@ public class FunitureUIManager : MonoBehaviour
 
         //* Get Item
         Funiture item = getSelectedItem(curSelectedItemIdx);
-        bool isLock = item.IsLock;
-        int price = item.Price;
 
         //* ロック
-        if(isLock) {
+        if(item.IsLock) {
             infoDialog.SetActive(true);
             infoDlgItemNameTxt.text = item.Name;
             infoDlgItemImg.sprite = item.Spr;
@@ -124,13 +122,17 @@ public class FunitureUIManager : MonoBehaviour
         }
         //* 配置
         else {
+            if(item.IsArranged) {
+                Debug.Log("既に配置されています。");
+                return;
+            }
             createFunitureItem(curSelectedItemIdx); //* 生成
             HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
         }
     }
     public void onClickInfoDialogPurchaseBtn() {
         //* Get Item
-        var item = getSelectedItem(curSelectedItemIdx);
+        Funiture item = getSelectedItem(curSelectedItemIdx);
         int price = item.Price;
 
         //* 購入
