@@ -36,6 +36,7 @@ public class RoomObject : MonoBehaviour {
     private void OnMouseDown() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
 
+        Debug.Log("OnMouseDown");
         //* 既に選択されたオブジェクトが有ったら、他が選択できないように
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
         bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
@@ -44,7 +45,7 @@ public class RoomObject : MonoBehaviour {
             HM._.fUI.CurSelectedObj = this.gameObject;
             StartCoroutine(coPlayItemBounceAnim());
         }
-        Debug.Log("OnMouseDown");
+
     }
     private void OnMouseDrag() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;

@@ -38,7 +38,7 @@ public class FunitureUIManager : MonoBehaviour
         onClickCategoryBtn((int)Enum.FUNITURE_CATE.Funiture);
     }
 /// -----------------------------------------------------------------------------------------------------------------
-#region EVENT
+#region SHOP EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickCategoryBtn(int idx) {
         Debug.Log($"BBB onClickCategoryBtn(idx: {idx})");
@@ -59,6 +59,15 @@ public class FunitureUIManager : MonoBehaviour
         //* アイテム リスト 最新化して並べる
         showItemList();
     }
+    public void onClickShopLeftArrow() {
+        setPageByArrowBtn(pageDir: -1); //* ページ
+        showItemList(); //* アイテムリスト 並べる
+    }
+    public void onClickShopRightArrow() {
+        setPageByArrowBtn(pageDir: +1); //* ページ
+        showItemList(); //* アイテムリスト 並べる
+    }
+
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNITURE MODE EVENT
@@ -105,14 +114,22 @@ public class FunitureUIManager : MonoBehaviour
             : (idx == 2)? Enum.FUNITURE_CATE.Bg
             : Enum.FUNITURE_CATE.Mat; //(idx == 3)? Enum.FUNITURE_CATE.Mat
     }
-
     private int getCategoryItemLenght() {
         return (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures.Length
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations.Length
             : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs.Length
             : DB.Dt.Mats.Length;
     }
+    private void setPageByArrowBtn(int pageDir) { // @param pageDir : -1(Left) or 1(Right)
+        //* 初期化
+        for(int i = 0; i < itemBtns.Length; i++) itemBtns[i].init();
 
+        //* ページ
+        int len = getCategoryItemLenght();
+        page += pageDir;
+        page = Mathf.Clamp(page, 0, (len - 1) / ITEM_BTN_CNT);
+        Debug.Log($"onClickPageArrowBtn():: category= {category}, len= {len}, page= {page}");
+    }
     private void showItemList() {
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
@@ -137,7 +154,7 @@ public class FunitureUIManager : MonoBehaviour
 
         GameObject ins = (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
-            : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Bgs[idx].Prefab
+            : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx].Prefab
             : ins = DB.Dt.Mats[idx].Prefab;
 
         GameObject item = Instantiate(ins, HM._.ui.RoomObjectGroupTf);
