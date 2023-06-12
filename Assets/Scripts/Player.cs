@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     const int FRONT_Z = -1;
+    const int REVERSE_Y = -1;
+    const float WALK_STOP_VAL = 0.05f;
+    const float MIN_Y = -4.5f;
+    const float MAX_Y = 2.0f;
     Transform tf;
     public Collider2D col;
     public Animator anim;
@@ -20,8 +24,10 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
+        if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
+
         //* レイヤー
-        const int REVERSE_Y = -1;
+
         sr = GetComponent<SpriteRenderer>();
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
@@ -35,7 +41,7 @@ public class Player : MonoBehaviour {
             float flipX = (isLeft)? -1 : 1;
             tf.localScale = new Vector2(flipX, tf.localScale.y);
             
-            const float WALK_STOP_VAL = 0.05f;
+            //* ポジションとアニメー
             if(distX < WALK_STOP_VAL && distY < WALK_STOP_VAL) {
                 tf.position = new Vector3(tgPos.x, tgPos.y, FRONT_Z);
                 if(!doIdle) { doIdle = true; anim.SetTrigger(Enum.ANIM.DoIdle.ToString());}
@@ -43,8 +49,6 @@ public class Player : MonoBehaviour {
             }
             else {
                 tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
-                const float MIN_Y = -4.5f;
-                const float MAX_Y = 2.0f;
                 tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
                 if(doIdle) doIdle = false;
                 if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
