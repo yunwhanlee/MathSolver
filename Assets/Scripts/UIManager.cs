@@ -163,29 +163,11 @@ public class UIManager : MonoBehaviour {
         achiveRankPanel.SetActive(false);
     }
     public void onClickDecorateModeIconBtn() {
-        HM._.state = HM.STATE.DECORATION_MODE;
-
-        //* パンネル 表示・非表示
-        for(int i = 0; i < homeScenePanelArr.Length; i++) homeScenePanelArr[i].SetActive(false);
-        topGroup.SetActive(false);
-        decorateModePanel.SetActive(true);
-        HM._.funitureModeShadowFrameObj.SetActive(true);
-        HM._.pl.gameObject.SetActive(false);
-        HM._.pet.gameObject.SetActive(false);
+        setDecorationMode(isActive: true);
     }
     public void onClickDecorateModeCloseBtn() {
-        HM._.state = HM.STATE.NORMAL;
-        HM._.fUI.CurSelectedObj = null;
-
-        curHomeSceneIdx = 0;
-        woodSignTxt.text = "서재";
-        
-        roomPanel.SetActive(true);
-        topGroup.SetActive(true);
-        decorateModePanel.SetActive(false);
-        HM._.funitureModeShadowFrameObj.SetActive(false);
-        HM._.pl.gameObject.SetActive(true);
-        HM._.pet.gameObject.SetActive(true);
+        HM._.fUI.setUpFunitureModeItem(isCancel: true);
+        setDecorationMode(isActive: false);
     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -230,7 +212,27 @@ IEnumerator coUpdateUI() {
         }
         yield return new WaitForSeconds(0.2f);
     }
-    
+}
+
+public void setDecorationMode(bool isActive) {
+    HM._.state = isActive? HM.STATE.DECORATION_MODE : HM.STATE.NORMAL;
+
+    //* UI 表示・非表示
+    if(isActive) {
+        for(int i = 0; i < homeScenePanelArr.Length; i++) homeScenePanelArr[i].SetActive(!isActive);
+    }
+    else {
+        HM._.fUI.CurSelectedObj = null;
+        curHomeSceneIdx = 0;
+        woodSignTxt.text = "서재";
+        roomPanel.SetActive(true);
+    }
+
+    topGroup.SetActive(!isActive);
+    decorateModePanel.SetActive(isActive);
+    HM._.funitureModeShadowFrameObj.SetActive(isActive);
+    HM._.pl.gameObject.SetActive(!isActive);
+    HM._.pet.gameObject.SetActive(!isActive);
 }
 #endregion
 }

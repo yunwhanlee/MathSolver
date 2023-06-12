@@ -41,6 +41,7 @@ public class RoomObject : MonoBehaviour {
 
         if(!isSelect && !isExistSelectedObj) {
             HM._.fUI.CurSelectedObj = this.gameObject;
+            HM._.fUI.BefPos = this.gameObject.transform.position;
             StartCoroutine(coPlayItemBounceAnim());
         }
 
@@ -65,8 +66,9 @@ public class RoomObject : MonoBehaviour {
 //---------------------------------------------------------------------------------------------------------------
 #region FUNC
 //---------------------------------------------------------------------------------------------------------------
-    public void setSortingOrderByPosY() {
+    public void setSortingOrderByPosY(bool backBefPos = false) {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        if(backBefPos) transform.position = new Vector3(HM._.fUI.BefPos.x, HM._.fUI.BefPos.y, 0);
         sr = GetComponent<SpriteRenderer>();
         sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
     }

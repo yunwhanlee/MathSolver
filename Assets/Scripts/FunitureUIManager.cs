@@ -16,7 +16,7 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
     [Header("ITEM")]
-    [SerializeField] Vector3 befModePos;
+    [SerializeField] Vector3 befPos;    public Vector3 BefPos {get => befPos; set => befPos = value;}
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
@@ -99,31 +99,8 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickFunitureModeItemSetUpBtn() {
         Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurObjLayer2FunitureItem(curSelectedObj)}");
-
-        RoomObject curRoomObject = curSelectedObj.GetComponent<RoomObject>();
-        curRoomObject.setSortingOrderByPosY();
-        curRoomObject.IsSelect = false;
-        HM._.ui.DecorateModePanel.SetActive(false);
-
-        //* Z値 ０に戻す
-        var tf = curSelectedObj.transform;
-        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-
-        //* 位置データ 保存
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
-        float x = (float)Math.Round(tf.position.x, 3);
-        float y = (float)Math.Round(tf.position.y, 3);
-        itemDt.Pos = new Vector2(x, y);
-
-        //* アウトライン 消す
-        var sr = curRoomObject.Sr;
-        sr.material = HM._.sprUnlitMt;
-
-        //* タッチの動き
-        HM._.touchCtr.enabled = true;
-        HM._.pl.enabled = true;
-
-        HM._.ui.onClickDecorateModeCloseBtn();
+        setUpFunitureModeItem();
+        HM._.ui.setDecorationMode(isActive: false);
     }
     public void onClickItemListBtn(int idx) {
         //* ペースも含めた 実際のINDEX
@@ -266,6 +243,30 @@ public class FunitureUIManager : MonoBehaviour
         //* 飾りモードの影よりレイヤーを前に配置
         rObj.Sr.sortingOrder = 100;
         Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
+    }
+    public void setUpFunitureModeItem(bool isCancel = false) {
+        RoomObject curRoomObject = curSelectedObj.GetComponent<RoomObject>();
+        curRoomObject.setSortingOrderByPosY(backBefPos: isCancel);
+        curRoomObject.IsSelect = false;
+        HM._.ui.DecorateModePanel.SetActive(false);
+
+        //* Z値 ０に戻す
+        var tf = curSelectedObj.transform;
+        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+
+        //* 位置データ 保存
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
+        float x = (float)Math.Round(tf.position.x, 3);
+        float y = (float)Math.Round(tf.position.y, 3);
+        itemDt.Pos = new Vector2(x, y);
+
+        //* アウトライン 消す
+        var sr = curRoomObject.Sr;
+        sr.material = HM._.sprUnlitMt;
+
+        //* タッチの動き
+        HM._.touchCtr.enabled = true;
+        HM._.pl.enabled = true;
     }
 #endregion
 }
