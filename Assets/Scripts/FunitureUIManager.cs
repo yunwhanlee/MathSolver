@@ -41,7 +41,7 @@ public class FunitureUIManager : MonoBehaviour
                 notifyObj: tf.GetChild(NOTIFY).gameObject,
                 //* 子 要素
                 priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>(),
-                arrangeObj: tf.GetChild(ARRANGE).gameObject
+                arrangeFrameObj: tf.GetChild(ARRANGE).gameObject
             );
         }
 
@@ -80,8 +80,30 @@ public class FunitureUIManager : MonoBehaviour
 #region FUNITURE MODE EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
+        Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.layer2Name= {LayerMask.LayerToName(curSelectedObj.layer)}");
+        var layerName = LayerMask.LayerToName(curSelectedObj.layer);
+        if(layerName == Enum.FUNITURE_CATE.Funiture.ToString()) {
+            Funiture item = Array.Find(DB.Dt.Funitures, item => curSelectedObj.name == item.Name);
+            item.IsArranged = false;
+        }
+        else if(layerName == Enum.FUNITURE_CATE.Decoration.ToString()) {
+            Funiture item = Array.Find(DB.Dt.Decorations, item => curSelectedObj.name == item.Name);
+            item.IsArranged = false;
+        }
+        else if(layerName == Enum.FUNITURE_CATE.Bg.ToString()) {
+            Funiture item = Array.Find(DB.Dt.Bgs, item => curSelectedObj.name == item.Name);
+            item.IsArranged = false;
+        }
+        else if(layerName == Enum.FUNITURE_CATE.Mat.ToString()) {
+            Funiture item = Array.Find(DB.Dt.Mats, item => curSelectedObj.name == item.Name);
+            item.IsArranged = false;
+        }
+
         Destroy(curSelectedObj);
         HM._.ui.onClickDecorateModeCloseBtn();
+
+        //* 最新化
+        showItemList();
     }
     public void onClickFunitureModeItemFlatBtn() {
         float sx = curSelectedObj.transform.localScale.x * -1;
@@ -211,6 +233,7 @@ public class FunitureUIManager : MonoBehaviour
             : pref = DB.Dt.Mats[idx].Prefab;
 
         GameObject item = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
+        item.name = item.name.Split('(')[0]; //* 名(Clone) 削除
         RoomObject rObj = item.GetComponent<RoomObject>();
         rObj.Start(); //* 初期化 必要
 

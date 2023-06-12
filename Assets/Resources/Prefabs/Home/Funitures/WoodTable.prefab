@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161354949}
   - component: {fileID: 161354950}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742249282}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DecorationGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 3933582543245780395}
   - component: {fileID: 919039607383420660}
   - component: {fileID: 3945558929915820274}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WoodTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,7 +6,7 @@ using TMPro;
 using System;
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region UI アイテム フレーム ボタン
+#region (UI) アイテム フレーム ボタン
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public abstract class ItemFrameBtn {
@@ -23,16 +23,16 @@ public abstract class ItemFrameBtn {
 [System.Serializable]
 public class FunitureShopItemBtn : ItemFrameBtn {
     [SerializeField] TextMeshProUGUI priceTxt; public TextMeshProUGUI PriceTxt {get => priceTxt; set => priceTxt = value;}
-    [SerializeField] GameObject arrangeObj; public GameObject ArrangeObj {get => arrangeObj; set => arrangeObj = value;} 
+    [SerializeField] GameObject arrangeFrameObj; public GameObject ArrangeFrameObj {get => arrangeFrameObj; set => arrangeFrameObj = value;} 
 
-    public FunitureShopItemBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, TextMeshProUGUI priceTxt, GameObject arrangeObj) {
+    public FunitureShopItemBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, TextMeshProUGUI priceTxt, GameObject arrangeFrameObj) {
         this.Obj = obj;
         this.Img = img;
         this.LockFrameObj = lockFrameObj;
         this.NotifyObj = notifyObj;
         //* 子 要素
         this.priceTxt = priceTxt;
-        this.arrangeObj = arrangeObj;
+        this.arrangeFrameObj = arrangeFrameObj; // ✓ 表示
     }
 
     public override void init() {
@@ -41,7 +41,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         NotifyObj.SetActive(false);
         //* 子 要素
         priceTxt.text = "";
-        arrangeObj.SetActive(false);
+        arrangeFrameObj.SetActive(false);
     }
 
     public override void updateItemFrame(Funiture item) {
@@ -51,7 +51,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
             NotifyObj.SetActive(item.IsNotify);
             //* 子 要素
             priceTxt.text = item.Price.ToString();
-            arrangeObj.SetActive(item.IsArranged);
+            arrangeFrameObj.SetActive(item.IsArranged);
             //* priceTxtObj (非)表示
             if(!item.IsLock)
                 priceTxt.transform.parent.gameObject.SetActive(false);
@@ -64,7 +64,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
 
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region アイテム
+#region (OBJ) アイテム
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public abstract class Item {

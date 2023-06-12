@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3933582543245780395}
   - component: {fileID: 3945558929915820274}
   - component: {fileID: 6634614703061803733}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: VaseKettle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,6 @@ MonoBehaviour:
   sr: {fileID: 0}
   isSelect: 0
   isDecoration: 0
-  funitureModeCanvasRectTf: {fileID: 0}
 --- !u!212 &3933582543245780395
 SpriteRenderer:
   m_ObjectHideFlags: 0
