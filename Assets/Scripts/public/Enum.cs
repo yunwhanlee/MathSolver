@@ -14,4 +14,5 @@ public class Enum : MonoBehaviour
     public enum EXPRESSION {Idle, Fail, Success};
     public enum LAYER {IconBtnGroupArea};
     public enum SORTINGLAYER {Mat, Default};
+    public enum HOME_EF_IDX {FunitureSetupEF};
 }   

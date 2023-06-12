@@ -15,6 +15,10 @@ public class HM : MonoBehaviour {
     public UIManager ui;
     public TouchControl touchCtr;
     public FunitureUIManager fUI;
+    public HEM em;
+
+    [Header("GROUP")]
+    [SerializeField] Transform effectGroup;   public Transform EffectGroup {get => effectGroup; set => effectGroup = value;}
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;

@@ -99,6 +99,7 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickFunitureModeItemSetUpBtn() {
         Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurObjLayer2FunitureItem(curSelectedObj)}");
+        StartCoroutine(HM._.em.coShowEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.delay2));
         setUpFunitureModeItem();
         HM._.ui.setDecorationMode(isActive: false);
     }
