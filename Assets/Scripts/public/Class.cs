@@ -16,7 +16,6 @@ public abstract class ItemFrameBtn {
     [SerializeField] GameObject notifyObj; public GameObject NotifyObj {get => notifyObj; set => notifyObj = value;}
 
     public abstract void init();
-
     public abstract void updateItemFrame(Funiture item);
 }
 

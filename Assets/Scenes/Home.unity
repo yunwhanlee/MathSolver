@@ -28287,6 +28287,7 @@ MonoBehaviour:
   - {fileID: 1294357853}
   page: 0
   pageTxt: {fileID: 862904009}
+  befModePos: {x: 0, y: 0, z: 0}
   content: {fileID: 1629446766}
   itemBtns: []
   curSelectedObj: {fileID: 0}
@@ -44776,7 +44777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3933582543245780394, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.01
       objectReference: {fileID: 0}
     - target: {fileID: 3933582543245780394, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48587,8 +48588,8 @@ MonoBehaviour:
   roomObjectGroupTf: {fileID: 203068471}
   inventorySpace: {fileID: 645594662}
   roomDefPetPos: {x: 1.2, y: -0.4, z: 0}
-  invSpacePlayerPos: {x: -0.6, y: 3, z: 0}
-  invSpacePetPos: {x: 0.6, y: 2.6, z: 0}
+  invSpacePlayerPos: {x: -0.6, y: 2.5, z: 0}
+  invSpacePetPos: {x: 0.6, y: 2.5, z: 0}
   goGameDialog: {fileID: 1511420629}
 --- !u!1 &2007257274
 GameObject:
