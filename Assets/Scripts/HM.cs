@@ -10,6 +10,7 @@ public class HM : MonoBehaviour {
 
     [Header("OUTSIDE")]
     public Player pl;
+    public Pet pet;
     public UIManager ui;
     public TouchControl touchCtr;
     public FunitureUIManager fUI;
@@ -19,7 +20,6 @@ public class HM : MonoBehaviour {
     public Material outlineAnimMt;
 
     [Header("GAME OBJECT")]
-    public GameObject pet;
     public GameObject funitureModeShadowFrameObj;
     public GameObject funitureModeItem;
     public GameObject roomObjectGroup;

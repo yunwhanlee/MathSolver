@@ -116,17 +116,29 @@ public class UIManager : MonoBehaviour {
             : "인벤토리";//Enum.HOME.Inventory.ToString();
 
         //* RoomとInventoryスペース 表示。
-        if(curHomeSceneIdx == (int)Enum.HOME.Room) {
-            HM._.pl.transform.position = HM._.pl.TgPos;
-            HM._.pet.transform.position = roomDefPetPos;
-            room.SetActive(true);
-            inventorySpace.SetActive(false);
-        }
-        else if(curHomeSceneIdx == (int)Enum.HOME.Inventory){
+        if(curHomeSceneIdx == (int)Enum.HOME.Inventory){
+            HM._.pl.Anim.enabled = false;
+            HM._.pet.Anim.enabled = false;
+            //* ポーズを初期化
+            HM._.pl.setInitSpr();
+            HM._.pet.setInitSpr();
+
             HM._.pl.transform.position = invSpacePlayerPos;
             HM._.pet.transform.position = invSpacePetPos;
             room.SetActive(false);
             inventorySpace.SetActive(true);
+        }
+        else {
+            HM._.pl.Anim.enabled = true;
+            HM._.pet.Anim.enabled = true;
+            //* アイドルに初期化
+            HM._.pl.setIdle();
+            HM._.pet.setIdle();
+
+            HM._.pl.transform.position = HM._.pl.TgPos;
+            HM._.pet.transform.position = roomDefPetPos;
+            room.SetActive(true);
+            inventorySpace.SetActive(false);
         }
     }
     public void onClickGoRoom() {

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Pet : MonoBehaviour {
-    public Animator anim;
+    [Header("OUTSIDE")]
+    [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
+
+    [Header("VALUE")]
     const int FRONT_Z = -1;
     const int REVERSE_Y = -1;
     const float CHASE_DELAY = 0.5f;
@@ -14,10 +17,11 @@ public class Pet : MonoBehaviour {
     Transform tf;
     Transform plTf;
     Vector2 tgPos;
-    [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
+    [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
+    [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
-    [SerializeField] bool doIdle;
-    [SerializeField] bool doWalk;
+    [SerializeField] bool doIdle;   public bool DoIdle {get => doIdle; set => doIdle = value;}
+    [SerializeField] bool doWalk;   public bool DoWalk {get => doWalk; set => doWalk = value;}
 
     void Start() {
         tf = transform;
@@ -38,20 +42,28 @@ public class Pet : MonoBehaviour {
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
             float distX = Mathf.Abs(tgPos.x - tf.position.x);
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
+            bool isMoving = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
 
             tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
             tf.position = new Vector3(tf.position.x, tf.position.y, FRONT_Z);
 
             //* アニメー
-            if(distX < WALK_STOP_VAL && distY < WALK_STOP_VAL) {
-                if(!doIdle) { doIdle = true; anim.SetTrigger(Enum.ANIM.DoIdle.ToString());}
-                if(doWalk) doWalk = false;
-            }
-            else {
-                if(doIdle) doIdle = false;
-                if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
-            }
+            if(isMoving) {setIdle();}
+            else {setWalk();}
         }
-
     }
+
+///------------------------------------------------------------------------------------------
+#region FUNC
+///------------------------------------------------------------------------------------------
+    public void setInitSpr() => sr.sprite = idleSpr;
+    public void setIdle() { 
+        if(!doIdle) { doIdle = true; anim.SetTrigger(Enum.ANIM.DoIdle.ToString());}
+        if(doWalk) doWalk = false;
+    }
+    private void setWalk() {
+        if(doIdle) doIdle = false;
+        if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
+    }
+#endregion
 }
