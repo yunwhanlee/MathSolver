@@ -7,21 +7,19 @@ public class RoomObject : MonoBehaviour {
     const int REVERSE_Y = -1, 
         PIVOT_OFFSET_Y = -1, 
         OFFSET_Z = -1;
-    Transform tf;
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
     [SerializeField] bool isDecoration; public bool IsDecoration  {get => isDecoration; set => isDecoration = value;}
 
     public void Start() {
-        tf = this.transform;
         sr = GetComponent<SpriteRenderer>();
 
         //* レイヤー
         if(HM._.state == HM.STATE.DECORATION_MODE) return;
 
         if(isDecoration) {
-            tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-            var prSr = tf.parent.GetComponentInParent<SpriteRenderer>();
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            var prSr = transform.parent.GetComponentInParent<SpriteRenderer>();
             sr.sortingOrder = prSr.sortingOrder;
             Debug.Log($"SORTING BB RoomObject:: isDecoration:: {sr.gameObject.name}.sortingOrder({sr.sortingOrder}) = {prSr.gameObject.name}.sortingOrder({prSr.sortingOrder})");
         }
@@ -53,8 +51,8 @@ public class RoomObject : MonoBehaviour {
 
         Debug.Log("OnMouseDrag");
         HM._.ui.DecorateModePanel.SetActive(false);
-        tf.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        tf.position = new Vector3(tf.position.x, tf.position.y + PIVOT_OFFSET_Y, OFFSET_Z);
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = new Vector3(transform.position.x, transform.position.y + PIVOT_OFFSET_Y, OFFSET_Z);
     }
     private void OnMouseUp() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
@@ -68,17 +66,17 @@ public class RoomObject : MonoBehaviour {
 #region FUNC
 //---------------------------------------------------------------------------------------------------------------
     public void setSortingOrderByPosY() {
-        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         sr = GetComponent<SpriteRenderer>();
-        sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------
 #region ANIM
 //---------------------------------------------------------------------------------------------------------------
     IEnumerator coPlayItemBounceAnim() {
-        float ORG_SC_X = tf.localScale.x;
-        float ORG_SC_Y = tf.localScale.y;
+        float ORG_SC_X = transform.localScale.x;
+        float ORG_SC_Y = transform.localScale.y;
         const float MAX_SC = 1.3f;
         const float DURATION = 0.1f; // アニメー再生時間
 
@@ -99,7 +97,7 @@ public class RoomObject : MonoBehaviour {
             float time = elapsedTime / DURATION; // 経過時間の比率
             float scaleFactor = Mathf.Lerp(1.0f, MAX_SC, time);
 
-            tf.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
+            transform.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
 
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -111,14 +109,14 @@ public class RoomObject : MonoBehaviour {
             float time = elapsedTime / DURATION; // 経過時間の比率
             float scaleFactor = Mathf.Lerp(MAX_SC, 1.0f, time);
 
-            tf.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
+            transform.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         //* 最後のフレームで、元のサイズに戻す
-        tf.localScale = new Vector2(ORG_SC_X, ORG_SC_Y);
+        transform.localScale = new Vector2(ORG_SC_X, ORG_SC_Y);
         
         //* ドラッグ操作 ON
         HM._.ui.DecorateModePanel.SetActive(true);

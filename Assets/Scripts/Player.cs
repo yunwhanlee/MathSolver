@@ -37,9 +37,6 @@ public class Player : MonoBehaviour {
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
-            // float distX = Mathf.Abs(tgPos.x - tf.position.x);
-            // float distY = Mathf.Abs(tgPos.y - tf.position.y);
-
             //* プレイヤー方向
             Vector2 dir = new Vector2(tgPos.x - tf.position.x, tgPos.y - tf.position.y).normalized;
             bool isLeft = ((dir.x < 0 && 0 <= dir.y) || (dir.x < 0 && dir.y < 0));
@@ -51,7 +48,7 @@ public class Player : MonoBehaviour {
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
             bool isMoving = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
             Debug.Log($"setPosAndAnim:: isMoving= {isMoving}");
-            
+
             if(isMoving) {setIdle();}
             else {setWalk();}
         }

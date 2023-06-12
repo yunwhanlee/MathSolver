@@ -81,12 +81,12 @@ public class FunitureUIManager : MonoBehaviour
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
         Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.layer2Name= {LayerMask.LayerToName(curSelectedObj.layer)}");
-        Funiture item = getCurObjLayer2FunitureItem(curSelectedObj);
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
 
         //* アイテムが無かったら、BUGなので終了
-        if(item == null) return;
+        if(itemDt == null) return;
 
-        item.IsArranged = false; //* 配置トリガー OFF
+        itemDt.IsArranged = false; //* 配置トリガー OFF
         Destroy(curSelectedObj); //* オブジェクト 破壊
         HM._.ui.onClickDecorateModeCloseBtn();
 
@@ -98,7 +98,8 @@ public class FunitureUIManager : MonoBehaviour
         curSelectedObj.transform.localScale = new Vector2(sx, 1);
     }
     public void onClickFunitureModeItemSetUpBtn() {
-        Debug.Log("onClickFunitureModeItemSetUpBtn()::");
+        Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurObjLayer2FunitureItem(curSelectedObj)}");
+
         RoomObject curRoomObject = curSelectedObj.GetComponent<RoomObject>();
         curRoomObject.setSortingOrderByPosY();
         curRoomObject.IsSelect = false;
@@ -108,8 +109,11 @@ public class FunitureUIManager : MonoBehaviour
         var tf = curSelectedObj.transform;
         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
 
-        //TODO 位置データ 保存
-        
+        //* 位置データ 保存
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
+        float x = (float)Math.Round(tf.position.x, 3);
+        float y = (float)Math.Round(tf.position.y, 3);
+        itemDt.Pos = new Vector2(x, y);
 
         //* アウトライン 消す
         var sr = curRoomObject.Sr;
@@ -244,9 +248,9 @@ public class FunitureUIManager : MonoBehaviour
             : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx].Prefab
             : pref = DB.Dt.Mats[idx].Prefab;
 
-        GameObject item = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
-        item.name = item.name.Split('(')[0]; //* 名(Clone) 削除
-        RoomObject rObj = item.GetComponent<RoomObject>();
+        GameObject ins = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
+        ins.name = ins.name.Split('(')[0]; //* 名(Clone) 削除
+        RoomObject rObj = ins.GetComponent<RoomObject>();
         rObj.Start(); //* 初期化 必要
 
         rObj.IsSelect = true;

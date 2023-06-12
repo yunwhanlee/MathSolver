@@ -36,7 +36,7 @@ public class Data {
 //* -----------------------------------------------------------------------------------------------------------------
 public class DB : MonoBehaviour {
     public static DB _ {get; private set;}
-    bool isReset;
+    [SerializeField] bool isReset;
     const string Database = "DB";
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
@@ -63,6 +63,24 @@ public class DB : MonoBehaviour {
         Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
     }
+/// -----------------------------------------------------------------------------------------------------------------
+#region QUIT APP EVENT
+/// -----------------------------------------------------------------------------------------------------------------
+    #if UNITY_EDITOR
+        void OnApplicationQuit() {
+            Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
+            this.save();
+        }
+    #elif UNITY_ANDROID
+        void OnApplicationPause(bool paused){
+            //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
+            if(paused == true) {
+                Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
+                this.save();
+            }
+        }
+    #endif
+#endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region SAVE
 /// -----------------------------------------------------------------------------------------------------------------
@@ -105,6 +123,11 @@ public class DB : MonoBehaviour {
         Array.ForEach(dt.Decorations, item => item.IsLock = true);
         Array.ForEach(dt.Bgs, item => item.IsLock = true);
         Array.ForEach(dt.Mats, item => item.IsLock = true);
+        //* 位置
+        Array.ForEach(dt.Funitures, item => item.Pos = Vector3.zero);
+        Array.ForEach(dt.Decorations, item => item.Pos = Vector3.zero);
+        Array.ForEach(dt.Bgs, item => item.Pos = Vector3.zero);
+        Array.ForEach(dt.Mats, item => item.Pos = Vector3.zero);
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
