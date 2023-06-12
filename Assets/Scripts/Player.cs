@@ -24,12 +24,13 @@ public class Player : MonoBehaviour {
 
     void Start() {
         tf = transform;
-        col = GetComponent<Collider2D>();
         tgPos = transform.position;
+        col = GetComponent<Collider2D>();
     }
 
     void Update() {
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
+        if(HM._.state != HM.STATE.NORMAL) return;
 
         //* レイヤー
         sr = GetComponent<SpriteRenderer>();
@@ -45,7 +46,7 @@ public class Player : MonoBehaviour {
             float flipX = (isLeft)? -1 : 1;
             tf.localScale = new Vector2(flipX, tf.localScale.y);
 
-            //* ポジション & アニメー
+            //* 追いかける & アニメー
             float distX = Mathf.Abs(tgPos.x - tf.position.x);
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
             bool isMoving = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;

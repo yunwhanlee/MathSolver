@@ -12,6 +12,6 @@ public class Enum : MonoBehaviour
     public enum ANIM {DoIdle, DoWalk, DoBounce};
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};
-    public enum NAME {IconGroupArea};
+    public enum LAYER {IconBtnGroupArea};
     public enum SORTINGLAYER {Mat, Default};
 }   

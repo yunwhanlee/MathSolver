@@ -81,25 +81,13 @@ public class FunitureUIManager : MonoBehaviour
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
         Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.layer2Name= {LayerMask.LayerToName(curSelectedObj.layer)}");
-        var layerName = LayerMask.LayerToName(curSelectedObj.layer);
-        if(layerName == Enum.FUNITURE_CATE.Funiture.ToString()) {
-            Funiture item = Array.Find(DB.Dt.Funitures, item => curSelectedObj.name == item.Name);
-            item.IsArranged = false;
-        }
-        else if(layerName == Enum.FUNITURE_CATE.Decoration.ToString()) {
-            Funiture item = Array.Find(DB.Dt.Decorations, item => curSelectedObj.name == item.Name);
-            item.IsArranged = false;
-        }
-        else if(layerName == Enum.FUNITURE_CATE.Bg.ToString()) {
-            Funiture item = Array.Find(DB.Dt.Bgs, item => curSelectedObj.name == item.Name);
-            item.IsArranged = false;
-        }
-        else if(layerName == Enum.FUNITURE_CATE.Mat.ToString()) {
-            Funiture item = Array.Find(DB.Dt.Mats, item => curSelectedObj.name == item.Name);
-            item.IsArranged = false;
-        }
+        Funiture item = getCurObjLayer2FunitureItem(curSelectedObj);
 
-        Destroy(curSelectedObj);
+        //* アイテムが無かったら、BUGなので終了
+        if(item == null) return;
+
+        item.IsArranged = false; //* 配置トリガー OFF
+        Destroy(curSelectedObj); //* オブジェクト 破壊
         HM._.ui.onClickDecorateModeCloseBtn();
 
         //* 最新化
@@ -110,6 +98,7 @@ public class FunitureUIManager : MonoBehaviour
         curSelectedObj.transform.localScale = new Vector2(sx, 1);
     }
     public void onClickFunitureModeItemSetUpBtn() {
+        Debug.Log("onClickFunitureModeItemSetUpBtn()::");
         RoomObject curRoomObject = curSelectedObj.GetComponent<RoomObject>();
         curRoomObject.setSortingOrderByPosY();
         curRoomObject.IsSelect = false;
@@ -118,6 +107,9 @@ public class FunitureUIManager : MonoBehaviour
         //* Z値 ０に戻す
         var tf = curSelectedObj.transform;
         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
+
+        //TODO 位置データ 保存
+        
 
         //* アウトライン 消す
         var sr = curRoomObject.Sr;
@@ -176,6 +168,26 @@ public class FunitureUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
+    private Funiture getCurObjLayer2FunitureItem(GameObject curSelObj) {
+        //* レイヤーで種類を探す
+        var layerName = LayerMask.LayerToName(curSelObj.layer);
+        Funiture item = null;
+        if(layerName == Enum.FUNITURE_CATE.Funiture.ToString()) {
+            item = Array.Find(DB.Dt.Funitures, item => curSelObj.name == item.Name);
+        }
+        else if(layerName == Enum.FUNITURE_CATE.Decoration.ToString()) {
+            item = Array.Find(DB.Dt.Decorations, item => curSelObj.name == item.Name);
+        }
+        else if(layerName == Enum.FUNITURE_CATE.Bg.ToString()) {
+            item = Array.Find(DB.Dt.Bgs, item => curSelObj.name == item.Name);
+        }
+        else if(layerName == Enum.FUNITURE_CATE.Mat.ToString()) {
+            item = Array.Find(DB.Dt.Mats, item => curSelObj.name == item.Name);
+        }
+
+        //* 家具 アイテム
+        return item;
+    }
     private void setCategoryIdx(int idx) {
         category = (idx == 0)? Enum.FUNITURE_CATE.Funiture
             : (idx == 1)? Enum.FUNITURE_CATE.Decoration

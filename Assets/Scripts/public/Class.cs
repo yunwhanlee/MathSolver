@@ -82,6 +82,7 @@ public abstract class Item {
 [System.Serializable]
 public class Funiture : Item {
     [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
+    [SerializeField] Vector2 pos;   public Vector2 Pos {get => pos; set => pos = value;}
     public override void updateItem() {
 
     }
