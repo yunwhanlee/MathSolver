@@ -46,8 +46,14 @@ public class HM : MonoBehaviour {
         Funiture[] arrangedItems = Array.FindAll(itemDts, item => item.IsArranged);
         Array.ForEach(arrangedItems, item => {
             GameObject ins = Instantiate(item.Prefab, HM._.ui.RoomObjectGroupTf);
-            ins.name = ins.name.Split('(')[0]; //* 名(Clone) 削除
+            //* 名(Clone) 削除
+            ins.name = ins.name.Split('(')[0]; 
+            //* 位置
             ins.transform.position = item.Pos;
+            //* 反転
+            Vector2 sc = ins.transform.localScale;
+            ins.transform.localScale = new Vector2((item.IsFlat? -sc.x : sc.x), sc.y);
+            //* レイヤー
             ins.GetComponent<RoomObject>().setSortingOrderByPosY();
         });
     }

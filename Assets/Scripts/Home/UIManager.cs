@@ -54,6 +54,9 @@ public class UIManager : MonoBehaviour {
 
     [Header("DIALOG")]
     [SerializeField] GameObject goGameDialog; public GameObject GoGameDialog {get => goGameDialog; set => goGameDialog = value;}
+    [Header("POP UP")]
+    [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
+    [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
 
 
     void Start() {
@@ -233,6 +236,16 @@ public void setDecorationMode(bool isActive) {
     HM._.funitureModeShadowFrameObj.SetActive(isActive);
     HM._.pl.gameObject.SetActive(!isActive);
     HM._.pet.gameObject.SetActive(!isActive);
+}
+
+public void showErrorMsgPopUp(string msg) => StartCoroutine(coShowErrorMsgPopUp(msg));
+IEnumerator coShowErrorMsgPopUp(string msg) {
+    errorMsgPopUp.SetActive(true);
+    errorMsgTxt.text = msg;
+    yield return Util.delay1;
+
+    errorMsgPopUp.SetActive(false);
+    errorMsgTxt.text = "";
 }
 #endregion
 }

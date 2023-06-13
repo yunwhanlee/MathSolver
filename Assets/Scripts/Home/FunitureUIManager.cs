@@ -80,6 +80,12 @@ public class FunitureUIManager : MonoBehaviour
 #region FUNITURE MODE EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
+        if(!curSelectedObj) {
+            // HM._.ui.onClickDecorateModeCloseBtn();
+            HM._.ui.showErrorMsgPopUp("삭제할 아이템을 선택해주세요!");
+            return;
+        }
+
         Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.layer2Name= {LayerMask.LayerToName(curSelectedObj.layer)}");
         Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
 
@@ -94,10 +100,24 @@ public class FunitureUIManager : MonoBehaviour
         showItemList();
     }
     public void onClickFunitureModeItemFlatBtn() {
+        if(!curSelectedObj) {
+            // HM._.ui.onClickDecorateModeCloseBtn();
+            HM._.ui.showErrorMsgPopUp("반전시킬 아이템을 선택해주세요!");
+            return;
+        }
+
         float sx = curSelectedObj.transform.localScale.x * -1;
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
         curSelectedObj.transform.localScale = new Vector2(sx, 1);
+
     }
     public void onClickFunitureModeItemSetUpBtn() {
+        if(!curSelectedObj) {
+            // HM._.ui.onClickDecorateModeCloseBtn();
+            HM._.ui.showErrorMsgPopUp("배치할 아이템을 선택해주세요!");
+            return;
+        }
+
         Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurObjLayer2FunitureItem(curSelectedObj)}");
         StartCoroutine(HM._.em.coShowEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.delay2));
         setUpFunitureModeItem();
@@ -246,6 +266,8 @@ public class FunitureUIManager : MonoBehaviour
         Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
     }
     public void setUpFunitureModeItem(bool isCancel = false) {
+        if(!curSelectedObj) return;
+
         RoomObject curRoomObject = curSelectedObj.GetComponent<RoomObject>();
         curRoomObject.setSortingOrderByPosY(backBefPos: isCancel);
         curRoomObject.IsSelect = false;
@@ -260,6 +282,9 @@ public class FunitureUIManager : MonoBehaviour
         float x = (float)Math.Round(tf.position.x, 3);
         float y = (float)Math.Round(tf.position.y, 3);
         itemDt.Pos = new Vector2(x, y);
+
+        //* 反転データ 保存
+        itemDt.IsFlat = (tf.localScale.x < 0);
 
         //* アウトライン 消す
         var sr = curRoomObject.Sr;
