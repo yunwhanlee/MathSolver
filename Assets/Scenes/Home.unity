@@ -9964,6 +9964,8 @@ MonoBehaviour:
   funitureModeShadowFrameObj: {fileID: 886808597}
   funitureModeItem: {fileID: 0}
   roomObjectGroup: {fileID: 203068470}
+  wallSr: {fileID: 574249766}
+  floorSr: {fileID: 237028563}
 --- !u!1 &413508180
 GameObject:
   m_ObjectHideFlags: 0

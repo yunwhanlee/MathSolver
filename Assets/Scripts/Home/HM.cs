@@ -28,6 +28,8 @@ public class HM : MonoBehaviour {
     public GameObject funitureModeShadowFrameObj;
     public GameObject funitureModeItem;
     public GameObject roomObjectGroup;
+    public SpriteRenderer wallSr;
+    public SpriteRenderer floorSr;
 
     void Awake() => _ = this;
 

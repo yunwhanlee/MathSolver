@@ -156,17 +156,31 @@ public class FunitureUIManager : MonoBehaviour
         //* 購入
         if(DB.Dt.Coin > price) {
             Debug.Log("💰購入成功！！");
+            item.IsLock = false;
+            item.IsArranged = true;
+            DB.Dt.setCoin(-price);
+            //* 背景
             if(category == Enum.FUNITURE_CATE.Bg) {
-
+                if(item.Name.Contains(Enum.FUNITURE_BG.Wall.ToString())) {
+                    HM._.wallSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr;
+                }
+                else if(item.Name.Contains(Enum.FUNITURE_BG.Floor.ToString())) {
+                    HM._.floorSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr;
+                }
+                
+                //* ホームに戻す
+                infoDialog.SetActive(false);
+                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+                HM._.ui.onClickDecorateModeCloseBtn();
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
             }
+            //* 家具
             else {
-                item.IsLock = false;
-                item.IsArranged = true;
-                DB.Dt.setCoin(-price);
                 createFunitureItem(curSelectedItemIdx); //* 生成
                 HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-                onClickShopLeftArrow(); //* Unlock Item 最新化
             }
+            onClickShopLeftArrow(); //* Unlock Item 最新化
         }
         else {
             Debug.Log("😢 お金がたりない！！");
@@ -250,7 +264,7 @@ public class FunitureUIManager : MonoBehaviour
 
         GameObject pref = (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
-            : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx].Prefab
+            // : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx].Prefab
             : pref = DB.Dt.Mats[idx].Prefab;
 
         GameObject ins = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
