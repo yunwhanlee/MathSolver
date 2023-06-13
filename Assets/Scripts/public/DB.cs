@@ -60,9 +60,9 @@ public class DB : MonoBehaviour {
         //* Funiture型のオブジェクトのSpr変数を設定
         Array.ForEach(dt.Funitures, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Decorations, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-        Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
+        // Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-        
+
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region QUIT APP EVENT

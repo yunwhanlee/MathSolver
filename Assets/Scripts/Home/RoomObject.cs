@@ -10,7 +10,8 @@ public class RoomObject : MonoBehaviour {
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
 
     public void Start() {
-        if(HM._.state == HM.STATE.DECORATION_MODE) return;
+        // if(HM._.state == HM.STATE.DECORATION_MODE) return;
+
         sr = GetComponent<SpriteRenderer>();
         pivotOffsetHalfY = sr.bounds.size.y * 0.5f;
 

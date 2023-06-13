@@ -136,6 +136,7 @@ public class FunitureUIManager : MonoBehaviour
             infoDlgItemNameTxt.text = item.Name;
             infoDlgItemImg.sprite = item.Spr;
             infoDlgItemPriceTxt.text = item.Price.ToString();
+            Debug.Log($"onClickItemListBtn:: current Category= {category}");
         }
         //* 配置
         else {
@@ -155,15 +156,21 @@ public class FunitureUIManager : MonoBehaviour
         //* 購入
         if(DB.Dt.Coin > price) {
             Debug.Log("💰購入成功！！");
-            item.IsLock = false;
-            item.IsArranged = true;
-            DB.Dt.setCoin(-price);
-            createFunitureItem(curSelectedItemIdx); //* 生成
-            HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-            onClickShopLeftArrow(); //* Unlock Item 最新化
+            if(category == Enum.FUNITURE_CATE.Bg) {
+
+            }
+            else {
+                item.IsLock = false;
+                item.IsArranged = true;
+                DB.Dt.setCoin(-price);
+                createFunitureItem(curSelectedItemIdx); //* 生成
+                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+                onClickShopLeftArrow(); //* Unlock Item 最新化
+            }
         }
         else {
             Debug.Log("😢 お金がたりない！！");
+            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
         }
     }
 #endregion

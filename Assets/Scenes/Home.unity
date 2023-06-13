@@ -5789,7 +5789,7 @@ SpriteRenderer:
   m_SortingLayerID: 1282088723
   m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1708512666, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+  m_Sprite: {fileID: -427934318, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13738,7 +13738,7 @@ SpriteRenderer:
   m_SortingLayerID: 52928071
   m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1445291823, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 987724b39ec08e64b9edb308ad98c819, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -26871,7 +26871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 0
+  isReset: 1
   dt:
     funitures:
     - name: WoodChair
@@ -26945,7 +26945,217 @@ MonoBehaviour:
       isArranged: 0
       pos: {x: 0, y: 0}
       isFlat: 0
-    bgs: []
+    bgs:
+    - name: WoodWall
+      prefab: {fileID: 0}
+      spr: {fileID: 21300000, guid: 987724b39ec08e64b9edb308ad98c819, type: 3}
+      id: 0
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: RedDotWall
+      prefab: {fileID: 0}
+      spr: {fileID: -1491515517, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 0
+      price: 500
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: BubbleWall
+      prefab: {fileID: 0}
+      spr: {fileID: -691775248, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 2
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GreenTileWall
+      prefab: {fileID: 0}
+      spr: {fileID: 1180750009, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 3
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: StripeWall
+      prefab: {fileID: 0}
+      spr: {fileID: 1445291823, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 4
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: CheckedWall
+      prefab: {fileID: 0}
+      spr: {fileID: -479013973, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 5
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GreenWall
+      prefab: {fileID: 0}
+      spr: {fileID: -290668380, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 6
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: OcherWall
+      prefab: {fileID: 0}
+      spr: {fileID: 597538945, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 7
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GrayWall
+      prefab: {fileID: 0}
+      spr: {fileID: -303880232, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
+      id: 8
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: DiaTileFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -427934318, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 9
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: WhiteBrickFloor
+      prefab: {fileID: 0}
+      spr: {fileID: 1708512666, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 10
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GrayBrickFloor
+      prefab: {fileID: 0}
+      spr: {fileID: 234687418, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 11
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: TwistWoodFloor
+      prefab: {fileID: 0}
+      spr: {fileID: 576556790, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 12
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: RedWoodFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -1488029760, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 13
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: DiaWoodFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -481732201, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 14
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: WoodFloor
+      prefab: {fileID: 0}
+      spr: {fileID: 1094206353, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 15
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: WhiteWoodFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -819507181, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 16
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: DarkSquareFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -2006216212, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 17
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: LightSquareFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -1906946643, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 18
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: LightThickCrossFloor
+      prefab: {fileID: 0}
+      spr: {fileID: 610619071, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 19
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: BlueThinCrossFloor
+      prefab: {fileID: 0}
+      spr: {fileID: -430614764, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
+      id: 20
+      price: 0
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      pos: {x: 0, y: 0}
+      isFlat: 0
     mats:
     - name: RedCarpet
       prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
