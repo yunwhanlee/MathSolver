@@ -4,15 +4,15 @@ using UnityEngine;
 using System;
 
 public class RoomObject : MonoBehaviour {
-    const int REVERSE_Y = -1, 
-        PIVOT_OFFSET_Y = -1, 
-        OFFSET_Z = -1;
+    const int REVERSE_Y = -1, OFFSET_Z = -1;
+    [SerializeField] float pivotOffsetHalfY;
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
 
     public void Start() {
-        sr = GetComponent<SpriteRenderer>();
         if(HM._.state == HM.STATE.DECORATION_MODE) return;
+        sr = GetComponent<SpriteRenderer>();
+        pivotOffsetHalfY = sr.bounds.size.y * 0.5f;
 
         //* レイヤー
         setSortingOrderByPosY();
@@ -24,7 +24,7 @@ public class RoomObject : MonoBehaviour {
     private void OnMouseDown() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
 
-        Debug.Log("OnMouseDown");
+        Debug.Log($"OnMouseDown::");
         //* 既に選択されたオブジェクトが有ったら、他が選択できないように
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
         bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
@@ -40,10 +40,10 @@ public class RoomObject : MonoBehaviour {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
 
-        Debug.Log("OnMouseDrag");
+        Debug.Log($"OnMouseDrag::");
         HM._.ui.DecorateModePanel.SetActive(false);
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(transform.position.x, transform.position.y + PIVOT_OFFSET_Y, OFFSET_Z);
+        transform.position = new Vector3(transform.position.x, transform.position.y - pivotOffsetHalfY, OFFSET_Z);
     }
     private void OnMouseUp() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
