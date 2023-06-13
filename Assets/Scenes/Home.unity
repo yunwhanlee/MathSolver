@@ -276,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9238332}
   - component: {fileID: 9238331}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26898,97 +26898,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
       spr: {fileID: 0}
       id: 2
-      price: 6000
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
       price: 500
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
-      isLock: 0
-      isNotify: 0
-      isArranged: 0
-      pos: {x: 0, y: 0}
-      isFlat: 0
-    - name: WoodTable
-      prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
-      spr: {fileID: 0}
-      id: 2
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
@@ -51147,9 +51057,9 @@ GameObject:
   - component: {fileID: 3933582542411181124}
   - component: {fileID: 919039606154159899}
   - component: {fileID: 3945558930650804509}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Bookcase
-  m_TagString: Untagged
+  m_TagString: Bg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51257,4 +51167,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 0}
   isSelect: 0
-  isDecoration: 0

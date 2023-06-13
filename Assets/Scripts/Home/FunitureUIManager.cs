@@ -86,7 +86,7 @@ public class FunitureUIManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.layer2Name= {LayerMask.LayerToName(curSelectedObj.layer)}");
+        Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.tag= {curSelectedObj.tag}");
         Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
 
         //* アイテムが無かったら、BUGなので終了
@@ -172,18 +172,18 @@ public class FunitureUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
     private Funiture getCurObjLayer2FunitureItem(GameObject curSelObj) {
         //* レイヤーで種類を探す
-        var layerName = LayerMask.LayerToName(curSelObj.layer);
+        var tag = curSelObj.tag;
         Funiture item = null;
-        if(layerName == Enum.FUNITURE_CATE.Funiture.ToString()) {
+        if(tag == Enum.FUNITURE_CATE.Funiture.ToString()) {
             item = Array.Find(DB.Dt.Funitures, item => curSelObj.name == item.Name);
         }
-        else if(layerName == Enum.FUNITURE_CATE.Decoration.ToString()) {
+        else if(tag == Enum.FUNITURE_CATE.Decoration.ToString()) {
             item = Array.Find(DB.Dt.Decorations, item => curSelObj.name == item.Name);
         }
-        else if(layerName == Enum.FUNITURE_CATE.Bg.ToString()) {
+        else if(tag == Enum.FUNITURE_CATE.Bg.ToString()) {
             item = Array.Find(DB.Dt.Bgs, item => curSelObj.name == item.Name);
         }
-        else if(layerName == Enum.FUNITURE_CATE.Mat.ToString()) {
+        else if(tag == Enum.FUNITURE_CATE.Mat.ToString()) {
             item = Array.Find(DB.Dt.Mats, item => curSelObj.name == item.Name);
         }
 

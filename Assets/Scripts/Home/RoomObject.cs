@@ -9,24 +9,14 @@ public class RoomObject : MonoBehaviour {
         OFFSET_Z = -1;
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
-    [SerializeField] bool isDecoration; public bool IsDecoration  {get => isDecoration; set => isDecoration = value;}
 
     public void Start() {
         sr = GetComponent<SpriteRenderer>();
-
-        //* レイヤー
         if(HM._.state == HM.STATE.DECORATION_MODE) return;
 
-        if(isDecoration) {
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            var prSr = transform.parent.GetComponentInParent<SpriteRenderer>();
-            sr.sortingOrder = prSr.sortingOrder;
-            Debug.Log($"SORTING BB RoomObject:: isDecoration:: {sr.gameObject.name}.sortingOrder({sr.sortingOrder}) = {prSr.gameObject.name}.sortingOrder({prSr.sortingOrder})");
-        }
-        else {
-            setSortingOrderByPosY();
-            Debug.Log($"SORTING BB RoomObject:: {sr.gameObject.name}.sortingOrder= {sr.sortingOrder})");
-        }
+        //* レイヤー
+        setSortingOrderByPosY();
+        Debug.Log($"BBB Spr割り当て:: {sr.gameObject.name}.sortingOrder= {sr.sortingOrder})");
     }
 //---------------------------------------------------------------------------------------------------------------
 #region MOUSE EVENT
@@ -67,6 +57,7 @@ public class RoomObject : MonoBehaviour {
 #region FUNC
 //---------------------------------------------------------------------------------------------------------------
     public void setSortingOrderByPosY(bool backBefPos = false) {
+        Debug.Log($"setSortingOrderByPosY():: this.name= {this.name}");
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         if(backBefPos) transform.position = new Vector3(HM._.fUI.BefPos.x, HM._.fUI.BefPos.y, 0);
         sr = GetComponent<SpriteRenderer>();

@@ -6,6 +6,10 @@ TagManager:
   tags:
   - GoGame
   - IconBtnGroupArea
+  - Funiture
+  - Decoration
+  - Bg
+  - Mat
   layers:
   - Default
   - TransparentFX
@@ -13,10 +17,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Funiture
-  - Decoration
-  - Bg
-  - Mat
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
