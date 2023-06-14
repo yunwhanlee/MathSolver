@@ -44,19 +44,30 @@ public class HM : MonoBehaviour {
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     public void GoToLoadingScene() => SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
-    private void createFunitureItemsBySaveData(Funiture[] itemDts) {
-        Funiture[] arrangedItems = Array.FindAll(itemDts, item => item.IsArranged);
+    private void createFunitureItemsBySaveData(Item[] itemDts) {
+        Item[] arrangedItems = Array.FindAll(itemDts, item => item.IsArranged);
+
+        //* 系変換
         Array.ForEach(arrangedItems, item => {
-            GameObject ins = Instantiate(item.Prefab, HM._.ui.RoomObjectGroupTf);
-            //* 名(Clone) 削除
-            ins.name = ins.name.Split('(')[0]; 
-            //* 位置
-            ins.transform.position = item.Pos;
-            //* 反転
-            Vector2 sc = ins.transform.localScale;
-            ins.transform.localScale = new Vector2((item.IsFlat? -sc.x : sc.x), sc.y);
-            //* レイヤー
-            ins.GetComponent<RoomObject>().setSortingOrderByPosY();
+            if(item is Funiture ft) {
+                Debug.Log($"createFunitureItemsBySaveData():: funitures.len= {arrangedItems.Length}, item= {item.Name}");
+                GameObject ins = Instantiate(ft.Prefab, HM._.ui.RoomObjectGroupTf);
+                //* 名(Clone) 削除
+                ins.name = ins.name.Split('(')[0];
+                //* 位置
+                ins.transform.position = ft.Pos;
+                //* 反転
+                Vector2 sc = ins.transform.localScale;
+                ins.transform.localScale = new Vector2((ft.IsFlat ? -sc.x : sc.x), sc.y);
+                //* レイヤー
+                ins.GetComponent<RoomObject>().setSortingOrderByPosY();
+            }
+            else if (item is BgFuniture bg) {
+                if (bg.Type == BgFuniture.TYPE.Wall)
+                    wallSr.sprite = bg.Spr;
+                else if (bg.Type == BgFuniture.TYPE.Floor)
+                    floorSr.sprite = bg.Spr;
+            }
         });
     }
 #endregion

@@ -16,7 +16,7 @@ public abstract class ItemFrameBtn {
     [SerializeField] GameObject notifyObj; public GameObject NotifyObj {get => notifyObj; set => notifyObj = value;}
 
     public abstract void init();
-    public abstract void updateItemFrame(Funiture item);
+    public abstract void updateItemFrame(Item item);
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         arrangeFrameObj.SetActive(false);
     }
 
-    public override void updateItemFrame(Funiture item) {
+    public override void updateItemFrame(Item item) {
         try {
             Img.sprite = item.Spr;
             LockFrameObj.SetActive(item.IsLock);
@@ -57,7 +57,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
                 priceTxt.transform.parent.gameObject.SetActive(false);
         }
         catch(NullReferenceException err) {
-            Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullが有るかを確認してください。</color>" + "\n " + err);
+            Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);
         }
     }
 }
@@ -69,30 +69,37 @@ public class FunitureShopItemBtn : ItemFrameBtn {
 [System.Serializable]
 public abstract class Item {
     [SerializeField] string name;   public string Name {get => name;}
-    [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
     [SerializeField] Sprite spr;    public Sprite Spr {get => spr; set => spr = value;}
-    [SerializeField] int id;    public int Id {get => id; set => id = value;}
+    // [SerializeField] int id;    public int Id {get => id; set => id = value;}
     [SerializeField] int price; public int Price {get => price; set => price = value;}
     [SerializeField] bool isLock;    public bool IsLock {get => isLock; set => isLock = value;}
     [SerializeField] bool isNotify;    public bool IsNotify {get => isNotify; set => isNotify = value;}
+    [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
 
     public abstract void updateItem();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Funiture : Item {
-    [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
+    [Header("追加")]
+    [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
     [SerializeField] Vector2 pos;   public Vector2 Pos {get => pos; set => pos = value;}
     [SerializeField] bool isFlat;  public bool IsFlat {get => isFlat; set => isFlat = value;}
 
     Funiture() {
-        isArranged = false;
         pos = Vector2.zero;
         isFlat = false;
     }
-    public override void updateItem() {
+    public override void updateItem() {}
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class BgFuniture : Item {
+    public enum TYPE {Wall, Floor};
+    [Header("追加")]
+    [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
 
-    }
+    public override void updateItem() {}
 }
 
 #endregion

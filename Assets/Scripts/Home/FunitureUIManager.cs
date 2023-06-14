@@ -87,7 +87,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.tag= {curSelectedObj.tag}");
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj) as Funiture;
 
         //* アイテムが無かったら、BUGなので終了
         if(itemDt == null) return;
@@ -107,7 +107,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         float sx = curSelectedObj.transform.localScale.x * -1;
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj) as Funiture;
         curSelectedObj.transform.localScale = new Vector2(sx, 1);
 
     }
@@ -126,61 +126,24 @@ public class FunitureUIManager : MonoBehaviour
     public void onClickItemListBtn(int idx) {
         //* ペースも含めた 実際のINDEX
         curSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
-
-        //* Get Item
-        Funiture item = getSelectedItem(curSelectedItemIdx);
-
-        //* ロック
-        if(item.IsLock) {
-            infoDialog.SetActive(true);
-            infoDlgItemNameTxt.text = item.Name;
-            infoDlgItemImg.sprite = item.Spr;
-            infoDlgItemPriceTxt.text = item.Price.ToString();
-            Debug.Log($"onClickItemListBtn:: current Category= {category}");
-        }
-        //* 配置
-        else {
-            if(item.IsArranged) {
-                Debug.Log("既に配置されています。");
-                return;
-            }
-            createFunitureItem(curSelectedItemIdx); //* 生成
-            HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        //* Pattern Matching (Child Class)
+        Item item = getSelectedItem(curSelectedItemIdx);
+        switch(item) {
+            case Funiture ft:   setClickItem(ft); break;
+            case BgFuniture bg: setClickItem(bg); break;
         }
     }
     public void onClickInfoDialogPurchaseBtn() {
         //* Get Item
-        Funiture item = getSelectedItem(curSelectedItemIdx);
-        int price = item.Price;
+        Item item = getSelectedItem(curSelectedItemIdx);
 
         //* 購入
-        if(DB.Dt.Coin > price) {
+        if(DB.Dt.Coin > item.Price) {
             Debug.Log("💰購入成功！！");
+            DB.Dt.setCoin(-item.Price);
             item.IsLock = false;
-            item.IsArranged = true;
-            DB.Dt.setCoin(-price);
-            //* 背景
-            if(category == Enum.FUNITURE_CATE.Bg) {
-                if(item.Name.Contains(Enum.FUNITURE_BG.Wall.ToString())) {
-                    HM._.wallSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr;
-                }
-                else if(item.Name.Contains(Enum.FUNITURE_BG.Floor.ToString())) {
-                    HM._.floorSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr;
-                }
-                
-                //* ホームに戻す
-                infoDialog.SetActive(false);
-                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-                HM._.ui.onClickDecorateModeCloseBtn();
-                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
-                HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
-            }
-            //* 家具
-            else {
-                createFunitureItem(curSelectedItemIdx); //* 生成
-                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-            }
-            onClickShopLeftArrow(); //* Unlock Item 最新化
+
+            displayItem(item);
         }
         else {
             Debug.Log("😢 お金がたりない！！");
@@ -191,10 +154,67 @@ public class FunitureUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    private Funiture getCurObjLayer2FunitureItem(GameObject curSelObj) {
+    private void setClickItem(Item item){
+        //* ロック
+        if(item.IsLock) {
+            infoDialog.SetActive(true);
+            infoDlgItemNameTxt.text = item.Name;
+            infoDlgItemImg.sprite = item.Spr;
+            infoDlgItemPriceTxt.text = item.Price.ToString();
+            Debug.Log($"onClickItemListBtn:: current Category= {category}");
+            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
+        }
+        //* 配置
+        else {
+            if(item.IsArranged) {
+                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
+                return;
+            }
+
+            displayItem(item);
+        }
+    }
+    private void setWallSprite() {
+        var walls = Array.FindAll(DB.Dt.Bgs, item => item.Type == BgFuniture.TYPE.Wall);
+        Array.ForEach(walls, wall => wall.IsArranged = false); //* 単一だからInArrange全てFalseに初期化
+        HM._.wallSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr; //* 画像
+    }
+    private void setFloorSprite() {
+        var floors = Array.FindAll(DB.Dt.Bgs, item => item.Type == BgFuniture.TYPE.Wall);
+        Array.ForEach(floors, floor => floor.IsArranged = false); //* 単一だからInArrange全てFalseに初期化
+        HM._.floorSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr; //* 画像
+    }
+
+    private void displayItem(Item item) {
+        switch(item) {
+            case Funiture ft:
+                createFunitureItem(curSelectedItemIdx); //* 生成
+                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+                break;
+            case BgFuniture bg:
+                //* 画像 (タイプによって)
+                if(bg.Type == BgFuniture.TYPE.Wall)
+                    setWallSprite();
+                else if(bg.Type == BgFuniture.TYPE.Floor)
+                    setFloorSprite();
+
+                //* ホームに戻す
+                infoDialog.SetActive(false);
+                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+                HM._.ui.onClickDecorateModeCloseBtn();
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
+                break;
+        }
+        item.IsArranged = true;
+
+        //* ボタン UI最新化
+        onClickShopLeftArrow(); 
+    }
+    private Item getCurObjLayer2FunitureItem(GameObject curSelObj) {
         //* レイヤーで種類を探す
         var tag = curSelObj.tag;
-        Funiture item = null;
+        Item item = null;
         if(tag == Enum.FUNITURE_CATE.Funiture.ToString()) {
             item = Array.Find(DB.Dt.Funitures, item => curSelObj.name == item.Name);
         }
@@ -223,10 +243,10 @@ public class FunitureUIManager : MonoBehaviour
             : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs.Length
             : DB.Dt.Mats.Length;
     }
-    private Funiture getSelectedItem(int idx) {
+    private Item getSelectedItem(int idx) {
         return (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx]
             : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx]
-            : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx]
+            : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx] as BgFuniture
             : DB.Dt.Mats[idx];
     }
     private void setPageByArrowBtn(int pageDir) { // @param pageDir : -1(Left) or 1(Right)
@@ -243,7 +263,7 @@ public class FunitureUIManager : MonoBehaviour
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
         int end = Mathf.Clamp(start + ITEM_BTN_CNT, min: start, max: len);
-        Debug.Log($"showItemList():: getCategoryItemLenght= {len}");
+        Debug.Log($"showItemList():: cate={category}, getCategoryItemLenght= {len}");
 
         //* ページ 表示
         const int PG_IDX_OFFSET = 1;
@@ -252,8 +272,13 @@ public class FunitureUIManager : MonoBehaviour
         //* 画像 表示
         for(int i = start; i < end; i++) {
             FunitureShopItemBtn itemBtn = itemBtns[i % ITEM_BTN_CNT];
-            Funiture item = getSelectedItem(i);
-            itemBtn.updateItemFrame(item);
+            Item item = getSelectedItem(i);
+
+            //* Parent <-Pattern Mathcing <- Child 
+            switch(item) {
+                case Funiture ft:   itemBtn.updateItemFrame(ft);   break;
+                case BgFuniture bg: itemBtn.updateItemFrame(bg);   break;
+            }
         }
 
         //* 有効なフレームのみ 表示
@@ -299,7 +324,7 @@ public class FunitureUIManager : MonoBehaviour
         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
 
         //* 位置データ 保存
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj);
+        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj) as Funiture;
         float x = (float)Math.Round(tf.position.x, 3);
         float y = (float)Math.Round(tf.position.y, 3);
         itemDt.Pos = new Vector2(x, y);

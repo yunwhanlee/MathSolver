@@ -15,7 +15,7 @@ public class Data {
     [Header("FUNITURE ITEM DATA")]
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
     [SerializeField] Funiture[] decorations;    public Funiture[] Decorations {get => decorations; set => decorations = value;}
-    [SerializeField] Funiture[] bgs;    public Funiture[] Bgs {get => bgs; set => bgs = value;}
+    [SerializeField] BgFuniture[] bgs;    public BgFuniture[] Bgs {get => bgs; set => bgs = value;}
     [SerializeField] Funiture[] mats;    public Funiture[] Mats {get => mats; set => mats = value;}
 
     [Header("VALUE")]
@@ -56,7 +56,7 @@ public class DB : MonoBehaviour {
         else dt = load();
 
         //? SINGLETONの場合、DontDestroyOnLoad
-        Debug.Log("AAA Spr割り当て");
+        Debug.Log("Inspectorビュー、item.Spr割り当て");
         //* Funiture型のオブジェクトのSpr変数を設定
         Array.ForEach(dt.Funitures, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Decorations, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
@@ -127,12 +127,12 @@ public class DB : MonoBehaviour {
         //* 位置
         Array.ForEach(dt.Funitures, item => item.Pos = Vector3.zero);
         Array.ForEach(dt.Decorations, item => item.Pos = Vector3.zero);
-        Array.ForEach(dt.Bgs, item => item.Pos = Vector3.zero);
+        // Array.ForEach(dt.Bgs, item => item.Pos = Vector3.zero);
         Array.ForEach(dt.Mats, item => item.Pos = Vector3.zero);
         //* 反転
         Array.ForEach(dt.Funitures, item => item.IsFlat = false);
         Array.ForEach(dt.Decorations, item => item.IsFlat = false);
-        Array.ForEach(dt.Bgs, item => item.IsFlat = false);
+        // Array.ForEach(dt.Bgs, item => item.IsFlat = false);
         Array.ForEach(dt.Mats, item => item.IsFlat = false);
     }
 #endregion
