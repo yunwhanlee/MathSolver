@@ -38,6 +38,8 @@ public class DB : MonoBehaviour {
     public static DB _ {get; private set;}
     [SerializeField] bool isReset;
     const string Database = "DB";
+    const int DEF_WALL_IDX = 0;
+    const int DEF_FLOOR_IDX = 9;
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
         if(isReset) reset();
@@ -60,7 +62,7 @@ public class DB : MonoBehaviour {
         //* Funiture型のオブジェクトのSpr変数を設定
         Array.ForEach(dt.Funitures, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Decorations, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-        // Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
+        //// Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
 
     }
@@ -120,20 +122,26 @@ public class DB : MonoBehaviour {
         //* 財貨
         dt.Coin = 5000;
         //* ロック
-        Array.ForEach(dt.Funitures, item => item.IsLock = true);
-        Array.ForEach(dt.Decorations, item => item.IsLock = true);
-        Array.ForEach(dt.Bgs, item => item.IsLock = true);
-        Array.ForEach(dt.Mats, item => item.IsLock = true);
+        Array.ForEach(dt.Funitures, ft => ft.IsLock = true);
+        int i=0;
+        Array.ForEach(dt.Decorations, dc => {
+            if(i == DEF_WALL_IDX)   dc.IsLock = false;
+            else if(i == DEF_FLOOR_IDX)   dc.IsLock = false;
+            else dc.IsLock = true;
+            i++;
+        });
+        Array.ForEach(dt.Bgs, bg => bg.IsLock = true);
+        Array.ForEach(dt.Mats, mt => mt.IsLock = true);
         //* 位置
-        Array.ForEach(dt.Funitures, item => item.Pos = Vector3.zero);
-        Array.ForEach(dt.Decorations, item => item.Pos = Vector3.zero);
-        // Array.ForEach(dt.Bgs, item => item.Pos = Vector3.zero);
-        Array.ForEach(dt.Mats, item => item.Pos = Vector3.zero);
+        Array.ForEach(dt.Funitures, ft => ft.Pos = Vector3.zero);
+        Array.ForEach(dt.Decorations, dc => dc.Pos = Vector3.zero);
+        //// Array.ForEach(dt.Bgs, item => item.Pos = Vector3.zero);
+        Array.ForEach(dt.Mats, mt => mt.Pos = Vector3.zero);
         //* 反転
-        Array.ForEach(dt.Funitures, item => item.IsFlat = false);
-        Array.ForEach(dt.Decorations, item => item.IsFlat = false);
-        // Array.ForEach(dt.Bgs, item => item.IsFlat = false);
-        Array.ForEach(dt.Mats, item => item.IsFlat = false);
+        Array.ForEach(dt.Funitures, ft => ft.IsFlat = false);
+        Array.ForEach(dt.Decorations, dc => dc.IsFlat = false);
+        //// Array.ForEach(dt.Bgs, item => item.IsFlat = false);
+        Array.ForEach(dt.Mats, mt => mt.IsFlat = false);
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------

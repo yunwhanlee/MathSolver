@@ -21,7 +21,7 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
     [Header("INFO DIALOG")]
-    [SerializeField] int curSelectedItemIdx;
+    [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
     [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
     [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;
     [SerializeField] Image infoDlgItemImg;
@@ -81,7 +81,6 @@ public class FunitureUIManager : MonoBehaviour
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
         if(!curSelectedObj) {
-            // HM._.ui.onClickDecorateModeCloseBtn();
             HM._.ui.showErrorMsgPopUp("삭제할 아이템을 선택해주세요!");
             return;
         }
@@ -101,7 +100,6 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickFunitureModeItemFlatBtn() {
         if(!curSelectedObj) {
-            // HM._.ui.onClickDecorateModeCloseBtn();
             HM._.ui.showErrorMsgPopUp("반전시킬 아이템을 선택해주세요!");
             return;
         }
@@ -113,7 +111,6 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickFunitureModeItemSetUpBtn() {
         if(!curSelectedObj) {
-            // HM._.ui.onClickDecorateModeCloseBtn();
             HM._.ui.showErrorMsgPopUp("배치할 아이템을 선택해주세요!");
             return;
         }
@@ -173,45 +170,16 @@ public class FunitureUIManager : MonoBehaviour
             displayItem(item);
         }
     }
-    private Transform setWallSprite() {
-        var walls = Array.FindAll(DB.Dt.Bgs, item => item.Type == BgFuniture.TYPE.Wall);
-        Array.ForEach(walls, wall => wall.IsArranged = false); //* 単一だからInArrange全てFalseに初期化
-        HM._.wallSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr; //* 画像
-        return HM._.wallSr.transform;
-    }
-    private Transform setFloorSprite() {
-        var floors = Array.FindAll(DB.Dt.Bgs, item => item.Type == BgFuniture.TYPE.Wall);
-        Array.ForEach(floors, floor => floor.IsArranged = false); //* 単一だからInArrange全てFalseに初期化
-        HM._.floorSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr; //* 画像
-        return HM._.floorSr.transform;
-    }
 
     private void displayItem(Item item) {
         switch(item) {
             case Funiture ft:
-                createFunitureItem(curSelectedItemIdx); //* 生成
+                // createFunitureItem(curSelectedItemIdx); //* 生成
+                ft.create();
                 HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
                 break;
             case BgFuniture bg:
-                Transform objTf = null;
-
-                //* 画像 (タイプによって)
-                if(bg.Type == BgFuniture.TYPE.Wall){
-                    objTf = setWallSprite();
-                }
-                else if(bg.Type == BgFuniture.TYPE.Floor){
-                    objTf = setFloorSprite();
-                }
-
-                //* ホームに戻す
-                infoDialog.SetActive(false);
-                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-                HM._.ui.onClickDecorateModeCloseBtn();
-                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
-                HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
-                
-                //* 効果
-                HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.delay2);
+                bg.create();
                 break;
         }
         item.IsArranged = true;

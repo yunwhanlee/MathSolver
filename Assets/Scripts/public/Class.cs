@@ -76,7 +76,7 @@ public abstract class Item {
     [SerializeField] bool isNotify;    public bool IsNotify {get => isNotify; set => isNotify = value;}
     [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
 
-    public abstract void updateItem();
+    public abstract void create();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
@@ -90,7 +90,36 @@ public class Funiture : Item {
         pos = Vector2.zero;
         isFlat = false;
     }
-    public override void updateItem() {}
+
+    public override void create() {
+        HM._.state = HM.STATE.DECORATION_MODE;
+        var fui = HM._.fUI;
+        int idx = fui.CurSelectedItemIdx;
+
+        GameObject pref = (fui.Category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
+            : (fui.Category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
+            : pref = DB.Dt.Mats[idx].Prefab;
+
+        //! GameObject ins = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
+        GameObject ins = Util.instantiateObj(pref, HM._.ui.RoomObjectGroupTf);
+        ins.name = ins.name.Split('(')[0]; //* 名(Clone) 削除
+        RoomObject rObj = ins.GetComponent<RoomObject>();
+        rObj.Start(); //* 初期化 必要
+
+        rObj.IsSelect = true;
+        rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
+        fui.CurSelectedObj = rObj.gameObject;
+        fui.InfoDialog.SetActive(false);
+        HM._.ui.DecorateModePanel.SetActive(true);
+
+        //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
+        const float OFFSET_Z = -1;
+        rObj.transform.position = new Vector3(rObj.transform.position.x, rObj.transform.position.y, OFFSET_Z);
+
+        //* 飾りモードの影よりレイヤーを前に配置
+        rObj.Sr.sortingOrder = 100;
+        Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
+    }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
@@ -99,7 +128,29 @@ public class BgFuniture : Item {
     [Header("追加")]
     [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
 
-    public override void updateItem() {}
+    public override void create() {
+        //* 画像 (タイプによって)
+        Transform objTf = setSpriteByType();
+        //* 効果
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.delay2);
+        //* ホームに戻す
+        HM._.fUI.InfoDialog.SetActive(false);
+        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        HM._.ui.onClickDecorateModeCloseBtn();
+        HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
+        HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
+    }
+    private Transform setSpriteByType() {
+        SpriteRenderer sr = (this.type == TYPE.Wall)? HM._.wallSr : HM._.floorSr;
+        BgFuniture[] items = Array.FindAll(DB.Dt.Bgs, item => item.Type == this.type);
+
+        //* 単一だからInArrange全てFalseに初期化
+        Array.ForEach(items, item => item.IsArranged = false); 
+        //* 画像
+        sr.sprite = DB.Dt.Bgs[HM._.fUI.CurSelectedItemIdx].Spr; 
+        return sr.transform;
+    }
+
 }
 
 #endregion
