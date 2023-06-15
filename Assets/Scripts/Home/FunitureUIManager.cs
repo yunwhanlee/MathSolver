@@ -119,7 +119,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurObjLayer2FunitureItem(curSelectedObj)}");
-        StartCoroutine(HM._.em.coShowEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.delay2));
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.delay2);
         setUpFunitureModeItem();
         HM._.ui.setDecorationMode(isActive: false);
     }
@@ -138,11 +138,10 @@ public class FunitureUIManager : MonoBehaviour
         Item item = getSelectedItem(curSelectedItemIdx);
 
         //* 購入
-        if(DB.Dt.Coin > item.Price) {
+        if(DB.Dt.Coin >= item.Price) {
             Debug.Log("💰購入成功！！");
             DB.Dt.setCoin(-item.Price);
             item.IsLock = false;
-
             displayItem(item);
         }
         else {
@@ -174,15 +173,17 @@ public class FunitureUIManager : MonoBehaviour
             displayItem(item);
         }
     }
-    private void setWallSprite() {
+    private Transform setWallSprite() {
         var walls = Array.FindAll(DB.Dt.Bgs, item => item.Type == BgFuniture.TYPE.Wall);
         Array.ForEach(walls, wall => wall.IsArranged = false); //* 単一だからInArrange全てFalseに初期化
         HM._.wallSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr; //* 画像
+        return HM._.wallSr.transform;
     }
-    private void setFloorSprite() {
+    private Transform setFloorSprite() {
         var floors = Array.FindAll(DB.Dt.Bgs, item => item.Type == BgFuniture.TYPE.Wall);
         Array.ForEach(floors, floor => floor.IsArranged = false); //* 単一だからInArrange全てFalseに初期化
         HM._.floorSr.sprite = DB.Dt.Bgs[curSelectedItemIdx].Spr; //* 画像
+        return HM._.floorSr.transform;
     }
 
     private void displayItem(Item item) {
@@ -192,11 +193,15 @@ public class FunitureUIManager : MonoBehaviour
                 HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
                 break;
             case BgFuniture bg:
+                Transform objTf = null;
+
                 //* 画像 (タイプによって)
-                if(bg.Type == BgFuniture.TYPE.Wall)
-                    setWallSprite();
-                else if(bg.Type == BgFuniture.TYPE.Floor)
-                    setFloorSprite();
+                if(bg.Type == BgFuniture.TYPE.Wall){
+                    objTf = setWallSprite();
+                }
+                else if(bg.Type == BgFuniture.TYPE.Floor){
+                    objTf = setFloorSprite();
+                }
 
                 //* ホームに戻す
                 infoDialog.SetActive(false);
@@ -204,6 +209,9 @@ public class FunitureUIManager : MonoBehaviour
                 HM._.ui.onClickDecorateModeCloseBtn();
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
+                
+                //* 効果
+                HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.delay2);
                 break;
         }
         item.IsArranged = true;

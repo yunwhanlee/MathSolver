@@ -36,7 +36,9 @@ public class HEM : MonoBehaviour //* Home Effect Manager
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNCTION (POOL TYPE) ★Coroutine！
 /// -----------------------------------------------------------------------------------------------------------------
-    public IEnumerator coShowEF(int idx, Vector3 position, WaitForSeconds delay){
+    public void showEF(int idx, Vector3 pos, WaitForSeconds delay)
+        => StartCoroutine(coShowEF(idx, pos, delay));
+    private IEnumerator coShowEF(int idx, Vector3 position, WaitForSeconds delay){
         GameObject effect = pool[idx].Get();
         Debug.Log($"coShowEF(idx={idx}, pos={position}):: -> {effect.name}");
         effect.transform.position = position;
