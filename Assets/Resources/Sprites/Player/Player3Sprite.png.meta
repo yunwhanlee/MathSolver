@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1deed9d6b7747a4f8a00e4acfc7f272
+guid: b76086d32ba0e854cbdcb9669f090556
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -103,90 +103,27 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 47
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pet_mangoSprite-sheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 78b76d43baa7dc24694b327b498010a6
-      internalID: 1857254394
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pet_mangoSprite-sheet_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e08932884cdef264da0fd118ae9c99f3
-      internalID: -735087023
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pet_mangoSprite-sheet_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f6853c23f26cac144a173b0ed7ce6a23
-      internalID: 1932084133
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pet_mangoSprite-sheet_3
+      name: Player3Sprite_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
-        height: 256
+        height: 336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec5ba52c4a10f20468b070b51a398d50
-      internalID: 2056432285
+      spriteID: ae9386fb08ad8174595fbf0a462ac9fa
+      internalID: 1747765063
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_mangoSprite-sheet_4
+      name: Player3Sprite_1
       rect:
         serializedVersion: 2
         x: 256
         y: 0
         width: 256
-        height: 256
+        height: 336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9bbfcc4573c95342be9d04efd9f9d9d
-      internalID: 1050773226
+      spriteID: 75ed0e2907bb80c49972c116f2f74e0d
+      internalID: 866426913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_mangoSprite-sheet_5
+      name: Player3Sprite_2
       rect:
         serializedVersion: 2
         x: 512
         y: 0
         width: 256
-        height: 256
+        height: 336
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +173,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84a3522a66feaa94aa85cc07b49725d9
-      internalID: -879270041
+      spriteID: 8fc79f4f768f5d04abb4ec3ad62a6c55
+      internalID: -598611496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player3Sprite_3
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 256
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce67e060bc9a3d54e80d3bce3f3dc194
+      internalID: -111052942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player3Sprite_4
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 256
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4331faaed8721a946928d08e8286ffe4
+      internalID: -1399679601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player3Sprite_5
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 256
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dcbd6c2a21cc744ba84df2668205eb9
+      internalID: 672751784
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pet_mangoSprite-sheet_0: 1857254394
-      pet_mangoSprite-sheet_1: -735087023
-      pet_mangoSprite-sheet_2: 1932084133
-      pet_mangoSprite-sheet_3: 2056432285
-      pet_mangoSprite-sheet_4: 1050773226
-      pet_mangoSprite-sheet_5: -879270041
+      Player3Sprite_0: 1747765063
+      Player3Sprite_1: 866426913
+      Player3Sprite_2: -598611496
+      Player3Sprite_3: -111052942
+      Player3Sprite_4: -1399679601
+      Player3Sprite_5: 672751784
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
