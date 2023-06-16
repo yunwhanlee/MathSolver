@@ -19,9 +19,9 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: Entry
       m_Hash: 719368820
-      m_Sprite: {fileID: -1258313064, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_Sprite: {fileID: 494831968, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -1258313064, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_SpriteOverride: {fileID: 494831968, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 1
   - m_Name: Walk
@@ -30,14 +30,14 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: Entry
       m_Hash: 719368820
-      m_Sprite: {fileID: -641509986, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_Sprite: {fileID: 1671179052, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -641509986, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_SpriteOverride: {fileID: 1671179052, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
     - m_Name: Entry_0
       m_Hash: 874506106
-      m_Sprite: {fileID: -2087090550, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_Sprite: {fileID: -1255406300, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -2087090550, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_SpriteOverride: {fileID: -1255406300, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 2
   - m_Name: Dance
@@ -62,9 +62,9 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: Entry
       m_Hash: 719368820
-      m_Sprite: {fileID: -1050968745, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_Sprite: {fileID: 1111010497, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: -1050968745, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_SpriteOverride: {fileID: 1111010497, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 1
   - m_Name: Fail
@@ -73,9 +73,9 @@ MonoBehaviour:
     m_OverrideEntries:
     - m_Name: Entry
       m_Hash: 719368820
-      m_Sprite: {fileID: 583849486, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_Sprite: {fileID: 2094949012, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
       m_FromMain: 0
-      m_SpriteOverride: {fileID: 583849486, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      m_SpriteOverride: {fileID: 2094949012, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 

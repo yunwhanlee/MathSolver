@@ -1271,8 +1271,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 50844845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: -1.08, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.75, z: 1}
+  m_LocalPosition: {x: 0.038, y: -0.558, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 64751378}
@@ -1663,8 +1663,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64751377}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.22, y: 1.473, z: -1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 50844846}
@@ -1712,7 +1712,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1932084133, guid: b1deed9d6b7747a4f8a00e4acfc7f272, type: 3}
+  m_Sprite: {fileID: -214582146, guid: 786ab6b2cf10bac4ba009aebd320525e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -26904,7 +26904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 0
+  isReset: 1
   dt:
     funitures:
     - name: WoodChair
@@ -27137,12 +27137,37 @@ MonoBehaviour:
       pos: {x: 0, y: 0}
       isFlat: 0
     plSkins:
-      name: Player1
+    - name: Player1
       spr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      sprLibraryAsset: {fileID: 0}
+      sprLibraryAsset: {fileID: 7108339969198208228, guid: 3eeac3595846f9a4ca3ed79481fe2447, type: 3}
+    - name: Player2
+      spr: {fileID: 547583383, guid: 8b0f9d4277448d64aa81b4927b2c71dc, type: 3}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 7108339969198208228, guid: cd61066f6705c654b9b8b57f1c5360f8, type: 3}
+    - name: Player3
+      spr: {fileID: 1747765063, guid: b76086d32ba0e854cbdcb9669f090556, type: 3}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 7108339969198208228, guid: 44962de9c17bb13428955125b45fa7bf, type: 3}
+    petSkins:
+    - name: PetMango
+      spr: {fileID: -1507869740, guid: 786ab6b2cf10bac4ba009aebd320525e, type: 3}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 7108339969198208228, guid: de0e0311dd6e9524581ef1edcea056dd, type: 3}
+    - name: PetSweetPotato
+      spr: {fileID: -239914046, guid: 05604764d7e6b204591098b19caf06e5, type: 3}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 7108339969198208228, guid: 8cd8444bc64f4944593c8434f4c32970, type: 3}
     coin: 0
     playerId: 0
     petId: 0
@@ -32701,7 +32726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327448379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.55, y: 1.16, z: 0}
+  m_LocalPosition: {x: 1.55, y: 0.12699997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32822,6 +32847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   col: {fileID: 1327448383}
   anim: {fileID: 1327448385}
+  sprLib: {fileID: 1327448387}
   sr: {fileID: 1327448381}
   idleSpr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
   moveSpeed: 2

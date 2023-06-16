@@ -12,14 +12,15 @@ using System;
 public class Data {
     //* Value
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
-    [Header("FUNITURE ITEM DATA")]
+    [Header("FUNITURE ITEM")]
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
     [SerializeField] Funiture[] decorations;    public Funiture[] Decorations {get => decorations; set => decorations = value;}
     [SerializeField] BgFuniture[] bgs;    public BgFuniture[] Bgs {get => bgs; set => bgs = value;}
     [SerializeField] Funiture[] mats;    public Funiture[] Mats {get => mats; set => mats = value;}
 
-    [Header("PLAYERSKIN ITEM DATA")]
-    [SerializeField] PlayerSkin plSkins;    public PlayerSkin PlSkins {get => plSkins; set => plSkins = value;}
+    [Header("PLAYERSKIN ITEM")]
+    [SerializeField] PlayerSkin[] plSkins;    public PlayerSkin[] PlSkins {get => plSkins; set => plSkins = value;}
+    [SerializeField] PetSkin[] petSkins;   public PetSkin[] PetSkins {get => petSkins; set => petSkins = value;}
 
     [Header("VALUE")]
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
@@ -47,7 +48,7 @@ public class DB : MonoBehaviour {
     void Awake() {
         if(isReset) reset();
 
-    #region SINGLETON
+        #region SINGLETON
         Debug.Log($"Awake {_ == null}");
         if(_ == null) {
             _ = this;
@@ -55,7 +56,7 @@ public class DB : MonoBehaviour {
         }
         else
             Destroy(this.gameObject);
-    #endregion
+        #endregion
 
         if(load() == null) reset();
         else dt = load();
@@ -69,9 +70,9 @@ public class DB : MonoBehaviour {
         Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
 
     }
-/// -----------------------------------------------------------------------------------------------------------------
-#region QUIT APP EVENT
-/// -----------------------------------------------------------------------------------------------------------------
+    /// -----------------------------------------------------------------------------------------------------------------
+    #region QUIT APP EVENT
+    /// -----------------------------------------------------------------------------------------------------------------
     #if UNITY_EDITOR
         void OnApplicationQuit() {
             Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
@@ -86,20 +87,20 @@ public class DB : MonoBehaviour {
             }
         }
     #endif
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region SAVE
-/// -----------------------------------------------------------------------------------------------------------------
+    #endregion
+    /// -----------------------------------------------------------------------------------------------------------------
+    #region SAVE
+    /// -----------------------------------------------------------------------------------------------------------------
     public void save() {
         PlayerPrefs.SetString(Database, JsonUtility.ToJson(dt, true)); //* Serialize To Json
         //* Print
         string json = PlayerPrefs.GetString(Database);
         Debug.Log($"★SAVE:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}, Data ={json}");
     }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region LOAD
-/// -----------------------------------------------------------------------------------------------------------------
+    #endregion
+    /// -----------------------------------------------------------------------------------------------------------------
+    #region LOAD
+    /// -----------------------------------------------------------------------------------------------------------------
     public Data load() {
         //* (BUG)最初の実行だったら、ロードデータがないから、リセットして初期化。
         if(!PlayerPrefs.HasKey(Database)){            
@@ -112,10 +113,10 @@ public class DB : MonoBehaviour {
         Data dt = JsonUtility.FromJson<Data>(json); 
         return dt;
     }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region RESET
-/// -----------------------------------------------------------------------------------------------------------------
+    #endregion
+    /// -----------------------------------------------------------------------------------------------------------------
+    #region RESET
+    /// -----------------------------------------------------------------------------------------------------------------
     public void reset() {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
@@ -126,15 +127,11 @@ public class DB : MonoBehaviour {
         //* 財貨
         dt.Coin = 5000;
 
-        //* 家具 *//
+        #region FUNITURE
         //* ロック
         Array.ForEach(dt.Funitures, ft => ft.IsLock = true);
         Array.ForEach(dt.Decorations, dc => dc.IsLock = true);
-        Array.ForEach(dt.Bgs, bg => {
-            bool isDefault = (bg.Name == "Wall" || bg.Name == "Floor");
-            bg.IsLock = !isDefault;
-            bg.IsArranged = isDefault;
-        });
+        Array.ForEach(dt.Bgs, bg => bg.IsLock = true);
         Array.ForEach(dt.Mats, mt => mt.IsLock = true);
 
         //* 位置
@@ -148,11 +145,27 @@ public class DB : MonoBehaviour {
         Array.ForEach(dt.Decorations, dc => dc.IsFlat = false);
         //// Array.ForEach(dt.Bgs, item => item.IsFlat = false);
         Array.ForEach(dt.Mats, mt => mt.IsFlat = false);
+
+        //* Wall 最初IDXのみ ON
+        BgFuniture defualtWall = Array.Find(dt.Bgs, bg => bg.Name == "Wall");
+        defualtWall.IsLock = false;
+        defualtWall.IsArranged = true;
+        //* Floor 最初IDXのみ ON
+        BgFuniture defualtFloor = Array.Find(dt.Bgs, bg => bg.Name == "Floor");
+        defualtFloor.IsLock = false;
+        defualtFloor.IsArranged = true;
+        #endregion
+
+        #region INVENTORY
+        //* ロック
+        Array.ForEach(dt.PlSkins, plSk => plSk.IsLock = true);
+        Array.ForEach(dt.PetSkins, petSk => petSk.IsLock = true);
+
+        //* Player 最初IDXのみ ON
+        dt.PlSkins[0].IsLock = false;
+        dt.PlSkins[0].IsArranged = true;
+        #endregion
     }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region FUNC
-/// -----------------------------------------------------------------------------------------------------------------
+    #endregion
 #endregion
 }
-#endregion

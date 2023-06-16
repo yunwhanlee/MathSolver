@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 05604764d7e6b204591098b19caf06e5
+guid: a787affc70904814fb14ff8fa6d112cb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 250
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,9 +103,9 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
-    textureFormat: 65
+    textureFormat: 51
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pet_SweetPotatoSprites 1_0
+      name: PetSweetPotato_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 388
-        width: 236
-        height: 388
+        y: 375
+        width: 300
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3807959fc0e6474b8b18812271c8876
-      internalID: -1258313064
+      spriteID: 0d5b4a2e87a0c4b42aeec8312071adbb
+      internalID: 494831968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_SweetPotatoSprites 1_1
+      name: PetSweetPotato_1
       rect:
         serializedVersion: 2
-        x: 236
-        y: 388
-        width: 236
-        height: 388
+        x: 300
+        y: 375
+        width: 300
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ad6d1dc390844640a1a08e1f22a1d17
-      internalID: -641509986
+      spriteID: f96b2c3688cb282488d42647a2e93a60
+      internalID: 1111010497
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_SweetPotatoSprites 1_2
+      name: PetSweetPotato_2
       rect:
         serializedVersion: 2
-        x: 472
-        y: 388
-        width: 236
-        height: 388
+        x: 600
+        y: 375
+        width: 300
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9a8168961a249146b32e8144ae636ff
-      internalID: -2087090550
+      spriteID: c413dff2178b1a848b13175f92a07035
+      internalID: 2094949012
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_SweetPotatoSprites 1_3
+      name: PetSweetPotato_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 236
-        height: 388
+        width: 300
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c25cbb3d5da6e04bbc8c1d7bc36448e
-      internalID: -1050968745
+      spriteID: 5664ac6b2c1f38340a1e60ba75ae2702
+      internalID: 1671179052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_SweetPotatoSprites 1_4
+      name: PetSweetPotato_4
       rect:
         serializedVersion: 2
-        x: 236
+        x: 300
         y: 0
-        width: 236
-        height: 388
+        width: 300
+        height: 375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98b48d12376f6374ea6ef26be613e7e4
-      internalID: 583849486
+      spriteID: 4270febddfb831e45a314e3745078445
+      internalID: -1255406300
       vertices: []
       indices: 
       edges: []
@@ -232,11 +232,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pet_SweetPotatoSprites 1_0: -1258313064
-      pet_SweetPotatoSprites 1_1: -641509986
-      pet_SweetPotatoSprites 1_2: -2087090550
-      pet_SweetPotatoSprites 1_3: -1050968745
-      pet_SweetPotatoSprites 1_4: 583849486
+      PetSweetPotato_0: 494831968
+      PetSweetPotato_1: 1111010497
+      PetSweetPotato_2: 2094949012
+      PetSweetPotato_3: 1671179052
+      PetSweetPotato_4: -1255406300
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

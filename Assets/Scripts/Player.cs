@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class Player : MonoBehaviour {
     
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour {
     const float MAX_Y = 2.0f;
 
     [Header("VALUE")]
+    [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
@@ -26,9 +28,12 @@ public class Player : MonoBehaviour {
         tf = transform;
         tgPos = transform.position;
         col = GetComponent<Collider2D>();
+        sprLib = GetComponent<SpriteLibrary>();
+        // sprLib.spriteLibraryAsset = DB.Dt.PlSkins[0].SprLibraryAsset;
     }
 
     void Update() {
+        
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
         if(HM._.state != HM.STATE.NORMAL) return;
 

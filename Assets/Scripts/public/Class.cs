@@ -200,9 +200,7 @@ public class BgFuniture : Item {
     public override void purchase() => base.purchase();
     public override void arrange() => base.arrange();
 
-/// -----------------------------------------------------------------------------------------------------------------
-#region Priavate Func
-/// -----------------------------------------------------------------------------------------------------------------
+    #region Priavate Func
     private Transform setSpriteByType() {
         SpriteRenderer sr = (this.type == TYPE.Wall)? HM._.wallSr : HM._.floorSr;
         BgFuniture[] items = Array.FindAll(DB.Dt.Bgs, item => item.Type == this.type);
@@ -220,7 +218,7 @@ public class BgFuniture : Item {
         HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
         HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
     }
-#endregion
+    #endregion
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -232,15 +230,32 @@ public class PlayerSkin : Item {
     public override void create() {
         //TODO
     }
-
     public override void display() {
         //TODO
     }
-
     public override void purchase() {
         //TODO
     }
-
+    public override void arrange() {
+        //TODO
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class PetSkin : Item {
+    [Header("追加")]
+    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
+    public override int Price { get => 0; set {} } // 使わない
+    public override void create() {
+        //TODO
+    }
+    public override void display() {
+        //TODO
+    }
+    public override void purchase() {
+        //TODO
+    }
     public override void arrange() {
         //TODO
     }
