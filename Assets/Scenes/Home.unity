@@ -26904,242 +26904,241 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 1
+  isReset: 0
   dt:
     funitures:
     - name: WoodChair
       spr: {fileID: 0}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       prefab: {fileID: 3933582543245780397, guid: bec8a66b651e5614ab33e58e566f8468, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     - name: GamingChair
       spr: {fileID: 0}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       prefab: {fileID: 3933582543245780397, guid: 668051afc43901f41836259a24fb27b2, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     - name: WoodTable
       spr: {fileID: 0}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     decorations:
     - name: GlassHorse
       spr: {fileID: 0}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       prefab: {fileID: 3933582543245780397, guid: 672aeab66606bf245bac1b1176c0f70a, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     - name: GoldTrophy
       spr: {fileID: 0}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       prefab: {fileID: 3933582543245780397, guid: 05a5f6a09a7eb3b44bcb8a8905e41e97, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     - name: VaseKettle
       spr: {fileID: 0}
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 0
       prefab: {fileID: 3933582543245780397, guid: ebf4bc044179b5746b84eba58aba4ce9, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     - name: VaseMountain
       spr: {fileID: 0}
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 0
       prefab: {fileID: 3933582543245780397, guid: 8a5c43682c160954db0c45f22a6b1bd9, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     bgs:
     - name: Wall
       spr: {fileID: 21300000, guid: 987724b39ec08e64b9edb308ad98c819, type: 3}
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 0
       type: 0
     - name: RedDotWall
       spr: {fileID: -1491515517, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: BubbleWall
       spr: {fileID: -691775248, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: GreenTileWall
       spr: {fileID: 1180750009, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: StripeWall
       spr: {fileID: 1445291823, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: CheckedWall
       spr: {fileID: -479013973, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: GreenWall
       spr: {fileID: -290668380, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: OcherWall
       spr: {fileID: 597538945, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: GrayWall
       spr: {fileID: -303880232, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 0
     - name: Floor
       spr: {fileID: 21300000, guid: 243fa1f5abf18544d80a5d0884f1b16d, type: 3}
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 0
       type: 1
     - name: DiaTileFloor
       spr: {fileID: -427934318, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: WhiteBrickFloor
       spr: {fileID: 1708512666, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: GrayBrickFloor
       spr: {fileID: 234687418, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: TwistWoodFloor
       spr: {fileID: 576556790, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: RedWoodFloor
       spr: {fileID: -1488029760, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: DiaWoodFloor
       spr: {fileID: -481732201, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: WoodFloor
       spr: {fileID: 1094206353, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: WhiteWoodFloor
       spr: {fileID: -819507181, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: DarkSquareFloor
       spr: {fileID: -2006216212, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: LightSquareFloor
       spr: {fileID: -1906946643, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 0
       type: 1
     - name: LightThickCrossFloor
       spr: {fileID: 610619071, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     - name: BlueThinCrossFloor
       spr: {fileID: -430614764, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 500
       type: 1
     mats:
     - name: RedCarpet
       spr: {fileID: 0}
-      price: 0
       isLock: 0
       isNotify: 0
       isArranged: 0
+      price: 0
       prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     plSkins:
       name: Player1
       spr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
-      price: 500
       isLock: 0
       isNotify: 0
       isArranged: 0

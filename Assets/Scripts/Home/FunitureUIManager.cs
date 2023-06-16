@@ -128,40 +128,18 @@ public class FunitureUIManager : MonoBehaviour
         //* Pattern Matching (Child Class)
         Item item = getSelectedItem(curSelectedItemIdx);
         switch(item) {
-            case Funiture ft:   setClickItem(ft); break;
-            case BgFuniture bg: setClickItem(bg); break;
+            case Funiture ft:   ft.arrange(); break;
+            case BgFuniture bg: bg.arrange(); break;
         }
     }
     public void onClickInfoDialogPurchaseBtn() {
-        //* Get Item
-        Item item = getSelectedItem(curSelectedItemIdx);
-
-        //* 購入
-        item.purchase();
+        Item item = getSelectedItem(curSelectedItemIdx); //* Get Item
+        item.purchase(); //* 購入
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    private void setClickItem(Item item){
-        item.showInfoDialog();
-    }
-
-    public void displayItem(Item item) {
-        switch(item) {
-            case Funiture ft:
-                ft.create();
-                HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-                break;
-            case BgFuniture bg:
-                bg.create();
-                break;
-        }
-        item.IsArranged = true;
-
-        //* ボタン UI最新化
-        onClickShopLeftArrow(); 
-    }
     private Item getCurObjLayer2FunitureItem(GameObject curSelObj) {
         //* レイヤーで種類を探す
         var tag = curSelObj.tag;

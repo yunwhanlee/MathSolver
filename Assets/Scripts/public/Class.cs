@@ -19,7 +19,7 @@ public abstract class ItemFrameBtn {
     public abstract void init();
     public abstract void updateItemFrame(Item item);
 }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class FunitureShopItemBtn : ItemFrameBtn {
@@ -70,7 +70,6 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         }
     }
 }
-
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region (OBJ) アイテム
@@ -84,15 +83,53 @@ public abstract class Item {
     [SerializeField] bool isNotify;    public bool IsNotify {get => isNotify; set => isNotify = value;}
     [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
 
+    //* 抽象 : ★★★ 親クラスで、抽象メソッドが呼ばれても、実際に動く場所は「子」クラスだから大丈夫
+    public abstract int Price {get; set;} //? 子のpriceがあれば、使う
     public abstract void create();
-    public abstract void purchase();
-    public abstract void showInfoDialog();
+    //* 仮想
+    public virtual void display() {
+        create();
+        this.IsArranged = true;
+        HM._.fUI.onClickShopLeftArrow(); //* ボタン UI最新化
+    }
+    public virtual void purchase() {
+        if(DB.Dt.Coin >= this.Price) {
+            Debug.Log("💰購入成功！！");
+            DB.Dt.setCoin(-this.Price);
+            isLock = false;
+            display();
+        }
+        else {
+            Debug.Log("😢 お金がたりない！！");
+            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
+        }
+    }
+    public virtual void arrange() {
+        //* ロック
+        if(IsLock) {
+            HM._.fUI.InfoDialog.SetActive(true);
+            HM._.fUI.InfoDlgItemNameTxt.text = name;
+            HM._.fUI.InfoDlgItemImg.sprite = spr;
+            HM._.fUI.InfoDlgItemPriceTxt.text = this.Price.ToString();
+            Debug.Log($"onClickItemListBtn:: current Category= {HM._.fUI.Category}");
+            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
+        }
+        //* 配置
+        else {
+            if(isArranged) {
+                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
+                return;
+            }
+            display();
+        }
+    }
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Funiture : Item {
     [Header("追加")]
-    [SerializeField] int price; public int Price {get => price; set => price = value;}
+    [SerializeField] int price; public override int Price {get => price; set => price = value;}
     [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
     [SerializeField] Vector2 pos;   public Vector2 Pos {get => pos; set => pos = value;}
     [SerializeField] bool isFlat;  public bool IsFlat {get => isFlat; set => isFlat = value;}
@@ -104,23 +141,26 @@ public class Funiture : Item {
 
     public override void create() {
         HM._.state = HM.STATE.DECORATION_MODE;
-        var fui = HM._.fUI;
-        int idx = fui.CurSelectedItemIdx;
+        int idx = HM._.fUI.CurSelectedItemIdx;
 
-        GameObject pref = (fui.Category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
-            : (fui.Category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
+        //* 生成するPrefab 用意
+        GameObject pref = (HM._.fUI.Category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
+            : (HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
             : pref = DB.Dt.Mats[idx].Prefab;
 
-        //! GameObject ins = Instantiate(pref, HM._.ui.RoomObjectGroupTf);
+        //* 生成
         GameObject ins = Util.instantiateObj(pref, HM._.ui.RoomObjectGroupTf);
         ins.name = ins.name.Split('(')[0]; //* 名(Clone) 削除
         RoomObject rObj = ins.GetComponent<RoomObject>();
-        rObj.Start(); //* 初期化 必要
 
+        //* 初期化
+        rObj.Start(); 
+
+        //* 選択されて、デコレーションモード 用意
         rObj.IsSelect = true;
         rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
-        fui.CurSelectedObj = rObj.gameObject;
-        fui.InfoDialog.SetActive(false);
+        HM._.fUI.CurSelectedObj = rObj.gameObject;
+        HM._.fUI.InfoDialog.SetActive(false);
         HM._.ui.DecorateModePanel.SetActive(true);
 
         //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
@@ -132,45 +172,20 @@ public class Funiture : Item {
         Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
     }
 
-    public override void purchase() {
-        if(DB.Dt.Coin >= this.price) {
-            Debug.Log("💰購入成功！！");
-            DB.Dt.setCoin(-this.price);
-            IsLock = false;
-            HM._.fUI.displayItem(this);
-        }
-        else {
-            Debug.Log("😢 お金がたりない！！");
-            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
-        }
+    public override void display() {
+        base.display();
+        HM._.ui.onClickDecorateModeIconBtn(); //* デコレーションモード
     }
-
-    public override void showInfoDialog() {
-        //* ロック
-        if(IsLock) {
-            HM._.fUI.InfoDialog.SetActive(true);
-            HM._.fUI.InfoDlgItemNameTxt.text = this.Name;
-            HM._.fUI.InfoDlgItemImg.sprite = this.Spr;
-            HM._.fUI.InfoDlgItemPriceTxt.text = this.price.ToString();
-            Debug.Log($"onClickItemListBtn:: current Category= {HM._.fUI.Category}");
-            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
-        }
-        //* 配置
-        else {
-            if(this.IsArranged) {
-                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
-                return;
-            }
-            HM._.fUI.displayItem(this);
-        }
-    }
+    public override void purchase() => base.purchase();
+    public override void arrange() => base.arrange();
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class BgFuniture : Item {
     public enum TYPE {Wall, Floor};
     [Header("追加")]
-    [SerializeField] int price; public int Price {get => price; set => price = value;}
+    [SerializeField] int price; public override int Price {get => price; set => price = value;}
     [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
 
     public override void create() {
@@ -179,12 +194,15 @@ public class BgFuniture : Item {
         //* 効果
         HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.delay2);
         //* ホームに戻す
-        HM._.fUI.InfoDialog.SetActive(false);
-        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-        HM._.ui.onClickDecorateModeCloseBtn();
-        HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
-        HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
+        backHome();
     }
+    public override void display() => base.display();
+    public override void purchase() => base.purchase();
+    public override void arrange() => base.arrange();
+
+/// -----------------------------------------------------------------------------------------------------------------
+#region Priavate Func
+/// -----------------------------------------------------------------------------------------------------------------
     private Transform setSpriteByType() {
         SpriteRenderer sr = (this.type == TYPE.Wall)? HM._.wallSr : HM._.floorSr;
         BgFuniture[] items = Array.FindAll(DB.Dt.Bgs, item => item.Type == this.type);
@@ -195,46 +213,27 @@ public class BgFuniture : Item {
         sr.sprite = DB.Dt.Bgs[HM._.fUI.CurSelectedItemIdx].Spr; 
         return sr.transform;
     }
-
-    public override void purchase() {
-        if(DB.Dt.Coin >= this.price) {
-            Debug.Log("💰購入成功！！");
-            DB.Dt.setCoin(-this.price);
-            IsLock = false;
-            HM._.fUI.displayItem(this);
-        }
-        else {
-            Debug.Log("😢 お金がたりない！！");
-            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
-        }
+    private void backHome() {
+        HM._.fUI.InfoDialog.SetActive(false);
+        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        HM._.ui.onClickDecorateModeCloseBtn();
+        HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
+        HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
     }
-
-    public override void showInfoDialog() {
-        //* ロック
-        if(IsLock) {
-            HM._.fUI.InfoDialog.SetActive(true);
-            HM._.fUI.InfoDlgItemNameTxt.text = this.Name;
-            HM._.fUI.InfoDlgItemImg.sprite = this.Spr;
-            HM._.fUI.InfoDlgItemPriceTxt.text = this.price.ToString();
-            Debug.Log($"onClickItemListBtn:: current Category= {HM._.fUI.Category}");
-            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
-        }
-        //* 配置
-        else {
-            if(this.IsArranged) {
-                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
-                return;
-            }
-            HM._.fUI.displayItem(this);
-        }
-    }
+#endregion
 }
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class PlayerSkin : Item {
     [Header("追加")]
     [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
+    public override int Price { get => 0; set {} } // 使わない
     public override void create() {
+        //TODO
+    }
+
+    public override void display() {
         //TODO
     }
 
@@ -242,7 +241,7 @@ public class PlayerSkin : Item {
         //TODO
     }
 
-    public override void showInfoDialog() {
+    public override void arrange() {
         //TODO
     }
 }

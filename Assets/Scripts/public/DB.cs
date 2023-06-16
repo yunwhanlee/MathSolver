@@ -129,7 +129,7 @@ public class DB : MonoBehaviour {
         //* 家具 *//
         //* ロック
         Array.ForEach(dt.Funitures, ft => ft.IsLock = true);
-        Array.ForEach(dt.Decorations, dc => dc.IsLock = false);
+        Array.ForEach(dt.Decorations, dc => dc.IsLock = true);
         Array.ForEach(dt.Bgs, bg => {
             bool isDefault = (bg.Name == "Wall" || bg.Name == "Floor");
             bg.IsLock = !isDefault;
