@@ -51,7 +51,15 @@ public class FunitureShopItemBtn : ItemFrameBtn {
             LockFrameObj.SetActive(item.IsLock);
             NotifyObj.SetActive(item.IsNotify);
             //* 子 要素
-            priceTxt.text = item.Price.ToString();
+            if(item is Funiture) {
+                var ft = item as Funiture;
+                priceTxt.text = ft.Price.ToString();
+            }
+            else if(item is BgFuniture) {
+                var bg = item as BgFuniture;
+                priceTxt.text = bg.Price.ToString();
+            }
+            // priceTxt.text = item.Price.ToString();
             arrangeFrameObj.SetActive(item.IsArranged);
             //* priceTxtObj (非)表示
             if(!item.IsLock)
@@ -72,17 +80,19 @@ public abstract class Item {
     [SerializeField] string name;   public string Name {get => name;}
     [SerializeField] Sprite spr;    public Sprite Spr {get => spr; set => spr = value;}
     // [SerializeField] int id;    public int Id {get => id; set => id = value;}
-    [SerializeField] int price; public int Price {get => price; set => price = value;}
     [SerializeField] bool isLock;    public bool IsLock {get => isLock; set => isLock = value;}
     [SerializeField] bool isNotify;    public bool IsNotify {get => isNotify; set => isNotify = value;}
     [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
 
     public abstract void create();
+    public abstract void purchase();
+    public abstract void showInfoDialog();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Funiture : Item {
     [Header("追加")]
+    [SerializeField] int price; public int Price {get => price; set => price = value;}
     [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
     [SerializeField] Vector2 pos;   public Vector2 Pos {get => pos; set => pos = value;}
     [SerializeField] bool isFlat;  public bool IsFlat {get => isFlat; set => isFlat = value;}
@@ -121,14 +131,38 @@ public class Funiture : Item {
         rObj.Sr.sortingOrder = 100;
         Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
     }
-}
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-[System.Serializable]
-public class PlayerSkin : Item {
-    [Header("追加")]
-    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
-    public override void create() {
-        //TODO
+
+    public override void purchase() {
+        if(DB.Dt.Coin >= this.price) {
+            Debug.Log("💰購入成功！！");
+            DB.Dt.setCoin(-this.price);
+            IsLock = false;
+            HM._.fUI.displayItem(this);
+        }
+        else {
+            Debug.Log("😢 お金がたりない！！");
+            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
+        }
+    }
+
+    public override void showInfoDialog() {
+        //* ロック
+        if(IsLock) {
+            HM._.fUI.InfoDialog.SetActive(true);
+            HM._.fUI.InfoDlgItemNameTxt.text = this.Name;
+            HM._.fUI.InfoDlgItemImg.sprite = this.Spr;
+            HM._.fUI.InfoDlgItemPriceTxt.text = this.price.ToString();
+            Debug.Log($"onClickItemListBtn:: current Category= {HM._.fUI.Category}");
+            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
+        }
+        //* 配置
+        else {
+            if(this.IsArranged) {
+                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
+                return;
+            }
+            HM._.fUI.displayItem(this);
+        }
     }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -136,6 +170,7 @@ public class PlayerSkin : Item {
 public class BgFuniture : Item {
     public enum TYPE {Wall, Floor};
     [Header("追加")]
+    [SerializeField] int price; public int Price {get => price; set => price = value;}
     [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
 
     public override void create() {
@@ -161,8 +196,56 @@ public class BgFuniture : Item {
         return sr.transform;
     }
 
-}
+    public override void purchase() {
+        if(DB.Dt.Coin >= this.price) {
+            Debug.Log("💰購入成功！！");
+            DB.Dt.setCoin(-this.price);
+            IsLock = false;
+            HM._.fUI.displayItem(this);
+        }
+        else {
+            Debug.Log("😢 お金がたりない！！");
+            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
+        }
+    }
 
+    public override void showInfoDialog() {
+        //* ロック
+        if(IsLock) {
+            HM._.fUI.InfoDialog.SetActive(true);
+            HM._.fUI.InfoDlgItemNameTxt.text = this.Name;
+            HM._.fUI.InfoDlgItemImg.sprite = this.Spr;
+            HM._.fUI.InfoDlgItemPriceTxt.text = this.price.ToString();
+            Debug.Log($"onClickItemListBtn:: current Category= {HM._.fUI.Category}");
+            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
+        }
+        //* 配置
+        else {
+            if(this.IsArranged) {
+                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
+                return;
+            }
+            HM._.fUI.displayItem(this);
+        }
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class PlayerSkin : Item {
+    [Header("追加")]
+    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
+    public override void create() {
+        //TODO
+    }
+
+    public override void purchase() {
+        //TODO
+    }
+
+    public override void showInfoDialog() {
+        //TODO
+    }
+}
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region 問題

@@ -27136,6 +27136,14 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
+    plSkins:
+      name: Player1
+      spr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
+      price: 500
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 0}
     coin: 0
     playerId: 0
     petId: 0

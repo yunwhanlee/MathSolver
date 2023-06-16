@@ -15,17 +15,19 @@ public class FunitureUIManager : MonoBehaviour
     [Header("PAGE")]
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
+
     [Header("ITEM")]
     [SerializeField] Vector3 befPos;    public Vector3 BefPos {get => befPos; set => befPos = value;}
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
+
     [Header("INFO DIALOG")]
     [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
     [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
-    [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;
-    [SerializeField] Image infoDlgItemImg;
-    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;
+    [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
+    [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
+    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -135,46 +137,19 @@ public class FunitureUIManager : MonoBehaviour
         Item item = getSelectedItem(curSelectedItemIdx);
 
         //* 購入
-        if(DB.Dt.Coin >= item.Price) {
-            Debug.Log("💰購入成功！！");
-            DB.Dt.setCoin(-item.Price);
-            item.IsLock = false;
-            displayItem(item);
-        }
-        else {
-            Debug.Log("😢 お金がたりない！！");
-            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
-        }
+        item.purchase();
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     private void setClickItem(Item item){
-        //* ロック
-        if(item.IsLock) {
-            infoDialog.SetActive(true);
-            infoDlgItemNameTxt.text = item.Name;
-            infoDlgItemImg.sprite = item.Spr;
-            infoDlgItemPriceTxt.text = item.Price.ToString();
-            Debug.Log($"onClickItemListBtn:: current Category= {category}");
-            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
-        }
-        //* 配置
-        else {
-            if(item.IsArranged) {
-                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
-                return;
-            }
-
-            displayItem(item);
-        }
+        item.showInfoDialog();
     }
 
-    private void displayItem(Item item) {
+    public void displayItem(Item item) {
         switch(item) {
             case Funiture ft:
-                // createFunitureItem(curSelectedItemIdx); //* 生成
                 ft.create();
                 HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
                 break;

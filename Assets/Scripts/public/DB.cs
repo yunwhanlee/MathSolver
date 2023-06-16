@@ -18,6 +18,9 @@ public class Data {
     [SerializeField] BgFuniture[] bgs;    public BgFuniture[] Bgs {get => bgs; set => bgs = value;}
     [SerializeField] Funiture[] mats;    public Funiture[] Mats {get => mats; set => mats = value;}
 
+    [Header("PLAYERSKIN ITEM DATA")]
+    [SerializeField] PlayerSkin plSkins;    public PlayerSkin PlSkins {get => plSkins; set => plSkins = value;}
+
     [Header("VALUE")]
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
