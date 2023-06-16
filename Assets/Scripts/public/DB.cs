@@ -119,24 +119,27 @@ public class DB : MonoBehaviour {
         //* 選択したキャラ
         dt.PlayerId = 0;
         dt.PetId = 0;
+
         //* 財貨
         dt.Coin = 5000;
+
+        //* 家具 *//
         //* ロック
         Array.ForEach(dt.Funitures, ft => ft.IsLock = true);
-        int i=0;
-        Array.ForEach(dt.Decorations, dc => {
-            if(i == DEF_WALL_IDX)   dc.IsLock = false;
-            else if(i == DEF_FLOOR_IDX)   dc.IsLock = false;
-            else dc.IsLock = true;
-            i++;
+        Array.ForEach(dt.Decorations, dc => dc.IsLock = false);
+        Array.ForEach(dt.Bgs, bg => {
+            bool isDefault = (bg.Name == "Wall" || bg.Name == "Floor");
+            bg.IsLock = !isDefault;
+            bg.IsArranged = isDefault;
         });
-        Array.ForEach(dt.Bgs, bg => bg.IsLock = true);
         Array.ForEach(dt.Mats, mt => mt.IsLock = true);
+
         //* 位置
         Array.ForEach(dt.Funitures, ft => ft.Pos = Vector3.zero);
         Array.ForEach(dt.Decorations, dc => dc.Pos = Vector3.zero);
         //// Array.ForEach(dt.Bgs, item => item.Pos = Vector3.zero);
         Array.ForEach(dt.Mats, mt => mt.Pos = Vector3.zero);
+
         //* 反転
         Array.ForEach(dt.Funitures, ft => ft.IsFlat = false);
         Array.ForEach(dt.Decorations, dc => dc.IsFlat = false);

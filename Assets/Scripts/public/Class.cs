@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.U2D.Animation;
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region (UI) アイテム フレーム ボタン
@@ -119,6 +120,15 @@ public class Funiture : Item {
         //* 飾りモードの影よりレイヤーを前に配置
         rObj.Sr.sortingOrder = 100;
         Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class PlayerSkin : Item {
+    [Header("追加")]
+    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
+    public override void create() {
+        //TODO
     }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
