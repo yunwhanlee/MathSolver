@@ -122,9 +122,11 @@ public abstract class Item {
         create();
         this.IsArranged = true;
         //* ボタン Funiture UI最新化
-        HM._.fUI.onClickShopLeftArrow();
+        if(this is Funiture || this is BgFuniture)
+            HM._.fUI.onClickShopLeftArrow();
         //* ボタン Inventory UI最新化
-        HM._.iUI.onClickInvLeftArrow();
+        if(this is PlayerSkin || this is PetSkin)
+            HM._.iUI.onClickInvLeftArrow();
     }
     public virtual void purchase() {
         if(DB.Dt.Coin >= this.Price) {
@@ -315,7 +317,8 @@ public class PetSkin : Item {
         PetSkin[] items = DB.Dt.PetSkins;
         SpriteLibrary sprLib = HM._.pet.GetComponent<SpriteLibrary>();
         //* 単一だからInArrange全てFalseに初期化
-        Array.ForEach(items, item => item.IsArranged = false); 
+        Array.ForEach(items, item => item.IsArranged = false);
+
         //* 適用
         sprLib.spriteLibraryAsset = items[HM._.ui.CurSelectedItemIdx].SprLibraryAsset;
         //* EFに位置を与えるため、リターン

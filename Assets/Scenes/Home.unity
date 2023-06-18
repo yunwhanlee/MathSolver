@@ -1881,6 +1881,7 @@ MonoBehaviour:
   anim: {fileID: 64751381}
   sprLib: {fileID: 64751383}
   sr: {fileID: 64751379}
+  shadowSr: {fileID: 50844847}
   idleSpr: {fileID: 1932084133, guid: b1deed9d6b7747a4f8a00e4acfc7f272, type: 3}
   moveSpeed: 1
 --- !u!95 &64751381
@@ -24586,6 +24587,12 @@ MonoBehaviour:
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 44962de9c17bb13428955125b45fa7bf, type: 3}
     petSkins:
+    - name: X
+      spr: {fileID: 21300000, guid: f4c59191fd8a56a40a46aede841da60c, type: 3}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 0}
     - name: PetMango
       spr: {fileID: -1507869740, guid: 786ab6b2cf10bac4ba009aebd320525e, type: 3}
       isLock: 0

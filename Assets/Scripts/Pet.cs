@@ -15,9 +15,11 @@ public class Pet : MonoBehaviour {
     [Header("OUTSIDE")]
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
 
+
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
+    [SerializeField] SpriteRenderer shadowSr;
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
 
@@ -31,6 +33,9 @@ public class Pet : MonoBehaviour {
     }
     void Update() {
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
+
+        //* ペットなかったら、影 非表示
+        shadowSr.enabled = sprLib.spriteLibraryAsset;
 
         //* レイヤー
         sr = GetComponent<SpriteRenderer>();
