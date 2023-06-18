@@ -22,13 +22,6 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
 
-    [Header("INFO DIALOG")]
-    [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
-    [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
-    [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
-    [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
-    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
-
     void Start() {
         //* アイテムボタン 割り当て
         const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3, PRICE = 4; //* Index
@@ -77,6 +70,20 @@ public class FunitureUIManager : MonoBehaviour
         setPageByArrowBtn(pageDir: +1); //* ページ
         showItemList(); //* アイテムリスト 並べる
     }
+    public void onClickItemListBtn(int idx) {
+        //* ペースも含めた 実際のINDEX
+        HM._.ui.CurSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
+        //* Pattern Matching (Child Class)
+        Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx);
+        switch(item) {
+            case Funiture ft:   ft.arrange(); break;
+            case BgFuniture bg: bg.arrange(); break;
+        }
+    }
+    public void onClickInfoDialogPurchaseBtn() {
+        Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
+        item.purchase(); //* 購入
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNITURE MODE EVENT
@@ -88,7 +95,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.tag= {curSelectedObj.tag}");
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj) as Funiture;
+        Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
 
         //* アイテムが無かったら、BUGなので終了
         if(itemDt == null) return;
@@ -107,7 +114,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         float sx = curSelectedObj.transform.localScale.x * -1;
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj) as Funiture;
+        Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
         curSelectedObj.transform.localScale = new Vector2(sx, 1);
 
     }
@@ -117,30 +124,16 @@ public class FunitureUIManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurObjLayer2FunitureItem(curSelectedObj)}");
+        Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurSelectObjToItem(curSelectedObj)}");
         HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.delay2);
         setUpFunitureModeItem();
         HM._.ui.setDecorationMode(isActive: false);
-    }
-    public void onClickItemListBtn(int idx) {
-        //* ペースも含めた 実際のINDEX
-        curSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
-        //* Pattern Matching (Child Class)
-        Item item = getSelectedItem(curSelectedItemIdx);
-        switch(item) {
-            case Funiture ft:   ft.arrange(); break;
-            case BgFuniture bg: bg.arrange(); break;
-        }
-    }
-    public void onClickInfoDialogPurchaseBtn() {
-        Item item = getSelectedItem(curSelectedItemIdx); //* Get Item
-        item.purchase(); //* 購入
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    private Item getCurObjLayer2FunitureItem(GameObject curSelObj) {
+    private Item getCurSelectObjToItem(GameObject curSelObj) {
         //* レイヤーで種類を探す
         var tag = curSelObj.tag;
         Item item = null;
@@ -229,7 +222,7 @@ public class FunitureUIManager : MonoBehaviour
         rObj.IsSelect = true;
         rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
         curSelectedObj = rObj.gameObject;
-        infoDialog.SetActive(false);
+        HM._.ui.InfoDialog.SetActive(false);
         HM._.ui.DecorateModePanel.SetActive(true);
 
         //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
@@ -253,7 +246,7 @@ public class FunitureUIManager : MonoBehaviour
         tf.position = new Vector3(tf.position.x, tf.position.y, 0);
 
         //* 位置データ 保存
-        Funiture itemDt = getCurObjLayer2FunitureItem(curSelectedObj) as Funiture;
+        Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
         float x = (float)Math.Round(tf.position.x, 3);
         float y = (float)Math.Round(tf.position.y, 3);
         itemDt.Pos = new Vector2(x, y);

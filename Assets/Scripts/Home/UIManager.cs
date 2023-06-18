@@ -38,11 +38,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField] GameObject[] funitureListFrames; public GameObject[] FunitureListFrames {get => funitureListFrames; set => funitureListFrames = value;}
     [SerializeField] GameObject funitureItemPf;
 
-
     [Header("INVENTORY")]
     [SerializeField] Button[] invTypeBtns; public Button[] InvTypeBtns {get => invTypeBtns; set => invTypeBtns = value;}
     [SerializeField] GameObject[] invListFrames; public GameObject[] InvListFrames {get => invListFrames; set => invListFrames = value;}
-    [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
 
     [Header("SPACE")]
     [SerializeField] GameObject room; public GameObject Room {get => room; set => room = value;}
@@ -52,12 +50,21 @@ public class UIManager : MonoBehaviour {
     [SerializeField] Vector3 invSpacePlayerPos;
     [SerializeField] Vector3 invSpacePetPos;
 
-    [Header("DIALOG")]
+    [Header("GO GAME DIALOG")]
     [SerializeField] GameObject goGameDialog; public GameObject GoGameDialog {get => goGameDialog; set => goGameDialog = value;}
+
+    [Header("SHOP & INV INFO DIALOG")]
+    [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
+    [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
+    [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
+    [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
+    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
+    [SerializeField] Button infoDlgPurchaseBtn;    public Button InfoDlgPurchaseBtn {get => infoDlgPurchaseBtn; set => infoDlgPurchaseBtn = value;}
+    [SerializeField] Button infoDlgMoveBtn;    public Button InfoDlgMoveBtn {get => infoDlgMoveBtn; set => infoDlgMoveBtn = value;}
+
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
-
 
     void Start() {
         StartCoroutine(coUpdateUI());
@@ -81,12 +88,6 @@ public class UIManager : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
         achiveRankTitleTxt.text = "업적";//Enum.ACHIVERANK.Achivement.ToString();
-
-        //* インベントリー
-        // for(int i = 0; i < invTypeBtns.Length; i++) {
-        //     invTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
-        //     invListFrames[i].SetActive(i == 0);
-        // }
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -150,6 +151,7 @@ public class UIManager : MonoBehaviour {
         }
     }
     public void onClickGoClothShop() {
+        infoDialog.SetActive(false);
         while(curHomeSceneIdx > (int)Enum.HOME.ClothShop) {
             onClickWoodSignArrowBtn(dirVal: -1);
         }

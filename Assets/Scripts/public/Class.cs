@@ -145,12 +145,24 @@ public abstract class Item {
     public virtual void arrange() {
         //* ロック
         if(IsLock) {
-            HM._.fUI.InfoDialog.SetActive(true);
-            HM._.fUI.InfoDlgItemNameTxt.text = name;
-            HM._.fUI.InfoDlgItemImg.sprite = spr;
-            HM._.fUI.InfoDlgItemPriceTxt.text = this.Price.ToString();
-            Debug.Log($"onClickItemListBtn:: current Category= {HM._.fUI.Category}");
-            //*--> onClickInfoDialogPurchaseBtn()でアイテム 購入
+            HM._.ui.InfoDialog.SetActive(true);
+            HM._.ui.InfoDlgItemNameTxt.text = name;
+            HM._.ui.InfoDlgItemImg.sprite = spr;
+            HM._.ui.InfoDlgItemPriceTxt.text = this.Price.ToString();
+            switch(this) {
+                case Funiture: case BgFuniture:
+                    HM._.ui.InfoDlgPurchaseBtn.gameObject.SetActive(true);
+                    HM._.ui.InfoDlgMoveBtn.gameObject.SetActive(false);
+                    //*--> fui.onClickInfoDialogPurchaseBtn()でアイテム 購入
+                    break;
+                case PlayerSkin: case PetSkin:
+                    HM._.ui.InfoDlgPurchaseBtn.gameObject.SetActive(false);
+                    HM._.ui.InfoDlgMoveBtn.gameObject.SetActive(true);
+                    //*--> ui.onClickGoClothShop()で、場所移動
+                    break;
+            }
+
+            
         }
         //* 配置
         else {
@@ -179,7 +191,7 @@ public class Funiture : Item {
 
     public override void create() {
         HM._.state = HM.STATE.DECORATION_MODE;
-        int idx = HM._.fUI.CurSelectedItemIdx;
+        int idx = HM._.ui.CurSelectedItemIdx;
 
         //* 生成するPrefab 用意
         GameObject pref = (HM._.fUI.Category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
@@ -198,7 +210,7 @@ public class Funiture : Item {
         rObj.IsSelect = true;
         rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
         HM._.fUI.CurSelectedObj = rObj.gameObject;
-        HM._.fUI.InfoDialog.SetActive(false);
+        HM._.ui.InfoDialog.SetActive(false);
         HM._.ui.DecorateModePanel.SetActive(true);
 
         //* 飾り用のアイテムのZ値が-1のため、この上に配置すると、Z値が０の場合は MOUSE EVENTが出来なくなる。
@@ -214,8 +226,8 @@ public class Funiture : Item {
         base.display();
         HM._.ui.onClickDecorateModeIconBtn(); //* デコレーションモード
     }
-    public override void purchase() => base.purchase();
-    public override void arrange() => base.arrange();
+    // public override void purchase() => base.purchase();
+    // public override void arrange() => base.arrange();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -234,9 +246,9 @@ public class BgFuniture : Item {
         //* ホームに戻す
         backHome();
     }
-    public override void display() => base.display();
-    public override void purchase() => base.purchase();
-    public override void arrange() => base.arrange();
+    // public override void display() => base.display();
+    // public override void purchase() => base.purchase();
+    // public override void arrange() => base.arrange();
 
     #region Priavate Func
     private Transform setSpriteByType() {
@@ -246,11 +258,11 @@ public class BgFuniture : Item {
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false); 
         //* 画像
-        sr.sprite = DB.Dt.Bgs[HM._.fUI.CurSelectedItemIdx].Spr; 
+        sr.sprite = DB.Dt.Bgs[HM._.ui.CurSelectedItemIdx].Spr; 
         return sr.transform;
     }
     private void backHome() {
-        HM._.fUI.InfoDialog.SetActive(false);
+        HM._.ui.InfoDialog.SetActive(false);
         HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
         HM._.ui.onClickDecorateModeCloseBtn();
         HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
@@ -274,9 +286,6 @@ public class PlayerSkin : Item {
     public override void purchase() {
         //TODO
     }
-    public override void arrange() {
-        //TODO
-    }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -292,9 +301,6 @@ public class PetSkin : Item {
         //TODO
     }
     public override void purchase() {
-        //TODO
-    }
-    public override void arrange() {
         //TODO
     }
 }
