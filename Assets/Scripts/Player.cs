@@ -29,7 +29,6 @@ public class Player : MonoBehaviour {
         tgPos = transform.position;
         col = GetComponent<Collider2D>();
         sprLib = GetComponent<SpriteLibrary>();
-        // sprLib.spriteLibraryAsset = DB.Dt.PlSkins[0].SprLibraryAsset;
     }
 
     void Update() {

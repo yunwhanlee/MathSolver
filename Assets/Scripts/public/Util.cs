@@ -5,12 +5,12 @@ using UnityEngine;
 public class Util : MonoBehaviour
 {
     public static readonly Util _;
-    public static WaitForSeconds delay0_05 = new WaitForSeconds(0.05f);
-    public static WaitForSeconds delay0_1 = new WaitForSeconds(0.1f);
-    public static WaitForSeconds delay0_5 = new WaitForSeconds(0.5f);
-    public static WaitForSeconds delay1 = new WaitForSeconds(1);
-    public static WaitForSeconds delay2 = new WaitForSeconds(2);
-    public static WaitForSecondsRealtime delayRT0_01 = new WaitForSecondsRealtime(0.01f);
+    public static WaitForSeconds time0_05 = new WaitForSeconds(0.05f);
+    public static WaitForSeconds time0_1 = new WaitForSeconds(0.1f);
+    public static WaitForSeconds time0_5 = new WaitForSeconds(0.5f);
+    public static WaitForSeconds time1 = new WaitForSeconds(1);
+    public static WaitForSeconds time2 = new WaitForSeconds(2);
+    public static WaitForSecondsRealtime realTime0_01 = new WaitForSecondsRealtime(0.01f);
 
     public static GameObject instantiateObj(GameObject obj, Transform tf) {
         GameObject ins = null;

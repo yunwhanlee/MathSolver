@@ -95,13 +95,6 @@ public class InventoryItemBtn : ItemFrameBtn {
             LockFrameObj.SetActive(item.IsLock);
             NotifyObj.SetActive(item.IsNotify);
             ArrangeFrameObj.SetActive(item.IsArranged);
-            //* 子 要素
-            // if(item is Funiture) {
-            //     var ft = item as Funiture;
-            // }
-            // else if(item is BgFuniture) {
-            //     var bg = item as BgFuniture;
-            // }
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);
@@ -128,7 +121,10 @@ public abstract class Item {
     public virtual void display() {
         create();
         this.IsArranged = true;
-        HM._.fUI.onClickShopLeftArrow(); //* ボタン UI最新化
+        //* ボタン Funiture UI最新化
+        HM._.fUI.onClickShopLeftArrow();
+        //* ボタン Inventory UI最新化
+        HM._.iUI.onClickInvLeftArrow();
     }
     public virtual void purchase() {
         if(DB.Dt.Coin >= this.Price) {
@@ -161,8 +157,6 @@ public abstract class Item {
                     //*--> ui.onClickGoClothShop()で、場所移動
                     break;
             }
-
-            
         }
         //* 配置
         else {
@@ -170,8 +164,17 @@ public abstract class Item {
                 HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
                 return;
             }
-            display();
+            else {
+                display();
+            }
         }
+    }
+    protected void backHome() {
+        HM._.ui.InfoDialog.SetActive(false);
+        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        HM._.ui.onClickDecorateModeCloseBtn();
+        HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
+        HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
     }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -226,8 +229,6 @@ public class Funiture : Item {
         base.display();
         HM._.ui.onClickDecorateModeIconBtn(); //* デコレーションモード
     }
-    // public override void purchase() => base.purchase();
-    // public override void arrange() => base.arrange();
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -242,31 +243,21 @@ public class BgFuniture : Item {
         //* 画像 (タイプによって)
         Transform objTf = setSpriteByType();
         //* 効果
-        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.delay2);
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.time2);
         //* ホームに戻す
         backHome();
     }
-    // public override void display() => base.display();
-    // public override void purchase() => base.purchase();
-    // public override void arrange() => base.arrange();
 
     #region Priavate Func
     private Transform setSpriteByType() {
         SpriteRenderer sr = (this.type == TYPE.Wall)? HM._.wallSr : HM._.floorSr;
         BgFuniture[] items = Array.FindAll(DB.Dt.Bgs, item => item.Type == this.type);
-
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false); 
-        //* 画像
+        //* 適用
         sr.sprite = DB.Dt.Bgs[HM._.ui.CurSelectedItemIdx].Spr; 
+        //* EFに位置を与えるため、リターン
         return sr.transform;
-    }
-    private void backHome() {
-        HM._.ui.InfoDialog.SetActive(false);
-        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
-        HM._.ui.onClickDecorateModeCloseBtn();
-        HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
-        HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
     }
     #endregion
 }
@@ -277,15 +268,30 @@ public class PlayerSkin : Item {
     [Header("追加")]
     [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
     public override int Price { get => 0; set {} } // 使わない
+
     public override void create() {
-        //TODO
+        //* 画像 (タイプによって)
+        Transform objTf = setSpriteLibrary();
+        Debug.Log($"objTf.transform.localPositoin= {objTf.transform.localPosition}");
+        //* ホームに戻す
+        backHome();
+        //* 効果
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.time2);
     }
-    public override void display() {
-        //TODO
+
+    #region Priavate Func
+    private Transform setSpriteLibrary() {
+        Debug.Log($"PlayerSkin:: setSpriteLibrary():: HM._.ui.CurSelectedItemIdx= {HM._.ui.CurSelectedItemIdx}");
+        PlayerSkin[] items = DB.Dt.PlSkins;
+        SpriteLibrary sprLib = HM._.pl.GetComponent<SpriteLibrary>();
+        //* 単一だからInArrange全てFalseに初期化
+        Array.ForEach(items, item => item.IsArranged = false); 
+        //* 適用
+        sprLib.spriteLibraryAsset = items[HM._.ui.CurSelectedItemIdx].SprLibraryAsset;
+        //* EFに位置を与えるため、リターン
+        return sprLib.transform;
     }
-    public override void purchase() {
-        //TODO
-    }
+    #endregion
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -294,15 +300,28 @@ public class PetSkin : Item {
     [Header("追加")]
     [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
     public override int Price { get => 0; set {} } // 使わない
+
     public override void create() {
-        //TODO
+        //* 画像 (タイプによって)
+        Transform objTf = setSpriteLibrary();
+        //* ホームに戻す
+        backHome();
+        //* 効果
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.time2);
     }
-    public override void display() {
-        //TODO
+
+    #region Priavate Func
+    private Transform setSpriteLibrary() {
+        PetSkin[] items = DB.Dt.PetSkins;
+        SpriteLibrary sprLib = HM._.pet.GetComponent<SpriteLibrary>();
+        //* 単一だからInArrange全てFalseに初期化
+        Array.ForEach(items, item => item.IsArranged = false); 
+        //* 適用
+        sprLib.spriteLibraryAsset = items[HM._.ui.CurSelectedItemIdx].SprLibraryAsset;
+        //* EFに位置を与えるため、リターン
+        return sprLib.transform;
     }
-    public override void purchase() {
-        //TODO
-    }
+    #endregion
 }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

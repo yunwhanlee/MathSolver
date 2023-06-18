@@ -125,7 +125,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurSelectObjToItem(curSelectedObj)}");
-        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.delay2);
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.time2);
         setUpFunitureModeItem();
         HM._.ui.setDecorationMode(isActive: false);
     }

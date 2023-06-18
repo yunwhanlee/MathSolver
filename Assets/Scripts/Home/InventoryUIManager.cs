@@ -18,11 +18,6 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] InventoryItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
-    [Header("INFO DIALOG")]
-    [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
-    [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
-    [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
-    [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -74,16 +69,13 @@ public class InventoryUIManager : MonoBehaviour
     }
     public void onClickItemListBtn(int idx) {
         //* ペースも含めた 実際のINDEX
-        curSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
+        HM._.ui.CurSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
         //* Pattern Matching (Child Class)
-        Item item = getSelectedItem(curSelectedItemIdx);
+        Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx);
         switch(item) {
             case PlayerSkin plsk:   plsk.arrange(); break;
-            case PetSkin ptsk:   ptsk.arrange(); break;
+            case PetSkin ptsk:      ptsk.arrange(); break;
         }
-    }
-    public void onClickInfoDialogGoToClothShop() {
-        // TODO
     }
 #endregion
 
@@ -126,8 +118,8 @@ public class InventoryUIManager : MonoBehaviour
 
             //* Parent <-Pattern Mathcing <- Child 
             switch(item) {
-                case PlayerSkin plSk:   itemBtn.updateItemFrame(plSk);   break;
-                case PetSkin ptSk: itemBtn.updateItemFrame(ptSk);   break;
+                case PlayerSkin plSk:   itemBtn.updateItemFrame(plSk);  break;
+                case PetSkin ptSk: itemBtn.updateItemFrame(ptSk);       break;
             }
         }
 

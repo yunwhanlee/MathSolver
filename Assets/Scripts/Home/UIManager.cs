@@ -244,7 +244,7 @@ public void showErrorMsgPopUp(string msg) => StartCoroutine(coShowErrorMsgPopUp(
 IEnumerator coShowErrorMsgPopUp(string msg) {
     errorMsgPopUp.SetActive(true);
     errorMsgTxt.text = msg;
-    yield return Util.delay1;
+    yield return Util.time1;
 
     errorMsgPopUp.SetActive(false);
     errorMsgTxt.text = "";
