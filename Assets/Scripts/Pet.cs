@@ -20,8 +20,6 @@ public class Pet : MonoBehaviour {
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
-    [SerializeField] bool doIdle;   public bool DoIdle {get => doIdle; set => doIdle = value;}
-    [SerializeField] bool doWalk;   public bool DoWalk {get => doWalk; set => doWalk = value;}
 
     void Start() {
         tf = transform;
@@ -42,13 +40,13 @@ public class Pet : MonoBehaviour {
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
             float distX = Mathf.Abs(tgPos.x - tf.position.x);
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
-            bool isMoving = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
+            bool isWalkStop = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
 
             tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
             tf.position = new Vector3(tf.position.x, tf.position.y, FRONT_Z);
 
             //* アニメー
-            if(isMoving) {setIdle();}
+            if(isWalkStop) {setIdle();}
             else {setWalk();}
         }
     }
@@ -58,12 +56,10 @@ public class Pet : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     public void setInitSpr() => sr.sprite = idleSpr;
     public void setIdle() { 
-        if(!doIdle) { doIdle = true; anim.SetTrigger(Enum.ANIM.DoIdle.ToString());}
-        if(doWalk) doWalk = false;
+        anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
     }
-    private void setWalk() {
-        if(doIdle) doIdle = false;
-        if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
+    public void setWalk() {
+        anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
     }
 #endregion
 }

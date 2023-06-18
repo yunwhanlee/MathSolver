@@ -20,8 +20,6 @@ public class Player : MonoBehaviour {
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos; public Vector2 TgPos {get => tgPos; set => tgPos = value;}
-    [SerializeField] bool doIdle;   public bool DoIdle {get => doIdle; set => doIdle = value;}
-    [SerializeField] bool doWalk;   public bool DoWalk {get => doWalk; set => doWalk = value;}
     Transform tf;
 
     void Start() {
@@ -32,7 +30,6 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
-        
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
         if(HM._.state != HM.STATE.NORMAL) return;
 
@@ -50,10 +47,9 @@ public class Player : MonoBehaviour {
             //* 追いかける & アニメー
             float distX = Mathf.Abs(tgPos.x - tf.position.x);
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
-            bool isMoving = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
-            Debug.Log($"setPosAndAnim:: isMoving= {isMoving}");
+            bool isWalkStop = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
 
-            if(isMoving) {setIdle();}
+            if(isWalkStop) {setIdle();}
             else {setWalk();}
         }
     }
@@ -62,16 +58,16 @@ public class Player : MonoBehaviour {
 #region FUNC
 ///------------------------------------------------------------------------------------------
     public void setInitSpr() => sr.sprite = idleSpr;
+
     public void setIdle() {
         tf.position = new Vector3(tgPos.x, tgPos.y, FRONT_Z);
-        if(!doIdle) { doIdle = true; anim.SetTrigger(Enum.ANIM.DoIdle.ToString());}
-        if(doWalk) doWalk = false;
+        anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
     }
-    private void setWalk() {
+
+    public void setWalk() {
         tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
         tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
-        if(doIdle) doIdle = false;
-        if(!doWalk) { doWalk = true; anim.SetTrigger(Enum.ANIM.DoWalk.ToString());}
+        anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
     }
 #endregion
 ///------------------------------------------------------------------------------------------

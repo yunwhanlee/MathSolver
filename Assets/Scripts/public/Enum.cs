@@ -11,7 +11,7 @@ public class Enum : MonoBehaviour
     public enum INV_CATE {Player, Pet};
     public enum FUNITURE_BG {Wall, Floor};
     public enum TAG {GoGame};
-    public enum ANIM {DoIdle, DoWalk, DoBounce};
+    public enum ANIM {IsWalk, DoBounce};
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};
     public enum LAYER {IconBtnGroupArea};
