@@ -1879,11 +1879,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 64751381}
+  sprLib: {fileID: 64751383}
   sr: {fileID: 64751379}
   idleSpr: {fileID: 1932084133, guid: b1deed9d6b7747a4f8a00e4acfc7f272, type: 3}
   moveSpeed: 1
-  doIdle: 0
-  doWalk: 0
 --- !u!95 &64751381
 Animator:
   serializedVersion: 5
@@ -9788,10 +9787,6 @@ MonoBehaviour:
   content: {fileID: 484212181}
   itemBtns: []
   curSelectedObj: {fileID: 0}
-  curSelectedItemIdx: 0
-  infoDialog: {fileID: 0}
-  infoDlgItemNameTxt: {fileID: 0}
-  infoDlgItemImg: {fileID: 0}
 --- !u!1 &442526976
 GameObject:
   m_ObjectHideFlags: 0
@@ -29807,8 +29802,6 @@ MonoBehaviour:
   idleSpr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
   moveSpeed: 2
   tgPos: {x: 0, y: 0}
-  doIdle: 0
-  doWalk: 0
 --- !u!95 &1327448385
 Animator:
   serializedVersion: 5

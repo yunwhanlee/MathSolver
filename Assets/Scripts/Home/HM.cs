@@ -40,11 +40,14 @@ public class HM : MonoBehaviour {
         createFunitureItemsBySaveData(DB.Dt.Decorations);
         createFunitureItemsBySaveData(DB.Dt.Bgs);
         createFunitureItemsBySaveData(DB.Dt.Mats);
+        setCharaSpriteLibraryBySaveData(DB.Dt.PlSkins);
+        setCharaSpriteLibraryBySaveData(DB.Dt.PetSkins);
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     public void GoToLoadingScene() => SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
+
     private void createFunitureItemsBySaveData(Item[] itemDts) {
         Item[] arrangedItems = Array.FindAll(itemDts, item => item.IsArranged);
 
@@ -70,6 +73,18 @@ public class HM : MonoBehaviour {
                     floorSr.sprite = bg.Spr;
             }
         });
+    }
+    private void setCharaSpriteLibraryBySaveData(Item[] itemDts) {
+        Item curSkin = Array.Find(itemDts, item => item.IsArranged);
+        //* Pattern Matching
+        switch(curSkin) {
+            case PlayerSkin plSk:
+                HM._.pl.SprLib.spriteLibraryAsset = plSk.SprLibraryAsset;
+                break;
+            case PetSkin ptSk:
+                HM._.pet.SprLib.spriteLibraryAsset = ptSk.SprLibraryAsset;
+                break;
+        }
     }
 #endregion
 }

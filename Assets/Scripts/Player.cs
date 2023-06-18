@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 public class Player : MonoBehaviour {
-    
-    [Header("OUTSIDE")]
-    [SerializeField] Collider2D col; public Collider2D Col {get => col; set => col = value;}
-    [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
     const int FRONT_Z = -1;
     const int REVERSE_Y = -1;
     const float WALK_STOP_VAL = 0.05f;
     const float MIN_Y = -4.5f;
     const float MAX_Y = 2.0f;
+
+    [Header("OUTSIDE")]
+    [SerializeField] Collider2D col; public Collider2D Col {get => col; set => col = value;}
+    [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
 
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos; public Vector2 TgPos {get => tgPos; set => tgPos = value;}
+
     Transform tf;
 
     void Start() {

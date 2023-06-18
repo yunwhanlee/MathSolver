@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class Pet : MonoBehaviour {
-    [Header("OUTSIDE")]
-    [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
-
-    [Header("VALUE")]
     const int FRONT_Z = -1;
     const int REVERSE_Y = -1;
     const float CHASE_DELAY = 0.5f;
@@ -14,13 +11,20 @@ public class Pet : MonoBehaviour {
     const float OFFSET_X = 1;
     const float OFFSET_Y = 0;
     const float WALK_STOP_VAL = 0.5f;
-    Transform tf;
-    Transform plTf;
-    Vector2 tgPos;
+
+    [Header("OUTSIDE")]
+    [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
+
+    [Header("VALUE")]
+    [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
 
+    Transform tf;
+    Transform plTf;
+    Vector2 tgPos;
+    
     void Start() {
         tf = transform;
         plTf = HM._.pl.transform;
@@ -55,9 +59,11 @@ public class Pet : MonoBehaviour {
 #region FUNC
 ///------------------------------------------------------------------------------------------
     public void setInitSpr() => sr.sprite = idleSpr;
-    public void setIdle() { 
+
+    public void setIdle() {
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
     }
+
     public void setWalk() {
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
     }
