@@ -15,8 +15,20 @@ public abstract class ItemFrameBtn {
     [SerializeField] Image img; public Image Img {get => img; set => img = value;}
     [SerializeField] GameObject lockFrameObj; public GameObject LockFrameObj {get => lockFrameObj; set => lockFrameObj = value;}
     [SerializeField] GameObject notifyObj; public GameObject NotifyObj {get => notifyObj; set => notifyObj = value;}
-
-    public abstract void init();
+    [SerializeField] GameObject arrangeFrameObj; public GameObject ArrangeFrameObj {get => arrangeFrameObj; set => arrangeFrameObj = value;} 
+    public ItemFrameBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj) {
+        this.obj = obj;
+        this.img = img;
+        this.lockFrameObj = lockFrameObj;
+        this.notifyObj = notifyObj;
+        this.arrangeFrameObj = arrangeFrameObj; // ✓ 表示
+    }
+    public virtual void init() {
+        img.sprite = null;
+        lockFrameObj.SetActive(true);
+        notifyObj.SetActive(false);
+        arrangeFrameObj.SetActive(false);
+    }
     public abstract void updateItemFrame(Item item);
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -24,25 +36,19 @@ public abstract class ItemFrameBtn {
 [System.Serializable]
 public class FunitureShopItemBtn : ItemFrameBtn {
     [SerializeField] TextMeshProUGUI priceTxt; public TextMeshProUGUI PriceTxt {get => priceTxt; set => priceTxt = value;}
-    [SerializeField] GameObject arrangeFrameObj; public GameObject ArrangeFrameObj {get => arrangeFrameObj; set => arrangeFrameObj = value;} 
 
-    public FunitureShopItemBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, TextMeshProUGUI priceTxt, GameObject arrangeFrameObj) {
-        this.Obj = obj;
-        this.Img = img;
-        this.LockFrameObj = lockFrameObj;
-        this.NotifyObj = notifyObj;
+    public FunitureShopItemBtn( //* 親 param
+    GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj
+    ,TextMeshProUGUI priceTxt) //* 子 param
+    :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj) { //* 親 コンストラクター 呼出し
         //* 子 要素
         this.priceTxt = priceTxt;
-        this.arrangeFrameObj = arrangeFrameObj; // ✓ 表示
     }
 
     public override void init() {
-        Img.sprite = null;
-        LockFrameObj.SetActive(true);
-        NotifyObj.SetActive(false);
+        base.init();
         //* 子 要素
         priceTxt.text = "";
-        arrangeFrameObj.SetActive(false);
     }
 
     public override void updateItemFrame(Item item) {
@@ -50,6 +56,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
             Img.sprite = item.Spr;
             LockFrameObj.SetActive(item.IsLock);
             NotifyObj.SetActive(item.IsNotify);
+            ArrangeFrameObj.SetActive(item.IsArranged);
             //* 子 要素
             if(item is Funiture) {
                 var ft = item as Funiture;
@@ -59,11 +66,42 @@ public class FunitureShopItemBtn : ItemFrameBtn {
                 var bg = item as BgFuniture;
                 priceTxt.text = bg.Price.ToString();
             }
-            // priceTxt.text = item.Price.ToString();
-            arrangeFrameObj.SetActive(item.IsArranged);
             //* priceTxtObj (非)表示
             if(!item.IsLock)
                 priceTxt.transform.parent.gameObject.SetActive(false);
+        }
+        catch(NullReferenceException err) {
+            Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);
+        }
+    }
+}
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+[System.Serializable]
+public class InventoryItemBtn : ItemFrameBtn {
+
+    public InventoryItemBtn( //* 親 param
+    GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj)
+    :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj) { //* 親 コンストラクター 呼出し
+        //* 子 要素
+    }
+    public override void init() {
+        base.init();
+    }
+
+    public override void updateItemFrame(Item item) {
+        try {
+            Img.sprite = item.Spr;
+            LockFrameObj.SetActive(item.IsLock);
+            NotifyObj.SetActive(item.IsNotify);
+            ArrangeFrameObj.SetActive(item.IsArranged);
+            //* 子 要素
+            // if(item is Funiture) {
+            //     var ft = item as Funiture;
+            // }
+            // else if(item is BgFuniture) {
+            //     var bg = item as BgFuniture;
+            // }
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);

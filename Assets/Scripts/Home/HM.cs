@@ -15,6 +15,7 @@ public class HM : MonoBehaviour {
     public UIManager ui;
     public TouchControl touchCtr;
     public FunitureUIManager fUI;
+    public InventoryUIManager iUI;
     public HEM em;
 
     [Header("GROUP")]

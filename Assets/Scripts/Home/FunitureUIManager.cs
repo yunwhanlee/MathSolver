@@ -31,7 +31,7 @@ public class FunitureUIManager : MonoBehaviour
 
     void Start() {
         //* アイテムボタン 割り当て
-        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, PRICE = 3, ARRANGE = 4; //* Index 
+        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3, PRICE = 4; //* Index
         page = 0;
         itemBtns = new FunitureShopItemBtn[content.childCount];
         for(int i = 0; i < content.childCount; i++) {
@@ -41,9 +41,9 @@ public class FunitureUIManager : MonoBehaviour
                 img: tf.GetChild(IMG).GetComponent<Image>(),
                 lockFrameObj: tf.GetChild(LOCKFRAME).gameObject,
                 notifyObj: tf.GetChild(NOTIFY).gameObject,
+                arrangeFrameObj: tf.GetChild(ARRANGE).gameObject,
                 //* 子 要素
-                priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>(),
-                arrangeFrameObj: tf.GetChild(ARRANGE).gameObject
+                priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>()
             );
         }
 
@@ -57,7 +57,7 @@ public class FunitureUIManager : MonoBehaviour
         Debug.Log($"BBB onClickCategoryBtn(idx: {idx})");
         //* 初期化
         page = 0;
-        Array.ForEach(itemBtns, ib => ib.init());
+        Array.ForEach(itemBtns, itemBtn => itemBtn.init());
 
         //* カテゴリ IDX
         setCategoryIdx(idx);

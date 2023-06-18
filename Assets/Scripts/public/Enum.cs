@@ -8,6 +8,7 @@ public class Enum : MonoBehaviour
     public enum HOME {Room, IkeaShop, ClothShop, Inventory};
     public enum ACHIVERANK {Achivement, Mission, Rank};
     public enum FUNITURE_CATE {Funiture, Decoration, Bg, Mat};
+    public enum INV_CATE {Player, Pet};
     public enum FUNITURE_BG {Wall, Floor};
     public enum TAG {GoGame};
     public enum ANIM {DoIdle, DoWalk, DoBounce};

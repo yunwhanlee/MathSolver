@@ -83,10 +83,10 @@ public class UIManager : MonoBehaviour {
         achiveRankTitleTxt.text = "업적";//Enum.ACHIVERANK.Achivement.ToString();
 
         //* インベントリー
-        for(int i = 0; i < invTypeBtns.Length; i++) {
-            invTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
-            invListFrames[i].SetActive(i == 0);
-        }
+        // for(int i = 0; i < invTypeBtns.Length; i++) {
+        //     invTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
+        //     invListFrames[i].SetActive(i == 0);
+        // }
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -189,13 +189,13 @@ public class UIManager : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == idx);
         }
     }
-    public void onClickinventoryTypeBtn(int idx) {
-        //* Display
-        for(int i = 0; i < invTypeBtns.Length; i++) {
-            invTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
-            invListFrames[i].SetActive(i == idx);
-        }
-    }
+    // public void onClickinventoryTypeBtn(int idx) {
+    //     //* Display
+    //     for(int i = 0; i < invTypeBtns.Length; i++) {
+    //         invTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
+    //         invListFrames[i].SetActive(i == idx);
+    //     }
+    // }
     public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
         infoDialog.SetActive(true);
     }
@@ -207,7 +207,7 @@ IEnumerator coUpdateUI() {
     while(true) {
         try {
             //* コイン
-        coinTxt.text = DB.Dt.Coin.ToString();
+            coinTxt.text = DB.Dt.Coin.ToString();
         }
         catch(Exception err) {
             Debug.LogWarning($"ERROR: {err}");
