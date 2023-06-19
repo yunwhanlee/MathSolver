@@ -24363,7 +24363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 1
+  isReset: 0
   dt:
     funitures:
     - name: WoodChair
@@ -29848,7 +29848,7 @@ GameObject:
   - component: {fileID: 1327448382}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29949,13 +29949,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327448379}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.05, y: 0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.25}
@@ -29966,7 +29966,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.64, y: 1.9428571}
+  m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &1327448384
 MonoBehaviour:
@@ -29987,6 +29987,9 @@ MonoBehaviour:
   idleSpr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
   moveSpeed: 2
   tgPos: {x: 0, y: 0}
+  isSitTrigger: 0
+  isSit: 0
+  colChairObj: {fileID: 0}
 --- !u!95 &1327448385
 Animator:
   serializedVersion: 5

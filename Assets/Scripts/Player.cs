@@ -20,6 +20,9 @@ public class Player : MonoBehaviour {
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos; public Vector2 TgPos {get => tgPos; set => tgPos = value;}
+    [SerializeField] bool isSitTrigger; public bool IsSitTrigger {get => isSitTrigger; set => isSitTrigger = value;}
+    [SerializeField] bool isSit; public bool IsSit {get => isSit; set => isSit = value;}
+    [SerializeField] GameObject colChairObj;    public GameObject ColChairObj {get => colChairObj;}
 
     Transform tf;
 
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour {
     void Update() {
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
         if(HM._.state != HM.STATE.NORMAL) return;
+        if(isSit) return;
 
         //* レイヤー
         sr = GetComponent<SpriteRenderer>();
@@ -77,6 +81,26 @@ public class Player : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.CompareTag(Enum.TAG.GoGame.ToString())) {
             HM._.ui.GoGameDialog.SetActive(true);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D col) {
+        //* Sit Trigger ON
+        if(col.CompareTag(Enum.TAG.Funiture.ToString()) 
+        && col.gameObject.layer == LayerMask.NameToLayer(Enum.LAYER.Chair.ToString())) {
+            Debug.Log("Player:: isSitTrigger ON");
+            isSitTrigger = true;
+            colChairObj = col.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col) {
+        //* Sit Trigger OFF
+        if(col.CompareTag(Enum.TAG.Funiture.ToString()) 
+        && col.gameObject.layer == LayerMask.NameToLayer(Enum.LAYER.Chair.ToString())) {
+            Debug.Log("Player:: isSitTrigger OFF");
+            isSitTrigger = false;
+            colChairObj = null;
         }
     }
 #endregion
