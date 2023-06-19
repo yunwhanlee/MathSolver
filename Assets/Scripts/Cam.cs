@@ -33,8 +33,8 @@ public class Cam : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     private void OnPreCull() {
         GL.Clear(true, true, Color.black);
-        if(cullPaddingTopImg) cullPaddingTopImg.gameObject.SetActive(false);
-        if(cullPaddingBottomImg) cullPaddingBottomImg.gameObject.SetActive(false);
+        // if(cullPaddingTopImg) cullPaddingTopImg.gameObject.SetActive(false);
+        // if(cullPaddingBottomImg) cullPaddingBottomImg.gameObject.SetActive(false);
     }
 #endregion
 }
