@@ -20,7 +20,7 @@ public class Data {
 
     [Header("PLAYERSKIN ITEM")]
     [SerializeField] PlayerSkin[] plSkins;    public PlayerSkin[] PlSkins {get => plSkins; set => plSkins = value;}
-    [SerializeField] PetSkin[] petSkins;   public PetSkin[] PetSkins {get => petSkins; set => petSkins = value;}
+    [SerializeField] PetSkin[] petSkins;   public PetSkin[] PtSkins {get => petSkins; set => petSkins = value;}
 
     [Header("VALUE")]
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
@@ -159,11 +159,15 @@ public class DB : MonoBehaviour {
         #region INVENTORY
         //* ロック
         Array.ForEach(dt.PlSkins, plSk => plSk.IsLock = true);
-        Array.ForEach(dt.PetSkins, petSk => petSk.IsLock = true);
+        Array.ForEach(dt.PtSkins, ptSk => ptSk.IsLock = true);
 
         //* Player 最初IDXのみ ON
         dt.PlSkins[0].IsLock = false;
         dt.PlSkins[0].IsArranged = true;
+
+        //* Pet 最初IDXのみ ON
+        dt.PtSkins[0].IsLock = false;
+        dt.PtSkins[0].IsArranged = true;
         #endregion
     }
     #endregion

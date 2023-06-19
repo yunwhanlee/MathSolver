@@ -314,7 +314,7 @@ public class PetSkin : Item {
 
     #region Priavate Func
     private Transform setSpriteLibrary() {
-        PetSkin[] items = DB.Dt.PetSkins;
+        PetSkin[] items = DB.Dt.PtSkins;
         SpriteLibrary sprLib = HM._.pet.GetComponent<SpriteLibrary>();
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false);

@@ -8,6 +8,8 @@ using TMPro;
 public class InventoryUIManager : MonoBehaviour
 {
     const int ITEM_BTN_CNT = 9;
+    public bool testUnlockMode = false; //! TEST
+
     [Header("CATEGORY")]
     [SerializeField] Enum.INV_CATE category; public Enum.INV_CATE Category {get => category;}
     [SerializeField] Button[] categoryBtns; public Button[] CategoryBtns {get => categoryBtns; set => categoryBtns = value;}
@@ -18,6 +20,8 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] InventoryItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
+
+
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -68,6 +72,7 @@ public class InventoryUIManager : MonoBehaviour
         showItemList(); //* アイテムリスト 並べる
     }
     public void onClickItemListBtn(int idx) {
+        testUnlockItem(idx); //! TEST
         //* ペースも含めた 実際のINDEX
         HM._.ui.CurSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
         //* Pattern Matching (Child Class)
@@ -82,14 +87,23 @@ public class InventoryUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
+    private void testUnlockItem(int idx) {
+        if(!testUnlockMode) return;
+
+        Debug.Log("TEST:: InventoryUIManager ::testUnlockItem");
+        if(category == Enum.INV_CATE.Player)
+            DB.Dt.PlSkins[idx + (page * ITEM_BTN_CNT)].IsLock = false;
+        else if(category == Enum.INV_CATE.Pet)
+            DB.Dt.PtSkins[idx + (page * ITEM_BTN_CNT)].IsLock = false;
+    }
     private void setCategoryIdx(int idx) {
         category = (idx == 0)? Enum.INV_CATE.Player : Enum.INV_CATE.Pet;
     }
     private int getCategoryItemLenght() {
-        return (category == Enum.INV_CATE.Player)? DB.Dt.PlSkins.Length : DB.Dt.PetSkins.Length;
+        return (category == Enum.INV_CATE.Player)? DB.Dt.PlSkins.Length : DB.Dt.PtSkins.Length;
     }
     private Item getSelectedItem(int idx) {
-        return (category == Enum.INV_CATE.Player)? DB.Dt.PlSkins[idx] : DB.Dt.PetSkins[idx];
+        return (category == Enum.INV_CATE.Player)? DB.Dt.PlSkins[idx] : DB.Dt.PtSkins[idx];
     }
     private void setPageByArrowBtn(int pageDir) { // @param pageDir : -1(Left) or 1(Right)
         //* 初期化

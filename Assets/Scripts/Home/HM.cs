@@ -41,7 +41,7 @@ public class HM : MonoBehaviour {
         createFunitureItemsBySaveData(DB.Dt.Bgs);
         createFunitureItemsBySaveData(DB.Dt.Mats);
         setCharaSpriteLibraryBySaveData(DB.Dt.PlSkins);
-        setCharaSpriteLibraryBySaveData(DB.Dt.PetSkins);
+        setCharaSpriteLibraryBySaveData(DB.Dt.PtSkins);
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
