@@ -124,7 +124,7 @@ public class DB : MonoBehaviour {
         dt.PetId = 0;
 
         //* 財貨
-        dt.Coin = 5000;
+        dt.Coin = 50000;
 
         #region FUNITURE
         //* ロック
