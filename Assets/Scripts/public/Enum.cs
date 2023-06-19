@@ -10,11 +10,11 @@ public class Enum : MonoBehaviour
     public enum FUNITURE_CATE {Funiture, Decoration, Bg, Mat};
     public enum INV_CATE {Player, Pet};
     public enum FUNITURE_BG {Wall, Floor};
-    public enum TAG {GoGame};
-    public enum ANIM {IsWalk, DoBounce, DoSuccess};
+    public enum TAG {GoGame, IconBtnGroupArea, Pet};
+    public enum ANIM {IsWalk, DoBounce, DoSuccess, DoDance};
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};
-    public enum LAYER {IconBtnGroupArea};
+    public enum LAYER {};
     public enum SORTINGLAYER {Mat, Default};
     public enum HOME_EF_IDX {FunitureSetupEF};
 }   

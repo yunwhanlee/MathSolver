@@ -10,6 +10,7 @@ TagManager:
   - Decoration
   - Bg
   - Mat
+  - Pet
   layers:
   - Default
   - TransparentFX

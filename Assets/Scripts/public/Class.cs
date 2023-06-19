@@ -321,7 +321,6 @@ public class PetSkin : Item {
         SpriteLibrary sprLib = HM._.pet.GetComponent<SpriteLibrary>();
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false);
-
         //* 適用
         sprLib.spriteLibraryAsset = items[HM._.ui.CurSelectedItemIdx].SprLibraryAsset;
         //* EFに位置を与えるため、リターン

@@ -1791,9 +1791,10 @@ GameObject:
   - component: {fileID: 64751379}
   - component: {fileID: 64751383}
   - component: {fileID: 64751382}
+  - component: {fileID: 64751384}
   m_Layer: 0
   m_Name: Pet
-  m_TagString: Untagged
+  m_TagString: Pet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1855,12 +1856,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -214582146, guid: 786ab6b2cf10bac4ba009aebd320525e, type: 3}
+  m_Sprite: {fileID: -1657514473, guid: 702bb1d81f7d411449b26e4ebf3dae77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.2812513, y: 1.28}
+  m_Size: {x: 1.1733333, y: 0.85333335}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1883,7 +1884,7 @@ MonoBehaviour:
   sr: {fileID: 64751379}
   shadowSr: {fileID: 50844847}
   idleSpr: {fileID: 1932084133, guid: b1deed9d6b7747a4f8a00e4acfc7f272, type: 3}
-  moveSpeed: 1
+  moveSpeed: 1.2
 --- !u!95 &64751381
 Animator:
   serializedVersion: 5
@@ -1933,7 +1934,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: de0e0311dd6e9524581ef1edcea056dd, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: d28f7c135bee45349bd9818407074b1f, type: 3}
+--- !u!61 &64751384
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64751377}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.7}
+    oldSize: {x: 1.1733333, y: 0.85333335}
+    newSize: {x: 1.1733333, y: 0.85333335}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.85, y: 1.2}
+  m_EdgeRadius: 0
 --- !u!1 &67995629
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,10 +13,17 @@ public class TouchControl : MonoBehaviour
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, transform.forward, MAX_DISTANCE);
             if(hit) {
-                Debug.Log($"TouchControl:: Hit.tag= {hit.transform.tag}, mouseWorldPos= {mouseWorldPos}");
+                Debug.Log($"TouchControl:: Hit.tag= {hit.transform.tag}, Hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
 
                 //* ホームのアイコンボタン領域なら、プレイヤー移動させない
-                if(hit.transform.CompareTag(Enum.LAYER.IconBtnGroupArea.ToString())) return;
+                if(hit.transform.CompareTag(Enum.TAG.IconBtnGroupArea.ToString()))
+                    return;
+                else if(hit.transform.CompareTag(Enum.TAG.Pet.ToString())) {
+                    HM._.pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
+                    return;
+                }
+
+                //* プレイヤー 移動位置
                 HM._.pl.TgPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
             }
             Debug.DrawRay(mouseWorldPos, transform.forward * 50, Color.red, 0.3f);
