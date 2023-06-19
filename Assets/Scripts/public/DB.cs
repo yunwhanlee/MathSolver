@@ -68,7 +68,6 @@ public class DB : MonoBehaviour {
         Array.ForEach(dt.Decorations, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         //// Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
         Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-
     }
     /// -----------------------------------------------------------------------------------------------------------------
     #region QUIT APP EVENT

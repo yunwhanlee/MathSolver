@@ -24363,7 +24363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 0
+  isReset: 1
   dt:
     funitures:
     - name: WoodChair
@@ -24375,59 +24375,203 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: bec8a66b651e5614ab33e58e566f8468, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: GamingChair
+    - name: DotoryWorkshopGamingChair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 500
+      price: 2000
       prefab: {fileID: 3933582543245780397, guid: 668051afc43901f41836259a24fb27b2, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: WoodTable
+    - name: FineSofa
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 500
+      price: 3000
+      prefab: {fileID: 3933582543245780397, guid: 1346c8cf102f97a43a6b37faf6882218, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: FrogChair
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 2500
+      prefab: {fileID: 3933582543245780397, guid: ad34f8680e2b46448ac56b91b419a1af, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: LionKingChair
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 4500
+      prefab: {fileID: 3933582543245780397, guid: 53f8b7f7abde45d44a7cb7701353caa7, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: LogDesk
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 1500
       prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    decorations:
-    - name: GlassHorse
+    - name: OldStoolChair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
+      prefab: {fileID: 3933582543245780397, guid: 1fa701bd19c07904aa55194de82d73cd, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: OrangeSofa
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 3500
+      prefab: {fileID: 3933582543245780397, guid: 61afe52ed94f1ff47af9c75f687c9afb, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: QuestionMarkChair
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 3000
+      prefab: {fileID: 3933582543245780397, guid: d031171f357a69b46944cf0e50408441, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    decorations:
+    - name: BaloonPuppy
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 3000
+      prefab: {fileID: 3933582543245780397, guid: 1fd2cb8575ac04246bf3f8eb504ef497, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: DumbBell
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 1500
+      prefab: {fileID: 3933582543245780397, guid: 5659d8ab5d3f72445940a808bc11df0c, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GlassElephant
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 2000
+      prefab: {fileID: 3933582543245780397, guid: c705a5ceb8896fb40b00f77e64611a92, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GlassRhinoceros
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 2000
+      prefab: {fileID: 3933582543245780397, guid: e793bd9db6d4c054c94e1c362a13ffed, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: GlassSeaHorse
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 2000
       prefab: {fileID: 3933582543245780397, guid: 672aeab66606bf245bac1b1176c0f70a, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: GoldTrophy
+    - name: GoryeoCeladon
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 500
-      prefab: {fileID: 3933582543245780397, guid: 05a5f6a09a7eb3b44bcb8a8905e41e97, type: 3}
+      price: 1500
+      prefab: {fileID: 3933582543245780397, guid: 84949c858446aa64c80903263c6566fe, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: VaseKettle
+    - name: KettleBell
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 0
+      price: 1500
+      prefab: {fileID: 3933582543245780397, guid: 14bef35679b822d46a8016b8520c1920, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: KettleVase
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 1000
       prefab: {fileID: 3933582543245780397, guid: ebf4bc044179b5746b84eba58aba4ce9, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: VaseMountain
+    - name: MountainVase
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 0
+      price: 1000
       prefab: {fileID: 3933582543245780397, guid: 8a5c43682c160954db0c45f22a6b1bd9, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: SpaceEnemyFigure
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 4500
+      prefab: {fileID: 3933582543245780397, guid: 7e15c0e430c664d40a47492e8ae51c25, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: SpaceWarriorFigure
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 5000
+      prefab: {fileID: 3933582543245780397, guid: a18fdb2d926f484498758a2ec69ce41b, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: TrophyBronze
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 1000
+      prefab: {fileID: 3933582543245780397, guid: 1683cf3a56d425245893b22c3da737eb, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: TrophySilver
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 2000
+      prefab: {fileID: 3933582543245780397, guid: ca59a07ea1c20ad4fa43c7022cc22439, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: TrophyGold
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 3000
+      prefab: {fileID: 3933582543245780397, guid: 05a5f6a09a7eb3b44bcb8a8905e41e97, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     bgs:
@@ -24586,12 +24730,12 @@ MonoBehaviour:
       price: 500
       type: 1
     mats:
-    - name: RedCarpet
-      spr: {fileID: 0}
+    - name: RedRoundMat
+      spr: {fileID: 21300000, guid: db21476c280a82e41a3f65564937a56c, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 0
+      price: 500
       prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
@@ -29893,90 +30037,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Library: []
   m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 3eeac3595846f9a4ca3ed79481fe2447, type: 3}
---- !u!1 &1331693963
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1331693965}
-  - component: {fileID: 1331693964}
-  m_Layer: 0
-  m_Name: Pet_LemonPack_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1331693964
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1331693963}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1881954057, guid: 702bb1d81f7d411449b26e4ebf3dae77, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1.1733333, y: 0.85333335}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1331693965
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1331693963}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1993928, y: -1.3072436, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1337878097
 GameObject:
   m_ObjectHideFlags: 0
@@ -35550,90 +35610,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80935950f3cb0284fa0c349dc6b78689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1592210481
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1592210483}
-  - component: {fileID: 1592210482}
-  m_Layer: 0
-  m_Name: Pet_Lemon_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1592210482
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592210481}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1398297238, guid: 1569183a215dfcf42aaecf6bddd4a4b4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1.177646, y: 0.85333335}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1592210483
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592210481}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13873251, y: -1.8706648, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1593390585
 GameObject:
   m_ObjectHideFlags: 0
@@ -47570,8 +47546,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 4.5405407, y: 2.5243244}
-    newSize: {x: 1.29, y: 1.985}
+    oldSize: {x: 4.2, y: 2.33}
+    newSize: {x: 4.2, y: 2.33}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -47640,12 +47616,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 1405228329, guid: 4010d9f940a5d894486d6f54ba77759e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de5cb2da5da7f274ab7756663ae1d43c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.29, y: 1.985}
+  m_Size: {x: 4.2, y: 2.33}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

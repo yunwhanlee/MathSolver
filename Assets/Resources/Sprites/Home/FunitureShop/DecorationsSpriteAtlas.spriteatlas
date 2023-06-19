@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DecorationsSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 8e4405c77e95a34458737bc1903717d2, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 29537e70797498943a4fc71a5b9b888a, type: 3}
+  - {fileID: 21300000, guid: 5cb13990a2f90a94e9b520afb9f2db26, type: 3}
+  - {fileID: 21300000, guid: 0c4d1531eafe0d241802bf900856c9f3, type: 3}
+  - {fileID: 21300000, guid: dc31dba293208fc4296343146e6bc764, type: 3}
+  - {fileID: 21300000, guid: d71212c2cfae3154c8d64705549940dc, type: 3}
+  - {fileID: 21300000, guid: f1e01a943833c394f83a8774979ebda5, type: 3}
+  - {fileID: 21300000, guid: f7d73e656a2094b4382757403edab935, type: 3}
+  - {fileID: 21300000, guid: 7914d429362afae4b8ba477f92511806, type: 3}
+  - {fileID: 21300000, guid: c387407a3692e914d9302dcc01272bde, type: 3}
+  - {fileID: 21300000, guid: 4516ec0c2d6648d48aef65528141e539, type: 3}
+  - {fileID: 21300000, guid: 9a3d87ccea84025408621b867ec2ca18, type: 3}
+  - {fileID: -678144114, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
+  - {fileID: -1536967082, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
+  - {fileID: -1679202842, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Deco_SpaceEnemyFigure
+  - Deco_GlassSeahorse
+  - Deco_DumbBell
+  - Deco_GoryeoCeladon
+  - Deco_KettleBell
+  - Deco_MountainVase
+  - Deco_SpaceWarriorFigure
+  - Deco_GlassRhinoceros
+  - Deco_KettleVase
+  - Deco_Glasselephant
+  - Deco_BallonPuppy
+  - Deco_TrophySprites_0
+  - Deco_TrophySprites_1
+  - Deco_TrophySprites_2
+  m_RenderDataMap: {}
+  m_Tag: DecorationsSpriteAtlas
+  m_IsVariant: 0

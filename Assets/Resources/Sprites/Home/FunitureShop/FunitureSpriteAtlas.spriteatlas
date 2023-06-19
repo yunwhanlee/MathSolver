@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FunitureSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 65
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f94c231635ee6d34294d3d8af614f2b3, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0abcb5915dc29b848a6c53f4a9ecbc50, type: 3}
+  - {fileID: 21300000, guid: 1245c6d3e9c17f34cbaecb6463c98f05, type: 3}
+  - {fileID: 21300000, guid: 13fe3984b39ce474abab2f8c203df645, type: 3}
+  - {fileID: 21300000, guid: 4c84145899bedb54e9eb51d97247574b, type: 3}
+  - {fileID: 21300000, guid: 21fe6f190a44f6e4aa94f53f6d1e76be, type: 3}
+  - {fileID: 21300000, guid: 7a61b0399d8665e4bacf314dfca3d935, type: 3}
+  - {fileID: 21300000, guid: de5cb2da5da7f274ab7756663ae1d43c, type: 3}
+  - {fileID: 21300000, guid: 55d45e8cf4a229e40a2e98fed443a2b2, type: 3}
+  - {fileID: 21300000, guid: 57a1d99ceb8947c4788c1046e694c676, type: 3}
+  - {fileID: 21300000, guid: 606f24befe143e24c8cf4240dda0c7b2, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Funi_FrogChair
+  - Funi_LionKingChair
+  - Funi_OrangeSofa
+  - Funi_DotoryWorkshopGamingchair
+  - Funi_LogDesk
+  - Funi_FineSofa
+  - Funi_Bookcase
+  - Funi_OldStoolChair
+  - Funi_QuestionMarkChair
+  - Funi_WoodChair
+  m_RenderDataMap: {}
+  m_Tag: FunitureSpriteAtlas
+  m_IsVariant: 0
