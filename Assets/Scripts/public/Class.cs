@@ -125,8 +125,11 @@ public abstract class Item {
         if(this is Funiture || this is BgFuniture)
             HM._.fUI.onClickShopLeftArrow();
         //* ボタン Inventory UI最新化
-        if(this is PlayerSkin || this is PetSkin)
+        if(this is PlayerSkin || this is PetSkin) {
+            HM._.pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
+            HM._.pet.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
             HM._.iUI.onClickInvLeftArrow();
+        }
     }
     public virtual void purchase() {
         if(DB.Dt.Coin >= this.Price) {

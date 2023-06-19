@@ -83,6 +83,9 @@ public class HM : MonoBehaviour {
                 break;
             case PetSkin ptSk:
                 HM._.pet.SprLib.spriteLibraryAsset = ptSk.SprLibraryAsset;
+                //* Sprite Libraryがなかったら、SpriteRenderer 非表示
+                if(!ptSk.SprLibraryAsset)
+                    HM._.pet.Sr.sprite = null;
                 break;
         }
     }

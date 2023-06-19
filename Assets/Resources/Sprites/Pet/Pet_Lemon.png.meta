@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c92dba7a37c65f34eb8439b90d77e26f
+guid: 702bb1d81f7d411449b26e4ebf3dae77
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,97 +105,160 @@ TextureImporter:
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 65
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pet_LemonSprite_0
+      name: Pet_Lemon_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 352
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14e8d915e0421e34e9065426230fafba
+      internalID: -1657514473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pet_Lemon_1
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 512
+        width: 352
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6dda1f7d13d24240a5b59204bea82b1
+      internalID: 227826525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pet_Lemon_2
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 512
+        width: 352
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccd02d2f4e22d7846bcd3b539f4cc9f5
+      internalID: -2121678353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pet_Lemon_3
       rect:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 256
+        width: 352
         height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff865ee051c0f8b4f9371d0e9e07474b
-      internalID: -2025104236
+      spriteID: 9732014f563671d4eab7abcaf6ca69f3
+      internalID: -2034262023
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_LemonSprite_1
+      name: Pet_Lemon_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 352
         y: 256
-        width: 256
+        width: 352
         height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d841d22a6ab6d5d45b2fd9c4a72c74bf
-      internalID: -556225276
+      spriteID: dadb2a0518bada54885c62b998f208a7
+      internalID: 1592205993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pet_LemonSprite_2
+      name: Pet_Lemon_5
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 257
+        width: 352
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 189c94e73b6ec0a4f9f139111da089e1
+      internalID: 272638132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pet_Lemon_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 256
+        y: 1
+        width: 352
         height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.7}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a6ba42cb87a7ec47b2f71391f98a1c7
-      internalID: 214274739
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pet_LemonSprite_3
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d804400fccc5f64998210eaf4ef4936
-      internalID: 100902865
+      spriteID: cb6c1c99d5c214945b24d0a2fb1d26d9
+      internalID: -1834080713
       vertices: []
       indices: 
       edges: []
@@ -211,10 +274,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pet_LemonSprite_0: -2025104236
-      pet_LemonSprite_1: -556225276
-      pet_LemonSprite_2: 214274739
-      pet_LemonSprite_3: 100902865
+      Pet_Lemon_0: -1657514473
+      Pet_Lemon_1: 227826525
+      Pet_Lemon_2: -2121678353
+      Pet_Lemon_3: -2034262023
+      Pet_Lemon_4: 1592205993
+      Pet_Lemon_5: 272638132
+      Pet_Lemon_6: -1834080713
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
