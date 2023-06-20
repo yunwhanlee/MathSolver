@@ -24845,13 +24845,13 @@ MonoBehaviour:
       isArranged: 0
       sprLibraryAsset: {fileID: 0}
     - name: PetMango
-      spr: {fileID: -1507869740, guid: 786ab6b2cf10bac4ba009aebd320525e, type: 3}
+      spr: {fileID: 489661751, guid: 4ee02cf2f35763444b4d00347686cf4a, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: de0e0311dd6e9524581ef1edcea056dd, type: 3}
     - name: PetSweetPotato
-      spr: {fileID: 494831968, guid: a787affc70904814fb14ff8fa6d112cb, type: 3}
+      spr: {fileID: 1581396467, guid: 0b2faed4bba42d440be400905132b947, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0

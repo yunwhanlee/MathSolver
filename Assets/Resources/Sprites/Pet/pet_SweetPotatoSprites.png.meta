@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 786ab6b2cf10bac4ba009aebd320525e
+guid: 0b2faed4bba42d440be400905132b947
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 200
+  spritePixelsToUnits: 230
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: 51
     textureCompression: 1
@@ -117,106 +117,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PetMangoSprites_0
+      name: pet_SweetPotatoSprites_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
-        width: 256
-        height: 256
+        y: 658
+        width: 289
+        height: 329
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f40d2054160fe94f9b66693735b7c5c
-      internalID: -1507869740
+      spriteID: b7db0785b4f25554db2ac9f86717a58e
+      internalID: 1581396467
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PetMangoSprites_1
+      name: pet_SweetPotatoSprites_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
+        x: 289
+        y: 658
+        width: 289
+        height: 329
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28496b6510899bd47a9235c240fc80da
-      internalID: -1547368548
+      spriteID: 5326f07fbeaee014e82d9be1fd5edee6
+      internalID: -1475133901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PetMangoSprites_2
+      name: pet_SweetPotatoSprites_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
+        x: 578
+        y: 658
+        width: 289
+        height: 329
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1900b8a5b13f921499b7b66e55bb5b9f
-      internalID: -214582146
+      spriteID: 4c11ede5e86778e4ea5a97d7233645b3
+      internalID: -1076014882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PetMangoSprites_3
+      name: pet_SweetPotatoSprites_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 329
+        width: 289
+        height: 329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c6caea06b33a3844b3bbe86555af186
+      internalID: 684297823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pet_SweetPotatoSprites_4
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 329
+        width: 289
+        height: 329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2637bc432169bf478e93688a2020ccd
+      internalID: 1980137521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pet_SweetPotatoSprites_5
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 329
+        width: 289
+        height: 329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 882bcdc84c3025e4aa540c296fb07043
+      internalID: -130868888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pet_SweetPotatoSprites_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 289
+        height: 329
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e0e77adc0f4d1440aac08a2eb4a3959
-      internalID: -1830418798
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PetMangoSprites_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 256
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d96302ec10365b84f9ea67f7abe74af5
-      internalID: -998281759
+      spriteID: 277322428ae1b454884f073ed02a447c
+      internalID: 590687943
       vertices: []
       indices: 
       edges: []
@@ -232,11 +274,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PetMangoSprites_0: -1507869740
-      PetMangoSprites_1: -1547368548
-      PetMangoSprites_2: -214582146
-      PetMangoSprites_3: -1830418798
-      PetMangoSprites_4: -998281759
+      pet_SweetPotatoSprites_0: 1581396467
+      pet_SweetPotatoSprites_1: -1475133901
+      pet_SweetPotatoSprites_2: -1076014882
+      pet_SweetPotatoSprites_3: 684297823
+      pet_SweetPotatoSprites_4: 1980137521
+      pet_SweetPotatoSprites_5: -130868888
+      pet_SweetPotatoSprites_6: 590687943
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

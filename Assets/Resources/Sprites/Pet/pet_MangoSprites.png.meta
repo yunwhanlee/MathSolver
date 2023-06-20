@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a787affc70904814fb14ff8fa6d112cb
+guid: 4ee02cf2f35763444b4d00347686cf4a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 250
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: 51
     textureCompression: 1
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PetSweetPotato_0
+      name: pet_MangoSprites_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 375
-        width: 300
-        height: 375
+        y: 638
+        width: 263
+        height: 319
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d5b4a2e87a0c4b42aeec8312071adbb
-      internalID: 494831968
+      spriteID: c78bafaf378cc134a865b34e256fbcfd
+      internalID: 489661751
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PetSweetPotato_1
+      name: pet_MangoSprites_1
       rect:
         serializedVersion: 2
-        x: 300
-        y: 375
-        width: 300
-        height: 375
+        x: 263
+        y: 638
+        width: 263
+        height: 319
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f96b2c3688cb282488d42647a2e93a60
-      internalID: 1111010497
+      spriteID: b14913f43240d1840a06678dd7f5f62c
+      internalID: 89045249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PetSweetPotato_2
+      name: pet_MangoSprites_2
       rect:
         serializedVersion: 2
-        x: 600
-        y: 375
-        width: 300
-        height: 375
+        x: 526
+        y: 638
+        width: 263
+        height: 319
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,83 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c413dff2178b1a848b13175f92a07035
-      internalID: 2094949012
+      spriteID: 0db8a6fb0a88c2f4d988ffdde2897401
+      internalID: -932801881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PetSweetPotato_3
+      name: pet_MangoSprites_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 319
+        width: 263
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df0171eca63aebc499284c9d23502575
+      internalID: -1178501884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pet_MangoSprites_4
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 319
+        width: 263
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58ca4cbf23356844c82885c2653e1310
+      internalID: 683796425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pet_MangoSprites_5
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 319
+        width: 263
+        height: 319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb69566a301c4e44cadf83fbcfc9a146
+      internalID: 286158108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pet_MangoSprites_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 300
-        height: 375
+        width: 263
+        height: 319
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,29 +257,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5664ac6b2c1f38340a1e60ba75ae2702
-      internalID: 1671179052
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PetSweetPotato_4
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 300
-        height: 375
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4270febddfb831e45a314e3745078445
-      internalID: -1255406300
+      spriteID: 7c269f250ea9ab541bd15c45504b8ca9
+      internalID: -553042765
       vertices: []
       indices: 
       edges: []
@@ -232,11 +274,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PetSweetPotato_0: 494831968
-      PetSweetPotato_1: 1111010497
-      PetSweetPotato_2: 2094949012
-      PetSweetPotato_3: 1671179052
-      PetSweetPotato_4: -1255406300
+      pet_MangoSprites_0: 489661751
+      pet_MangoSprites_1: 89045249
+      pet_MangoSprites_2: -932801881
+      pet_MangoSprites_3: -1178501884
+      pet_MangoSprites_4: 683796425
+      pet_MangoSprites_5: 286158108
+      pet_MangoSprites_6: -553042765
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
