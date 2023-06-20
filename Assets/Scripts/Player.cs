@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos; public Vector2 TgPos {get => tgPos; set => tgPos = value;}
-    [SerializeField] bool isSitTrigger; public bool IsSitTrigger {get => isSitTrigger; set => isSitTrigger = value;}
+    //* Sit Chair
     [SerializeField] bool isSit; public bool IsSit {get => isSit; set => isSit = value;}
     [SerializeField] GameObject colChairObj;    public GameObject ColChairObj {get => colChairObj;}
 
@@ -54,8 +54,8 @@ public class Player : MonoBehaviour {
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
             bool isWalkStop = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
 
-            if(isWalkStop) {setIdle();}
-            else {setWalk();}
+            if(isWalkStop) {animIdle();}
+            else {animWalk();}
         }
     }
 
@@ -64,12 +64,11 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     public void setInitSpr() => sr.sprite = idleSpr;
 
-    public void setIdle() {
+    public void animIdle() {
         tf.position = new Vector3(tgPos.x, tgPos.y, FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
     }
-
-    public void setWalk() {
+    public void animWalk() {
         tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
         tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
@@ -86,20 +85,21 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D col) {
         //* Sit Trigger ON
-        if(col.CompareTag(Enum.TAG.Funiture.ToString()) 
-        && col.gameObject.layer == LayerMask.NameToLayer(Enum.LAYER.Chair.ToString())) {
-            Debug.Log("Player:: isSitTrigger ON");
-            isSitTrigger = true;
+        if(HM._.isChair(col.gameObject)) {
             colChairObj = col.gameObject;
+
+            if(isSit) return;
+            var chairSr = colChairObj.GetComponent<SpriteRenderer>();
+            chairSr.material = HM._.outlineMt;
         }
     }
 
     private void OnTriggerExit2D(Collider2D col) {
         //* Sit Trigger OFF
-        if(col.CompareTag(Enum.TAG.Funiture.ToString()) 
-        && col.gameObject.layer == LayerMask.NameToLayer(Enum.LAYER.Chair.ToString())) {
-            Debug.Log("Player:: isSitTrigger OFF");
-            isSitTrigger = false;
+        if(HM._.isChair(col.gameObject)) {
+            var chairSr = colChairObj.GetComponent<SpriteRenderer>();
+            chairSr.material = HM._.sprUnlitMt;
+
             colChairObj = null;
         }
     }

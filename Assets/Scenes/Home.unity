@@ -1807,7 +1807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64751377}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: -0.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1884,7 +1884,7 @@ MonoBehaviour:
   sr: {fileID: 64751379}
   shadowSr: {fileID: 50844847}
   idleSpr: {fileID: 1932084133, guid: b1deed9d6b7747a4f8a00e4acfc7f272, type: 3}
-  moveSpeed: 1.2
+  moveSpeed: 1.5
 --- !u!95 &64751381
 Animator:
   serializedVersion: 5
@@ -1948,7 +1948,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.17798957}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.7}
@@ -1959,7 +1959,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.85, y: 1.2}
+  m_Size: {x: 0.75, y: 0.76773983}
   m_EdgeRadius: 0
 --- !u!1 &67995629
 GameObject:
@@ -9083,6 +9083,7 @@ MonoBehaviour:
   effectGroup: {fileID: 2105312514}
   sprUnlitMt: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   outlineAnimMt: {fileID: 2100000, guid: db37f9e7df5ad2348acdaffb2613eed9, type: 2}
+  outlineMt: {fileID: 2100000, guid: f191696a5dd15894fa3691b2df5a4933, type: 2}
   funitureModeShadowFrameObj: {fileID: 886808597}
   funitureModeItem: {fileID: 0}
   roomObjectGroup: {fileID: 203068470}
@@ -30103,7 +30104,6 @@ MonoBehaviour:
   idleSpr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
   moveSpeed: 2
   tgPos: {x: 0, y: 0}
-  isSitTrigger: 0
   isSit: 0
   colChairObj: {fileID: 0}
 --- !u!95 &1327448385

@@ -24,6 +24,7 @@ public class HM : MonoBehaviour {
     [Header("MATERIAL")]
     public Material sprUnlitMt;
     public Material outlineAnimMt;
+    public Material outlineMt;
 
     [Header("GAME OBJECT")]
     public GameObject funitureModeShadowFrameObj;
@@ -50,7 +51,6 @@ public class HM : MonoBehaviour {
 
     private void createFunitureItemsBySaveData(Item[] itemDts) {
         Item[] arrangedItems = Array.FindAll(itemDts, item => item.IsArranged);
-
         //* 系変換
         Array.ForEach(arrangedItems, item => {
             if(item is Funiture ft) {
@@ -87,6 +87,18 @@ public class HM : MonoBehaviour {
                 if(!ptSk.SprLibraryAsset)
                     HM._.pet.Sr.sprite = null;
                 break;
+        }
+    }
+    public bool isChair(GameObject obj) {
+        bool isFuniture = obj.CompareTag(Enum.TAG.Funiture.ToString());
+        bool isChair = (obj.layer == LayerMask.NameToLayer(Enum.LAYER.Chair.ToString()));
+        return (isFuniture && isChair);
+    }
+    public void clearAllChairOutline() {
+        for(int i = 0; i < roomObjectGroup.transform.childCount; i++) {
+            GameObject rObj = roomObjectGroup.transform.GetChild(i).gameObject;
+            if(isChair(rObj))
+                rObj.GetComponent<SpriteRenderer>().material = sprUnlitMt;
         }
     }
 #endregion

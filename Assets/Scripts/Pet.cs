@@ -9,12 +9,11 @@ public class Pet : MonoBehaviour {
     const float CHASE_DELAY = 0.5f;
     const float MIN_X = -2.5f, MAX_X = 2.5f, MIN_Y = -3.5f, MAX_Y = 2;
     const float OFFSET_X = 1;
-    const float OFFSET_Y = 0;
+    const float OFFSET_Y = -0.35f;
     const float WALK_STOP_VAL = 0.5f;
 
     [Header("OUTSIDE")]
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
-
 
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
@@ -42,7 +41,8 @@ public class Pet : MonoBehaviour {
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
         //* プレイヤー 追いかける
-        float x = Mathf.Clamp((plTf.position.x + OFFSET_X), MIN_X, MAX_X);
+        int dir = (HM._.pl.transform.localScale.x < 0)? -1 : 1;
+        float x = Mathf.Clamp((plTf.position.x + (OFFSET_X * dir)), MIN_X, MAX_X);
         float y = Mathf.Clamp((plTf.position.y + OFFSET_Y), MIN_Y, MAX_Y);
         tgPos = new Vector2(x, y);
 
@@ -55,8 +55,8 @@ public class Pet : MonoBehaviour {
             tf.position = new Vector3(tf.position.x, tf.position.y, FRONT_Z);
 
             //* アニメー
-            if(isWalkStop) {setIdle();}
-            else {setWalk();}
+            if(isWalkStop) {animIdle();}
+            else {animWalk();}
         }
     }
 
@@ -64,13 +64,8 @@ public class Pet : MonoBehaviour {
 #region FUNC
 ///------------------------------------------------------------------------------------------
     public void setInitSpr() => sr.sprite = idleSpr;
-
-    public void setIdle() {
-        anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
-    }
-
-    public void setWalk() {
-        anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
-    }
+    public void animIdle() => anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);    
+    public void animWalk() => anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
+    public void animDance() => anim.SetTrigger(Enum.ANIM.DoDance.ToString());
 #endregion
 }

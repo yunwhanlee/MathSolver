@@ -136,8 +136,8 @@ public class UIManager : MonoBehaviour {
             HM._.pl.Anim.enabled = true;
             HM._.pet.Anim.enabled = true;
             //* アイドルに初期化
-            HM._.pl.setIdle();
-            HM._.pet.setIdle();
+            HM._.pl.animIdle();
+            HM._.pet.animIdle();
 
             HM._.pl.transform.position = HM._.pl.TgPos;
             HM._.pet.transform.position = roomDefPetPos;
