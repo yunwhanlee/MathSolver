@@ -10,6 +10,10 @@ public class Player : MonoBehaviour {
     const float MIN_Y = -4.5f;
     const float MAX_Y = 2.0f;
 
+    const float OFFSET_SIT_X = 0.15f;
+    const float OFFSET_SIT_Y = 0.5f;
+    const int OFFSET_SIT_FRONT_SORTING = 3;
+
     [Header("OUTSIDE")]
     [SerializeField] Collider2D col; public Collider2D Col {get => col; set => col = value;}
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
@@ -63,9 +67,6 @@ public class Player : MonoBehaviour {
 #region FUNC
 ///------------------------------------------------------------------------------------------
     public void setSit(Transform hitTf) {
-        const float OFFSET_SIT_X = 0.15f;
-        const float OFFSET_SIT_Y = 0.825f;
-        const int OFFSET_FRONTSIT = 3;
         //* 座る
         if(!isSit) {
             isSit = true;
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour {
             tf.localPosition = new Vector2(hitTf.localPosition.x + OFFSET_SIT_X, hitTf.localPosition.y + OFFSET_SIT_Y);
             tf.localScale = new Vector2(hitTf.localScale.x, tf.localScale.y);
             //* レイヤー 椅子より +1前に
-            sr.sortingOrder = sr.sortingOrder + OFFSET_FRONTSIT;
+            sr.sortingOrder = sr.sortingOrder + OFFSET_SIT_FRONT_SORTING;
             //* 全て椅子のアウトライン 初期化
             HM._.clearAllChairOutline();
         }

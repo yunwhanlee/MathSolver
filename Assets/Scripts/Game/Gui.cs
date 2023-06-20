@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Gui : MonoBehaviour
@@ -40,6 +41,9 @@ public class Gui : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    public void onclickBtnBackToHome() {
+        SceneManager.LoadScene(Enum.SCENE.Home.ToString());
+    }
     public IEnumerator coShowStageTxt() {
         stageTxt.gameObject.SetActive(true);
         
