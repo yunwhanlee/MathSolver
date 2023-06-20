@@ -9,7 +9,7 @@ public class Pet : MonoBehaviour {
     const float CHASE_DELAY = 0.5f;
     const float MIN_X = -2.5f, MAX_X = 2.5f, MIN_Y = -3.5f, MAX_Y = 2;
     const float OFFSET_X = 1;
-    const float OFFSET_Y = -0.35f;
+    const float OFFSET_Y = -0.275f;
     const float WALK_STOP_VAL = 0.5f;
 
     [Header("OUTSIDE")]
@@ -33,8 +33,9 @@ public class Pet : MonoBehaviour {
     void Update() {
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
 
-        //* ペットなかったら、影 非表示
-        shadowSr.enabled = sprLib.spriteLibraryAsset;
+        //* ペットなかったら、非表示
+        shadowSr.enabled = sprLib.spriteLibraryAsset; // 影
+        if(!sprLib.spriteLibraryAsset) sr.sprite = null; // 画像
 
         //* レイヤー
         sr = GetComponent<SpriteRenderer>();
@@ -52,6 +53,7 @@ public class Pet : MonoBehaviour {
             bool isWalkStop = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
 
             tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
+            //* 適用
             tf.position = new Vector3(tf.position.x, tf.position.y, FRONT_Z);
 
             //* アニメー

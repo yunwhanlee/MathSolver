@@ -62,6 +62,34 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
 #region FUNC
 ///------------------------------------------------------------------------------------------
+    public void setSit(Transform hitTf) {
+        const float OFFSET_SIT_X = 0.15f;
+        const float OFFSET_SIT_Y = 0.825f;
+        const int OFFSET_FRONTSIT = 3;
+        //* 座る
+        if(!isSit) {
+            isSit = true;
+            animSit(true);
+            tf.localPosition = new Vector2(hitTf.localPosition.x + OFFSET_SIT_X, hitTf.localPosition.y + OFFSET_SIT_Y);
+            tf.localScale = new Vector2(hitTf.localScale.x, tf.localScale.y);
+            //* レイヤー 椅子より +1前に
+            sr.sortingOrder = sr.sortingOrder + OFFSET_FRONTSIT;
+            //* 全て椅子のアウトライン 初期化
+            HM._.clearAllChairOutline();
+        }
+        //* 立つ
+        else {
+            HM._.pl.IsSit = false;
+            HM._.pl.animSit(false);
+            tf.localPosition = new Vector2(hitTf.localPosition.x, hitTf.localPosition.y);
+        }
+    }
+#endregion
+
+
+///------------------------------------------------------------------------------------------
+#region ANIM
+///------------------------------------------------------------------------------------------
     public void setInitSpr() => sr.sprite = idleSpr;
 
     public void animIdle() {
@@ -72,6 +100,9 @@ public class Player : MonoBehaviour {
         tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
         tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
+    }
+    public void animSit(bool isSit) {
+        HM._.pl.Anim.SetBool(Enum.ANIM.IsSit.ToString(), isSit);
     }
 #endregion
 ///------------------------------------------------------------------------------------------

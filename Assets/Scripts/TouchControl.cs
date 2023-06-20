@@ -34,32 +34,7 @@ public class TouchControl : MonoBehaviour
                     if(hit.transform.gameObject != HM._.pl.ColChairObj)
                         return;
 
-                    const float OFFSET_SIT_X = 0.15f;
-                    const float OFFSET_SIT_Y = 0.825f;
-                    const int FRONT_SIT_SORTING_ORDER = 3;
-                    var plTf = HM._.pl.transform;
-                    var hitTf = hit.transform;
-
-                    //* 座る
-                    if(!HM._.pl.IsSit) {
-                        Debug.Log($"Player Sit! hit.name= {hit.transform.name}");
-                        HM._.pl.IsSit = true;
-                        HM._.pl.Anim.SetBool(Enum.ANIM.IsSit.ToString(), true);
-                        plTf.localPosition = new Vector2(hitTf.localPosition.x + OFFSET_SIT_X, hitTf.localPosition.y + OFFSET_SIT_Y);
-                        plTf.localScale = new Vector2(hitTf.localScale.x, plTf.localScale.y);
-                        //* レイヤー 椅子より +1前に
-                        HM._.pl.Sr.sortingOrder = HM._.pl.Sr.sortingOrder + FRONT_SIT_SORTING_ORDER;
-                        //* 全て椅子のアウトライン 初期化
-                        HM._.clearAllChairOutline();
-                    }
-                    //* 立つ
-                    else {
-                        Debug.Log($"Player Stand Up! hit.name= {hit.transform.name}");
-                        HM._.pl.IsSit = false;
-                        HM._.pl.Anim.SetBool(Enum.ANIM.IsSit.ToString(), false);
-                        plTf.localPosition = new Vector2(hitTf.localPosition.x, hitTf.localPosition.y);
-                        return;
-                    }
+                    HM._.pl.setSit(hit.transform);
                 }
                 else {
                     //* プレイヤー 移動位置
