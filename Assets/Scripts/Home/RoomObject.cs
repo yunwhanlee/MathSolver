@@ -5,6 +5,10 @@ using System;
 
 public class RoomObject : MonoBehaviour {
     const int REVERSE_Y = -1, OFFSET_Z = -1;
+    const float DRAG_MIN_X = -2;
+    const float DRAG_MAX_X = 2;
+    const float DRAG_MIN_Y = -4;
+    const float DRAG_MAX_Y = 1;
     [SerializeField] float pivotOffsetHalfY;
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
@@ -43,7 +47,13 @@ public class RoomObject : MonoBehaviour {
         Debug.Log($"OnMouseDrag::");
         HM._.ui.DecorateModePanel.SetActive(false);
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = new Vector3(transform.position.x, transform.position.y - pivotOffsetHalfY, OFFSET_Z);
+        float centerY = transform.position.y - pivotOffsetHalfY;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, DRAG_MIN_X, DRAG_MAX_X),
+            Mathf.Clamp(centerY, DRAG_MAX_Y, DRAG_MAX_Y),
+            OFFSET_Z
+        );
     }
     private void OnMouseUp() {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
