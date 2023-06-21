@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8b0f9d4277448d64aa81b4927b2c71dc
+guid: 34e5d432da8653042949aeb8805be55e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: 65
     textureCompression: 1
@@ -117,127 +117,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player2Sprite_0
+      name: WhiteWolfSprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 790
+        width: 727
+        height: 790
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 568ef68fbc9401c4f8e9e070c38979d7
+      internalID: -113320267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolfSprite_1
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 790
+        width: 727
+        height: 790
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca0b83c1ee73494db3a95599221dded
+      internalID: 974525510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolfSprite_2
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 790
+        width: 727
+        height: 790
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbd29fa1a1a4f23479ba75f436d5cf3a
+      internalID: -1647818375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolfSprite_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 336
-      alignment: 9
+        width: 727
+        height: 790
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7811fef853abf6343860ab2160d508c9
-      internalID: 547583383
+      spriteID: cb3eb0b914f5d054eaf04d451aa71f8f
+      internalID: -521641542
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2Sprite_1
+      name: WhiteWolfSprite_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 727
         y: 0
-        width: 256
-        height: 336
-      alignment: 9
+        width: 727
+        height: 790
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc93acc995e8d73419d8a1c319dc80cf
-      internalID: -1198196095
+      spriteID: 1e4a5c0a257349a4bacd82defbcb89ce
+      internalID: 283279879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player2Sprite_2
+      name: WhiteWolfSprite_5
       rect:
         serializedVersion: 2
-        x: 512
+        x: 1454
         y: 0
-        width: 256
-        height: 336
-      alignment: 9
+        width: 727
+        height: 790
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 717ba7c4c01831940b218faeb5a8cecd
-      internalID: -1039649516
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2Sprite_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 336
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 561aba9862dc33440bf1efc29f621d4c
-      internalID: -720627562
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2Sprite_4
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 256
-        height: 336
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 459c9d3ea1d427d4b8fb0570260ca1c7
-      internalID: 1292501771
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player2Sprite_5
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 256
-        height: 336
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eae66c5103adcaa4a90014ecea3beb7c
-      internalID: -1678772726
+      spriteID: 81ba78d4990a97a4c871ac4aa259faca
+      internalID: -2034802681
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player2Sprite_0: 547583383
-      Player2Sprite_1: -1198196095
-      Player2Sprite_2: -1039649516
-      Player2Sprite_3: -720627562
-      Player2Sprite_4: 1292501771
-      Player2Sprite_5: -1678772726
+      WhiteWolfSprite_0: -113320267
+      WhiteWolfSprite_1: 974525510
+      WhiteWolfSprite_2: -1647818375
+      WhiteWolfSprite_3: -521641542
+      WhiteWolfSprite_4: 283279879
+      WhiteWolfSprite_5: -2034802681
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

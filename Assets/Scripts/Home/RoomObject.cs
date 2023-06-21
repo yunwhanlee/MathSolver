@@ -51,7 +51,7 @@ public class RoomObject : MonoBehaviour {
 
         transform.position = new Vector3(
             Mathf.Clamp(transform.position.x, DRAG_MIN_X, DRAG_MAX_X),
-            Mathf.Clamp(centerY, DRAG_MAX_Y, DRAG_MAX_Y),
+            Mathf.Clamp(centerY, DRAG_MIN_Y, DRAG_MAX_Y),
             OFFSET_Z
         );
     }

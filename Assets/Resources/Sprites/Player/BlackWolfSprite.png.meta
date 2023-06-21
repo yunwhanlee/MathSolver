@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b76086d32ba0e854cbdcb9669f090556
+guid: fe61b2351a0c5ec4c9c2cf38756c1003
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: 65
     textureCompression: 1
@@ -117,127 +117,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player3Sprite_0
+      name: BlackWolfSprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 790
+        width: 727
+        height: 790
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fd53887b6195c14b9d78a9bcad4c2a7
+      internalID: -2052170094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWolfSprite_1
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 790
+        width: 727
+        height: 790
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a25852d3d889340419d9b11d7e64c0ef
+      internalID: 1428293037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWolfSprite_2
+      rect:
+        serializedVersion: 2
+        x: 1454
+        y: 790
+        width: 727
+        height: 790
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81f0c7e55b2f032488043be646430db1
+      internalID: 456072009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWolfSprite_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 336
-      alignment: 9
+        width: 727
+        height: 790
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae9386fb08ad8174595fbf0a462ac9fa
-      internalID: 1747765063
+      spriteID: 25a48d2a810e1e641970fb270572cad8
+      internalID: 340829583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player3Sprite_1
+      name: BlackWolfSprite_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 727
         y: 0
-        width: 256
-        height: 336
-      alignment: 9
+        width: 727
+        height: 790
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75ed0e2907bb80c49972c116f2f74e0d
-      internalID: 866426913
+      spriteID: d7f4d08cbdc871141b19aacb9e5c7645
+      internalID: 62635718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player3Sprite_2
+      name: BlackWolfSprite_5
       rect:
         serializedVersion: 2
-        x: 512
+        x: 1454
         y: 0
-        width: 256
-        height: 336
-      alignment: 9
+        width: 727
+        height: 790
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8fc79f4f768f5d04abb4ec3ad62a6c55
-      internalID: -598611496
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player3Sprite_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 336
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce67e060bc9a3d54e80d3bce3f3dc194
-      internalID: -111052942
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player3Sprite_4
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 256
-        height: 336
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4331faaed8721a946928d08e8286ffe4
-      internalID: -1399679601
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player3Sprite_5
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 256
-        height: 336
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7dcbd6c2a21cc744ba84df2668205eb9
-      internalID: 672751784
+      spriteID: e8b2397acdcd4db438290528ee54a916
+      internalID: -1439599485
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player3Sprite_0: 1747765063
-      Player3Sprite_1: 866426913
-      Player3Sprite_2: -598611496
-      Player3Sprite_3: -111052942
-      Player3Sprite_4: -1399679601
-      Player3Sprite_5: 672751784
+      BlackWolfSprite_0: -2052170094
+      BlackWolfSprite_1: 1428293037
+      BlackWolfSprite_2: 456072009
+      BlackWolfSprite_3: 340829583
+      BlackWolfSprite_4: 62635718
+      BlackWolfSprite_5: -1439599485
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

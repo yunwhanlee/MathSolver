@@ -24792,7 +24792,7 @@ MonoBehaviour:
       isLock: 0
       isNotify: 0
       isArranged: 0
-      price: 0
+      price: 500
       type: 1
     - name: LightThickCrossFloor
       spr: {fileID: 610619071, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
@@ -24810,7 +24810,7 @@ MonoBehaviour:
       type: 1
     mats:
     - name: RedRoundMat
-      spr: {fileID: 21300000, guid: db21476c280a82e41a3f65564937a56c, type: 3}
+      spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
@@ -24819,20 +24819,20 @@ MonoBehaviour:
       pos: {x: 0, y: 0}
       isFlat: 0
     plSkins:
-    - name: Player1
-      spr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
+    - name: DefWolf
+      spr: {fileID: -1522501942, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 3eeac3595846f9a4ca3ed79481fe2447, type: 3}
-    - name: Player2
-      spr: {fileID: 547583383, guid: 8b0f9d4277448d64aa81b4927b2c71dc, type: 3}
+    - name: BlackWolf
+      spr: {fileID: -2052170094, guid: fe61b2351a0c5ec4c9c2cf38756c1003, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: cd61066f6705c654b9b8b57f1c5360f8, type: 3}
-    - name: Player3
-      spr: {fileID: 1747765063, guid: b76086d32ba0e854cbdcb9669f090556, type: 3}
+    - name: WhiteWolf
+      spr: {fileID: -113320267, guid: 34e5d432da8653042949aeb8805be55e, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
@@ -30027,15 +30027,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
+  m_Sprite: {fileID: 2112452690, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.74, y: 6.8}
+  m_Size: {x: 7.271884, y: 7.8399997}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1327448382
@@ -30076,8 +30076,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.7066667, y: 2.2333333}
-    newSize: {x: 5.74, y: 6.8}
+    oldSize: {x: 1.817971, y: 1.9599999}
+    newSize: {x: 7.271884, y: 7.8399997}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

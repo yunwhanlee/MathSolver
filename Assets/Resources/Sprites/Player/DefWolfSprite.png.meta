@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 27be0d6fccb01d94182c8b82e45ca9b0
+guid: 025c956f8ca6bd34c848bddfd72d9eea
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 150
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,7 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: 65
     textureCompression: 1
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player1Sprite_0
+      name: DefWolfSprite_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 256
-        height: 335
+        y: 790
+        width: 727
+        height: 790
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6839d8c00dcce34998ac611b13a6ddd
-      internalID: 392155840
+      spriteID: d093f43ba05f3f34297b9f9eb9d1cd69
+      internalID: -1522501942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1Sprite_1
+      name: DefWolfSprite_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 336
+        x: 727
+        y: 790
+        width: 727
+        height: 790
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9c5d4df2252f314e8583af3dda1c482
-      internalID: 563304970
+      spriteID: 442bc1a97e991754fa882142e50661e2
+      internalID: -1434480346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1Sprite_2
+      name: DefWolfSprite_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 256
-        height: 336
+        x: 1454
+        y: 790
+        width: 727
+        height: 790
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be3e3e144bf76c145a1f195fddd2c67a
-      internalID: -1674907089
+      spriteID: 718784cd5929e18439154c153468b56e
+      internalID: 1250781938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1Sprite_3
+      name: DefWolfSprite_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 0
         y: 0
-        width: 256
-        height: 336
+        width: 727
+        height: 790
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c73e11ba59e779649b7f7e74a967ec5e
-      internalID: -1547681386
+      spriteID: 15ea845454f3c784fbf317d56233d304
+      internalID: 417754173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1Sprite_4
+      name: DefWolfSprite_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 727
         y: 0
-        width: 256
-        height: 336
+        width: 727
+        height: 790
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 530f9a776d0f2904b910c324020cfb05
-      internalID: -97897216
+      spriteID: 1c368fec8ffdb954380a45a3bfc51940
+      internalID: -1952053647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1Sprite_5
+      name: DefWolfSprite_5
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1454
         y: 0
-        width: 256
-        height: 336
+        width: 727
+        height: 790
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c8ef5f7bb017ed4185686c41296ed3f
-      internalID: 1156035084
+      spriteID: bcc45f8a0ba54af4baae049f4859ec41
+      internalID: -1206657028
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player1Sprite_0: 392155840
-      Player1Sprite_1: 563304970
-      Player1Sprite_2: -1674907089
-      Player1Sprite_3: -1547681386
-      Player1Sprite_4: -97897216
-      Player1Sprite_5: 1156035084
+      DefWolfSprite_0: -1522501942
+      DefWolfSprite_1: -1434480346
+      DefWolfSprite_2: 1250781938
+      DefWolfSprite_3: 417754173
+      DefWolfSprite_4: -1952053647
+      DefWolfSprite_5: -1206657028
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
