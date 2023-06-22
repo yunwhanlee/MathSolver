@@ -7,7 +7,7 @@ using TMPro;
 using System;
 using Random = UnityEngine.Random;
 
-public class UIManager : MonoBehaviour {
+public class HUI : MonoBehaviour {
     [SerializeField] Color selectedTypeBtnClr;
 
     [SerializeField] TextMeshProUGUI coinTxt; public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}

@@ -7,7 +7,7 @@ using TMPro;
 public class GM : MonoBehaviour
 {
     public static GM _;
-    public Gui gui;
+    public GUI gui;
 
     [Header("CHARA")]
     [SerializeField] GameObject plTypingEFObj; public GameObject PlTypingEFObj {get => plTypingEFObj; set => plTypingEFObj = value;}

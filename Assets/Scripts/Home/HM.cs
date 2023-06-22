@@ -12,7 +12,7 @@ public class HM : MonoBehaviour {
     [Header("OUTSIDE")]
     public Player pl;
     public Pet pet;
-    public UIManager ui;
+    public HUI ui;
     public TouchControl touchCtr;
     public FunitureUIManager fUI;
     public InventoryUIManager iUI;

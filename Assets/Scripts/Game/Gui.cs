@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class Gui : MonoBehaviour
+public class GUI : MonoBehaviour
 {
     TextTeleType txtTeleType;
 
