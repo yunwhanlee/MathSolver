@@ -10,6 +10,8 @@ public class TouchControl : MonoBehaviour
     void Update(){
         if(Input.GetMouseButtonDown(0)) {
             if(HM._.state == HM.STATE.DECORATION_MODE) return;
+            if(HM._.ui.CurHomeSceneIdx == (int)Enum.HOME.Inventory) return;
+
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPos, transform.forward, MAX_DISTANCE);
             Debug.Log("---------------------------------------");

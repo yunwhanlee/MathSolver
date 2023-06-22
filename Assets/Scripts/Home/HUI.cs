@@ -120,8 +120,7 @@ public class HUI : MonoBehaviour {
             : "인벤토리";//Enum.HOME.Inventory.ToString();
 
         //* InventoryとRoomのスペース 調整
-        bool isInv = (curHomeSceneIdx == (int)Enum.HOME.Inventory
-            || curHomeSceneIdx == (int)Enum.HOME.ClothShop);
+        bool isInv = curHomeSceneIdx == (int)Enum.HOME.Inventory;
         // アニメー初期化
         HM._.pl.animIdle();
         HM._.pet.animIdle();
