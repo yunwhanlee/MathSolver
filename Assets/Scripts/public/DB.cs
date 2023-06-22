@@ -27,6 +27,7 @@ public class Data {
     [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
     [SerializeField] int petId; public int PetId {get => petId; set => petId = value;}
     [SerializeField] int bestScore; public int BestScore {get => bestScore; set => bestScore = value;}
+    [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
 
     public void setCoin(int value) {
         coin += value;
@@ -122,6 +123,7 @@ public class DB : MonoBehaviour {
         //* 選択したキャラ
         dt.PlayerId = 0;
         dt.PetId = 0;
+        dt.GachaCnt = 1;
 
         //* 財貨
         dt.Coin = 50000;
