@@ -62,6 +62,9 @@ public class HUI : MonoBehaviour {
     [SerializeField] Button infoDlgPurchaseBtn;    public Button InfoDlgPurchaseBtn {get => infoDlgPurchaseBtn; set => infoDlgPurchaseBtn = value;}
     [SerializeField] Button infoDlgMoveBtn;    public Button InfoDlgMoveBtn {get => infoDlgMoveBtn; set => infoDlgMoveBtn = value;}
 
+    [Header("CANVAS ANIM")]
+    [SerializeField] GameObject switchScreenAnim;   public GameObject SwitchScreenAnim {get => switchScreenAnim; set => switchScreenAnim = value;}
+
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
@@ -235,5 +238,19 @@ IEnumerator coShowErrorMsgPopUp(string msg) {
     errorMsgPopUp.SetActive(false);
     errorMsgTxt.text = "";
 }
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region CANVAS ANIM
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+public void playSwitchScreenAnim() {
+    StartCoroutine(coPlaySwitchScreenAnim());
+}
+IEnumerator coPlaySwitchScreenAnim() {
+    switchScreenAnim.SetActive(true);
+    yield return Util.time1;
+    yield return Util.time0_5;
+    switchScreenAnim.SetActive(false);
+}
+
 #endregion
 }

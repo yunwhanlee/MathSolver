@@ -20,7 +20,6 @@ public class ClothShopUIManager : MonoBehaviour
 
     [Header("REWARD ANIM PANEL")]
     [SerializeField] GameObject gachaAnimPanel;    public GameObject GachaRewardAnimPanel {get => gachaAnimPanel; set => gachaAnimPanel = value;}
-    public GameObject curtainGroup; //* For TEST <- 実はアニメーションでやるから
     [SerializeField] Image rewardImg;    public Image RewardImg {get => rewardImg; set => rewardImg = value;}
     [SerializeField] TextMeshProUGUI rewardNameTxt;   public TextMeshProUGUI RewardNameTxt {get => rewardNameTxt; set => rewardNameTxt = value;}
     [SerializeField] Button tapScreenBtn;   public Button TapScreenBtn {get => tapScreenBtn; set => tapScreenBtn = value;}
@@ -38,9 +37,9 @@ public class ClothShopUIManager : MonoBehaviour
     public void onClickPurchaseBtn() {
         int price = GACHA_PRICE * DB.Dt.GachaCnt;
         if(DB.Dt.Coin >= price) {
-            Debug.Log("💰購入成功！！");
+            HM._.ui.playSwitchScreenAnim();
+            StartCoroutine(coPlayGachaPanelAnimIdle());
             DB.Dt.setCoin(-price);
-
             //* 上がる値段 最新化
             DB.Dt.GachaCnt++;
             priceTxt.text = $"{GACHA_PRICE * DB.Dt.GachaCnt}";
@@ -51,14 +50,12 @@ public class ClothShopUIManager : MonoBehaviour
 
         //* GachaAnimPanel 表示
         HM._.ui.TopGroup.SetActive(false);
-        gachaAnimPanel.SetActive(true);
     }
-
     public void onClickTapScreenBtn() {
         //* カーテン開ける アニメーション
-        if(!rewardSpr) {
-            anim.SetBool("IsShowGachaReward", true);
+        anim.SetBool("IsShowGachaReward", true);
 
+        if(!rewardSpr) {
             //* ランダムのリワードスプライト 習得
             int rand = Random.Range(0, 100);
             if(rand < REWARD_PET_PER) {
@@ -98,5 +95,9 @@ public class ClothShopUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
+IEnumerator coPlayGachaPanelAnimIdle() {
+    yield return Util.time0_5;
+    gachaAnimPanel.SetActive(true); 
+}
 #endregion
 }
