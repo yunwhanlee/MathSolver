@@ -35,6 +35,13 @@ public class ClothShopUIManager : MonoBehaviour
 #region BTN EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickPurchaseBtn() {
+        PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock);
+        PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock);
+        if(lockedPlSks.Length == 0 && lockedPtSks.Length == 0) {
+            HM._.ui.showErrorMsgPopUp("더 이상 구매할게 없습니다.");
+            return;
+        } 
+
         int price = GACHA_PRICE * DB.Dt.GachaCnt;
         if(DB.Dt.Coin >= price) {
             HM._.ui.playSwitchScreenAnim();
@@ -53,29 +60,23 @@ public class ClothShopUIManager : MonoBehaviour
     }
     public void onClickTapScreenBtn() {
         //* カーテン開ける アニメーション
-        anim.SetBool("IsShowGachaReward", true);
-
+        anim.SetBool(Enum.ANIM.IsShowGachaReward.ToString(), true);
         if(!rewardSpr) {
-            //* ランダムのリワードスプライト 習得
-            int rand = Random.Range(0, 100);
-            if(rand < REWARD_PET_PER) {
-                PetSkin[] items = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock);
-                Debug.Log($"REWARD PET: Lenght= {items.Length}");
-                rand = Random.Range(0, items.Length);
-                var reward = items[rand];
-                reward.IsLock = false;
-                rewardSpr = reward.Spr;
-                rewardNameTxt.text = reward.Name;
+            PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock);
+            PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock);
 
+            //* 残る数が有るか確認
+            bool isPlayerSkin = (lockedPlSks.Length == 0)? false : (lockedPtSks.Length == 0)? true : Random.Range(0, 100) < REWARD_PET_PER;
+            bool isPetSkin = !isPlayerSkin;
+
+            //* ガチャー
+            if (isPlayerSkin && lockedPlSks.Length > 0) {
+                int rand = Random.Range(0, lockedPlSks.Length);
+                setReward(reward: lockedPlSks[rand]);
             }
-            else {
-                PlayerSkin[] items = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock);
-                Debug.Log($"REWARD PLAYER: Lenght= {items.Length}");
-                rand = Random.Range(0, items.Length);
-                var reward = items[rand];
-                reward.IsLock = false;
-                rewardSpr = reward.Spr;
-                rewardNameTxt.text = reward.Name;
+            else if (isPetSkin && lockedPtSks.Length > 0) {
+                int rand = Random.Range(0, lockedPtSks.Length);
+                setReward(reward: lockedPtSks[rand]);
             }
 
             //* スプライト 適用
@@ -84,7 +85,7 @@ public class ClothShopUIManager : MonoBehaviour
         }
         //* ホームに戻る
         else {
-            anim.SetBool("IsShowGachaReward", false);
+            anim.SetBool(Enum.ANIM.IsShowGachaReward.ToString(), false);
             rewardSpr = null;
             HM._.ui.TopGroup.SetActive(true);
             gachaAnimPanel.SetActive(false);
@@ -95,9 +96,19 @@ public class ClothShopUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-IEnumerator coPlayGachaPanelAnimIdle() {
-    yield return Util.time0_5;
-    gachaAnimPanel.SetActive(true); 
-}
+    private void setReward(PlayerSkin reward) {
+        reward.IsLock = false;
+        rewardSpr = reward.Spr;
+        rewardNameTxt.text = reward.Name;
+    }
+    private void setReward(PetSkin reward) {
+        reward.IsLock = false;
+        rewardSpr = reward.Spr;
+        rewardNameTxt.text = reward.Name;
+    }
+    IEnumerator coPlayGachaPanelAnimIdle() {
+        yield return Util.time0_5;
+        gachaAnimPanel.SetActive(true); 
+    }
 #endregion
 }
