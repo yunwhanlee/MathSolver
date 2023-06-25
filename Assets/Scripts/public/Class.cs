@@ -140,14 +140,14 @@ public abstract class Item {
         }
         else {
             Debug.Log("😢 お金がたりない！！");
-            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
         }
     }
     public virtual void arrange() {
         //* ロック
         if(IsLock) {
             HM._.ui.InfoDialog.SetActive(true);
-            HM._.ui.InfoDlgItemNameTxt.text = name;
+            HM._.ui.InfoDlgItemNameTxt.text = LM._.localize(name);
             HM._.ui.InfoDlgItemImg.sprite = spr;
             HM._.ui.InfoDlgItemPriceTxt.text = this.Price.ToString();
             switch(this) {
@@ -166,7 +166,7 @@ public abstract class Item {
         //* 配置
         else {
             if(isArranged) {
-                HM._.ui.showErrorMsgPopUp("이미 사용 중입니다.");
+                HM._.ui.showErrorMsgPopUp(LM._.localize("Already in use!"));
                 return;
             }
             else {

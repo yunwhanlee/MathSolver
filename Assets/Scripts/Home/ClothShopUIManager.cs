@@ -38,7 +38,7 @@ public class ClothShopUIManager : MonoBehaviour
         PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock);
         PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock);
         if(lockedPlSks.Length == 0 && lockedPtSks.Length == 0) {
-            HM._.ui.showErrorMsgPopUp("더 이상 구매할게 없습니다.");
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Nothing more to buy."));
             return;
         } 
 
@@ -52,7 +52,7 @@ public class ClothShopUIManager : MonoBehaviour
             priceTxt.text = $"{GACHA_PRICE * DB.Dt.GachaCnt}";
         }
         else {
-            HM._.ui.showErrorMsgPopUp("코인이 부족합니다!");
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
         }
 
         //* GachaAnimPanel 表示
@@ -99,12 +99,12 @@ public class ClothShopUIManager : MonoBehaviour
     private void setReward(PlayerSkin reward) {
         reward.IsLock = false;
         rewardSpr = reward.Spr;
-        rewardNameTxt.text = reward.Name;
+        rewardNameTxt.text = LM._.localize(reward.Name);
     }
     private void setReward(PetSkin reward) {
         reward.IsLock = false;
         rewardSpr = reward.Spr;
-        rewardNameTxt.text = reward.Name;
+        rewardNameTxt.text = LM._.localize(reward.Name);
     }
     IEnumerator coPlayGachaPanelAnimIdle() {
         yield return Util.time0_5;

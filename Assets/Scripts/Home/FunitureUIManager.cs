@@ -90,7 +90,7 @@ public class FunitureUIManager : MonoBehaviour
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickFunitureModeItemDeleteBtn() {
         if(!curSelectedObj) {
-            HM._.ui.showErrorMsgPopUp("삭제할 아이템을 선택해주세요!");
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Please select an item!"));
             return;
         }
 
@@ -109,7 +109,7 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickFunitureModeItemFlatBtn() {
         if(!curSelectedObj) {
-            HM._.ui.showErrorMsgPopUp("반전시킬 아이템을 선택해주세요!");
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Please select an item!"));
             return;
         }
 
@@ -120,7 +120,7 @@ public class FunitureUIManager : MonoBehaviour
     }
     public void onClickFunitureModeItemSetUpBtn() {
         if(!curSelectedObj) {
-            HM._.ui.showErrorMsgPopUp("배치할 아이템을 선택해주세요!");
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Please select an item!"));
             return;
         }
 
@@ -134,6 +134,7 @@ public class FunitureUIManager : MonoBehaviour
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     private Item getCurSelectObjToItem(GameObject curSelObj) {
+        Debug.Log($"getCurSelectObjToItem(curSelObj= {curSelObj.name})::");
         //* レイヤーで種類を探す
         var tag = curSelObj.tag;
         Item item = null;

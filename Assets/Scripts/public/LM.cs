@@ -21,8 +21,8 @@ public class LM : MonoBehaviour {
     public event Action actLocalizechanged = () => {};
     public int curLangIndex;
     public List<Lang> langs;
-    public TMP_FontAsset krFt;
-    public TMP_FontAsset jpFt;
+    // public TMP_FontAsset krFt;
+    // public TMP_FontAsset jpFt;
 
     #region SINGLETON
     void Awake() {

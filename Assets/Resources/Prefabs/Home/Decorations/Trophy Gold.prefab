@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 919039607383420660}
   - component: {fileID: 3945558929915820274}
   m_Layer: 0
-  m_Name: TrophySilver
+  m_Name: Trophy Gold
   m_TagString: Decoration
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -1536967082, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
+  m_Sprite: {fileID: -678144114, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

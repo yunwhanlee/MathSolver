@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311333872671167299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.052, z: 0}
-  m_LocalScale: {x: 0.225, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.048, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.59999996, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3933582543245780394}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 919039607383420660}
   - component: {fileID: 3945558929915820274}
   m_Layer: 3
-  m_Name: OldStoolChair
+  m_Name: LionKing Chair
   m_TagString: Funiture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 55d45e8cf4a229e40a2e98fed443a2b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1245c6d3e9c17f34cbaecb6463c98f05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -200,18 +200,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.6}
+  m_Offset: {x: 0, y: 1.145}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.92, y: 1.1166667}
+    oldSize: {x: 1.405, y: 2.29}
     newSize: {x: 1.075, y: 2.015}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.9}
+  m_Size: {x: 0.85, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &3945558929915820274
 Rigidbody2D:

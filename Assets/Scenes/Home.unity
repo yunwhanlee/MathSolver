@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 18507912}
   - component: {fileID: 18507914}
   - component: {fileID: 18507913}
+  - component: {fileID: 18507915}
   m_Layer: 0
   m_Name: InfoTxt
   m_TagString: Untagged
@@ -425,8 +426,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC758\uB958\uC810 \uAC00\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  m_sharedMaterial: {fileID: -5972503449440871129, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
+  m_sharedMaterial: {fileID: -7649188564318597478, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -500,6 +501,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18507911}
   m_CullTransparentMesh: 0
+--- !u!114 &18507915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18507911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a11f1e439361f44a9f3efc3fe228617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: Go Clothshop
 --- !u!1 &19809697
 GameObject:
   m_ObjectHideFlags: 0
@@ -6329,8 +6343,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAC00\uAD6C\uBA85"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  m_sharedMaterial: {fileID: -5972503449440871129, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
+  m_sharedMaterial: {fileID: -7649188564318597478, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6354,13 +6368,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
+  m_fontSize: 48.3
   m_fontSizeBase: 0
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 65
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -14352,7 +14366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ea8f2cfad9be246bf7d9c06b189e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testUnlockMode: 1
+  testUnlockMode: 0
   category: 0
   categoryBtns:
   - {fileID: 1007343472}
@@ -15046,7 +15060,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: < Name >
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
   m_sharedMaterial: {fileID: -5972503449440871129, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -15110,7 +15124,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &472028060
@@ -23030,15 +23044,15 @@ MonoBehaviour:
     langLocalize: English
     value:
     - apple
-    - home
-    - achivement
-    - clothshop
-    - funitureshop
-    - inventory
-    - mision
-    - rank
-    - purchase
-    - wellcome!
+    - Home
+    - Achivement
+    - Clothshop
+    - Funitureshop
+    - Inventory
+    - Mision
+    - Rank
+    - Purchase
+    - Wellcome!
     - Let`s go solving
     - Shall we go solve the problems in the animal village?
     - Yes
@@ -23053,11 +23067,70 @@ MonoBehaviour:
     - Low
     - Medium
     - High
+    - Pls Touch Screen!
+    - Infomation
+    - Go Clothshop
+    - Please select an item!
+    - Not enough coin!
+    - Already in use!
+    - Nothing more to buy.
+    - Wolf
+    - Black Wolf
+    - White Wolf
+    - Mango Pet
+    - SweetPotato Pet
+    - Lemon Pet
+    - Wood Chair
+    - Dotory Gaming Chair
+    - Fine Sofa
+    - Frog Chair
+    - LionKing Chair
+    - Log Desk
+    - Old Stool Chair
+    - Orange Sofa
+    - QuestionMark Chair
+    - Baloon Puppy
+    - Dumb Bell
+    - Glass Elephant
+    - Glass Rhinoceros
+    - Glass SeaHorse
+    - Goryeo Celadon
+    - Kettle Bell
+    - Kettle Vase
+    - Mountain Vase
+    - Space Enemy Figure
+    - Space Warrior Figure
+    - Trophy Bronze
+    - Trophy Silver
+    - Trophy Gold
+    - Wall
+    - Red Dot Wall
+    - Bubble Wall
+    - Green Tile Wall
+    - Stripe Wall
+    - Checked Wall
+    - Green Wall
+    - Ocher Wall
+    - Gray Wall
+    - Floor
+    - Dia Tile Floor
+    - White Brick Floor
+    - Gray Brick Floor
+    - Twist Wood Floor
+    - Red Wood Floor
+    - Dia Wood Floor
+    - Wood Floor
+    - White Wood Floor
+    - Dark Square Floor
+    - Light Square Floor
+    - Light Cross Floor
+    - Blue Cross Floor
+    - Red Round Mat
   - lang: Korean
     langLocalize: "\uD55C\uAD6D\uC5B4"
     value:
     - "\uC0AC\uACFC"
-    - "\uC9D1"
+    - "\uD648"
     - "\uC5C5\uC801"
     - "\uC758\uB958\uC810"
     - "\uAC00\uAD6C\uC810"
@@ -23081,35 +23154,237 @@ MonoBehaviour:
     - "\uD558"
     - "\uC911"
     - "\uC0C1"
-  - lang: "Japanese\r"
-    langLocalize: "\u65E5\u672C\u8A9E\r"
+    - "\uD654\uBA74\uC744 \uD130\uCE58\uD574 \uC8FC\uC138\uC694!"
+    - "\uC815\uBCF4"
+    - "\uC758\uB958\uC810 \uAC00\uAE30"
+    - "\uC544\uC774\uD0EC\uC744 \uC120\uD0DD\uD574\uC8FC\uC138\uC694!"
+    - "\uCF54\uC778\uC774 \uBD80\uC871\uD569\uB2C8\uB2E4!"
+    - "\uC774\uBBF8 \uC0AC\uC6A9 \uC911\uC785\uB2C8\uB2E4."
+    - "\uB354 \uC774\uC0C1 \uAD6C\uB9E4\uD560 \uAC8C \uC5C6\uC2B5\uB2C8\uB2E4."
+    - "\uB291\uB300"
+    - "\uAC80\uC740 \uB291\uB300"
+    - "\uD770 \uB291\uB300"
+    - "\uB9DD\uACE0 \uD3AB"
+    - "\uACE0\uAD6C\uB9C8 \uD3AB"
+    - "\uB808\uBAAC \uD3AB"
+    - "\uB098\uBB34 \uC758\uC790"
+    - "\uB3C4\uD1A0\uB9AC \uAC8C\uC784 \uC758\uC790"
+    - "\uC88B\uC740 \uC18C\uD30C"
+    - "\uAC1C\uAD6C\uB9AC \uC758\uC790"
+    - "\uB77C\uC774\uC628 \uD0B9 \uC758\uC790"
+    - "\uD1B5\uB098\uBB34 \uD0C1\uC790"
+    - "\uC624\uB798\uB41C \uC758\uC790"
+    - "\uC624\uB80C\uC9C0 \uC18C\uD30C"
+    - "\uBB3C\uC74C\uD45C\uB9C8\uD06C \uC758\uC790"
+    - "\uD48D\uC120 \uAC15\uC544\uC9C0"
+    - "\uB364\uBCA8"
+    - "\uC720\uB9AC \uCF54\uB07C\uB9AC"
+    - "\uC720\uB9AC \uCF54\uBFD4\uC18C"
+    - "\uC720\uB9AC \uD574\uB9C8"
+    - "\uACE0\uB824\uCCAD\uC790"
+    - "\uCF00\uD2C0\uBCA8"
+    - "\uC8FC\uC804\uC790 \uAF43\uBCD1"
+    - "\uC0B0 \uAF43\uBCD1"
+    - "\uC6B0\uC8FC \uD30C\uAD34\uC790 \uD53C\uADDC\uC5B4"
+    - "\uC6B0\uC8FC \uC804\uC0AC \uD53C\uADDC\uC5B4"
+    - "\uD2B8\uB85C\uD53C \uBE0C\uB860\uC988"
+    - "\uD2B8\uB85C\uD53C \uC2E4\uBC84"
+    - "\uD2B8\uB85C\uD53C \uACE8\uB4DC"
+    - "\uBCBD"
+    - "\uBE68\uAC04 \uC810 \uBCBD"
+    - "\uBC84\uBE14 \uBCBD"
+    - "\uB179\uC0C9 \uD0C0\uC77C \uBCBD"
+    - "\uC2A4\uD2B8\uB77C\uC774\uD504 \uBCBD"
+    - "\uCCB4\uD06C\uBB34\uB2AC\uBCBD"
+    - "\uB179\uC0C9 \uBCBD"
+    - "\uD669\uD1A0 \uBCBD"
+    - "\uD68C\uC0C9 \uBCBD"
+    - "\uBC14\uB2E5"
+    - "\uB2E4\uC774\uC544 \uD0C0\uC77C \uBC14\uB2E5"
+    - "\uD770\uC0C9 \uBCBD\uB3CC \uBC14\uB2E5"
+    - "\uD68C\uC0C9 \uBCBD\uB3CC \uBC14\uB2E5"
+    - "\uAF2C\uC778 \uB098\uBB34 \uBC14\uB2E5"
+    - "\uBD89\uC740 \uB098\uBB34 \uBC14\uB2E5"
+    - "\uB2E4\uC774\uC544 \uB098\uBB34 \uBC14\uB2E5"
+    - "\uB098\uBB34 \uBC14\uB2E5"
+    - "\uD770\uC0C9 \uB098\uBB34 \uBC14\uB2E5"
+    - "\uAC80\uC740 \uC2A4\uD018\uC5B4 \uBC14\uB2E5"
+    - "\uBC1D\uC740 \uC2A4\uD018\uC5B4 \uBC14\uB2E5"
+    - "\uBC1D\uC740 \uD06C\uB85C\uC2A4 \uBC14\uB2E5"
+    - "\uBE14\uB8E8 \uD06C\uB85C\uC2A4 \uBC14\uB2E5"
+    - "\uBE68\uAC04 \uB77C\uC6B4\uB4DC \uB9E4\uD2B8"
+  - lang: Japanese
+    langLocalize: "\u65E5\u672C\u8A9E"
     value:
-    - "\u308A\u3093\u3054\r"
-    - "\u5BB6\r"
-    - "\u696D\u7E3E\r"
-    - "\u670D\u5E97\r"
-    - "\u5BB6\u5177\u5E97\r"
-    - "\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\r"
-    - "\u30DF\u30C3\u30B7\u30E7\u30F3\r"
-    - "\u30E9\u30F3\u30AF\r"
-    - "\u8CFC\u5165\r"
-    - "\u3044\u3089\u3063\u3057\u3083\u3044\uFF01\r"
-    - "\u554F\u984C\u89E3\u6C7A \u884C\u304F\r"
-    - "\u52D5\u7269\u6751\u306E\u554F\u984C\u3092\u89E3\u6C7A\u3057\u306B\u884C\u304D\u307E\u3057\u3087\u3046\u304B\uFF1F\r"
-    - "\u306F\u3044\r"
-    - "\u3044\u3044\u3048\r"
-    - "\u8A2D\u5B9A\r"
-    - "\u30B5\u30A6\u30F3\u30C9\r"
-    - "\u80CC\u666F\u97F3\r"
-    - "\u30E6\u30FC\u30B6ID\r"
-    - "\u4ED6\u306E\u30B2\u30FC\u30E0\r"
-    - "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\r"
-    - "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF\r"
-    - "\u4E0B\r"
-    - "\u4E2D\r"
+    - "\u308A\u3093\u3054"
+    - "\u5BB6"
+    - "\u696D\u7E3E"
+    - "\u670D\u5E97"
+    - "\u5BB6\u5177\u5E97"
+    - "\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA"
+    - "\u30DF\u30C3\u30B7\u30E7\u30F3"
+    - "\u30E9\u30F3\u30AF"
+    - "\u8CFC\u5165"
+    - "\u3044\u3089\u3063\u3057\u3083\u3044\uFF01"
+    - "\u554F\u984C\u89E3\u6C7A \u884C\u304F"
+    - "\u52D5\u7269\u6751\u306E\u554F\u984C\u3092\u89E3\u6C7A\u3057\u306B\u884C\u304D\u307E\u3057\u3087\u3046\u304B\uFF1F"
+    - "\u306F\u3044"
+    - "\u3044\u3044\u3048"
+    - "\u8A2D\u5B9A"
+    - "\u30B5\u30A6\u30F3\u30C9"
+    - "\u80CC\u666F\u97F3"
+    - "\u30E6\u30FC\u30B6ID"
+    - "\u4ED6\u306E\u30B2\u30FC\u30E0"
+    - "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB"
+    - "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF"
+    - "\u4E0B"
+    - "\u4E2D"
     - "\u4E0A"
-  krFt: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  jpFt: {fileID: 11400000, guid: 1266406e9c941b74babd9334f5e488f8, type: 2}
+    - "\u753B\u9762\u3092\u30BF\u30C3\u30C1\u3057\u3066\u304F\u3060\u3055\u3044\uFF01"
+    - "\u60C5\u5831"
+    - "\u670D\u5E97\u884C\u304F"
+    - "\u30A2\u30A4\u30C6\u30E0\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\uFF01"
+    - "\u30B3\u30A4\u30F3\u304C\u8DB3\u308A\u306A\u3044\u3067\u3059\uFF01"
+    - "\u3059\u3067\u306B\u4F7F\u7528\u4E2D\u3067\u3059\uFF01"
+    - "\u8CFC\u5165\u3059\u308B\u3082\u306E\u304C\u3042\u308A\u307E\u305B\u3093\u3002"
+    - "\u30AA\u30AA\u30AB\u30DF"
+    - "\u30D6\u30E9\u30C3\u30AF\u30AA\u30AA\u30AB\u30DF"
+    - "\u30DB\u30EF\u30A4\u30C8\u30AA\u30AA\u30AB\u30DF"
+    - "\u30DE\u30F3\u30B4\u30DA\u30C3\u30C8"
+    - "\u30B5\u30C4\u30DE\u30A4\u30E2\u30DA\u30C3\u30C8"
+    - "\u30EC\u30E2\u30F3\u30DA\u30C3\u30C8"
+    - "\u6728\u88FD\u306E\u6905\u5B50"
+    - "\u30C9\u30C8\u30FC\u30EA\u30FC\u30B2\u30FC\u30E0\u30C1\u30A7\u30A2"
+    - "\u7D20\u6575\u306A\u30BD\u30D5\u30A1"
+    - "\u30AB\u30A8\u30EB\u306E\u6905\u5B50"
+    - "\u30E9\u30A4\u30AA\u30F3\u30AD\u30F3\u30B0\u30C1\u30A7\u30A2"
+    - "\u30DE\u30EB\u30BF\u30C7\u30B9\u30AF"
+    - "\u53E4\u3044\u6905\u5B50"
+    - "\u30AA\u30EC\u30F3\u30B8\u30BD\u30D5\u30A1"
+    - "\u8CEA\u554F\u30DE\u30FC\u30AF\u30C1\u30A7\u30A2"
+    - "\u98A8\u8239\u72AC"
+    - "\u30C0\u30F3\u30D9\u30EB"
+    - "\u30AC\u30E9\u30B9\u8C61"
+    - "\u30AC\u30E9\u30B9\u30B5\u30A4"
+    - "\u30AB\u30E9\u30B9\u6D77\u99AC"
+    - "\u9AD8\u9E97\u9752\u78C1"
+    - "\u30B1\u30C8\u30EB\u30D9\u30EB"
+    - "\u3084\u304B\u3093 \u82B1\u74F6"
+    - "\u5C71\u306E\u82B1\u74F6"
+    - "\u5B87\u5B99\u7684\u306E\u30D5\u30A3\u30AE\u30E5\u30A2"
+    - "\u5B87\u5B99\u6226\u58EB\u30D5\u30A3\u30AE\u30E5\u30A2"
+    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30D6\u30ED\u30F3\u30BA"
+    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30B7\u30EB\u30D0\u30FC"
+    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30B4\u30FC\u30EB\u30C9"
+    - "\u58C1"
+    - "\u8D64\u3044\u70B9\u58C1"
+    - "\u30D0\u30D6\u30EB\u58C1"
+    - "\u7DD1\u306E\u30BF\u30A4\u30EB\u58C1"
+    - "\u30B9\u30C8\u30E9\u30A4\u30D7\u58C1"
+    - "\u30C1\u30A7\u30C3\u30AF\u67C4\u58C1"
+    - "\u7DD1\u306E\u58C1"
+    - "\u9EC4\u571F\u8272\u306E\u58C1"
+    - "\u30B0\u30EC\u30FC\u58C1"
+    - "\u5E8A"
+    - "dia\u30BF\u30A4\u30EB\u5E8A"
+    - "\u767D\u3044\u30EC\u30F3\u30AC\u306E\u5E8A"
+    - "\u30B0\u30EC\u30FC\u30EC\u30F3\u30AC\u306E\u5E8A"
+    - "\u306D\u3058\u308C\u305F\u6728\u306E\u5E8A"
+    - "\u8D64\u3044\u6728\u5E8A"
+    - "\u30C0\u30A4\u30A2\u67C4\u306E\u6728\u5E8A"
+    - "\u6728\u306E\u5E8A"
+    - "\u767D\u3044\u6728\u5E8A"
+    - "\u6697\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A"
+    - "\u660E\u308B\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A"
+    - "\u660E\u308B\u3044\u30AF\u30ED\u30B9\u5E8A"
+    - "\u660E\u308B\u3044\u30D6\u30EB\u30FC\u5E8A"
+    - "\u8D64\u4E38\u30DE\u30C3\u30C8"
+  - lang: "\r"
+    langLocalize: "\r"
+    value:
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\u30AB\u30A8\u30EB\u6905\u5B50\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - "\r"
+    - 
 --- !u!1 &817258595
 GameObject:
   m_ObjectHideFlags: 0
@@ -29750,7 +30025,7 @@ MonoBehaviour:
   isReset: 0
   dt:
     funitures:
-    - name: WoodChair
+    - name: Wood Chair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29759,7 +30034,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: bec8a66b651e5614ab33e58e566f8468, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: DotoryWorkshopGamingChair
+    - name: Dotory Gaming Chair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29768,7 +30043,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 668051afc43901f41836259a24fb27b2, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: FineSofa
+    - name: Fine Sofa
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29777,7 +30052,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 1346c8cf102f97a43a6b37faf6882218, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: FrogChair
+    - name: Frog Chair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29786,7 +30061,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: ad34f8680e2b46448ac56b91b419a1af, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: LionKingChair
+    - name: LionKing Chair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29795,7 +30070,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 53f8b7f7abde45d44a7cb7701353caa7, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: LogDesk
+    - name: Log Desk
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29804,7 +30079,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 1f42ee4fd84229049bc912ec81ae11bb, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: OldStoolChair
+    - name: Old Stool Chair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29813,7 +30088,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 1fa701bd19c07904aa55194de82d73cd, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: OrangeSofa
+    - name: Orange Sofa
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29822,7 +30097,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 61afe52ed94f1ff47af9c75f687c9afb, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: QuestionMarkChair
+    - name: QuestionMark Chair
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29832,7 +30107,7 @@ MonoBehaviour:
       pos: {x: 0, y: 0}
       isFlat: 0
     decorations:
-    - name: BaloonPuppy
+    - name: Baloon Puppy
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29841,7 +30116,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 1fd2cb8575ac04246bf3f8eb504ef497, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: DumbBell
+    - name: Dumb Bell
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29850,7 +30125,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 5659d8ab5d3f72445940a808bc11df0c, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: GlassElephant
+    - name: Glass Elephant
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29859,7 +30134,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: c705a5ceb8896fb40b00f77e64611a92, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: GlassRhinoceros
+    - name: Glass Rhinoceros
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29868,7 +30143,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: e793bd9db6d4c054c94e1c362a13ffed, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: GlassSeaHorse
+    - name: Glass SeaHorse
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29877,7 +30152,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 672aeab66606bf245bac1b1176c0f70a, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: GoryeoCeladon
+    - name: Goryeo Celadon
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29886,7 +30161,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 84949c858446aa64c80903263c6566fe, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: KettleBell
+    - name: Kettle Bell
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29895,7 +30170,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 14bef35679b822d46a8016b8520c1920, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: KettleVase
+    - name: Kettle Vase
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29904,7 +30179,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: ebf4bc044179b5746b84eba58aba4ce9, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: MountainVase
+    - name: Mountain Vase
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29913,7 +30188,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 8a5c43682c160954db0c45f22a6b1bd9, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: SpaceEnemyFigure
+    - name: Space Enemy Figure
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29922,7 +30197,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 7e15c0e430c664d40a47492e8ae51c25, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: SpaceWarriorFigure
+    - name: Space Warrior Figure
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29931,7 +30206,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: a18fdb2d926f484498758a2ec69ce41b, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: TrophyBronze
+    - name: Trophy Bronze
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29940,7 +30215,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: 1683cf3a56d425245893b22c3da737eb, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: TrophySilver
+    - name: Trophy Silver
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29949,7 +30224,7 @@ MonoBehaviour:
       prefab: {fileID: 3933582543245780397, guid: ca59a07ea1c20ad4fa43c7022cc22439, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
-    - name: TrophyGold
+    - name: Trophy Gold
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -29966,56 +30241,56 @@ MonoBehaviour:
       isArranged: 0
       price: 0
       type: 0
-    - name: RedDotWall
+    - name: Red Dot Wall
       spr: {fileID: -1491515517, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: BubbleWall
+    - name: Bubble Wall
       spr: {fileID: -691775248, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: GreenTileWall
+    - name: Green Tile Wall
       spr: {fileID: 1180750009, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: StripeWall
+    - name: Stripe Wall
       spr: {fileID: 1445291823, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: CheckedWall
+    - name: Checked Wall
       spr: {fileID: -479013973, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: GreenWall
+    - name: Green Wall
       spr: {fileID: -290668380, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: OcherWall
+    - name: Ocher Wall
       spr: {fileID: 597538945, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 0
-    - name: GrayWall
+    - name: Gray Wall
       spr: {fileID: -303880232, guid: 0cbae00da5061014eae4e1ce3941cf52, type: 3}
       isLock: 0
       isNotify: 0
@@ -30029,84 +30304,84 @@ MonoBehaviour:
       isArranged: 0
       price: 0
       type: 1
-    - name: DiaTileFloor
+    - name: Dia Tile Floor
       spr: {fileID: -427934318, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: WhiteBrickFloor
+    - name: White Brick Floor
       spr: {fileID: 1708512666, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: GrayBrickFloor
+    - name: Gray Brick Floor
       spr: {fileID: 234687418, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: TwistWoodFloor
+    - name: Twist Wood Floor
       spr: {fileID: 576556790, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: RedWoodFloor
+    - name: Red Wood Floor
       spr: {fileID: -1488029760, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: DiaWoodFloor
+    - name: Dia Wood Floor
       spr: {fileID: -481732201, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: WoodFloor
+    - name: Wood Floor
       spr: {fileID: 1094206353, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: WhiteWoodFloor
+    - name: White Wood Floor
       spr: {fileID: -819507181, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: DarkSquareFloor
+    - name: Dark Square Floor
       spr: {fileID: -2006216212, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: LightSquareFloor
+    - name: Light Square Floor
       spr: {fileID: -1906946643, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: LightThickCrossFloor
+    - name: Light Cross Floor
       spr: {fileID: 610619071, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       type: 1
-    - name: BlueThinCrossFloor
+    - name: Blue Cross Floor
       spr: {fileID: -430614764, guid: dd9bc83a1676d784b88792ead00bc017, type: 3}
       isLock: 0
       isNotify: 0
@@ -30114,7 +30389,7 @@ MonoBehaviour:
       price: 500
       type: 1
     mats:
-    - name: RedRoundMat
+    - name: Red Round Mat
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
@@ -30124,19 +30399,19 @@ MonoBehaviour:
       pos: {x: 0, y: 0}
       isFlat: 0
     plSkins:
-    - name: DefWolf
+    - name: Wolf
       spr: {fileID: -1206657028, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 3eeac3595846f9a4ca3ed79481fe2447, type: 3}
-    - name: BlackWolf
+    - name: Black Wolf
       spr: {fileID: -1439599485, guid: fe61b2351a0c5ec4c9c2cf38756c1003, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: cd61066f6705c654b9b8b57f1c5360f8, type: 3}
-    - name: WhiteWolf
+    - name: White Wolf
       spr: {fileID: -2034802681, guid: 34e5d432da8653042949aeb8805be55e, type: 3}
       isLock: 0
       isNotify: 0
@@ -30149,19 +30424,19 @@ MonoBehaviour:
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 0}
-    - name: PetMango
+    - name: Mango Pet
       spr: {fileID: 489661751, guid: 4ee02cf2f35763444b4d00347686cf4a, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: de0e0311dd6e9524581ef1edcea056dd, type: 3}
-    - name: PetSweetPotato
+    - name: SweetPotato Pet
       spr: {fileID: 1581396467, guid: 0b2faed4bba42d440be400905132b947, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 8cd8444bc64f4944593c8434f4c32970, type: 3}
-    - name: PetLemon
+    - name: Lemon Pet
       spr: {fileID: -1657514473, guid: 702bb1d81f7d411449b26e4ebf3dae77, type: 3}
       isLock: 0
       isNotify: 0
@@ -37031,6 +37306,7 @@ GameObject:
   - component: {fileID: 1421599537}
   - component: {fileID: 1421599539}
   - component: {fileID: 1421599538}
+  - component: {fileID: 1421599540}
   m_Layer: 5
   m_Name: TapScreenTxt
   m_TagString: Untagged
@@ -37080,8 +37356,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD654\uBA74\uC744 \uD130\uCE58\uD574 \uC8FC\uC138\uC694!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1a5c75fb2b74cb64dbfff5eac939401f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
+  m_sharedMaterial: {fileID: -7649188564318597478, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -37155,6 +37431,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421599536}
   m_CullTransparentMesh: 1
+--- !u!114 &1421599540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421599536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a11f1e439361f44a9f3efc3fe228617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: Pls Touch Screen!
 --- !u!1 &1421853623
 GameObject:
   m_ObjectHideFlags: 0
@@ -52430,6 +52719,7 @@ GameObject:
   - component: {fileID: 2030961233}
   - component: {fileID: 2030961235}
   - component: {fileID: 2030961234}
+  - component: {fileID: 2030961236}
   m_Layer: 0
   m_Name: TitleTxt
   m_TagString: Untagged
@@ -52477,10 +52767,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC815 \uBCF4"
+  m_text: "\uC815\uBCF4"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  m_sharedMaterial: {fileID: -5972503449440871129, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
+  m_sharedMaterial: {fileID: -7649188564318597478, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -52554,6 +52844,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030961232}
   m_CullTransparentMesh: 0
+--- !u!114 &2030961236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030961232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a11f1e439361f44a9f3efc3fe228617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: Infomation
 --- !u!1 &2036218490
 GameObject:
   m_ObjectHideFlags: 0
@@ -54394,8 +54697,8 @@ MonoBehaviour:
     \uCF54\uC54C\uB77C \uD06C\uD06C\uB8E8 \uC0A5\uBF55 \uD5E4\uD5E4\uD5E4\uD5E4\uD5E4!!
     \uC8FD\uC5B4\uB78F!! "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  m_sharedMaterial: {fileID: -5972503449440871129, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
+  m_sharedMaterial: {fileID: -7649188564318597478, guid: bac69b6bf231d0647b01bfc6ab8dfd4d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -54419,7 +54722,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.1
+  m_fontSize: 58.9
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1

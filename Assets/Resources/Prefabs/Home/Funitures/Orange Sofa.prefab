@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 919039607383420660}
   - component: {fileID: 3945558929915820274}
   m_Layer: 3
-  m_Name: OrangeSofa
+  m_Name: Orange Sofa
   m_TagString: Funiture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

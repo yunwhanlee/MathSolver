@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3945558929915820274}
   - component: {fileID: 7751851391270001114}
   m_Layer: 0
-  m_Name: RedRoundMat
+  m_Name: Red Round Mat
   m_TagString: Mat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

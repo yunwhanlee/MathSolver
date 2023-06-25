@@ -1,3 +1,4 @@
-【注意事故】 PlayerとPetスプライト追加
+[주의사항]
 
-- SpriteEditorで、PivotをCustomにして「X：0.5, y：0.25」にすること。
+1. DB.Dt에 생성한 Item클래스의 Name과 Prefab의 이름이 같아야 된다! (벽지, 바닥 Bg는 제외)
+    -> 그래야 아이탬 구매 후, 생성 가능.
