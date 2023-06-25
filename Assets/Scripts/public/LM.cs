@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 [System.Serializable]
 public class Lang {
@@ -20,6 +21,8 @@ public class LM : MonoBehaviour {
     public event Action actLocalizechanged = () => {};
     public int curLangIndex;
     public List<Lang> langs;
+    public TMP_FontAsset krFt;
+    public TMP_FontAsset jpFt;
 
     #region SINGLETON
     void Awake() {
