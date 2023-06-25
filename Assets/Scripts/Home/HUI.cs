@@ -105,14 +105,14 @@ public class HUI : MonoBehaviour {
         inventorySpace.SetActive(false);
 
         //* 看板
-        woodSignTxt.text = LM._.localize("home");//"서재";//Enum.HOME.Room.ToString();
+        woodSignTxt.text = LM._.localize("Home");//"서재";//Enum.HOME.Room.ToString();
 
         //* 業績・ランク
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
-        achiveRankTitleTxt.text = LM._.localize("achivement");;//Enum.ACHIVERANK.Achivement.ToString();
+        achiveRankTitleTxt.text = LM._.localize("Achivement");;//Enum.ACHIVERANK.Achivement.ToString();
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -139,10 +139,10 @@ public class HUI : MonoBehaviour {
         HM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
 
         //* 看板 テキスト
-        woodSignTxt.text = (curHomeSceneIdx == 0)? LM._.localize("home")
-            : (curHomeSceneIdx == 1)? LM._.localize("funitureshop")
-            : (curHomeSceneIdx == 2)? LM._.localize("clothshop")
-            : LM._.localize("inventory");
+        woodSignTxt.text = (curHomeSceneIdx == 0)? LM._.localize("Home")
+            : (curHomeSceneIdx == 1)? LM._.localize("Funitureshop")
+            : (curHomeSceneIdx == 2)? LM._.localize("Clothshop")
+            : LM._.localize("Inventory");
 
         //* InventoryとRoomのスペース 調整
         bool isInv = curHomeSceneIdx == (int)Enum.HOME.Inventory;
@@ -191,9 +191,9 @@ public class HUI : MonoBehaviour {
     }
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
-        achiveRankTitleTxt.text = (idx == 0)? LM._.localize("achivement")
-            : (idx == 1)? LM._.localize("mission")//Enum.ACHIVERANK.Mission.ToString()
-            : LM._.localize("rank");//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
+        achiveRankTitleTxt.text = (idx == 0)? LM._.localize("Achivement")
+            : (idx == 1)? LM._.localize("Mission")//Enum.ACHIVERANK.Mission.ToString()
+            : LM._.localize("Rank");//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
 
         //* Display
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
@@ -245,7 +245,7 @@ public void setDecorationMode(bool isActive) {
     else {
         HM._.fUI.CurSelectedObj = null;
         curHomeSceneIdx = 0;
-        woodSignTxt.text = "서재";
+        woodSignTxt.text = LM._.localize("Home");
         roomPanel.SetActive(true);
     }
 

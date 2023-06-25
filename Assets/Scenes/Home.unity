@@ -27335,7 +27335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a11f1e439361f44a9f3efc3fe228617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textKey: purchase
+  textKey: Purchase
 --- !u!1 &1022689767
 GameObject:
   m_ObjectHideFlags: 0
@@ -30932,7 +30932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a11f1e439361f44a9f3efc3fe228617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textKey: wellcome!
+  textKey: Wellcome!
 --- !u!1 &1140924805
 GameObject:
   m_ObjectHideFlags: 0
