@@ -170,11 +170,13 @@ public class HUI : MonoBehaviour {
 
     #region HOME ICON EVENT
     public void onClickAchiveRankIconBtn() {
-        woodSignObj.SetActive(false);
+        topGroup.SetActive(false);
+        // woodSignObj.SetActive(false);
         achiveRankPanel.SetActive(true);
     }
     public void onClickAchiveRankCloseBtn() {
-        woodSignObj.SetActive(true);
+        topGroup.SetActive(true);
+        // woodSignObj.SetActive(true);
         achiveRankPanel.SetActive(false);
     }
     public void onClickDecorateModeIconBtn() {
