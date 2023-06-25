@@ -30493,6 +30493,12 @@ MonoBehaviour:
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 44962de9c17bb13428955125b45fa7bf, type: 3}
+    - name: OverPower Wolf
+      spr: {fileID: -1681189848, guid: 7785f5a33c0046e44bca696fc7662a27, type: 3}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      sprLibraryAsset: {fileID: 7108339969198208228, guid: cd32dceef199c86438cb888174b387f6, type: 3}
     petSkins:
     - name: X
       spr: {fileID: 21300000, guid: f4c59191fd8a56a40a46aede841da60c, type: 3}

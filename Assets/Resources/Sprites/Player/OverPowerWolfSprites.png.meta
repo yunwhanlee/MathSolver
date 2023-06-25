@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eecf5ffb5c63efa45a9123581a945ecd
+guid: 7785f5a33c0046e44bca696fc7662a27
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -103,78 +103,141 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 51
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wolfSprite_0
+      name: OverPowerWolfSprites_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 916
+        width: 702
+        height: 916
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e38c9bb67d00cbf45b589e0278409696
+      internalID: -1437335313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OverPowerWolfSprites_1
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 916
+        width: 702
+        height: 916
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b70d85e82b339064f880380e4e7a939a
+      internalID: 1597343114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OverPowerWolfSprites_2
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 916
+        width: 702
+        height: 916
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 708a94bc19d2ca9409cbe48332c1dbca
+      internalID: -1408280567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OverPowerWolfSprites_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 295.33334
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 702
+        height: 916
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed1c06180fa8c6142806e256e54a80e1
-      internalID: 1942436050
+      spriteID: 23b75f6086b20594580acbaa1b0c584b
+      internalID: -1888489278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolfSprite_1
+      name: OverPowerWolfSprites_4
       rect:
         serializedVersion: 2
-        x: 295
+        x: 702
         y: 0
-        width: 295.33334
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 702
+        height: 916
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 482edcdb975e65c4db057bb581d5b2e5
-      internalID: -911041700
+      spriteID: 614209f16104be84ea007fa825459341
+      internalID: -220618404
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wolfSprite_2
+      name: OverPowerWolfSprites_5
       rect:
         serializedVersion: 2
-        x: 590
+        x: 1404
         y: 0
-        width: 295.33334
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 702
+        height: 916
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6c7d224943654e419a686dc2a20b439
-      internalID: -646486792
+      spriteID: 87398a3eadfcd57448d13176ee043498
+      internalID: -1681189848
       vertices: []
       indices: 
       edges: []
@@ -190,9 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wolfSprite_0: 1942436050
-      wolfSprite_1: -911041700
-      wolfSprite_2: -646486792
+      OverPowerWolfSprites_0: -1437335313
+      OverPowerWolfSprites_1: 1597343114
+      OverPowerWolfSprites_2: -1408280567
+      OverPowerWolfSprites_3: -1888489278
+      OverPowerWolfSprites_4: -220618404
+      OverPowerWolfSprites_5: -1681189848
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
