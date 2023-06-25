@@ -6,7 +6,7 @@ using System;
 
 public class HM : MonoBehaviour {
     public static HM _;
-    public enum STATE {NORMAL, DECORATION_MODE};
+    public enum STATE {NORMAL, DECORATION_MODE, SETTING};
     public STATE state;
 
     [Header("OUTSIDE")]
@@ -25,6 +25,9 @@ public class HM : MonoBehaviour {
     public Material sprUnlitMt;
     public Material outlineAnimMt;
     public Material outlineMt;
+
+    [Header("SPRITE")]
+    public Sprite[] conturiesIcons; //* EN=0, KR=1, JP=2
 
     [Header("GAME OBJECT")]
     public GameObject funitureModeShadowFrameObj;

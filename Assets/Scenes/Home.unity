@@ -8729,7 +8729,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &412710459
 MonoBehaviour:
@@ -8755,6 +8755,10 @@ MonoBehaviour:
   sprUnlitMt: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   outlineAnimMt: {fileID: 2100000, guid: db37f9e7df5ad2348acdaffb2613eed9, type: 2}
   outlineMt: {fileID: 2100000, guid: f191696a5dd15894fa3691b2df5a4933, type: 2}
+  conturiesIcons:
+  - {fileID: 21300000, guid: fe47e233143e64610b8a069446bab0ec, type: 3}
+  - {fileID: 21300000, guid: 9ddc8b7c6bece4d3ea89dc47912e2460, type: 3}
+  - {fileID: 21300000, guid: 85f053b0eb0f446a4ad2a41b0c76173e, type: 3}
   funitureModeShadowFrameObj: {fileID: 886808597}
   funitureModeItem: {fileID: 0}
   roomObjectGroup: {fileID: 203068470}
@@ -14306,7 +14310,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &441989977
 MonoBehaviour:
@@ -20599,7 +20603,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 703670309}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: HUI, Assembly-CSharp
+        m_MethodName: onClickSettingIconBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &703670309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20668,8 +20684,8 @@ RectTransform:
   m_Children:
   - {fileID: 1922240198}
   - {fileID: 1773627933}
-  - {fileID: 1380916498}
   - {fileID: 1875807786}
+  - {fileID: 1380916498}
   m_Father: {fileID: 939016919892300250}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22936,6 +22952,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813606981}
   m_CullTransparentMesh: 1
+--- !u!1 &816851651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 816851652}
+  - component: {fileID: 816851653}
+  m_Layer: 0
+  m_Name: LanguageManager_Singleton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &816851652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816851651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &816851653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816851651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8afcbf4d647ed4fbe29e42a336aff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curLangIndex: 0
+  langs:
+  - lang: English
+    langLocalize: English
+    value:
+    - apple
+    - home
+    - achivement
+    - clothshop
+    - funitureshop
+    - inventory
+    - mision
+    - rank
+  - lang: Korean
+    langLocalize: "\uD55C\uAD6D\uC5B4"
+    value:
+    - "\uC0AC\uACFC"
+    - "\uC9D1"
+    - "\uC5C5\uC801"
+    - "\uC758\uB958\uC810"
+    - "\uAC00\uAD6C\uC810"
+    - "\uC778\uBCA4\uD1A0\uB9AC"
+    - "\uBBF8\uC158"
+    - "\uB7AD\uD06C"
+  - lang: "Japanese\r"
+    langLocalize: "\u65E5\u672C\u8A9E\r"
+    value:
+    - "\u308A\u3093\u3054\r"
+    - "\u5BB6\r"
+    - "\u696D\u7E3E\r"
+    - "\u670D\u5E97\r"
+    - "\u5BB6\u5177\u5E97\r"
+    - "\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\r"
+    - "\u30DF\u30C3\u30B7\u30E7\u30F3\r"
+    - "\u30E9\u30F3\u30AF"
 --- !u!1 &817258595
 GameObject:
   m_ObjectHideFlags: 0
@@ -29526,7 +29621,7 @@ GameObject:
   - component: {fileID: 1106386576}
   - component: {fileID: 1106386577}
   m_Layer: 0
-  m_Name: DBManager
+  m_Name: DBManager_Singleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29559,7 +29654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 1
+  isReset: 0
   dt:
     funitures:
     - name: WoodChair
@@ -30980,7 +31075,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1144530824
 MonoBehaviour:
@@ -32222,8 +32317,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC11C\uC7AC"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
-  m_sharedMaterial: {fileID: -5972503449440871129, guid: f0b81d3ea8649ac4ba1bf7dd164890c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 13b1ccb796f66b14a91c9be8dc4445b3, type: 2}
+  m_sharedMaterial: {fileID: 1328224861989551157, guid: 13b1ccb796f66b14a91c9be8dc4445b3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -32247,12 +32342,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
+  m_fontSize: 100
   m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 40
-  m_fontSizeMax: 120
+  m_fontSizeMax: 100
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -32309,40 +32404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:73682831ef31ec044b87c325988425c1
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 1
-    m_TableEntryReference:
-      m_KeyId: 236867694592
-      m_Key: 
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 2
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocaleOverride: {fileID: 0}
-    m_CurrentTable:
-      m_TableCollectionName: GUID:73682831ef31ec044b87c325988425c1
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 1
-    m_CurrentTableEntry:
-      m_KeyId: 236867694592
-      m_Key: 
-      m_Valid: 0
-      <ReferenceType>k__BackingField: 2
-    m_LocalVariables: []
-    m_CurrentStringChangedValue: 
-    m_WaitingForVariablesEndUpdate: 0
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - {m_Target: {fileID: 1223406185}, m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro, m_MethodName: set_text, m_Mode: 0, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 1}
-    m_CallsDirty: 1
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &1228109683
 GameObject:
   m_ObjectHideFlags: 0
@@ -35714,7 +35775,7 @@ Transform:
   m_Children:
   - {fileID: 2105312514}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357650465
 GameObject:
@@ -36132,11 +36193,11 @@ RectTransform:
   - {fileID: 1428828127}
   - {fileID: 1718361086}
   m_Father: {fileID: 704792771}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 450, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1380916499
@@ -36197,19 +36258,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1380916501}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: onClickSelectLanguageBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1380916501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37038,7 +37087,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1428828126
 GameObject:
@@ -37417,7 +37466,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1431391150
 MonoBehaviour:
@@ -37640,7 +37689,7 @@ Transform:
   - {fileID: 1500287047}
   - {fileID: 645594663}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448768232
 GameObject:
@@ -41395,7 +41444,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1585848656
 MonoBehaviour:
@@ -45931,7 +45980,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1733188251
 MonoBehaviour:
@@ -46049,7 +46098,7 @@ RectTransform:
   - {fileID: 1282954688}
   - {fileID: 1198402201}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -46679,19 +46728,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1773627936}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: onClickSelectLanguageBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1773627936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49324,11 +49361,11 @@ RectTransform:
   - {fileID: 1797130316}
   - {fileID: 1831556577}
   m_Father: {fileID: 704792771}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -300}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 450, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875807787
@@ -49389,19 +49426,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1875807789}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: onClickSelectLanguageBtn
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1875807789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51817,6 +51842,14 @@ MonoBehaviour:
   ikeaShopPanel: {fileID: 1061498300}
   clothShopPanel: {fileID: 1880035135}
   inventoryPanel: {fileID: 172676145}
+  settingPanel: {fileID: 939016919892300245}
+  selectLangDialog: {fileID: 704792770}
+  curLangTxt: {fileID: 1400541348729442928}
+  curLangImg: {fileID: 939016919912840222}
+  langBtns:
+  - {fileID: 1773627935}
+  - {fileID: 1875807788}
+  - {fileID: 1380916500}
   achiveRankTitleTxt: {fileID: 283916952}
   achiveRankTypeBtns:
   - {fileID: 73601395}
@@ -67396,7 +67429,7 @@ GameObject:
   - component: {fileID: 939016919912840223}
   - component: {fileID: 939016919912840222}
   m_Layer: 0
-  m_Name: Icon_Country
+  m_Name: CountryIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67524,7 +67557,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 939016919944055314}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: HUI, Assembly-CSharp
+        m_MethodName: onClickSettingPanelCloseBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &939016919944055311
 GameObject:
   m_ObjectHideFlags: 0
@@ -68718,8 +68763,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: English
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
-  m_sharedMaterial: {fileID: 2269793554123077917, guid: dc2cc93475f76427c86a8262bee36b88, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 13b1ccb796f66b14a91c9be8dc4445b3, type: 2}
+  m_sharedMaterial: {fileID: 1328224861989551157, guid: 13b1ccb796f66b14a91c9be8dc4445b3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -68805,7 +68850,7 @@ GameObject:
   - component: {fileID: 1400541348729442929}
   - component: {fileID: 1400541348729442928}
   m_Layer: 0
-  m_Name: Text
+  m_Name: CountryTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68845,7 +68890,7 @@ GameObject:
   - component: {fileID: 1400541349395904348}
   - component: {fileID: 7953691265505858891}
   m_Layer: 0
-  m_Name: Button_Language
+  m_Name: LangBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68916,7 +68961,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1400541349395904350}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: HUI, Assembly-CSharp
+        m_MethodName: onClickLanguageBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1400541349395904350
 MonoBehaviour:
   m_ObjectHideFlags: 0

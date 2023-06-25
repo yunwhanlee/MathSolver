@@ -9,6 +9,7 @@ public class TouchControl : MonoBehaviour
 
     void Update(){
         if(Input.GetMouseButtonDown(0)) {
+            if(HM._.state == HM.STATE.SETTING) return;
             if(HM._.state == HM.STATE.DECORATION_MODE) return;
             if(HM._.ui.CurHomeSceneIdx == (int)Enum.HOME.Inventory) return;
 

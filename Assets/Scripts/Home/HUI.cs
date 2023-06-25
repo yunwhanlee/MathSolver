@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class HUI : MonoBehaviour {
     [SerializeField] Color selectedTypeBtnClr;
-
     [SerializeField] TextMeshProUGUI coinTxt; public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
 
     [Header("WOOD SIGN")]
@@ -28,6 +27,13 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject ikeaShopPanel; public GameObject IkeaShopPanel {get => ikeaShopPanel; set => ikeaShopPanel = value;}
     [SerializeField] GameObject clothShopPanel; public GameObject ClothShopPanel {get => clothShopPanel; set => clothShopPanel = value;}
     [SerializeField] GameObject inventoryPanel; public GameObject InventoryPanel {get => inventoryPanel; set => inventoryPanel = value;}
+    [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}
+
+    [Header("SETTING")]
+    [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
+    [SerializeField] TextMeshProUGUI curLangTxt;  public TextMeshProUGUI CurLangTxt {get => curLangTxt; set => curLangTxt = value;}
+    [SerializeField] Image curLangImg;  public Image CurLangImg {get => curLangImg; set => curLangImg = value;}
+    [SerializeField] Button[] langBtns; public Button[] LangBtns {get => langBtns; set => langBtns = value;}
 
     [Header("ACHIVE & RANK")]
     [SerializeField] TextMeshProUGUI achiveRankTitleTxt; public TextMeshProUGUI AchiveRankTitleTxt {get => achiveRankTitleTxt; set => achiveRankTitleTxt = value;}
@@ -72,6 +78,22 @@ public class HUI : MonoBehaviour {
     void Start() {
         StartCoroutine(coUpdateUI());
 
+        //* Setting Add Event Listener
+        const int EN = 0, KR = 1, JP = 2;
+        langBtns[EN].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(EN));
+        langBtns[KR].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(KR));
+        langBtns[JP].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(JP));
+
+        //* Current Country Txt
+        curLangTxt.text = (LM._.curLangIndex == EN)? "English"
+            :(LM._.curLangIndex == KR)? "한국어"
+            : "日本語";
+        //* Current Country Icon
+        curLangImg.sprite = (LM._.curLangIndex == EN)? HM._.conturiesIcons[EN] 
+            :(LM._.curLangIndex == KR)? HM._.conturiesIcons[KR]
+            : HM._.conturiesIcons[JP];
+
+
         //* ホームシーンのパンネル配列 初期化
         homeScenePanelArr = new GameObject[] {
             roomPanel, ikeaShopPanel, clothShopPanel, inventoryPanel
@@ -83,14 +105,14 @@ public class HUI : MonoBehaviour {
         inventorySpace.SetActive(false);
 
         //* 看板
-        woodSignTxt.text = "서재";//Enum.HOME.Room.ToString();
+        woodSignTxt.text = LM._.localize("home");//"서재";//Enum.HOME.Room.ToString();
 
         //* 業績・ランク
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
-        achiveRankTitleTxt.text = "업적";//Enum.ACHIVERANK.Achivement.ToString();
+        achiveRankTitleTxt.text = LM._.localize("achivement");;//Enum.ACHIVERANK.Achivement.ToString();
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -117,10 +139,10 @@ public class HUI : MonoBehaviour {
         HM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
 
         //* 看板 テキスト
-        woodSignTxt.text = (curHomeSceneIdx == 0)? "서재"//Enum.HOME.Room.ToString()
-            : (curHomeSceneIdx == 1)? "가구점"//Enum.HOME.IkeaShop.ToString()
-            : (curHomeSceneIdx == 2)? "의류점"//Enum.HOME.ClothShop.ToString()
-            : "인벤토리";//Enum.HOME.Inventory.ToString();
+        woodSignTxt.text = (curHomeSceneIdx == 0)? LM._.localize("home")
+            : (curHomeSceneIdx == 1)? LM._.localize("funitureshop")
+            : (curHomeSceneIdx == 2)? LM._.localize("clothshop")
+            : LM._.localize("inventory");
 
         //* InventoryとRoomのスペース 調整
         bool isInv = curHomeSceneIdx == (int)Enum.HOME.Inventory;
@@ -145,9 +167,8 @@ public class HUI : MonoBehaviour {
             onClickWoodSignArrowBtn(dirVal: -1);
         }
     }
-//---------------------------------------------------------------------------------------------------------------------------------------------------
-#region HOME ICON EVENT
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+    #region HOME ICON EVENT
     public void onClickAchiveRankIconBtn() {
         woodSignObj.SetActive(false);
         achiveRankPanel.SetActive(true);
@@ -163,16 +184,16 @@ public class HUI : MonoBehaviour {
         HM._.fUI.setUpFunitureModeItem(isCancel: true);
         setDecorationMode(isActive: false);
     }
-#endregion
-//---------------------------------------------------------------------------------------------------------------------------------------------------
+    #endregion
+
     public void onClickGoGameDialogYesBtn() {
         HM._.GoToLoadingScene();
     }
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
-        achiveRankTitleTxt.text = (idx == 0)? "업적"//Enum.ACHIVERANK.Achivement.ToString()
-            : (idx == 1)? "임무"//Enum.ACHIVERANK.Mission.ToString()
-            : "랭킹";//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
+        achiveRankTitleTxt.text = (idx == 0)? LM._.localize("achivement")
+            : (idx == 1)? LM._.localize("mission")//Enum.ACHIVERANK.Mission.ToString()
+            : LM._.localize("rank");//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
 
         //* Display
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
@@ -180,15 +201,21 @@ public class HUI : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == idx);
         }
     }
-    // public void onClickinventoryTypeBtn(int idx) {
-    //     //* Display
-    //     for(int i = 0; i < invTypeBtns.Length; i++) {
-    //         invTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
-    //         invListFrames[i].SetActive(i == idx);
-    //     }
-    // }
-    public void onClickInventoryItemListBtn() { //TODO Just Unlock Test
+    public void onClickInventoryItemListBtn() {
         infoDialog.SetActive(true);
+    }
+    public void onClickSettingIconBtn() {
+        HM._.state = HM.STATE.SETTING;
+        settingPanel.SetActive(true);
+        topGroup.SetActive(false);
+    }
+    public void onClickSettingPanelCloseBtn() {
+        HM._.state = HM.STATE.NORMAL;
+        settingPanel.SetActive(false);
+        topGroup.SetActive(true);
+    }
+    public void onClickLanguageBtn() {
+        selectLangDialog.SetActive(true);
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
