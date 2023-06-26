@@ -4359,7 +4359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &186666937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23153,6 +23153,7 @@ MonoBehaviour:
     - Wolf
     - Black Wolf
     - White Wolf
+    - OverPower Wolf
     - Mango Pet
     - SweetPotato Pet
     - Lemon Pet
@@ -23240,6 +23241,7 @@ MonoBehaviour:
     - "\uB291\uB300"
     - "\uAC80\uC740 \uB291\uB300"
     - "\uD770 \uB291\uB300"
+    - "\uC624\uBC84\uD30C\uC6CC \uB291\uB300"
     - "\uB9DD\uACE0 \uD3AB"
     - "\uACE0\uAD6C\uB9C8 \uD3AB"
     - "\uB808\uBAAC \uD3AB"
@@ -23289,178 +23291,93 @@ MonoBehaviour:
     - "\uBC1D\uC740 \uD06C\uB85C\uC2A4 \uBC14\uB2E5"
     - "\uBE14\uB8E8 \uD06C\uB85C\uC2A4 \uBC14\uB2E5"
     - "\uBE68\uAC04 \uB77C\uC6B4\uB4DC \uB9E4\uD2B8"
-  - lang: Japanese
-    langLocalize: "\u65E5\u672C\u8A9E"
+  - lang: "Japanese\r"
+    langLocalize: "\u65E5\u672C\u8A9E\r"
     value:
-    - "\u308A\u3093\u3054"
-    - "\u5BB6"
-    - "\u696D\u7E3E"
-    - "\u670D\u5E97"
-    - "\u5BB6\u5177\u5E97"
-    - "\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA"
-    - "\u30DF\u30C3\u30B7\u30E7\u30F3"
-    - "\u30E9\u30F3\u30AF"
-    - "\u8CFC\u5165"
-    - "\u3044\u3089\u3063\u3057\u3083\u3044\uFF01"
-    - "\u554F\u984C\u89E3\u6C7A \u884C\u304F"
-    - "\u52D5\u7269\u6751\u306E\u554F\u984C\u3092\u89E3\u6C7A\u3057\u306B\u884C\u304D\u307E\u3057\u3087\u3046\u304B\uFF1F"
-    - "\u306F\u3044"
-    - "\u3044\u3044\u3048"
-    - "\u8A2D\u5B9A"
-    - "\u30B5\u30A6\u30F3\u30C9"
-    - "\u80CC\u666F\u97F3"
-    - "\u30E6\u30FC\u30B6ID"
-    - "\u4ED6\u306E\u30B2\u30FC\u30E0"
-    - "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB"
-    - "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF"
-    - "\u4E0B"
-    - "\u4E2D"
-    - "\u4E0A"
-    - "\u753B\u9762\u3092\u30BF\u30C3\u30C1\u3057\u3066\u304F\u3060\u3055\u3044\uFF01"
-    - "\u60C5\u5831"
-    - "\u670D\u5E97\u884C\u304F"
-    - "\u30A2\u30A4\u30C6\u30E0\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\uFF01"
-    - "\u30B3\u30A4\u30F3\u304C\u8DB3\u308A\u306A\u3044\u3067\u3059\uFF01"
-    - "\u3059\u3067\u306B\u4F7F\u7528\u4E2D\u3067\u3059\uFF01"
-    - "\u8CFC\u5165\u3059\u308B\u3082\u306E\u304C\u3042\u308A\u307E\u305B\u3093\u3002"
-    - "\u30AA\u30AA\u30AB\u30DF"
-    - "\u30D6\u30E9\u30C3\u30AF\u30AA\u30AA\u30AB\u30DF"
-    - "\u30DB\u30EF\u30A4\u30C8\u30AA\u30AA\u30AB\u30DF"
-    - "\u30DE\u30F3\u30B4\u30DA\u30C3\u30C8"
-    - "\u30B5\u30C4\u30DE\u30A4\u30E2\u30DA\u30C3\u30C8"
-    - "\u30EC\u30E2\u30F3\u30DA\u30C3\u30C8"
-    - "\u6728\u88FD\u306E\u6905\u5B50"
-    - "\u30C9\u30C8\u30FC\u30EA\u30FC\u30B2\u30FC\u30E0\u30C1\u30A7\u30A2"
-    - "\u7D20\u6575\u306A\u30BD\u30D5\u30A1"
-    - "\u30AB\u30A8\u30EB\u306E\u6905\u5B50"
-    - "\u30E9\u30A4\u30AA\u30F3\u30AD\u30F3\u30B0\u30C1\u30A7\u30A2"
-    - "\u30DE\u30EB\u30BF\u30C7\u30B9\u30AF"
-    - "\u53E4\u3044\u6905\u5B50"
-    - "\u30AA\u30EC\u30F3\u30B8\u30BD\u30D5\u30A1"
-    - "\u8CEA\u554F\u30DE\u30FC\u30AF\u30C1\u30A7\u30A2"
-    - "\u98A8\u8239\u72AC"
-    - "\u30C0\u30F3\u30D9\u30EB"
-    - "\u30AC\u30E9\u30B9\u8C61"
-    - "\u30AC\u30E9\u30B9\u30B5\u30A4"
-    - "\u30AB\u30E9\u30B9\u6D77\u99AC"
-    - "\u9AD8\u9E97\u9752\u78C1"
-    - "\u30B1\u30C8\u30EB\u30D9\u30EB"
-    - "\u3084\u304B\u3093 \u82B1\u74F6"
-    - "\u5C71\u306E\u82B1\u74F6"
-    - "\u5B87\u5B99\u7684\u306E\u30D5\u30A3\u30AE\u30E5\u30A2"
-    - "\u5B87\u5B99\u6226\u58EB\u30D5\u30A3\u30AE\u30E5\u30A2"
-    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30D6\u30ED\u30F3\u30BA"
-    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30B7\u30EB\u30D0\u30FC"
-    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30B4\u30FC\u30EB\u30C9"
-    - "\u58C1"
-    - "\u8D64\u3044\u70B9\u58C1"
-    - "\u30D0\u30D6\u30EB\u58C1"
-    - "\u7DD1\u306E\u30BF\u30A4\u30EB\u58C1"
-    - "\u30B9\u30C8\u30E9\u30A4\u30D7\u58C1"
-    - "\u30C1\u30A7\u30C3\u30AF\u67C4\u58C1"
-    - "\u7DD1\u306E\u58C1"
-    - "\u9EC4\u571F\u8272\u306E\u58C1"
-    - "\u30B0\u30EC\u30FC\u58C1"
-    - "\u5E8A"
-    - "dia\u30BF\u30A4\u30EB\u5E8A"
-    - "\u767D\u3044\u30EC\u30F3\u30AC\u306E\u5E8A"
-    - "\u30B0\u30EC\u30FC\u30EC\u30F3\u30AC\u306E\u5E8A"
-    - "\u306D\u3058\u308C\u305F\u6728\u306E\u5E8A"
-    - "\u8D64\u3044\u6728\u5E8A"
-    - "\u30C0\u30A4\u30A2\u67C4\u306E\u6728\u5E8A"
-    - "\u6728\u306E\u5E8A"
-    - "\u767D\u3044\u6728\u5E8A"
-    - "\u6697\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A"
-    - "\u660E\u308B\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A"
-    - "\u660E\u308B\u3044\u30AF\u30ED\u30B9\u5E8A"
-    - "\u660E\u308B\u3044\u30D6\u30EB\u30FC\u5E8A"
+    - "\u308A\u3093\u3054\r"
+    - "\u5BB6\r"
+    - "\u696D\u7E3E\r"
+    - "\u670D\u5E97\r"
+    - "\u5BB6\u5177\u5E97\r"
+    - "\u30A4\u30F3\u30D9\u30F3\u30C8\u30EA\r"
+    - "\u30DF\u30C3\u30B7\u30E7\u30F3\r"
+    - "\u30E9\u30F3\u30AF\r"
+    - "\u8CFC\u5165\r"
+    - "\u3044\u3089\u3063\u3057\u3083\u3044\uFF01\r"
+    - "\u554F\u984C\u89E3\u6C7A \u884C\u304F\r"
+    - "\u52D5\u7269\u6751\u306E\u554F\u984C\u3092\u89E3\u6C7A\u3057\u306B\u884C\u304D\u307E\u3057\u3087\u3046\u304B\uFF1F\r"
+    - "\u306F\u3044\r"
+    - "\u3044\u3044\u3048\r"
+    - "\u8A2D\u5B9A\r"
+    - "\u30B5\u30A6\u30F3\u30C9\r"
+    - "\u80CC\u666F\u97F3\r"
+    - "\u30E6\u30FC\u30B6ID\r"
+    - "\u4ED6\u306E\u30B2\u30FC\u30E0\r"
+    - "\u30C1\u30E5\u30FC\u30C8\u30EA\u30A2\u30EB\r"
+    - "\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF\r"
+    - "\u4E0B\r"
+    - "\u4E2D\r"
+    - "\u4E0A\r"
+    - "\u753B\u9762\u3092\u30BF\u30C3\u30C1\u3057\u3066\u304F\u3060\u3055\u3044\uFF01\r"
+    - "\u60C5\u5831\r"
+    - "\u670D\u5E97\u884C\u304F\r"
+    - "\u30A2\u30A4\u30C6\u30E0\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\uFF01\r"
+    - "\u30B3\u30A4\u30F3\u304C\u8DB3\u308A\u306A\u3044\u3067\u3059\uFF01\r"
+    - "\u3059\u3067\u306B\u4F7F\u7528\u4E2D\u3067\u3059\uFF01\r"
+    - "\u8CFC\u5165\u3059\u308B\u3082\u306E\u304C\u3042\u308A\u307E\u305B\u3093\u3002\r"
+    - "\u30AA\u30AA\u30AB\u30DF\r"
+    - "\u30D6\u30E9\u30C3\u30AF\u30AA\u30AA\u30AB\u30DF\r"
+    - "\u30DB\u30EF\u30A4\u30C8\u30AA\u30AA\u30AB\u30DF\r"
+    - "\u30AA\u30FC\u30D0\u30FC\u30D1\u30EF\u30FC\u30AA\u30AA\u30AB\u30DF\r"
+    - "\u30DE\u30F3\u30B4\u30DA\u30C3\u30C8\r"
+    - "\u30B5\u30C4\u30DE\u30A4\u30E2\u30DA\u30C3\u30C8\r"
+    - "\u30EC\u30E2\u30F3\u30DA\u30C3\u30C8\r"
+    - "\u6728\u88FD\u306E\u6905\u5B50\r"
+    - "\u30C9\u30C8\u30FC\u30EA\u30FC\u30B2\u30FC\u30E0\u30C1\u30A7\u30A2\r"
+    - "\u7D20\u6575\u306A\u30BD\u30D5\u30A1\r"
+    - "\u30AB\u30A8\u30EB\u306E\u6905\u5B50\r"
+    - "\u30E9\u30A4\u30AA\u30F3\u30AD\u30F3\u30B0\u30C1\u30A7\u30A2\r"
+    - "\u30DE\u30EB\u30BF\u30C7\u30B9\u30AF\r"
+    - "\u53E4\u3044\u6905\u5B50\r"
+    - "\u30AA\u30EC\u30F3\u30B8\u30BD\u30D5\u30A1\r"
+    - "\u8CEA\u554F\u30DE\u30FC\u30AF\u30C1\u30A7\u30A2\r"
+    - "\u98A8\u8239\u72AC\r"
+    - "\u30C0\u30F3\u30D9\u30EB\r"
+    - "\u30AC\u30E9\u30B9\u8C61\r"
+    - "\u30AC\u30E9\u30B9\u30B5\u30A4\r"
+    - "\u30AB\u30E9\u30B9\u6D77\u99AC\r"
+    - "\u9AD8\u9E97\u9752\u78C1\r"
+    - "\u30B1\u30C8\u30EB\u30D9\u30EB\r"
+    - "\u3084\u304B\u3093 \u82B1\u74F6\r"
+    - "\u5C71\u306E\u82B1\u74F6\r"
+    - "\u5B87\u5B99\u7684\u306E\u30D5\u30A3\u30AE\u30E5\u30A2\r"
+    - "\u5B87\u5B99\u6226\u58EB\u30D5\u30A3\u30AE\u30E5\u30A2\r"
+    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30D6\u30ED\u30F3\u30BA\r"
+    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30B7\u30EB\u30D0\u30FC\r"
+    - "\u30C8\u30ED\u30D5\u30A3\u30FC\u30B4\u30FC\u30EB\u30C9\r"
+    - "\u58C1\r"
+    - "\u8D64\u3044\u70B9\u58C1\r"
+    - "\u30D0\u30D6\u30EB\u58C1\r"
+    - "\u7DD1\u306E\u30BF\u30A4\u30EB\u58C1\r"
+    - "\u30B9\u30C8\u30E9\u30A4\u30D7\u58C1\r"
+    - "\u30C1\u30A7\u30C3\u30AF\u67C4\u58C1\r"
+    - "\u7DD1\u306E\u58C1\r"
+    - "\u9EC4\u571F\u8272\u306E\u58C1\r"
+    - "\u30B0\u30EC\u30FC\u58C1\r"
+    - "\u5E8A\r"
+    - "dia\u30BF\u30A4\u30EB\u5E8A\r"
+    - "\u767D\u3044\u30EC\u30F3\u30AC\u306E\u5E8A\r"
+    - "\u30B0\u30EC\u30FC\u30EC\u30F3\u30AC\u306E\u5E8A\r"
+    - "\u306D\u3058\u308C\u305F\u6728\u306E\u5E8A\r"
+    - "\u8D64\u3044\u6728\u5E8A\r"
+    - "\u30C0\u30A4\u30A2\u67C4\u306E\u6728\u5E8A\r"
+    - "\u6728\u306E\u5E8A\r"
+    - "\u767D\u3044\u6728\u5E8A\r"
+    - "\u6697\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A\r"
+    - "\u660E\u308B\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A\r"
+    - "\u660E\u308B\u3044\u30AF\u30ED\u30B9\u5E8A\r"
+    - "\u660E\u308B\u3044\u30D6\u30EB\u30FC\u5E8A\r"
     - "\u8D64\u4E38\u30DE\u30C3\u30C8"
-  - lang: "\r"
-    langLocalize: "\r"
-    value:
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\u30AB\u30A8\u30EB\u6905\u5B50\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - "\r"
-    - 
 --- !u!1 &817258595
 GameObject:
   m_ObjectHideFlags: 0
@@ -34034,7 +33951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1434480346, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8d5cf17b8bd754790a2c5ca27515899b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -37498,7 +37415,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -750}
-  m_SizeDelta: {x: 900, y: 300}
+  m_SizeDelta: {x: 900, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1421599538
 MonoBehaviour:
@@ -37550,9 +37467,9 @@ MonoBehaviour:
   m_fontSize: 90
   m_fontSizeBase: 90
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 30
+  m_fontSizeMax: 90
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -46735,6 +46652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b26809f1cb6132438b0070a3b4e9ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGachaOn: 0
   priceTxt: {fileID: 661303603}
   gachaAnimPanel: {fileID: 186666936}
   rewardImg: {fileID: 549986248}

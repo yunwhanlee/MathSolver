@@ -13,6 +13,8 @@ public class ClothShopUIManager : MonoBehaviour
     const int REWARD_PET_PER = 30;
     const int GACHA_PRICE = 300;
 
+    [SerializeField] bool isGachaOn;    public bool IsGachaOn {get => isGachaOn; set => isGachaOn = value;}
+
     Sprite rewardSpr; 
 
     [Header("PURCHASE BTN")]
@@ -35,6 +37,8 @@ public class ClothShopUIManager : MonoBehaviour
 #region BTN EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickPurchaseBtn() {
+        if(isGachaOn) return;
+
         PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock);
         PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock);
         if(lockedPlSks.Length == 0 && lockedPtSks.Length == 0) {
@@ -44,6 +48,7 @@ public class ClothShopUIManager : MonoBehaviour
 
         int price = GACHA_PRICE * DB.Dt.GachaCnt;
         if(DB.Dt.Coin >= price) {
+            isGachaOn = true;
             HM._.ui.playSwitchScreenAnim();
             StartCoroutine(coPlayGachaPanelAnimIdle());
             DB.Dt.setCoin(-price);
@@ -85,6 +90,7 @@ public class ClothShopUIManager : MonoBehaviour
         }
         //* ホームに戻る
         else {
+            isGachaOn = false;
             anim.SetBool(Enum.ANIM.IsShowGachaReward.ToString(), false);
             rewardSpr = null;
             HM._.ui.TopGroup.SetActive(true);

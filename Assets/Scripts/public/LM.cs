@@ -99,6 +99,7 @@ public class LM : MonoBehaviour {
         }
     }
     public string localize(string key) {
+        Debug.Log($"localize(key= {key}):: curLangIndex= {curLangIndex}");
         int keyIndex = langs[0].value.FindIndex(i => i.ToLower() == key.ToLower());
         return langs[curLangIndex].value[keyIndex];
     }
