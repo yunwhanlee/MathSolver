@@ -60,11 +60,11 @@ public class GM : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    IEnumerator myCo() {
-        yield return gui.coShowStageTxt();
-        yield return gui.coShowQuestion();
-        yield return coCreateStuffObj();
-    }
+    // IEnumerator myCo() {
+    //     yield return gui.coShowStageTxt(0);
+    //     yield return gui.coShowQuestion();
+    //     yield return coCreateStuffObj();
+    // }
     IEnumerator coCreateStuffObj() {
         int cnt = 50 / 10;
         for(int i = 0; i < cnt; i++){

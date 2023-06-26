@@ -45,7 +45,9 @@ public class GUI : MonoBehaviour
     public void onclickBtnBackToHome() {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
-    public IEnumerator coShowStageTxt() {
+    public IEnumerator coShowStageTxt(int curQuestionIndex) {
+        int stageNum = curQuestionIndex + 1;
+        stageTxt.text = $"STAGE {stageNum} / 8";
         stageTxt.gameObject.SetActive(true);
         
         yield return new WaitForSeconds(1.3f);

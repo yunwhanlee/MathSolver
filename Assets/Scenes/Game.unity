@@ -245,7 +245,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629848385}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gui, Assembly-CSharp
         m_MethodName: onclickBtnBackToHome
         m_Mode: 1
@@ -976,7 +976,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629848385}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gui, Assembly-CSharp
         m_MethodName: onClickAnswerBtn
         m_Mode: 3
@@ -1578,7 +1578,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629848385}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gui, Assembly-CSharp
         m_MethodName: onClickAnswerBtn
         m_Mode: 3
@@ -1818,7 +1818,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 300}
+  m_SizeDelta: {x: 350, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &400979782
 MonoBehaviour:
@@ -1840,9 +1840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'STAGE
-
-    1 / 8'
+  m_text: STAGE 1 / 8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -2359,8 +2357,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629848384}
-  - component: {fileID: 629848385}
   - component: {fileID: 629848386}
+  - component: {fileID: 629848387}
   m_Layer: 0
   m_Name: GUIManager
   m_TagString: Untagged
@@ -2381,20 +2379,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &629848385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629848383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a75cdb478085a1429a4d1db03311462, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &629848386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,6 +2395,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleTxt: {fileID: 186454453}
   speed: 0.05
+--- !u!114 &629848387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629848383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a75cdb478085a1429a4d1db03311462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  answerBtns: []
+  questionFrame: {fileID: 832772164}
+  hintFrame: {fileID: 1656798951}
+  successResultFrame: {fileID: 1981230484}
+  successEffectFrame: {fileID: 522697972}
+  questionTxt: {fileID: 186454453}
+  stageTxt: {fileID: 400979782}
 --- !u!1 &655301707
 GameObject:
   m_ObjectHideFlags: 0
@@ -14242,7 +14247,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1616968946
 MonoBehaviour:
@@ -14256,7 +14261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: facfaeba7f5ae9547b30af1920f29306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gui: {fileID: 629848385}
+  gui: {fileID: 629848387}
   plTypingEFObj: {fileID: 4108413374768294098}
   playerAnim: {fileID: 378424037}
   customerAnim: {fileID: 1220980079}
@@ -14880,7 +14885,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629848385}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Gui, Assembly-CSharp
         m_MethodName: onClickAnswerBtn
         m_Mode: 3
@@ -66060,7 +66065,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7725118857010651485
 MonoBehaviour:
