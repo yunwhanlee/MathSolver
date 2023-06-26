@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using TexDrawLib.Samples; //* TEXDraw
 
 public class GUI : MonoBehaviour
 {
