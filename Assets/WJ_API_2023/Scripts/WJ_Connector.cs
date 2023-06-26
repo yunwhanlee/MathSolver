@@ -8,7 +8,7 @@ using WjChallenge;
 
 /// <summary>
 //* My Game Code : E28
-//* X-API-KEY : 2fMFJkLhGTGKc7G0kFe08hfSa3U1VStHcXCtuNzAFzw
+//* My X-API-KEY : 2fMFJkLhGTGKc7G0kFe08hfSa3U1VStHcXCtuNzAFzw
 /// </summary>
 
 public class WJ_Connector : MonoBehaviour
@@ -39,7 +39,7 @@ public class WJ_Connector : MonoBehaviour
     public string                       qstCransr       = "";
     #endregion
 
-    #region UnityEvents
+    #region UNITYEVENT (CALLBACK)
     [HideInInspector]
     public UnityEvent onGetDiagnosis;
     [HideInInspector]
@@ -248,15 +248,12 @@ public class WJ_Connector : MonoBehaviour
     }
     #endregion
 
-    #region Public Method
-
-    public void FirstRun_Diagnosis(int diff)
-    {
-        StartCoroutine(Send_Diagnosis(diff));
+    #region PUBLIC METHOD
+    public void FirstRun_Diagnosis(int diffLevel) {
+        StartCoroutine(Send_Diagnosis(diffLevel));
     }
 
-    public void Learning_GetQuestion()
-    {
+    public void Learning_GetQuestion() {
         StartCoroutine(Send_Learning());
     }
 
@@ -290,7 +287,6 @@ public class WJ_Connector : MonoBehaviour
             StartCoroutine(SendProgress_Learning());
         }
     }
-    
     #endregion
 
     #region ForTest
