@@ -99,9 +99,15 @@ public class LM : MonoBehaviour {
         }
     }
     public string localize(string key) {
-        Debug.Log($"localize(key= {key}):: curLangIndex= {curLangIndex}");
         int keyIndex = langs[0].value.FindIndex(i => i.ToLower() == key.ToLower());
-        return langs[curLangIndex].value[keyIndex];
+        try {
+            return langs[curLangIndex].value[keyIndex];
+        }
+        catch(Exception err) {
+            Debug.Log($"localize(key= <b>{key}</b>):: curLangIndex= {curLangIndex}, keyIndex= <color=red>{keyIndex}</color>");
+            Debug.LogError($"{err} :最新化 必要! ➝「GoogleスプレッドシートのA列にある文字」と合うのがないです!");
+            return "ERROR";
+        }
     }
 #endregion
 }

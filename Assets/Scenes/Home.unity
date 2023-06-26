@@ -30382,13 +30382,49 @@ MonoBehaviour:
       price: 500
       type: 1
     mats:
-    - name: Red Round Mat
+    - name: RedRound Mat
       spr: {fileID: 0}
       isLock: 0
       isNotify: 0
       isArranged: 0
       price: 500
       prefab: {fileID: 3933582543245780397, guid: d5f0abeb6f20c0040b9d9b334fab6c28, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: EdoStyle Mat
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 500
+      prefab: {fileID: 3933582543245780397, guid: 2bcbe5860716d904f9fda2a2f482580f, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: Imperial Mat
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 500
+      prefab: {fileID: 3933582543245780397, guid: 13a83623b5d38e84ca392fbc89571c8c, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: Sakura Mat
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 500
+      prefab: {fileID: 3933582543245780397, guid: fc35548649a58cf4e9453d06c5d0aa62, type: 3}
+      pos: {x: 0, y: 0}
+      isFlat: 0
+    - name: YellowBlack Mat
+      spr: {fileID: 0}
+      isLock: 0
+      isNotify: 0
+      isArranged: 0
+      price: 500
+      prefab: {fileID: 3933582543245780397, guid: 6c139486c51f1d44dbdcd0d9866c5a68, type: 3}
       pos: {x: 0, y: 0}
       isFlat: 0
     plSkins:
