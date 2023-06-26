@@ -6,6 +6,11 @@ using UnityEngine.Events;
 using UnityEngine.Networking;
 using WjChallenge;
 
+/// <summary>
+//* My Game Code : E28
+//* X-API-KEY : 2fMFJkLhGTGKc7G0kFe08hfSa3U1VStHcXCtuNzAFzw
+/// </summary>
+
 public class WJ_Connector : MonoBehaviour
 {
     [Header("My Info")]

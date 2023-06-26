@@ -53,7 +53,8 @@ public class GM : MonoBehaviour
         cloud2ExpressSprRdr.sprite = null;
         sunExpressSprRdr.sprite = null;
 
-        StartCoroutine(myCo());
+        //* 問題出し
+        // StartCoroutine(myCo());
     }
 
 //-------------------------------------------------------------------------------------------------------------

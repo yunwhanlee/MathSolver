@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class Cam : MonoBehaviour {
     const int W = 9, H = 16;
 
-    public Image cullPaddingTopImg;
-    public Image cullPaddingBottomImg;
-
     void Awake() {
         Camera camera = GetComponent<Camera>();
         Rect rect = camera.rect;
@@ -33,8 +30,6 @@ public class Cam : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     private void OnPreCull() {
         GL.Clear(true, true, Color.black);
-        // if(cullPaddingTopImg) cullPaddingTopImg.gameObject.SetActive(false);
-        // if(cullPaddingBottomImg) cullPaddingBottomImg.gameObject.SetActive(false);
     }
 #endregion
 }

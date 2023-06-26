@@ -9,6 +9,8 @@ using TexDrawLib.Samples;
 public enum CurrentStatus { WAITING, DIAGNOSIS, LEARNING }
 public class WJ_Sample : MonoBehaviour
 {
+    const int BTN_CNT = 3;
+
     [SerializeField] WJ_Connector       wj_conn;
     [SerializeField] CurrentStatus      currentStatus;
     public CurrentStatus                CurrentStatus => currentStatus;
@@ -18,11 +20,11 @@ public class WJ_Sample : MonoBehaviour
     [SerializeField] GameObject         panel_question;         //문제 패널(진단,학습)
     [SerializeField] Text   textDescription;        //문제 설명 텍스트
     [SerializeField] TEXDraw   textEquation;           //문제 텍스트(※TextDraw로 변경 필요)
-    [SerializeField] Button[]           btAnsr = new Button[4]; //정답 버튼들
+    [SerializeField] Button[]           btAnsr = new Button[BTN_CNT]; //정답 버튼들
     TEXDraw[]                textAnsr;                  //정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
     [Header("Status")]
-    int     currentQuestionIndex;
+    [SerializeField] int     currentQuestionIndex;
     bool    isSolvingQuestion;
     float   questionSolveTime;
 
@@ -120,7 +122,7 @@ public class WJ_Sample : MonoBehaviour
         correctAnswer = qstCransr;
         wrongAnswers    = qstWransr.Split(',');
 
-        int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, 3) + 1;
+        int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, BTN_CNT-1) + 1;
 
         for(int i=0; i<btAnsr.Length; i++)
         {

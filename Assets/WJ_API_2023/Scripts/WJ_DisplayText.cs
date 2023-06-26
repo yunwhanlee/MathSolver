@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using WjChallenge;
 
 public class WJ_DisplayText : MonoBehaviour
 {
-    [SerializeField] Text textCurrentState;
+    [SerializeField] TextMeshProUGUI textCurrentState;
 
     string state        = "-";
     string myAnswer     = "-";
@@ -35,7 +36,7 @@ public class WJ_DisplayText : MonoBehaviour
         textCurrentState.text =
             $"현재 상태 : {this.state}\n" +
             $"최근 선택한 답 : {this.myAnswer}\n" +
-            $"최근 정답 여부 : {this.isCorrect}\n" +
+            $"최근 정답 여부 : {((this.isCorrect == "Y")? "<color=blue>Y</color>" : "<color=red>N</color>")}\n" +
             $"최근 풀이 시간 : {this.svTime}\n";
     }
 }
