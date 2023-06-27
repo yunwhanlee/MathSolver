@@ -8,7 +8,7 @@ using TMPro;
 
 
 public enum Status { WAITING, DIAGNOSIS, LEARNING }
-public class WJ_Sample : MonoBehaviour
+public class WJ_Sample : MonoBehaviour //* QuizManager
 {
     const int BTN_CNT = 3;
 
@@ -18,6 +18,7 @@ public class WJ_Sample : MonoBehaviour
     [Header("PANEL")]
     [SerializeField] GameObject diagChooseDiffPanel;  //난이도 선택 패널
     [SerializeField] GameObject questionPanel;         //문제 패널(진단,학습)
+    [SerializeField] GameObject hintFrame;
     [SerializeField] TextMeshProUGUI questionDescriptionTxt;        //문제 설명 텍스트
     [SerializeField] TEXDraw questionEquationTxtDraw;           //문제 텍스트(※TextDraw로 변경 필요)
     [SerializeField] Button[] btAnsr = new Button[BTN_CNT]; //정답 버튼들
@@ -107,17 +108,13 @@ public class WJ_Sample : MonoBehaviour
     /// <summary>
     //* 받아온 데이터를 가지고 문제를 표시
     /// </summary>
+    /// param : タイトル, 数学式, 正解 一つ, 誤答 二つ
     IEnumerator coDisplayQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
-        Debug.Log("WJ_Sample:: coDisplayQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers)::"
-            + "\n title= " + title //* タイトル
-            + "\n question Equation= " + qstEquation //* 数学式
-            + "\n question Correct Answer= " + qstCorrectAnswer //* 正解 一つ
-            + "\n question Wrong Answers= " + qstWrongAnswers //* 誤答 二つ
-        );
+        Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation ={qstEquation}, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
         //* 処理
         diagChooseDiffPanel.SetActive(false);
-        yield return GM._.gui.coShowStageTxt(curQuestionIndex);
         yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
+        yield return GM._.gui.coShowQuestion(qstEquation);
     }
 
     IEnumerator coMakeQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
@@ -160,7 +157,7 @@ public class WJ_Sample : MonoBehaviour
     //* 답을 고르고 맞았는 지 체크
     /// </summary>
     public void SelectAnswer(int _idx) {
-        Debug.Log($"WJ_Sample:: SelectAnswer({_idx}):: ");
+        Debug.Log($"WJ_Sample:: SelectAnswer({_idx})::");
         bool isCorrect;
         string ansrCwYn = "N";
 
@@ -212,13 +209,13 @@ public class WJ_Sample : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
 #region EVENT BUTTON
 //-------------------------------------------------------------------------------------------------------------
-    public void ButtonEvent_ChooseDifficulty(int diffLevel) {
-        Debug.Log($"WJ_Sample:: ButtonEvent_ChooseDifficulty({diffLevel})");
+    public void onClickDiagChooseDifficultyBtn(int diffLevel) {
+        Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
         status = Status.DIAGNOSIS;
         wj_connector.FirstRun_Diagnosis(diffLevel);
     }
-    public void ButtonEvent_GetLearning() {
-        Debug.Log($"WJ_Sample:: ButtonEvent_GetLearning()");
+    public void onClickGetLearningBtn() {
+        Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
         wj_connector.Learning_GetQuestion();
         wj_displayText.SetState("문제풀이 중", "-", "-", "-");
     }

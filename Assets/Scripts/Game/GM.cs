@@ -11,7 +11,7 @@ public class GM : MonoBehaviour
     public GUI gui;
 
     [Header("CHARA")]
-    [SerializeField] GameObject plTypingEFObj; public GameObject PlTypingEFObj {get => plTypingEFObj; set => plTypingEFObj = value;}
+    [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
 
     [Header("ANIM")]
     [SerializeField] Animator playerAnim;   public Animator PlayerAnim {get => playerAnim; set => playerAnim = value;}
@@ -60,11 +60,11 @@ public class GM : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    // IEnumerator myCo() {
-    //     yield return gui.coShowStageTxt(0);
-    //     yield return gui.coShowQuestion();
-    //     yield return coCreateStuffObj();
-    // }
+    IEnumerator myCo() {
+        yield return gui.coShowStageTxt(0);
+        yield return gui.coShowQuestion("");
+        yield return coCreateStuffObj();
+    }
     IEnumerator coCreateStuffObj() {
         int cnt = 50 / 10;
         for(int i = 0; i < cnt; i++){

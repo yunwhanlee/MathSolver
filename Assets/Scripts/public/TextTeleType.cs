@@ -8,7 +8,7 @@ public class TextTeleType : MonoBehaviour
     [SerializeField] TextMeshProUGUI teleTxt;   public TextMeshProUGUI TeleTxt {get => teleTxt; set => teleTxt = value;}
     [SerializeField] float speed;
 
-    public IEnumerator coTextVisible() {
+    public IEnumerator coTextVisible(TextMeshProUGUI teleTxt) {
         teleTxt.ForceMeshUpdate();
         int totalVisibleChars = teleTxt.textInfo.characterCount;
         int cnt = 0;

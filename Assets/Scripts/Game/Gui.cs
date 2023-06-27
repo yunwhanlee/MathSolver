@@ -8,6 +8,7 @@ using TexDrawLib.Samples; //* TEXDraw
 
 public class GUI : MonoBehaviour
 {
+    IEnumerator coTxtTeleTypeID;
     TextTeleType txtTeleType;
 
     public Button[] answerBtns; public Button[] AnswerBtns {get => answerBtns; set => answerBtns = value;}
@@ -15,7 +16,7 @@ public class GUI : MonoBehaviour
     [SerializeField] GameObject hintFrame;  public GameObject HintFrame {get => hintFrame; set => hintFrame = value;}
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
-    [SerializeField] TextMeshProUGUI questionTxt; public TextMeshProUGUI QuestionTxt {get => questionTxt; set => questionTxt = value;}
+    [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
 
@@ -30,7 +31,7 @@ public class GUI : MonoBehaviour
         successEffectFrame.SetActive(false);
 
         //* 質問文章
-        questionTxt.text = pb.sentence;
+        // quizTxt.text = pb.sentence;
 
         //* Answer Buttons 初期化
         for(int i = 0; i < answerBtns.Length; i++) {
@@ -53,17 +54,20 @@ public class GUI : MonoBehaviour
         yield return new WaitForSeconds(1.3f);
         stageTxt.gameObject.SetActive(false);
     }
-    public IEnumerator coShowQuestion() {
+    public IEnumerator coShowQuestion(string qstEquation) {
         GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
-        questionFrame.gameObject.SetActive(true);
-        StartCoroutine(txtTeleType.coTextVisible());
+        if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
+        // questionFrame.gameObject.SetActive(true);
+        quizTxt.text = qstEquation;
+        coTxtTeleTypeID = txtTeleType.coTextVisible(quizTxt);
+        StartCoroutine(coTxtTeleTypeID);
 
-        yield return new WaitForSeconds(1);
-        for(int i = 0; i < answerBtns.Length; i++) 
-            answerBtns[i].gameObject.SetActive(true);
+        // yield return new WaitForSeconds(1);
+        // for(int i = 0; i < answerBtns.Length; i++) 
+        //     answerBtns[i].gameObject.SetActive(true);
         
         yield return new WaitForSeconds(1.5f);
-        GM._.PlTypingEFObj.SetActive(true);
+        GM._.PlThinkingEFObj.SetActive(true);
     }
     public IEnumerator coFailAnswer() {
         GM._.PlayerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
@@ -91,7 +95,7 @@ public class GUI : MonoBehaviour
         successResultFrame.SetActive(true);
     }
     public void onClickAnswerBtn(int idx) {
-        GM._.PlTypingEFObj.SetActive(false);
+        GM._.PlThinkingEFObj.SetActive(false);
         int val = int.Parse(answerBtns[idx].GetComponentInChildren<TextMeshProUGUI>().text);
         if(val == GM._.Problems[0].res) {
             Debug.Log("正解！");
