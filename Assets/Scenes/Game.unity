@@ -14552,6 +14552,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gui: {fileID: 629848387}
+  qstSO: {fileID: 11400000, guid: afbdccddc9455de4f887a2c621278da2, type: 2}
   plThinkingEFObj: {fileID: 4108413374768294098}
   playerAnim: {fileID: 378424037}
   customerAnim: {fileID: 1220980079}

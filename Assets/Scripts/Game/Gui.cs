@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using TexDrawLib.Samples; //* TEXDraw
+using System.Text.RegularExpressions;
+using System;
+using System.Linq;
 
 public class GUI : MonoBehaviour
 {
@@ -54,20 +57,40 @@ public class GUI : MonoBehaviour
         yield return new WaitForSeconds(1.3f);
         stageTxt.gameObject.SetActive(false);
     }
-    public IEnumerator coShowQuestion(string qstEquation) {
+    public IEnumerator coShowQuestion(string qstTEXTDraw) {
         GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
         // questionFrame.gameObject.SetActive(true);
-        quizTxt.text = qstEquation;
+        //* TEXTDraw 分析
+        List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
+        
+        //* ストーリーテリング
+        quizTxt.text = GM._.qstSO.makeQuizSentence(analList);
+
+        //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(quizTxt);
         StartCoroutine(coTxtTeleTypeID);
 
         // yield return new WaitForSeconds(1);
         // for(int i = 0; i < answerBtns.Length; i++) 
+
         //     answerBtns[i].gameObject.SetActive(true);
         
         yield return new WaitForSeconds(1.5f);
         GM._.PlThinkingEFObj.SetActive(true);
+    }
+
+    private List<string> AnalyzeTEXTDraw(string qstEquation) {
+        List<string> resList = new List<string>();
+        //* Analyze TEXTDraw To Simple Math Equation
+        string filterTxt = qstEquation.Replace("&", "");
+        
+        //* +, -, x(times), ÷(frac), 整数
+        string pattern = @"[-+?]|times|frac|\d+"; 
+        MatchCollection matches = Regex.Matches(filterTxt, pattern);
+        resList.AddRange(matches.Cast<Match>().Select(match => match.Value));
+        resList.ForEach(li => Debug.Log("AnalyzeTEXTDraw():: li= " + li));
+        return resList;
     }
     public IEnumerator coFailAnswer() {
         GM._.PlayerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());

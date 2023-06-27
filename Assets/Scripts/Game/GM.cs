@@ -9,6 +9,7 @@ public class GM : MonoBehaviour
 {
     public static GM _;
     public GUI gui;
+    public QuestionSO qstSO;
 
     [Header("CHARA")]
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
