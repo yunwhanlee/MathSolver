@@ -8305,7 +8305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<sprite name=apple>50\uAC1C\uB97C \uCE5C\uAD6C 5\uB9C8\uB9AC\uC5D0\uAC8C
+  m_text: "<sprite name=potato>50\uAC1C\uB97C \uCE5C\uAD6C 5\uB9C8\uB9AC\uC5D0\uAC8C
     \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0 \uC2F6\uC5B4\uC694, \uBA87 \uAC1C\uC529
     \uC918\uC57C\uD558\uC8E0?\r"
   m_isRightToLeft: 0
@@ -65822,7 +65822,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -442}
+  m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6267151148790430407

@@ -64,9 +64,9 @@ public class GM : MonoBehaviour
     IEnumerator myCo() {
         yield return gui.coShowStageTxt(0);
         yield return gui.coShowQuestion("");
-        yield return coCreateStuffObj();
+        yield return coCreateStuffObj(2, 1);
     }
-    IEnumerator coCreateStuffObj() {
+    public IEnumerator coCreateStuffObj(int n1, int n2) {
         int cnt = 50 / 10;
         for(int i = 0; i < cnt; i++){
             yield return new WaitForSeconds(0.1f);

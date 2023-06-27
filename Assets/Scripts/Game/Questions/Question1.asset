@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb9ba2c961a4514d9abed031d0c9232, type: 3}
   m_Name: Question1
   m_EditorClassIdentifier: 
-  qstPlus: "OBJN1\uAC1C\uAC00 \uC788\uC5B4\uC694.\n\uCE5C\uAD6C\uB85C\uBD80\uD130
-    N2\uAC1C\uB97C \uB354 \uBC1B\uC558\uB294\uB370, \uCD1D \uBA87 \uAC1C \uC778\uAC00\uC694?"
+  qstPlus: "OBJN1\uAC1C\uAC00 \uC788\uC5B4\uC694.\n\uCE5C\uAD6C\uD55C\uD14C N2\uAC1C\uB97C
+    \uB354 \uBC1B\uC558\uB294\uB370, \uCD1D \uBA87 \uAC1C \uC778\uAC00\uC694?"
   qstMinus: "OBJN1\uAC1C\uAC00 \uC788\uC5B4\uC694.\n\uCE5C\uAD6C\uC5D0\uAC8C N2\uAC1C\uB97C
     \uC8FC\uC5C8\uB294\uB370, \uCD1D \uBA87 \uAC1C \uB0A8\uC558\uB098\uC694?"
   qstMultiply: "OBJN1\uAC1C\uB97C N2\uB9C8\uB9AC \uCE5C\uAD6C\uAC00 \uAC16\uACE0\uC788\uC5B4\uC694.
@@ -22,3 +22,8 @@ MonoBehaviour:
     \uB098\uB220\uC8FC\uACE0 \uC2F6\uC5B4\uC694. \n\uBA87 \uAC1C\uC529 \uC918\uC57C\uD558\uC8E0?\r"
   objs:
   - apple
+  - carrot
+  - banana
+  - onion
+  - orange
+  - potato

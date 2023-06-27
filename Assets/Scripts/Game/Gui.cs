@@ -64,12 +64,18 @@ public class GUI : MonoBehaviour
         //* TEXTDraw 分析
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
         
+        //* 演算子
+        string sign = analList.Find(s => s=="+"||s=="-"||s=="times"||s=="frac");
+        analList.Remove(sign);
+
         //* ストーリーテリング
-        quizTxt.text = GM._.qstSO.makeQuizSentence(analList);
+        quizTxt.text = GM._.qstSO.makeQuizSentence(sign, analList);
 
         //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(quizTxt);
         StartCoroutine(coTxtTeleTypeID);
+
+        //* オブジェクト生成
 
         // yield return new WaitForSeconds(1);
         // for(int i = 0; i < answerBtns.Length; i++) 
