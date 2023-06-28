@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7725118856631171445}
   - component: {fileID: 7725118856631171444}
-  - component: {fileID: 7725118856631171443}
   m_Layer: 0
   m_Name: API
   m_TagString: Untagged
@@ -85,28 +84,3 @@ MonoBehaviour:
   onGetLearning:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7725118856631171443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7725118857946525049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f393a731d448748aa0005d28aea83e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wj_conn: {fileID: 7725118856631171444}
-  currentStatus: 0
-  panel_diag_chooseDiff: {fileID: 0}
-  panel_question: {fileID: 0}
-  textDescription: {fileID: 0}
-  textEquation: {fileID: 0}
-  btAnsr:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  wj_displayText: {fileID: 0}
-  getLearningButton: {fileID: 0}

@@ -19,7 +19,6 @@ public class QuestionSO : ScriptableObject {
 
     public string makeQuizSentence(string sign, List<string> analList) {
         // analList.ForEach(li => Debug.Log("li= " + li));
-
         //* キーワード 切り替え
         string result = "";
         string objName = objs[Random.Range(0, objs.Length)];

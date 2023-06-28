@@ -7963,7 +7963,7 @@ RectTransform:
   m_Children:
   - {fileID: 6267151147854381548}
   m_Father: {fileID: 6267151147937667232}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8278,7 +8278,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6267151147937667232}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -64591,7 +64591,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 20, y: 35}
-  m_SizeDelta: {x: 300, y: 250}
+  m_SizeDelta: {x: 600, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6267151147854381549
 GameObject:
@@ -64748,10 +64748,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1163097523}
+  - {fileID: 6267151149306514764}
   - {fileID: 950880742}
   - {fileID: 918749889}
   - {fileID: 6267151148237220476}
-  - {fileID: 6267151149306514764}
   m_Father: {fileID: 6267151147773680686}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -65126,7 +65126,7 @@ RectTransform:
   - {fileID: 6267151147771205476}
   - {fileID: 6267151148501823997}
   m_Father: {fileID: 6267151147937667232}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -66044,7 +66044,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6267151147937667232}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -66329,14 +66329,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7725118855964816720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f393a731d448748aa0005d28aea83e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dd0b14875178ee4a8ce3f88920ecf1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wj_connector: {fileID: 7725118857010651485}
   status: 0
   diagChooseDiffPanel: {fileID: 6267151148711525238}
   questionPanel: {fileID: 6267151147937667233}
-  hintFrame: {fileID: 0}
+  hintFrame: {fileID: 918749888}
   questionDescriptionTxt: {fileID: 6267151149306514768}
   questionEquationTxtDraw: {fileID: 6267151147854381551}
   btAnsr:

@@ -32,7 +32,7 @@ MonoBehaviour:
     leftPadding: 0
     rightPadding: 0
   Typeface:
-    defaultTypeface: opens
+    defaultTypeface: cmr
     typewriterTypeface: cmtt
     mathTypeface: cmmi
     functionTypeface: cmr

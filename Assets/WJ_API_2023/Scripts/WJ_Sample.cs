@@ -3,135 +3,126 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using WjChallenge;
-using TexDrawLib.Samples;
-using TMPro;
 
-
-public enum Status { WAITING, DIAGNOSIS, LEARNING }
-public class WJ_Sample : MonoBehaviour //* QuizManager
+public enum CurrentStatus { WAITING, DIAGNOSIS, LEARNING }
+public class WJ_Sample : MonoBehaviour
 {
-    const int BTN_CNT = 3;
+    [SerializeField] WJ_Connector       wj_conn;
+    [SerializeField] CurrentStatus      currentStatus;
+    public CurrentStatus                CurrentStatus => currentStatus;
 
-    [SerializeField] WJ_Connector wj_connector;
-    [SerializeField] Status status;  public Status Status => status;
+    [Header("Panels")]
+    [SerializeField] GameObject         panel_diag_chooseDiff;  //���̵� ���� �г�
+    [SerializeField] GameObject         panel_question;         //���� �г�(����,�н�)
 
-    [Header("PANEL")]
-    [SerializeField] GameObject diagChooseDiffPanel;  //난이도 선택 패널
-    [SerializeField] GameObject questionPanel;         //문제 패널(진단,학습)
-    [SerializeField] GameObject hintFrame;
-    [SerializeField] TextMeshProUGUI questionDescriptionTxt;        //문제 설명 텍스트
-    [SerializeField] TEXDraw questionEquationTxtDraw;           //문제 텍스트(※TextDraw로 변경 필요)
-    [SerializeField] Button[] btAnsr = new Button[BTN_CNT]; //정답 버튼들
-    TEXDraw[] textAnsr;                  //정답 버튼들 텍스트(※TextDraw로 변경 필요)
+    [SerializeField] Text   textDescription;        //���� ���� �ؽ�Ʈ
+    [SerializeField] TEXDraw   textEquation;           //���� �ؽ�Ʈ(��TextDraw�� ���� �ʿ�)
+    [SerializeField] Button[]           btAnsr = new Button[4]; //���� ��ư��
+    TEXDraw[]                textAnsr;                  //���� ��ư�� �ؽ�Ʈ(��TextDraw�� ���� �ʿ�)
 
-    [Header("STATUS")]
-    [SerializeField] int curQuestionIndex;
-    bool isSolvingQuestion;
-    float questionSolveTime;
+    [Header("Status")]
+    int     currentQuestionIndex;
+    bool    isSolvingQuestion;
+    float   questionSolveTime;
 
-    [Header("DEBUG")]
-    [SerializeField] WJ_DisplayText wj_displayText; //* 텍스트 표시용(필수X)
-    [SerializeField] Button getLearningButton; //* 문제 받아오기 버튼
+    [Header("For Debug")]
+    [SerializeField] WJ_DisplayText     wj_displayText;         //�ؽ�Ʈ ǥ�ÿ�(�ʼ�X)
+    [SerializeField] Button             getLearningButton;      //���� �޾ƿ��� ��ư
 
-    private void Awake() {
-        //* Init
-        diagChooseDiffPanel.SetActive(false);
-        questionPanel.SetActive(false);
-
+    private void Awake()
+    {
         textAnsr = new TEXDraw[btAnsr.Length];
         for (int i = 0; i < btAnsr.Length; ++i)
+
             textAnsr[i] = btAnsr[i].GetComponentInChildren<TEXDraw>();
 
-        wj_displayText.SetState("대기중", "", "", "");
+        wj_displayText.SetState("�����", "", "", "");
     }
 
-    void OnEnable() => Setup();
-
-    void Update() {
-        if (isSolvingQuestion) questionSolveTime += Time.deltaTime;
+    private void OnEnable()
+    {
+        Setup();
     }
 
-//-------------------------------------------------------------------------------------------------------------
-#region FUNC
-//-------------------------------------------------------------------------------------------------------------
-    private void Setup() {
-        switch (status) {
-            case Status.WAITING:
-                diagChooseDiffPanel.SetActive(true);
+    private void Setup()
+    {
+        switch (currentStatus)
+        {
+            case CurrentStatus.WAITING:
+                panel_diag_chooseDiff.SetActive(true);
                 break;
         }
 
-        if (wj_connector) {
-            wj_connector.onGetDiagnosis.AddListener(() => GetDiagnosis());
-            wj_connector.onGetLearning.AddListener(() => GetLearning(0));
+        if (wj_conn != null)
+        {
+            wj_conn.onGetDiagnosis.AddListener(() => GetDiagnosis());
+            wj_conn.onGetLearning.AddListener(() => GetLearning(0));
         }
         else Debug.LogError("Cannot find Connector");
     }
 
+    private void Update()
+    {
+        if (isSolvingQuestion) questionSolveTime += Time.deltaTime;
+    }
+
     /// <summary>
-    //* 실력 진단평가 문제 받아오기 (초기 한번만 실행)
+    /// ������ ���� �޾ƿ���
     /// </summary>
-    private void GetDiagnosis() {
-        Debug.Log("WJ_Sample:: GetDiagnosis():: 診断評価");
-        switch (wj_connector.cDiagnotics.data.prgsCd) {
+    private void GetDiagnosis()
+    {
+        switch (wj_conn.cDiagnotics.data.prgsCd)
+        {
             case "W":
-                StartCoroutine(coDisplayQuestion(wj_connector.cDiagnotics.data.textCn,
-                            wj_connector.cDiagnotics.data.qstCn,
-                            wj_connector.cDiagnotics.data.qstCransr,
-                            wj_connector.cDiagnotics.data.qstWransr)
-                );
-                wj_displayText.SetState("진단평가 중", "", "", "");
+                MakeQuestion(wj_conn.cDiagnotics.data.textCn, 
+                            wj_conn.cDiagnotics.data.qstCn, 
+                            wj_conn.cDiagnotics.data.qstCransr, 
+                            wj_conn.cDiagnotics.data.qstWransr);
+                wj_displayText.SetState("������ ��", "", "", "");
                 break;
             case "E":
-                Debug.Log("진단평가 끝! 학습 단계로 넘어갑니다.");
-                wj_displayText.SetState("진단평가 완료", "", "", "");
-                status = Status.LEARNING;
+                Debug.Log("������ ��! �н� �ܰ�� �Ѿ�ϴ�.");
+                wj_displayText.SetState("������ �Ϸ�", "", "", "");
+                currentStatus = CurrentStatus.LEARNING;
                 getLearningButton.interactable = true;
                 break;
         }
     }
 
     /// <summary>
-    //*  n 번째 학습 문제 받아오기
+    ///  n ��° �н� ���� �޾ƿ���
     /// </summary>
-    private void GetLearning(int idx) {
-        Debug.Log($"WJ_Sample:: GetLearning(${idx}) 問題読込");
-        if (idx == 0) curQuestionIndex = 0;
+    private void GetLearning(int _index)
+    {
+        if (_index == 0) currentQuestionIndex = 0;
 
-        StartCoroutine(coDisplayQuestion(wj_connector.cLearnSet.data.qsts[idx].textCn,
-                    wj_connector.cLearnSet.data.qsts[idx].qstCn,
-                    wj_connector.cLearnSet.data.qsts[idx].qstCransr,
-                    wj_connector.cLearnSet.data.qsts[idx].qstWransr)
-        );
+        MakeQuestion(wj_conn.cLearnSet.data.qsts[_index].textCn,
+                    wj_conn.cLearnSet.data.qsts[_index].qstCn,
+                    wj_conn.cLearnSet.data.qsts[_index].qstCransr,
+                    wj_conn.cLearnSet.data.qsts[_index].qstWransr);
     }
 
     /// <summary>
-    //* 받아온 데이터를 가지고 문제를 표시
+    /// �޾ƿ� �����͸� ������ ������ ǥ��
     /// </summary>
-    /// param : タイトル, 数学式, 正解 一つ, 誤答 二つ
-    IEnumerator coDisplayQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
-        Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation ={qstEquation}, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
-        //* 処理
-        diagChooseDiffPanel.SetActive(false);
-        yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
-        yield return GM._.gui.coShowQuestion(qstEquation);
-    }
+    private void MakeQuestion(string textCn, string qstCn, string qstCransr, string qstWransr)
+    {
+        panel_diag_chooseDiff.SetActive(false);
+        panel_question.SetActive(true);
 
-    IEnumerator coMakeQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
-        questionPanel.SetActive(true);
+        string      correctAnswer;
+        string[]    wrongAnswers;
 
-        string correctAnswer;
-        string[] wrongAnswers;
+        textDescription.text = textCn;
+        textEquation.text = qstCn;
 
-        questionDescriptionTxt.text = title;
-        questionEquationTxtDraw.text = qstEquation;
+        correctAnswer = qstCransr;
+        wrongAnswers    = qstWransr.Split(',');
 
-        correctAnswer = qstCorrectAnswer;
-        wrongAnswers = qstWrongAnswers.Split(',');
+        int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, 3) + 1;
 
-        int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, BTN_CNT-1) + 1;
-
-        for(int i=0; i<btAnsr.Length; i++) {
+        for(int i=0; i<btAnsr.Length; i++)
+        {
             if (i < ansrCount)
                 btAnsr[i].gameObject.SetActive(true);
             else
@@ -140,8 +131,10 @@ public class WJ_Sample : MonoBehaviour //* QuizManager
 
         int ansrIndex = Random.Range(0, ansrCount);
 
-        for(int i = 0, q = 0; i < ansrCount; ++i, ++q) {
-            if (i == ansrIndex) {
+        for(int i = 0, q = 0; i < ansrCount; ++i, ++q)
+        {
+            if (i == ansrIndex)
+            {
                 textAnsr[i].text = correctAnswer;
                 --q;
             }
@@ -149,75 +142,72 @@ public class WJ_Sample : MonoBehaviour //* QuizManager
                 textAnsr[i].text = wrongAnswers[q];
         }
         isSolvingQuestion = true;
-        
-        yield return null;
     }
 
     /// <summary>
-    //* 답을 고르고 맞았는 지 체크
+    /// ���� ������ �¾Ҵ� �� üũ
     /// </summary>
-    public void SelectAnswer(int _idx) {
-        Debug.Log($"WJ_Sample:: SelectAnswer({_idx})::");
+    public void SelectAnswer(int _idx)
+    {
         bool isCorrect;
         string ansrCwYn = "N";
 
-        switch (status) {
-            case Status.DIAGNOSIS:
-                isCorrect   = textAnsr[_idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
+        switch (currentStatus)
+        {
+            case CurrentStatus.DIAGNOSIS:
+                isCorrect   = textAnsr[_idx].text.CompareTo(wj_conn.cDiagnotics.data.qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
 
                 isSolvingQuestion = false;
-                curQuestionIndex++;
 
-                wj_connector.Diagnosis_SelectAnswer(textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
+                wj_conn.Diagnosis_SelectAnswer(textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
-                wj_displayText.SetState("진단평가 중", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " 초");
+                wj_displayText.SetState("������ ��", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " ��");
 
-                questionPanel.SetActive(false);
+                panel_question.SetActive(false);
                 questionSolveTime = 0;
                 break;
 
-            case Status.LEARNING:
-                isCorrect   = textAnsr[_idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
+            case CurrentStatus.LEARNING:
+                isCorrect   = textAnsr[_idx].text.CompareTo(wj_conn.cLearnSet.data.qsts[currentQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
 
                 isSolvingQuestion = false;
-                curQuestionIndex++;
+                currentQuestionIndex++;
 
-                wj_connector.Learning_SelectAnswer(curQuestionIndex, textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
+                wj_conn.Learning_SelectAnswer(currentQuestionIndex, textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
-                wj_displayText.SetState("문제풀이 중", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " 초");
+                wj_displayText.SetState("����Ǯ�� ��", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " ��");
 
-                if (curQuestionIndex >= 8) 
+                if (currentQuestionIndex >= 8) 
                 {
-                    questionPanel.SetActive(false);
-                    wj_displayText.SetState("문제풀이 완료", "", "", "");
+                    panel_question.SetActive(false);
+                    wj_displayText.SetState("����Ǯ�� �Ϸ�", "", "", "");
                 }
-                else GetLearning(curQuestionIndex);
+                else GetLearning(currentQuestionIndex);
 
                 questionSolveTime = 0;
                 break;
         }
     }
 
-    public void DisplayCurrentState(string state, string myAnswer, string isCorrect, string svTime) {
+    public void DisplayCurrentState(string state, string myAnswer, string isCorrect, string svTime)
+    {
         if (wj_displayText == null) return;
 
         wj_displayText.SetState(state, myAnswer, isCorrect, svTime);
     }
-#endregion
-//-------------------------------------------------------------------------------------------------------------
-#region EVENT BUTTON
-//-------------------------------------------------------------------------------------------------------------
-    public void onClickDiagChooseDifficultyBtn(int diffLevel) {
-        Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
-        status = Status.DIAGNOSIS;
-        wj_connector.FirstRun_Diagnosis(diffLevel);
+
+    #region Unity ButtonEvent
+    public void ButtonEvent_ChooseDifficulty(int a)
+    {
+        currentStatus = CurrentStatus.DIAGNOSIS;
+        wj_conn.FirstRun_Diagnosis(a);
     }
-    public void onClickGetLearningBtn() {
-        Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
-        wj_connector.Learning_GetQuestion();
-        wj_displayText.SetState("문제풀이 중", "-", "-", "-");
+    public void ButtonEvent_GetLearning()
+    {
+        wj_conn.Learning_GetQuestion();
+        wj_displayText.SetState("����Ǯ�� ��", "-", "-", "-");
     }
-#endregion
+    #endregion
 }
