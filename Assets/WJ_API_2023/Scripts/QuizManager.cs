@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using WjChallenge;
 using TexDrawLib.Samples;
 using TMPro;
-
+using System;
+using Random = UnityEngine.Random;
 
 public enum Status { WAITING, DIAGNOSIS, LEARNING }
 public class QuizManager : MonoBehaviour
@@ -16,13 +17,18 @@ public class QuizManager : MonoBehaviour
     [SerializeField] Status status;  public Status Status => status;
 
     [Header("PANEL")]
-    [SerializeField] GameObject diagChooseDiffPanel;  //난이도 선택 패널
-    [SerializeField] GameObject questionPanel;         //문제 패널(진단,학습)
+    [SerializeField] GameObject diagChooseDiffPanel;            // 난이도 선택 패널
+    [SerializeField] GameObject questionPanel;                  // 문제 패널(진단,학습)
+    [SerializeField] GameObject quizGroup;
+    [SerializeField] GameObject answerBtnGroup;
+
     [SerializeField] GameObject hintFrame;
-    [SerializeField] TextMeshProUGUI questionDescriptionTxt;        //문제 설명 텍스트
-    [SerializeField] TEXDraw questionEquationTxtDraw;           //문제 텍스트(※TextDraw로 변경 필요)
-    [SerializeField] Button[] btAnsr = new Button[BTN_CNT]; //정답 버튼들
-    TEXDraw[] textAnsr;                  //정답 버튼들 텍스트(※TextDraw로 변경 필요)
+    [SerializeField] TEXDraw questionEquationTxtDraw;           // 문제 텍스트(※TextDraw로 변경 필요)
+
+    [SerializeField] TextMeshProUGUI questionDescriptionTxt;    // 문제 설명 텍스트
+
+    [SerializeField] Button[] answerBtn = new Button[BTN_CNT];  // 정답 버튼들
+    TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
     [Header("STATUS")]
     [SerializeField] int curQuestionIndex;
@@ -30,17 +36,17 @@ public class QuizManager : MonoBehaviour
     float questionSolveTime;
 
     [Header("DEBUG")]
-    [SerializeField] WJ_DisplayText wj_displayText; //* 텍스트 표시용(필수X)
-    [SerializeField] Button getLearningButton; //* 문제 받아오기 버튼
+    [SerializeField] WJ_DisplayText wj_displayText; // 텍스트 표시용(필수X)
+    [SerializeField] Button getLearningButton;      // 문제 받아오기 버튼
 
     private void Awake() {
         //* Init
         diagChooseDiffPanel.SetActive(false);
         questionPanel.SetActive(false);
 
-        textAnsr = new TEXDraw[btAnsr.Length];
-        for (int i = 0; i < btAnsr.Length; ++i)
-            textAnsr[i] = btAnsr[i].GetComponentInChildren<TEXDraw>();
+        answerBtnTxtDraw = new TEXDraw[answerBtn.Length];
+        for (int i = 0; i < answerBtn.Length; ++i)
+            answerBtnTxtDraw[i] = answerBtn[i].GetComponentInChildren<TEXDraw>();
 
         wj_displayText.SetState("대기중", "", "", "");
     }
@@ -50,9 +56,23 @@ public class QuizManager : MonoBehaviour
     void Update() {
         if (isSolvingQuestion) questionSolveTime += Time.deltaTime;
     }
-
 //-------------------------------------------------------------------------------------------------------------
-#region FUNC
+#region EVENT BUTTON
+//-------------------------------------------------------------------------------------------------------------
+    public void onClickDiagChooseDifficultyBtn(int diffLevel) {
+        Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
+        status = Status.DIAGNOSIS;
+        wj_connector.FirstRun_Diagnosis(diffLevel);
+    }
+    public void onClickGetLearningBtn() {
+        Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
+        wj_connector.Learning_GetQuestion();
+        wj_displayText.SetState("문제풀이 중", "-", "-", "-");
+    }
+    public void onClickSelectAnswerBtn(int idx) => StartCoroutine(SelectAnswer(idx));
+#endregion
+//-------------------------------------------------------------------------------------------------------------
+#region MAIN FUNC
 //-------------------------------------------------------------------------------------------------------------
     private void Setup() {
         switch (status) {
@@ -132,22 +152,22 @@ public class QuizManager : MonoBehaviour
 
         int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, BTN_CNT-1) + 1;
 
-        for(int i=0; i<btAnsr.Length; i++) {
+        for(int i=0; i<answerBtn.Length; i++) {
             if (i < ansrCount)
-                btAnsr[i].gameObject.SetActive(true);
+                answerBtn[i].gameObject.SetActive(true);
             else
-                btAnsr[i].gameObject.SetActive(false);
+                answerBtn[i].gameObject.SetActive(false);
         }
 
         int ansrIndex = Random.Range(0, ansrCount);
 
         for(int i = 0, q = 0; i < ansrCount; ++i, ++q) {
             if (i == ansrIndex) {
-                textAnsr[i].text = correctAnswer;
+                answerBtnTxtDraw[i].text = correctAnswer;
                 --q;
             }
             else
-                textAnsr[i].text = wrongAnswers[q];
+                answerBtnTxtDraw[i].text = wrongAnswers[q];
         }
         isSolvingQuestion = true;
         
@@ -157,37 +177,56 @@ public class QuizManager : MonoBehaviour
     /// <summary>
     //* 답을 고르고 맞았는 지 체크
     /// </summary>
-    public void SelectAnswer(int _idx) {
-        Debug.Log($"WJ_Sample:: SelectAnswer({_idx})::");
-        bool isCorrect;
+    IEnumerator SelectAnswer(int idx) {
+        bool isCorrect = false;
         string ansrCwYn = "N";
 
         switch (status) {
             case Status.DIAGNOSIS:
-                isCorrect   = textAnsr[_idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
+                isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
+
+                Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
+                //* Answer結果 アニメー
+                if(isCorrect) { // 正解
+                    yield return coSuccessAnswer(idx);
+                    break; //TODO もう一回 チャレンジ　システム構築
+                }
+                else { // 誤答
+                    yield return coFailAnswer(idx);
+                } 
 
                 isSolvingQuestion = false;
                 curQuestionIndex++;
 
-                wj_connector.Diagnosis_SelectAnswer(textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
+                wj_connector.Diagnosis_SelectAnswer(answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
-                wj_displayText.SetState("진단평가 중", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " 초");
+                wj_displayText.SetState("진단평가 중", answerBtnTxtDraw[idx].text, ansrCwYn, questionSolveTime + " 초");
 
                 questionPanel.SetActive(false);
                 questionSolveTime = 0;
                 break;
 
             case Status.LEARNING:
-                isCorrect   = textAnsr[_idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
+                isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
+
+                Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
+                //* Answer結果 アニメー
+                if(isCorrect) { // 正解
+                    yield return coSuccessAnswer(idx);
+                    break; //TODO もう一回 チャレンジ　システム構築
+                }
+                else { // 誤答
+                    yield return coFailAnswer(idx);
+                }  
 
                 isSolvingQuestion = false;
                 curQuestionIndex++;
 
-                wj_connector.Learning_SelectAnswer(curQuestionIndex, textAnsr[_idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
+                wj_connector.Learning_SelectAnswer(curQuestionIndex, answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
 
-                wj_displayText.SetState("문제풀이 중", textAnsr[_idx].text, ansrCwYn, questionSolveTime + " 초");
+                wj_displayText.SetState("문제풀이 중", answerBtnTxtDraw[idx].text, ansrCwYn, questionSolveTime + " 초");
 
                 if (curQuestionIndex >= 8) 
                 {
@@ -208,17 +247,46 @@ public class QuizManager : MonoBehaviour
     }
 #endregion
 //-------------------------------------------------------------------------------------------------------------
-#region EVENT BUTTON
+#region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    public void onClickDiagChooseDifficultyBtn(int diffLevel) {
-        Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
-        status = Status.DIAGNOSIS;
-        wj_connector.FirstRun_Diagnosis(diffLevel);
+    private void initBtnColor() {
+        Array.ForEach(answerBtn, btn => btn.GetComponent<Image>().color = Color.white);
     }
-    public void onClickGetLearningBtn() {
-        Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
-        wj_connector.Learning_GetQuestion();
-        wj_displayText.SetState("문제풀이 중", "-", "-", "-");
+    public IEnumerator coSuccessAnswer(int idx) {
+        answerBtn[idx].GetComponent<Image>().color = Color.yellow;
+        GM._.playObjAnimByAnswer(isCorret: true);
+
+        // questionPanel.SetActive(false);
+        quizGroup.SetActive(false);
+        hintFrame.SetActive(false);
+        yield return new WaitForSeconds(1.2f);
+        quizGroup.SetActive(true);
+        initBtnColor();
+
+        //TODO EFFECT
+        /*
+        //* Success Effect
+        // GM._.SuccessEFAnim.gameObject.SetActive(true);
+
+        // yield return new WaitForSeconds(4);
+        // GM._.rigidPopStuffObjs();
+
+        // yield return new WaitForSeconds(1.5f);
+        //* success Result
+        // successResultFrame.SetActive(true);
+        */
     }
+    public IEnumerator coFailAnswer(int idx) {
+        answerBtn[idx].GetComponent<Image>().color = Color.red;
+        GM._.playObjAnimByAnswer(isCorret: false);
+
+        hintFrame.SetActive(true);
+        // questionPanel.SetActive(false);
+        yield return new WaitForSeconds(1.2f);
+
+        //* Retry With Hint
+        // questionPanel.SetActive(true);
+    }
+
 #endregion
 }

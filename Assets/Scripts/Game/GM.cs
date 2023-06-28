@@ -89,5 +89,26 @@ public class GM : MonoBehaviour
             rigid.AddTorque(rot, ForceMode2D.Impulse);
         }
     }
+    public void playObjAnimByAnswer(bool isCorret) {
+        Debug.Log($"playObjAnimByAnswer(isCorret= {isCorret})");
+        const int SUCCESS = (int)Enum.EXPRESSION.Success;
+        const int FAIL = (int)Enum.EXPRESSION.Fail;
+
+        //* Effect
+        plThinkingEFObj.SetActive(false);
+
+        //* Anim
+        playerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+        customerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+
+        //* Chara Sprite
+        playerSprRdr.sprite = isCorret? playerSprs[SUCCESS] : playerSprs[FAIL];
+        customerSprRdr.sprite = isCorret? customerSprs[SUCCESS] : customerSprs[FAIL];
+
+        //* BG  Sprite
+        cloud1ExpressSprRdr.sprite = isCorret? cloud1Sprs[SUCCESS] : cloud1Sprs[FAIL];
+        cloud2ExpressSprRdr.sprite = isCorret? cloud2Sprs[SUCCESS] : cloud2Sprs[FAIL];
+        sunExpressSprRdr.sprite = isCorret? sunSprs[SUCCESS] : sunSprs[FAIL];
+    }
 #endregion
 }
