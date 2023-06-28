@@ -118,10 +118,11 @@ public class QuizManager : MonoBehaviour
     }
 
     IEnumerator coMakeQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
-        questionPanel.SetActive(true);
-
+        const string TEXTDRAW_FONT = "\\opens";
         string correctAnswer;
         string[] wrongAnswers;
+
+        questionPanel.SetActive(true);
 
         questionDescriptionTxt.text = title;
         questionEquationTxtDraw.text = qstEquation;

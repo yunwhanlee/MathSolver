@@ -65,12 +65,14 @@ public class GUI : MonoBehaviour
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
         
         //* 演算子 (+, -, x, ÷)
-        string sign = analList.Find(s => s=="+"||s=="-"||s=="times"||s=="frac");
-        Debug.Log($"coShowQuestion:: sign= {sign != null}");
-        analList.Remove(sign);
+        string sign = analList.Find(s => s=="+"||s=="-"||s=="minus"||s=="times"||s=="frac"||s=="underline"||s=="left");
+        bool isXEquation = qstTEXTDraw.Contains("x");
+
+        Debug.Log($"coShowQuestion:: sign= {sign != null}, isXEquation= {isXEquation}");
+        // analList.Remove(sign);
 
         //* ストーリーテリング
-        quizTxt.text = (sign == null)? "미 지원" : GM._.qstSO.makeQuizSentence(sign, analList);
+        quizTxt.text = (sign == null)? "미 지원" : GM._.qstSO.makeQuizSentence(analList, isXEquation);
 
         //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(quizTxt);
@@ -92,10 +94,10 @@ public class GUI : MonoBehaviour
         string filterTxt = qstEquation.Replace("&", "");
         
         //* +, -, x(times), ÷(frac), 整数
-        string pattern = @"[-+?]|times|frac|\d+"; 
+        string pattern = @"[-+x=]|minus|times|frac|underline|left|\d+"; 
         MatchCollection matches = Regex.Matches(filterTxt, pattern);
         resList.AddRange(matches.Cast<Match>().Select(match => match.Value));
-        resList.ForEach(li => Debug.Log("AnalyzeTEXTDraw():: li= " + li));
+        resList.ForEach(li => Debug.Log("AnalyzeTEXTDraw():: resList:: li= " + li));
         return resList;
     }
     public IEnumerator coFailAnswer() {

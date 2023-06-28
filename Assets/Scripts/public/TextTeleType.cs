@@ -16,7 +16,7 @@ public class TextTeleType : MonoBehaviour
         while(true) {
             int visibleCnt = cnt % (totalVisibleChars + 1);
             teleTxt.maxVisibleCharacters = visibleCnt;
-            Debug.Log($"coTextVisible:: visibleCnt= {visibleCnt}, totalVisibleChars= {totalVisibleChars}");
+            // Debug.Log($"coTextVisible:: visibleCnt= {visibleCnt}, totalVisibleChars= {totalVisibleChars}");
 
             if (visibleCnt >= totalVisibleChars) {
                 break;

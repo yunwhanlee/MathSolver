@@ -73,8 +73,8 @@ public class WJ_Connector : MonoBehaviour
     /// <summary>
     /// 진단평가 첫 실행 시 서버와 통신
     /// </summary>
-    private IEnumerator Send_Diagnosis(int level)
-    {
+    private IEnumerator Send_Diagnosis(int level) {
+        Debug.Log($"WJ_Connector:: Send_Diagnosis(level= {level})::");
         Request_DN_Setting request = new Request_DN_Setting();
 
         request.gameCd = strGameCD;
