@@ -32,6 +32,9 @@ public class QuestionSO : ScriptableObject {
         string rOpr = "";
         List<string> lNums = new List<string>();
         List<string> rNums = new List<string>();
+        List<string> leftEquList = new List<string>();
+        List<string> rightEquList = new List<string>();
+        
         bool isXEquation = analList.Exists(li => li == "x");
         if(isXEquation) analList.RemoveAll(str => str == "x");
         Debug.Log($"makeQuizSentence(analList.Cnt= {analList.Count}, isXEquation= {isXEquation})::");
@@ -58,18 +61,15 @@ public class QuestionSO : ScriptableObject {
             //* 左・右式 分ける
             int equalIdx = analList.FindIndex(li => li == "=");
             int len = analList.Count - 1;
-            List<string> leftEquList = new List<string>();
-            List<string> rightEquList = new List<string>();
+
             for(int i = 0; i < analList.Count; i++) {
                 if(i < equalIdx)    leftEquList.Add(analList[i]);
                 else    rightEquList.Add(analList[i]);
             }
+
             //* 要らない部分 削除
             rightEquList.Remove("=");
             rightEquList.Remove("?");
-
-            Debug.Log($"makeQuizSentence:: (横  Left式): <color=white>{string.Join(", ", leftEquList.ToArray())}</color>"); 
-            Debug.Log($"makeQuizSentence:: (横 Right式): <color=white>{string.Join(", ", rightEquList.ToArray())}</color>"); 
 
             //* 左 演算子
             lOpr = leftEquList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
@@ -87,10 +87,12 @@ public class QuestionSO : ScriptableObject {
         else {
             lOpr = analList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
             analList.Remove(lOpr);
+            Debug.Log("縦 -> " + string.Join(", ", analList.ToArray()));
+            lNums = analList;
         }
 
-        // analList.Remove(lOpr);
-        // analList.RemoveAll(str => str == "?");
+        Debug.Log($"makeQuizSentence:: (横): <color=white>leftOpr= {lOpr}, rightOpr= {rOpr}, </color>"); 
+        Debug.Log($"makeQuizSentence:: (横): <color=white>lNums= {string.Join(", ", lNums.ToArray())}, rNums= {string.Join(", ", rNums.ToArray())}</color>"); 
 
         //* キーワード 切り替え
         string result = "미 지원..";
@@ -99,29 +101,32 @@ public class QuestionSO : ScriptableObject {
         string obj2Name = Util.GetRandomList(objList);
         switch(lOpr) {
             case "+": {
-                if(isXEquation) { //* (数式推論型)
+                //* (正解完成型) 2 + 3 = ?
+                if(!isXEquation) { 
+                    result = qstPlus.Replace("OBJ1", $"<sprite name={objName}>");
+                    result = result.Replace("N1", lNums[0]);
+                    result = result.Replace("N2", lNums[1]);
+                }
+                //* (X方程式) N1 + X = N2 ± N3
+                else {
                     // 要らない部分削除
-                    int xLastIdx = analList.FindLastIndex(str => str == "x");
-                    int endLen = analList.Count - xLastIdx - 1;
-                    analList.RemoveRange(xLastIdx, endLen);
-                    analList.RemoveAll(str => str == "=");
-                    
+                    // int xLastIdx = analList.FindLastIndex(str => str == "x");
+                    // int endLen = analList.Count - xLastIdx - 1;
+                    // analList.RemoveRange(xLastIdx, endLen);
+                    // analList.RemoveAll(str => str == "=");
                     result = qstPlus_XEquation.Replace("OBJ1", $"<sprite name={objName}>");
-                    result = result.Replace("N1", analList[0]);
-                    result = result.Replace("N2", analList[2]);
+                    result = result.Replace("N1", lNums[0]);
+                    result = result.Replace("N2", rNums[0]);
 
                     // EXTRA 演算子
-                    if(analList.Count >= 4) {
-                        if(analList[3] != null) {
-                            string extraSign = analList[3];
-                            switch(extraSign) {
-                                case "+":
-                                    result += $"...\n<color=blue>앗! {analList[4]}개 더 있네요.</color>";
-                                    break;
-                                case "-": case "minus":
-                                    result += $"...\n<color=red>앗! 죄송.. {analList[4]}개 빼야되요.</color>";
-                                    break;
-                            }
+                    if(rNums.Count > 1) {
+                        switch(rOpr) {
+                            case "+":
+                                result += $"...\n<color=blue>앗! {rNums[1]}개 더 있네요.</color>";
+                                break;
+                            case "-": case "minus":
+                                result += $"...\n<color=red>앗! 죄송.. {rNums[1]}개 빼야되요.</color>";
+                                break;
                         }
                     }
                     else {
@@ -129,34 +134,29 @@ public class QuestionSO : ScriptableObject {
                     }
                     result += "\n친구는 몇 개를 주었나요?";
                 }
-                else { //* 正解完成型 (2 + 3 = ?)
-                    result = qstPlus.Replace("OBJ1", $"<sprite name={objName}>");
-                    result = result.Replace("N1", analList[0]);
-                    result = result.Replace("N2", analList[1]);
-                }
                 break;
             }
             case "-": { // 38 - 13 = ?
                 result = qstMinus.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", analList[0]);
-                result = result.Replace("N2", analList[1]);
+                result = result.Replace("N1", lNums[0]);
+                result = result.Replace("N2", lNums[1]);
                 break;
             }
             case "times": { // 31 times 2
                 result = qstMultiply.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", analList[0]);
-                result = result.Replace("N2", analList[1]);
+                result = result.Replace("N1", lNums[0]);
+                result = result.Replace("N2", lNums[1]);
                 break;
             }
             case "frac": {
-                int n1 = int.Parse(analList[0]);
-                int n2 = int.Parse(analList[1]);
+                int n1 = int.Parse(lNums[0]);
+                int n2 = int.Parse(lNums[1]);
                 int value = n1 / n2;
                 int rest =  n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
                 result = qstDivide.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", analList[0]);
-                result = result.Replace("N2", analList[1]);
+                result = result.Replace("N1", lNums[0]);
+                result = result.Replace("N2", lNums[1]);
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
                     result += " 나머지는요?\n(분수로 알려주세요!)";
@@ -164,9 +164,9 @@ public class QuestionSO : ScriptableObject {
             }
             case "underline": case "left": { //* 最大公約数
                 result = qstGreatestCommonDivisor.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", analList[0]);
+                result = result.Replace("N1", lNums[0]);
                 result = result.Replace("OBJ2", $"<sprite name={obj2Name}>");
-                result = result.Replace("N2", analList[1]);
+                result = result.Replace("N2", lNums[1]);
                 break;
             }
         }
