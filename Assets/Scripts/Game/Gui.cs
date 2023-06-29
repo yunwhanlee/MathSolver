@@ -59,7 +59,7 @@ public class GUI : MonoBehaviour
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
         GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
-        // questionFrame.gameObject.SetActive(true);
+        
         //* TEXTDraw 分析
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
 
@@ -81,15 +81,20 @@ public class GUI : MonoBehaviour
     }
 
     private List<string> AnalyzeTEXTDraw(string qstEquation) {
+        const string X_EQUATION_DELETE_PART = ", x, =, ?";
         List<string> resList = new List<string>();
-        //* Analyze TEXTDraw To Simple Math Equation
+        //* & -> ""
         string filterTxt = qstEquation.Replace("&", "");
-        
-        //* +, -, x(times), ÷(frac), 整数
-        string pattern = @"[-+x=?]|minus|times|frac|underline|left|\d+"; 
-        MatchCollection matches = Regex.Matches(filterTxt, pattern);
+        //* 正規表現で 必要な部分だけ リスト
+        MatchCollection matches = Regex.Matches(filterTxt, Config.TEXTDRAW_REGEX_PATTERN);
         resList.AddRange(matches.Cast<Match>().Select(match => match.Value));
-        Debug.Log($"AnalyzeTEXTDraw:: resList= <color=white>{string.Join(", ", resList.ToArray())}</color>");
+        //* リスト ➝ 文字列に変換
+        string listStr = string.Join(", ", resList.ToArray());
+        //* X方程式なら、後ろに要らない部分を消す
+        if(listStr.Contains(X_EQUATION_DELETE_PART)) listStr = listStr.Replace(X_EQUATION_DELETE_PART, "");
+        Debug.Log($"AnalyzeTEXTDraw:: listStr= <color=white>{listStr}</color>");
+        //* 文字列 ➝ リストに戻す
+        resList = listStr.Split(", ").ToList();
         return resList;
     }
 #endregion

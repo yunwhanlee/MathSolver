@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quiz Question", fileName = "New Question")]
@@ -27,10 +28,17 @@ public class QuestionSO : ScriptableObject {
 //-------------------------------------------------------------------------------------------------------------
     private void initObjList() => objList = new List<string>(defObjs);
     public string makeQuizSentence(List<string> analList) {
+        string lOpr = "";
+        string rOpr = "";
+        List<string> lNums = new List<string>();
+        List<string> rNums = new List<string>();
         bool isXEquation = analList.Exists(li => li == "x");
+        if(isXEquation) analList.RemoveAll(str => str == "x");
         Debug.Log($"makeQuizSentence(analList.Cnt= {analList.Count}, isXEquation= {isXEquation})::");
+        Debug.Log($"makeQuizSentence:: analList: <color=white>{string.Join(", ", analList.ToArray())}</color>");
         /*【 TYPE 分析 】
             ※ "="が有る：(横)、ない：(縦)。
+            ※ (縦)は、１次 方程式がない。
             ※ 「x, =, ?」：三つの情報は要らない。
 
             ① 4, +, 3, =, ? (横：足す)
@@ -45,36 +53,53 @@ public class QuestionSO : ScriptableObject {
 
         //* 横・縦 ?
         bool isHorizontalEquation = analList.Exists(li => li == "=");
+        //* 横 (正解完成型) とか (数式推論型)
         if(isHorizontalEquation) {
-            //* 左右式分ける
+            //* 左・右式 分ける
             int equalIdx = analList.FindIndex(li => li == "=");
             int len = analList.Count - 1;
             List<string> leftEquList = new List<string>();
             List<string> rightEquList = new List<string>();
             for(int i = 0; i < analList.Count; i++) {
-                if(i < equalIdx)
-                    leftEquList.Add(analList[i]);
-                else
-                    rightEquList.Add(analList[i]);
+                if(i < equalIdx)    leftEquList.Add(analList[i]);
+                else    rightEquList.Add(analList[i]);
             }
-            Debug.Log($"makeQuizSentence:: isHorizontalEquation:: leftEquation: {string.Join(",", leftEquList.ToArray())}, rightEquation: {string.Join(",", rightEquList.ToArray())}");
+            //* 要らない部分 削除
+            rightEquList.Remove("=");
+            rightEquList.Remove("?");
 
+            Debug.Log($"makeQuizSentence:: (横  Left式): <color=white>{string.Join(", ", leftEquList.ToArray())}</color>"); 
+            Debug.Log($"makeQuizSentence:: (横 Right式): <color=white>{string.Join(", ", rightEquList.ToArray())}</color>"); 
+
+            //* 左 演算子
+            lOpr = leftEquList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
+            leftEquList.Remove(lOpr);
+            lNums = leftEquList;
+            
+            //* 右 演算子
+            rOpr = rightEquList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
+            if(rOpr != "") {
+                rightEquList.Remove(rOpr);
+                rNums = rightEquList;
+            }
+        }
+        //* 縦 (正解完成型) のみ
+        else {
+            lOpr = analList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
+            analList.Remove(lOpr);
         }
 
-
-        string sign = analList.Find(s => s=="+"||s=="-"||s=="minus"||s=="times"||s=="frac"||s=="underline"||s=="left");
-
-        analList.Remove(sign);
-        analList.RemoveAll(str => str == "?");
+        // analList.Remove(lOpr);
+        // analList.RemoveAll(str => str == "?");
 
         //* キーワード 切り替え
         string result = "미 지원..";
         initObjList();
         string objName = Util.GetRandomList(objList);
         string obj2Name = Util.GetRandomList(objList);
-        switch(sign) {
+        switch(lOpr) {
             case "+": {
-                if(isXEquation) { //* 数式類推型
+                if(isXEquation) { //* (数式推論型)
                     // 要らない部分削除
                     int xLastIdx = analList.FindLastIndex(str => str == "x");
                     int endLen = analList.Count - xLastIdx - 1;
@@ -145,7 +170,7 @@ public class QuestionSO : ScriptableObject {
                 break;
             }
         }
-        Debug.Log($"makeQuizSentence(sign= {sign}):: result= {result}");
+        Debug.Log($"makeQuizSentence(sign= {lOpr}):: result= {result}");
         return result;
     }
 
