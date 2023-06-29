@@ -19,17 +19,59 @@ public class QuestionSO : ScriptableObject {
     [SerializeField] string qstGreatestCommonDivisor; public string QstGreatestCommonDivisor {get => qstGreatestCommonDivisor;}
 
     [Header("RANDOM OBJS")]
-    [SerializeField] string[] objs;      public string[] Objs {get => objs;}
+    [SerializeField] string[] defObjs;
+    List<string> objList;      public List<string> ObjList {get => objList;}
 
-    public string makeQuizSentence(List<string> analList, bool isXEquation) {
-        // analList.ForEach(li => Debug.Log("li= " + li));
+//-------------------------------------------------------------------------------------------------------------
+#region FUNC
+//-------------------------------------------------------------------------------------------------------------
+    private void initObjList() => objList = new List<string>(defObjs);
+    public string makeQuizSentence(List<string> analList) {
+        bool isXEquation = analList.Exists(li => li == "x");
+        Debug.Log($"makeQuizSentence(analList.Cnt= {analList.Count}, isXEquation= {isXEquation})::");
+        /*【 TYPE 分析 】
+            ※ "="が有る：(横)、ない：(縦)。
+            ※ 「x, =, ?」：三つの情報は要らない。
+
+            ① 4, +, 3, =, ? (横：足す)
+            ② 38, -, 13, ? (縦：引く)
+            ③ 12, times, 4, ? (縦：掛け)
+            ④ frac, 12, 4, =, ? (横：分数) 
+            ⑤ underline, 3, 9, ? || left, 8, 10, ? (縦：最大公約数)
+            ⑥ 2, +, x, =, 8, 「x, =, ?」 (横：１次 方程式)
+            ⑦ 1, +, x, =, 8, minus, 4, 「x, =, ?」 (横：１次 方程式＋右式⊖定数)
+            ⑧ 4, +, x, =, 7, +, 1, 「x, =, ?」 (横：１次 方程式＋右式⊕定数)
+        */
+
+        //* 横・縦 ?
+        bool isHorizontalEquation = analList.Exists(li => li == "=");
+        if(isHorizontalEquation) {
+            //* 左右式分ける
+            int equalIdx = analList.FindIndex(li => li == "=");
+            int len = analList.Count - 1;
+            List<string> leftEquList = new List<string>();
+            List<string> rightEquList = new List<string>();
+            for(int i = 0; i < analList.Count; i++) {
+                if(i < equalIdx)
+                    leftEquList.Add(analList[i]);
+                else
+                    rightEquList.Add(analList[i]);
+            }
+            Debug.Log($"makeQuizSentence:: isHorizontalEquation:: leftEquation: {string.Join(",", leftEquList.ToArray())}, rightEquation: {string.Join(",", rightEquList.ToArray())}");
+
+        }
+
+
         string sign = analList.Find(s => s=="+"||s=="-"||s=="minus"||s=="times"||s=="frac"||s=="underline"||s=="left");
+
         analList.Remove(sign);
+        analList.RemoveAll(str => str == "?");
 
         //* キーワード 切り替え
-        string result = "";
-        string objName = objs[Random.Range(0, objs.Length)];
-        string obj2Name = objs[Random.Range(0, objs.Length)];
+        string result = "미 지원..";
+        initObjList();
+        string objName = Util.GetRandomList(objList);
+        string obj2Name = Util.GetRandomList(objList);
         switch(sign) {
             case "+": {
                 if(isXEquation) { //* 数式類推型
@@ -38,13 +80,9 @@ public class QuestionSO : ScriptableObject {
                     int endLen = analList.Count - xLastIdx - 1;
                     analList.RemoveRange(xLastIdx, endLen);
                     analList.RemoveAll(str => str == "=");
-
-                    Debug.Log($"makeQuizSentence:: (+) 数式類推型 Cnt({analList.Count})---------------------------------------------");
-                    int i=0; analList.ForEach(li => Debug.Log($"makeQuizSentence li[{i++}] => {li}"));
                     
                     result = qstPlus_XEquation.Replace("OBJ1", $"<sprite name={objName}>");
                     result = result.Replace("N1", analList[0]);
-                    // result = result.Replace("X", analList[1] = "몇");
                     result = result.Replace("N2", analList[2]);
 
                     // EXTRA 演算子
@@ -66,20 +104,20 @@ public class QuestionSO : ScriptableObject {
                     }
                     result += "\n친구는 몇 개를 주었나요?";
                 }
-                else { //* 正解完成型
+                else { //* 正解完成型 (2 + 3 = ?)
                     result = qstPlus.Replace("OBJ1", $"<sprite name={objName}>");
                     result = result.Replace("N1", analList[0]);
                     result = result.Replace("N2", analList[1]);
                 }
                 break;
             }
-            case "-": {
+            case "-": { // 38 - 13 = ?
                 result = qstMinus.Replace("OBJ1", $"<sprite name={objName}>");
                 result = result.Replace("N1", analList[0]);
                 result = result.Replace("N2", analList[1]);
                 break;
             }
-            case "times": {
+            case "times": { // 31 times 2
                 result = qstMultiply.Replace("OBJ1", $"<sprite name={objName}>");
                 result = result.Replace("N1", analList[0]);
                 result = result.Replace("N2", analList[1]);
@@ -134,4 +172,5 @@ public class QuestionSO : ScriptableObject {
             yield return null;
         }
     }
+#endregion
 }

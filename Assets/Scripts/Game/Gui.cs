@@ -14,19 +14,18 @@ public class GUI : MonoBehaviour
     IEnumerator coTxtTeleTypeID;
     TextTeleType txtTeleType;
 
-    public Button[] answerBtns; public Button[] AnswerBtns {get => answerBtns; set => answerBtns = value;}
+    // public Button[] answerBtns; public Button[] AnswerBtns {get => answerBtns; set => answerBtns = value;}
     // [SerializeField] GameObject questionFrame;  public GameObject QuestionFrame {get => questionFrame; set => questionFrame = value;}
     // [SerializeField] GameObject hintFrame;  public GameObject HintFrame {get => hintFrame; set => hintFrame = value;}
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
-    [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
-    [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
-
+    // [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
+    // [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
     void Start() {
         txtTeleType = GetComponent<TextTeleType>();
 
-        var pb = GM._.Problems[0];
+        // var pb = GM._.Problems[0];
 
         // stageTxt.gameObject.SetActive(false);
         // questionFrame.SetActive(false);
@@ -37,10 +36,10 @@ public class GUI : MonoBehaviour
         // quizTxt.text = pb.sentence;
 
         //* Answer Buttons 初期化
-        for(int i = 0; i < answerBtns.Length; i++) {
-            answerBtns[i].GetComponentInChildren<TextMeshProUGUI>().text = pb.answers[i].ToString();
-            answerBtns[i].gameObject.SetActive(false);
-        }
+        // for(int i = 0; i < answerBtns.Length; i++) {
+        //     answerBtns[i].GetComponentInChildren<TextMeshProUGUI>().text = pb.answers[i].ToString();
+        //     answerBtns[i].gameObject.SetActive(false);
+        // }
     }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -51,11 +50,11 @@ public class GUI : MonoBehaviour
     }
     public IEnumerator coShowStageTxt(int curQuestionIndex) {
         int stageNum = curQuestionIndex + 1;
-        stageTxt.text = $"STAGE {stageNum} / 8";
-        stageTxt.gameObject.SetActive(true);
+        GM._.qm.StageTxt.text = $"STAGE {stageNum} / 8";
+        GM._.qm.StageTxt.gameObject.SetActive(true);
         
         yield return new WaitForSeconds(1.3f);
-        stageTxt.gameObject.SetActive(false);
+        GM._.qm.StageTxt.gameObject.SetActive(false);
     }
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
         GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
@@ -63,19 +62,12 @@ public class GUI : MonoBehaviour
         // questionFrame.gameObject.SetActive(true);
         //* TEXTDraw 分析
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
-        
-        //* 演算子 (+, -, x, ÷)
-        string sign = analList.Find(s => s=="+"||s=="-"||s=="minus"||s=="times"||s=="frac"||s=="underline"||s=="left");
-        bool isXEquation = qstTEXTDraw.Contains("x");
-
-        Debug.Log($"coShowQuestion:: sign= {sign != null}, isXEquation= {isXEquation}");
-        // analList.Remove(sign);
 
         //* ストーリーテリング
-        quizTxt.text = (sign == null)? "미 지원" : GM._.qstSO.makeQuizSentence(analList, isXEquation);
+        GM._.qm.QuizTxt.text = GM._.qstSO.makeQuizSentence(analList);
 
         //* テレタイプ
-        coTxtTeleTypeID = txtTeleType.coTextVisible(quizTxt);
+        coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt);
         StartCoroutine(coTxtTeleTypeID);
 
         //* オブジェクト生成
@@ -94,10 +86,10 @@ public class GUI : MonoBehaviour
         string filterTxt = qstEquation.Replace("&", "");
         
         //* +, -, x(times), ÷(frac), 整数
-        string pattern = @"[-+x=]|minus|times|frac|underline|left|\d+"; 
+        string pattern = @"[-+x=?]|minus|times|frac|underline|left|\d+"; 
         MatchCollection matches = Regex.Matches(filterTxt, pattern);
         resList.AddRange(matches.Cast<Match>().Select(match => match.Value));
-        resList.ForEach(li => Debug.Log("AnalyzeTEXTDraw():: resList:: li= " + li));
+        Debug.Log($"AnalyzeTEXTDraw:: resList= <color=white>{string.Join(", ", resList.ToArray())}</color>");
         return resList;
     }
 #endregion

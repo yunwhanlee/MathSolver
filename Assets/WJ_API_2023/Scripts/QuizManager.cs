@@ -22,10 +22,14 @@ public class QuizManager : MonoBehaviour
     [SerializeField] GameObject quizGroup;
     [SerializeField] GameObject answerBtnGroup;
 
+    [Header("HINT")]
     [SerializeField] GameObject hintFrame;
     [SerializeField] TEXDraw questionEquationTxtDraw;           // 문제 텍스트(※TextDraw로 변경 필요)
 
+    [Header("QUIZ")]
     [SerializeField] TextMeshProUGUI questionDescriptionTxt;    // 문제 설명 텍스트
+    [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
+    [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
     [SerializeField] Button[] answerBtn = new Button[BTN_CNT];  // 정답 버튼들
     TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
@@ -190,10 +194,11 @@ public class QuizManager : MonoBehaviour
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
                     yield return coSuccessAnswer(idx);
-                    break; //TODO もう一回 チャレンジ　システム構築
+                    
                 }
                 else { // 誤答
                     yield return coFailAnswer(idx);
+                    break; //TODO もう一回 チャレンジ　システム構築
                 } 
 
                 isSolvingQuestion = false;
@@ -215,10 +220,11 @@ public class QuizManager : MonoBehaviour
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
                     yield return coSuccessAnswer(idx);
-                    break; //TODO もう一回 チャレンジ　システム構築
+                    
                 }
                 else { // 誤答
                     yield return coFailAnswer(idx);
+                    break; //TODO もう一回 チャレンジ　システム構築
                 }  
 
                 isSolvingQuestion = false;
@@ -258,10 +264,12 @@ public class QuizManager : MonoBehaviour
 
         // questionPanel.SetActive(false);
         quizGroup.SetActive(false);
-        hintFrame.SetActive(false);
+        // hintFrame.SetActive(false);
         yield return new WaitForSeconds(1.2f);
         quizGroup.SetActive(true);
+
         initBtnColor();
+        GM._.initObjSprite();
 
         //TODO EFFECT
         /*
@@ -280,7 +288,7 @@ public class QuizManager : MonoBehaviour
         answerBtn[idx].GetComponent<Image>().color = Color.red;
         GM._.playObjAnimByAnswer(isCorret: false);
 
-        hintFrame.SetActive(true);
+        // hintFrame.SetActive(true);
         // questionPanel.SetActive(false);
         yield return new WaitForSeconds(1.2f);
 

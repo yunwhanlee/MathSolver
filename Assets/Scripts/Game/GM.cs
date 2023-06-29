@@ -9,6 +9,7 @@ public class GM : MonoBehaviour
 {
     public static GM _;
     public GUI gui;
+    public QuizManager qm;
     public QuestionSO qstSO;
 
     [Header("CHARA")]
@@ -35,19 +36,17 @@ public class GM : MonoBehaviour
 
     [SerializeField] Transform stuffGroupTf;  public Transform StuffGroupTf {get => stuffGroupTf; set => stuffGroupTf = value;}
 
-    [SerializeField] Problem[]  problems;   public Problem[] Problems {get => problems;}
+    // [SerializeField] Problem[]  problems;   public Problem[] Problems {get => problems;}
     [SerializeField] GameObject stuffObjPf; public GameObject StuffObjPf {get => stuffObjPf; set => stuffObjPf = value;}
 
 
     void Awake() {
         _ = this;
-        problems[0].sentence = $"<sprite name=apple>{problems[0].n1}개를 친구 {problems[0].n2}마리에게 똑같이 나눠주고 싶어요, 몇 개씩 줘야하죠?";
+        gui = FindObjectOfType<GUI>();
+        qm = FindObjectOfType<QuizManager>();
+
         //* Anim
         successEFAnim.gameObject.SetActive(false);
-
-        //* Chara Expression
-        playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
-        customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
 
         //* BG Expression
         cloud1ExpressSprRdr.sprite = null;
@@ -61,6 +60,10 @@ public class GM : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    public void initObjSprite() {
+        playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
+        customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
+    }
     IEnumerator myCo() {
         yield return gui.coShowStageTxt(0);
         yield return gui.coShowQuestion("");

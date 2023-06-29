@@ -11,10 +11,16 @@ public class Util : MonoBehaviour
     public static WaitForSeconds time1 = new WaitForSeconds(1);
     public static WaitForSeconds time2 = new WaitForSeconds(2);
     public static WaitForSecondsRealtime realTime0_01 = new WaitForSecondsRealtime(0.01f);
-
     public static GameObject instantiateObj(GameObject obj, Transform tf) {
         GameObject ins = null;
         ins = Instantiate(obj, tf);
         return ins;
+    }
+
+    public static T GetRandomList<T>(List<T> list) {
+        int rand = Random.Range(0, list.Count);
+        T res = list[rand]; 
+        list.RemoveAt(rand);
+        return res;
     }
 }

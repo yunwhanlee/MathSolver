@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enum : MonoBehaviour
-{
+public class Enum {
     public enum SCENE {Title, Home, Loading, Game};
     public enum HOME {Room, IkeaShop, ClothShop, Inventory};
     public enum ACHIVERANK {Achivement, Mission, Rank};

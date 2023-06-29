@@ -12,7 +12,7 @@ public class Lang {
     public List<string> value = new List<string>();
 }
 
-public class LM : MonoBehaviour {
+public class LM : MonoBehaviour { //* Language Manager
     public static LM _;
     [Header("VALUE")]
     const int EN = 0, KR = 1, JP = 2;
