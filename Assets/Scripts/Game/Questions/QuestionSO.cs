@@ -20,15 +20,20 @@ public class QuestionSO : ScriptableObject {
     [SerializeField] string qstGreatestCommonDivisor; public string QstGreatestCommonDivisor {get => qstGreatestCommonDivisor;}
 
     [Header("RANDOM OBJS")]
-    [SerializeField] string[] defObjs;
-    List<string> objList;      public List<string> ObjList {get => objList;}
+    [SerializeField] string[] defObjNames;
+    List<string> objNameList;      public List<string> ObjNameList {get => objNameList;}
+    [SerializeField] string obj1Name;  public string Obj1Name {get => obj1Name; set => obj1Name = value;}
+    [SerializeField] string obj2Name;  public string Obj2Name {get => obj2Name; set => obj2Name = value;}
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    private void initObjList() => objList = new List<string>(defObjs);
+    private void initObjList() {
+        objNameList = new List<string>(defObjNames);
+        foreach(Transform obj in GM._.ObjGroupTf)
+            Destroy(obj.gameObject);
+    }
     public string makeQuizSentence(List<string> analList) {
-
         List<string> leftSideList = new List<string>(); //* 左辺
         List<string> rightSideList = new List<string>(); //* 右辺
         string lOpr = null; //* 左演算子
@@ -88,16 +93,18 @@ public class QuestionSO : ScriptableObject {
         //* キーワード 切り替え
         string result = "미 지원..";
         initObjList();
-        string obj1 = Util.GetRandomList(objList);
-        string obj2 = Util.GetRandomList(objList);
+        obj1Name = Util.GetRandomList(objNameList);
+        obj2Name = Util.GetRandomList(objNameList);
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
-                if(!isXEquation)
-                    result = replaceTxtKeyword(qstPlus, new string[]{obj1, lNums[0], lNums[1]});
+                if(!isXEquation) {
+                    result = replaceTxtKeyword(qstPlus, new string[]{obj1Name, lNums[0], lNums[1]});
+                    GM._.createStuffObj(lOpr, obj1Name, lNums[0]);
+                }
                 //* (X方程式) N1 + X = N2
                 else {
-                    result = replaceTxtKeyword(qstPlus_XEquation, new string[]{obj1, lNums[0], rNums[0]});
+                    result = replaceTxtKeyword(qstPlus_XEquation, new string[]{obj1Name, lNums[0], rNums[0]});
                     //* ± N3
                     if(rNums.Count > 1)
                         result += replaceExtraOprKeyword(rOpr, rNums[1]);
@@ -108,11 +115,13 @@ public class QuestionSO : ScriptableObject {
                 break;
             }
             case "-": { //* 38 - 13 = ?
-                result = replaceTxtKeyword(qstMinus, new string[]{obj1, lNums[0], lNums[1]});
+                result = replaceTxtKeyword(qstMinus, new string[]{obj1Name, lNums[0], lNums[1]});
+                GM._.createStuffObj(lOpr, obj1Name, lNums[0]);
                 break;
             }
             case "times": { //* 31 times 2
-                result = replaceTxtKeyword(qstMultiply, new string[]{obj1, lNums[0], lNums[1]});
+                result = replaceTxtKeyword(qstMultiply, new string[]{obj1Name, lNums[0], lNums[1]});
+                GM._.createStuffObj(lOpr, obj1Name, lNums[0]);
                 break;
             }
             case "frac": {
@@ -121,7 +130,7 @@ public class QuestionSO : ScriptableObject {
                 int value = n1 / n2;
                 int rest = n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
-                result = replaceTxtKeyword(qstDivide, new string[]{obj1, lNums[0], lNums[1]});
+                result = replaceTxtKeyword(qstDivide, new string[]{obj1Name, lNums[0], lNums[1]});
 
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
@@ -130,7 +139,7 @@ public class QuestionSO : ScriptableObject {
             }
             case "underline":
             case "left": { //* 最大公約数
-                result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1, lNums[0], lNums[1], obj2});
+                result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1Name, lNums[0], lNums[1], obj2Name});
                 break;
             }
         }
@@ -167,30 +176,6 @@ public class QuestionSO : ScriptableObject {
                 return $"...\n<color=red>앗! 죄송.. {key}개 빼야되요.</color>";
         }
         return "";
-    }
-
-    public IEnumerator coCreateObj(string sign, string objName, List<string> analList) {
-        switch(sign) {
-            case "+": 
-
-                break;
-            case "-":
-
-                break;
-            case "times":
-
-                break;
-            case "frac": {
-                // int cnt = 50 / 10;
-                // for(int i = 0; i < cnt; i++){
-                //     yield return new WaitForSeconds(0.1f);
-                //     var stuff = Instantiate(stuffObjPf, GM._.StuffGroupTf);
-                //     stuff.transform.position = new Vector2(0, 5);
-                // }
-                break;
-            }
-            yield return null;
-        }
     }
 #endregion
 }

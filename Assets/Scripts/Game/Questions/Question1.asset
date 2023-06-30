@@ -27,7 +27,7 @@ MonoBehaviour:
     \uB9CE\uC740 \uCE5C\uAD6C\uC5D0\uAC8C \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0
     \uC2F6\uC5B4\uC694.\n\uBA87 \uB9C8\uB9AC\uC5D0\uAC8C \uB098\uB220 \uC904 \uC218
     \uC788\uB098\uC694?"
-  defObjs:
+  defObjNames:
   - apple
   - banana
   - carrot

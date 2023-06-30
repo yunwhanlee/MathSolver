@@ -11,6 +11,8 @@ TagManager:
   - Bg
   - Mat
   - Pet
+  - Box
+  - Obj
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Chair
   - Water
   - UI
-  - 
+  - Obj
   - 
   - 
   - 

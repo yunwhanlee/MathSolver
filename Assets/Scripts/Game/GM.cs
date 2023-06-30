@@ -34,11 +34,11 @@ public class GM : MonoBehaviour
     [SerializeField] SpriteRenderer cloud2ExpressSprRdr; public SpriteRenderer Cloud2ExpressSprRdr {get => cloud2ExpressSprRdr; set => cloud2ExpressSprRdr = value;}
     [SerializeField] SpriteRenderer sunExpressSprRdr; public SpriteRenderer SunExpressSprRdr {get => sunExpressSprRdr; set => sunExpressSprRdr = value;}
 
-    [SerializeField] Transform stuffGroupTf;  public Transform StuffGroupTf {get => stuffGroupTf; set => stuffGroupTf = value;}
-
-    // [SerializeField] Problem[]  problems;   public Problem[] Problems {get => problems;}
-    [SerializeField] GameObject stuffObjPf; public GameObject StuffObjPf {get => stuffObjPf; set => stuffObjPf = value;}
-
+    [Header("OBJ & BOX")]
+    [SerializeField] Sprite[] objSprs;  public Sprite[] ObjSprs {get => objSprs; set => objSprs = value;}
+    [SerializeField] Transform objGroupTf;  public Transform ObjGroupTf {get => objGroupTf; set => objGroupTf = value;}
+    [SerializeField] GameObject objPf; public GameObject ObjPf {get => objPf; set => objPf = value;}
+    [SerializeField] GameObject boxPf; public GameObject BoxPf {get => boxPf; set => boxPf = value;}
 
     void Awake() {
         _ = this;
@@ -69,17 +69,76 @@ public class GM : MonoBehaviour
     //     yield return gui.coShowQuestion("");
     //     yield return coCreateStuffObj(2, 1);
     // }
-    public IEnumerator coCreateStuffObj(int n1, int n2) {
-        int cnt = 50 / 10;
-        for(int i = 0; i < cnt; i++){
-            yield return new WaitForSeconds(0.1f);
-            var stuff = Instantiate(stuffObjPf, stuffGroupTf);
-            stuff.transform.position = new Vector2(0, 5);
+    // public IEnumerator coCreateStuffObj(int n1, int n2) {
+    //     int cnt = 50 / 10;
+    //     for(int i = 0; i < cnt; i++){
+    //         yield return new WaitForSeconds(0.1f);
+    //         var stuff = Instantiate(stuffObjPf, stuffGroupTf);
+    //         stuff.transform.position = new Vector2(0, 5);
+    //     }
+    // }
+
+    public void createStuffObj(string opr, string objName, string n1Str) {
+        StartCoroutine(coCreateStuffObj(opr, objName, n1Str));
+    }
+
+    private IEnumerator coCreateStuffObj(string opr, string objName, string n1Str) {
+        Debug.Log($"coCreateStuffObj(opr= {opr}, objName= {objName}, n1Str= {n1Str})::");
+        int N1 = int.Parse(n1Str);
+        switch(opr) {
+            case "+": {
+                yield return coPlayCreateObjAnim(N1, objName);
+                break;
+            }
+            case "-": {
+                yield return coPlayCreateObjAnim(N1, objName);
+                break;
+            }
+            case "times": {
+                yield return coPlayCreateObjAnim(N1, objName);
+                break;
+            }
+            case "frac": {
+                // int cnt = 50 / 10;
+                // for(int i = 0; i < cnt; i++){
+                //     yield return new WaitForSeconds(0.1f);
+                //     var stuff = Instantiate(stuffObjPf, GM._.StuffGroupTf);
+                //     stuff.transform.position = new Vector2(0, 5);
+                // }
+                break;
+            }
+            yield return null;
         }
     }
+    private IEnumerator coPlayCreateObjAnim(int N1, string objName) {
+        for(int i = 0; i < N1; i++) {
+            if(i % 10 == 0) {
+                var box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf);
+                box.transform.position = new Vector2(0, 4);
+                yield return new WaitForSeconds(0.8f);
+            }
+            yield return new WaitForSeconds(0.05f);
+            var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+            float randX = Random.Range(-0.25f, 0.25f);
+            obj.transform.position = new Vector2(randX, 2);
+            obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+        }
+    }
+    public Sprite getObjSprite(string name) {
+        Sprite res = null;
+        foreach (Enum.OBJ_SPR_IDX enumVal in System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX))) {
+            if (enumVal.ToString().ToLower() == name) {
+                Debug.Log($"getObjSpriteIndex():: {enumVal.ToString().ToLower()} == {name} -> {enumVal.ToString() == name}");
+                int idx = (int)enumVal;
+                res =  GM._.ObjSprs[idx];
+            }
+        }
+        return res;
+    }
+
     public void rigidPopStuffObjs() {
-        for(int i = 0; i < stuffGroupTf.childCount; i++) {
-            var rigid = stuffGroupTf.GetChild(i).GetComponent<Rigidbody2D>();
+        for(int i = 0; i < objGroupTf.childCount; i++) {
+            var rigid = objGroupTf.GetChild(i).GetComponent<Rigidbody2D>();
             rigid.constraints = RigidbodyConstraints2D.None;
 
             const int POWER = 25;

@@ -273,7 +273,7 @@ public class QuizManager : MonoBehaviour
 
         // questionPanel.SetActive(false);
         quizGroup.SetActive(false);
-        // hintFrame.SetActive(false);
+        hintFrame.SetActive(false);
         yield return new WaitForSeconds(1.2f);
         quizGroup.SetActive(true);
 
@@ -297,7 +297,7 @@ public class QuizManager : MonoBehaviour
         answerBtn[idx].GetComponent<Image>().color = Color.red;
         GM._.playObjAnimByAnswer(isCorret: false);
 
-        // hintFrame.SetActive(true);
+        hintFrame.SetActive(true);
         // questionPanel.SetActive(false);
         yield return new WaitForSeconds(1.2f);
 
