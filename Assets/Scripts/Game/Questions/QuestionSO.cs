@@ -93,46 +93,34 @@ public class QuestionSO : ScriptableObject {
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
-                if(!isXEquation) {
+                if(!isXEquation)
                     result = replaceTxtKeyword(qstPlus, new string[]{obj1, lNums[0], lNums[1]});
-                }
                 //* (X方程式) N1 + X = N2
                 else {
-                    result = replaceTxtKeyword(qstPlus, new string[]{obj1, lNums[0], rNums[0]});
-
+                    result = replaceTxtKeyword(qstPlus_XEquation, new string[]{obj1, lNums[0], rNums[0]});
                     //* ± N3
-                    if(rNums.Count > 1) {
-                        switch(rOpr) {
-                            case "+":
-                                result += $"...\n<color=blue>앗! {rNums[1]}개 더 있네요.</color>";
-                                break;
-                            case "-": case "minus":
-                                result += $"...\n<color=red>앗! 죄송.. {rNums[1]}개 빼야되요.</color>";
-                                break;
-                        }
-                    }
-                    else {
+                    if(rNums.Count > 1)
+                        result += replaceExtraOprKeyword(rOpr, rNums[1]);
+                    else
                         result += "가 됫어요.";
-                    }
                     result += "\n친구는 몇 개를 주었나요?";
                 }
                 break;
             }
-            case "-": { // 38 - 13 = ?
+            case "-": { //* 38 - 13 = ?
                 result = replaceTxtKeyword(qstMinus, new string[]{obj1, lNums[0], lNums[1]});
                 break;
             }
-            case "times": { // 31 times 2
+            case "times": { //* 31 times 2
                 result = replaceTxtKeyword(qstMultiply, new string[]{obj1, lNums[0], lNums[1]});
                 break;
             }
             case "frac": {
-                int n1 = int.Parse(lNums[0]);
+                int n1 = int.Parse(lNums[0]); 
                 int n2 = int.Parse(lNums[1]);
                 int value = n1 / n2;
-                int rest =  n1 % n2;
+                int rest = n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
-
                 result = replaceTxtKeyword(qstDivide, new string[]{obj1, lNums[0], lNums[1]});
 
                 //* 残りが有ったら、分数で表記
@@ -140,7 +128,8 @@ public class QuestionSO : ScriptableObject {
                     result += " 나머지는요?\n(분수로 알려주세요!)";
                 break;
             }
-            case "underline": case "left": { //* 最大公約数
+            case "underline":
+            case "left": { //* 最大公約数
                 result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1, lNums[0], lNums[1], obj2});
                 break;
             }
@@ -160,11 +149,24 @@ public class QuestionSO : ScriptableObject {
     private string replaceTxtKeyword(string sentence, string[] keys) {
         Debug.Log($"replaceTxtKeyword:: keys.Length= {keys.Length} : {string.Join(", ", keys)}");
         const int OBJ1 = 0, N1 = 1, N2 = 2, OBJ2 = 3;
+        //* Keyword 変換
         string res = sentence.Replace("OBJ1", $"<sprite name={keys[OBJ1]}>");
         res = res.Replace("N1", keys[N1]);
         res = res.Replace("N2", keys[N2]);
-        if(OBJ2 < keys.Length) res = res.Replace("OBJ2", $"<sprite name={keys[OBJ2]}>");
+        if(OBJ2 < keys.Length) 
+            res = res.Replace("OBJ2", $"<sprite name={keys[OBJ2]}>");
+
         return res;
+    }
+
+    private string replaceExtraOprKeyword(string rOpr, string key) {
+        switch(rOpr) {
+            case "+":
+                return $"...\n<color=blue>앗! {key}개 더 있네요.</color>";
+            case "-": case "minus":
+                return $"...\n<color=red>앗! 죄송.. {key}개 빼야되요.</color>";
+        }
+        return "";
     }
 
     public IEnumerator coCreateObj(string sign, string objName, List<string> analList) {
