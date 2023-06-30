@@ -48,14 +48,14 @@ public class GUI : MonoBehaviour
     public void onclickBtnBackToHome() {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
-    public IEnumerator coShowStageTxt(int curQuestionIndex) {
-        int stageNum = curQuestionIndex + 1;
-        GM._.qm.StageTxt.text = $"STAGE {stageNum} / 8";
-        GM._.qm.StageTxt.gameObject.SetActive(true);
+    // public IEnumerator coShowStageTxt(int curQuestionIndex) {
+    //     int stageNum = curQuestionIndex + 1;
+    //     GM._.qm.StageTxt.text = $"STAGE {stageNum} / 8";
+    //     GM._.qm.StageTxt.gameObject.SetActive(true);
         
-        yield return new WaitForSeconds(1.3f);
-        GM._.qm.StageTxt.gameObject.SetActive(false);
-    }
+    //     yield return new WaitForSeconds(1.3f);
+    //     GM._.qm.StageTxt.gameObject.SetActive(false);
+    // }
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
         GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);

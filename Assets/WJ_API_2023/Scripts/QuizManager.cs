@@ -137,8 +137,18 @@ public class QuizManager : MonoBehaviour
         Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation =<b>{qstEquation}</b>, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
         //* 処理
         diagChooseDiffPanel.SetActive(false);
+        yield return coShowStageTxt();
         yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
         yield return GM._.gui.coShowQuestion(qstEquation);
+    }
+
+    IEnumerator coShowStageTxt() {
+        int stageNum = curQuestionIndex + 1;
+        stageTxt.text = $"STAGE {stageNum} / 8";
+        stageTxt.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1.3f);
+        stageTxt.gameObject.SetActive(false);
     }
 
     IEnumerator coMakeQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
@@ -194,7 +204,6 @@ public class QuizManager : MonoBehaviour
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
                     yield return coSuccessAnswer(idx);
-                    
                 }
                 else { // 誤答
                     yield return coFailAnswer(idx);

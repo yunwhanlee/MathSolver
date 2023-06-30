@@ -64,11 +64,11 @@ public class GM : MonoBehaviour
         playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
         customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
     }
-    IEnumerator myCo() {
-        yield return gui.coShowStageTxt(0);
-        yield return gui.coShowQuestion("");
-        yield return coCreateStuffObj(2, 1);
-    }
+    // IEnumerator myCo() {
+    //     yield return gui.coShowStageTxt(0);
+    //     yield return gui.coShowQuestion("");
+    //     yield return coCreateStuffObj(2, 1);
+    // }
     public IEnumerator coCreateStuffObj(int n1, int n2) {
         int cnt = 50 / 10;
         for(int i = 0; i < cnt; i++){

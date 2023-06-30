@@ -28,97 +28,79 @@ public class QuestionSO : ScriptableObject {
 //-------------------------------------------------------------------------------------------------------------
     private void initObjList() => objList = new List<string>(defObjs);
     public string makeQuizSentence(List<string> analList) {
-        string lOpr = "";
-        string rOpr = "";
-        List<string> lNums = new List<string>();
-        List<string> rNums = new List<string>();
-        List<string> leftEquList = new List<string>();
-        List<string> rightEquList = new List<string>();
+
+        List<string> leftSideList = new List<string>(); //* 左辺
+        List<string> rightSideList = new List<string>(); //* 右辺
+        string lOpr = null; //* 左演算子
+        string rOpr = null; //* 右演算子
+        List<string> lNums = new List<string>(); //* 左定数
+        List<string> rNums = new List<string>(); //* 右定数
         
+        //* X方程式か？
         bool isXEquation = analList.Exists(li => li == "x");
         if(isXEquation) analList.RemoveAll(str => str == "x");
+
         Debug.Log($"makeQuizSentence(analList.Cnt= {analList.Count}, isXEquation= {isXEquation})::");
         Debug.Log($"makeQuizSentence:: analList: <color=white>{string.Join(", ", analList.ToArray())}</color>");
         /*【 TYPE 分析 】
             ※ "="が有る：(横)、ない：(縦)。
-            ※ (縦)は、１次 方程式がない。
-            ※ 「x, =, ?」：三つの情報は要らない。
+            ※ (縦)は「X方程式」がない。
+            ※ 「x, =, ?」：三つは分離してから削除。
 
-            ① 4, +, 3, =, ? (横：足す)
-            ② 38, -, 13, ? (縦：引く)
-            ③ 12, times, 4, ? (縦：掛け)
-            ④ frac, 12, 4, =, ? (横：分数) 
-            ⑤ underline, 3, 9, ? || left, 8, 10, ? (縦：最大公約数)
-            ⑥ 2, +, x, =, 8, 「x, =, ?」 (横：１次 方程式)
-            ⑦ 1, +, x, =, 8, minus, 4, 「x, =, ?」 (横：１次 方程式＋右式⊖定数)
-            ⑧ 4, +, x, =, 7, +, 1, 「x, =, ?」 (横：１次 方程式＋右式⊕定数)
+            ② (縦)：38, -, 13, ? (引く)
+            ③ (縦)：12, times, 4, ? (掛け)
+            ⑤ (縦)：underline, 3, 9, ? || left, 8, 10, ? (最大公約数)
+            ① (横)：4, +, 3, =, ? (足す)
+            ④ (横)：frac, 12, 4, =, ? (分数) 
+            ⑥ (横)：2, +, x, =, 8, 「x, =, ?」 (X方程式)
+            ⑦ (横)：1, +, x, =, 8, minus, 4, 「x, =, ?」 (X方程式＋右式⊖定数)
+            ⑧ (横)：4, +, x, =, 7, +, 1, 「x, =, ?」 (X方程式＋右式⊕定数)
         */
 
-        //* 横・縦 ?
-        bool isHorizontalEquation = analList.Exists(li => li == "=");
-        //* 横 (正解完成型) とか (数式推論型)
-        if(isHorizontalEquation) {
-            //* 左・右式 分ける
-            int equalIdx = analList.FindIndex(li => li == "=");
-            int len = analList.Count - 1;
+        //* (横)：左・右辺、(縦)：左辺のみ
+        bool isHrzEqu = analList.Exists(li => li == "=");
 
-            for(int i = 0; i < analList.Count; i++) {
-                if(i < equalIdx)    leftEquList.Add(analList[i]);
-                else    rightEquList.Add(analList[i]);
-            }
-
-            //* 要らない部分 削除
-            rightEquList.Remove("=");
-            rightEquList.Remove("?");
-
-            //* 左 演算子
-            lOpr = leftEquList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
-            leftEquList.Remove(lOpr);
-            lNums = leftEquList;
-            
-            //* 右 演算子
-            rOpr = rightEquList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
-            if(rOpr != "") {
-                rightEquList.Remove(rOpr);
-                rNums = rightEquList;
-            }
+        //* 左辺・右辺 分離
+        int splitIdx = (isHrzEqu)? analList.FindIndex(c=>c=="=") : analList.FindIndex(c=>c=="?");
+        for(int i = 0; i < analList.Count; i++) {
+            if(i < splitIdx) leftSideList.Add(analList[i]);
+            else             rightSideList.Add(analList[i]);
         }
-        //* 縦 (正解完成型) のみ
+
+        //* 要らない部分 削除
+        leftSideList.Remove("?");
+        rightSideList.Remove("?");
+        rightSideList.Remove("=");
+
+        //* (横)：演算子と定数に分ける
+        if(isHrzEqu) {
+            lNums = separateOperatorAndNumbers(out lOpr, leftSideList);
+            rNums = separateOperatorAndNumbers(out rOpr, rightSideList);
+        }
+        //* (縦)：演算子と定数に分ける
         else {
-            lOpr = analList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
-            analList.Remove(lOpr);
-            Debug.Log("縦 -> " + string.Join(", ", analList.ToArray()));
-            lNums = analList;
+            lNums = separateOperatorAndNumbers(out lOpr, leftSideList);
         }
 
-        Debug.Log($"makeQuizSentence:: (横): <color=white>leftOpr= {lOpr}, rightOpr= {rOpr}, </color>"); 
-        Debug.Log($"makeQuizSentence:: (横): <color=white>lNums= {string.Join(", ", lNums.ToArray())}, rNums= {string.Join(", ", rNums.ToArray())}</color>"); 
+        Debug.Log($"makeQuizSentence:: (横): leftOpr= <color=yellow>{lOpr}</color>, rightOpr= <color=yellow>{rOpr}</color>");
+        Debug.Log($"makeQuizSentence:: (横): lNums= <color=green>{string.Join(", ", lNums.ToArray())}</color>, rNums= <color=green>{string.Join(", ", rNums.ToArray())}</color>");
 
         //* キーワード 切り替え
         string result = "미 지원..";
         initObjList();
-        string objName = Util.GetRandomList(objList);
-        string obj2Name = Util.GetRandomList(objList);
+        string obj1 = Util.GetRandomList(objList);
+        string obj2 = Util.GetRandomList(objList);
         switch(lOpr) {
             case "+": {
-                //* (正解完成型) 2 + 3 = ?
-                if(!isXEquation) { 
-                    result = qstPlus.Replace("OBJ1", $"<sprite name={objName}>");
-                    result = result.Replace("N1", lNums[0]);
-                    result = result.Replace("N2", lNums[1]);
+                //* (定数式) N1 + N2 = ?
+                if(!isXEquation) {
+                    result = replaceTxtKeyword(qstPlus, new string[]{obj1, lNums[0], lNums[1]});
                 }
-                //* (X方程式) N1 + X = N2 ± N3
+                //* (X方程式) N1 + X = N2
                 else {
-                    // 要らない部分削除
-                    // int xLastIdx = analList.FindLastIndex(str => str == "x");
-                    // int endLen = analList.Count - xLastIdx - 1;
-                    // analList.RemoveRange(xLastIdx, endLen);
-                    // analList.RemoveAll(str => str == "=");
-                    result = qstPlus_XEquation.Replace("OBJ1", $"<sprite name={objName}>");
-                    result = result.Replace("N1", lNums[0]);
-                    result = result.Replace("N2", rNums[0]);
+                    result = replaceTxtKeyword(qstPlus, new string[]{obj1, lNums[0], rNums[0]});
 
-                    // EXTRA 演算子
+                    //* ± N3
                     if(rNums.Count > 1) {
                         switch(rOpr) {
                             case "+":
@@ -137,15 +119,11 @@ public class QuestionSO : ScriptableObject {
                 break;
             }
             case "-": { // 38 - 13 = ?
-                result = qstMinus.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", lNums[0]);
-                result = result.Replace("N2", lNums[1]);
+                result = replaceTxtKeyword(qstMinus, new string[]{obj1, lNums[0], lNums[1]});
                 break;
             }
             case "times": { // 31 times 2
-                result = qstMultiply.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", lNums[0]);
-                result = result.Replace("N2", lNums[1]);
+                result = replaceTxtKeyword(qstMultiply, new string[]{obj1, lNums[0], lNums[1]});
                 break;
             }
             case "frac": {
@@ -154,24 +132,39 @@ public class QuestionSO : ScriptableObject {
                 int value = n1 / n2;
                 int rest =  n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
-                result = qstDivide.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", lNums[0]);
-                result = result.Replace("N2", lNums[1]);
+
+                result = replaceTxtKeyword(qstDivide, new string[]{obj1, lNums[0], lNums[1]});
+
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
                     result += " 나머지는요?\n(분수로 알려주세요!)";
                 break;
             }
             case "underline": case "left": { //* 最大公約数
-                result = qstGreatestCommonDivisor.Replace("OBJ1", $"<sprite name={objName}>");
-                result = result.Replace("N1", lNums[0]);
-                result = result.Replace("OBJ2", $"<sprite name={obj2Name}>");
-                result = result.Replace("N2", lNums[1]);
+                result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1, lNums[0], lNums[1], obj2});
                 break;
             }
         }
         Debug.Log($"makeQuizSentence(sign= {lOpr}):: result= {result}");
         return result;
+    }
+
+    private List<string> separateOperatorAndNumbers(out string oprerator, List<string> equationList) {
+        //* 演算子
+        oprerator = equationList.Find(str => Regex.IsMatch(str, Config.OPERATION_REGEX_PATTERN));
+        if(oprerator != null) equationList.Remove(oprerator);
+        //* 残った定数を返す
+        return equationList;
+    }
+
+    private string replaceTxtKeyword(string sentence, string[] keys) {
+        Debug.Log($"replaceTxtKeyword:: keys.Length= {keys.Length} : {string.Join(", ", keys)}");
+        const int OBJ1 = 0, N1 = 1, N2 = 2, OBJ2 = 3;
+        string res = sentence.Replace("OBJ1", $"<sprite name={keys[OBJ1]}>");
+        res = res.Replace("N1", keys[N1]);
+        res = res.Replace("N2", keys[N2]);
+        if(OBJ2 < keys.Length) res = res.Replace("OBJ2", $"<sprite name={keys[OBJ2]}>");
+        return res;
     }
 
     public IEnumerator coCreateObj(string sign, string objName, List<string> analList) {
