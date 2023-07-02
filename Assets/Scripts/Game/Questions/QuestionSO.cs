@@ -100,28 +100,27 @@ public class QuestionSO : ScriptableObject {
                 //* (定数式) N1 + N2 = ?
                 if(!isXEquation) {
                     result = replaceTxtKeyword(qstPlus, new string[]{obj1Name, lNums[0], lNums[1]});
-                    GM._.createStuffObj(lOpr, obj1Name, lNums[0]);
+                    GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]));
+                    // GM._.OnSelectAnswerObj += () => GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[1]), befCnt: int.Parse(lNums[0]));
                 }
                 //* (X方程式) N1 + X = N2
                 else {
                     result = replaceTxtKeyword(qstPlus_XEquation, new string[]{obj1Name, lNums[0], rNums[0]});
                     //* ± N3
-                    if(rNums.Count > 1)
-                        result += replaceExtraOprKeyword(rOpr, rNums[1]);
-                    else
-                        result += "가 됫어요.";
+                    if(rNums.Count > 1)    result += replaceExtraOprKeyword(rOpr, rNums[1]);
+                    else    result += "가 됫어요.";
                     result += "\n친구는 몇 개를 주었나요?";
                 }
                 break;
             }
             case "-": { //* 38 - 13 = ?
                 result = replaceTxtKeyword(qstMinus, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createStuffObj(lOpr, obj1Name, lNums[0]);
+                GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]));
                 break;
             }
             case "times": { //* 31 times 2
                 result = replaceTxtKeyword(qstMultiply, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createStuffObj(lOpr, obj1Name, lNums[0]);
+                GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]));
                 break;
             }
             case "frac": {
@@ -130,7 +129,9 @@ public class QuestionSO : ScriptableObject {
                 int value = n1 / n2;
                 int rest = n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
+
                 result = replaceTxtKeyword(qstDivide, new string[]{obj1Name, lNums[0], lNums[1]});
+                GM._.createStuffObj(lOpr, obj1Name, n1);
 
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
@@ -140,6 +141,8 @@ public class QuestionSO : ScriptableObject {
             case "underline":
             case "left": { //* 最大公約数
                 result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1Name, lNums[0], lNums[1], obj2Name});
+                GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]), posX: -0.65f);
+                GM._.createStuffObj(lOpr, obj2Name, int.Parse(lNums[1]), posX: 0.65f);
                 break;
             }
         }

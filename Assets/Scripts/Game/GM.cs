@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using TexDrawLib.Samples;
+using UnityEngine.Events;
+using System;
+using Random = UnityEngine.Random;
 
 public class GM : MonoBehaviour
 {
@@ -11,6 +14,8 @@ public class GM : MonoBehaviour
     public GUI gui;
     public QuizManager qm;
     public QuestionSO qstSO;
+
+    [SerializeField] UnityAction onSelectAnswerObj; public UnityAction OnSelectAnswerObj {get => onSelectAnswerObj; set => onSelectAnswerObj = value;}
 
     [Header("CHARA")]
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
@@ -78,57 +83,47 @@ public class GM : MonoBehaviour
     //     }
     // }
 
-    public void createStuffObj(string opr, string objName, string n1Str) {
-        StartCoroutine(coCreateStuffObj(opr, objName, n1Str));
+    public void createStuffObj(string opr, string objName, int num, float posX = 0) {
+        StartCoroutine(coCreateStuffObj(opr, objName, num, posX));
     }
 
-    private IEnumerator coCreateStuffObj(string opr, string objName, string n1Str) {
-        Debug.Log($"coCreateStuffObj(opr= {opr}, objName= {objName}, n1Str= {n1Str})::");
-        int N1 = int.Parse(n1Str);
+    private IEnumerator coCreateStuffObj(string opr, string objName, int num, float posX) {
+        Debug.Log($"coCreateStuffObj(opr= {opr}, objName= {objName}, n1Str= {num})::");
         switch(opr) {
-            case "+": {
-                yield return coPlayCreateObjAnim(N1, objName);
+            case "+": 
+            case "-":
+            case "times":
+            case "frac":
+            case "underline":
+            case "left": {
+                yield return coPlayCreateObjAnim(num, objName, posX);
                 break;
             }
-            case "-": {
-                yield return coPlayCreateObjAnim(N1, objName);
-                break;
-            }
-            case "times": {
-                yield return coPlayCreateObjAnim(N1, objName);
-                break;
-            }
-            case "frac": {
-                // int cnt = 50 / 10;
-                // for(int i = 0; i < cnt; i++){
-                //     yield return new WaitForSeconds(0.1f);
-                //     var stuff = Instantiate(stuffObjPf, GM._.StuffGroupTf);
-                //     stuff.transform.position = new Vector2(0, 5);
-                // }
-                break;
-            }
-            yield return null;
         }
     }
-    private IEnumerator coPlayCreateObjAnim(int N1, string objName) {
-        for(int i = 0; i < N1; i++) {
+    private IEnumerator coPlayCreateObjAnim(int num, string objName, float posX) {
+        for(int i = 0; i < num; i++) {
             if(i % 10 == 0) {
-                var box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf);
-                box.transform.position = new Vector2(0, 4);
+                BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+                box.transform.position = new Vector2(posX, 4);
+                box.ObjImg.sprite = getObjSprite(objName);
                 yield return new WaitForSeconds(0.8f);
             }
             yield return new WaitForSeconds(0.05f);
             var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-            float randX = Random.Range(-0.25f, 0.25f);
+            float randX = Random.Range(-0.2f + posX, 0.2f + posX);
             obj.transform.position = new Vector2(randX, 2);
             obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
         }
     }
+
     public Sprite getObjSprite(string name) {
         Sprite res = null;
-        foreach (Enum.OBJ_SPR_IDX enumVal in System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX))) {
-            if (enumVal.ToString().ToLower() == name) {
-                Debug.Log($"getObjSpriteIndex():: {enumVal.ToString().ToLower()} == {name} -> {enumVal.ToString() == name}");
+        var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
+        foreach (var enumVal in enumObjIdx) {
+            string enumValStr = enumVal.ToString().ToLower();
+            if (enumValStr == name) {
+                Debug.Log($"getObjSpriteIndex({name}):: {enumValStr} == {name} -> {enumVal.ToString() == name}");
                 int idx = (int)enumVal;
                 res =  GM._.ObjSprs[idx];
             }

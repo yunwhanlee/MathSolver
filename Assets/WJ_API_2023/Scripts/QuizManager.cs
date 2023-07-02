@@ -268,6 +268,9 @@ public class QuizManager : MonoBehaviour
         Array.ForEach(answerBtn, btn => btn.GetComponent<Image>().color = Color.white);
     }
     public IEnumerator coSuccessAnswer(int idx) {
+        // GM._.OnSelectAnswerObj();
+        // GM._.OnSelectAnswerObj = null;
+
         answerBtn[idx].GetComponent<Image>().color = Color.yellow;
         GM._.playObjAnimByAnswer(isCorret: true);
 

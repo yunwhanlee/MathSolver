@@ -7,13 +7,16 @@ using TMPro;
 public class BoxObj : MonoBehaviour {
     int value;
     [SerializeField] TextMeshProUGUI valueTxt;
-    [SerializeField] Image objImg;
+    [SerializeField] Image objImg;  public Image ObjImg {get => objImg; set => objImg = value;}
 
     void Start() {
         value = 0;
-        string objName = GM._.qstSO.Obj1Name;
-        objImg.sprite = GM._.getObjSprite(objName);
+
     }
+//-------------------------------------------------------------------------------------------------------------
+#region FUNC
+//-------------------------------------------------------------------------------------------------------------
+#endregion
 //-------------------------------------------------------------------------------------------------------------
 #region COLLIDER
 //-------------------------------------------------------------------------------------------------------------
