@@ -268,13 +268,14 @@ public class QuizManager : MonoBehaviour
         Array.ForEach(answerBtn, btn => btn.GetComponent<Image>().color = Color.white);
     }
     public IEnumerator coSuccessAnswer(int idx) {
-        // GM._.OnSelectAnswerObj();
-        // GM._.OnSelectAnswerObj = null;
-
+        //* 演算子によって登録した関数 コールバック
+        if(GM._.OnAnswerObjAction != null) {
+            GM._.OnAnswerObjAction();
+            GM._.OnAnswerObjAction = null;
+        }
         answerBtn[idx].GetComponent<Image>().color = Color.yellow;
         GM._.playObjAnimByAnswer(isCorret: true);
 
-        // questionPanel.SetActive(false);
         quizGroup.SetActive(false);
         hintFrame.SetActive(false);
         yield return new WaitForSeconds(1.2f);

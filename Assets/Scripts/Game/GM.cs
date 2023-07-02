@@ -15,7 +15,7 @@ public class GM : MonoBehaviour
     public QuizManager qm;
     public QuestionSO qstSO;
 
-    [SerializeField] UnityAction onSelectAnswerObj; public UnityAction OnSelectAnswerObj {get => onSelectAnswerObj; set => onSelectAnswerObj = value;}
+    [SerializeField] UnityAction onAnswerObjAction; public UnityAction OnAnswerObjAction {get => onAnswerObjAction; set => onAnswerObjAction = value;}
 
     [Header("CHARA")]
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
@@ -82,26 +82,24 @@ public class GM : MonoBehaviour
     //         stuff.transform.position = new Vector2(0, 5);
     //     }
     // }
-
-    public void createStuffObj(string opr, string objName, int num, float posX = 0) {
-        StartCoroutine(coCreateStuffObj(opr, objName, num, posX));
-    }
-
-    private IEnumerator coCreateStuffObj(string opr, string objName, int num, float posX) {
-        Debug.Log($"coCreateStuffObj(opr= {opr}, objName= {objName}, n1Str= {num})::");
-        switch(opr) {
-            case "+": 
-            case "-":
-            case "times":
-            case "frac":
-            case "underline":
-            case "left": {
-                yield return coPlayCreateObjAnim(num, objName, posX);
-                break;
+    public Sprite getObjSprite(string name) {
+        Sprite res = null;
+        var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
+        foreach (var enumVal in enumObjIdx) {
+            string enumValStr = enumVal.ToString().ToLower();
+            if (enumValStr == name) {
+                Debug.Log($"getObjSpriteIndex({name}):: {enumValStr} == {name} -> {enumVal.ToString() == name}");
+                int idx = (int)enumVal;
+                res =  GM._.ObjSprs[idx];
             }
         }
+        return res;
     }
-    private IEnumerator coPlayCreateObjAnim(int num, string objName, float posX) {
+
+    public void createObj(string objName, int num, float posX = 0) 
+        => StartCoroutine(coCreateObj(objName, num, posX));
+
+    private IEnumerator coCreateObj(string objName, int num, float posX) {
         for(int i = 0; i < num; i++) {
             if(i % 10 == 0) {
                 BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
@@ -117,19 +115,45 @@ public class GM : MonoBehaviour
         }
     }
 
-    public Sprite getObjSprite(string name) {
-        Sprite res = null;
-        var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
-        foreach (var enumVal in enumObjIdx) {
-            string enumValStr = enumVal.ToString().ToLower();
-            if (enumValStr == name) {
-                Debug.Log($"getObjSpriteIndex({name}):: {enumValStr} == {name} -> {enumVal.ToString() == name}");
-                int idx = (int)enumVal;
-                res =  GM._.ObjSprs[idx];
+    public void addObj(string objName, int befNum, int num)
+        => StartCoroutine(coAddObj(objName, befNum, num));
+
+    private IEnumerator coAddObj(string objName, int befNum, int num) {
+        for(int i = befNum; i < num + befNum; i++) {
+            if(i % 10 == 0) {
+                BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+                box.transform.position = new Vector2(0, 4);
+                box.ObjImg.sprite = getObjSprite(objName);
+                yield return new WaitForSeconds(0.8f);
+            }
+            yield return new WaitForSeconds(0.05f);
+            var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+            float randX = Random.Range(-0.2f, 0.2f);
+            obj.transform.position = new Vector2(randX, 2);
+            obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+        }
+    }
+
+    public void substractObj(int num)
+        => StartCoroutine(coSubstractObj(num));
+
+    private IEnumerator coSubstractObj(int num) {
+        for(int i = 0; i < num; i++) {
+            int lastIdx = GM._.ObjGroupTf.childCount - 1;
+            var lastBox = GM._.ObjGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
+            lastBox.Val--;
+            yield return new WaitForSeconds(0.05f);
+            if(lastBox.Val <= 0) {
+                DestroyImmediate(lastBox.gameObject);
             }
         }
-        return res;
     }
+
+    public void multiplyObj(string objName, int befNum, int num) {
+        int val = (befNum * num) - befNum;
+        StartCoroutine(coAddObj(objName, befNum, val));
+    }
+
 
     public void rigidPopStuffObjs() {
         for(int i = 0; i < objGroupTf.childCount; i++) {

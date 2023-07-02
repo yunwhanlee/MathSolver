@@ -95,13 +95,15 @@ public class QuestionSO : ScriptableObject {
         initObjList();
         obj1Name = Util.GetRandomList(objNameList);
         obj2Name = Util.GetRandomList(objNameList);
+        int n1 = int.Parse(lNums[0]); 
+        int n2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
                 if(!isXEquation) {
                     result = replaceTxtKeyword(qstPlus, new string[]{obj1Name, lNums[0], lNums[1]});
-                    GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]));
-                    // GM._.OnSelectAnswerObj += () => GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[1]), befCnt: int.Parse(lNums[0]));
+                    GM._.createObj(obj1Name, n1);
+                    GM._.OnAnswerObjAction += () => GM._.addObj(obj1Name, befNum: n1, n2);
                 }
                 //* (X方程式) N1 + X = N2
                 else {
@@ -115,23 +117,25 @@ public class QuestionSO : ScriptableObject {
             }
             case "-": { //* 38 - 13 = ?
                 result = replaceTxtKeyword(qstMinus, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]));
+                GM._.createObj(obj1Name, n1);
+                GM._.OnAnswerObjAction += () => GM._.substractObj(n2);
                 break;
             }
             case "times": { //* 31 times 2
                 result = replaceTxtKeyword(qstMultiply, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]));
+                GM._.createObj(obj1Name, n1);
+                GM._.OnAnswerObjAction += () => GM._.multiplyObj(obj1Name, befNum: n1, n2);
                 break;
             }
             case "frac": {
-                int n1 = int.Parse(lNums[0]); 
-                int n2 = int.Parse(lNums[1]);
+                // int n1 = int.Parse(lNums[0]); 
+                // int n2 = int.Parse(lNums[1]);
                 int value = n1 / n2;
                 int rest = n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
 
                 result = replaceTxtKeyword(qstDivide, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createStuffObj(lOpr, obj1Name, n1);
+                GM._.createObj(obj1Name, n1);
 
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
@@ -141,8 +145,8 @@ public class QuestionSO : ScriptableObject {
             case "underline":
             case "left": { //* 最大公約数
                 result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1Name, lNums[0], lNums[1], obj2Name});
-                GM._.createStuffObj(lOpr, obj1Name, int.Parse(lNums[0]), posX: -0.65f);
-                GM._.createStuffObj(lOpr, obj2Name, int.Parse(lNums[1]), posX: 0.65f);
+                GM._.createObj(obj1Name, n1, posX: -0.65f);
+                GM._.createObj(obj2Name, n2, posX: 0.65f);
                 break;
             }
         }
