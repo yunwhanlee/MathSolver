@@ -278,7 +278,7 @@ public class QuizManager : MonoBehaviour
 
         quizGroup.SetActive(false);
         hintFrame.SetActive(false);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(3f);
         quizGroup.SetActive(true);
 
         initBtnColor();

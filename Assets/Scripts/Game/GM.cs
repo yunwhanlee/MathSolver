@@ -100,18 +100,31 @@ public class GM : MonoBehaviour
         => StartCoroutine(coCreateObj(objName, num, posX));
 
     private IEnumerator coCreateObj(string objName, int num, float posX) {
+        int boxCnt = num / 10;
         for(int i = 0; i < num; i++) {
-            if(i % 10 == 0) {
+            Debug.Log($"coCreateObj:: i= {i}, num = {num}");
+            if(i < boxCnt * 10) {
                 BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
                 box.transform.position = new Vector2(posX, 4);
                 box.ObjImg.sprite = getObjSprite(objName);
-                yield return new WaitForSeconds(0.8f);
+                i += 9;
+                yield return new WaitForSeconds(0.3f);
+                box.Val = 10;
+                continue;
             }
-            yield return new WaitForSeconds(0.05f);
-            var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-            float randX = Random.Range(-0.2f + posX, 0.2f + posX);
-            obj.transform.position = new Vector2(randX, 2);
-            obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+            else {
+                if(i % 10 == 0) {
+                    BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+                    box.transform.position = new Vector2(posX, 4);
+                    box.ObjImg.sprite = getObjSprite(objName);
+                    yield return new WaitForSeconds(0.8f);
+                }
+                yield return new WaitForSeconds(0.05f);
+                var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+                float randX = Random.Range(-0.2f + posX, 0.2f + posX);
+                obj.transform.position = new Vector2(randX, 2);
+                obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+            }
         }
     }
 
@@ -119,19 +132,60 @@ public class GM : MonoBehaviour
         => StartCoroutine(coAddObj(objName, befNum, num));
 
     private IEnumerator coAddObj(string objName, int befNum, int num) {
+        int boxCnt = (num + befNum) / 10;
+        int lastBoxIdx = GM._.ObjGroupTf.childCount - 1;
+        int lastBoxVal = GM._.ObjGroupTf.GetChild(lastBoxIdx).GetComponent<BoxObj>().Val;
+        bool isNotEnoughTen = (lastBoxVal % 10 != 0);
+        int remainVal = 10 - lastBoxVal;
+        Debug.Log($"lastBoxVal= {lastBoxVal}, lastBoxVal % 10 = {lastBoxVal % 10}, remainVal= {remainVal}");
+        
         for(int i = befNum; i < num + befNum; i++) {
-            if(i % 10 == 0) {
+            if(isNotEnoughTen && i < befNum + remainVal) {
+                Debug.Log("AA");
+                yield return new WaitForSeconds(0.05f);
+                var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+                float randX = Random.Range(-0.2f + 0, 0.2f + 0);
+                obj.transform.position = new Vector2(randX, 2);
+                obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+            }
+            else if(i < boxCnt * 10) {
+                Debug.Log("BB");
                 BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
                 box.transform.position = new Vector2(0, 4);
                 box.ObjImg.sprite = getObjSprite(objName);
-                yield return new WaitForSeconds(0.8f);
+                i += 9;
+                yield return new WaitForSeconds(0.3f);
+                box.Val = 10;
+                continue;
             }
-            yield return new WaitForSeconds(0.05f);
-            var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-            float randX = Random.Range(-0.2f, 0.2f);
-            obj.transform.position = new Vector2(randX, 2);
-            obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+            else {
+                Debug.Log("CC");
+                if(i % 10 == 0) {
+                    BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+                    box.transform.position = new Vector2(0, 4);
+                    box.ObjImg.sprite = getObjSprite(objName);
+                    yield return new WaitForSeconds(0.8f);
+                }
+                yield return new WaitForSeconds(0.05f);
+                var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+                float randX = Random.Range(-0.2f + 0, 0.2f + 0);
+                obj.transform.position = new Vector2(randX, 2);
+                obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+            }
         }
+        // for(int i = befNum; i < num + befNum; i++) {
+        //     if(i % 10 == 0) {
+        //         BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+        //         box.transform.position = new Vector2(0, 4);
+        //         box.ObjImg.sprite = getObjSprite(objName);
+        //         yield return new WaitForSeconds(0.8f);
+        //     }
+        //     yield return new WaitForSeconds(0.05f);
+        //     var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+        //     float randX = Random.Range(-0.2f, 0.2f);
+        //     obj.transform.position = new Vector2(randX, 2);
+        //     obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+        // }
     }
 
     public void substractObj(int num)
@@ -142,7 +196,7 @@ public class GM : MonoBehaviour
             int lastIdx = GM._.ObjGroupTf.childCount - 1;
             var lastBox = GM._.ObjGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
             lastBox.Val--;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.025f);
             if(lastBox.Val <= 0) {
                 DestroyImmediate(lastBox.gameObject);
             }
