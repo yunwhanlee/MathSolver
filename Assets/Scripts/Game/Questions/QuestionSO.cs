@@ -93,8 +93,8 @@ public class QuestionSO : ScriptableObject {
         //* キーワード 切り替え
         string result = "미 지원..";
         initObjList();
-        obj1Name = Util.GetRandomList(objNameList);
-        obj2Name = Util.GetRandomList(objNameList);
+        obj1Name = Util.getRandomList(objNameList);
+        obj2Name = Util.getRandomList(objNameList);
         int n1 = int.Parse(lNums[0]); 
         int n2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
         switch(lOpr) {
@@ -144,9 +144,12 @@ public class QuestionSO : ScriptableObject {
             case "underline":
             case "left": { //* 最大公約数
                 const float POS_X = 0.65f;
+                int gcd = Util.getGreatestCommonDivisor(n1, n2);
                 result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1Name, lNums[0], lNums[1], obj2Name});
                 GM._.createObj(obj1Name, n1, posX: -POS_X);
                 GM._.createObj(obj2Name, n2, posX: POS_X);
+                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(obj1Name, n1, gcd, -POS_X);
+                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(obj2Name, n2, gcd, POS_X);
                 break;
             }
         }

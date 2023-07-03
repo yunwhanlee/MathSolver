@@ -14,8 +14,8 @@ public class GM : MonoBehaviour
     const int BOX_M_MAX = 50; // Medium
     const int MOX_L_MAX = 100; // Large
     const float OBJ_RAND_RANGE_X = 0.2f;
-    const float BOX_SPAWN_Y = 8.0f;
-    const float OBJ_SPAWN_Y = 6.0f;
+    const float BOX_SPAWN_Y = 6.0f;
+    const float OBJ_SPAWN_Y = 4.0f;
 
 
     public static GM _;
@@ -109,8 +109,8 @@ public class GM : MonoBehaviour
                     instBox(objName, posX);
                     yield return Util.time0_8;
                 }
-                yield return Util.time0_05;
                 instObj(objName, posX);
+                yield return Util.time0_05;
             }
         }
     }
@@ -128,8 +128,8 @@ public class GM : MonoBehaviour
         
         for(int i = befNum; i < num + befNum; i++) {
             if(isNotEnoughTen && i < befNum + remainVal) {
-                yield return Util.time0_05;
                 instObj(objName);
+                yield return Util.time0_05;
             }
             else if(i < boxCnt * BOX_S_MAX) {
                 i += BOX_S_MAX - 1;
@@ -142,8 +142,8 @@ public class GM : MonoBehaviour
                     instBox(objName);
                     yield return Util.time0_8;
                 }
-                yield return Util.time0_05;
                 instObj(objName);
+                yield return Util.time0_05;
             }
         }
     }
@@ -192,7 +192,34 @@ public class GM : MonoBehaviour
 
         yield return Util.time0_5;
         for(int i = 0; i < rest; i++) {
-            instObj(objName, posX: 0);
+            instObj(objName);
+            yield return Util.time0_05;
+        }
+    }
+
+    public void greatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
+        StartCoroutine(coGreatestCommonDivisorObj(objName, befNum, gcd, posX));
+    }
+
+    private IEnumerator coGreatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
+        int val = befNum / gcd;
+        int rest = befNum % gcd;
+
+        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
+            DestroyImmediate(GM._.ObjGroupTf.GetChild(i).gameObject);
+        }
+        
+        //TODO EFFECT
+        for(int i = 0; i < gcd; i++) {
+            BoxObj box = instBox(objName, posX);
+            box.IsBlockMerge = true;
+            yield return Util.time0_3;
+            box.Val = val;
+        }
+
+        yield return Util.time0_5;
+        for(int i = 0; i < rest; i++) {
+            instObj(objName, posX);
             yield return Util.time0_05;
         }
     }

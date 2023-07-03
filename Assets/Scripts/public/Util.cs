@@ -20,10 +20,30 @@ public class Util : MonoBehaviour
         return ins;
     }
 
-    public static T GetRandomList<T>(List<T> list) {
+    public static T getRandomList<T>(List<T> list) {
         int rand = Random.Range(0, list.Count);
         T res = list[rand]; 
         list.RemoveAt(rand);
         return res;
     }
+
+    public static int getGreatestCommonDivisor(int a, int b)
+{
+    // 整数
+    a = Mathf.Abs(a);
+    b = Mathf.Abs(b);
+
+    // 例外
+    if (a == 0 || b == 0)
+        return a + b;
+
+    // Euclidean algorithm 最大公約数
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    return a;
+}
 }
