@@ -26,18 +26,24 @@ public class GM : MonoBehaviour
     [SerializeField] UnityAction onAnswerObjAction; public UnityAction OnAnswerObjAction {get => onAnswerObjAction; set => onAnswerObjAction = value;}
     [SerializeField] UnityAction<int> onAnswerBoxAction;  public UnityAction<int> OnAnswerBoxAction {get => onAnswerBoxAction; set => onAnswerBoxAction = value;}
 
+    [Header("Spot")]
+    [SerializeField] Transform plSpot;
+    [SerializeField] Transform petSpot;
+
     [Header("CHARA")]
+    [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;}
+    [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;}
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
 
     [Header("ANIM")]
-    [SerializeField] Animator playerAnim;   public Animator PlayerAnim {get => playerAnim; set => playerAnim = value;}
+    // [SerializeField] Animator playerAnim;   public Animator PlayerAnim {get => playerAnim; set => playerAnim = value;}
     [SerializeField] Animator customerAnim; public Animator CustomerAnim {get => customerAnim; set => customerAnim = value;}
     [SerializeField] Animator successEFAnim; public Animator SuccessEFAnim {get => successEFAnim; set => successEFAnim = value;}
 
     [Header("CHARA SPRITE")]
     [SerializeField] Sprite[] playerSprs; public Sprite[] PlayerSprs {get => playerSprs; set => playerSprs = value;}
     [SerializeField] Sprite[] customerSprs; public Sprite[] CustomerSprs {get => customerSprs; set => customerSprs = value;}
-    [SerializeField] SpriteRenderer playerSprRdr;   public SpriteRenderer PlayerSprRdr {get => playerSprRdr; set => playerSprRdr = value;}
+    // [SerializeField] SpriteRenderer playerSprRdr;   public SpriteRenderer PlayerSprRdr {get => playerSprRdr; set => playerSprRdr = value;}
     [SerializeField] SpriteRenderer customerSprRdr;   public SpriteRenderer CustomerSprRdr {get => customerSprRdr; set => customerSprRdr = value;}
 
     [Header("BG SPRITE")]
@@ -67,16 +73,40 @@ public class GM : MonoBehaviour
         cloud1ExpressSprRdr.sprite = null;
         cloud2ExpressSprRdr.sprite = null;
         sunExpressSprRdr.sprite = null;
+    }
 
-        //* 問題出し
-        // StartCoroutine(myCo());
+    void Start() {
+        if(DB._) {
+            Debug.Log($"GM:: Start():: pl= {pl}, pet= {pet}");
+            //* Load Player From HOME
+            const int START_LEFT_POS_X = -3;
+            pl = DB._.transform.GetChild(0).GetComponent<Player>();
+            pl.transform.gameObject.SetActive(true);
+
+            //* Set Parent DB → plSpot 
+            pl.transform.SetParent(plSpot);
+            //* Move To plSpot Pos
+            pl.transform.position = new Vector2(plSpot.position.x + START_LEFT_POS_X, plSpot.position.y);
+            pl.TgPos = plSpot.position;
+
+            //* Load Pet From HOME
+            pet = DB._.transform.GetChild(0).GetComponent<Pet>();
+            pet.transform.gameObject.SetActive(true);
+
+            //* Set Parent DB → petSpot 
+            pet.transform.SetParent(petSpot);
+            //* Move To plSpot Pos
+            pet.transform.position = new Vector2(petSpot.position.x - 5, petSpot.position.y);
+            pet.IsChasePlayer = false;
+            pet.TgPos = petSpot.position;
+        }
     }
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
     public void initObjSprite() {
-        playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
+        // playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
         customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
     }
     public Sprite getObjSprite(string name) {
@@ -303,7 +333,7 @@ public class GM : MonoBehaviour
             rigid.AddTorque(rot, ForceMode2D.Impulse);
         }
     }
-    public void playObjAnimByAnswer(bool isCorret) {
+    public void charaAnimByAnswer(bool isCorret) {
         Debug.Log($"playObjAnimByAnswer(isCorret= {isCorret})");
         const int SUCCESS = (int)Enum.EXPRESSION.Success;
         const int FAIL = (int)Enum.EXPRESSION.Fail;
@@ -312,11 +342,15 @@ public class GM : MonoBehaviour
         plThinkingEFObj.SetActive(false);
 
         //* Anim
-        playerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+        // playerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         customerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
 
         //* Chara Sprite
-        playerSprRdr.sprite = isCorret? playerSprs[SUCCESS] : playerSprs[FAIL];
+        pl.Anim.SetTrigger(isCorret? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoFail.ToString());
+
+        int rand = Random.Range(0, 2);
+        string petSuccessAnim = (rand == 0)? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoDance.ToString();
+        pet.Anim.SetTrigger(isCorret? petSuccessAnim : Enum.ANIM.DoFail.ToString());
         customerSprRdr.sprite = isCorret? customerSprs[SUCCESS] : customerSprs[FAIL];
 
         //* BG  Sprite

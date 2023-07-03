@@ -18,18 +18,20 @@ public class Pet : MonoBehaviour {
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
-    [SerializeField] SpriteRenderer shadowSr;
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
+    [SerializeField] bool isChasePlayer = true;    public bool IsChasePlayer {get => isChasePlayer; set => isChasePlayer = value;}
+    [SerializeField] SpriteRenderer shadowSr;
     [SerializeField] float moveSpeed;
 
     Transform tf;
     Transform plTf;
-    Vector2 tgPos;
-    
+    Vector2 tgPos;  public Vector2 TgPos {get => tgPos; set => tgPos = value;}
+
     void Start() {
         tf = transform;
         plTf = HM._.pl.transform;
     }
+
     void Update() {
         if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
 
@@ -42,10 +44,12 @@ public class Pet : MonoBehaviour {
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
         //* プレイヤー 追いかける
-        int dir = (HM._.pl.transform.localScale.x < 0)? -1 : 1;
-        float x = Mathf.Clamp((plTf.position.x + (OFFSET_X * dir)), MIN_X, MAX_X);
-        float y = Mathf.Clamp((plTf.position.y + OFFSET_Y), MIN_Y, MAX_Y);
-        tgPos = new Vector2(x, y);
+        if(isChasePlayer) {
+            int dir = (HM._.pl.transform.localScale.x < 0)? -1 : 1;
+            float x = Mathf.Clamp((plTf.position.x + (OFFSET_X * dir)), MIN_X, MAX_X);
+            float y = Mathf.Clamp((plTf.position.y + OFFSET_Y), MIN_Y, MAX_Y);
+            tgPos = new Vector2(x, y);
+        }
 
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
             float distX = Mathf.Abs(tgPos.x - tf.position.x);

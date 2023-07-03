@@ -50,7 +50,13 @@ public class HM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    public void GoToLoadingScene() => SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
+    public void GoToLoadingScene() {
+        pl.transform.SetParent(DB._.transform);
+        pet.transform.SetParent(DB._.transform);
+        pl.transform.gameObject.SetActive(false);
+        pet.transform.gameObject.SetActive(false);
+        SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
+    }
 
     private void createFunitureItemsBySaveData(Item[] itemDts) {
         Item[] arrangedItems = Array.FindAll(itemDts, item => item.IsArranged);

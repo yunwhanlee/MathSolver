@@ -188,7 +188,7 @@ public class HUI : MonoBehaviour {
     }
     #endregion
 
-    public void onClickGoGameDialogYesBtn() {
+    public void onClickGoGameDialogYesBtn() { //* Go Game!
         HM._.GoToLoadingScene();
     }
     public void onClickAchiveRankTypeBtn(int idx) {

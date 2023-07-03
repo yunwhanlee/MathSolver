@@ -282,7 +282,7 @@ public class QuizManager : MonoBehaviour
         }
 
         answerBtn[idx].GetComponent<Image>().color = Color.yellow;
-        GM._.playObjAnimByAnswer(isCorret: true);
+        GM._.charaAnimByAnswer(isCorret: true);
 
         quizGroup.SetActive(false);
         hintFrame.SetActive(false);
@@ -307,7 +307,7 @@ public class QuizManager : MonoBehaviour
     }
     public IEnumerator coFailAnswer(int idx) {
         answerBtn[idx].GetComponent<Image>().color = Color.red;
-        GM._.playObjAnimByAnswer(isCorret: false);
+        GM._.charaAnimByAnswer(isCorret: false);
 
         hintFrame.SetActive(true);
         // questionPanel.SetActive(false);
