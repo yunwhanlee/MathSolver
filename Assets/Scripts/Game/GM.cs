@@ -47,12 +47,8 @@ public class GM : MonoBehaviour
     [SerializeField] SpriteRenderer customerSprRdr;   public SpriteRenderer CustomerSprRdr {get => customerSprRdr; set => customerSprRdr = value;}
 
     [Header("BG SPRITE")]
-    [SerializeField] Sprite[] cloud1Sprs; public Sprite[] Cloud1Sprs {get => cloud1Sprs; set => cloud1Sprs = value;}
-    [SerializeField] Sprite[] cloud2Sprs; public Sprite[] Cloud2Sprs {get => cloud2Sprs; set => cloud2Sprs = value;}
-    [SerializeField] Sprite[] sunSprs; public Sprite[] SunSprs {get => sunSprs; set => sunSprs = value;}
-    [SerializeField] SpriteRenderer cloud1ExpressSprRdr; public SpriteRenderer Cloud1ExpressSprRdr {get => cloud1ExpressSprRdr; set => cloud1ExpressSprRdr = value;}
-    [SerializeField] SpriteRenderer cloud2ExpressSprRdr; public SpriteRenderer Cloud2ExpressSprRdr {get => cloud2ExpressSprRdr; set => cloud2ExpressSprRdr = value;}
-    [SerializeField] SpriteRenderer sunExpressSprRdr; public SpriteRenderer SunExpressSprRdr {get => sunExpressSprRdr; set => sunExpressSprRdr = value;}
+    [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
+    [SerializeField] GameObject cloud2; public GameObject Cloud2 {get => cloud2; set => cloud2 = value;}
 
     [Header("OBJ & BOX")]
     [SerializeField] GameObject twoArmsBalanceObj;  public GameObject WwoArmsBalanceObj {get => twoArmsBalanceObj; set => twoArmsBalanceObj = value;}
@@ -68,14 +64,12 @@ public class GM : MonoBehaviour
 
         //* Anim
         successEFAnim.gameObject.SetActive(false);
-
-        //* BG Expression
-        cloud1ExpressSprRdr.sprite = null;
-        cloud2ExpressSprRdr.sprite = null;
-        sunExpressSprRdr.sprite = null;
     }
 
     void Start() {
+        //* 曇り移動
+        StartCoroutine(coUpdateCloudMoving());
+
         if(DB._) {
             Debug.Log($"GM:: Start():: pl= {pl}, pet= {pet}");
             //* Load Player From HOME
@@ -352,11 +346,23 @@ public class GM : MonoBehaviour
         string petSuccessAnim = (rand == 0)? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoDance.ToString();
         pet.Anim.SetTrigger(isCorret? petSuccessAnim : Enum.ANIM.DoFail.ToString());
         customerSprRdr.sprite = isCorret? customerSprs[SUCCESS] : customerSprs[FAIL];
+    }
 
-        //* BG  Sprite
-        cloud1ExpressSprRdr.sprite = isCorret? cloud1Sprs[SUCCESS] : cloud1Sprs[FAIL];
-        cloud2ExpressSprRdr.sprite = isCorret? cloud2Sprs[SUCCESS] : cloud2Sprs[FAIL];
-        sunExpressSprRdr.sprite = isCorret? sunSprs[SUCCESS] : sunSprs[FAIL];
+    private IEnumerator coUpdateCloudMoving() {
+        float moveSpeed = 0.1f * Time.deltaTime;
+        while(true) {
+            //* Cloud1
+            if(cloud1.transform.position.x <= 7)
+                cloud1.transform.Translate(Vector2.right * moveSpeed);
+            else 
+                cloud1.transform.position = new Vector2(-7, cloud1.transform.position.y);
+            //* Cloud2
+            if(cloud2.transform.position.x >= -5)
+                cloud2.transform.Translate(Vector2.left * moveSpeed * 0.5f);
+            else 
+                cloud2.transform.position = new Vector2(5, cloud2.transform.position.y);
+            yield return Util.time0_025;
+        }
     }
 #endregion
 }
