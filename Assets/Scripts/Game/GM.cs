@@ -24,6 +24,7 @@ public class GM : MonoBehaviour
     public QuestionSO qstSO;
 
     [SerializeField] UnityAction onAnswerObjAction; public UnityAction OnAnswerObjAction {get => onAnswerObjAction; set => onAnswerObjAction = value;}
+    [SerializeField] UnityAction<int> onAnswerBoxAction;  public UnityAction<int> OnAnswerBoxAction {get => onAnswerBoxAction; set => onAnswerBoxAction = value;}
 
     [Header("CHARA")]
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
@@ -111,6 +112,46 @@ public class GM : MonoBehaviour
                 }
                 instObj(objName, posX);
                 yield return Util.time0_05;
+            }
+        }
+    }
+
+    public void createQuestionMarkBox(string objName, int num, float posX) {
+        StartCoroutine(coCreateQuestionMarkBox(objName, num, posX));
+    }
+
+    private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
+        yield return coCreateObj(objName, num, posX);
+        yield return Util.time0_3;
+
+        //* 「?」Box
+        BoxObj box = instBox(objName, posX);
+        yield return Util.time0_3;
+        box.ValueTxt.text = "?";
+        box.ValueTxt.color = Color.magenta;
+        box.ValueTxt.fontStyle = FontStyles.Bold;
+    }
+
+    public void createExtraOprBox(string opr, string objName, int num, float posX) {
+        StartCoroutine(coCreateExtraOprBox(opr, objName, num, posX));
+    }
+    private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {
+        Debug.Log($"coCreateExtraOprBox(opr= {opr}, objName= {objName}, num= {num}, posX= {posX})::");
+        yield return Util.time0_8;
+        BoxObj box = instBox(objName, posX);
+        box.IsBlockMerge = true;
+        box.ValueTxt.text = $"{opr}{num}";
+        box.ValueTxt.color = (opr == "+")? Color.blue : Color.red;
+    }
+
+    public void showQuestionMarkToAnswerBox(int answer) {
+        Debug.Log($"showQuestionMarkToAnswerBox(answer= {answer})::");
+        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
+            var questionMarkBox = GM._.ObjGroupTf.GetChild(i).GetComponent<BoxObj>();
+            if(questionMarkBox.ValueTxt.text == "?") {
+                questionMarkBox.ValueTxt.text = answer.ToString();
+                questionMarkBox.Val = answer;
+                break;
             }
         }
     }

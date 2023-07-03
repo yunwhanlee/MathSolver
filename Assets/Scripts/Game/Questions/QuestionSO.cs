@@ -95,46 +95,61 @@ public class QuestionSO : ScriptableObject {
         initObjList();
         obj1Name = Util.getRandomList(objNameList);
         obj2Name = Util.getRandomList(objNameList);
-        int n1 = int.Parse(lNums[0]); 
-        int n2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
+        int lN1 = int.Parse(lNums[0]); 
+        int lN2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
+        int rN1 = rNums.Count > 0? int.Parse(rNums[0]) : 0;
+        int rN2 = rNums.Count > 1? int.Parse(rNums[1]) : 0;
+        Debug.Log($"makeQuizSentence:: lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
                 if(!isXEquation) {
                     result = replaceTxtKeyword(qstPlus, new string[]{obj1Name, lNums[0], lNums[1]});
-                    GM._.createObj(obj1Name, n1);
-                    GM._.OnAnswerObjAction += () => GM._.addObj(obj1Name, befNum: n1, n2);
+                    GM._.createObj(obj1Name, lN1);
+                    GM._.OnAnswerObjAction += () => GM._.addObj(obj1Name, befNum: lN1, lN2);
                 }
                 //* (X方程式) N1 + X = N2
                 else {
+                    const float POS_X = 0.65f;
                     result = replaceTxtKeyword(qstPlus_XEquation, new string[]{obj1Name, lNums[0], rNums[0]});
+                    GM._.createQuestionMarkBox(obj1Name, lN1, -POS_X);
+                    GM._.createObj(obj1Name, rN1, POS_X);
+                    GM._.OnAnswerBoxAction = GM._.showQuestionMarkToAnswerBox;
+                    
                     //* ± N3
-                    if(rNums.Count > 1)    result += replaceExtraOprKeyword(rOpr, rNums[1]);
-                    else    result += "가 됫어요.";
+                    if(rNums.Count > 1) {
+                        rOpr = (rOpr == "minus")? "-" : rOpr; //* 言語➝記号に変更
+                        result += replaceExtraOprKeyword(rOpr, rNums[1]);
+                        GM._.createExtraOprBox(rOpr, obj1Name, rN2, POS_X);
+                    }
+                    else {
+                        result += "가 됫어요.";
+                    }
+
                     result += "\n친구는 몇 개를 주었나요?";
                 }
                 break;
             }
             case "-": { //* 38 - 13 = ?
                 result = replaceTxtKeyword(qstMinus, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createObj(obj1Name, n1);
-                GM._.OnAnswerObjAction += () => GM._.substractObj(n2);
+                GM._.createObj(obj1Name, lN1);
+                GM._.OnAnswerObjAction += () => GM._.substractObj(lN2);
                 break;
             }
             case "times": { //* 31 times 2
                 result = replaceTxtKeyword(qstMultiply, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createObj(obj1Name, n1);
-                GM._.OnAnswerObjAction += () => GM._.multiplyObj(obj1Name, befNum: n1, n2);
+                GM._.createObj(obj1Name, lN1);
+                GM._.OnAnswerObjAction += () => GM._.multiplyObj(obj1Name, befNum: lN1, lN2);
                 break;
             }
             case "frac": {
-                int value = n1 / n2;
-                int rest = n1 % n2;
+                int value = lN1 / lN2;
+                int rest = lN1 % lN2;
                 Debug.Log($"value= {value}, rest= {rest}");
 
                 result = replaceTxtKeyword(qstDivide, new string[]{obj1Name, lNums[0], lNums[1]});
-                GM._.createObj(obj1Name, n1);
-                GM._.OnAnswerObjAction += () => GM._.divideObj(obj1Name, befNum: n1, n2);
+                GM._.createObj(obj1Name, lN1);
+                GM._.OnAnswerObjAction += () => GM._.divideObj(obj1Name, befNum: lN1, lN2);
 
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
@@ -144,12 +159,12 @@ public class QuestionSO : ScriptableObject {
             case "underline":
             case "left": { //* 最大公約数
                 const float POS_X = 0.65f;
-                int gcd = Util.getGreatestCommonDivisor(n1, n2);
+                int gcd = Util.getGreatestCommonDivisor(lN1, lN2);
                 result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1Name, lNums[0], lNums[1], obj2Name});
-                GM._.createObj(obj1Name, n1, posX: -POS_X);
-                GM._.createObj(obj2Name, n2, posX: POS_X);
-                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(obj1Name, n1, gcd, -POS_X);
-                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(obj2Name, n2, gcd, POS_X);
+                GM._.createObj(obj1Name, lN1, posX: -POS_X);
+                GM._.createObj(obj2Name, lN2, posX: POS_X);
+                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(obj1Name, lN1, gcd, -POS_X);
+                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(obj2Name, lN2, gcd, POS_X);
                 break;
             }
         }
@@ -182,7 +197,7 @@ public class QuestionSO : ScriptableObject {
         switch(rOpr) {
             case "+":
                 return $"...\n<color=blue>앗! {key}개 더 있네요.</color>";
-            case "-": case "minus":
+            case "-": // case "minus":
                 return $"...\n<color=red>앗! 죄송.. {key}개 빼야되요.</color>";
         }
         return "";
