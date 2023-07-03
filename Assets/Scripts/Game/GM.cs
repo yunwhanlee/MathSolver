@@ -175,14 +175,16 @@ public class GM : MonoBehaviour
     private IEnumerator coDivideObj(string objName, int befNum, int num) {
         int val = befNum / num;
         int rest = befNum % num;
-        Debug.Log($"divideObj:: val= {val}, rest= {rest}");
 
-        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
-            DestroyImmediate(GM._.ObjGroupTf.GetChild(i).gameObject);
+        //* 以前の物 削除
+        foreach (Transform child in GM._.ObjGroupTf) {
+            Destroy(child.gameObject);
         }
+        yield return null; //* 破壊するまで、1フレーム 待機
         
         //TODO EFFECT
 
+        //* ボックス
         for(int i = 0; i < val; i++) {
             BoxObj box = instBox(objName);
             box.IsBlockMerge = true;
@@ -190,6 +192,7 @@ public class GM : MonoBehaviour
             box.Val = num;
         }
 
+        //* 残り
         yield return Util.time0_5;
         for(int i = 0; i < rest; i++) {
             instObj(objName);
@@ -204,19 +207,26 @@ public class GM : MonoBehaviour
     private IEnumerator coGreatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
         int val = befNum / gcd;
         int rest = befNum % gcd;
+        // Debug.Log($"coGreatestCommonDivisorObj({objName}, {befNum}, {gcd}, {posX}):: val= {befNum}, rest= {rest}");
 
-        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
-            DestroyImmediate(GM._.ObjGroupTf.GetChild(i).gameObject);
+        //* 以前の物 削除
+        foreach (Transform child in GM._.ObjGroupTf) {
+            Destroy(child.gameObject);
         }
+        yield return null; //* 破壊するまで、1フレーム 待機
         
         //TODO EFFECT
+
+        //* ボックス
         for(int i = 0; i < gcd; i++) {
             BoxObj box = instBox(objName, posX);
             box.IsBlockMerge = true;
             yield return Util.time0_3;
             box.Val = val;
+            Debug.Log($"coGreatestCommonDivisorObj:: i({i}) < gcd({gcd}), val= {box.Val}");
         }
 
+        //* 残り
         yield return Util.time0_5;
         for(int i = 0; i < rest; i++) {
             instObj(objName, posX);
@@ -226,6 +236,7 @@ public class GM : MonoBehaviour
 
     private BoxObj instBox(string objName, float posX = 0) {
             BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+            
             box.transform.position = new Vector2(posX, BOX_SPAWN_Y);
             box.ObjImg.sprite = getObjSprite(objName);
             return box;

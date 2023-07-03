@@ -63,18 +63,12 @@ public class GUI : MonoBehaviour
         //* TEXTDraw 分析
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
 
-        //* ストーリーテリング
+        //* ストーリーテリング・オブジェクト生成
         GM._.qm.QuizTxt.text = GM._.qstSO.makeQuizSentence(analList);
 
         //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt);
         StartCoroutine(coTxtTeleTypeID);
-
-        //* オブジェクト生成
-        // yield return new WaitForSeconds(1);
-        // for(int i = 0; i < answerBtns.Length; i++) 
-
-        // answerBtns[i].gameObject.SetActive(true);
         
         yield return new WaitForSeconds(1.5f);
         GM._.PlThinkingEFObj.SetActive(true);
