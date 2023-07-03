@@ -6,6 +6,7 @@ using TMPro;
 
 public class BoxObj : MonoBehaviour {
     [SerializeField] int val;     public int Val {get => val; set => val = value;}
+    [SerializeField] bool isBlockMerge;  public bool IsBlockMerge {get => isBlockMerge; set => isBlockMerge = value;}
     [SerializeField] TextMeshProUGUI valueTxt;
     [SerializeField] Image objImg;  public Image ObjImg {get => objImg; set => objImg = value;}
 
@@ -23,7 +24,7 @@ public class BoxObj : MonoBehaviour {
 #region COLLIDER
 //-------------------------------------------------------------------------------------------------------------
     void OnCollisionEnter2D(Collision2D col) {
-        if(col.gameObject.CompareTag(Enum.TAG.Obj.ToString())) {
+        if(!isBlockMerge && col.gameObject.CompareTag(Enum.TAG.Obj.ToString())) {
             val++;
             Destroy(col.gameObject);
         }

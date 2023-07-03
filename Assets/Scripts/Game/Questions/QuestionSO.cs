@@ -128,14 +128,13 @@ public class QuestionSO : ScriptableObject {
                 break;
             }
             case "frac": {
-                // int n1 = int.Parse(lNums[0]); 
-                // int n2 = int.Parse(lNums[1]);
                 int value = n1 / n2;
                 int rest = n1 % n2;
                 Debug.Log($"value= {value}, rest= {rest}");
 
                 result = replaceTxtKeyword(qstDivide, new string[]{obj1Name, lNums[0], lNums[1]});
                 GM._.createObj(obj1Name, n1);
+                GM._.OnAnswerObjAction += () => GM._.divideObj(obj1Name, befNum: n1, n2);
 
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)

@@ -128,18 +128,16 @@ public class GM : MonoBehaviour
         
         for(int i = befNum; i < num + befNum; i++) {
             if(isNotEnoughTen && i < befNum + remainVal) {
-                Debug.Log("AA");
                 yield return Util.time0_05;
                 instObj(objName);
             }
             else if(i < boxCnt * BOX_S_MAX) {
-                Debug.Log("BB");
+                i += BOX_S_MAX - 1;
                 BoxObj box = instBox(objName);
                 yield return Util.time0_3;
                 box.Val = BOX_S_MAX;
             }
             else {
-                Debug.Log("CC");
                 if(i % BOX_S_MAX == 0) {
                     instBox(objName);
                     yield return Util.time0_8;
@@ -168,6 +166,35 @@ public class GM : MonoBehaviour
     public void multiplyObj(string objName, int befNum, int num) {
         int val = (befNum * num) - befNum;
         StartCoroutine(coAddObj(objName, befNum, val));
+    }
+    
+    public void divideObj(string objName, int befNum, int num) {
+        StartCoroutine(coDivideObj(objName, befNum, num));
+    }
+
+    private IEnumerator coDivideObj(string objName, int befNum, int num) {
+        int val = befNum / num;
+        int rest = befNum % num;
+        Debug.Log($"divideObj:: val= {val}, rest= {rest}");
+
+        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
+            DestroyImmediate(GM._.ObjGroupTf.GetChild(i).gameObject);
+        }
+        
+        //TODO EFFECT
+
+        for(int i = 0; i < val; i++) {
+            BoxObj box = instBox(objName);
+            box.IsBlockMerge = true;
+            yield return Util.time0_3;
+            box.Val = num;
+        }
+
+        yield return Util.time0_5;
+        for(int i = 0; i < rest; i++) {
+            instObj(objName, posX: 0);
+            yield return Util.time0_05;
+        }
     }
 
     private BoxObj instBox(string objName, float posX = 0) {
