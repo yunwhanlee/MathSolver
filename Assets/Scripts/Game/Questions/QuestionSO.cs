@@ -144,9 +144,10 @@ public class QuestionSO : ScriptableObject {
             }
             case "underline":
             case "left": { //* 最大公約数
+                const float POS_X = 0.65f;
                 result = replaceTxtKeyword(qstGreatestCommonDivisor, new string[]{obj1Name, lNums[0], lNums[1], obj2Name});
-                GM._.createObj(obj1Name, n1, posX: -0.65f);
-                GM._.createObj(obj2Name, n2, posX: 0.65f);
+                GM._.createObj(obj1Name, n1, posX: -POS_X);
+                GM._.createObj(obj2Name, n2, posX: POS_X);
                 break;
             }
         }

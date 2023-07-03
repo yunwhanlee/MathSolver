@@ -10,6 +10,14 @@ using Random = UnityEngine.Random;
 
 public class GM : MonoBehaviour
 {
+    const int BOX_S_MAX = 10; // Small
+    const int BOX_M_MAX = 50; // Medium
+    const int MOX_L_MAX = 100; // Large
+    const float OBJ_RAND_RANGE_X = 0.2f;
+    const float BOX_SPAWN_Y = 8.0f;
+    const float OBJ_SPAWN_Y = 6.0f;
+
+
     public static GM _;
     public GUI gui;
     public QuizManager qm;
@@ -69,19 +77,6 @@ public class GM : MonoBehaviour
         playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
         customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
     }
-    // IEnumerator myCo() {
-    //     yield return gui.coShowStageTxt(0);
-    //     yield return gui.coShowQuestion("");
-    //     yield return coCreateStuffObj(2, 1);
-    // }
-    // public IEnumerator coCreateStuffObj(int n1, int n2) {
-    //     int cnt = 50 / 10;
-    //     for(int i = 0; i < cnt; i++){
-    //         yield return new WaitForSeconds(0.1f);
-    //         var stuff = Instantiate(stuffObjPf, stuffGroupTf);
-    //         stuff.transform.position = new Vector2(0, 5);
-    //     }
-    // }
     public Sprite getObjSprite(string name) {
         Sprite res = null;
         var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
@@ -100,30 +95,22 @@ public class GM : MonoBehaviour
         => StartCoroutine(coCreateObj(objName, num, posX));
 
     private IEnumerator coCreateObj(string objName, int num, float posX) {
-        int boxCnt = num / 10;
+        int boxCnt = num / BOX_S_MAX;
         for(int i = 0; i < num; i++) {
             Debug.Log($"coCreateObj:: i= {i}, num = {num}");
-            if(i < boxCnt * 10) {
-                BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
-                box.transform.position = new Vector2(posX, 4);
-                box.ObjImg.sprite = getObjSprite(objName);
-                i += 9;
-                yield return new WaitForSeconds(0.3f);
-                box.Val = 10;
-                continue;
+            if(i < boxCnt * BOX_S_MAX) {
+                i += BOX_S_MAX - 1;
+                BoxObj box = instBox(objName, posX);
+                yield return Util.time0_3;
+                box.Val = BOX_S_MAX;
             }
             else {
-                if(i % 10 == 0) {
-                    BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
-                    box.transform.position = new Vector2(posX, 4);
-                    box.ObjImg.sprite = getObjSprite(objName);
-                    yield return new WaitForSeconds(0.8f);
+                if(i % BOX_S_MAX == 0) {
+                    instBox(objName, posX);
+                    yield return Util.time0_8;
                 }
-                yield return new WaitForSeconds(0.05f);
-                var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-                float randX = Random.Range(-0.2f + posX, 0.2f + posX);
-                obj.transform.position = new Vector2(randX, 2);
-                obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+                yield return Util.time0_05;
+                instObj(objName, posX);
             }
         }
     }
@@ -132,60 +119,35 @@ public class GM : MonoBehaviour
         => StartCoroutine(coAddObj(objName, befNum, num));
 
     private IEnumerator coAddObj(string objName, int befNum, int num) {
-        int boxCnt = (num + befNum) / 10;
+        int boxCnt = (num + befNum) / BOX_S_MAX;
         int lastBoxIdx = GM._.ObjGroupTf.childCount - 1;
         int lastBoxVal = GM._.ObjGroupTf.GetChild(lastBoxIdx).GetComponent<BoxObj>().Val;
-        bool isNotEnoughTen = (lastBoxVal % 10 != 0);
-        int remainVal = 10 - lastBoxVal;
-        Debug.Log($"lastBoxVal= {lastBoxVal}, lastBoxVal % 10 = {lastBoxVal % 10}, remainVal= {remainVal}");
+        bool isNotEnoughTen = (lastBoxVal % BOX_S_MAX != 0);
+        int remainVal = BOX_S_MAX - lastBoxVal;
+        Debug.Log($"lastBoxVal= {lastBoxVal}, lastBoxVal % 10 = {lastBoxVal % BOX_S_MAX}, remainVal= {remainVal}");
         
         for(int i = befNum; i < num + befNum; i++) {
             if(isNotEnoughTen && i < befNum + remainVal) {
                 Debug.Log("AA");
-                yield return new WaitForSeconds(0.05f);
-                var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-                float randX = Random.Range(-0.2f + 0, 0.2f + 0);
-                obj.transform.position = new Vector2(randX, 2);
-                obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+                yield return Util.time0_05;
+                instObj(objName);
             }
-            else if(i < boxCnt * 10) {
+            else if(i < boxCnt * BOX_S_MAX) {
                 Debug.Log("BB");
-                BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
-                box.transform.position = new Vector2(0, 4);
-                box.ObjImg.sprite = getObjSprite(objName);
-                i += 9;
-                yield return new WaitForSeconds(0.3f);
-                box.Val = 10;
-                continue;
+                BoxObj box = instBox(objName);
+                yield return Util.time0_3;
+                box.Val = BOX_S_MAX;
             }
             else {
                 Debug.Log("CC");
-                if(i % 10 == 0) {
-                    BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
-                    box.transform.position = new Vector2(0, 4);
-                    box.ObjImg.sprite = getObjSprite(objName);
-                    yield return new WaitForSeconds(0.8f);
+                if(i % BOX_S_MAX == 0) {
+                    instBox(objName);
+                    yield return Util.time0_8;
                 }
-                yield return new WaitForSeconds(0.05f);
-                var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-                float randX = Random.Range(-0.2f + 0, 0.2f + 0);
-                obj.transform.position = new Vector2(randX, 2);
-                obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+                yield return Util.time0_05;
+                instObj(objName);
             }
         }
-        // for(int i = befNum; i < num + befNum; i++) {
-        //     if(i % 10 == 0) {
-        //         BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
-        //         box.transform.position = new Vector2(0, 4);
-        //         box.ObjImg.sprite = getObjSprite(objName);
-        //         yield return new WaitForSeconds(0.8f);
-        //     }
-        //     yield return new WaitForSeconds(0.05f);
-        //     var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
-        //     float randX = Random.Range(-0.2f, 0.2f);
-        //     obj.transform.position = new Vector2(randX, 2);
-        //     obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
-        // }
     }
 
     public void substractObj(int num)
@@ -196,7 +158,7 @@ public class GM : MonoBehaviour
             int lastIdx = GM._.ObjGroupTf.childCount - 1;
             var lastBox = GM._.ObjGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
             lastBox.Val--;
-            yield return new WaitForSeconds(0.025f);
+            yield return Util.time0_025;
             if(lastBox.Val <= 0) {
                 DestroyImmediate(lastBox.gameObject);
             }
@@ -208,6 +170,19 @@ public class GM : MonoBehaviour
         StartCoroutine(coAddObj(objName, befNum, val));
     }
 
+    private BoxObj instBox(string objName, float posX = 0) {
+            BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+            box.transform.position = new Vector2(posX, BOX_SPAWN_Y);
+            box.ObjImg.sprite = getObjSprite(objName);
+            return box;
+    }
+
+    private void instObj(string objName, float posX = 0) {
+        var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+        float randX = Random.Range(-OBJ_RAND_RANGE_X + posX, OBJ_RAND_RANGE_X + posX);
+        obj.transform.position = new Vector2(randX, OBJ_SPAWN_Y);
+        obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
+    }
 
     public void rigidPopStuffObjs() {
         for(int i = 0; i < objGroupTf.childCount; i++) {
