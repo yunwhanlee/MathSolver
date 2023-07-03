@@ -114,7 +114,7 @@ public class QuestionSO : ScriptableObject {
                     result = replaceTxtKeyword(qstPlus_XEquation, new string[]{obj1Name, lNums[0], rNums[0]});
                     GM._.createQuestionMarkBox(obj1Name, lN1, -POS_X);
                     GM._.createObj(obj1Name, rN1, POS_X);
-                    GM._.OnAnswerBoxAction = GM._.showQuestionMarkToAnswerBox;
+                    GM._.OnAnswerBoxAction = GM._.showQuestionMarkAnswerBox;
                     
                     //* ± N3
                     if(rNums.Count > 1) {

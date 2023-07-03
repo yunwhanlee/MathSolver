@@ -273,12 +273,14 @@ public class QuizManager : MonoBehaviour
             GM._.OnAnswerObjAction();
             GM._.OnAnswerObjAction = null;
         }
+        //* X方程式：未知数表示 コールバック
         else if(GM._.OnAnswerBoxAction != null) {
             var textDraw = answerBtn[idx].GetComponentInChildren<TEXDraw>();
             int answer = int.Parse(textDraw.text);
             GM._.OnAnswerBoxAction(answer);
             GM._.OnAnswerBoxAction = null;
         }
+
         answerBtn[idx].GetComponent<Image>().color = Color.yellow;
         GM._.playObjAnimByAnswer(isCorret: true);
 

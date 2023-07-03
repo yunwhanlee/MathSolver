@@ -94,6 +94,40 @@ public class GM : MonoBehaviour
 
     public void createObj(string objName, int num, float posX = 0) 
         => StartCoroutine(coCreateObj(objName, num, posX));
+    public void createQuestionMarkBox(string objName, int num, float posX) {
+        StartCoroutine(coCreateQuestionMarkBox(objName, num, posX));
+    }
+    public void createExtraOprBox(string opr, string objName, int num, float posX) {
+        StartCoroutine(coCreateExtraOprBox(opr, objName, num, posX));
+    }
+    public void showQuestionMarkAnswerBox(int answer) {
+        Debug.Log($"showQuestionMarkAnswerBox(answer= {answer})::");
+        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
+            var questionMarkBox = GM._.ObjGroupTf.GetChild(i).GetComponent<BoxObj>();
+            if(questionMarkBox.ValueTxt.text == "?") {
+                //* ? ➝ 正解
+                questionMarkBox.ValueTxt.text = answer.ToString();
+                questionMarkBox.Val = answer;
+                break;
+            }
+        }
+    }
+    public void addObj(string objName, int befNum, int num) {
+        StartCoroutine(coAddObj(objName, befNum, num));
+    }
+    public void substractObj(int num) {
+        StartCoroutine(coSubstractObj(num));
+    }
+    public void multiplyObj(string objName, int befNum, int num) {
+        int val = (befNum * num) - befNum;
+        StartCoroutine(coAddObj(objName, befNum, val));
+    }
+    public void divideObj(string objName, int befNum, int num) {
+        StartCoroutine(coDivideObj(objName, befNum, num));
+    }
+    public void greatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
+        StartCoroutine(coGreatestCommonDivisorObj(objName, befNum, gcd, posX));
+    }
 
     private IEnumerator coCreateObj(string objName, int num, float posX) {
         int boxCnt = num / BOX_S_MAX;
@@ -116,10 +150,6 @@ public class GM : MonoBehaviour
         }
     }
 
-    public void createQuestionMarkBox(string objName, int num, float posX) {
-        StartCoroutine(coCreateQuestionMarkBox(objName, num, posX));
-    }
-
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
         yield return coCreateObj(objName, num, posX);
         yield return Util.time0_3;
@@ -132,9 +162,7 @@ public class GM : MonoBehaviour
         box.ValueTxt.fontStyle = FontStyles.Bold;
     }
 
-    public void createExtraOprBox(string opr, string objName, int num, float posX) {
-        StartCoroutine(coCreateExtraOprBox(opr, objName, num, posX));
-    }
+
     private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {
         Debug.Log($"coCreateExtraOprBox(opr= {opr}, objName= {objName}, num= {num}, posX= {posX})::");
         yield return Util.time0_8;
@@ -143,21 +171,6 @@ public class GM : MonoBehaviour
         box.ValueTxt.text = $"{opr}{num}";
         box.ValueTxt.color = (opr == "+")? Color.blue : Color.red;
     }
-
-    public void showQuestionMarkToAnswerBox(int answer) {
-        Debug.Log($"showQuestionMarkToAnswerBox(answer= {answer})::");
-        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
-            var questionMarkBox = GM._.ObjGroupTf.GetChild(i).GetComponent<BoxObj>();
-            if(questionMarkBox.ValueTxt.text == "?") {
-                questionMarkBox.ValueTxt.text = answer.ToString();
-                questionMarkBox.Val = answer;
-                break;
-            }
-        }
-    }
-
-    public void addObj(string objName, int befNum, int num)
-        => StartCoroutine(coAddObj(objName, befNum, num));
 
     private IEnumerator coAddObj(string objName, int befNum, int num) {
         int boxCnt = (num + befNum) / BOX_S_MAX;
@@ -189,9 +202,6 @@ public class GM : MonoBehaviour
         }
     }
 
-    public void substractObj(int num)
-        => StartCoroutine(coSubstractObj(num));
-
     private IEnumerator coSubstractObj(int num) {
         for(int i = 0; i < num; i++) {
             int lastIdx = GM._.ObjGroupTf.childCount - 1;
@@ -202,15 +212,6 @@ public class GM : MonoBehaviour
                 DestroyImmediate(lastBox.gameObject);
             }
         }
-    }
-
-    public void multiplyObj(string objName, int befNum, int num) {
-        int val = (befNum * num) - befNum;
-        StartCoroutine(coAddObj(objName, befNum, val));
-    }
-    
-    public void divideObj(string objName, int befNum, int num) {
-        StartCoroutine(coDivideObj(objName, befNum, num));
     }
 
     private IEnumerator coDivideObj(string objName, int befNum, int num) {
@@ -239,10 +240,6 @@ public class GM : MonoBehaviour
             instObj(objName);
             yield return Util.time0_05;
         }
-    }
-
-    public void greatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
-        StartCoroutine(coGreatestCommonDivisorObj(objName, befNum, gcd, posX));
     }
 
     private IEnumerator coGreatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
