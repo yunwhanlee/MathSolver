@@ -57,7 +57,7 @@ public class GUI : MonoBehaviour
     //     GM._.qm.StageTxt.gameObject.SetActive(false);
     // }
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
-        GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+        // GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
         
         //* TEXTDraw 分析

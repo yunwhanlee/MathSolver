@@ -9,8 +9,7 @@ using System;
 using Random = UnityEngine.Random;
 
 public enum Status { WAITING, DIAGNOSIS, LEARNING }
-public class QuizManager : MonoBehaviour
-{
+public class QuizManager : MonoBehaviour {
     const int BTN_CNT = 3;
 
     [SerializeField] WJ_Connector wj_connector;
@@ -290,7 +289,6 @@ public class QuizManager : MonoBehaviour
         quizGroup.SetActive(true);
 
         initBtnColor();
-        GM._.initObjSprite();
 
         //TODO EFFECT
         /*

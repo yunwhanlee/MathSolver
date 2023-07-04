@@ -8,8 +8,7 @@ using UnityEngine.Events;
 using System;
 using Random = UnityEngine.Random;
 
-public class GM : MonoBehaviour
-{
+public class GM : MonoBehaviour {
     const int BOX_S_MAX = 10; // Small
     const int BOX_M_MAX = 50; // Medium
     const int MOX_L_MAX = 100; // Large
@@ -30,20 +29,19 @@ public class GM : MonoBehaviour
     [SerializeField] Transform plSpot;
     [SerializeField] Transform petSpot;
 
-    [Header("CHARA")]
+    [Header("Animal")]
+    [SerializeField] Animal anm; public Animal Anm {get => anm;}
+    [Header("LOAD OBJECT FROM HOME")]
     [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;}
     [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;}
+
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
 
     [Header("ANIM")]
-    // [SerializeField] Animator playerAnim;   public Animator PlayerAnim {get => playerAnim; set => playerAnim = value;}
     [SerializeField] Animator customerAnim; public Animator CustomerAnim {get => customerAnim; set => customerAnim = value;}
     [SerializeField] Animator successEFAnim; public Animator SuccessEFAnim {get => successEFAnim; set => successEFAnim = value;}
 
     [Header("CHARA SPRITE")]
-    [SerializeField] Sprite[] playerSprs; public Sprite[] PlayerSprs {get => playerSprs; set => playerSprs = value;}
-    [SerializeField] Sprite[] customerSprs; public Sprite[] CustomerSprs {get => customerSprs; set => customerSprs = value;}
-    // [SerializeField] SpriteRenderer playerSprRdr;   public SpriteRenderer PlayerSprRdr {get => playerSprRdr; set => playerSprRdr = value;}
     [SerializeField] SpriteRenderer customerSprRdr;   public SpriteRenderer CustomerSprRdr {get => customerSprRdr; set => customerSprRdr = value;}
 
     [Header("BG SPRITE")]
@@ -99,10 +97,6 @@ public class GM : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    public void initObjSprite() {
-        // playerSprRdr.sprite = playerSprs[(int)Enum.EXPRESSION.Idle];
-        customerSprRdr.sprite = customerSprs[(int)Enum.EXPRESSION.Idle];
-    }
     public Sprite getObjSprite(string name) {
         Sprite res = null;
         var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
@@ -329,23 +323,24 @@ public class GM : MonoBehaviour
     }
     public void charaAnimByAnswer(bool isCorret) {
         Debug.Log($"playObjAnimByAnswer(isCorret= {isCorret})");
-        const int SUCCESS = (int)Enum.EXPRESSION.Success;
-        const int FAIL = (int)Enum.EXPRESSION.Fail;
 
         //* Effect
         plThinkingEFObj.SetActive(false);
 
         //* Anim
         // playerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
-        customerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
+        // customerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
 
-        //* Chara Sprite
+        //* Player Anim
         pl.Anim.SetTrigger(isCorret? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoFail.ToString());
 
+        //* Pet Anim
         int rand = Random.Range(0, 2);
         string petSuccessAnim = (rand == 0)? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoDance.ToString();
         pet.Anim.SetTrigger(isCorret? petSuccessAnim : Enum.ANIM.DoFail.ToString());
-        customerSprRdr.sprite = isCorret? customerSprs[SUCCESS] : customerSprs[FAIL];
+
+        //* Animal Anim
+        anm.Anim.SetTrigger(isCorret? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoFail.ToString());
     }
 
     private IEnumerator coUpdateCloudMoving() {

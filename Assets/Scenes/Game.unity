@@ -7919,7 +7919,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1220980078}
   - component: {fileID: 1220980077}
+  - component: {fileID: 1220980081}
+  - component: {fileID: 1220980080}
   - component: {fileID: 1220980079}
+  - component: {fileID: 1220980082}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Untagged
@@ -7973,7 +7976,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.98, y: 2.98}
+  m_Size: {x: 1.3953879, y: 1.7333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7995,7 +7998,61 @@ Transform:
   m_Father: {fileID: 1188153945}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1220980079
+--- !u!114 &1220980079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220980076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: ba5814afadf5ab34dac0e6c6bbeccc03, type: 3}
+--- !u!114 &1220980080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220980076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: 1.2362407e-29
+--- !u!114 &1220980081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220980076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b9553f3290bbc478598adb31d3e888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animalSprLibAssetList:
+  - {fileID: 7108339969198208228, guid: d28263d28b04a2644ad5702675b255e2, type: 3}
+  - {fileID: 7108339969198208228, guid: 92479fcafd0d0074e8d112eb43a375f7, type: 3}
+  - {fileID: 7108339969198208228, guid: ba5814afadf5ab34dac0e6c6bbeccc03, type: 3}
+  - {fileID: 7108339969198208228, guid: 7eb7dc8492b50674e8b212fa5417d237, type: 3}
+  - {fileID: 7108339969198208228, guid: a9ff0f7e2c9d979459f181f1d4f293b5, type: 3}
+  - {fileID: 7108339969198208228, guid: 24732318aedf19a4791fa8c07fe2c217, type: 3}
+  - {fileID: 7108339969198208228, guid: c7ed160f12ef2994c8c5b06adfe4f2bc, type: 3}
+  - {fileID: 7108339969198208228, guid: df2a3988fb7bd124a8dce294adbd4751, type: 3}
+  - {fileID: 7108339969198208228, guid: 78db7cfbeb544cf4880110731e98100a, type: 3}
+  - {fileID: 7108339969198208228, guid: 8546882b15d194e42b31cee2f1f7ec0c, type: 3}
+  - {fileID: 7108339969198208228, guid: a16a5511b26f26d40b661f9a89cfb380, type: 3}
+  - {fileID: 7108339969198208228, guid: c839d1ac5d505c84b86414ecb4ed6e26, type: 3}
+--- !u!95 &1220980082
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -8005,7 +8062,7 @@ Animator:
   m_GameObject: {fileID: 1220980076}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0aabe7958db51514caff2bd7c51bfcba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0edde987296aaa345a4dda3f43313094, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -13491,19 +13548,12 @@ MonoBehaviour:
   qstSO: {fileID: 11400000, guid: afbdccddc9455de4f887a2c621278da2, type: 2}
   plSpot: {fileID: 378424035}
   petSpot: {fileID: 638075489}
+  anm: {fileID: 1220980081}
   pl: {fileID: 0}
   pet: {fileID: 0}
   plThinkingEFObj: {fileID: 4108413374768294098}
-  customerAnim: {fileID: 1220980079}
+  customerAnim: {fileID: 0}
   successEFAnim: {fileID: 522697975}
-  playerSprs:
-  - {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
-  - {fileID: -97897216, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
-  - {fileID: 1156035084, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
-  customerSprs:
-  - {fileID: 21300000, guid: 227c63c3619ad334a91ace3a0b18952e, type: 3}
-  - {fileID: 21300000, guid: 38f2ffdf3634c3942846749e6a090ccf, type: 3}
-  - {fileID: 21300000, guid: ececbba64643548498bee54252c0b99a, type: 3}
   customerSprRdr: {fileID: 1220980077}
   cloud1: {fileID: 1309957035}
   cloud2: {fileID: 1754427637}
