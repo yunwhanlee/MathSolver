@@ -327,10 +327,6 @@ public class GM : MonoBehaviour {
         //* Effect
         plThinkingEFObj.SetActive(false);
 
-        //* Anim
-        // playerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
-        // customerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
-
         //* Player Anim
         pl.Anim.SetTrigger(isCorret? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoFail.ToString());
         StartCoroutine(Util.coPlayBounceAnim(pl.transform));

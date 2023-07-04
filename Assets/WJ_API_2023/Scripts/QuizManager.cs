@@ -156,6 +156,7 @@ public class QuizManager : MonoBehaviour {
         string[] wrongAnswers;
 
         questionPanel.SetActive(true);
+        StartCoroutine(Util.coPlayBounceAnim(GM._.Anm.transform));
 
         questionDescriptionTxt.text = title;
         questionEquationTxtDraw.text = qstEquation;
