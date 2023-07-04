@@ -27,23 +27,43 @@ public class Util : MonoBehaviour
         return res;
     }
 
-    public static int getGreatestCommonDivisor(int a, int b)
-{
-    // 整数
-    a = Mathf.Abs(a);
-    b = Mathf.Abs(b);
+    public static int getGreatestCommonDivisor(int a, int b) {
+        // 整数
+        a = Mathf.Abs(a);
+        b = Mathf.Abs(b);
 
-    // 例外
-    if (a == 0 || b == 0)
-        return a + b;
+        // 例外
+        if (a == 0 || b == 0)
+            return a + b;
 
-    // Euclidean algorithm 最大公約数
-    while (b != 0) {
-        int temp = b;
-        b = a % b;
-        a = temp;
+        // Euclidean algorithm 最大公約数
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+
+        return a;
     }
 
-    return a;
-}
+    public static IEnumerator coPlayBounceAnim(Transform objTf) {
+        //* Value
+        bool isDecreasing = false;
+        const float originSc = 1.0f;
+        float spd = 1.5f * Time.deltaTime;
+        const float maxSc = 1.2f;
+
+        //* Scale Bounce
+        while(true) {
+            if(!isDecreasing) {
+                objTf.localScale = new Vector2(objTf.localScale.x + spd, objTf.localScale.y + spd);
+                if(objTf.localScale.x > maxSc) isDecreasing = true;
+            }
+            else {
+                objTf.localScale = new Vector2(objTf.localScale.x - spd, objTf.localScale.y - spd);
+                if(objTf.localScale.x <= originSc) break;
+            }
+            yield return null;
+        }
+    }
 }

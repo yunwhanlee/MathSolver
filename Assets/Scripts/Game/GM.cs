@@ -333,14 +333,17 @@ public class GM : MonoBehaviour {
 
         //* Player Anim
         pl.Anim.SetTrigger(isCorret? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoFail.ToString());
+        StartCoroutine(Util.coPlayBounceAnim(pl.transform));
 
         //* Pet Anim
         int rand = Random.Range(0, 2);
         string petSuccessAnim = (rand == 0)? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoDance.ToString();
         pet.Anim.SetTrigger(isCorret? petSuccessAnim : Enum.ANIM.DoFail.ToString());
+        StartCoroutine(Util.coPlayBounceAnim(pet.transform));
 
         //* Animal Anim
         anm.Anim.SetTrigger(isCorret? Enum.ANIM.DoSuccess.ToString() : Enum.ANIM.DoFail.ToString());
+        StartCoroutine(Util.coPlayBounceAnim(anm.transform));
     }
 
     private IEnumerator coUpdateCloudMoving() {

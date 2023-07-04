@@ -35,6 +35,8 @@ public class Player : MonoBehaviour {
         tgPos = transform.position;
         col = GetComponent<Collider2D>();
         sprLib = GetComponent<SpriteLibrary>();
+
+        
     }
 
     void Update() {
@@ -50,8 +52,8 @@ public class Player : MonoBehaviour {
             //* プレイヤー方向
             Vector2 dir = new Vector2(tgPos.x - tf.position.x, tgPos.y - tf.position.y).normalized;
             bool isLeft = ((dir.x < 0 && 0 <= dir.y) || (dir.x < 0 && dir.y < 0));
-            float flipX = (isLeft)? -1 : 1;
-            tf.localScale = new Vector2(flipX, tf.localScale.y);
+            //* (BUG) playBounceAnimするとき、ScaleでFlipすると-xの場合エラーになるので、SpriteRenderのFlipX属性を活用！
+            sr.flipX = isLeft;
 
             //* 追いかける & アニメー
             float distX = Mathf.Abs(tgPos.x - tf.position.x);
@@ -91,8 +93,6 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
 #region ANIM
 ///------------------------------------------------------------------------------------------
-    public void setInitSpr() => sr.sprite = idleSpr;
-
     public void animIdle() {
         tf.position = new Vector3(tgPos.x, tgPos.y, FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
