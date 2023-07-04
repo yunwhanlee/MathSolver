@@ -134,6 +134,10 @@ public class QuizManager : MonoBehaviour {
     /// param : タイトル, 数学式, 正解 一つ, 誤答 二つ
     IEnumerator coDisplayQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
         Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation =<b>{qstEquation}</b>, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
+
+        //* 動物 切り替え
+        if(curQuestionIndex != 0) GM._.Anm.setRandomSprLibAsset();
+
         //* 処理
         diagChooseDiffPanel.SetActive(false);
         yield return coShowStageTxt();

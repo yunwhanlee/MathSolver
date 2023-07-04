@@ -12,15 +12,17 @@ public class Animal : MonoBehaviour {
         anim = GetComponent<Animator>();
         sprLib = GetComponent<SpriteLibrary>();
 
-        //* Random Animal
-        int randIdx = Random.Range(0, animalSprLibAssetList.Count);
-        sprLib.spriteLibraryAsset = animalSprLibAssetList[randIdx];
-
-        animalSprLibAssetList.RemoveAt(randIdx);
+        //* Set Random SpriteLibraryAsset
+        setRandomSprLibAsset();
     }
 ///------------------------------------------------------------------------------------------
-#region ANIM
+#region FUNC
 ///------------------------------------------------------------------------------------------
-
+    public void setRandomSprLibAsset() {
+        int randIdx = Random.Range(0, animalSprLibAssetList.Count);
+        sprLib.spriteLibraryAsset = animalSprLibAssetList[randIdx];
+        //* このリスト 削除
+        animalSprLibAssetList.RemoveAt(randIdx);
+    }
 #endregion
 }
