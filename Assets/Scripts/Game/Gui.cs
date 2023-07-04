@@ -14,32 +14,27 @@ public class GUI : MonoBehaviour
     IEnumerator coTxtTeleTypeID;
     TextTeleType txtTeleType;
 
-    // public Button[] answerBtns; public Button[] AnswerBtns {get => answerBtns; set => answerBtns = value;}
-    // [SerializeField] GameObject questionFrame;  public GameObject QuestionFrame {get => questionFrame; set => questionFrame = value;}
-    // [SerializeField] GameObject hintFrame;  public GameObject HintFrame {get => hintFrame; set => hintFrame = value;}
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
-    // [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
-    // [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
-    void Start() {
+    [Header("CANVAS ANIM")] 
+    [SerializeField] GameObject blackPanel;
+    [SerializeField] Canvas canvasAnim;
+    [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
+    [SerializeField] GameObject sceneSpawnBGAnim;
+
+    IEnumerator Start() {
         txtTeleType = GetComponent<TextTeleType>();
 
-        // var pb = GM._.Problems[0];
-
-        // stageTxt.gameObject.SetActive(false);
-        // questionFrame.SetActive(false);
-        // hintFrame.SetActive(false);
-        successEffectFrame.SetActive(false);
-
-        //* 質問文章
-        // quizTxt.text = pb.sentence;
-
-        //* Answer Buttons 初期化
-        // for(int i = 0; i < answerBtns.Length; i++) {
-        //     answerBtns[i].GetComponentInChildren<TextMeshProUGUI>().text = pb.answers[i].ToString();
-        //     answerBtns[i].gameObject.SetActive(false);
-        // }
+        //* Black Out Spawn Anim
+        blackPanel.SetActive(true);
+        yield return Util.time0_2; //! なぜか BlackOutがすぐ始まると、Imageが見えなくなる。
+        blackPanel.SetActive(false);
+        switchScreenAnim.gameObject.SetActive(true);
+        switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
+        //* BG Spawn Anim
+        yield return Util.time0_2;
+        sceneSpawnBGAnim.SetActive(true);
     }
 
 //-------------------------------------------------------------------------------------------------------------

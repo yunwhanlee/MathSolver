@@ -65,6 +65,7 @@ public class GM : MonoBehaviour {
     }
 
     void Start() {
+        
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
 
@@ -343,7 +344,7 @@ public class GM : MonoBehaviour {
     }
 
     private IEnumerator coUpdateCloudMoving() {
-        float moveSpeed = 0.1f * Time.deltaTime;
+        float moveSpeed = 0.15f * Time.deltaTime;
         while(true) {
             //* Cloud1
             if(cloud1.transform.position.x <= 7)

@@ -50,12 +50,17 @@ public class HM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    public void GoToLoadingScene() {
+    public IEnumerator GoToLoadingScene() {
         pl.transform.SetParent(DB._.transform);
         pet.transform.SetParent(DB._.transform);
         pl.transform.gameObject.SetActive(false);
         pet.transform.gameObject.SetActive(false);
+
+        HM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
+        HM._.ui.SwitchScreenAnim.SetTrigger("BlackIn");
+        yield return Util.time0_5;
         SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
+
     }
 
     private void createFunitureItemsBySaveData(Item[] itemDts) {

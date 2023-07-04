@@ -69,7 +69,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] Button infoDlgMoveBtn;    public Button InfoDlgMoveBtn {get => infoDlgMoveBtn; set => infoDlgMoveBtn = value;}
 
     [Header("CANVAS ANIM")]
-    [SerializeField] GameObject switchScreenAnim;   public GameObject SwitchScreenAnim {get => switchScreenAnim; set => switchScreenAnim = value;}
+    [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
 
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
@@ -189,7 +189,7 @@ public class HUI : MonoBehaviour {
     #endregion
 
     public void onClickGoGameDialogYesBtn() { //* Go Game!
-        HM._.GoToLoadingScene();
+        StartCoroutine(HM._.GoToLoadingScene());
     }
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
@@ -272,14 +272,16 @@ IEnumerator coShowErrorMsgPopUp(string msg) {
 #region CANVAS ANIM
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 public void playSwitchScreenAnim() {
-    StartCoroutine(coPlaySwitchScreenAnim());
+    switchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
+    // StartCoroutine(coPlaySwitchScreenAnim());
 }
 IEnumerator coPlaySwitchScreenAnim() {
-    switchScreenAnim.SetActive(true);
+    switchScreenAnim.gameObject.SetActive(true);
     yield return Util.time1;
     yield return Util.time0_5;
-    switchScreenAnim.SetActive(false);
+    switchScreenAnim.gameObject.SetActive(false);
 }
+
 
 #endregion
 }

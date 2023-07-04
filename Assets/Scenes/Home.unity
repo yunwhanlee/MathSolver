@@ -33931,7 +33931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1268050731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37622,7 +37622,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421853623}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -52509,7 +52509,7 @@ GameObject:
   - component: {fileID: 1999118336}
   - component: {fileID: 1999118337}
   m_Layer: 0
-  m_Name: UIManager
+  m_Name: HUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52604,7 +52604,7 @@ MonoBehaviour:
   infoDlgItemPriceTxt: {fileID: 1680198027}
   infoDlgPurchaseBtn: {fileID: 606880073}
   infoDlgMoveBtn: {fileID: 1306927951}
-  switchScreenAnim: {fileID: 1268050730}
+  switchScreenAnim: {fileID: 1268050735}
   errorMsgPopUp: {fileID: 357054363899680518}
   errorMsgTxt: {fileID: 357054363905404429}
 --- !u!1 &2009122324
