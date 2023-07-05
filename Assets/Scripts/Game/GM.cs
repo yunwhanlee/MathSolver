@@ -53,11 +53,7 @@ public class GM : MonoBehaviour {
     [SerializeField] GameObject plThinkingEFObj; public GameObject PlThinkingEFObj {get => plThinkingEFObj; set => plThinkingEFObj = value;}
 
     [Header("ANIM")]
-    [SerializeField] Animator customerAnim; public Animator CustomerAnim {get => customerAnim; set => customerAnim = value;}
     [SerializeField] Animator successEFAnim; public Animator SuccessEFAnim {get => successEFAnim; set => successEFAnim = value;}
-
-    [Header("CHARA SPRITE")]
-    [SerializeField] SpriteRenderer customerSprRdr;   public SpriteRenderer CustomerSprRdr {get => customerSprRdr; set => customerSprRdr = value;}
 
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
@@ -116,15 +112,15 @@ public class GM : MonoBehaviour {
     void Update() {
         //* TEST : QuizPanel -> Result Panel
         if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(coSetResultPanelReward());
-            StartCoroutine(coSetResultPanelObj());
+            StartCoroutine(coPlayResultPanelRewardUIAnim());
+            StartCoroutine(coPlayResultPanelObjAnim());
         }
     }
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    IEnumerator coSetResultPanelReward() {
+    IEnumerator coPlayResultPanelRewardUIAnim() {
         bool isExpUP = true;
         bool isCoinUP = true;
         int expVal = 0;
@@ -140,7 +136,7 @@ public class GM : MonoBehaviour {
             yield return Util.time0_01;
         }
     }
-    IEnumerator coSetResultPanelObj() {
+    IEnumerator coPlayResultPanelObjAnim() {
         bool isIncreasing = false;
 
         //* Off

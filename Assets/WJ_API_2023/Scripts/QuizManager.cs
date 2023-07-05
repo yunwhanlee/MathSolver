@@ -221,7 +221,6 @@ public class QuizManager : MonoBehaviour {
                 setFirstChoiceAnswer(ref ansrCwYn);
 
                 isSolvingQuestion = false; //* 経過時間　カウント STOP
-                Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
 
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
@@ -250,7 +249,6 @@ public class QuizManager : MonoBehaviour {
                 setFirstChoiceAnswer(ref ansrCwYn);
 
                 isSolvingQuestion = false; //* 経過時間　カウント STOP
-                Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
 
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解

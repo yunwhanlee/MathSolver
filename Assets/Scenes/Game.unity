@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 153623507}
   - component: {fileID: 153623508}
   m_Layer: 0
-  m_Name: villageCloud2
+  m_Name: ResultCloud2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,9 +503,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153623506}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.4, y: 0.5, z: 0}
+  m_LocalPosition: {x: 3.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1130355812}
   - {fileID: 981369801}
@@ -8217,7 +8217,7 @@ GameObject:
   - component: {fileID: 968708164}
   - component: {fileID: 968708165}
   m_Layer: 0
-  m_Name: villageCloud1
+  m_Name: ResultCloud1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8233,7 +8233,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1587044026}
   - {fileID: 1670982254}
@@ -8721,8 +8721,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1152755269}
   - component: {fileID: 1152755270}
+  - component: {fileID: 1152755271}
   m_Layer: 0
-  m_Name: BGGroup
+  m_Name: ResultBGGroupAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8797,6 +8798,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1152755271
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152755268}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 304d987c1847c7e48a429abf350addaf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1163097522
 GameObject:
   m_ObjectHideFlags: 0
@@ -15425,9 +15447,7 @@ MonoBehaviour:
   pl: {fileID: 0}
   pet: {fileID: 0}
   plThinkingEFObj: {fileID: 4108413374768294098}
-  customerAnim: {fileID: 0}
   successEFAnim: {fileID: 522697975}
-  customerSprRdr: {fileID: 1220980077}
   cloud1: {fileID: 1309957035}
   cloud2: {fileID: 1754427637}
   twoArmsBalanceObj: {fileID: 53814257}
@@ -67699,6 +67719,9 @@ MonoBehaviour:
   - {fileID: 6267151148537943529}
   - {fileID: 6267151148375787354}
   curQuestionIndex: 0
+  firstChoiceAnswer: 
+  isSolvingQuestion: 0
+  questionSolveTime: 0
   wj_displayText: {fileID: 6267151148072365780}
   getLearningButton: {fileID: 6267151147349130735}
 --- !u!4 &7725118857010651484
