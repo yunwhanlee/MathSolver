@@ -5,6 +5,7 @@ using UnityEngine;
 public class Util : MonoBehaviour
 {
     public static readonly Util _;
+    public static WaitForSeconds time0_01 = new WaitForSeconds(0.01f);
     public static WaitForSeconds time0_025 = new WaitForSeconds(0.025f);
     public static WaitForSeconds time0_05 = new WaitForSeconds(0.05f);
     public static WaitForSeconds time0_1 = new WaitForSeconds(0.1f);

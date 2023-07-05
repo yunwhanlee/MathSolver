@@ -115,6 +115,7 @@ public class GM : MonoBehaviour {
     void Update() {
         //* TEST : QuizPanel -> Result Panel
         if(Input.GetKeyDown(KeyCode.Space)) {
+            StartCoroutine(coSetResultPanelReward());
             StartCoroutine(coSetResultPanelObj());
         }
     }
@@ -122,6 +123,22 @@ public class GM : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    IEnumerator coSetResultPanelReward() {
+        bool isExpUP = true;
+        bool isCoinUP = true;
+        int expVal = 0;
+        int coinVal = 0;
+
+        while(isExpUP || isCoinUP) {
+            if(expVal < rewardExp) GM._.gui.ExpTxt.text = $"+{++expVal}";
+            else    isExpUP = false;
+
+            if(coinVal < rewardCoin) GM._.gui.CoinTxt.text = $"+{++coinVal}";
+            else    isCoinUP = false;
+
+            yield return Util.time0_01;
+        }
+    }
     IEnumerator coSetResultPanelObj() {
         bool isIncreasing = false;
 
@@ -165,7 +182,6 @@ public class GM : MonoBehaviour {
                 pet.TgPos = new Vector2(RESULT_PANEL_PET_DANCE_POS_X, resPetSpot.position.y);
                 isIncreasing = false;
             }
-
         }
 
     }

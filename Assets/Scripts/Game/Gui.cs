@@ -17,9 +17,12 @@ public class GUI : MonoBehaviour
     [Header("PANEL")] 
     [SerializeField] GameObject quizPanel;  public GameObject QuizPanel {get => quizPanel; set => quizPanel = value;}
     [SerializeField] GameObject resultPanel;  public GameObject ResultPanel {get => resultPanel; set => resultPanel = value;}
-
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
+
+    [Header("RESULT PANEL")] 
+    [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
+    [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
 
     [Header("CANVAS ANIM")] 
     [SerializeField] GameObject blackPanel;
@@ -47,16 +50,7 @@ public class GUI : MonoBehaviour
     public void onclickBtnBackToHome() {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
-    // public IEnumerator coShowStageTxt(int curQuestionIndex) {
-    //     int stageNum = curQuestionIndex + 1;
-    //     GM._.qm.StageTxt.text = $"STAGE {stageNum} / 8";
-    //     GM._.qm.StageTxt.gameObject.SetActive(true);
-        
-    //     yield return new WaitForSeconds(1.3f);
-    //     GM._.qm.StageTxt.gameObject.SetActive(false);
-    // }
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
-        // GM._.CustomerAnim.SetTrigger(Enum.ANIM.DoBounce.ToString());
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
         
         //* TEXTDraw 分析
