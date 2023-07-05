@@ -154,7 +154,6 @@ public class QuizManager : MonoBehaviour {
     }
 
     IEnumerator coMakeQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
-        const string TEXTDRAW_FONT = "\\opens";
         string correctAnswer;
         string[] wrongAnswers;
 
@@ -195,6 +194,15 @@ public class QuizManager : MonoBehaviour {
     //* 답을 고르고 맞았는 지 체크
     /// </summary>
     IEnumerator SelectAnswer(int idx) {
+        if(GM._.IsCreatingQuizObj) {
+            Debug.Log($"SelectAnswer(idx= {idx}):: まだオブジェクトを生成しています。 ➝ GM._.IsWorkingQuizObj= {GM._.IsCreatingQuizObj}");
+            yield break;
+        }
+        if(GM._.IsSelectCorrectAnswer) {
+            Debug.Log($"SelectAnswer(idx= {idx}):: 正解なので他のボタン選択できないように。 ➝ GM._.IsSelectCorrectAnswer= {GM._.IsSelectCorrectAnswer}");
+            yield break;
+        }
+
         bool isCorrect = false;
         string ansrCwYn = "N";
 
@@ -270,6 +278,8 @@ public class QuizManager : MonoBehaviour {
         Array.ForEach(answerBtn, btn => btn.GetComponent<Image>().color = Color.white);
     }
     public IEnumerator coSuccessAnswer(int idx) {
+        GM._.IsSelectCorrectAnswer = true;
+
         //* 演算子によって登録した関数 コールバック
         if(GM._.OnAnswerObjAction != null) {
             GM._.OnAnswerObjAction();

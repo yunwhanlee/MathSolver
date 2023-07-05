@@ -30,6 +30,8 @@ public class GM : MonoBehaviour {
     [SerializeField] UnityAction<int> onAnswerBoxAction;  public UnityAction<int> OnAnswerBoxAction {get => onAnswerBoxAction; set => onAnswerBoxAction = value;}
 
     [Header("VALUE")]
+    [SerializeField] bool isCreatingQuizObj;    public bool IsCreatingQuizObj {get => isCreatingQuizObj; set => isCreatingQuizObj = value;}
+    [SerializeField] bool isSelectCorrectAnswer;    public bool IsSelectCorrectAnswer {get => isSelectCorrectAnswer; set => isSelectCorrectAnswer = value;}
     [SerializeField] int rewardExp;     public int RewardExp {get => rewardExp; set => rewardExp = value;}
     [SerializeField] int rewardCoin;    public int RewardCoin {get => rewardCoin; set => rewardCoin = value;}
 
@@ -255,6 +257,8 @@ public class GM : MonoBehaviour {
                 yield return Util.time0_05;
             }
         }
+
+        GM._.IsCreatingQuizObj = false;
     }
 
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
@@ -431,7 +435,7 @@ public class GM : MonoBehaviour {
     }
 
     private IEnumerator coUpdateCloudMoving() {
-        float moveSpeed = 0.15f * Time.deltaTime;
+        float moveSpeed = 0.25f * Time.deltaTime;
         while(true) {
             //* Cloud1
             if(cloud1.transform.position.x <= 7)

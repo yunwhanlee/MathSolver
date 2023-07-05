@@ -52,12 +52,16 @@ public class GUI : MonoBehaviour
     }
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
+
+        //* Init Trigger
+        GM._.IsCreatingQuizObj = true;
+        GM._.IsSelectCorrectAnswer = false;
         
         //* TEXTDraw 分析
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
 
         //* ストーリーテリング・オブジェクト生成
-        GM._.qm.QuizTxt.text = GM._.qstSO.makeQuizSentence(analList);
+        GM._.qm.QuizTxt.text = GM._.qstSO.makeQuiz(analList);
 
         //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt);

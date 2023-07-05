@@ -33,7 +33,7 @@ public class QuestionSO : ScriptableObject {
         foreach(Transform obj in GM._.ObjGroupTf)
             Destroy(obj.gameObject);
     }
-    public string makeQuizSentence(List<string> analList) {
+    public string makeQuiz(List<string> analList) {
         List<string> leftSideList = new List<string>(); //* 左辺
         List<string> rightSideList = new List<string>(); //* 右辺
         string lOpr = null; //* 左演算子
