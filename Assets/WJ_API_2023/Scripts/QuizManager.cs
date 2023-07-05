@@ -34,6 +34,7 @@ public class QuizManager : MonoBehaviour {
 
     [Header("STATUS")]
     [SerializeField] int curQuestionIndex;
+    [SerializeField] string firstChoiceAnswer;  // 最初選択の答え 保存 (오답시 다시 기회제공으로 인한, 결과오류에 대응)
     //* 経過時間 カウントトリガー
     [SerializeField] bool isSolvingQuestion; public bool IsSolvingQuestion {get => isSolvingQuestion; set => isSolvingQuestion = value;}
     //* 経過時間
@@ -81,7 +82,6 @@ public class QuizManager : MonoBehaviour {
 #region MAIN FUNC
 //-------------------------------------------------------------------------------------------------------------
     private void Setup() { //* #1
-        
         switch (status) {
             case Status.WAITING:
                 //* 診断評価パンネル 表示
@@ -145,6 +145,7 @@ public class QuizManager : MonoBehaviour {
         if(curQuestionIndex != 0) GM._.Anm.setRandomSprLibAsset();
 
         //* 処理
+        firstChoiceAnswer = null;
         diagChooseDiffPanel.SetActive(false);
         interactableAnswerBtns(false);
         yield return coShowStageTxt();
@@ -207,7 +208,6 @@ public class QuizManager : MonoBehaviour {
             Debug.Log($"SelectAnswer(idx= {idx}):: 正解なので他のボタン選択できないように。 ➝ GM._.IsSelectCorrectAnswer= {GM._.IsSelectCorrectAnswer}");
             yield break;
         }
-        Debug.Log("SelectAnswer:: Click");
 
         bool isCorrect = false;
         string ansrCwYn = "N";
@@ -216,8 +216,13 @@ public class QuizManager : MonoBehaviour {
             case Status.DIAGNOSIS:
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
+
+                //* 最初選択の答え 保存
+                setFirstChoiceAnswer(ref ansrCwYn);
+
                 isSolvingQuestion = false; //* 経過時間　カウント STOP
                 Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
+
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
                     yield return coSuccessAnswer(idx);
@@ -240,8 +245,13 @@ public class QuizManager : MonoBehaviour {
             case Status.LEARNING:
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
+
+                //* 最初選択の答え 保存
+                setFirstChoiceAnswer(ref ansrCwYn);
+
                 isSolvingQuestion = false; //* 経過時間　カウント STOP
                 Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
+
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
                     yield return coSuccessAnswer(idx);
@@ -278,6 +288,10 @@ public class QuizManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    private void setFirstChoiceAnswer(ref string answerResult) {
+        if(firstChoiceAnswer == null) firstChoiceAnswer = answerResult;
+        else answerResult = firstChoiceAnswer;
+    }
     private void initBtnColor() {
         Array.ForEach(answerBtn, btn => btn.GetComponent<Image>().color = Color.white);
     }
