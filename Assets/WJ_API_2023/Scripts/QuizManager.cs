@@ -29,7 +29,7 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
-    [SerializeField] Button[] answerBtn = new Button[BTN_CNT];  // 정답 버튼들
+    [SerializeField] Button[] answerBtn = new Button[BTN_CNT]; public Button[] AnswerBtn {get => answerBtn;}  // 정답 버튼들
     TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
     [Header("STATUS")]
@@ -139,6 +139,7 @@ public class QuizManager : MonoBehaviour {
 
         //* 処理
         diagChooseDiffPanel.SetActive(false);
+        interactableAnswerBtns(false);
         yield return coShowStageTxt();
         yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
         yield return GM._.gui.coShowQuestion(qstEquation);
@@ -194,14 +195,11 @@ public class QuizManager : MonoBehaviour {
     //* 답을 고르고 맞았는 지 체크
     /// </summary>
     IEnumerator SelectAnswer(int idx) {
-        if(GM._.IsCreatingQuizObj) {
-            Debug.Log($"SelectAnswer(idx= {idx}):: まだオブジェクトを生成しています。 ➝ GM._.IsWorkingQuizObj= {GM._.IsCreatingQuizObj}");
-            yield break;
-        }
         if(GM._.IsSelectCorrectAnswer) {
             Debug.Log($"SelectAnswer(idx= {idx}):: 正解なので他のボタン選択できないように。 ➝ GM._.IsSelectCorrectAnswer= {GM._.IsSelectCorrectAnswer}");
             yield break;
         }
+        Debug.Log("SelectAnswer:: Click");
 
         bool isCorrect = false;
         string ansrCwYn = "N";
@@ -276,6 +274,9 @@ public class QuizManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
     private void initBtnColor() {
         Array.ForEach(answerBtn, btn => btn.GetComponent<Image>().color = Color.white);
+    }
+    public void interactableAnswerBtns(bool isActive) {
+        Array.ForEach(answerBtn, btn => btn.interactable = isActive);
     }
     public IEnumerator coSuccessAnswer(int idx) {
         GM._.IsSelectCorrectAnswer = true;

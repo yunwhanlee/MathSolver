@@ -2310,6 +2310,7 @@ MonoBehaviour:
   canvasAnim: {fileID: 2034158242}
   switchScreenAnim: {fileID: 663995367}
   sceneSpawnBGAnim: {fileID: 1704503074}
+  isCreatingQuizObjTxt: {fileID: 0}
 --- !u!1 &638075488
 GameObject:
   m_ObjectHideFlags: 0
@@ -15408,9 +15409,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gui: {fileID: 629848387}
-  gem: {fileID: 0}
+  gem: {fileID: 1217411604}
   qm: {fileID: 7725118857010651482}
   qstSO: {fileID: 11400000, guid: afbdccddc9455de4f887a2c621278da2, type: 2}
+  isSelectCorrectAnswer: 0
   rewardExp: 0
   rewardCoin: 0
   worldSpaceQuizGroup: {fileID: 413317057}

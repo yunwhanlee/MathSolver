@@ -30,6 +30,9 @@ public class GUI : MonoBehaviour
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
     [SerializeField] GameObject sceneSpawnBGAnim;
 
+    [Header("DEBUG")] 
+    [SerializeField] TextMeshProUGUI isCreatingQuizObjTxt;
+
     IEnumerator Start() {
         txtTeleType = GetComponent<TextTeleType>();
 
@@ -44,6 +47,10 @@ public class GUI : MonoBehaviour
         sceneSpawnBGAnim.SetActive(true);
     }
 
+    void Update() {
+        // isCreatingQuizObjTxt.text = $"isCreatingQuizObjTxt: {(GM._.IsCreatingQuizObj? "<color=red>T</color>" : "<color=blue>F</color>")}";
+    }
+
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
@@ -54,7 +61,7 @@ public class GUI : MonoBehaviour
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
 
         //* Init Trigger
-        GM._.IsCreatingQuizObj = true;
+        // GM._.IsCreatingQuizObj = true;
         GM._.IsSelectCorrectAnswer = false;
         
         //* TEXTDraw 分析

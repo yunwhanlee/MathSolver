@@ -30,7 +30,6 @@ public class GM : MonoBehaviour {
     [SerializeField] UnityAction<int> onAnswerBoxAction;  public UnityAction<int> OnAnswerBoxAction {get => onAnswerBoxAction; set => onAnswerBoxAction = value;}
 
     [Header("VALUE")]
-    [SerializeField] bool isCreatingQuizObj;    public bool IsCreatingQuizObj {get => isCreatingQuizObj; set => isCreatingQuizObj = value;}
     [SerializeField] bool isSelectCorrectAnswer;    public bool IsSelectCorrectAnswer {get => isSelectCorrectAnswer; set => isSelectCorrectAnswer = value;}
     [SerializeField] int rewardExp;     public int RewardExp {get => rewardExp; set => rewardExp = value;}
     [SerializeField] int rewardCoin;    public int RewardCoin {get => rewardCoin; set => rewardCoin = value;}
@@ -238,7 +237,11 @@ public class GM : MonoBehaviour {
         StartCoroutine(coGreatestCommonDivisorObj(objName, befNum, gcd, posX));
     }
 
-    private IEnumerator coCreateObj(string objName, int num, float posX) {
+    /// <summary>
+    ///* オブジェクト 生成
+    /// </summary>
+    /// <param name="isFinish">オブジェクト生成終了</param>
+    private IEnumerator coCreateObj(string objName, int num, float posX, bool isFinish = true) {
         int boxCnt = num / BOX_S_MAX;
         for(int i = 0; i < num; i++) {
             Debug.Log($"coCreateObj:: i= {i}, num = {num}");
@@ -257,22 +260,28 @@ public class GM : MonoBehaviour {
                 yield return Util.time0_05;
             }
         }
-
-        GM._.IsCreatingQuizObj = false;
+        //* 次にオブジェクト生成がなかったら、選択ボタン 表示
+        if(isFinish) {
+            yield return Util.time1;
+            GM._.qm.interactableAnswerBtns(true);
+        }
     }
 
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
-        yield return coCreateObj(objName, num, posX);
+        //! (BUG) coCreateObj()で「？BOX 」が出る前に「Answerボタン」が活性化になる
+        yield return coCreateObj(objName, num, posX, isFinish: false);
         yield return Util.time0_3;
 
         //* 「?」Box
         BoxObj box = instBox(objName, posX);
-        yield return Util.time0_3;
+        // yield return Util.time0_3;
         box.ValueTxt.text = "?";
         box.ValueTxt.color = Color.magenta;
         box.ValueTxt.fontStyle = FontStyles.Bold;
-    }
 
+        yield return Util.time1;
+        GM._.qm.interactableAnswerBtns(true);
+    }
 
     private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {
         Debug.Log($"coCreateExtraOprBox(opr= {opr}, objName= {objName}, num= {num}, posX= {posX})::");
