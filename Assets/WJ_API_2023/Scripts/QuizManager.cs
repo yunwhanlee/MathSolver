@@ -333,13 +333,11 @@ public class QuizManager : MonoBehaviour {
     public IEnumerator coFailAnswer(int idx) {
         answerBtn[idx].GetComponent<Image>().color = Color.red;
         GM._.charaAnimByAnswer(isCorret: false);
-
         hintFrame.SetActive(true);
-        // questionPanel.SetActive(false);
-        yield return new WaitForSeconds(1.2f);
+        interactableAnswerBtns(false);
 
-        //* Retry With Hint
-        // questionPanel.SetActive(true);
+        yield return Util.time0_5;
+        interactableAnswerBtns(true);
     }
 
 #endregion
