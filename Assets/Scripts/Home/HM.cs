@@ -18,9 +18,6 @@ public class HM : MonoBehaviour {
     public InventoryUIManager iUI;
     public HEM em;
 
-    [Header("GROUP")]
-    [SerializeField] Transform effectGroup;   public Transform EffectGroup {get => effectGroup; set => effectGroup = value;}
-
     [Header("MATERIAL")]
     public Material sprUnlitMt;
     public Material outlineAnimMt;

@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using TMPro; 
 
-public class HEM : MonoBehaviour { //* Home Effect Manager
+public class GEM : MonoBehaviour { //* Game Effect Manager
     public enum IDX {
-        FunitureSetupEF,
+        DropItemTxtEF, //! 順番合わせること
     };
     [SerializeField] Transform effectGroup;
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
 
     [Header("CREATE TYPE")]
-    [SerializeField] GameObject funitureSetupEF;      public GameObject FunitureSetupEF {get => funitureSetupEF; set => funitureSetupEF = value;}
+    [SerializeField] GameObject dropItemTxtEF;      public GameObject DropItemTxtEF {get => dropItemTxtEF; set => dropItemTxtEF = value;}
 
     // [Header("ACTIVE TYPE")]
     //
 
     void Awake() {
-        pool.Add(initEF(funitureSetupEF, max: 2));
+        pool.Add(initEF(dropItemTxtEF, max: 5)); //! 順番合わせること
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region OBJECT POOL
@@ -44,8 +45,23 @@ public class HEM : MonoBehaviour { //* Home Effect Manager
         GameObject effect = pool[idx].Get();
         Debug.Log($"coShowEF(idx={idx}, pos={position}):: -> {effect.name}");
         effect.transform.position = position;
+
         yield return delay;
         pool[idx].Release(effect);
+    }
+
+    public void showDropItemTxtEF(int val, Vector3 pos, Color clr)
+        => StartCoroutine(coShowDropItemTxtEF(val, pos, clr));
+    private IEnumerator coShowDropItemTxtEF(int val, Vector3 position, Color clr){
+        GameObject effect = pool[(int)IDX.DropItemTxtEF].Get();
+        effect.transform.position = position;
+
+        TextMeshPro txtObj = effect.GetComponentInChildren<TextMeshPro>();
+        txtObj.text = $"+{val}";
+        txtObj.color = clr;
+
+        yield return Util.time1;
+        pool[(int)IDX.DropItemTxtEF].Release(effect);
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------

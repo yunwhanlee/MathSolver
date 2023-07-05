@@ -11,7 +11,6 @@ using Random = UnityEngine.Random;
 public enum Status { WAITING, DIAGNOSIS, LEARNING }
 public class QuizManager : MonoBehaviour {
     const int BTN_CNT = 3;
-
     [SerializeField] WJ_Connector wj_connector;
     [SerializeField] Status status;  public Status Status => status;
 
@@ -233,7 +232,6 @@ public class QuizManager : MonoBehaviour {
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
                     yield return coSuccessAnswer(idx);
-                    
                 }
                 else { // 誤答
                     yield return coFailAnswer(idx);
@@ -285,6 +283,19 @@ public class QuizManager : MonoBehaviour {
             GM._.OnAnswerBoxAction = null;
         }
 
+        //* リワード
+        const int OFFSET_Y = 2;
+        var plPos = GM._.Pl.transform.position;
+        int exp = 10;
+        int coin = 100;
+        Vector2 pos1 = new Vector2(plPos.x, plPos.y + OFFSET_Y);
+        Vector2 pos2 = new Vector2(plPos.x, plPos.y + OFFSET_Y + 0.325f);
+        GM._.RewardExp += exp;
+        GM._.gem.showDropItemTxtEF(exp, pos1, Color.green);
+        GM._.RewardCoin += coin;
+        GM._.gem.showDropItemTxtEF(coin, pos2, Color.yellow);
+
+        //* 答え
         answerBtn[idx].GetComponent<Image>().color = Color.yellow;
         GM._.charaAnimByAnswer(isCorret: true);
 

@@ -10,7 +10,15 @@ using System;
 //* -----------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Data {
-    //* Value
+    [Header("VALUE")]
+    [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
+    [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
+    [SerializeField] int exp; public int Exp {get => exp; set => exp = value;}
+    [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
+    [SerializeField] int petId; public int PetId {get => petId; set => petId = value;}
+    [SerializeField] int bestScore; public int BestScore {get => bestScore; set => bestScore = value;}
+    [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
+
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
     [Header("FUNITURE ITEM")]
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
@@ -22,12 +30,6 @@ public class Data {
     [SerializeField] PlayerSkin[] plSkins;    public PlayerSkin[] PlSkins {get => plSkins; set => plSkins = value;}
     [SerializeField] PetSkin[] petSkins;   public PetSkin[] PtSkins {get => petSkins; set => petSkins = value;}
 
-    [Header("VALUE")]
-    [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
-    [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
-    [SerializeField] int petId; public int PetId {get => petId; set => petId = value;}
-    [SerializeField] int bestScore; public int BestScore {get => bestScore; set => bestScore = value;}
-    [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
 
     public void setCoin(int value) {
         coin += value;
@@ -120,13 +122,17 @@ public class DB : MonoBehaviour {
     public void reset() {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
+        //* 財貨
+        dt.Lv = 1;
+        dt.Coin = 50000;
+        dt.Exp = 0;
+
         //* 選択したキャラ
         dt.PlayerId = 0;
         dt.PetId = 0;
         dt.GachaCnt = 1;
 
-        //* 財貨
-        dt.Coin = 50000;
+
 
         #region FUNITURE
         //* ロック

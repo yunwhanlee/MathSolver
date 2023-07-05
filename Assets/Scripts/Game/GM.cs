@@ -20,14 +20,20 @@ public class GM : MonoBehaviour {
 
 
     public static GM _;
-    public GUI gui;
+    public GUI gui; // Game UI Manager
+    public GEM gem; // Game Effect Manager
     public QuizManager qm;
     public QuestionSO qstSO;
 
+    [Header("ACTION")]
     [SerializeField] UnityAction onAnswerObjAction; public UnityAction OnAnswerObjAction {get => onAnswerObjAction; set => onAnswerObjAction = value;}
     [SerializeField] UnityAction<int> onAnswerBoxAction;  public UnityAction<int> OnAnswerBoxAction {get => onAnswerBoxAction; set => onAnswerBoxAction = value;}
 
-    [Header("Spot")]
+    [Header("VALUE")]
+    [SerializeField] int rewardExp;     public int RewardExp {get => rewardExp; set => rewardExp = value;}
+    [SerializeField] int rewardCoin;    public int RewardCoin {get => rewardCoin; set => rewardCoin = value;}
+
+    [Header("WORLD SPACE")]
     [SerializeField] GameObject worldSpaceQuizGroup;
     [SerializeField] GameObject worldSpaceResultGroup;
 
@@ -36,8 +42,8 @@ public class GM : MonoBehaviour {
     [SerializeField] Transform petSpot;
     [SerializeField] Transform resPlSpot;
     [SerializeField] Transform resPetSpot;
-
-    [Header("Animal")]
+    
+    [Header("ANIMAL")]
     [SerializeField] Animal anm; public Animal Anm {get => anm;}
     [Header("LOAD OBJECT FROM HOME")]
     [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;}
@@ -66,6 +72,7 @@ public class GM : MonoBehaviour {
     void Awake() {
         _ = this;
         gui = FindObjectOfType<GUI>();
+        gem = FindObjectOfType<GEM>();
         qm = FindObjectOfType<QuizManager>();
 
         //* Anim
@@ -73,6 +80,8 @@ public class GM : MonoBehaviour {
     }
 
     void Start() {
+        rewardExp = 0;
+        rewardCoin = 0;
         
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());

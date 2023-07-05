@@ -8871,7 +8871,6 @@ MonoBehaviour:
   fUI: {fileID: 1144530824}
   iUI: {fileID: 441989977}
   em: {fileID: 1431391150}
-  effectGroup: {fileID: 2105312514}
   sprUnlitMt: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   outlineAnimMt: {fileID: 2100000, guid: db37f9e7df5ad2348acdaffb2613eed9, type: 2}
   outlineMt: {fileID: 2100000, guid: f191696a5dd15894fa3691b2df5a4933, type: 2}
@@ -30017,6 +30016,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReset: 0
   dt:
+    lv: 0
+    coin: 0
+    exp: 0
+    playerId: 0
+    petId: 0
+    bestScore: 0
+    gachaCnt: 0
     funitures:
     - name: Wood Chair
       spr: {fileID: 0}
@@ -30477,11 +30483,6 @@ MonoBehaviour:
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: d28f7c135bee45349bd9818407074b1f, type: 3}
-    coin: 0
-    playerId: 0
-    petId: 0
-    bestScore: 0
-    gachaCnt: 0
 --- !u!1 &1108621733
 GameObject:
   m_ObjectHideFlags: 0
@@ -38022,6 +38023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a686183c604669e44ae841c1b70aebba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectGroup: {fileID: 2105312514}
   funitureSetupEF: {fileID: 699203328075578431, guid: ff109beb2e725ac499ec2098e4c47164, type: 3}
 --- !u!1 &1434831544
 GameObject:
