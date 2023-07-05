@@ -83,7 +83,7 @@ public class GM : MonoBehaviour {
     void Start() {
         rewardExp = 0;
         rewardCoin = 0;
-        
+
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
 
@@ -151,19 +151,24 @@ public class GM : MonoBehaviour {
         worldSpaceResultGroup.SetActive(true);
         gui.ResultPanel.SetActive(true);
 
+        //* Player Move To TargetPos
         pl.transform.SetParent(resPlSpot);
         pl.transform.position = new Vector2(resPlSpot.position.x - RESULT_PANEL_START_DIST, resPlSpot.position.y);
         pl.TgPos = resPlSpot.position;
+
+        //* Pet Move To TargetPos
         pet.transform.SetParent(resPetSpot);
         pet.transform.position = new Vector2(resPetSpot.position.x + RESULT_PANEL_START_DIST, resPetSpot.position.y);
         pet.TgPos = resPetSpot.position;
 
+        //* Anim
         yield return Util.time1;
         pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
         StartCoroutine(Util.coPlayBounceAnim(pl.transform));
         pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
         StartCoroutine(Util.coPlayBounceAnim(pet.transform));
 
+        //* Anim Repeat
         while(true) {
             if(!isIncreasing) {
                 yield return Util.time2; yield return Util.time1;
@@ -184,8 +189,8 @@ public class GM : MonoBehaviour {
                 isIncreasing = false;
             }
         }
-
     }
+
     public Sprite getObjSprite(string name) {
         Sprite res = null;
         var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
@@ -264,6 +269,7 @@ public class GM : MonoBehaviour {
         if(isFinish) {
             yield return Util.time1;
             GM._.qm.interactableAnswerBtns(true);
+            GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
         }
     }
 
@@ -281,6 +287,7 @@ public class GM : MonoBehaviour {
 
         yield return Util.time1;
         GM._.qm.interactableAnswerBtns(true);
+        GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
     }
 
     private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {

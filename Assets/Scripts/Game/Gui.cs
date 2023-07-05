@@ -61,7 +61,6 @@ public class GUI : MonoBehaviour
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
 
         //* Init Trigger
-        // GM._.IsCreatingQuizObj = true;
         GM._.IsSelectCorrectAnswer = false;
         
         //* TEXTDraw 分析

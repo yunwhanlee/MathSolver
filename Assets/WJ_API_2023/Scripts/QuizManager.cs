@@ -34,8 +34,10 @@ public class QuizManager : MonoBehaviour {
 
     [Header("STATUS")]
     [SerializeField] int curQuestionIndex;
-    bool isSolvingQuestion;
-    float questionSolveTime;
+    //* 経過時間 カウントトリガー
+    [SerializeField] bool isSolvingQuestion; public bool IsSolvingQuestion {get => isSolvingQuestion; set => isSolvingQuestion = value;}
+    //* 経過時間
+    [SerializeField] float questionSolveTime; 
 
     [Header("DEBUG")]
     [SerializeField] WJ_DisplayText wj_displayText; // 텍스트 표시용(필수X)
@@ -45,8 +47,8 @@ public class QuizManager : MonoBehaviour {
         //* Init
         diagChooseDiffPanel.SetActive(false);
         questionPanel.SetActive(false);
-
         answerBtnTxtDraw = new TEXDraw[answerBtn.Length];
+
         for (int i = 0; i < answerBtn.Length; ++i)
             answerBtnTxtDraw[i] = answerBtn[i].GetComponentInChildren<TEXDraw>();
 
@@ -56,15 +58,17 @@ public class QuizManager : MonoBehaviour {
     void OnEnable() => Setup();
 
     void Update() {
+        //* 問題 経過時間 カウント
         if (isSolvingQuestion) questionSolveTime += Time.deltaTime;
     }
 //-------------------------------------------------------------------------------------------------------------
 #region EVENT BUTTON
 //-------------------------------------------------------------------------------------------------------------
-    public void onClickDiagChooseDifficultyBtn(int diffLevel) {
+    public void onClickDiagChooseDifficultyBtn(int diffLevel) { //* #2
+        //* 選択レベルの診断評価 スタート
         Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
         status = Status.DIAGNOSIS;
-        wj_connector.FirstRun_Diagnosis(diffLevel);
+        wj_connector.FirstRun_Diagnosis(diffLevel); //* サーバから通信し、GetDiagnosis()呼び出す
     }
     public void onClickGetLearningBtn() {
         Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
@@ -76,13 +80,16 @@ public class QuizManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region MAIN FUNC
 //-------------------------------------------------------------------------------------------------------------
-    private void Setup() {
+    private void Setup() { //* #1
+        
         switch (status) {
             case Status.WAITING:
+                //* 診断評価パンネル 表示
                 diagChooseDiffPanel.SetActive(true);
                 break;
         }
 
+        //* 診断評価 と 学習メソッド コールバック 登録
         if (wj_connector) {
             wj_connector.onGetDiagnosis.AddListener(() => GetDiagnosis());
             wj_connector.onGetLearning.AddListener(() => GetLearning(0));
@@ -164,10 +171,11 @@ public class QuizManager : MonoBehaviour {
         questionDescriptionTxt.text = title;
         questionEquationTxtDraw.text = qstEquation;
 
+        //* Set Answerボタン
         correctAnswer = qstCorrectAnswer;
         wrongAnswers = qstWrongAnswers.Split(',');
 
-        int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, BTN_CNT-1) + 1;
+        int ansrCount = Mathf.Clamp(wrongAnswers.Length, 0, BTN_CNT - 1) + 1;
 
         for(int i=0; i<answerBtn.Length; i++) {
             if (i < ansrCount)
@@ -186,7 +194,7 @@ public class QuizManager : MonoBehaviour {
             else
                 answerBtnTxtDraw[i].text = wrongAnswers[q];
         }
-        isSolvingQuestion = true;
+        // isSolvingQuestion = true; //* 経過時間 カウント ON
         
         yield return null;
     }
@@ -208,7 +216,7 @@ public class QuizManager : MonoBehaviour {
             case Status.DIAGNOSIS:
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
-
+                isSolvingQuestion = false; //* 経過時間　カウント STOP
                 Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
@@ -219,7 +227,6 @@ public class QuizManager : MonoBehaviour {
                     break; //TODO もう一回 チャレンジ　システム構築
                 } 
 
-                isSolvingQuestion = false;
                 curQuestionIndex++;
 
                 wj_connector.Diagnosis_SelectAnswer(answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
@@ -233,7 +240,7 @@ public class QuizManager : MonoBehaviour {
             case Status.LEARNING:
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
-
+                isSolvingQuestion = false; //* 経過時間　カウント STOP
                 Debug.Log($"QuizManager:: SelectAnswer({idx}):: status= {status}, isCorrect= {isCorrect}");
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
@@ -244,7 +251,6 @@ public class QuizManager : MonoBehaviour {
                     break; //TODO もう一回 チャレンジ　システム構築
                 }  
 
-                isSolvingQuestion = false;
                 curQuestionIndex++;
 
                 wj_connector.Learning_SelectAnswer(curQuestionIndex, answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
