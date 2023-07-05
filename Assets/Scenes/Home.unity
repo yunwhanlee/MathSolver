@@ -1807,7 +1807,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Sprite: {fileID: -1657514473, guid: 702bb1d81f7d411449b26e4ebf3dae77, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1838,6 +1838,7 @@ MonoBehaviour:
   isChasePlayer: 1
   shadowSr: {fileID: 50844847}
   moveSpeed: 1.5
+  tgPos: {x: 0, y: 0}
 --- !u!95 &64751381
 Animator:
   serializedVersion: 5
@@ -30014,7 +30015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 1
+  isReset: 0
   dt:
     funitures:
     - name: Wood Chair

@@ -15,6 +15,8 @@ public class GM : MonoBehaviour {
     const float OBJ_RAND_RANGE_X = 0.2f;
     const float BOX_SPAWN_Y = 6.0f;
     const float OBJ_SPAWN_Y = 4.0f;
+    const float RESULT_PANEL_START_DIST = 3.0f;
+    const float RESULT_PANEL_PET_DANCE_POS_X = 1.75f;
 
 
     public static GM _;
@@ -26,8 +28,14 @@ public class GM : MonoBehaviour {
     [SerializeField] UnityAction<int> onAnswerBoxAction;  public UnityAction<int> OnAnswerBoxAction {get => onAnswerBoxAction; set => onAnswerBoxAction = value;}
 
     [Header("Spot")]
+    [SerializeField] GameObject worldSpaceQuizGroup;
+    [SerializeField] GameObject worldSpaceResultGroup;
+
+    [Header("Spot")]
     [SerializeField] Transform plSpot;
     [SerializeField] Transform petSpot;
+    [SerializeField] Transform resPlSpot;
+    [SerializeField] Transform resPetSpot;
 
     [Header("Animal")]
     [SerializeField] Animal anm; public Animal Anm {get => anm;}
@@ -95,9 +103,63 @@ public class GM : MonoBehaviour {
         }
     }
 
+    void Update() {
+        //* TEST : QuizPanel -> Result Panel
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            StartCoroutine(coSetResultPanelObj());
+        }
+    }
+
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    IEnumerator coSetResultPanelObj() {
+        bool isIncreasing = false;
+
+        //* Off
+        worldSpaceQuizGroup.SetActive(false);
+        gui.QuizPanel.SetActive(false);
+
+        //* On
+        worldSpaceResultGroup.SetActive(true);
+        gui.ResultPanel.SetActive(true);
+
+        pl.transform.SetParent(resPlSpot);
+        pl.transform.position = new Vector2(resPlSpot.position.x - RESULT_PANEL_START_DIST, resPlSpot.position.y);
+        pl.TgPos = resPlSpot.position;
+        pet.transform.SetParent(resPetSpot);
+        pet.transform.position = new Vector2(resPetSpot.position.x + RESULT_PANEL_START_DIST, resPetSpot.position.y);
+        pet.TgPos = resPetSpot.position;
+
+        yield return Util.time1;
+        pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
+        StartCoroutine(Util.coPlayBounceAnim(pl.transform));
+        pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
+        StartCoroutine(Util.coPlayBounceAnim(pet.transform));
+
+        while(true) {
+            if(!isIncreasing) {
+                yield return Util.time2; yield return Util.time1;
+                pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
+                StartCoroutine(Util.coPlayBounceAnim(pl.transform));
+                
+                pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
+                pet.TgPos = new Vector2(-RESULT_PANEL_PET_DANCE_POS_X, resPetSpot.position.y);
+                isIncreasing = true;
+            }
+            else {
+                yield return Util.time2; yield return Util.time1;
+                pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
+                StartCoroutine(Util.coPlayBounceAnim(pl.transform));
+
+                pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
+                pet.TgPos = new Vector2(RESULT_PANEL_PET_DANCE_POS_X, resPetSpot.position.y);
+                isIncreasing = false;
+            }
+
+        }
+
+    }
     public Sprite getObjSprite(string name) {
         Sprite res = null;
         var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));

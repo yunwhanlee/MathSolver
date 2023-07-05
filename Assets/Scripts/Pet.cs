@@ -22,10 +22,10 @@ public class Pet : MonoBehaviour {
     [SerializeField] bool isChasePlayer = true;    public bool IsChasePlayer {get => isChasePlayer; set => isChasePlayer = value;}
     [SerializeField] SpriteRenderer shadowSr;
     [SerializeField] float moveSpeed;
+    [SerializeField] Vector2 tgPos;  public Vector2 TgPos {get => tgPos; set => tgPos = value;}
 
     Transform tf;
     Transform plTf;
-    Vector2 tgPos;  public Vector2 TgPos {get => tgPos; set => tgPos = value;}
 
     void Start() {
         tf = transform;

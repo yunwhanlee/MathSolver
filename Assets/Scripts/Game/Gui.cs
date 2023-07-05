@@ -14,6 +14,10 @@ public class GUI : MonoBehaviour
     IEnumerator coTxtTeleTypeID;
     TextTeleType txtTeleType;
 
+    [Header("PANEL")] 
+    [SerializeField] GameObject quizPanel;  public GameObject QuizPanel {get => quizPanel; set => quizPanel = value;}
+    [SerializeField] GameObject resultPanel;  public GameObject ResultPanel {get => resultPanel; set => resultPanel = value;}
+
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
 
