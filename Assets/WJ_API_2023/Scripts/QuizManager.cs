@@ -10,7 +10,12 @@ using Random = UnityEngine.Random;
 
 public enum Status { WAITING, DIAGNOSIS, LEARNING }
 public class QuizManager : MonoBehaviour {
+    const int QUIZ_CNT = 8;
     const int BTN_CNT = 3;
+    const int EXP_RWD_UNIT = 10;
+    const int COIN_RWD_UNIT = 100;
+    const float RETRY_PANELTY_PER = 0.1f;
+
     [SerializeField] WJ_Connector wj_connector;
     [SerializeField] Status status;  public Status Status => status;
 
@@ -34,11 +39,14 @@ public class QuizManager : MonoBehaviour {
 
     [Header("STATUS")]
     [SerializeField] int curQuestionIndex;
-    [SerializeField] string firstChoiceAnswer;  // 最初選択の答え 保存 (오답시 다시 기회제공으로 인한, 결과오류에 대응)
+
+    //* 最初選択の答え 保存 (오답시 다시 기회제공으로 인한, 결과오류에 대응)
+    [SerializeField] string firstChoiceAnswer;   
     //* 経過時間 カウントトリガー
     [SerializeField] bool isSolvingQuestion; public bool IsSolvingQuestion {get => isSolvingQuestion; set => isSolvingQuestion = value;}
     //* 経過時間
-    [SerializeField] float questionSolveTime; 
+    [SerializeField] float questionSolveTime;
+    [SerializeField] string[] quizAnswerResultArr;  public string[] QuizAnswerResultArr {get => quizAnswerResultArr;}
 
     [Header("DEBUG")]
     [SerializeField] WJ_DisplayText wj_displayText; // 텍스트 표시용(필수X)
@@ -49,6 +57,7 @@ public class QuizManager : MonoBehaviour {
         diagChooseDiffPanel.SetActive(false);
         questionPanel.SetActive(false);
         answerBtnTxtDraw = new TEXDraw[answerBtn.Length];
+        quizAnswerResultArr = new string[8] {"N", "N", "N", "N", "N", "N", "N", "N"};
 
         for (int i = 0; i < answerBtn.Length; ++i)
             answerBtnTxtDraw[i] = answerBtn[i].GetComponentInChildren<TEXDraw>();
@@ -69,10 +78,12 @@ public class QuizManager : MonoBehaviour {
         //* 選択レベルの診断評価 スタート
         Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
         status = Status.DIAGNOSIS;
+        quizAnswerResultArr = new string[8];
         wj_connector.FirstRun_Diagnosis(diffLevel); //* サーバから通信し、GetDiagnosis()呼び出す
     }
     public void onClickGetLearningBtn() {
         Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
+        // quizAnswerResultArr = new string[8];
         wj_connector.Learning_GetQuestion();
         wj_displayText.SetState("문제풀이 중", "-", "-", "-");
     }
@@ -98,7 +109,7 @@ public class QuizManager : MonoBehaviour {
     }
 
     /// <summary>
-    //* 실력 진단평가 문제 받아오기 (초기 한번만 실행)
+    //* 진단평가:: 문제 받아오기 (초기 한번만 실행, 종료 후 수준평가 반환 값이 없음)
     /// </summary>
     private void GetDiagnosis() {
         Debug.Log("WJ_Sample:: GetDiagnosis():: 診断評価");
@@ -116,12 +127,15 @@ public class QuizManager : MonoBehaviour {
                 wj_displayText.SetState("진단평가 완료", "", "", "");
                 status = Status.LEARNING;
                 getLearningButton.interactable = true;
+
+                //* 結果パンネル 表示
+                GM._.rm.displayResultPanel();
                 break;
         }
     }
 
     /// <summary>
-    //*  n 번째 학습 문제 받아오기
+    //* 학습평가:: n번째 문제 받아오기 (진단평가 이후 반복 실행, 종료 후 수준평가 반환 값 있음!)
     /// </summary>
     private void GetLearning(int idx) {
         Debug.Log($"WJ_Sample:: GetLearning(${idx}) 問題読込");
@@ -141,13 +155,15 @@ public class QuizManager : MonoBehaviour {
     IEnumerator coDisplayQuestion(string title, string qstEquation, string qstCorrectAnswer, string qstWrongAnswers) {
         Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation =<b>{qstEquation}</b>, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
 
+        //* Init
+        firstChoiceAnswer = null;
+        diagChooseDiffPanel.SetActive(false);
+        interactableAnswerBtns(false);
+
         //* 動物 切り替え
         if(curQuestionIndex != 0) GM._.Anm.setRandomSprLibAsset();
 
         //* 処理
-        firstChoiceAnswer = null;
-        diagChooseDiffPanel.SetActive(false);
-        interactableAnswerBtns(false);
         yield return coShowStageTxt();
         yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
         yield return GM._.gui.coShowQuestion(qstEquation);
@@ -220,7 +236,10 @@ public class QuizManager : MonoBehaviour {
                 //* 最初選択の答え 保存
                 setFirstChoiceAnswer(ref ansrCwYn);
 
-                isSolvingQuestion = false; //* 経過時間　カウント STOP
+                quizAnswerResultArr[curQuestionIndex] = ansrCwYn;
+
+                //* 経過時間　カウント STOP
+                isSolvingQuestion = false; 
 
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
@@ -248,7 +267,8 @@ public class QuizManager : MonoBehaviour {
                 //* 最初選択の答え 保存
                 setFirstChoiceAnswer(ref ansrCwYn);
 
-                isSolvingQuestion = false; //* 経過時間　カウント STOP
+                //* 経過時間　カウント STOP
+                isSolvingQuestion = false; 
 
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
@@ -312,16 +332,22 @@ public class QuizManager : MonoBehaviour {
             GM._.OnAnswerBoxAction = null;
         }
 
-        //* リワード
+        //* リワード 
+        Debug.Log($"coSuccessAnswer:: firstChoiceAnswer= {firstChoiceAnswer}");
+        bool isY = firstChoiceAnswer == "Y"; //* 最初選択の答え
+        
         const int OFFSET_Y = 2;
         var plPos = GM._.Pl.transform.position;
-        int exp = 10;
-        int coin = 100;
+
+        //TODO Calculatiate Exp & Coin with LV & Item...
+        int exp = (isY)? EXP_RWD_UNIT : (int)(EXP_RWD_UNIT * RETRY_PANELTY_PER);
+        int coin = (isY)? COIN_RWD_UNIT : (int)(COIN_RWD_UNIT * RETRY_PANELTY_PER);
+        Debug.Log("exp= " + exp + ", coin= " + coin);
+
+        GM._.rm.setReward(exp, coin);
         Vector2 pos1 = new Vector2(plPos.x, plPos.y + OFFSET_Y);
         Vector2 pos2 = new Vector2(plPos.x, plPos.y + OFFSET_Y + 0.325f);
-        GM._.RewardExp += exp;
         GM._.gem.showDropItemTxtEF(exp, pos1, Color.green);
-        GM._.RewardCoin += coin;
         GM._.gem.showDropItemTxtEF(coin, pos2, Color.yellow);
 
         //* 答え

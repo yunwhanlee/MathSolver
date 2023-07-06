@@ -15,14 +15,12 @@ public class GM : MonoBehaviour {
     const float OBJ_RAND_RANGE_X = 0.2f;
     const float BOX_SPAWN_Y = 6.0f;
     const float OBJ_SPAWN_Y = 4.0f;
-    const float RESULT_PANEL_START_DIST = 3.0f;
-    const float RESULT_PANEL_PET_DANCE_POS_X = 1.75f;
-
 
     public static GM _;
     public GUI gui; // Game UI Manager
     public GEM gem; // Game Effect Manager
     public QuizManager qm;
+    public ResultManager rm;
     public QuestionSO qstSO;
 
     [Header("ACTION")]
@@ -31,18 +29,14 @@ public class GM : MonoBehaviour {
 
     [Header("VALUE")]
     [SerializeField] bool isSelectCorrectAnswer;    public bool IsSelectCorrectAnswer {get => isSelectCorrectAnswer; set => isSelectCorrectAnswer = value;}
-    [SerializeField] int rewardExp;     public int RewardExp {get => rewardExp; set => rewardExp = value;}
-    [SerializeField] int rewardCoin;    public int RewardCoin {get => rewardCoin; set => rewardCoin = value;}
+    
 
     [Header("WORLD SPACE")]
-    [SerializeField] GameObject worldSpaceQuizGroup;
-    [SerializeField] GameObject worldSpaceResultGroup;
+    [SerializeField] GameObject worldSpaceQuizGroup;    public GameObject WorldSpaceQuizGroup {get => worldSpaceQuizGroup;}
 
     [Header("Spot")]
     [SerializeField] Transform plSpot;
     [SerializeField] Transform petSpot;
-    [SerializeField] Transform resPlSpot;
-    [SerializeField] Transform resPetSpot;
     
     [Header("ANIMAL")]
     [SerializeField] Animal anm; public Animal Anm {get => anm;}
@@ -71,15 +65,13 @@ public class GM : MonoBehaviour {
         gui = FindObjectOfType<GUI>();
         gem = FindObjectOfType<GEM>();
         qm = FindObjectOfType<QuizManager>();
+        rm = FindObjectOfType<ResultManager>();
 
         //* Anim
         successEFAnim.gameObject.SetActive(false);
     }
 
     void Start() {
-        rewardExp = 0;
-        rewardCoin = 0;
-
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
 
@@ -112,81 +104,13 @@ public class GM : MonoBehaviour {
     void Update() {
         //* TEST : QuizPanel -> Result Panel
         if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(coPlayResultPanelRewardUIAnim());
-            StartCoroutine(coPlayResultPanelObjAnim());
+            GM._.rm.displayResultPanel();
         }
     }
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    IEnumerator coPlayResultPanelRewardUIAnim() {
-        bool isExpUP = true;
-        bool isCoinUP = true;
-        int expVal = 0;
-        int coinVal = 0;
-
-        while(isExpUP || isCoinUP) {
-            if(expVal < rewardExp) GM._.gui.ExpTxt.text = $"+{++expVal}";
-            else    isExpUP = false;
-
-            if(coinVal < rewardCoin) GM._.gui.CoinTxt.text = $"+{++coinVal}";
-            else    isCoinUP = false;
-
-            yield return Util.time0_01;
-        }
-    }
-    IEnumerator coPlayResultPanelObjAnim() {
-        bool isIncreasing = false;
-
-        //* Off
-        worldSpaceQuizGroup.SetActive(false);
-        gui.QuizPanel.SetActive(false);
-
-        //* On
-        worldSpaceResultGroup.SetActive(true);
-        gui.ResultPanel.SetActive(true);
-
-        //* Player Move To TargetPos
-        pl.transform.SetParent(resPlSpot);
-        pl.transform.position = new Vector2(resPlSpot.position.x - RESULT_PANEL_START_DIST, resPlSpot.position.y);
-        pl.TgPos = resPlSpot.position;
-
-        //* Pet Move To TargetPos
-        pet.transform.SetParent(resPetSpot);
-        pet.transform.position = new Vector2(resPetSpot.position.x + RESULT_PANEL_START_DIST, resPetSpot.position.y);
-        pet.TgPos = resPetSpot.position;
-
-        //* Anim
-        yield return Util.time1;
-        pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
-        StartCoroutine(Util.coPlayBounceAnim(pl.transform));
-        pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
-        StartCoroutine(Util.coPlayBounceAnim(pet.transform));
-
-        //* Anim Repeat
-        while(true) {
-            if(!isIncreasing) {
-                yield return Util.time2; yield return Util.time1;
-                pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
-                StartCoroutine(Util.coPlayBounceAnim(pl.transform));
-                
-                pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
-                pet.TgPos = new Vector2(-RESULT_PANEL_PET_DANCE_POS_X, resPetSpot.position.y);
-                isIncreasing = true;
-            }
-            else {
-                yield return Util.time2; yield return Util.time1;
-                pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
-                StartCoroutine(Util.coPlayBounceAnim(pl.transform));
-
-                pet.Anim.SetTrigger(Enum.ANIM.DoDance.ToString());
-                pet.TgPos = new Vector2(RESULT_PANEL_PET_DANCE_POS_X, resPetSpot.position.y);
-                isIncreasing = false;
-            }
-        }
-    }
-
     public Sprite getObjSprite(string name) {
         Sprite res = null;
         var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
