@@ -19,11 +19,16 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] WJ_Connector wj_connector;
     [SerializeField] Status status;  public Status Status => status;
 
+    [Header("SPRITE")]
+    [SerializeField] Sprite correctHeartSpr;
+    [SerializeField] Sprite wrongHeartSpr;
+
     [Header("PANEL")]
     [SerializeField] GameObject diagChooseDiffPanel;            // 난이도 선택 패널
     [SerializeField] GameObject questionPanel;                  // 문제 패널(진단,학습)
     [SerializeField] GameObject quizGroup;
     [SerializeField] GameObject answerBtnGroup;
+    [SerializeField] Transform answerProgressFrameTf;            // 答えた結果を💛で表示
 
     [Header("HINT")]
     [SerializeField] GameObject hintFrame;
@@ -57,7 +62,7 @@ public class QuizManager : MonoBehaviour {
         diagChooseDiffPanel.SetActive(false);
         questionPanel.SetActive(false);
         answerBtnTxtDraw = new TEXDraw[answerBtn.Length];
-        quizAnswerResultArr = new string[8] {"N", "N", "N", "N", "N", "N", "N", "N"};
+        // quizAnswerResultArr = new string[8] {"N", "N", "N", "N", "N", "N", "N", "N"};
 
         for (int i = 0; i < answerBtn.Length; ++i)
             answerBtnTxtDraw[i] = answerBtn[i].GetComponentInChildren<TEXDraw>();
@@ -238,8 +243,12 @@ public class QuizManager : MonoBehaviour {
 
                 quizAnswerResultArr[curQuestionIndex] = ansrCwYn;
 
+                //* 答えした状況💛Frameで表示
+                Image heartImg = answerProgressFrameTf.GetChild(curQuestionIndex).GetComponent<Image>();
+                heartImg.sprite = (ansrCwYn == "Y")? correctHeartSpr : wrongHeartSpr;
+
                 //* 経過時間　カウント STOP
-                isSolvingQuestion = false; 
+                isSolvingQuestion = false;
 
                 //* Answer結果 アニメー
                 if(isCorrect) { // 正解
