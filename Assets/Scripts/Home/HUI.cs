@@ -76,6 +76,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
 
     void Start() {
+        switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
+
         StartCoroutine(coUpdateUI());
 
         //* Setting Add Event Listener

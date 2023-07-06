@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class ResultManager : MonoBehaviour {
     const float RESULT_PANEL_START_DIST = 3.0f;
@@ -28,6 +29,7 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI topCoinTxt;    public TextMeshProUGUI TopCoinTxt {get => topCoinTxt;}
     [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
     [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
+    [SerializeField] GameObject goHomePanelBtn;  public GameObject GoHomePanelBtn {get => goHomePanelBtn; set => goHomePanelBtn = value;}
 
     [Header("EF")]
     [SerializeField] GameObject coinCollectPtcEF;
@@ -40,6 +42,7 @@ public class ResultManager : MonoBehaviour {
         rewardExp = 0;
         rewardCoin = 0;
         msgTxt.gameObject.SetActive(false);
+        goHomePanelBtn.SetActive(false);
     }
 
     void Update() {
@@ -49,8 +52,19 @@ public class ResultManager : MonoBehaviour {
     }
 
 //-------------------------------------------------------------------------------------------------------------
+#region EVENT
+//-------------------------------------------------------------------------------------------------------------
+    public void onClickGoHomePanelBtn() => StartCoroutine(coGoHome());
+#endregion
+//-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    private IEnumerator coGoHome() {
+        GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
+        GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
+        yield return Util.time0_5;
+        SceneManager.LoadScene(Enum.SCENE.Home.ToString());
+    }
     public IEnumerator coDisplayResultPanel() {
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";
@@ -65,6 +79,7 @@ public class ResultManager : MonoBehaviour {
 
         yield return Util.time1;
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
+        goHomePanelBtn.SetActive(true);
     }
     public void setReward(int exp, int coin) {
         rewardExp += exp;
