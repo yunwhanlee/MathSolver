@@ -35,8 +35,6 @@ public class Player : MonoBehaviour {
         tgPos = transform.position;
         col = GetComponent<Collider2D>();
         sprLib = GetComponent<SpriteLibrary>();
-
-        
     }
 
     void Update() {

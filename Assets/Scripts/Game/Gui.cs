@@ -20,10 +20,6 @@ public class GUI : MonoBehaviour
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
 
-    [Header("RESULT PANEL")] 
-    [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
-    [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
-
     [Header("CANVAS ANIM")] 
     [SerializeField] GameObject blackPanel;
     [SerializeField] Canvas canvasAnim;

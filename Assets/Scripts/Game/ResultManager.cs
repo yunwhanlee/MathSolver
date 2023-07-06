@@ -25,8 +25,17 @@ public class ResultManager : MonoBehaviour {
     [Header("UI")]
     [SerializeField] Transform starGroupTf;
     [SerializeField] TextMeshProUGUI msgTxt;
+    [SerializeField] TextMeshProUGUI topCoinTxt;    public TextMeshProUGUI TopCoinTxt {get => topCoinTxt;}
+    [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
+    [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
+
+    [Header("EF")]
+    [SerializeField] GameObject coinCollectPtcEF;
 
     void Start() {
+        //* 以前のコイン量 表示
+        topCoinTxt.text = DB.Dt.Coin.ToString();
+
         //* Init
         rewardExp = 0;
         rewardCoin = 0;
@@ -43,13 +52,16 @@ public class ResultManager : MonoBehaviour {
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
     public IEnumerator coDisplayResultPanel() {
+        expTxt.text = $"+{rewardExp}";
+        coinTxt.text = $"+{rewardCoin}";
+
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
         yield return Util.time1;
 
-        StartCoroutine(coPlayRewardUICountingAnim());
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
-        StartCoroutine(coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr));
+        yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr);
+        yield return coPlayCoinCollectAnim();
 
         yield return Util.time1;
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
@@ -62,22 +74,24 @@ public class ResultManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region ANIM
 //-------------------------------------------------------------------------------------------------------------
-    IEnumerator coPlayRewardUICountingAnim() {
-        bool isExpUP = true;
+    IEnumerator coPlayCoinCollectAnim() {
         bool isCoinUP = true;
-        int expVal = 0;
         int coinVal = 0;
 
-        while(isExpUP || isCoinUP) {
-            if(expVal < rewardExp) GM._.gui.ExpTxt.text = $"+{++expVal}";
-            else    isExpUP = false;
-
-            if(coinVal < rewardCoin) GM._.gui.CoinTxt.text = $"+{++coinVal}";
+        coinCollectPtcEF.SetActive(true);
+        int myCoin = int.Parse(topCoinTxt.text);
+        while(isCoinUP) {
+            if(coinVal < rewardCoin) topCoinTxt.text = $"{++coinVal + myCoin}";
             else    isCoinUP = false;
 
             yield return Util.time0_01;
         }
+        coinCollectPtcEF.SetActive(false);
+
+        //* Add DataBase Coin
+        DB.Dt.setCoin(rewardCoin);
     }
+
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {
         bool isIncreasing = false;
         //* On
