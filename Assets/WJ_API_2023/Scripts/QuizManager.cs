@@ -134,7 +134,7 @@ public class QuizManager : MonoBehaviour {
                 getLearningButton.interactable = true;
 
                 //* 結果パンネル 表示
-                GM._.rm.displayResultPanel();
+                StartCoroutine(GM._.rm.coDisplayResultPanel());
                 break;
         }
     }

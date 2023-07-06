@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System;
 
 public class ResultManager : MonoBehaviour {
@@ -23,11 +24,13 @@ public class ResultManager : MonoBehaviour {
 
     [Header("UI")]
     [SerializeField] Transform starGroupTf;
+    [SerializeField] TextMeshProUGUI msgTxt;
 
     void Start() {
         //* Init
         rewardExp = 0;
         rewardCoin = 0;
+        msgTxt.gameObject.SetActive(false);
     }
 
     void Update() {
@@ -39,10 +42,17 @@ public class ResultManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    public void displayResultPanel() {
+    public IEnumerator coDisplayResultPanel() {
+        GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
+        GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
+        yield return Util.time1;
+
         StartCoroutine(coPlayRewardUICountingAnim());
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
-        StartCoroutine(coPlayStarActiveAnim(GM._.qm.QuizAnswerResultArr));
+        StartCoroutine(coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr));
+
+        yield return Util.time1;
+        GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
     }
     public void setReward(int exp, int coin) {
         rewardExp += exp;
@@ -117,7 +127,9 @@ public class ResultManager : MonoBehaviour {
             }
         }
     }
-    IEnumerator coPlayStarActiveAnim(string[] quizAnswerResultArr) {
+    IEnumerator coPlayStarAndMsgAnim(string[] quizAnswerResultArr) {
+        //* Stars
+        yield return Util.time0_5;
         const int STAR_EF_IDX = 0;
         for(int i = 0; i < starGroupTf.childCount; i++) {
             var star = starGroupTf.GetChild(i);
@@ -128,12 +140,50 @@ public class ResultManager : MonoBehaviour {
                 StartCoroutine(coEnableStarImg(i));
             }
         }
+
+        //* Set MsgTxt
+        int correctCnt = 0;
+        Array.ForEach(quizAnswerResultArr, arr => {if(arr == "Y") correctCnt++;});
+        msgTxt.text = (correctCnt >= 8)? "환타스틱!"
+            : (correctCnt >= 6)? "대단코요!"
+            : (correctCnt >= 4)? "훌륭해요!"
+            : (correctCnt >= 2)? "잘했어요!"
+            : "괜찮아요!";
+
+        //* MsgTxt Scale In-Out Anim
+        yield return Util.time0_5;
+        msgTxt.gameObject.SetActive(true);
+        msgTxt.transform.localScale = Vector2.zero;
+        const float MAX_SC = 1.2f;
+        const float LERP_SC_OFFSET = 0.0325f;
+        bool isDecreasing = false;
+        float spd = 20 * Time.deltaTime;
+        var sc = msgTxt.transform.localScale;
+        while(true) {
+            if(!isDecreasing) {
+                msgTxt.transform.localScale = new Vector2(
+                    Mathf.Lerp(msgTxt.transform.localScale.x, MAX_SC, spd), 
+                    Mathf.Lerp(msgTxt.transform.localScale.y, MAX_SC, spd)
+                );
+                if(msgTxt.transform.localScale.x > MAX_SC - LERP_SC_OFFSET)
+                    isDecreasing = true;
+            }
+            else {
+                msgTxt.transform.localScale = new Vector2(
+                    msgTxt.transform.localScale.x - spd,
+                    msgTxt.transform.localScale.y - spd
+                );
+                if(msgTxt.transform.localScale.x <= 1) break;
+            }
+            yield return Util.time0_01;
+        }
     }
     private IEnumerator coEnableStarImg(int idx) {
         yield return Util.time1;
         yield return Util.time0_5;
         starGroupTf.GetChild(idx).GetComponent<Image>().enabled = true;
         starGroupTf.GetChild(idx).GetComponent<Image>().sprite = starSpr;
+        starGroupTf.GetChild(idx).GetComponent<Image>().color = Color.white;
     }
 #endregion
 }

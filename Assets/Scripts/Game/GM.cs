@@ -104,7 +104,7 @@ public class GM : MonoBehaviour {
     void Update() {
         //* TEST : QuizPanel -> Result Panel
         if(Input.GetKeyDown(KeyCode.Space)) {
-            GM._.rm.displayResultPanel();
+            StartCoroutine(GM._.rm.coDisplayResultPanel());
         }
     }
 
