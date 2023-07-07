@@ -21,6 +21,7 @@ public class GM : MonoBehaviour {
     public GEM gem; // Game Effect Manager
     public QuizManager qm;
     public ResultManager rm;
+    public GameTalkManager gtm;
     public QuestionSO qstSO;
 
     [Header("ACTION")]
@@ -65,6 +66,7 @@ public class GM : MonoBehaviour {
         gem = FindObjectOfType<GEM>();
         qm = FindObjectOfType<QuizManager>();
         rm = FindObjectOfType<ResultManager>();
+        gtm = FindObjectOfType<GameTalkManager>();
 
         //* Anim
         successEFAnim.gameObject.SetActive(false);
@@ -189,6 +191,9 @@ public class GM : MonoBehaviour {
             yield return Util.time1;
             GM._.qm.interactableAnswerBtns(true);
             GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
+
+            //* チュートリアル：診断評価の最初問題
+            showTutoDiagFirstQuiz();
         }
     }
 
@@ -207,6 +212,14 @@ public class GM : MonoBehaviour {
         yield return Util.time1;
         GM._.qm.interactableAnswerBtns(true);
         GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
+
+        //* チュートリアル：診断評価の最初問題
+        showTutoDiagFirstQuiz();
+    }   
+    private void showTutoDiagFirstQuiz() {
+        if(GM._.qm.CurQuestionIndex == 0 && GM._.qm.Status == Status.DIAGNOSIS && DB.Dt.IsTutoDiagFirstQuizTrigger) {
+            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_QUIZ);
+        }
     }
 
     private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {

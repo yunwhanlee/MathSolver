@@ -27,6 +27,8 @@ public class Data {
     [SerializeField] bool isTutoInventoryTrigger;   public bool IsTutoInventoryTrigger {get => isTutoInventoryTrigger; set => isTutoInventoryTrigger = value;}
     [SerializeField] bool isTutoGoGameTrigger;   public bool IsTutoGoGameTrigger {get => isTutoGoGameTrigger; set => isTutoGoGameTrigger = value;}
     //* Game
+    [SerializeField] bool isTutoDiagChoiceDiffTrigger;   public bool IsTutoDiagChoiceDiffTrigger {get => isTutoDiagChoiceDiffTrigger; set => isTutoDiagChoiceDiffTrigger = value;}
+    [SerializeField] bool isTutoDiagFirstQuizTrigger;   public bool IsTutoDiagFirstQuizTrigger {get => isTutoDiagFirstQuizTrigger; set => isTutoDiagFirstQuizTrigger = value;}
 
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
     [Header("FUNITURE ITEM")]
@@ -160,6 +162,9 @@ public class DB : MonoBehaviour {
         dt.IsTutoClothShopTrigger = true;
         dt.IsTutoInventoryTrigger = true;
         dt.IsTutoGoGameTrigger = true;
+
+        dt.IsTutoDiagChoiceDiffTrigger = true;
+        dt.IsTutoDiagFirstQuizTrigger = true;
 
         #region FUNITURE
         //* ロック

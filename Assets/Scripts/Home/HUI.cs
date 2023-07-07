@@ -149,7 +149,7 @@ public class HUI : MonoBehaviour {
         && !DB.Dt.IsTutoClothShopTrigger
         && !DB.Dt.IsTutoInventoryTrigger
         && DB.Dt.IsTutoGoGameTrigger) {
-            HM._.htm.registAction((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_GOGAME);
+            HM._.htm.action((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_GOGAME);
         }
 
         //* パンネル 表示・非表示

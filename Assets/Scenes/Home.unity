@@ -32390,7 +32390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 0
+  isReset: 1
   dt:
     lv: 0
     coin: 0
@@ -32403,6 +32403,7 @@ MonoBehaviour:
     isTutoFunitureShopTrigger: 0
     isTutoClothShopTrigger: 0
     isTutoInventoryTrigger: 0
+    isTutoGoGameTrigger: 0
     funitures:
     - name: Wood Chair
       spr: {fileID: 0}

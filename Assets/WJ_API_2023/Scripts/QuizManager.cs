@@ -43,7 +43,7 @@ public class QuizManager : MonoBehaviour {
     TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
     [Header("STATUS")]
-    [SerializeField] int curQuestionIndex;
+    [SerializeField] int curQuestionIndex;  public int CurQuestionIndex {get => curQuestionIndex;}
 
     //* 最初選択の答え 保存 (오답시 다시 기회제공으로 인한, 결과오류에 대응)
     [SerializeField] string firstChoiceAnswer;   

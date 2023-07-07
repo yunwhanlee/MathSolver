@@ -119,18 +119,20 @@ public class HomeTalkManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void onClickPlayActionBtn() => playAction();
-    public void onClickRegistActionBtn(int id) => registAction(id);
+    //* TalkDialogのPlayActionBtnへ張り付ける
+    public void onClickPlayActionBtn() => play();
+    //* 対話開始をボタンイベントでする時、使います
+    public void onClickRegistActionBtn(int id) => action(id);
 #endregion
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void registAction(int id) {
+    public void action(int id) {
         curId = id;
-        playAction(); //* 最初スタート
+        play(); //* 最初スタート
     }
-    public void playAction() {
+    public void play() {
         talk(curId);
         talkDialog.SetActive(isAction);
     }
@@ -203,6 +205,5 @@ public class HomeTalkManager : MonoBehaviour {
         else 
             return msgs[talkIdx];
     }
-
 #endregion
 }
