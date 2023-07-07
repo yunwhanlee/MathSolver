@@ -35,8 +35,6 @@ public class Player : MonoBehaviour {
         tgPos = transform.position;
         col = GetComponent<Collider2D>();
         sprLib = GetComponent<SpriteLibrary>();
-
-        
     }
 
     void Update() {
@@ -117,23 +115,27 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D col) {
         //* Sit Trigger ON
-        if(HM._.isChair(col.gameObject)) {
-            colChairObj = col.gameObject;
-
-            if(isSit) return;
-            var chairSr = colChairObj.GetComponent<SpriteRenderer>();
-            chairSr.material = HM._.outlineMt;
-        }
+        collideWithChair(true, col);
     }
 
     private void OnTriggerExit2D(Collider2D col) {
         //* Sit Trigger OFF
-        if(HM._.isChair(col.gameObject)) {
-            var chairSr = colChairObj.GetComponent<SpriteRenderer>();
-            chairSr.material = HM._.sprUnlitMt;
-
-            colChairObj = null;
-        }
+        collideWithChair(false, col);
     }
 #endregion
+    private void collideWithChair(bool isTrigger, Collider2D col) {
+        if(HM._.isChair(col.gameObject)) {
+            if(isTrigger) {
+                colChairObj = col.gameObject;
+                if(isSit) return;
+                var sr = colChairObj.GetComponent<SpriteRenderer>();
+                sr.material = HM._.outlineMt;
+            }
+            else {
+                var sr = colChairObj.GetComponent<SpriteRenderer>();
+                sr.material = HM._.sprUnlitMt;
+                colChairObj = null;
+            }
+        }
+    }
 }

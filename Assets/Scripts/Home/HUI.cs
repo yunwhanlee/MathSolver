@@ -85,9 +85,9 @@ public class HUI : MonoBehaviour {
         langBtns[JP].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(JP));
 
         //* Current Country Txt
-        curLangTxt.text = (LM._.curLangIndex == EN)? "English"
-            :(LM._.curLangIndex == KR)? "한국어"
-            : "日本語";
+        // curLangTxt.text = (LM._.curLangIndex == EN)? "English"
+        //     :(LM._.curLangIndex == KR)? "한국어"
+        //     : "日本語";
         //* Current Country Icon
         curLangImg.sprite = (LM._.curLangIndex == EN)? HM._.conturiesIcons[EN] 
             :(LM._.curLangIndex == KR)? HM._.conturiesIcons[KR]
@@ -218,6 +218,11 @@ public class HUI : MonoBehaviour {
     }
     public void onClickLanguageBtn() {
         selectLangDialog.SetActive(true);
+    }
+    public void test_onClickFrontouthBoyBtn() {
+        DB.Dt.setCoin(10000);
+        HM._.em.showEF((int)HEM.IDX.CoinBurstTopEF, HM._.pl.transform.position, Util.time1);
+        HM._.pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
