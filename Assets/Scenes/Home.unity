@@ -34094,7 +34094,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e8066d8c8e67b3446ac02fba667b20d4, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -54512,7 +54512,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1889653951}
   m_OnClick:
     m_PersistentCalls:
@@ -57536,13 +57536,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TutorialBeginPanelBtn: {fileID: 1610761428}
+  speakerSprDtList: []
+  frontoothBoySpr: {fileID: 21300000, guid: 1378056c209481c408c2d5d990b022ff, type: 3}
   isAction: 0
   curId: 0
   talkIdx: 0
   talkDialog: {fileID: 922453876}
   talkTxt: {fileID: 1806579455}
   speakerImg: {fileID: 1289240067}
-  frontoothBoySpr: {fileID: 21300000, guid: 1378056c209481c408c2d5d990b022ff, type: 3}
 --- !u!1 &2038347564
 GameObject:
   m_ObjectHideFlags: 0
