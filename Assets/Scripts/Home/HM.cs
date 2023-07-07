@@ -91,6 +91,7 @@ public class HM : MonoBehaviour {
         //* Pattern Matching
         switch(curSkin) {
             case PlayerSkin plSk:
+                HM._.pl.IdleSpr = plSk.Spr;
                 HM._.pl.SprLib.spriteLibraryAsset = plSk.SprLibraryAsset;
                 break;
             case PetSkin ptSk:

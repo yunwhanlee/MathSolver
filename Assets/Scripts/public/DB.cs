@@ -67,6 +67,7 @@ public class DB : MonoBehaviour {
         #endregion
 
         Data copyDt = null;
+        copyDt = dt; //* Inspectorビューで、既に登録したデータをcopyデータとして使う
 
         if(load() == null) {
             Debug.Log("<color=red>ロードデータない：リセット</color>");
@@ -75,7 +76,6 @@ public class DB : MonoBehaviour {
         else {
             Debug.Log("<color=yellow>ロードデータ有り：データロード</color>");
             //! load() PlayerPrefs方式では、「Sprite」と「Prefab:GameObject」データは保存・ロードができない
-            copyDt = dt; //* Inspectorビューで、既に登録したデータをcopyデータとして使う
             dt = load(); //* ロードした始点、SpriteとPrefabデータはなくなる
         }
 
@@ -199,9 +199,6 @@ public class DB : MonoBehaviour {
     /// -----------------------------------------------------------------------------------------------------------------
     #region SET UNSAVED DATA
     /// -----------------------------------------------------------------------------------------------------------------
-    private void setUnsavedData() {
-
-    }
     void setFunitureTypeData(Funiture[] dtItems, Funiture[] copyItems) {
         int i = 0;
         Array.ForEach(dtItems, item => {

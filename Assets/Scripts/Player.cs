@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
-    [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
+    [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr; set => idleSpr = value;}
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos; public Vector2 TgPos {get => tgPos; set => tgPos = value;}
     //* Sit Chair

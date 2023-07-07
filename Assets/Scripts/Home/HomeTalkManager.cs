@@ -8,6 +8,7 @@ public class HomeTalkManager : MonoBehaviour {
     enum ID_IDX {FRONTOUTH_BOY, TUTORIAL_FIRST};
 
     [Header("BUTTON TYPE")]
+    [SerializeField] GameObject TutorialBeginPanelBtn;
     // [SerializeField] Button tutorialBeginPanelBtn;
 
     [Header("OBJECT TYPE")]
@@ -19,6 +20,8 @@ public class HomeTalkManager : MonoBehaviour {
     [SerializeField] int talkIdx;
     [SerializeField] GameObject talkDialog;
     [SerializeField] TextMeshProUGUI talkTxt;
+    [SerializeField] Image speakerImg;
+    [SerializeField] Sprite frontoothBoySpr;
 
     // [SerializeField] Image portraitImg;
 
@@ -35,8 +38,8 @@ public class HomeTalkManager : MonoBehaviour {
         });
         //* チュートリアル用
         talkDt.Add((int)ID_IDX.TUTORIAL_FIRST, new string[] {
-            "어서오시게! 자네가 이번에 새로온 \n수학조수이구만!"
-            , "나는 찬란한 동물마을의 수학해결사인 울프강 강늑대라네. 반가워!"
+            "반갑네! 자네가 이번에 새로 부임한 \n수학조수구만!"
+            , "나는 동물마을의 수학해결사\n 늑선생이라네."
         });
     }
 
@@ -53,6 +56,9 @@ public class HomeTalkManager : MonoBehaviour {
     public void registAction(int id) {
         curId = id;
         playAction(); //* 最初スタート
+        speakerImg.sprite = (id == (int)ID_IDX.FRONTOUTH_BOY)? frontoothBoySpr
+            : (id == (int)ID_IDX.TUTORIAL_FIRST)? HM._.pl.IdleSpr
+            : null;
     }
     public void playAction() {
         talk(curId);
@@ -60,6 +66,9 @@ public class HomeTalkManager : MonoBehaviour {
 
         if(curId == (int)ID_IDX.FRONTOUTH_BOY && talkIdx == 1) 
             HM._.ui.test_GetCoinFromFrontouthBoy();
+        if(curId == (int)ID_IDX.TUTORIAL_FIRST && talkIdx == talkDt[(int)ID_IDX.TUTORIAL_FIRST].Length) {
+            TutorialBeginPanelBtn.SetActive(false);
+        }
     }
     private void talk(int id) {
         string msg = getTalk(id, talkIdx);

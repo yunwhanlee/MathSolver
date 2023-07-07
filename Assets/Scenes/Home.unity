@@ -15326,7 +15326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ea8f2cfad9be246bf7d9c06b189e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testUnlockMode: 1
+  testUnlockMode: 0
   category: 0
   categoryBtns:
   - {fileID: 1007343472}
@@ -23498,6 +23498,7 @@ RectTransform:
   m_Children:
   - {fileID: 107090597}
   - {fileID: 1323289236}
+  - {fileID: 1383591531}
   m_Father: {fileID: 949284987}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24712,7 +24713,11 @@ MonoBehaviour:
     - Light Square Floor
     - Light Cross Floor
     - Blue Cross Floor
-    - Red Round Mat
+    - RedRound Mat
+    - EdoStyle Mat
+    - Imperial Mat
+    - Sakura Mat
+    - YellowBlack Mat
   - lang: Korean
     langLocalize: "\uD55C\uAD6D\uC5B4"
     value:
@@ -24800,7 +24805,11 @@ MonoBehaviour:
     - "\uBC1D\uC740 \uC2A4\uD018\uC5B4 \uBC14\uB2E5"
     - "\uBC1D\uC740 \uD06C\uB85C\uC2A4 \uBC14\uB2E5"
     - "\uBE14\uB8E8 \uD06C\uB85C\uC2A4 \uBC14\uB2E5"
-    - "\uBE68\uAC04 \uB77C\uC6B4\uB4DC \uB9E4\uD2B8"
+    - "\uBE68\uAC04\uB77C\uC6B4\uB4DC \uB9E4\uD2B8"
+    - "\uC5D0\uB3C4\uC2DD \uB9E4\uD2B8"
+    - "\uD669\uC2E4 \uB9E4\uD2B8"
+    - "\uC0AC\uCFE0\uB77C \uB9E4\uD2B8"
+    - "\uB178\uB791\uBE14\uB799 \uB9E4\uD2B8"
   - lang: "Japanese\r"
     langLocalize: "\u65E5\u672C\u8A9E\r"
     value:
@@ -24887,7 +24896,11 @@ MonoBehaviour:
     - "\u660E\u308B\u3044\u30B9\u30AF\u30A7\u30A2\u5E8A\r"
     - "\u660E\u308B\u3044\u30AF\u30ED\u30B9\u5E8A\r"
     - "\u660E\u308B\u3044\u30D6\u30EB\u30FC\u5E8A\r"
-    - "\u8D64\u4E38\u30DE\u30C3\u30C8"
+    - "\u8D64\u4E38\u30DE\u30C3\u30C8\r"
+    - "\u6C5F\u6238\u98A8\u30DE\u30C3\u30C8\r"
+    - "\u7687\u5BA4\u30DE\u30C3\u30C8\r"
+    - "\u685C\u30DE\u30C3\u30C8\r"
+    - "\u9EC4\u30FB\u9ED2\u30DE\u30C3\u30C8"
 --- !u!1 &817258595
 GameObject:
   m_ObjectHideFlags: 0
@@ -27816,7 +27829,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 1600754919
-  m_SortingOrder: 11
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &953374256
 GameObject:
@@ -28808,7 +28821,6 @@ RectTransform:
   - {fileID: 1151476715}
   - {fileID: 732875964}
   - {fileID: 703670307}
-  - {fileID: 1383591531}
   m_Father: {fileID: 1733260105}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -32108,7 +32120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 0
+  isReset: 1
   dt:
     lv: 0
     coin: 0
@@ -32529,25 +32541,25 @@ MonoBehaviour:
       isFlat: 0
     plSkins:
     - name: Wolf
-      spr: {fileID: -1206657028, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
+      spr: {fileID: -1522501942, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 3eeac3595846f9a4ca3ed79481fe2447, type: 3}
     - name: Black Wolf
-      spr: {fileID: -1439599485, guid: fe61b2351a0c5ec4c9c2cf38756c1003, type: 3}
+      spr: {fileID: -2052170094, guid: fe61b2351a0c5ec4c9c2cf38756c1003, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: cd61066f6705c654b9b8b57f1c5360f8, type: 3}
     - name: White Wolf
-      spr: {fileID: -2034802681, guid: 34e5d432da8653042949aeb8805be55e, type: 3}
+      spr: {fileID: -113320267, guid: 34e5d432da8653042949aeb8805be55e, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
       sprLibraryAsset: {fileID: 7108339969198208228, guid: 44962de9c17bb13428955125b45fa7bf, type: 3}
     - name: OverPower Wolf
-      spr: {fileID: -1681189848, guid: 7785f5a33c0046e44bca696fc7662a27, type: 3}
+      spr: {fileID: -1437335313, guid: 7785f5a33c0046e44bca696fc7662a27, type: 3}
       isLock: 0
       isNotify: 0
       isArranged: 0
@@ -36948,7 +36960,7 @@ GameObject:
   - component: {fileID: 1289240068}
   - component: {fileID: 1289240067}
   m_Layer: 0
-  m_Name: TalkerImg
+  m_Name: SpeakerImg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36963,7 +36975,7 @@ RectTransform:
   m_GameObject: {fileID: 1289240065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 922453877}
@@ -36971,8 +36983,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 329, y: -512}
-  m_SizeDelta: {x: 423, y: 768}
+  m_AnchoredPosition: {x: -341, y: -512}
+  m_SizeDelta: {x: 314, y: 337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289240067
 MonoBehaviour:
@@ -36994,7 +37006,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1378056c209481c408c2d5d990b022ff, type: 3}
+  m_Sprite: {fileID: -1522501942, guid: 025c956f8ca6bd34c848bddfd72d9eea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38645,7 +38657,7 @@ MonoBehaviour:
   anim: {fileID: 1327448385}
   sprLib: {fileID: 1327448387}
   sr: {fileID: 1327448381}
-  idleSpr: {fileID: 392155840, guid: 27be0d6fccb01d94182c8b82e45ca9b0, type: 3}
+  idleSpr: {fileID: 0}
   moveSpeed: 2
   tgPos: {x: 0, y: 0}
   isSit: 0
@@ -39601,19 +39613,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383591530}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: -1, y: 1.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 561376373391232265}
-  m_Father: {fileID: 997610873}
-  m_RootOrder: 3
+  m_Father: {fileID: 751003665}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -418, y: -476}
-  m_SizeDelta: {x: 141, y: 256}
+  m_AnchoredPosition: {x: 388, y: 729}
+  m_SizeDelta: {x: 277.6, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1383591532
 MonoBehaviour:
@@ -39686,7 +39698,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 57.15, y: 17.93, z: 52.61, w: 58.81}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -42615,12 +42627,12 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!1 &1499703072
 GameObject:
@@ -45762,7 +45774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1610761429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57523,11 +57535,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc9c98e57b318488df51e00618f4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TutorialBeginPanelBtn: {fileID: 1610761428}
   isAction: 0
   curId: 0
   talkIdx: 0
   talkDialog: {fileID: 922453876}
   talkTxt: {fileID: 1806579455}
+  speakerImg: {fileID: 1289240067}
+  frontoothBoySpr: {fileID: 21300000, guid: 1378056c209481c408c2d5d990b022ff, type: 3}
 --- !u!1 &2038347564
 GameObject:
   m_ObjectHideFlags: 0
@@ -79191,7 +79206,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3933582542411181122}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
