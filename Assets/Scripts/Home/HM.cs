@@ -17,6 +17,7 @@ public class HM : MonoBehaviour {
     public FunitureUIManager fUI;
     public InventoryUIManager iUI;
     public HEM em;
+    public HomeTalkManager htm;
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;

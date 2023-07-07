@@ -124,7 +124,7 @@ public class DB : MonoBehaviour {
         PlayerPrefs.DeleteAll();
         //* 財貨
         dt.Lv = 1;
-        dt.Coin = 50000;
+        dt.Coin = 0;
         dt.Exp = 0;
 
         //* 選択したキャラ

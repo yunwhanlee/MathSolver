@@ -12,7 +12,7 @@ public class TouchControl : MonoBehaviour
             if(HM._.state == HM.STATE.SETTING) return;
             if(HM._.state == HM.STATE.DECORATION_MODE) return;
             if(HM._.ui.CurHomeSceneIdx == (int)Enum.HOME.Inventory) return;
-            if(HM._.ui.IsAction) return;
+            if(HM._.htm.IsAction) return;
 
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPos, transform.forward, MAX_DISTANCE);
