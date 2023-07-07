@@ -19,6 +19,15 @@ public class Data {
     [SerializeField] int bestScore; public int BestScore {get => bestScore; set => bestScore = value;}
     [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
 
+    [Header("TUTORIAL TRIGGER")]
+    //* Home
+    [SerializeField] bool isTutoRoomTrigger;   public bool IsTutoRoomTrigger {get => isTutoRoomTrigger; set => isTutoRoomTrigger = value;}
+    [SerializeField] bool isTutoFunitureShopTrigger;   public bool IsTutoFunitureShopTrigger {get => isTutoFunitureShopTrigger; set => isTutoFunitureShopTrigger = value;}
+    [SerializeField] bool isTutoClothShopTrigger;   public bool IsTutoClothShopTrigger {get => isTutoClothShopTrigger; set => isTutoClothShopTrigger = value;}
+    [SerializeField] bool isTutoInventoryTrigger;   public bool IsTutoInventoryTrigger {get => isTutoInventoryTrigger; set => isTutoInventoryTrigger = value;}
+    [SerializeField] bool isTutoGoGameTrigger;   public bool IsTutoGoGameTrigger {get => isTutoGoGameTrigger; set => isTutoGoGameTrigger = value;}
+    //* Game
+
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
     [Header("FUNITURE ITEM")]
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
@@ -54,13 +63,10 @@ public class DB : MonoBehaviour {
         #region SINGLETON
         Debug.Log($"Awake {_ == null}");
         if(_ == null) {
-
-
             _ = this;
             DontDestroyOnLoad(this.gameObject);
         }
         else {
-
             Destroy(this.gameObject);
         }
             
@@ -144,13 +150,16 @@ public class DB : MonoBehaviour {
         dt.Lv = 1;
         dt.Coin = 0;
         dt.Exp = 0;
-
         //* 選択したキャラ
         dt.PlayerId = 0;
         dt.PetId = 0;
         dt.GachaCnt = 1;
 
-
+        dt.IsTutoRoomTrigger = true;
+        dt.IsTutoFunitureShopTrigger = true;
+        dt.IsTutoClothShopTrigger = true;
+        dt.IsTutoInventoryTrigger = true;
+        dt.IsTutoGoGameTrigger = true;
 
         #region FUNITURE
         //* ロック

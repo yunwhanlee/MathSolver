@@ -142,6 +142,16 @@ public class HUI : MonoBehaviour {
             Debug.LogWarning("onClickWoodSignArrowBtn()イベントメソッドのパラメータ値を -1 とか1に設定してください。");
         }
 
+        Debug.Log($"onClickWoodSignArrowBtn():: curHomeSceneIdx= {curHomeSceneIdx}");
+        
+        if(!DB.Dt.IsTutoRoomTrigger
+        && !DB.Dt.IsTutoFunitureShopTrigger
+        && !DB.Dt.IsTutoClothShopTrigger
+        && !DB.Dt.IsTutoInventoryTrigger
+        && DB.Dt.IsTutoGoGameTrigger) {
+            HM._.htm.registAction((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_GOGAME);
+        }
+
         //* パンネル 表示・非表示
         for(int i = 0; i < homeScenePanelArr.Length; i++)
             homeScenePanelArr[i].SetActive(curHomeSceneIdx == i);

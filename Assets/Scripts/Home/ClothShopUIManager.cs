@@ -55,13 +55,12 @@ public class ClothShopUIManager : MonoBehaviour
             //* 上がる値段 最新化
             DB.Dt.GachaCnt++;
             priceTxt.text = $"{GACHA_PRICE * DB.Dt.GachaCnt}";
+            //* GachaAnimPanel 表示
+            HM._.ui.TopGroup.SetActive(false);
         }
         else {
             HM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
         }
-
-        //* GachaAnimPanel 表示
-        HM._.ui.TopGroup.SetActive(false);
     }
     public void onClickTapScreenBtn() {
         //* カーテン開ける アニメーション
