@@ -67,8 +67,7 @@ public class FunitureShopItemBtn : ItemFrameBtn {
                 priceTxt.text = bg.Price.ToString();
             }
             //* priceTxtObj (非)表示
-            if(!item.IsLock)
-                priceTxt.transform.parent.gameObject.SetActive(false);
+            priceTxt.transform.parent.gameObject.SetActive(item.IsLock);
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);
