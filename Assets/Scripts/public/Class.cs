@@ -188,7 +188,7 @@ public abstract class Item {
 public class Funiture : Item {
     [Header("追加")]
     [SerializeField] int price; public override int Price {get => price; set => price = value;}
-    [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab;}
+    [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab; set => prefab = value;}
     [SerializeField] Vector2 pos;   public Vector2 Pos {get => pos; set => pos = value;}
     [SerializeField] bool isFlat;  public bool IsFlat {get => isFlat; set => isFlat = value;}
 
@@ -271,7 +271,7 @@ public class BgFuniture : Item {
 [System.Serializable]
 public class PlayerSkin : Item {
     [Header("追加")]
-    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
+    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset; set => sprLibraryAsset = value;}
     public override int Price { get => 0; set {} } // 使わない
 
     public override void create() {
@@ -303,7 +303,7 @@ public class PlayerSkin : Item {
 [System.Serializable]
 public class PetSkin : Item {
     [Header("追加")]
-    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset;}
+    [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset; set => sprLibraryAsset = value;}
     public override int Price { get => 0; set {} } // 使わない
 
     public override void create() {

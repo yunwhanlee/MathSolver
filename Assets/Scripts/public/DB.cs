@@ -54,23 +54,41 @@ public class DB : MonoBehaviour {
         #region SINGLETON
         Debug.Log($"Awake {_ == null}");
         if(_ == null) {
+
+
             _ = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else
+        else {
+
             Destroy(this.gameObject);
+        }
+            
         #endregion
 
-        if(load() == null) reset();
-        else dt = load();
+        Data copyDt = null;
 
-        //? SINGLETONの場合、DontDestroyOnLoad
-        Debug.Log("Inspectorビュー、item.Spr割り当て");
-        //* Funiture型のオブジェクトのSpr変数を設定
-        Array.ForEach(dt.Funitures, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-        Array.ForEach(dt.Decorations, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-        //// Array.ForEach(dt.Bgs, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
-        Array.ForEach(dt.Mats, item => item.Spr = item.Prefab.GetComponent<SpriteRenderer>().sprite);
+        if(load() == null) {
+            Debug.Log("<color=red>ロードデータない：リセット</color>");
+            reset();
+        }
+        else {
+            Debug.Log("<color=yellow>ロードデータ有り：データロード</color>");
+            //! load() PlayerPrefs方式では、「Sprite」と「Prefab:GameObject」データは保存・ロードができない
+            copyDt = dt; //* Inspectorビューで、既に登録したデータをcopyデータとして使う
+            dt = load(); //* ロードした始点、SpriteとPrefabデータはなくなる
+        }
+
+        //* ロードする前に代入したcopyDtで、保存できないタイプのデータを設定
+        //* 家具
+        setFunitureTypeData(dt.Funitures, copyDt.Funitures);
+        setFunitureTypeData(dt.Decorations, copyDt.Decorations);
+        setFunitureTypeData(dt.Mats, copyDt.Mats);
+        setBgFunitureTypeData(dt.Bgs, copyDt.Bgs);
+        //* プレイヤー
+        setPlayerSkinData(dt.PlSkins, copyDt.PlSkins);
+        //* ペット
+        setPetSkinData(dt.PtSkins, copyDt.PtSkins);
     }
     /// -----------------------------------------------------------------------------------------------------------------
     #region QUIT APP EVENT
@@ -177,6 +195,39 @@ public class DB : MonoBehaviour {
         dt.PtSkins[0].IsArranged = true;
         #endregion
     }
+    #endregion
+    /// -----------------------------------------------------------------------------------------------------------------
+    #region SET UNSAVED DATA
+    /// -----------------------------------------------------------------------------------------------------------------
+    private void setUnsavedData() {
+
+    }
+    void setFunitureTypeData(Funiture[] dtItems, Funiture[] copyItems) {
+        int i = 0;
+        Array.ForEach(dtItems, item => {
+            item.Prefab = copyItems[i].Prefab;
+            item.Spr = copyItems[i++].Prefab.GetComponent<SpriteRenderer>().sprite;
+        });
+    }
+    void setBgFunitureTypeData(BgFuniture[] dtItems, BgFuniture[] copyItems) {
+        int i = 0;
+        Array.ForEach(dt.Bgs, item => item.Spr = copyItems[i++].Spr);
+    }
+    void setPlayerSkinData(PlayerSkin[] dtItems, PlayerSkin[] copyItems) {
+        int i = 0;
+        Array.ForEach(dtItems, item => {
+            item.Spr = copyItems[i].Spr;
+            item.SprLibraryAsset = copyItems[i++].SprLibraryAsset;
+        });
+    }
+    void setPetSkinData(PetSkin[] dtItems, PetSkin[] copyItems) {
+        int i = 0;
+        Array.ForEach(dtItems, item => {
+            item.Spr = copyItems[i].Spr;
+            item.SprLibraryAsset = copyItems[i++].SprLibraryAsset;
+        });
+    }
+
     #endregion
 #endregion
 }
