@@ -5,19 +5,21 @@ using UnityEngine.Pool;
 
 public class HEM : MonoBehaviour { //* Home Effect Manager
     public enum IDX {
-        FunitureSetupEF,
+        FunitureSetupEF, CoinBurstTopEF
     };
     [SerializeField] Transform effectGroup;
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
 
     [Header("CREATE TYPE")]
     [SerializeField] GameObject funitureSetupEF;      public GameObject FunitureSetupEF {get => funitureSetupEF; set => funitureSetupEF = value;}
+    [SerializeField] GameObject coinBurstTopEF;      public GameObject CoinBurstTopEF {get => coinBurstTopEF; set => coinBurstTopEF = value;}
 
     // [Header("ACTIVE TYPE")]
     //
 
     void Awake() {
         pool.Add(initEF(funitureSetupEF, max: 2));
+        pool.Add(initEF(coinBurstTopEF, max: 2));
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region OBJECT POOL
