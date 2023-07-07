@@ -95,6 +95,8 @@ public class ClothShopUIManager : MonoBehaviour
             rewardSpr = null;
             HM._.ui.TopGroup.SetActive(true);
             gachaAnimPanel.SetActive(false);
+            //* 最新化 (習得したアイテムをアンロック)
+            HM._.iUI.showItemList();
         }
     }
 #endregion

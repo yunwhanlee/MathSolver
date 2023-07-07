@@ -21,8 +21,6 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] InventoryItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
 
-
-
     void Start() {
         //* アイテムボタン 割り当て
         const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3; //* Index
@@ -115,7 +113,7 @@ public class InventoryUIManager : MonoBehaviour
         page = Mathf.Clamp(page, 0, (len - 1) / ITEM_BTN_CNT);
         Debug.Log($"onClickPageArrowBtn():: category= {category}, len= {len}, page= {page}");
     }
-    private void showItemList() {
+    public void showItemList() {
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
         int end = Mathf.Clamp(start + ITEM_BTN_CNT, min: start, max: len);
