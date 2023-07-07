@@ -75,6 +75,12 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
 
+    [Header("TALK DIALOG")]
+    [SerializeField] bool isAction; public bool IsAction {get => isAction;}
+    [SerializeField] GameObject talkDialog;
+    [SerializeField] TextMeshProUGUI talkTxt;
+
+
     void Start() {
         StartCoroutine(coUpdateUI());
 
@@ -220,6 +226,8 @@ public class HUI : MonoBehaviour {
         selectLangDialog.SetActive(true);
     }
     public void test_onClickFrontouthBoyBtn() {
+        actionTalk();
+
         DB.Dt.setCoin(10000);
         HM._.em.showEF((int)HEM.IDX.CoinBurstTopEF, HM._.pl.transform.position, Util.time1);
         HM._.pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
@@ -271,6 +279,18 @@ IEnumerator coShowErrorMsgPopUp(string msg) {
 
     errorMsgPopUp.SetActive(false);
     errorMsgTxt.text = "";
+}
+
+public void actionTalk() {
+    if(isAction) { //* Exit 
+        isAction = false;
+    }
+    else { //* Enter 
+        isAction = true;
+        talkTxt.text = "안녕곱세유! 프론투스입니다.";
+    }
+
+    talkDialog.SetActive(isAction);
 }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
