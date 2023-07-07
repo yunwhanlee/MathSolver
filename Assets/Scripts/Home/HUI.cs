@@ -145,6 +145,8 @@ public class HUI : MonoBehaviour {
         //* パンネル 表示・非表示
         for(int i = 0; i < homeScenePanelArr.Length; i++)
             homeScenePanelArr[i].SetActive(curHomeSceneIdx == i);
+        //* ダイアログ 非表示
+        infoDialog.SetActive(false);
         //* タッチの動き
         HM._.touchCtr.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
         HM._.pl.enabled = (curHomeSceneIdx == (int)Enum.HOME.Room);
