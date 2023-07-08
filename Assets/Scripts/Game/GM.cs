@@ -238,7 +238,7 @@ public class GM : MonoBehaviour {
         bool isNotEnoughTen = (lastBoxVal % BOX_S_MAX != 0);
         int remainVal = BOX_S_MAX - lastBoxVal;
         Debug.Log($"lastBoxVal= {lastBoxVal}, lastBoxVal % 10 = {lastBoxVal % BOX_S_MAX}, remainVal= {remainVal}");
-        
+
         for(int i = befNum; i < num + befNum; i++) {
             if(isNotEnoughTen && i < befNum + remainVal) {
                 instObj(objName);

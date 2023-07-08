@@ -6,6 +6,7 @@ using UnityEngine.UI.Extensions;
 using TMPro;
 using System;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class HUI : MonoBehaviour {
     [SerializeField] Color selectedTypeBtnClr;
@@ -86,7 +87,7 @@ public class HUI : MonoBehaviour {
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
-
+        StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
 
         //* Setting Add Event Listener
@@ -242,10 +243,39 @@ public class HUI : MonoBehaviour {
     public void onClickLanguageBtn() {
         selectLangDialog.SetActive(true);
     }
+    public void onClickTutorialSettingBtn() {
+        DB.Dt.IsTutoRoomTrigger = true;
+        DB.Dt.IsTutoFunitureShopTrigger = true;
+        DB.Dt.IsTutoClothShopTrigger = true;
+        DB.Dt.IsTutoInventoryTrigger = true;
+        DB.Dt.IsTutoGoGameTrigger = true;
+        DB.Dt.IsTutoFinishTrigger = true;
+        DB.Dt.IsTutoDiagChoiceDiffTrigger = true;
+        DB.Dt.IsTutoDiagFirstQuizTrigger = true;
+        DB.Dt.IsTutoDiagFirstAnswerTrigger = true;
+        DB.Dt.IsTutoDiagResultTrigger = true;
+        SceneManager.LoadScene(Enum.SCENE.Home.ToString());
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+IEnumerator coShowTutorialFinish() {
+    yield return Util.time1;
+    if(!DB.Dt.IsTutoRoomTrigger
+    && !DB.Dt.IsTutoFunitureShopTrigger
+    && !DB.Dt.IsTutoClothShopTrigger
+    && !DB.Dt.IsTutoInventoryTrigger
+    && !DB.Dt.IsTutoGoGameTrigger
+    && !DB.Dt.IsTutoDiagChoiceDiffTrigger
+    && !DB.Dt.IsTutoDiagFirstQuizTrigger
+    && !DB.Dt.IsTutoDiagFirstAnswerTrigger
+    && !DB.Dt.IsTutoDiagResultTrigger
+    && DB.Dt.IsTutoFinishTrigger) {
+        HM._.htm.action((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_FINISH);
+    }
+}
+
 IEnumerator coUpdateUI() {
     while(true) {
         try {

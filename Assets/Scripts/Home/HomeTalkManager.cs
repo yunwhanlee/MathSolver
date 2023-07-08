@@ -12,6 +12,7 @@ public class HomeTalkManager : MonoBehaviour {
         , TUTORIAL_CLOTHSHOP
         , TUTORIAL_INV
         , TUTORIAL_GOGAME
+        , TUTORIAL_FINISH
     };
     enum SPEAKER_IDX {FRONTOUTH_BOY, PLAYER};
 
@@ -62,7 +63,7 @@ public class HomeTalkManager : MonoBehaviour {
         //* TEST用
         talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY, new string[] {
             "아닛! 나를 찾아내다니.. \n옛다 10000코인!:0"
-            , "더 필요하면 언제든 오시게나. \n담백하다!:0"
+            , "더 필요하면 언제든 찾아와!\n담백하다!:0"
         });
         //* チュートリアル用
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_ROOM, new string[] {
@@ -114,6 +115,26 @@ public class HomeTalkManager : MonoBehaviour {
             , "찬찬히,\n설명해주겠다네.:1"
             , "준비가되면, 화면아래\n발판으로 가보시게나!:1"
         });
+        talkDt.Add((int)TALK_ID_IDX.TUTORIAL_FINISH, new string[] {
+            "후... 드디어\n집에 돌아왔구만:1"
+            , "첫 해결사 일이었을텐데\n고생많았네!:1"
+            , "받은 보수로\n가구점이나 의류점에서:1"
+            , "아이탬을\n구매할 수 있다네:1"
+            , "다양한 스킨과 가구를 구매해서:1"
+            , "이 텅빈 집을\n아름답게 꾸며주게나!:1"
+            , "자 그럼.. 이제...:1"
+            , "저기요.. 잠시만요!\n멈춰!!:0"
+            , "으잉?:1"
+            , "중간평가용 체험판은\n여기까지입니다!:0"
+            , "더 다양한 업데이트로\n다시 찾아뵙겠습니다!:0"
+            , "튜토리얼을 다시 하고 싶으시다면:0"
+            , "홈 화면 우측상단에\n설정아이콘을 누른뒤,:0"
+            , "튜토리얼 버튼을/n눌러주세요!:0"
+            , "언어설정도 가능하지만,:0"
+            , "현재는 홈 씬만\n대응 가능합니다.:0"
+            , "플레이해주셔서 진심으로\n감사합니다!:0"
+            , "가..감사합니다!:1"
+        });
     }
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -163,8 +184,9 @@ public class HomeTalkManager : MonoBehaviour {
                     DB.Dt.IsTutoInventoryTrigger = false;
                     TutorialInventoryPanelBtn.SetActive(false); break;
                 case 5:
-                    DB.Dt.IsTutoGoGameTrigger = false;
-                    TutorialInventoryPanelBtn.SetActive(false); break;
+                    DB.Dt.IsTutoGoGameTrigger = false; break;
+                case 6:
+                    DB.Dt.IsTutoFinishTrigger = false; break;
             }
             return;
         }

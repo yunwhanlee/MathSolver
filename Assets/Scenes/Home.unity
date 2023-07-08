@@ -32404,6 +32404,11 @@ MonoBehaviour:
     isTutoClothShopTrigger: 0
     isTutoInventoryTrigger: 0
     isTutoGoGameTrigger: 0
+    isTutoFinishTrigger: 0
+    isTutoDiagChoiceDiffTrigger: 0
+    isTutoDiagFirstQuizTrigger: 0
+    isTutoDiagFirstAnswerTrigger: 0
+    isTutoDiagResultTrigger: 0
     funitures:
     - name: Wood Chair
       spr: {fileID: 0}
@@ -80452,7 +80457,7 @@ GameObject:
   - component: {fileID: 939016918806992594}
   - component: {fileID: 939016918806992589}
   m_Layer: 0
-  m_Name: Button_About
+  m_Name: TutorialBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80509,7 +80514,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 939016918806992595}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1999118337}
+        m_TargetAssemblyTypeName: HUI, Assembly-CSharp
+        m_MethodName: onClickTutorialSettingBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &939016918806992595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80590,7 +80607,7 @@ GameObject:
   - component: {fileID: 939016918896909774}
   - component: {fileID: 939016918896909769}
   m_Layer: 0
-  m_Name: Button_OtherGames
+  m_Name: OtherGamesBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

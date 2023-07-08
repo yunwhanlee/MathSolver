@@ -26,6 +26,7 @@ public class Data {
     [SerializeField] bool isTutoClothShopTrigger;   public bool IsTutoClothShopTrigger {get => isTutoClothShopTrigger; set => isTutoClothShopTrigger = value;}
     [SerializeField] bool isTutoInventoryTrigger;   public bool IsTutoInventoryTrigger {get => isTutoInventoryTrigger; set => isTutoInventoryTrigger = value;}
     [SerializeField] bool isTutoGoGameTrigger;   public bool IsTutoGoGameTrigger {get => isTutoGoGameTrigger; set => isTutoGoGameTrigger = value;}
+    [SerializeField] bool isTutoFinishTrigger;   public bool IsTutoFinishTrigger {get => isTutoFinishTrigger; set => isTutoFinishTrigger = value;}
     //* Game
     [SerializeField] bool isTutoDiagChoiceDiffTrigger;   public bool IsTutoDiagChoiceDiffTrigger {get => isTutoDiagChoiceDiffTrigger; set => isTutoDiagChoiceDiffTrigger = value;}
     [SerializeField] bool isTutoDiagFirstQuizTrigger;   public bool IsTutoDiagFirstQuizTrigger {get => isTutoDiagFirstQuizTrigger; set => isTutoDiagFirstQuizTrigger = value;}
@@ -164,6 +165,7 @@ public class DB : MonoBehaviour {
         dt.IsTutoClothShopTrigger = true;
         dt.IsTutoInventoryTrigger = true;
         dt.IsTutoGoGameTrigger = true;
+        dt.IsTutoFinishTrigger = true;
 
         dt.IsTutoDiagChoiceDiffTrigger = true;
         dt.IsTutoDiagFirstQuizTrigger = true;
