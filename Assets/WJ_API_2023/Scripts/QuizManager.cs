@@ -39,6 +39,7 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
+    [SerializeField] Button[] diagSelectDiffBtn;
     [SerializeField] Button[] answerBtn = new Button[BTN_CNT]; public Button[] AnswerBtn {get => answerBtn;}  // 정답 버튼들
     TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
@@ -80,6 +81,8 @@ public class QuizManager : MonoBehaviour {
 #region EVENT BUTTON
 //-------------------------------------------------------------------------------------------------------------
     public void onClickDiagChooseDifficultyBtn(int diffLevel) { //* #2
+        //* (BUG) 重なって実行すること対応
+        Array.ForEach(diagSelectDiffBtn, diffBtn => diffBtn.gameObject.SetActive(false));
         //* 選択レベルの診断評価 スタート
         Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
         status = Status.DIAGNOSIS;

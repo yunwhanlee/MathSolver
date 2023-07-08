@@ -25,7 +25,7 @@ public class ResultManager : MonoBehaviour {
 
     [Header("UI")]
     [SerializeField] Transform starGroupTf;
-    [SerializeField] TextMeshProUGUI msgTxt;
+    [SerializeField] TextMeshProUGUI msgAnimTxt;
     [SerializeField] TextMeshProUGUI topCoinTxt;    public TextMeshProUGUI TopCoinTxt {get => topCoinTxt;}
     [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
     [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
@@ -41,7 +41,7 @@ public class ResultManager : MonoBehaviour {
         //* Init
         rewardExp = 0;
         rewardCoin = 0;
-        msgTxt.gameObject.SetActive(false);
+        msgAnimTxt.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(false);
     }
 
@@ -99,10 +99,11 @@ public class ResultManager : MonoBehaviour {
         coinCollectPtcEF.SetActive(true);
         int myCoin = int.Parse(topCoinTxt.text);
         while(isCoinUP) {
-            if(coinVal < rewardCoin) topCoinTxt.text = $"{++coinVal + myCoin}";
+            coinVal += 5;
+            if(coinVal < rewardCoin) topCoinTxt.text = $"{coinVal + myCoin}";
             else    isCoinUP = false;
 
-            yield return Util.time0_01;
+            yield return Util.time0_005;
         }
         coinCollectPtcEF.SetActive(false);
 
@@ -176,39 +177,14 @@ public class ResultManager : MonoBehaviour {
         //* Set MsgTxt
         int correctCnt = 0;
         Array.ForEach(quizAnswerResultArr, arr => {if(arr == "Y") correctCnt++;});
-        msgTxt.text = (correctCnt >= 8)? "판타스틱!"
+        msgAnimTxt.text = (correctCnt >= 8)? "판타스틱!"
             : (correctCnt >= 6)? "대단해요!"
             : (correctCnt >= 4)? "훌륭해요!"
             : (correctCnt >= 2)? "잘했어요!"
             : "괜찮아요!";
 
-        //* MsgTxt Scale In-Out Anim
         yield return Util.time0_5;
-        msgTxt.gameObject.SetActive(true);
-        msgTxt.transform.localScale = Vector2.zero;
-        const float MAX_SC = 1.2f;
-        const float LERP_SC_OFFSET = 0.0325f;
-        bool isDecreasing = false;
-        float spd = 20 * Time.deltaTime;
-        var sc = msgTxt.transform.localScale;
-        while(true) {
-            if(!isDecreasing) {
-                msgTxt.transform.localScale = new Vector2(
-                    Mathf.Lerp(msgTxt.transform.localScale.x, MAX_SC, spd), 
-                    Mathf.Lerp(msgTxt.transform.localScale.y, MAX_SC, spd)
-                );
-                if(msgTxt.transform.localScale.x > MAX_SC - LERP_SC_OFFSET)
-                    isDecreasing = true;
-            }
-            else {
-                msgTxt.transform.localScale = new Vector2(
-                    msgTxt.transform.localScale.x - spd,
-                    msgTxt.transform.localScale.y - spd
-                );
-                if(msgTxt.transform.localScale.x <= 1) break;
-            }
-            yield return Util.time0_01;
-        }
+        msgAnimTxt.gameObject.SetActive(true); //* 結果メッセージアニメー 表示
     }
     private IEnumerator coEnableStarImg(int idx) {
         yield return Util.time1;
