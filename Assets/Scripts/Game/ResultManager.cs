@@ -100,7 +100,7 @@ public class ResultManager : MonoBehaviour {
         int myCoin = int.Parse(topCoinTxt.text);
         while(isCoinUP) {
             coinVal += 5;
-            if(coinVal < rewardCoin) topCoinTxt.text = $"{coinVal + myCoin}";
+            if(coinVal <= rewardCoin) topCoinTxt.text = $"{coinVal + myCoin}";
             else    isCoinUP = false;
 
             yield return Util.time0_005;

@@ -6,7 +6,8 @@ using TMPro;
 
 public class HomeTalkManager : MonoBehaviour {
     public enum TALK_ID_IDX {
-        FRONTOUTH_BOY
+        FRONTOUTH_BOY,
+        FRONTOUTH_BOY_NOMONEY
         , TUTORIAL_ROOM
         , TUTORIAL_FUNITURESHOP
         , TUTORIAL_CLOTHSHOP
@@ -14,14 +15,10 @@ public class HomeTalkManager : MonoBehaviour {
         , TUTORIAL_GOGAME
         , TUTORIAL_FINISH
     };
-    enum SPEAKER_IDX {FRONTOUTH_BOY, PLAYER};
+    enum SPEAKER_IDX {FRONTOOTH_BOY, PLAYER};
 
     [Header("BUTTON TYPE")]
     [SerializeField] GameObject TutorialRoomPanelBtn;
-    [SerializeField] GameObject TutorialFunitureShopPanelBtn;
-    [SerializeField] GameObject TutorialClothShopPanelBtn;
-    [SerializeField] GameObject TutorialInventoryPanelBtn;
-    [SerializeField] GameObject TutorialGoGamePanelBtn;
 
     [Header("OBJECT TYPE")]
     //TODO
@@ -34,6 +31,7 @@ public class HomeTalkManager : MonoBehaviour {
     [SerializeField] Sprite frontoothBoySpr;
 
     //* Value
+    [SerializeField] int frontoothBoyClickCnt;
     [SerializeField] bool isAction; public bool IsAction {get => isAction;}
     [SerializeField] int curId;
     [SerializeField] int talkIdx;
@@ -49,9 +47,9 @@ public class HomeTalkManager : MonoBehaviour {
 
     void Start() {
         TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
-        TutorialFunitureShopPanelBtn.SetActive(DB.Dt.IsTutoFunitureShopTrigger);
-        TutorialClothShopPanelBtn.SetActive(DB.Dt.IsTutoClothShopTrigger);
-        TutorialInventoryPanelBtn.SetActive(DB.Dt.IsTutoInventoryTrigger);
+        // TutorialFunitureShopPanelBtn.SetActive(DB.Dt.IsTutoFunitureShopTrigger);
+        // TutorialClothShopPanelBtn.SetActive(DB.Dt.IsTutoClothShopTrigger);
+        // TutorialInventoryPanelBtn.SetActive(DB.Dt.IsTutoInventoryTrigger);
 
         //* キャラの画像データ
         speakerSprDtList = new List<Sprite>();
@@ -63,7 +61,11 @@ public class HomeTalkManager : MonoBehaviour {
         //* TEST用
         talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY, new string[] {
             "아닛! 나를 찾아내다니.. \n옛다 10000코인!:0"
-            , "더 필요하면 언제든 찾아와!\n담백하다!:0"
+            , "더 필요하면 언제든 찾오세요!\n담백하다!:0"
+        });
+        talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY_NOMONEY, new string[] {
+            "그.. 그만!!:0"
+            ,"저 이제 거지에요..:0"
         });
         //* チュートリアル用
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_ROOM, new string[] {
@@ -78,7 +80,8 @@ public class HomeTalkManager : MonoBehaviour {
             , "크흠..(헛 기침) :1"
             , "자 여기는 내 방안이라네.\n마을의 고민을 도와주고\n받은 코인으로:1"
             , "여러가구를 구입하고\n꾸밀 수 있지!:1"
-            , "위쪽에 나무표지판\n오른쪽 화살표를 눌러보겠나?:1"
+            , "자 그럼 공간을 이동해볼까?!:1"
+            , "위쪽에 나무판 화살표를\n누르면 이동할 수 있다네!:1"
         });
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP, new string[] {
             "여기는 장인 도톨씨가 운영하는\n가구점이라네.:1"
@@ -86,29 +89,27 @@ public class HomeTalkManager : MonoBehaviour {
             , "의자와 탁자, 장식품, 벽지, 매트 등:1"
             , "다양한 가구를 \n구매할 수 있다네!:1"
             , "다음으로 넘어가볼까?:1"
-            , "다시 나무표지판\n오른쪽 화살표를 눌러보겠나?:1"
         });
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP, new string[] {
             "여기는 뭉이어멈이 하는 의류점이라네:1"
             , "그때그때 들어오는 옷이 달라서:1"
             , "구매할때마다 두근거림이 멈추지않지.:1"
-            , "아 그리고 이건 비밀인데..\n가끔식 귀여운 펫도 나온다더군!:1"
+            , "그리고 이건 비밀인데..:1"
+            , "가끔식 귀여운 펫도 나온다더군!:1"
             , "자, 다음으로 넘어가지.:1"
-            , "나무표지판\n오른쪽 화살표를 눌러주게!:1"
         });
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_INV, new string[] {
             "마지막으로 이곳은\n인벤토리 공간이라네:1"
             , "의류점에서 구매한\n캐릭터와 펫 변경이 가능하지!:1"
             , "펫은 지금은 없지만, \n얻게되면 같이 다닐수 있다네:1"
             , "클릭하면 춤도 추고, \n귀여운게 보는 맛이 일품이지!:1"
-            , "크흠..(헛 기침) :1"
-            , "홈 화면에 대한 설명은\n이것으로 끝이라네:1"
-            , "다시 오른쪽 화살표를 눌러\n처음으로 돌아가보게!:1"
+            , "홈 화면에 대한 설명은\n이것으로 끝이라네.:1"
+            , "처음으로 돌아가볼까.:1"
         });
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_GOGAME, new string[] {
             "자.. 어디보자..:1"
-            , "수학문제로 동물친구들을\n도와주러 갈겸..:1"
-            , "자네의 실력을\n한번 파악해볼까?:1"
+            , "동물친구들을\n도와주러 갈겸..:1"
+            , "자네의 수학실력을\n한번 파악해볼까?:1"
             , "!!!:0"
             , "겁먹지 말게나!\n내가 있지 않나?!:1"
             , "...:0"
@@ -134,9 +135,10 @@ public class HomeTalkManager : MonoBehaviour {
             , "현재는 홈 씬만\n대응 가능합니다.:0"
             , "플레이해주셔서 진심으로\n감사합니다!:0"
             , "가..감사합니다!:1"
-            , "아 맞다! 저를 누르면\n코인을 드립니다.:0"
+            , "아 맞다! 저를 찾아서 누르시면:0"
+            , "코인을 드립니다!\n과연 저는 어딧을까요?:0"
             , "의류점과 가구점에서\n아이템을 구매하며.:0"
-            , "자유롭게\n테스트 해주세요!.:0"
+            , "자유롭게\n테스트 해주세요!:0"
         });
     }
 
@@ -146,7 +148,17 @@ public class HomeTalkManager : MonoBehaviour {
     //* TalkDialogのPlayActionBtnへ張り付ける
     public void onClickPlayActionBtn() => play();
     //* 対話開始をボタンイベントでする時、使います
-    public void onClickRegistActionBtn(int id) => action(id);
+    public void onClickRegistActionBtn(int id){
+        //* FrontouthBoy
+        if(id == (int)TALK_ID_IDX.FRONTOUTH_BOY) {
+            frontoothBoyClickCnt++;
+            if(frontoothBoyClickCnt < 4) action(id);
+            else action((int)TALK_ID_IDX.FRONTOUTH_BOY_NOMONEY);
+            return;
+        }
+        //* チュートリアル
+        action(id);
+    }
 #endregion
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -164,7 +176,7 @@ public class HomeTalkManager : MonoBehaviour {
     private void talk(int id) {
         string rawMsg = getMsg(id, talkIdx);
 
-        //* 対話終了
+        //* 対話 終了
         if(rawMsg == null) {
             Time.timeScale = 1;
             isAction = false;
@@ -172,24 +184,38 @@ public class HomeTalkManager : MonoBehaviour {
 
             //* 追加処理
             switch(id) {
-                case 0: 
-                    HM._.ui.test_GetCoinFromFrontouthBoy(); break;
-                case 1: 
+                case (int)TALK_ID_IDX.FRONTOUTH_BOY: 
+                    HM._.ui.test_GetCoinFromFrontouthBoy(); 
+                    break;
+                case (int)TALK_ID_IDX.FRONTOUTH_BOY_NOMONEY: 
+                    // なし
+                    break;
+                case (int)TALK_ID_IDX.TUTORIAL_ROOM: 
+                    TutorialRoomPanelBtn.SetActive(false); 
                     DB.Dt.IsTutoRoomTrigger = false;
-                    TutorialRoomPanelBtn.SetActive(false); break;
-                case 2:
+                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                    action((int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP);
+                    break;
+                case (int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP:
                     DB.Dt.IsTutoFunitureShopTrigger = false;
-                    TutorialFunitureShopPanelBtn.SetActive(false); break;
-                case 3: 
+                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                    action((int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP);
+                    break;
+                case (int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP: 
                     DB.Dt.IsTutoClothShopTrigger = false;
-                    TutorialClothShopPanelBtn.SetActive(false); break;
-                case 4:
+                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                    action((int)TALK_ID_IDX.TUTORIAL_INV);
+                    break;
+                case (int)TALK_ID_IDX.TUTORIAL_INV:
                     DB.Dt.IsTutoInventoryTrigger = false;
-                    TutorialInventoryPanelBtn.SetActive(false); break;
-                case 5:
-                    DB.Dt.IsTutoGoGameTrigger = false; break;
-                case 6:
-                    DB.Dt.IsTutoFinishTrigger = false; break;
+                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                    break;
+                case (int)TALK_ID_IDX.TUTORIAL_GOGAME:
+                    DB.Dt.IsTutoGoGameTrigger = false; 
+                    break;
+                case (int)TALK_ID_IDX.TUTORIAL_FINISH:
+                    DB.Dt.IsTutoFinishTrigger = false; 
+                    break;
             }
             return;
         }
@@ -204,14 +230,10 @@ public class HomeTalkManager : MonoBehaviour {
 
             //* スピーカー画像
             switch(int.Parse(spkKey)) {
-                case 0: 
-                    speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.FRONTOUTH_BOY]; 
+                case (int)SPEAKER_IDX.FRONTOOTH_BOY: 
+                    speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.FRONTOOTH_BOY]; 
                     break;
-                case 1: 
-                case 2: 
-                case 3: 
-                case 4: 
-                case 5: 
+                case (int)SPEAKER_IDX.PLAYER: 
                     speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.PLAYER]; 
                     break;
             }
