@@ -47,9 +47,6 @@ public class HomeTalkManager : MonoBehaviour {
 
     void Start() {
         TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
-        // TutorialFunitureShopPanelBtn.SetActive(DB.Dt.IsTutoFunitureShopTrigger);
-        // TutorialClothShopPanelBtn.SetActive(DB.Dt.IsTutoClothShopTrigger);
-        // TutorialInventoryPanelBtn.SetActive(DB.Dt.IsTutoInventoryTrigger);
 
         //* キャラの画像データ
         speakerSprDtList = new List<Sprite>();
@@ -129,7 +126,7 @@ public class HomeTalkManager : MonoBehaviour {
             , "중간평가용 체험판은\n여기까지입니다!:0"
             , "더 다양한 업데이트로\n다시 찾아뵙겠습니다!:0"
             , "튜토리얼을 다시 하고 싶으시다면:0"
-            , "홈 화면 우측상단에\n설정아이콘을 누른뒤,:0"
+            , "홈 화면 우측상단에\n설정아이콘을 누른 뒤:0"
             , "튜토리얼 버튼을\n눌러주세요!:0"
             , "언어설정도\n가능하지만,:0"
             , "현재는 홈 씬만\n대응 가능합니다.:0"
@@ -137,7 +134,7 @@ public class HomeTalkManager : MonoBehaviour {
             , "가..감사합니다!:1"
             , "아 맞다! 저를 찾아서 누르시면:0"
             , "코인을 드립니다!\n과연 저는 어딧을까요?:0"
-            , "의류점과 가구점에서\n아이템을 구매하며.:0"
+            , "의류점과 가구점에서\n아이템을 구매해서:0"
             , "자유롭게\n테스트 해주세요!:0"
         });
     }
