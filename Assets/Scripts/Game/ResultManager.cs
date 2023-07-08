@@ -66,6 +66,9 @@ public class ResultManager : MonoBehaviour {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public IEnumerator coDisplayResultPanel() {
+        //* チュートリアル 結果
+        GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
+
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";
 
@@ -173,8 +176,8 @@ public class ResultManager : MonoBehaviour {
         //* Set MsgTxt
         int correctCnt = 0;
         Array.ForEach(quizAnswerResultArr, arr => {if(arr == "Y") correctCnt++;});
-        msgTxt.text = (correctCnt >= 8)? "환타스틱!"
-            : (correctCnt >= 6)? "대단코요!"
+        msgTxt.text = (correctCnt >= 8)? "판타스틱!"
+            : (correctCnt >= 6)? "대단해요!"
             : (correctCnt >= 4)? "훌륭해요!"
             : (correctCnt >= 2)? "잘했어요!"
             : "괜찮아요!";

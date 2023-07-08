@@ -44,7 +44,7 @@ public class GUI : MonoBehaviour
 
         //* チュートリアル
         yield return Util.time1;
-        yield return Util.time0_5;
+        yield return Util.time0_3;
         GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_CHOICE_DIFF);
     }
 

@@ -29,6 +29,8 @@ public class Data {
     //* Game
     [SerializeField] bool isTutoDiagChoiceDiffTrigger;   public bool IsTutoDiagChoiceDiffTrigger {get => isTutoDiagChoiceDiffTrigger; set => isTutoDiagChoiceDiffTrigger = value;}
     [SerializeField] bool isTutoDiagFirstQuizTrigger;   public bool IsTutoDiagFirstQuizTrigger {get => isTutoDiagFirstQuizTrigger; set => isTutoDiagFirstQuizTrigger = value;}
+    [SerializeField] bool isTutoDiagFirstAnswerTrigger;   public bool IsTutoDiagFirstAnswerTrigger {get => isTutoDiagFirstAnswerTrigger; set => isTutoDiagFirstAnswerTrigger = value;}
+    [SerializeField] bool isTutoDiagResultTrigger;   public bool IsTutoDiagResultTrigger {get => isTutoDiagResultTrigger; set => isTutoDiagResultTrigger = value;}
 
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
     [Header("FUNITURE ITEM")]
@@ -165,6 +167,8 @@ public class DB : MonoBehaviour {
 
         dt.IsTutoDiagChoiceDiffTrigger = true;
         dt.IsTutoDiagFirstQuizTrigger = true;
+        dt.IsTutoDiagFirstAnswerTrigger = true;
+        dt.IsTutoDiagResultTrigger = true;
 
         #region FUNITURE
         //* ロック

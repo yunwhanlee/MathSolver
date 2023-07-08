@@ -46,7 +46,7 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] int curQuestionIndex;  public int CurQuestionIndex {get => curQuestionIndex;}
 
     //* 最初選択の答え 保存 (오답시 다시 기회제공으로 인한, 결과오류에 대응)
-    [SerializeField] string firstChoiceAnswer;   
+    [SerializeField] string firstChoiceAnswer;  public string FirstChoiceAnswer {get => firstChoiceAnswer;}
     //* 経過時間 カウントトリガー
     [SerializeField] bool isSolvingQuestion; public bool IsSolvingQuestion {get => isSolvingQuestion; set => isSolvingQuestion = value;}
     //* 経過時間
@@ -242,6 +242,12 @@ public class QuizManager : MonoBehaviour {
                 setFirstChoiceAnswer(ref ansrCwYn);
 
                 quizAnswerResultArr[curQuestionIndex] = ansrCwYn;
+
+                //* チュートリアル Quiz Answer
+                if(GM._.qm.CurQuestionIndex == 0 && DB.Dt.IsTutoDiagFirstAnswerTrigger) {
+                    GM._.gtm.IsTutoQuizAnswerCorret = isCorrect;
+                    GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_ANSWER);
+                }   
 
                 //* 答えした状況💛Frameで表示
                 Image heartImg = answerProgressFrameTf.GetChild(curQuestionIndex).GetComponent<Image>();
