@@ -128,12 +128,15 @@ public class GM : MonoBehaviour {
 
     public void createObj(string objName, int num, float posX = 0) 
         => StartCoroutine(coCreateObj(objName, num, posX));
+
     public void createQuestionMarkBox(string objName, int num, float posX) {
         StartCoroutine(coCreateQuestionMarkBox(objName, num, posX));
     }
+
     public void createExtraOprBox(string opr, string objName, int num, float posX) {
         StartCoroutine(coCreateExtraOprBox(opr, objName, num, posX));
     }
+
     public void showQuestionMarkAnswerBox(int answer) {
         Debug.Log($"showQuestionMarkAnswerBox(answer= {answer})::");
         for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
@@ -174,8 +177,8 @@ public class GM : MonoBehaviour {
             if(i < boxCnt * BOX_S_MAX) {
                 i += BOX_S_MAX - 1;
                 BoxObj box = instBox(objName, posX);
-                yield return Util.time0_3;
                 box.Val = BOX_S_MAX;
+                yield return Util.time0_3;
             }
             else {
                 if(i % BOX_S_MAX == 0) {
@@ -198,7 +201,6 @@ public class GM : MonoBehaviour {
     }
 
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
-        //! (BUG) coCreateObj()で「？BOX 」が出る前に「Answerボタン」が活性化になる
         yield return coCreateObj(objName, num, posX, isFinish: false);
         yield return Util.time0_3;
 
@@ -209,13 +211,17 @@ public class GM : MonoBehaviour {
         box.ValueTxt.color = Color.magenta;
         box.ValueTxt.fontStyle = FontStyles.Bold;
 
+        //* (BUG) "?"があるboxオブジェクトを探すので、ちゃんと"?"が入ってから、コールバック関数を登録
+        OnAnswerBoxAction = showQuestionMarkAnswerBox;
+
         yield return Util.time1;
         GM._.qm.interactableAnswerBtns(true);
         GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
 
         //* チュートリアル：診断評価の最初問題
         showTutoDiagFirstQuiz();
-    }   
+    }
+
     private void showTutoDiagFirstQuiz() {
         if(GM._.qm.CurQuestionIndex == 0 && GM._.qm.Status == Status.DIAGNOSIS && DB.Dt.IsTutoDiagFirstQuizTrigger) {
             GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_QUIZ);
@@ -247,8 +253,8 @@ public class GM : MonoBehaviour {
             else if(i < boxCnt * BOX_S_MAX) {
                 i += BOX_S_MAX - 1;
                 BoxObj box = instBox(objName);
-                yield return Util.time0_3;
                 box.Val = BOX_S_MAX;
+                yield return Util.time0_3;
             }
             else {
                 if(i % BOX_S_MAX == 0) {
@@ -289,8 +295,8 @@ public class GM : MonoBehaviour {
         for(int i = 0; i < val; i++) {
             BoxObj box = instBox(objName);
             box.IsBlockMerge = true;
-            yield return Util.time0_3;
             box.Val = num;
+            yield return Util.time0_3;
         }
 
         //* 残り
@@ -318,9 +324,9 @@ public class GM : MonoBehaviour {
         for(int i = 0; i < gcd; i++) {
             BoxObj box = instBox(objName, posX);
             box.IsBlockMerge = true;
-            yield return Util.time0_3;
             box.Val = val;
             Debug.Log($"coGreatestCommonDivisorObj:: i({i}) < gcd({gcd}), val= {box.Val}");
+            yield return Util.time0_3;
         }
 
         //* 残り
@@ -332,8 +338,7 @@ public class GM : MonoBehaviour {
     }
 
     private BoxObj instBox(string objName, float posX = 0) {
-            BoxObj box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
-            
+            var box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
             box.transform.position = new Vector2(posX, BOX_SPAWN_Y);
             box.ObjImg.sprite = getObjSprite(objName);
             return box;

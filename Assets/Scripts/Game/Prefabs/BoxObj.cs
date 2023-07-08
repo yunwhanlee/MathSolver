@@ -10,9 +10,6 @@ public class BoxObj : MonoBehaviour {
     [SerializeField] TextMeshProUGUI valueTxt;  public TextMeshProUGUI ValueTxt {get => valueTxt; set => valueTxt = value;}
     [SerializeField] Image objImg;  public Image ObjImg {get => objImg; set => objImg = value;}
 
-    void Start() {
-        val = 0;
-    }
     void Update() {
         if(valueTxt.text == "?") return;
         if(valueTxt.text.Contains("+")) return;
