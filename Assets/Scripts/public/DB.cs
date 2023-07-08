@@ -63,6 +63,7 @@ public class DB : MonoBehaviour {
     const int DEF_FLOOR_IDX = 9;
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
+        Application.targetFrameRate = 40;
         if(isReset) reset();
 
         #region SINGLETON

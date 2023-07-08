@@ -144,8 +144,9 @@ public class GameTalkManager : MonoBehaviour {
             talkTxt.text = msg;
 
             //* スピーカー画像
-            switch(int.Parse(spkKey)) {
-            }
+            // switch(int.Parse(spkKey)) {
+            //     //TODO
+            // }
         }
         
         //* 次の対話準備

@@ -32390,7 +32390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d7214cc27128fc4692068febfb62648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isReset: 1
+  isReset: 0
   dt:
     lv: 0
     coin: 0

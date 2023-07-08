@@ -6,7 +6,7 @@ public class CoinCollectEF : MonoBehaviour
     public RectTransform target;
 
     private ParticleSystem system;
-    private ParticleSystem.Particle[] particles = new ParticleSystem.Particle[1000];
+    private ParticleSystem.Particle[] particles = new ParticleSystem.Particle[30];
     private int count;
 
     private void Start()
