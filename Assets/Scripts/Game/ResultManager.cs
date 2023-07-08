@@ -67,7 +67,10 @@ public class ResultManager : MonoBehaviour {
     }
     public IEnumerator coDisplayResultPanel() {
         //* チュートリアル 結果
-        GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
+        if(DB.Dt.IsTutoDiagResultTrigger) {
+            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
+        }
+        
 
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";

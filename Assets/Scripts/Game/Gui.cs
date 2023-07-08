@@ -43,9 +43,11 @@ public class GUI : MonoBehaviour
         sceneSpawnBGAnim.SetActive(true);
 
         //* チュートリアル
-        yield return Util.time1;
-        yield return Util.time0_3;
-        GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_CHOICE_DIFF);
+        if(DB.Dt.IsTutoDiagChoiceDiffTrigger) {
+            yield return Util.time1;
+            yield return Util.time0_3;
+            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_CHOICE_DIFF);
+        }
     }
 
     void Update() {
