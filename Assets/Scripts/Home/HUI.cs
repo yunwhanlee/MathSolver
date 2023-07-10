@@ -76,15 +76,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
 
-    // [Header("TALK DIALOG")]
-    // [SerializeField] bool isAction; public bool IsAction {get => isAction;}
-    // [SerializeField] int id;
-    // [SerializeField] int talkIdx;
-    // [SerializeField] Image portraitImg;
-    // [SerializeField] GameObject talkDialog;
-    // [SerializeField] TextMeshProUGUI talkTxt;
-
-
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());

@@ -6,8 +6,7 @@ using TMPro;
 
 public class HomeTalkManager : MonoBehaviour {
     public enum TALK_ID_IDX {
-        FRONTOUTH_BOY,
-        FRONTOUTH_BOY_NOMONEY
+        FRONTOUTH_BOY
         , TUTORIAL_ROOM
         , TUTORIAL_FUNITURESHOP
         , TUTORIAL_CLOTHSHOP
@@ -59,10 +58,6 @@ public class HomeTalkManager : MonoBehaviour {
         talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY, new string[] {
             "아닛! 나를 찾아내다니.. \n옛다 10000코인!:0"
             , "더 필요하면 언제든 찾오세요!\n담백하다!:0"
-        });
-        talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY_NOMONEY, new string[] {
-            "그.. 그만!!:0"
-            ,"저 이제 거지에요..:0"
         });
         //* チュートリアル用
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_ROOM, new string[] {
@@ -147,12 +142,8 @@ public class HomeTalkManager : MonoBehaviour {
     //* 対話開始をボタンイベントでする時、使います
     public void onClickRegistActionBtn(int id){
         //* FrontouthBoy
-        if(id == (int)TALK_ID_IDX.FRONTOUTH_BOY) {
-            frontoothBoyClickCnt++;
+        if(id == (int)TALK_ID_IDX.FRONTOUTH_BOY)
             if(frontoothBoyClickCnt < 4) action(id);
-            else action((int)TALK_ID_IDX.FRONTOUTH_BOY_NOMONEY);
-            return;
-        }
         //* チュートリアル
         action(id);
     }
@@ -183,9 +174,6 @@ public class HomeTalkManager : MonoBehaviour {
             switch(id) {
                 case (int)TALK_ID_IDX.FRONTOUTH_BOY: 
                     HM._.ui.test_GetCoinFromFrontouthBoy(); 
-                    break;
-                case (int)TALK_ID_IDX.FRONTOUTH_BOY_NOMONEY: 
-                    // なし
                     break;
                 case (int)TALK_ID_IDX.TUTORIAL_ROOM: 
                     TutorialRoomPanelBtn.SetActive(false); 
