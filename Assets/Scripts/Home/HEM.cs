@@ -15,7 +15,6 @@ public class HEM : MonoBehaviour { //* Home Effect Manager
     [SerializeField] GameObject coinBurstTopEF;      public GameObject CoinBurstTopEF {get => coinBurstTopEF; set => coinBurstTopEF = value;}
 
     // [Header("ACTIVE TYPE")]
-    //
 
     void Awake() {
         pool.Add(initEF(funitureSetupEF, max: 2));
@@ -53,10 +52,5 @@ public class HEM : MonoBehaviour { //* Home Effect Manager
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNCTION (ACTIVE TYPE)
 /// -----------------------------------------------------------------------------------------------------------------
-    // public IEnumerator coActiveMagicBuffEF(){
-    //     camMagicBuffEF.SetActive(true);
-    //     yield return Util.delay1;
-    //     camMagicBuffEF.SetActive(false);
-    // }
 #endregion
 }
