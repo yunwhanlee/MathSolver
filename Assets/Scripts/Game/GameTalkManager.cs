@@ -14,7 +14,6 @@ public class GameTalkManager : MonoBehaviour {
     enum SPEAKER_IDX {FRONTOUTH_BOY, PLAYER};
 
     [Header("BUTTON TYPE")]
-    [Header("OBJECT TYPE")]
 
     //* DATA
     Dictionary<int, string[]> talkDt;

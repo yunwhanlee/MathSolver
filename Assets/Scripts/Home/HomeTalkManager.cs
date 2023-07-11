@@ -19,8 +19,6 @@ public class HomeTalkManager : MonoBehaviour {
     [Header("BUTTON TYPE")]
     [SerializeField] GameObject TutorialRoomPanelBtn;
 
-    [Header("OBJECT TYPE")]
-    //TODO
     
     //* DATA
     Dictionary<int, string[]> talkDt;
@@ -30,7 +28,6 @@ public class HomeTalkManager : MonoBehaviour {
     [SerializeField] Sprite frontoothBoySpr;
 
     //* Value
-    [SerializeField] int frontoothBoyClickCnt;
     [SerializeField] bool isAction; public bool IsAction {get => isAction;}
     [SerializeField] int curId;
     [SerializeField] int talkIdx;
@@ -45,12 +42,12 @@ public class HomeTalkManager : MonoBehaviour {
     }
 
     void Start() {
-        TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
-
         //* キャラの画像データ
         speakerSprDtList = new List<Sprite>();
         speakerSprDtList.Add(frontoothBoySpr);
         speakerSprDtList.Add(HM._.pl.IdleSpr);
+
+        TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
     }
 
     void generateData() {
@@ -140,15 +137,8 @@ public class HomeTalkManager : MonoBehaviour {
     //* TalkDialogのPlayActionBtnへ張り付ける
     public void onClickPlayActionBtn() => play();
     //* 対話開始をボタンイベントでする時、使います
-    public void onClickRegistActionBtn(int id){
-        //* FrontouthBoy
-        if(id == (int)TALK_ID_IDX.FRONTOUTH_BOY)
-            if(frontoothBoyClickCnt < 4) action(id);
-        //* チュートリアル
-        action(id);
-    }
+    public void onClickRegistActionBtn(int id) => action(id);
 #endregion
-
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
