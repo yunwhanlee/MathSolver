@@ -8,19 +8,19 @@ public abstract class TalkManager : MonoBehaviour {
     public enum SPEAKER_IDX {FRONTOOTH_BOY, PLAYER};
 
     //* DATA
-    Dictionary<int, string[]> talkDt;
-    [SerializeField] List<Sprite> speakerSprDtList;
+    protected Dictionary<int, string[]> talkDt;
+    protected List<Sprite> speakerSprDtList;
 
     //* Speaker Spr
-    [SerializeField] Sprite frontoothBoySpr;
+    [SerializeField] protected Sprite frontoothBoySpr;
 
     //* Value
-    [SerializeField] bool isAction; public bool IsAction {get => isAction;}
-    [SerializeField] int curId;
-    [SerializeField] int talkIdx;
-    [SerializeField] GameObject talkDialog;
-    [SerializeField] TextMeshProUGUI talkTxt;
-    [SerializeField] Image speakerImg;
+    [SerializeField] protected bool isAction; public bool IsAction {get => isAction;}
+    [SerializeField] protected int curId;
+    [SerializeField] protected int talkIdx;
+    [SerializeField] protected GameObject talkDialog;
+    [SerializeField] protected TextMeshProUGUI talkTxt;
+    [SerializeField] protected Image speakerImg;
 
     protected void Awake() {
         //* 対話データ
@@ -35,7 +35,7 @@ public abstract class TalkManager : MonoBehaviour {
         speakerSprDtList.Add(HM._.pl.IdleSpr);
     }
 
-    protected abstract void generateData();
+    public abstract void generateData();
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -49,26 +49,29 @@ public abstract class TalkManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    //* 途中 処理
+    protected virtual string processMsg(int id) {
+        Debug.Log("processMsg:: TalkManager::");
+        return getMsg(id, talkIdx);
+    }
+    //* 終了 処理
+    protected abstract void endSwitchProccess(int id); 
+
     public void action(int id) {
         curId = id;
         play(); //* 最初スタート
     }
-    public void play() {
+
+    private void play() {
         talk(curId);
         talkDialog.SetActive(isAction);
     }
-    private string getMsg(int id, int talkIdx) {
-        string[] msgs = talkDt[id];
-        if(talkIdx == msgs.Length)
-            return null;
-        else 
-            return msgs[talkIdx];
-    }
 
     private void talk(int id) {
-        string rawMsg = getMsg(id, talkIdx);
+        //* 途中 処理
+        string rawMsg = processMsg(id);
 
-        //* 対話 終了
+        //* 終了 処理
         if(rawMsg == null) {
             Time.timeScale = 1;
             isAction = false;
@@ -78,7 +81,7 @@ public abstract class TalkManager : MonoBehaviour {
             endSwitchProccess(id);
             return;
         }
-        //* 対話表示
+        //* 対話 表示
         else {
             Time.timeScale = 0;
             //* 分析 「メッセージ」と「スピーカー画像」
@@ -103,9 +106,12 @@ public abstract class TalkManager : MonoBehaviour {
         talkIdx++;
     }
 
-    public abstract void endSwitchProccess(int id);
-
-
-
+    protected string getMsg(int id, int talkIdx) {
+        string[] msgs = talkDt[id];
+        if(talkIdx == msgs.Length)
+            return null;
+        else 
+            return msgs[talkIdx];
+    }
 #endregion
 }

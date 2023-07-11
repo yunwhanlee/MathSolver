@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class HomeTalkManager : MonoBehaviour {
+public class HomeTalkManager : TalkManager {
     public enum TALK_ID_IDX {
         FRONTOUTH_BOY
         , TUTORIAL_ROOM
@@ -14,43 +14,16 @@ public class HomeTalkManager : MonoBehaviour {
         , TUTORIAL_GOGAME
         , TUTORIAL_FINISH
     };
-    enum SPEAKER_IDX {FRONTOOTH_BOY, PLAYER};
 
-    [Header("BUTTON TYPE")]
+    [Header("EXTRA")]
     [SerializeField] GameObject TutorialRoomPanelBtn;
 
-    
-    //* DATA
-    Dictionary<int, string[]> talkDt;
-    [SerializeField] List<Sprite> speakerSprDtList;
-
-    //* Speaker Spr
-    [SerializeField] Sprite frontoothBoySpr;
-
-    //* Value
-    [SerializeField] bool isAction; public bool IsAction {get => isAction;}
-    [SerializeField] int curId;
-    [SerializeField] int talkIdx;
-    [SerializeField] GameObject talkDialog;
-    [SerializeField] TextMeshProUGUI talkTxt;
-    [SerializeField] Image speakerImg;
-
-    void Awake() {
-        //* 対話データ
-        talkDt = new Dictionary<int, string[]>();
-        generateData();
-    }
-
-    void Start() {
-        //* キャラの画像データ
-        speakerSprDtList = new List<Sprite>();
-        speakerSprDtList.Add(frontoothBoySpr);
-        speakerSprDtList.Add(HM._.pl.IdleSpr);
-
+    new void Start() {
+        base.Start();
         TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
     }
 
-    void generateData() {
+    public override void generateData() {
         //* TEST用
         talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY, new string[] {
             "아닛! 나를 찾아내다니.. \n옛다 10000코인!:0"
@@ -112,120 +85,43 @@ public class HomeTalkManager : MonoBehaviour {
             , "아이템을\n구매할 수 있다네:1"
             , "다양한 스킨과 가구를 구매해서:1"
             , "이 텅빈 집을\n아름답게 꾸며주게나!:1"
-            , "자 그럼.. 이제...:1"
-            , "저기요.. 잠시만요!\n멈춰!!:0"
-            , "으잉?:1"
-            , "중간평가용 체험판은\n여기까지입니다!:0"
-            , "더 다양한 업데이트로\n다시 찾아뵙겠습니다!:0"
-            , "튜토리얼을 다시 하고 싶으시다면:0"
-            , "홈 화면 우측상단에\n설정아이콘을 누른 뒤:0"
-            , "튜토리얼 버튼을\n눌러주세요!:0"
-            , "언어설정도\n가능하지만,:0"
-            , "현재는 홈 씬만\n대응 가능합니다.:0"
-            , "플레이해주셔서 진심으로\n감사합니다!:0"
-            , "가..감사합니다!:1"
-            , "아 맞다! 저를 찾아서 누르시면:0"
-            , "코인을 드립니다!\n과연 저는 어딧을까요?:0"
-            , "의류점과 가구점에서\n아이템을 구매해서:0"
-            , "자유롭게\n테스트 해주세요!:0"
         });
     }
-
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region EVENT
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-    //* TalkDialogのPlayActionBtnへ張り付ける
-    public void onClickPlayActionBtn() => play();
-    //* 対話開始をボタンイベントでする時、使います
-    public void onClickRegistActionBtn(int id) => action(id);
-#endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void action(int id) {
-        curId = id;
-        play(); //* 最初スタート
-    }
-    public void play() {
-        talk(curId);
-        talkDialog.SetActive(isAction);
-    }
-
-    private void talk(int id) {
-        string rawMsg = getMsg(id, talkIdx);
-
-        //* 対話 終了
-        if(rawMsg == null) {
-            Time.timeScale = 1;
-            isAction = false;
-            talkIdx = 0;
-
-            //* 追加処理
-            switch(id) {
-                case (int)TALK_ID_IDX.FRONTOUTH_BOY: 
-                    HM._.ui.test_GetCoinFromFrontouthBoy(); 
-                    break;
-                case (int)TALK_ID_IDX.TUTORIAL_ROOM: 
-                    TutorialRoomPanelBtn.SetActive(false); 
-                    DB.Dt.IsTutoRoomTrigger = false;
-                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
-                    action((int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP);
-                    break;
-                case (int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP:
-                    DB.Dt.IsTutoFunitureShopTrigger = false;
-                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
-                    action((int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP);
-                    break;
-                case (int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP: 
-                    DB.Dt.IsTutoClothShopTrigger = false;
-                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
-                    action((int)TALK_ID_IDX.TUTORIAL_INV);
-                    break;
-                case (int)TALK_ID_IDX.TUTORIAL_INV:
-                    DB.Dt.IsTutoInventoryTrigger = false;
-                    HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
-                    break;
-                case (int)TALK_ID_IDX.TUTORIAL_GOGAME:
-                    DB.Dt.IsTutoGoGameTrigger = false; 
-                    break;
-                case (int)TALK_ID_IDX.TUTORIAL_FINISH:
-                    DB.Dt.IsTutoFinishTrigger = false; 
-                    break;
-            }
-            return;
+    protected override void endSwitchProccess(int id) {
+        switch(id) {
+            case (int)TALK_ID_IDX.FRONTOUTH_BOY: 
+                HM._.ui.test_GetCoinFromFrontouthBoy(); 
+                break;
+            case (int)TALK_ID_IDX.TUTORIAL_ROOM: 
+                TutorialRoomPanelBtn.SetActive(false); 
+                DB.Dt.IsTutoRoomTrigger = false;
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                action((int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP);
+                break;
+            case (int)TALK_ID_IDX.TUTORIAL_FUNITURESHOP:
+                DB.Dt.IsTutoFunitureShopTrigger = false;
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                action((int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP);
+                break;
+            case (int)TALK_ID_IDX.TUTORIAL_CLOTHSHOP: 
+                DB.Dt.IsTutoClothShopTrigger = false;
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                action((int)TALK_ID_IDX.TUTORIAL_INV);
+                break;
+            case (int)TALK_ID_IDX.TUTORIAL_INV:
+                DB.Dt.IsTutoInventoryTrigger = false;
+                HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
+                break;
+            case (int)TALK_ID_IDX.TUTORIAL_GOGAME:
+                DB.Dt.IsTutoGoGameTrigger = false; 
+                break;
+            case (int)TALK_ID_IDX.TUTORIAL_FINISH:
+                DB.Dt.IsTutoFinishTrigger = false; 
+                break;
         }
-        //* 対話表示
-        else {
-            Time.timeScale = 0;
-            //* 分析 「メッセージ」と「スピーカー画像」
-            string msg = rawMsg.Split(":")[0];
-            string spkKey = rawMsg.Split(":")[1];
-            //* メッセージ
-            talkTxt.text = msg;
-
-            //* スピーカー画像
-            switch(int.Parse(spkKey)) {
-                case (int)SPEAKER_IDX.FRONTOOTH_BOY: 
-                    speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.FRONTOOTH_BOY]; 
-                    break;
-                case (int)SPEAKER_IDX.PLAYER: 
-                    speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.PLAYER]; 
-                    break;
-            }
-        }
-        
-        
-        //* 次の対話準備
-        isAction = true;
-        talkIdx++;
     }
-
-    private string getMsg(int id, int talkIdx) {
-        string[] msgs = talkDt[id];
-        if(talkIdx == msgs.Length)
-            return null;
-        else 
-            return msgs[talkIdx];
-    }
-#endregion
+    #endregion
 }
