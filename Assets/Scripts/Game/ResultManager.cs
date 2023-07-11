@@ -32,7 +32,7 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] GameObject goHomePanelBtn;  public GameObject GoHomePanelBtn {get => goHomePanelBtn; set => goHomePanelBtn = value;}
 
     [Header("EF")]
-    [SerializeField] GameObject coinCollectPtcEF;
+    [SerializeField] GameObject coinAttractionEF;
 
     void Start() {
         //* 以前のコイン量 表示
@@ -99,16 +99,16 @@ public class ResultManager : MonoBehaviour {
         bool isCoinUP = true;
         int coinVal = 0;
 
-        coinCollectPtcEF.SetActive(true);
+        coinAttractionEF.SetActive(true);
+        yield return Util.time1;
         int myCoin = int.Parse(topCoinTxt.text);
         while(isCoinUP) {
-            coinVal += 5;
+            coinVal += 10;
             if(coinVal <= rewardCoin) topCoinTxt.text = $"{coinVal + myCoin}";
             else    isCoinUP = false;
 
             yield return Util.time0_005;
         }
-        coinCollectPtcEF.SetActive(false);
 
         //* Add DataBase Coin
         DB.Dt.setCoin(rewardCoin);
