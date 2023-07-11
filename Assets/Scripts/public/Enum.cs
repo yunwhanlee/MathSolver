@@ -12,7 +12,7 @@ public class Enum {
     public enum TAG {GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj};
     public enum ANIM {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
-        BlackInOut, BlackIn, BlackOut,
+        BlackInOut, BlackIn, BlackOut, DoCamShake,
     };
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};

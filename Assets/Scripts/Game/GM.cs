@@ -17,6 +17,7 @@ public class GM : MonoBehaviour {
     const float OBJ_SPAWN_Y = 4.0f;
 
     public static GM _;
+    public Cam cam;
     public GUI gui; // Game UI Manager
     public GEM gem; // Game Effect Manager
     public QuizManager qm;

@@ -335,7 +335,8 @@ public class QuizManager : MonoBehaviour {
         Array.ForEach(answerBtn, btn => btn.interactable = isActive);
     }
     public IEnumerator coSuccessAnswer(int idx) {
-        StartCoroutine(GM._.gem.coActiveAnimalHeartPoofEF());
+        StartCoroutine(GM._.Pl.coRoarEF());
+        StartCoroutine(GM._.Anm.coActiveAnimalHeartPoofEF());
         GM._.IsSelectCorrectAnswer = true;
 
         //* 演算子によって登録した関数 コールバック
@@ -394,7 +395,8 @@ public class QuizManager : MonoBehaviour {
         */
     }
     public IEnumerator coFailAnswer(int idx) {
-        StartCoroutine(GM._.gem.coActiveAnimalHeartBreakEF());
+        GM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
+        StartCoroutine(GM._.Anm.coActiveAnimalHeartBreakEF());
         answerBtn[idx].GetComponent<Image>().color = Color.red;
         GM._.charaAnimByAnswer(isCorret: false);
         hintFrame.SetActive(true);

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Cam : MonoBehaviour {
     const int W = 9, H = 16;
+    [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
 
     void Awake() {
         Camera camera = GetComponent<Camera>();

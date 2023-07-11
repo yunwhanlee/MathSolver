@@ -14,10 +14,6 @@ public class GEM : MonoBehaviour { //* Game Effect Manager
     [Header("CREATE TYPE")]
     [SerializeField] GameObject dropItemTxtEF;      public GameObject DropItemTxtEF {get => dropItemTxtEF; set => dropItemTxtEF = value;}
 
-    [Header("ACTIVE TYPE")]
-    [SerializeField] GameObject animalHeartPoofEF;
-    [SerializeField] GameObject animalHeartBreakEF;
-
     void Awake() {
         pool.Add(initEF(dropItemTxtEF, max: 5)); //! 順番合わせること
     }
@@ -63,20 +59,6 @@ public class GEM : MonoBehaviour { //* Game Effect Manager
 
         yield return Util.time1;
         pool[(int)IDX.DropItemTxtEF].Release(effect);
-    }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region FUNCTION (ACTIVE TYPE)
-/// -----------------------------------------------------------------------------------------------------------------
-    public IEnumerator coActiveAnimalHeartPoofEF() {
-        animalHeartPoofEF.SetActive(true);
-        yield return Util.time2;
-        animalHeartPoofEF.SetActive(false);
-    }
-    public IEnumerator coActiveAnimalHeartBreakEF() {
-        animalHeartBreakEF.SetActive(true);
-        yield return Util.time2;
-        animalHeartBreakEF.SetActive(false);
     }
 #endregion
 }

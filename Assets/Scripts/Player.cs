@@ -9,7 +9,6 @@ public class Player : MonoBehaviour {
     const float WALK_STOP_VAL = 0.05f;
     const float MIN_Y = -4.5f;
     const float MAX_Y = 2.0f;
-
     const float OFFSET_SIT_X = 0.15f;
     const float OFFSET_SIT_Y = 0.5f;
     const int OFFSET_SIT_FRONT_SORTING = 3;
@@ -17,6 +16,9 @@ public class Player : MonoBehaviour {
     [Header("OUTSIDE")]
     [SerializeField] Collider2D col; public Collider2D Col {get => col; set => col = value;}
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
+
+    [Header("ACTIVE EF")]
+    [SerializeField] GameObject roarEF;
 
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
@@ -86,7 +88,15 @@ public class Player : MonoBehaviour {
         }
     }
 #endregion
-
+///------------------------------------------------------------------------------------------
+#region EFFECT
+///------------------------------------------------------------------------------------------
+    public IEnumerator coRoarEF() {
+        roarEF.SetActive(true);
+        yield return Util.time2;
+        roarEF.SetActive(false);
+    }
+#endregion
 
 ///------------------------------------------------------------------------------------------
 #region ANIM
