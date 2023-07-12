@@ -114,7 +114,7 @@ public class GM : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region QUESTION SO FUNC
 //-------------------------------------------------------------------------------------------------------------
-    public IEnumerator makeQuiz(List<string> analList) {
+    public IEnumerator coMakeQuiz(List<string> analList) {
         List<string> leftSideList = new List<string>(); //* 左辺
         List<string> rightSideList = new List<string>(); //* 右辺
         string lOpr = null; //* 左演算子
@@ -126,8 +126,8 @@ public class GM : MonoBehaviour {
         bool isXEquation = analList.Exists(li => li == "x");
         if(isXEquation) analList.RemoveAll(str => str == "x");
 
-        Debug.Log($"makeQuizSentence(analList.Cnt= {analList.Count}, isXEquation= {isXEquation})::");
-        Debug.Log($"makeQuizSentence:: analList: <color=white>{string.Join(", ", analList.ToArray())}</color>");
+        Debug.Log($"coMakeQuiz(analList.Cnt= {analList.Count}, isXEquation= {isXEquation})::");
+        Debug.Log($"coMakeQuiz:: analList: <color=white>{string.Join(", ", analList.ToArray())}</color>");
         /*【 TYPE 分析 】
             ※ "="が有る：(横)、ない：(縦)。
             ※ (縦)は「X方程式」がない。
@@ -168,8 +168,8 @@ public class GM : MonoBehaviour {
             lNums = separateOperatorAndNumbers(out lOpr, leftSideList);
         }
 
-        Debug.Log($"makeQuizSentence:: (横): leftOpr= <color=yellow>{lOpr}</color>, rightOpr= <color=yellow>{rOpr}</color>");
-        Debug.Log($"makeQuizSentence:: (横): lNums= <color=green>{string.Join(", ", lNums.ToArray())}</color>, rNums= <color=green>{string.Join(", ", rNums.ToArray())}</color>");
+        Debug.Log($"coMakeQuiz:: (横): leftOpr= <color=yellow>{lOpr}</color>, rightOpr= <color=yellow>{rOpr}</color>");
+        Debug.Log($"coMakeQuiz:: (横): lNums= <color=green>{string.Join(", ", lNums.ToArray())}</color>, rNums= <color=green>{string.Join(", ", rNums.ToArray())}</color>");
 
         //* キーワード 切り替え
         var quiz = qm.QuizTxt;
@@ -182,7 +182,7 @@ public class GM : MonoBehaviour {
         int lN2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
         int rN1 = rNums.Count > 0? int.Parse(rNums[0]) : 0;
         int rN2 = rNums.Count > 1? int.Parse(rNums[1]) : 0;
-        Debug.Log($"makeQuizSentence:: lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
+        Debug.Log($"coMakeQuiz:: lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
@@ -257,6 +257,7 @@ public class GM : MonoBehaviour {
                 break;
             }
         }
+        //* 準備完了：選択ボタン 活性化
         yield return coActiveSelectAnswer();
     }
 
