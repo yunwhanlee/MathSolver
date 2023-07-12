@@ -29,14 +29,19 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI topCoinTxt;    public TextMeshProUGUI TopCoinTxt {get => topCoinTxt;}
     [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
     [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
+    [SerializeField] TextMeshProUGUI lvTxt;    public TextMeshProUGUI LvTxt {get => lvTxt; set => lvTxt = value;}
+    [SerializeField] Image expFilledCircleBar;  public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] GameObject goHomePanelBtn;  public GameObject GoHomePanelBtn {get => goHomePanelBtn; set => goHomePanelBtn = value;}
 
     [Header("EF")]
     [SerializeField] GameObject coinAttractionEF;
+    [SerializeField] GameObject expAttractionEF;
 
     void Start() {
         //* 以前のコイン量 表示
         topCoinTxt.text = DB.Dt.Coin.ToString();
+        lvTxt.text = DB.Dt.Lv.ToString();
+        expFilledCircleBar.fillAmount = Util.getExpPer();
 
         //* Init
         rewardExp = 0;
@@ -81,7 +86,7 @@ public class ResultManager : MonoBehaviour {
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
         yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr);
         yield return coPlayCoinCollectAnim();
-        yield return coCheckLevelUp();
+        yield return coPlayExpCollectionAnim();
 
         yield return Util.time1;
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
@@ -114,9 +119,24 @@ public class ResultManager : MonoBehaviour {
         DB.Dt.setCoin(rewardCoin);
     }
 
-    IEnumerator coCheckLevelUp() {
-        DB.Dt.Exp += rewardExp;
-        yield return GM._.Pl.coExpUpEF();
+    IEnumerator coPlayExpCollectionAnim() {
+        bool isExpUp = true;
+        int expVal = 0;
+
+        expAttractionEF.SetActive(true);
+        yield return Util.time1;
+        while(isExpUp) {
+            expVal++;
+            if(expVal <= rewardExp) {
+                DB.Dt.Exp++;
+                expFilledCircleBar.fillAmount = Util.getExpPer();
+                if(expFilledCircleBar.fillAmount == 1)
+                    StartCoroutine(GM._.Pl.coLevelUpEF());
+            }
+            else
+                isExpUp = false;
+            yield return Util.time0_01;
+        }
     }
 
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {

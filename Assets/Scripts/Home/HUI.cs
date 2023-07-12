@@ -32,6 +32,12 @@ public class HUI : MonoBehaviour {
 
     [Header("SETTING")]
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
+
+    [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
+    [SerializeField] Image expFilledCircleBar;      public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
+    [SerializeField] Slider settingExpSliderBar;    public Slider SettingExpSliderBar {get => settingExpSliderBar; set => settingExpSliderBar = value;}
+    [SerializeField] TextMeshProUGUI settingExpSliderTxt;    public TextMeshProUGUI SettingExpSliderTxt {get => settingExpSliderTxt; set => settingExpSliderTxt = value;}
+
     [SerializeField] TextMeshProUGUI curLangTxt;  public TextMeshProUGUI CurLangTxt {get => curLangTxt; set => curLangTxt = value;}
     [SerializeField] Image curLangImg;  public Image CurLangImg {get => curLangImg; set => curLangImg = value;}
     [SerializeField] Button[] langBtns; public Button[] LangBtns {get => langBtns; set => langBtns = value;}
@@ -221,15 +227,15 @@ public class HUI : MonoBehaviour {
     public void onClickInventoryItemListBtn() {
         infoDialog.SetActive(true);
     }
-    public void onClickSettingIconBtn() {
+    public void onClickPortraitBtn() {
         HM._.state = HM.STATE.SETTING;
-        settingPanel.SetActive(true);
         topGroup.SetActive(false);
+        settingPanel.SetActive(true);
     }
     public void onClickSettingPanelCloseBtn() {
         HM._.state = HM.STATE.NORMAL;
-        settingPanel.SetActive(false);
         topGroup.SetActive(true);
+        settingPanel.SetActive(false);
     }
     public void onClickLanguageBtn() {
         selectLangDialog.SetActive(true);
@@ -272,6 +278,15 @@ IEnumerator coUpdateUI() {
         try {
             //* コイン
             coinTxt.text = DB.Dt.Coin.ToString();
+
+            //* 
+            Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
+
+            //* 
+            const int MAX_UNIT = 100;
+            expFilledCircleBar.fillAmount = Util.getExpPer();
+            settingExpSliderBar.value = Util.getExpPer();
+            settingExpSliderTxt.text = $"{DB.Dt.Exp} / {MAX_UNIT * DB.Dt.Lv}";
         }
         catch(Exception err) {
             Debug.LogWarning($"ERROR: {err}");

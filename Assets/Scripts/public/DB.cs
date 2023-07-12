@@ -10,6 +10,8 @@ using System;
 //* -----------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Data {
+    public const int EXP_MAX_UNIT = 100;
+
     [Header("VALUE")]
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}

@@ -19,9 +19,7 @@ public class Player : MonoBehaviour {
 
     [Header("ACTIVE EF")]
     [SerializeField] GameObject roarEF;
-    [SerializeField] GameObject expUpEF;
     [SerializeField] GameObject levelUpEF;
-
 
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
@@ -99,15 +97,10 @@ public class Player : MonoBehaviour {
         yield return Util.time2;
         roarEF.SetActive(false);
     }
-    public IEnumerator coExpUpEF() {
-        expUpEF.SetActive(true);
-        yield return Util.time2;
-        expUpEF.SetActive(false);
-    }
-        public IEnumerator coLevelUpEF() {
-        expUpEF.SetActive(true);
-        yield return Util.time2;
-        expUpEF.SetActive(false);
+    public IEnumerator coLevelUpEF() {
+        levelUpEF.SetActive(true);
+        yield return Util.time1;
+        levelUpEF.SetActive(false);
     }
 #endregion
 
