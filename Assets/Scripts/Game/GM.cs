@@ -117,8 +117,11 @@ public class GM : MonoBehaviour {
     public IEnumerator coMakeQuiz(List<string> analList) {
         List<string> leftSideList = new List<string>(); //* 左辺
         List<string> rightSideList = new List<string>(); //* 右辺
-        string lOpr = null; //* 左演算子
+
+        //TODO 現在は 単一演算のみ対応
+        string lOpr = null; //* 左演算子 
         string rOpr = null; //* 右演算子
+
         List<string> lNums = new List<string>(); //* 左定数
         List<string> rNums = new List<string>(); //* 右定数
         
@@ -189,7 +192,8 @@ public class GM : MonoBehaviour {
                 if(!isXEquation) {
                     quiz.text = replaceTxtKeyword(qSO.QstPlus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
                     yield return coCreateObj(qSO.Obj1Name, lN1);
-                    yield return coCreateExtraOprBox(lOpr, qSO.Obj1Name, lN2);
+                    yield return coCreateOprBlinkBox(lOpr, qSO.Obj1Name, lN2);
+                    //* Callback
                     OnAnswerObjAction += () => addObj(qSO.Obj1Name, befNum: lN1, lN2);
                 }
                 //* (X方程式) N1 + X = N2
@@ -212,23 +216,37 @@ public class GM : MonoBehaviour {
                     yield return coCreateQuestionMarkBox(qSO.Obj1Name, lN1, -POS_X);
                     //* ± N3
                     if(rNums.Count > 1) {
-                        yield return coCreateExtraOprBox(rOpr, qSO.Obj1Name, rN2, POS_X);
+                        yield return coCreateOprBlinkBox(rOpr, qSO.Obj1Name, rN2, POS_X);
+                        //* Callback Right BlinkBox Operation
+                        Debug.Log($"± N3 rOpr-> {rOpr}");
+                        switch(rOpr) {
+                            case "+":
+                                OnAnswerObjAction += () => addObj(qSO.Obj1Name, befNum: 0, rN2, POS_X);
+                                break;
+                            case "-":
+                                OnAnswerObjAction += () => substractObj(rN2, tgBoxOpt: "RightBox");
+                                break;
+                        }
                     }
-                    OnAnswerBoxAction = showQuestionMarkAnswerBox; //* (BUG) "?"があるboxオブジェクトを探すので、ちゃんと"?"が入ってから、コールバック関数を登録
+                    //* Callback: Left QuestionMarkBox Operation 
+                    OnAnswerBoxAction += showQuestionMarkAnswerBox;
+                    OnAnswerBoxAction += (answer) => addObj(qSO.Obj1Name, befNum: 0, answer, -POS_X);
                 }
                 break;
             }
             case "-": { //* 38 - 13 = ?
                 quiz.text = replaceTxtKeyword(qSO.QstMinus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
                 yield return coCreateObj(qSO.Obj1Name, lN1);// createObj(qSO.Obj1Name, lN1);
-                yield return coCreateExtraOprBox(lOpr, qSO.Obj1Name, lN2);
-                OnAnswerObjAction += () => substractObj(lN2);
+                yield return coCreateOprBlinkBox(lOpr, qSO.Obj1Name, lN2);
+                //* Callback
+                OnAnswerObjAction += () => substractObj(lN2, tgBoxOpt: "LastBox");
                 break;
             }
             case "times": { //* 31 times 2
                 quiz.text = replaceTxtKeyword(qSO.QstMultiply, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
                 yield return coCreateObj(qSO.Obj1Name, lN1);
-                OnAnswerObjAction += () => multiplyObj(qSO.Obj1Name, befNum: lN1, lN2);
+                //* Callback
+                OnAnswerObjAction += () => multiplyObj(qSO.Obj1Name, lN1, lN2);
                 break;
             }
             case "frac": {
@@ -237,12 +255,13 @@ public class GM : MonoBehaviour {
                 Debug.Log($"value= {value}, rest= {rest}");
 
                 quiz.text = replaceTxtKeyword(qSO.QstDivide, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                yield return coCreateObj(qSO.Obj1Name, lN1);
-                OnAnswerObjAction += () => divideObj(qSO.Obj1Name, befNum: lN1, lN2);
-
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
                     quiz.text += " 나머지는요?\n(분수로 알려주세요!)";
+
+                yield return coCreateObj(qSO.Obj1Name, lN1);
+                //* Callback
+                OnAnswerObjAction += () => divideObj(qSO.Obj1Name, befNum: lN1, lN2);
                 break;
             }
             case "underline":
@@ -252,6 +271,7 @@ public class GM : MonoBehaviour {
                 quiz.text = replaceTxtKeyword(qSO.QstGreatestCommonDivisor, new string[]{qSO.Obj1Name, lNums[0], lNums[1], qSO.Obj2Name});
                 yield return coCreateObj(qSO.Obj1Name, lN1, posX: -POS_X);
                 yield return coCreateObj(qSO.Obj2Name, lN2, posX: POS_X);
+                //* Callback
                 OnAnswerObjAction += () => greatestCommonDivisorObj(qSO.Obj1Name, lN1, gcd, -POS_X);
                 OnAnswerObjAction += () => greatestCommonDivisorObj(qSO.Obj2Name, lN2, gcd, POS_X);
                 break;
@@ -316,35 +336,16 @@ public class GM : MonoBehaviour {
         return res;
     }
 
-    public void showQuestionMarkAnswerBox(int answer) {
-        Debug.Log($"showQuestionMarkAnswerBox(answer= {answer})::");
-        for(int i = 0; i < objGroupTf.childCount; i++) {
-            var questionMarkBox = objGroupTf.GetChild(i).GetComponent<BoxObj>();
-            if(questionMarkBox.ValueTxt.text == "?") {
-                //* ? ➝ 正解
-                questionMarkBox.ValueTxt.text = answer.ToString();
-                questionMarkBox.Val = answer;
-                break;
-            }
-        }
+    public void addObj(string objName, int befNum, int num, float posX = 0) {
+        deleteBlinkBox();
+        StartCoroutine(coAddObj(objName, befNum, num, posX));
     }
-    public void addObj(string objName, int befNum, int num) {
-        foreach(Transform chd in objGroupTf) {
-            if(chd.name == Enum.OBJ_NAME.BlinkBox.ToString())
-                DestroyImmediate(chd.gameObject);
-        }
-        StartCoroutine(coAddObj(objName, befNum, num));
-    }
-    public void substractObj(int num) {
-        foreach(Transform chd in objGroupTf) {
-            if(chd.name == Enum.OBJ_NAME.BlinkBox.ToString())
-                DestroyImmediate(chd.gameObject);
-        }
-        StartCoroutine(coSubstractObj(num));
+    public void substractObj(int num, string tgBoxOpt) {
+        deleteBlinkBox();
+        StartCoroutine(coSubstractObj(num, tgBoxOpt));
     }
     public void multiplyObj(string objName, int befNum, int num) {
-        int val = (befNum * num) - befNum;
-        StartCoroutine(coAddObj(objName, befNum, val));
+        StartCoroutine(coMultiplyBox(objName, befNum, num));
     }
     public void divideObj(string objName, int befNum, int num) {
         StartCoroutine(coDivideObj(objName, befNum, num));
@@ -352,32 +353,37 @@ public class GM : MonoBehaviour {
     public void greatestCommonDivisorObj(string objName, int befNum, int gcd, float posX) {
         StartCoroutine(coGreatestCommonDivisorObj(objName, befNum, gcd, posX));
     }
+    public void showQuestionMarkAnswerBox(int answer) {
+        Debug.Log($"showQuestionMarkAnswerBox(answer= {answer})::");
+        for(int i = 0; i < objGroupTf.childCount; i++) {
+            var questionMarkBox = objGroupTf.GetChild(i).GetComponent<BoxObj>();
+            if(questionMarkBox.ValueTxt.text == "?") {
+                //* ? ➝ 正解
+                questionMarkBox.ValueTxt.text = 0.ToString(); //answer.ToString();
+                questionMarkBox.Val = 0; //answer;
+                break;
+            }
+        }
+    }
 
-    /// <summary>
+    private void deleteBlinkBox() {
+        foreach(Transform chd in objGroupTf) {
+            if(chd.name.Contains(Enum.BOX_NAME._Blink.ToString()))
+                DestroyImmediate(chd.gameObject);
+        }
+    }
+
     ///* オブジェクト 生成
-    /// </summary>
-    /// <param name="isFinish">オブジェクト生成終了</param>
-    private IEnumerator coCreateObj(string objName, int num, float posX = 0, bool isFinish = true) {
-        int boxCnt = num / BOX_S_MAX;
+    private IEnumerator coCreateObj(string objName, int num, float posX = 0) {
         for(int i = 0; i < num; i++) {
             Debug.Log($"coCreateObj:: i= {i}, num = {num}");
-            //* お先に、10個入りBOX生成
-            if(i < boxCnt * BOX_S_MAX) {
-                i += BOX_S_MAX - 1;
-                BoxObj box = instBox(objName, posX);
-                box.Val = BOX_S_MAX;
-                yield return Util.time0_3;
+            if(i == 0) {
+                instBox(objName, posX);
+                yield return Util.time0_5;
             }
-            else {
-                //* 残り 0個 BOX生成
-                if(i % BOX_S_MAX == 0) {
-                    instBox(objName, posX);
-                    yield return Util.time0_5;
-                }
-                //* そこに入れる、オブジェクト生成
-                instObj(objName, posX);
-                yield return Util.time0_05;
-            }
+            //* そこに入れる、オブジェクト生成
+            instObj(objName, posX);
+            yield return Util.time0_05;
         }
     }
 
@@ -391,7 +397,7 @@ public class GM : MonoBehaviour {
     }
 
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
-        yield return coCreateObj(objName, num, posX, isFinish: false);
+        yield return coCreateObj(objName, num, posX);
         yield return Util.time0_3;
 
         //* 「?」Box
@@ -411,56 +417,58 @@ public class GM : MonoBehaviour {
         }
     }
 
-    private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX = 0) {
+    private IEnumerator coCreateOprBlinkBox(string opr, string objName, int num, float posX = 0) {
         yield return Util.time0_2;
         Debug.Log($"coCreateExtraOprBox(opr= {opr}, objName= {objName}, num= {num}, posX= {posX})::");
         BoxObj box = instBox(objName, posX);
-        box.name = Enum.OBJ_NAME.BlinkBox.ToString();
+        box.name += Enum.BOX_NAME._Blink.ToString();
         box.IsBlockMerge = true;
         box.ValueTxt.text = $"{opr}{num}";
         box.ValueTxt.color = (opr == "+")? Color.blue : Color.red;
         box.Anim.SetTrigger((opr == "+")? Enum.ANIM.DoBlinkAdd.ToString() : Enum.ANIM.DoBlinkMinus.ToString());
     }
 
-    private IEnumerator coAddObj(string objName, int befNum, int num) {
-        int boxCnt = (num + befNum) / BOX_S_MAX;
-        int lastBoxIdx = objGroupTf.childCount - 1;
-        int lastBoxVal = objGroupTf.GetChild(lastBoxIdx).GetComponent<BoxObj>().Val;
-        bool isNotEnoughTen = (lastBoxVal % BOX_S_MAX != 0);
-        int remainVal = BOX_S_MAX - lastBoxVal;
-        Debug.Log($"lastBoxVal= {lastBoxVal}, lastBoxVal % 10 = {lastBoxVal % BOX_S_MAX}, remainVal= {remainVal}");
-
+    private IEnumerator coAddObj(string objName, int befNum, int num, float posX) {
+        Debug.Log($"coAddObj(objName= {objName}, befNum= {befNum}, num= {num})");
         for(int i = befNum; i < num + befNum; i++) {
-            if(isNotEnoughTen && i < befNum + remainVal) {
-                instObj(objName);
-                yield return Util.time0_05;
-            }
-            else if(i < boxCnt * BOX_S_MAX) {
-                i += BOX_S_MAX - 1;
-                BoxObj box = instBox(objName);
-                box.Val = BOX_S_MAX;
-                yield return Util.time0_3;
-            }
-            else {
-                if(i % BOX_S_MAX == 0) {
-                    instBox(objName);
-                    yield return Util.time0_8;
-                }
-                instObj(objName);
-                yield return Util.time0_05;
+            instObj(objName, posX);
+            yield return Util.time0_05;
+        }
+    }
+
+    private IEnumerator coSubstractObj(int num, string tgBoxOpt) {
+        BoxObj tgBox = null;
+        //* ターゲットBOX 探す
+        switch(tgBoxOpt) {
+            case "LastBox":
+                int lastIdx = objGroupTf.childCount - 1;
+                var lastBox = objGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
+                tgBox = lastBox;
+                break;
+            case "RightBox":
+                Transform[] chds = objGroupTf.GetComponentsInChildren<Transform>();
+                var tf = Array.Find(chds, chd => chd.name == Enum.BOX_NAME.RightBox.ToString());
+                tgBox = tf.GetComponent<BoxObj>();
+                break;
+        }
+        Debug.Log($"coSubstractObj(num= {num}, tgBoxOpt= {tgBoxOpt}):: {tgBox.name}");
+
+        //* 減る 処理
+        for(int i = 0; i < num; i++) {
+            tgBox.Val--;
+            yield return Util.time0_025;
+            if(tgBox.Val <= 0) {
+                DestroyImmediate(tgBox.gameObject);
             }
         }
     }
 
-    private IEnumerator coSubstractObj(int num) {
-        for(int i = 0; i < num; i++) {
-            int lastIdx = objGroupTf.childCount - 1;
-            var lastBox = objGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
-            lastBox.Val--;
-            yield return Util.time0_025;
-            if(lastBox.Val <= 0) {
-                DestroyImmediate(lastBox.gameObject);
-            }
+    private IEnumerator coMultiplyBox(string objName, int n1, int multiNum) {
+        //* 既にBOXは一つあるので、iは０ではなく１
+        for(int i = 1; i < multiNum; i++) { 
+            BoxObj box = instBox(objName);
+            box.Val = n1;
+            yield return Util.time0_3;
         }
     }
 
@@ -524,6 +532,9 @@ public class GM : MonoBehaviour {
 
     private BoxObj instBox(string objName, float posX = 0) {
             var box = Instantiate(boxPf, objGroupTf).GetComponent<BoxObj>();
+            box.name = (posX == 0)? Enum.BOX_NAME.Box.ToString()
+                : (posX < 0)? Enum.BOX_NAME.LeftBox.ToString()
+                : Enum.BOX_NAME.RightBox.ToString();
             box.transform.position = new Vector2(posX, BOX_SPAWN_Y);
             box.ObjImg.sprite = getObjSprite(objName);
             return box;

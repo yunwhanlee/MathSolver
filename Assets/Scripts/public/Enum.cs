@@ -15,8 +15,8 @@ public class Enum {
         BlackInOut, BlackIn, BlackOut, DoCamShake,
         DoBlinkAdd, DoBlinkMinus,
     };
-    public enum OBJ_NAME {
-        BlinkBox,
+    public enum BOX_NAME {
+        Box , LeftBox, RightBox, _Blink,
     }
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};
