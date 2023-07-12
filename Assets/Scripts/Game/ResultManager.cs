@@ -75,6 +75,12 @@ public class ResultManager : MonoBehaviour {
         if(DB.Dt.IsTutoDiagResultTrigger) {
             GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
         }
+
+        //* ボーナス反映
+        const float TEM_PER = 0.1f;
+        float lvBonus = (DB.Dt.Lv * TEM_PER + 1);
+        rewardExp = (int)(rewardExp * lvBonus);
+        rewardCoin = (int)(rewardCoin * lvBonus);
         
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";
