@@ -70,7 +70,9 @@ public class GUI : MonoBehaviour
         List<string> analList = AnalyzeTEXTDraw(qstTEXTDraw);
 
         //* ストーリーテリング・オブジェクト生成
-        GM._.qm.QuizTxt.text = GM._.makeQuiz(analList);
+        // GM._.qm.QuizTxt.text = GM._.makeQuiz(analList);
+        StartCoroutine(GM._.makeQuiz(analList));
+        
 
         //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt);

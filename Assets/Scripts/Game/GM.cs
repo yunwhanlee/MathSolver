@@ -114,7 +114,7 @@ public class GM : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region QUESTION SO FUNC
 //-------------------------------------------------------------------------------------------------------------
-    public string makeQuiz(List<string> analList) {
+    public IEnumerator makeQuiz(List<string> analList) {
         List<string> leftSideList = new List<string>(); //* 左辺
         List<string> rightSideList = new List<string>(); //* 右辺
         string lOpr = null; //* 左演算子
@@ -172,7 +172,9 @@ public class GM : MonoBehaviour {
         Debug.Log($"makeQuizSentence:: (横): lNums= <color=green>{string.Join(", ", lNums.ToArray())}</color>, rNums= <color=green>{string.Join(", ", rNums.ToArray())}</color>");
 
         //* キーワード 切り替え
-        string result = "미 지원..";
+        var quiz = qm.QuizTxt;
+        quiz.text = "미 지원..";
+
         initObjList();
         qSO.Obj1Name = Util.getRandomList(qSO.ObjNameList);
         qSO.Obj2Name = Util.getRandomList(qSO.ObjNameList);
@@ -185,44 +187,48 @@ public class GM : MonoBehaviour {
             case "+": {
                 //* (定数式) N1 + N2 = ?
                 if(!isXEquation) {
-                    result = replaceTxtKeyword(qSO.QstPlus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                    GM._.createObj(qSO.Obj1Name, lN1);
-                    GM._.createExtraOprBox(lOpr, qSO.Obj1Name, lN2, 0);
-                    GM._.OnAnswerObjAction += () => GM._.addObj(qSO.Obj1Name, befNum: lN1, lN2);
+                    quiz.text = replaceTxtKeyword(qSO.QstPlus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
+                    yield return coCreateObj(qSO.Obj1Name, lN1);
+                    yield return coCreateExtraOprBox(lOpr, qSO.Obj1Name, lN2);
+                    OnAnswerObjAction += () => addObj(qSO.Obj1Name, befNum: lN1, lN2);
                 }
                 //* (X方程式) N1 + X = N2
                 else {
-                    const float POS_X = 0.65f;
-                    result = replaceTxtKeyword(qSO.QstPlus_XEqu, new string[]{qSO.Obj1Name, lNums[0], rNums[0]});
-                    GM._.createQuestionMarkBox(qSO.Obj1Name, lN1, -POS_X);
-                    GM._.createObj(qSO.Obj1Name, rN1, POS_X);
-                    // GM._.OnAnswerBoxAction = GM._.showQuestionMarkAnswerBox;
-                    
+                    //* 文章
+                    quiz.text = replaceTxtKeyword(qSO.QstPlus_XEqu, new string[]{qSO.Obj1Name, lNums[0], rNums[0]});
                     //* ± N3
                     if(rNums.Count > 1) {
                         rOpr = (rOpr == "minus")? "-" : rOpr; //* 言語➝記号に変更
-                        result += replaceExtraOprKeyword(rOpr, rNums[1]);
-                        GM._.createExtraOprBox(rOpr, qSO.Obj1Name, rN2, POS_X);
+                        quiz.text += replaceExtraOprKeyword(rOpr, rNums[1]);
                     }
                     else {
-                        result += "가 됫어요.";
+                        quiz.text += "가 됫어요.";
                     }
+                    quiz.text += "\n친구는 몇 개를 주었나요?";
 
-                    result += "\n친구는 몇 개를 주었나요?";
+                    //* オブジェクト
+                    const float POS_X = 0.65f;
+                    yield return coCreateObj(qSO.Obj1Name, rN1, POS_X);
+                    yield return coCreateQuestionMarkBox(qSO.Obj1Name, lN1, -POS_X);
+                    //* ± N3
+                    if(rNums.Count > 1) {
+                        yield return coCreateExtraOprBox(rOpr, qSO.Obj1Name, rN2, POS_X);
+                    }
+                    OnAnswerBoxAction = showQuestionMarkAnswerBox; //* (BUG) "?"があるboxオブジェクトを探すので、ちゃんと"?"が入ってから、コールバック関数を登録
                 }
                 break;
             }
             case "-": { //* 38 - 13 = ?
-                result = replaceTxtKeyword(qSO.QstMinus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                GM._.createObj(qSO.Obj1Name, lN1);
-                GM._.createExtraOprBox(lOpr, qSO.Obj1Name, lN2, 0);
-                GM._.OnAnswerObjAction += () => GM._.substractObj(lN2);
+                quiz.text = replaceTxtKeyword(qSO.QstMinus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
+                yield return coCreateObj(qSO.Obj1Name, lN1);// createObj(qSO.Obj1Name, lN1);
+                yield return coCreateExtraOprBox(lOpr, qSO.Obj1Name, lN2);
+                OnAnswerObjAction += () => substractObj(lN2);
                 break;
             }
             case "times": { //* 31 times 2
-                result = replaceTxtKeyword(qSO.QstMultiply, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                GM._.createObj(qSO.Obj1Name, lN1);
-                GM._.OnAnswerObjAction += () => GM._.multiplyObj(qSO.Obj1Name, befNum: lN1, lN2);
+                quiz.text = replaceTxtKeyword(qSO.QstMultiply, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
+                yield return coCreateObj(qSO.Obj1Name, lN1);
+                OnAnswerObjAction += () => multiplyObj(qSO.Obj1Name, befNum: lN1, lN2);
                 break;
             }
             case "frac": {
@@ -230,29 +236,28 @@ public class GM : MonoBehaviour {
                 int rest = lN1 % lN2;
                 Debug.Log($"value= {value}, rest= {rest}");
 
-                result = replaceTxtKeyword(qSO.QstDivide, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                GM._.createObj(qSO.Obj1Name, lN1);
-                GM._.OnAnswerObjAction += () => GM._.divideObj(qSO.Obj1Name, befNum: lN1, lN2);
+                quiz.text = replaceTxtKeyword(qSO.QstDivide, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
+                yield return coCreateObj(qSO.Obj1Name, lN1);
+                OnAnswerObjAction += () => divideObj(qSO.Obj1Name, befNum: lN1, lN2);
 
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
-                    result += " 나머지는요?\n(분수로 알려주세요!)";
+                    quiz.text += " 나머지는요?\n(분수로 알려주세요!)";
                 break;
             }
             case "underline":
             case "left": { //* 最大公約数
                 const float POS_X = 0.65f;
                 int gcd = Util.getGreatestCommonDivisor(lN1, lN2);
-                result = replaceTxtKeyword(qSO.QstGreatestCommonDivisor, new string[]{qSO.Obj1Name, lNums[0], lNums[1], qSO.Obj2Name});
-                GM._.createObj(qSO.Obj1Name, lN1, posX: -POS_X);
-                GM._.createObj(qSO.Obj2Name, lN2, posX: POS_X);
-                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(qSO.Obj1Name, lN1, gcd, -POS_X);
-                GM._.OnAnswerObjAction += () => GM._.greatestCommonDivisorObj(qSO.Obj2Name, lN2, gcd, POS_X);
+                quiz.text = replaceTxtKeyword(qSO.QstGreatestCommonDivisor, new string[]{qSO.Obj1Name, lNums[0], lNums[1], qSO.Obj2Name});
+                yield return coCreateObj(qSO.Obj1Name, lN1, posX: -POS_X);
+                yield return coCreateObj(qSO.Obj2Name, lN2, posX: POS_X);
+                OnAnswerObjAction += () => greatestCommonDivisorObj(qSO.Obj1Name, lN1, gcd, -POS_X);
+                OnAnswerObjAction += () => greatestCommonDivisorObj(qSO.Obj2Name, lN2, gcd, POS_X);
                 break;
             }
         }
-        Debug.Log($"makeQuizSentence(sign= {lOpr}):: result= {result}");
-        return result;
+        yield return coActiveSelectAnswer();
     }
 
     private void initObjList() {
@@ -280,13 +285,17 @@ public class GM : MonoBehaviour {
         return res;
     }
     private string replaceExtraOprKeyword(string rOpr, string key) {
+        string res = "";
         switch(rOpr) {
             case "+":
-                return $"...\n<color=blue>앗! {key}개 더 있네요.</color>";
+                res = $"...\n<color=blue>앗! {key}개 더 있네요.</color>";
+                break;
             case "-": // case "minus":
-                return $"...\n<color=red>앗! 죄송.. {key}개 빼야되요.</color>";
+                res = $"...\n<color=red>앗! 죄송.. {key}개 빼야되요.</color>";
+                break;
         }
-        return "";
+        Debug.Log($"replaceExtraOprKeyword(rOpr= {rOpr}, key= {key}):: res= {res}");
+        return res;
     }
 #endregion
 //-------------------------------------------------------------------------------------------------------------
@@ -300,27 +309,16 @@ public class GM : MonoBehaviour {
             if (enumValStr == name) {
                 Debug.Log($"getObjSpriteIndex({name}):: {enumValStr} == {name} -> {enumVal.ToString() == name}");
                 int idx = (int)enumVal;
-                res =  GM._.ObjSprs[idx];
+                res =  objSprs[idx];
             }
         }
         return res;
     }
 
-    public void createObj(string objName, int num, float posX = 0) 
-        => StartCoroutine(coCreateObj(objName, num, posX));
-
-    public void createQuestionMarkBox(string objName, int num, float posX) {
-        StartCoroutine(coCreateQuestionMarkBox(objName, num, posX));
-    }
-
-    public void createExtraOprBox(string opr, string objName, int num, float posX) {
-        StartCoroutine(coCreateExtraOprBox(opr, objName, num, posX));
-    }
-
     public void showQuestionMarkAnswerBox(int answer) {
         Debug.Log($"showQuestionMarkAnswerBox(answer= {answer})::");
-        for(int i = 0; i < GM._.ObjGroupTf.childCount; i++) {
-            var questionMarkBox = GM._.ObjGroupTf.GetChild(i).GetComponent<BoxObj>();
+        for(int i = 0; i < objGroupTf.childCount; i++) {
+            var questionMarkBox = objGroupTf.GetChild(i).GetComponent<BoxObj>();
             if(questionMarkBox.ValueTxt.text == "?") {
                 //* ? ➝ 正解
                 questionMarkBox.ValueTxt.text = answer.ToString();
@@ -358,10 +356,11 @@ public class GM : MonoBehaviour {
     ///* オブジェクト 生成
     /// </summary>
     /// <param name="isFinish">オブジェクト生成終了</param>
-    private IEnumerator coCreateObj(string objName, int num, float posX, bool isFinish = true) {
+    private IEnumerator coCreateObj(string objName, int num, float posX = 0, bool isFinish = true) {
         int boxCnt = num / BOX_S_MAX;
         for(int i = 0; i < num; i++) {
             Debug.Log($"coCreateObj:: i= {i}, num = {num}");
+            //* お先に、10個入りBOX生成
             if(i < boxCnt * BOX_S_MAX) {
                 i += BOX_S_MAX - 1;
                 BoxObj box = instBox(objName, posX);
@@ -369,23 +368,25 @@ public class GM : MonoBehaviour {
                 yield return Util.time0_3;
             }
             else {
+                //* 残り 0個 BOX生成
                 if(i % BOX_S_MAX == 0) {
                     instBox(objName, posX);
-                    yield return Util.time0_8;
+                    yield return Util.time0_5;
                 }
+                //* そこに入れる、オブジェクト生成
                 instObj(objName, posX);
                 yield return Util.time0_05;
             }
         }
-        //* 次にオブジェクト生成がなかったら、選択ボタン 表示
-        if(isFinish) {
-            yield return Util.time1;
-            GM._.qm.interactableAnswerBtns(true);
-            GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
+    }
 
-            //* チュートリアル：診断評価の最初問題
-            showTutoDiagFirstQuiz();
-        }
+    private IEnumerator coActiveSelectAnswer() {
+        yield return Util.time0_5; //* オブジェクト落ちる時間
+        qm.interactableAnswerBtns(true);
+        qm.IsSolvingQuestion = true; //* 経過時間 カウント START
+
+        //* チュートリアル：診断評価の最初問題
+        showTutoDiagFirstQuiz();
     }
 
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
@@ -399,26 +400,19 @@ public class GM : MonoBehaviour {
         box.ValueTxt.color = Color.magenta;
         box.ValueTxt.fontStyle = FontStyles.Bold;
 
-        //* (BUG) "?"があるboxオブジェクトを探すので、ちゃんと"?"が入ってから、コールバック関数を登録
-        OnAnswerBoxAction = showQuestionMarkAnswerBox;
-
-        yield return Util.time1;
-        GM._.qm.interactableAnswerBtns(true);
-        GM._.qm.IsSolvingQuestion = true; //* 経過時間 カウント START
-
         //* チュートリアル：診断評価の最初問題
         showTutoDiagFirstQuiz();
     }
 
     private void showTutoDiagFirstQuiz() {
-        if(GM._.qm.CurQuestionIndex == 0 && GM._.qm.Status == Status.DIAGNOSIS && DB.Dt.IsTutoDiagFirstQuizTrigger) {
-            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_QUIZ);
+        if(qm.CurQuestionIndex == 0 && qm.Status == Status.DIAGNOSIS && DB.Dt.IsTutoDiagFirstQuizTrigger) {
+            gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_QUIZ);
         }
     }
 
-    private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {
+    private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX = 0) {
+        yield return Util.time0_2;
         Debug.Log($"coCreateExtraOprBox(opr= {opr}, objName= {objName}, num= {num}, posX= {posX})::");
-        yield return Util.time1;
         BoxObj box = instBox(objName, posX);
         box.name = Enum.OBJ_NAME.BlinkBox.ToString();
         box.IsBlockMerge = true;
@@ -429,8 +423,8 @@ public class GM : MonoBehaviour {
 
     private IEnumerator coAddObj(string objName, int befNum, int num) {
         int boxCnt = (num + befNum) / BOX_S_MAX;
-        int lastBoxIdx = GM._.ObjGroupTf.childCount - 1;
-        int lastBoxVal = GM._.ObjGroupTf.GetChild(lastBoxIdx).GetComponent<BoxObj>().Val;
+        int lastBoxIdx = objGroupTf.childCount - 1;
+        int lastBoxVal = objGroupTf.GetChild(lastBoxIdx).GetComponent<BoxObj>().Val;
         bool isNotEnoughTen = (lastBoxVal % BOX_S_MAX != 0);
         int remainVal = BOX_S_MAX - lastBoxVal;
         Debug.Log($"lastBoxVal= {lastBoxVal}, lastBoxVal % 10 = {lastBoxVal % BOX_S_MAX}, remainVal= {remainVal}");
@@ -459,8 +453,8 @@ public class GM : MonoBehaviour {
 
     private IEnumerator coSubstractObj(int num) {
         for(int i = 0; i < num; i++) {
-            int lastIdx = GM._.ObjGroupTf.childCount - 1;
-            var lastBox = GM._.ObjGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
+            int lastIdx = objGroupTf.childCount - 1;
+            var lastBox = objGroupTf.GetChild(lastIdx).GetComponent<BoxObj>();
             lastBox.Val--;
             yield return Util.time0_025;
             if(lastBox.Val <= 0) {
@@ -474,7 +468,7 @@ public class GM : MonoBehaviour {
         int rest = befNum % num;
 
         //* 以前の物 削除
-        foreach (Transform child in GM._.ObjGroupTf) {
+        foreach (Transform child in objGroupTf) {
             Destroy(child.gameObject);
         }
         yield return null; //* 破壊するまで、1フレーム 待機
@@ -503,7 +497,7 @@ public class GM : MonoBehaviour {
         // Debug.Log($"coGreatestCommonDivisorObj({objName}, {befNum}, {gcd}, {posX}):: val= {befNum}, rest= {rest}");
 
         //* 以前の物 削除
-        foreach (Transform child in GM._.ObjGroupTf) {
+        foreach (Transform child in objGroupTf) {
             Destroy(child.gameObject);
         }
         yield return null; //* 破壊するまで、1フレーム 待機
@@ -528,14 +522,14 @@ public class GM : MonoBehaviour {
     }
 
     private BoxObj instBox(string objName, float posX = 0) {
-            var box = Instantiate(GM._.BoxPf, GM._.ObjGroupTf).GetComponent<BoxObj>();
+            var box = Instantiate(boxPf, objGroupTf).GetComponent<BoxObj>();
             box.transform.position = new Vector2(posX, BOX_SPAWN_Y);
             box.ObjImg.sprite = getObjSprite(objName);
             return box;
     }
 
     private void instObj(string objName, float posX = 0) {
-        var obj = Instantiate(GM._.ObjPf, GM._.ObjGroupTf);
+        var obj = Instantiate(objPf, objGroupTf);
         float randX = Random.Range(-OBJ_RAND_RANGE_X + posX, OBJ_RAND_RANGE_X + posX);
         obj.transform.position = new Vector2(randX, OBJ_SPAWN_Y);
         obj.GetComponent<SpriteRenderer>().sprite = getObjSprite(objName);
