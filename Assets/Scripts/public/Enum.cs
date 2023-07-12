@@ -13,7 +13,11 @@ public class Enum {
     public enum ANIM {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
         BlackInOut, BlackIn, BlackOut, DoCamShake,
+        DoBlinkAdd, DoBlinkMinus,
     };
+    public enum OBJ_NAME {
+        BlinkBox,
+    }
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};
     public enum LAYER {Chair};

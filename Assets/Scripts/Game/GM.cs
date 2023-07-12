@@ -151,9 +151,17 @@ public class GM : MonoBehaviour {
         }
     }
     public void addObj(string objName, int befNum, int num) {
+        foreach(Transform chd in objGroupTf) {
+            if(chd.name == Enum.OBJ_NAME.BlinkBox.ToString())
+                DestroyImmediate(chd.gameObject);
+        }
         StartCoroutine(coAddObj(objName, befNum, num));
     }
     public void substractObj(int num) {
+        foreach(Transform chd in objGroupTf) {
+            if(chd.name == Enum.OBJ_NAME.BlinkBox.ToString())
+                DestroyImmediate(chd.gameObject);
+        }
         StartCoroutine(coSubstractObj(num));
     }
     public void multiplyObj(string objName, int befNum, int num) {
@@ -231,11 +239,13 @@ public class GM : MonoBehaviour {
 
     private IEnumerator coCreateExtraOprBox(string opr, string objName, int num, float posX) {
         Debug.Log($"coCreateExtraOprBox(opr= {opr}, objName= {objName}, num= {num}, posX= {posX})::");
-        yield return Util.time0_8;
+        yield return Util.time1;
         BoxObj box = instBox(objName, posX);
+        box.name = Enum.OBJ_NAME.BlinkBox.ToString();
         box.IsBlockMerge = true;
         box.ValueTxt.text = $"{opr}{num}";
         box.ValueTxt.color = (opr == "+")? Color.blue : Color.red;
+        box.Anim.SetTrigger((opr == "+")? Enum.ANIM.DoBlinkAdd.ToString() : Enum.ANIM.DoBlinkMinus.ToString());
     }
 
     private IEnumerator coAddObj(string objName, int befNum, int num) {

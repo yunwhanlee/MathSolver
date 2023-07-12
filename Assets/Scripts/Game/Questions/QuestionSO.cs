@@ -106,6 +106,7 @@ public class QuestionSO : ScriptableObject {
                 if(!isXEquation) {
                     result = replaceTxtKeyword(qstPlus, new string[]{obj1Name, lNums[0], lNums[1]});
                     GM._.createObj(obj1Name, lN1);
+                    GM._.createExtraOprBox(lOpr, obj1Name, lN2, 0);
                     GM._.OnAnswerObjAction += () => GM._.addObj(obj1Name, befNum: lN1, lN2);
                 }
                 //* (X方程式) N1 + X = N2
@@ -133,6 +134,7 @@ public class QuestionSO : ScriptableObject {
             case "-": { //* 38 - 13 = ?
                 result = replaceTxtKeyword(qstMinus, new string[]{obj1Name, lNums[0], lNums[1]});
                 GM._.createObj(obj1Name, lN1);
+                GM._.createExtraOprBox(lOpr, obj1Name, lN2, 0);
                 GM._.OnAnswerObjAction += () => GM._.substractObj(lN2);
                 break;
             }

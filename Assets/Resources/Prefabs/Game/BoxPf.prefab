@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 6015910379572323596}
   - component: {fileID: 6015910379572323597}
   - component: {fileID: 3189549412795093646}
+  - component: {fileID: 5921591641620880159}
   m_Layer: 0
   m_Name: BoxPf
   m_TagString: Box
@@ -152,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06ebac561d04944b813584c175d4488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 5921591641620880159}
   val: 0
   isBlockMerge: 0
   valueTxt: {fileID: 6015910379710780412}
@@ -255,6 +257,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!95 &5921591641620880159
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015910379572323586}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 14618d1fa965adb448e8dd2d59a0350a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6015910379710780402
 GameObject:
   m_ObjectHideFlags: 0

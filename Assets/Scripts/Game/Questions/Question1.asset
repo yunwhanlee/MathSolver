@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Question1
   m_EditorClassIdentifier: 
   qstPlus: "OBJ1N1\uAC1C\uAC00 \uC788\uC5B4\uC694.\n\uCE5C\uAD6C\uD55C\uD14C N2\uAC1C\uB97C
-    \uB354 \uBC1B\uB294\uB2E4\uBA74, \uCD1D \uBA87 \uAC1C \uC778\uAC00\uC694?"
+    \uB354 \uBC1B\uC73C\uBA74, \uBA87 \uAC1C \uC778\uAC00\uC694?"
   qstPlus_XEquation: "OBJ1N1\uAC1C\uC5D0 \uCE5C\uAD6C\uAC00 \uC8FC\uC5C8\uB358 \uAC83\uC744
     \uD569\uD558\uB2C8, N2\uAC1C"
   qstMinus: "OBJ1N1\uAC1C\uAC00 \uC788\uC5B4\uC694.\n\uCE5C\uAD6C\uC5D0\uAC8C N2\uAC1C\uB97C
-    \uC900\uB2E4\uBA74, \uCD1D \uBA87 \uAC1C\uAC00 \uB0A8\uB098\uC694?"
+    \uC900\uB2E4\uBA74, \uBA87 \uAC1C\uAC00 \uB0A8\uB098\uC694?"
   qstMultiply: "OBJ1N1\uAC1C\uB97C N2\uB9C8\uB9AC \uCE5C\uAD6C\uAC00 \uAC16\uACE0\uC788\uC5B4\uC694.
     \n\uC804\uBD80 \uBA87 \uAC1C \uC77C\uAE4C\uC694?"
   qstDivide: "OBJ1N1\uAC1C\uB97C \uCE5C\uAD6C\uC5D0\uAC8C N2\uAC1C\uC529 \uB098\uB220\uC8FC\uACE0
@@ -34,5 +34,5 @@ MonoBehaviour:
   - onion
   - orange
   - potato
-  obj1Name: onion
-  obj2Name: apple
+  obj1Name: potato
+  obj2Name: carrot
