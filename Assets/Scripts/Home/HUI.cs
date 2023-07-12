@@ -311,11 +311,6 @@ IEnumerator coShowErrorMsgPopUp(string msg) {
     errorMsgPopUp.SetActive(false);
     errorMsgTxt.text = "";
 }
-public void test_GetCoinFromFrontouthBoy() {
-        DB.Dt.setCoin(10000);
-        HM._.em.showEF((int)HEM.IDX.CoinBurstTopEF, HM._.pl.transform.position, Util.time1);
-        HM._.pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
-    }
 
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ public class Animal : MonoBehaviour {
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
-#region FUNCTION (ACTIVE TYPE)
+#region EFFECT
 /// -----------------------------------------------------------------------------------------------------------------
     public IEnumerator coActiveAnimalHeartPoofEF() {
         animalHeartPoofEF.SetActive(true);

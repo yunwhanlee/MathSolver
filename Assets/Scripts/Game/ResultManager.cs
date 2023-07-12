@@ -71,7 +71,6 @@ public class ResultManager : MonoBehaviour {
             GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
         }
         
-
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";
 
@@ -82,6 +81,7 @@ public class ResultManager : MonoBehaviour {
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
         yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr);
         yield return coPlayCoinCollectAnim();
+        yield return coCheckLevelUp();
 
         yield return Util.time1;
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
@@ -112,6 +112,11 @@ public class ResultManager : MonoBehaviour {
 
         //* Add DataBase Coin
         DB.Dt.setCoin(rewardCoin);
+    }
+
+    IEnumerator coCheckLevelUp() {
+        DB.Dt.Exp += rewardExp;
+        yield return GM._.Pl.coExpUpEF();
     }
 
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {

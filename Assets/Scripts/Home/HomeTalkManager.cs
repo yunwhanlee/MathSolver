@@ -6,8 +6,7 @@ using TMPro;
 
 public class HomeTalkManager : TalkManager {
     public enum TALK_ID_IDX {
-        FRONTOUTH_BOY
-        , TUTORIAL_ROOM
+        TUTORIAL_ROOM
         , TUTORIAL_FUNITURESHOP
         , TUTORIAL_CLOTHSHOP
         , TUTORIAL_INV
@@ -24,11 +23,6 @@ public class HomeTalkManager : TalkManager {
     }
 
     public override void generateData() {
-        //* TEST用
-        talkDt.Add((int)TALK_ID_IDX.FRONTOUTH_BOY, new string[] {
-            "아닛! 나를 찾아내다니.. \n옛다 10000코인!:0"
-            , "더 필요하면 언제든 찾오세요!\n담백하다!:0"
-        });
         //* チュートリアル用
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_ROOM, new string[] {
             "오오! 자네가 이번에 새로온 \n수학 조수구만!:1"
@@ -72,9 +66,7 @@ public class HomeTalkManager : TalkManager {
             "자.. 어디보자..:1"
             , "동물친구들을\n도와주러 갈겸..:1"
             , "자네의 수학실력을\n한번 파악해볼까?:1"
-            , "!!!:0"
             , "겁먹지 말게나!\n내가 있지 않나?!:1"
-            , "...:0"
             , "찬찬히,\n설명해주겠다네.:1"
             , "준비가되면, 화면아래\n발판으로 가보시게나!:1"
         });
@@ -92,9 +84,6 @@ public class HomeTalkManager : TalkManager {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     protected override void endSwitchProccess(int id) {
         switch(id) {
-            case (int)TALK_ID_IDX.FRONTOUTH_BOY: 
-                HM._.ui.test_GetCoinFromFrontouthBoy(); 
-                break;
             case (int)TALK_ID_IDX.TUTORIAL_ROOM: 
                 TutorialRoomPanelBtn.SetActive(false); 
                 DB.Dt.IsTutoRoomTrigger = false;

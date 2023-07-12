@@ -5,14 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 
 public abstract class TalkManager : MonoBehaviour {
-    public enum SPEAKER_IDX {FRONTOOTH_BOY, PLAYER};
+    public enum SPEAKER_IDX {PLAYER};
 
     //* DATA
     protected Dictionary<int, string[]> talkDt;
     protected List<Sprite> speakerSprDtList;
 
     //* Speaker Spr
-    [SerializeField] protected Sprite frontoothBoySpr;
 
     //* Value
     [SerializeField] protected bool isAction; public bool IsAction {get => isAction;}
@@ -31,7 +30,6 @@ public abstract class TalkManager : MonoBehaviour {
     protected void Start() {
         //* キャラの画像データ
         speakerSprDtList = new List<Sprite>();
-        speakerSprDtList.Add(frontoothBoySpr);
         speakerSprDtList.Add(HM._.pl.IdleSpr);
     }
 
@@ -92,9 +90,6 @@ public abstract class TalkManager : MonoBehaviour {
 
             //* スピーカー画像
             switch(int.Parse(spkKey)) {
-                case (int)SPEAKER_IDX.FRONTOOTH_BOY: 
-                    speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.FRONTOOTH_BOY]; 
-                    break;
                 case (int)SPEAKER_IDX.PLAYER: 
                     speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.PLAYER]; 
                     break;
