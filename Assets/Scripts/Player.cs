@@ -41,8 +41,6 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
-        if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
-        if(HM._.state != HM.STATE.NORMAL) return;
         if(isSit) return;
 
         //* レイヤー
@@ -71,8 +69,9 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     public void setSit(Transform hitTf) {
         //* 座る
-        if(!isSit) {
-            isSit = true;
+        if(!isSit 
+        && colChairObj // 衝突した椅子がなかったリターン
+        && hitTf.gameObject == colChairObj) { // 衝突した椅子と違ったらリターン
             animSit(true);
             tf.localPosition = new Vector2(hitTf.localPosition.x + OFFSET_SIT_X, hitTf.localPosition.y + OFFSET_SIT_Y);
             tf.localScale = new Vector2(hitTf.localScale.x, tf.localScale.y);
@@ -83,9 +82,7 @@ public class Player : MonoBehaviour {
         }
         //* 立つ
         else {
-            HM._.pl.IsSit = false;
-            HM._.pl.animSit(false);
-            tf.localPosition = new Vector2(hitTf.localPosition.x, hitTf.localPosition.y);
+            animSit(false);
         }
     }
 #endregion
@@ -116,8 +113,9 @@ public class Player : MonoBehaviour {
         tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
     }
-    public void animSit(bool isSit) {
-        HM._.pl.Anim.SetBool(Enum.ANIM.IsSit.ToString(), isSit);
+    public void animSit(bool _isSit) {
+        isSit = _isSit;
+        HM._.pl.Anim.SetBool(Enum.ANIM.IsSit.ToString(), _isSit);
     }
 #endregion
 ///------------------------------------------------------------------------------------------

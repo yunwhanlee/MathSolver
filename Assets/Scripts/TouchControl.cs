@@ -9,9 +9,8 @@ public class TouchControl : MonoBehaviour
 
     void Update(){
         if(Input.GetMouseButtonDown(0)) {
-            if(HM._.state == HM.STATE.SETTING) return;
-            if(HM._.state == HM.STATE.DECORATION_MODE) return;
-            if(HM._.ui.CurHomeSceneIdx == (int)Enum.HOME.Inventory) return;
+            if(HM._.state != HM.STATE.NORMAL) return;
+            if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
             if(HM._.htm.IsAction) return;
 
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -38,16 +37,18 @@ public class TouchControl : MonoBehaviour
                     return; // プレイヤー移動させない
                 }
                 //* 椅子(家具)
-                else if(isChair && HM._.pl.ColChairObj) {
-                    // ヒットオブジェクトが衝突した椅子と違うとリターン
-                    if(hit.transform.gameObject != HM._.pl.ColChairObj)
-                        return;
-                    HM._.pl.setSit(hit.transform); // 座る
+                else if(isChair) {
+                    // 一旦、椅子の方にも移動できるように
+                    HM._.pl.TgPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+                    HM._.pl.setSit(hit.transform); // 座る・立つ
+                    return;
                 }
                 //* その以外
                 else {
+                    HM._.pl.animSit(false); // 座る状態なら、立つ
                     // プレイヤー 移動位置
                     HM._.pl.TgPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+                    return;
                 }
             }
             Debug.DrawRay(mouseWorldPos, transform.forward * 50, Color.red, 0.3f);
