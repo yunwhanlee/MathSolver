@@ -34,7 +34,15 @@ public class RoomObject : MonoBehaviour {
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
         bool isExistSelectedObj = Array.Exists(roomObjs, obj => obj.IsSelect);
 
-        if(!isSelect && !isExistSelectedObj) {
+        if(isExistSelectedObj) {
+            //* もし選択して他の物選択したら、調整ターゲット変更
+            if(HM._.fUI.CurSelectedObj != Array.Find(roomObjs, obj => obj.IsSelect)) {
+                HM._.fUI.CurSelectedObj = this.gameObject;
+                HM._.fUI.BefPos = this.gameObject.transform.position;
+                StartCoroutine(coPlayItemBounceAnim());
+            }
+        }
+        else if(!isSelect && !isExistSelectedObj) {
             HM._.fUI.CurSelectedObj = this.gameObject;
             HM._.fUI.BefPos = this.gameObject.transform.position;
             StartCoroutine(coPlayItemBounceAnim());
@@ -80,8 +88,8 @@ public class RoomObject : MonoBehaviour {
     IEnumerator coPlayItemBounceAnim() {
         float ORG_SC_X = transform.localScale.x;
         float ORG_SC_Y = transform.localScale.y;
-        const float MAX_SC = 1.5f;
-        const float DURATION = 0.1f; // アニメー再生時間
+        // const float MAX_SC = 1.5f;
+        // const float DURATION = 0.1f; // アニメー再生時間
 
         //* 他のオブジェクトは 初期化
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
@@ -100,28 +108,30 @@ public class RoomObject : MonoBehaviour {
         this.sr.material = HM._.outlineAnimMt;
 
         //* スケール増加 アニメー
-        float elapsedTime = 0.0f;
-        while (elapsedTime < DURATION) {
-            float time = elapsedTime / DURATION; // 経過時間の比率
-            float scaleFactor = Mathf.Lerp(1.0f, MAX_SC, time);
+        // float elapsedTime = 0.0f;
+        // while (elapsedTime < DURATION) {
+        //     float time = elapsedTime / DURATION; // 経過時間の比率
+        //     float scaleFactor = Mathf.Lerp(1.0f, MAX_SC, time);
 
-            transform.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
+        //     transform.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        //     elapsedTime += Time.deltaTime;
+        //     yield return null;
+        // }
 
-        //* スケール減衰 アニメー
-        elapsedTime = 0.0f;
-        while (elapsedTime < DURATION) {
-            float time = elapsedTime / DURATION; // 経過時間の比率
-            float scaleFactor = Mathf.Lerp(MAX_SC, 1.0f, time);
+        // //* スケール減衰 アニメー
+        // elapsedTime = 0.0f;
+        // while (elapsedTime < DURATION) {
+        //     float time = elapsedTime / DURATION; // 経過時間の比率
+        //     float scaleFactor = Mathf.Lerp(MAX_SC, 1.0f, time);
 
-            transform.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
+        //     transform.localScale = new Vector2(ORG_SC_X * scaleFactor, ORG_SC_Y * scaleFactor);
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        //     elapsedTime += Time.deltaTime;
+        //     yield return null;
+        // }
+
+        yield return null;
 
         //* 最後のフレームで、元のサイズに戻す
         transform.localScale = new Vector2(ORG_SC_X, ORG_SC_Y);
