@@ -94,7 +94,6 @@ public class ResultManager : MonoBehaviour {
         yield return coPlayCoinCollectAnim();
         yield return coPlayExpCollectionAnim();
 
-        yield return Util.time1;
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(true);
     }
@@ -130,7 +129,6 @@ public class ResultManager : MonoBehaviour {
         int expVal = 0;
 
         expAttractionEF.SetActive(true);
-        yield return Util.time1;
         while(isExpUp) {
             expVal++;
             if(expVal <= rewardExp) {
