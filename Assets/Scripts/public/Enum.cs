@@ -16,7 +16,7 @@ public class Enum {
         DoBlinkAdd, DoBlinkMinus,
     };
     public enum BOX_NAME {
-        Box , LeftBox, RightBox, _Blink,
+        Box , LeftBox, RightBox, _Blink, _QuestionMark,
     }
     public enum OPERATION {Plus, Minus, Multiply, Divide};
     public enum EXPRESSION {Idle, Fail, Success};

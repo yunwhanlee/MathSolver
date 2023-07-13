@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quiz Question", fileName = "New Question")]
-public class QuestionSO : ScriptableObject {
+public class QuestionSO : ScriptableObject { //* データ
     [Header("FOUR FUNDAMENTAL CONTENT")]
     [TextArea(2 ,6)]
     [SerializeField] string qstPlus; public string QstPlus {get => qstPlus;}

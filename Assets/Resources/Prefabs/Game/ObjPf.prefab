@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6015910379572323587}
   - component: {fileID: 6015910379572323596}
+  - component: {fileID: 8459428496613092505}
   - component: {fileID: 6015910379572323597}
   - component: {fileID: 3189549412795093646}
   m_Layer: 6
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 1619510338, guid: b09eb03b54f7f9c4499c9c799d1351e6, type: 3}
-  m_Color: {r: 0.9725491, g: 0.8235295, b: 0.21176472, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,6 +87,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8459428496613092505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015910379572323586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff25ff4354da7de4d8c208a3aeaf195e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: 3189549412795093646}
+  rigid: {fileID: 6015910379572323597}
+  sprRdr: {fileID: 6015910379572323596}
+  isDisappear: 0
 --- !u!50 &6015910379572323597
 Rigidbody2D:
   serializedVersion: 4
@@ -106,7 +123,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 5
+  m_Constraints: 0
 --- !u!61 &3189549412795093646
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -158,6 +158,7 @@ MonoBehaviour:
   isBlockMerge: 0
   valueTxt: {fileID: 6015910379710780412}
   objImg: {fileID: 6015910379979293015}
+  worldAttractorPtcImg: {fileID: 0}
 --- !u!212 &6015910379572323596
 SpriteRenderer:
   m_ObjectHideFlags: 0

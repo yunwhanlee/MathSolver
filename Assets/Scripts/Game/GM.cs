@@ -224,13 +224,13 @@ public class GM : MonoBehaviour {
                                 OnAnswerObjAction += () => addObj(qSO.Obj1Name, befNum: 0, rN2, POS_X);
                                 break;
                             case "-":
-                                OnAnswerObjAction += () => substractObj(rN2, tgBoxOpt: "RightBox");
+                                OnAnswerObjAction += () => substractObj(qSO.Obj1Name, rN2, tgBoxOpt: "RightBox");
                                 break;
                         }
                     }
-                    //* Callback: Left QuestionMarkBox Operation 
+                    //* Callback: Left ?MarkBox Operation 
                     OnAnswerBoxAction += showQuestionMarkAnswerBox;
-                    OnAnswerBoxAction += (answer) => addObj(qSO.Obj1Name, befNum: 0, answer, -POS_X);
+                    OnAnswerBoxAction += (answer) => addObj(qSO.Obj1Name + "?", befNum: 0, answer, -POS_X);
                 }
                 break;
             }
@@ -239,7 +239,7 @@ public class GM : MonoBehaviour {
                 yield return coCreateObj(qSO.Obj1Name, lN1);// createObj(qSO.Obj1Name, lN1);
                 yield return coCreateOprBlinkBox(lOpr, qSO.Obj1Name, lN2);
                 //* Callback
-                OnAnswerObjAction += () => substractObj(lN2, tgBoxOpt: "LastBox");
+                OnAnswerObjAction += () => substractObj(qSO.Obj1Name, lN2, tgBoxOpt: "LastBox");
                 break;
             }
             case "times": { //* 31 times 2
@@ -337,12 +337,17 @@ public class GM : MonoBehaviour {
     }
 
     public void addObj(string objName, int befNum, int num, float posX = 0) {
-        deleteBlinkBox();
-        StartCoroutine(coAddObj(objName, befNum, num, posX));
+        Vector2 startPos = Vector2.zero;
+        if(objName.Contains("?")) 
+            startPos = getQuestionMarkBoxPos();
+        else 
+            startPos = deleteBlinkBox(opr: "+");
+        
+        setOprResult("+", objName, num, startPos);
     }
-    public void substractObj(int num, string tgBoxOpt) {
-        deleteBlinkBox();
-        StartCoroutine(coSubstractObj(num, tgBoxOpt));
+    public void substractObj(string objName, int num, string tgBoxOpt) {
+        deleteBlinkBox(opr: "-");
+        StartCoroutine(coSubstractObj(objName, num, tgBoxOpt));
     }
     public void multiplyObj(string objName, int befNum, int num) {
         StartCoroutine(coMultiplyBox(objName, befNum, num));
@@ -366,13 +371,6 @@ public class GM : MonoBehaviour {
         }
     }
 
-    private void deleteBlinkBox() {
-        foreach(Transform chd in objGroupTf) {
-            if(chd.name.Contains(Enum.BOX_NAME._Blink.ToString()))
-                DestroyImmediate(chd.gameObject);
-        }
-    }
-
     ///* オブジェクト 生成
     private IEnumerator coCreateObj(string objName, int num, float posX = 0) {
         for(int i = 0; i < num; i++) {
@@ -384,6 +382,49 @@ public class GM : MonoBehaviour {
             //* そこに入れる、オブジェクト生成
             instObj(objName, posX);
             yield return Util.time0_05;
+        }
+    }
+
+    private Vector2 deleteBlinkBox(string opr) {
+        Vector2 pos = Vector2.zero;
+        foreach(Transform chd in objGroupTf) {
+            if(chd.name.Contains(Enum.BOX_NAME._Blink.ToString())) {
+                pos = chd.position;
+                if(opr == "+")
+                    GM._.gem.showEF((int)GEM.IDX.PlusBlinkBoxBurstEF, chd.position, Util.time2);
+                else if(opr == "-")
+                    GM._.gem.showEF((int)GEM.IDX.MinusBlinkBoxBurstEF, chd.position, Util.time2);
+                DestroyImmediate(chd.gameObject);
+            }
+        }
+        return pos;
+    }
+    private Vector2 getQuestionMarkBoxPos() {
+        Vector2 pos = Vector2.zero;
+        foreach(Transform chd in objGroupTf) {
+            if(chd.name.Contains(Enum.BOX_NAME._QuestionMark.ToString())) {
+                pos = chd.position;
+                GM._.gem.showEF((int)GEM.IDX.QuestionMarkBoxBurstEF, chd.position, Util.time2);
+            }
+        }
+        return pos;
+    }
+
+    private void setOprResult(string opr, string objName, int num, Vector2 startPos) {
+        const float DIR_X_RANGE = 0.06875f;
+        for(int i = 0; i < num; i++) {
+            //* オブジェクト生成し、上に上げる
+            var obj = Instantiate(objPf, objGroupTf).GetComponent<Obj>();
+            obj.transform.position = startPos;
+            obj.SprRdr.sprite = getObjSprite(objName);
+            Vector2 dir = new Vector2(Random.Range(-DIR_X_RANGE, DIR_X_RANGE), 1.0f).normalized;
+            obj.addForce(dir);
+
+            //* マイナス結果なら、追加処理
+            if(opr == "+")
+                Debug.Log("なし");
+            else if(opr == "-")
+                StartCoroutine(obj.coDisappear());
         }
     }
 
@@ -402,7 +443,7 @@ public class GM : MonoBehaviour {
 
         //* 「?」Box
         BoxObj box = instBox(objName, posX);
-        // yield return Util.time0_3;
+        box.name += Enum.BOX_NAME._QuestionMark.ToString();
         box.ValueTxt.text = "?";
         box.ValueTxt.color = Color.magenta;
         box.ValueTxt.fontStyle = FontStyles.Bold;
@@ -436,7 +477,7 @@ public class GM : MonoBehaviour {
         }
     }
 
-    private IEnumerator coSubstractObj(int num, string tgBoxOpt) {
+    private IEnumerator coSubstractObj(string objName, int num, string tgBoxOpt) {
         BoxObj tgBox = null;
         //* ターゲットBOX 探す
         switch(tgBoxOpt) {
@@ -456,7 +497,8 @@ public class GM : MonoBehaviour {
         //* 減る 処理
         for(int i = 0; i < num; i++) {
             tgBox.Val--;
-            yield return Util.time0_025;
+            setOprResult("-", objName, num, tgBox.transform.position);
+            yield return Util.time0_05;
             if(tgBox.Val <= 0) {
                 DestroyImmediate(tgBox.gameObject);
             }

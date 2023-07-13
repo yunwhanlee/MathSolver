@@ -6,16 +6,27 @@ using TMPro;
 
 public class GEM : MonoBehaviour { //* Game Effect Manager
     public enum IDX {
-        DropItemTxtEF, //! 順番合わせること
+        //* 順番合わせること
+        DropItemTxtEF, 
+        PlusBlinkBoxBurstEF,
+        MinusBlinkBoxBurstEF,
+        QuestionMarkBoxBurstEF,
     };
     [SerializeField] Transform effectGroup;
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
 
     [Header("CREATE TYPE")]
     [SerializeField] GameObject dropItemTxtEF;      public GameObject DropItemTxtEF {get => dropItemTxtEF; set => dropItemTxtEF = value;}
+    [SerializeField] GameObject plusBlinkBoxBurstEF;    public GameObject PlusBlinkBoxBurstEF {get => plusBlinkBoxBurstEF; set => plusBlinkBoxBurstEF = value;}
+    [SerializeField] GameObject minusBlinkBoxBurstEF;    public GameObject MinusBlinkBoxBurstEF {get => minusBlinkBoxBurstEF; set => minusBlinkBoxBurstEF = value;}
+    [SerializeField] GameObject questionMarkBoxBurstEF; public GameObject QuestionMarkBoxBurstEF {get => questionMarkBoxBurstEF; set => questionMarkBoxBurstEF = value;}
 
     void Awake() {
-        pool.Add(initEF(dropItemTxtEF, max: 5)); //! 順番合わせること
+        //* 順番合わせること
+        pool.Add(initEF(dropItemTxtEF, max: 5));
+        pool.Add(initEF(plusBlinkBoxBurstEF, max: 2));
+        pool.Add(initEF(minusBlinkBoxBurstEF, max: 2));
+        pool.Add(initEF(questionMarkBoxBurstEF, max: 2));
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region OBJECT POOL
