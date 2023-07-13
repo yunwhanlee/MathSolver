@@ -168,7 +168,7 @@ public class HUI : MonoBehaviour {
         //* InventoryとRoomのスペース 調整
         bool isInv = curHomeSceneIdx == (int)Enum.HOME.Inventory;
         // アニメー初期化
-        HM._.pl.animIdle();
+        HM._.pl.idle();
         HM._.pet.animIdle();
         // 位置
         HM._.pl.transform.position = isInv? invSpacePlayerTf.position : HM._.pl.TgPos;

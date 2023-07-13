@@ -48,7 +48,7 @@ public class TouchControl : MonoBehaviour
                     HM._.pl.animSit(false); // 座る状態なら、立つ
                     // プレイヤー 移動位置
                     HM._.pl.TgPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
-                    return;
+                    // return;
                 }
             }
             Debug.DrawRay(mouseWorldPos, transform.forward * 50, Color.red, 0.3f);

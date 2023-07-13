@@ -7,8 +7,8 @@ public class Player : MonoBehaviour {
     const int FRONT_Z = -1;
     const int REVERSE_Y = -1;
     const float WALK_STOP_VAL = 0.05f;
-    const float MIN_Y = -4.5f;
-    const float MAX_Y = 2.0f;
+    const float MIN_Y = -5;
+    const float MAX_Y = 2;
     const float OFFSET_SIT_X = 0.15f;
     const float OFFSET_SIT_Y = 0.5f;
     const int OFFSET_SIT_FRONT_SORTING = 3;
@@ -59,8 +59,8 @@ public class Player : MonoBehaviour {
             float distY = Mathf.Abs(tgPos.y - tf.position.y);
             bool isWalkStop = distX < WALK_STOP_VAL && distY < WALK_STOP_VAL;
 
-            if(isWalkStop) {animIdle();}
-            else {animWalk();}
+            if(isWalkStop) {idle();}
+            else {walk();}
         }
     }
 
@@ -104,11 +104,11 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
 #region ANIM
 ///------------------------------------------------------------------------------------------
-    public void animIdle() {
+    public void idle() {
         tf.position = new Vector3(tgPos.x, tgPos.y, FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
     }
-    public void animWalk() {
+    public void walk() {
         tf.position = Vector2.Lerp(tf.position, tgPos, moveSpeed * Time.deltaTime);
         tf.position = new Vector3(tf.position.x, Mathf.Clamp(tf.position.y, MIN_Y, MAX_Y), FRONT_Z);
         anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
