@@ -74,7 +74,7 @@ public class Player : MonoBehaviour {
         && colChairObj // 衝突した椅子がなかったリターン
         && hitTf.gameObject == colChairObj) { // 衝突した椅子と違ったらリターン
             animSit(true);
-            tf.localPosition = new Vector2(hitTf.localPosition.x + OFFSET_SIT_X, hitTf.localPosition.y + OFFSET_SIT_Y);
+            tf.localPosition = hitTf.GetComponent<RoomObject>().SitSpot.position;
             sr.flipX = hitTf.GetComponent<SpriteRenderer>().flipX;
             //* レイヤー 椅子より +1前に
             sr.sortingOrder = sr.sortingOrder + OFFSET_SIT_FRONT_SORTING;
@@ -141,15 +141,17 @@ public class Player : MonoBehaviour {
     private void collideWithChair(bool isTrigger, Collider2D col) {
         if(HM._.isChair(col.gameObject)) {
             if(isTrigger) {
-                colChairObj = col.gameObject;
                 if(isSit) return;
-                var sr = colChairObj.GetComponent<SpriteRenderer>();
-                sr.material = HM._.outlineMt;
+                colChairObj = col.gameObject;
+                //* 衝突した一つのみアウトライン表示
+                HM._.clearAllChairOutline();
+                var obj = colChairObj.GetComponent<RoomObject>();
+                obj.Sr.material = HM._.outlineMt;
             }
             else {
-                var sr = colChairObj.GetComponent<SpriteRenderer>();
-                sr.material = HM._.sprUnlitMt;
+                //* アウトライン解除
                 colChairObj = null;
+                HM._.clearAllChairOutline();
             }
         }
     }
