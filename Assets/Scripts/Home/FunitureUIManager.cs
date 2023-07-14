@@ -112,10 +112,8 @@ public class FunitureUIManager : MonoBehaviour
             HM._.ui.showErrorMsgPopUp(LM._.localize("Please select an item!"));
             return;
         }
-
-        float sx = curSelectedObj.transform.localScale.x * -1;
-        Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
-        curSelectedObj.transform.localScale = new Vector2(sx, 1);
+        var sprRdr = curSelectedObj.GetComponent<SpriteRenderer>();
+        sprRdr.flipX = !sprRdr.flipX;
 
     }
     public void onClickFunitureModeItemSetUpBtn() {

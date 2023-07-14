@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     const int OFFSET_SIT_FRONT_SORTING = 3;
 
     [Header("OUTSIDE")]
+    [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
     [SerializeField] Collider2D col; public Collider2D Col {get => col; set => col = value;}
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
 
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour {
 
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
-    [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
+    
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr; set => idleSpr = value;}
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos; public Vector2 TgPos {get => tgPos; set => tgPos = value;}
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour {
     void Start() {
         tf = transform;
         tgPos = transform.position;
+        sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         sprLib = GetComponent<SpriteLibrary>();
     }
@@ -44,7 +46,6 @@ public class Player : MonoBehaviour {
         if(isSit) return;
 
         //* レイヤー
-        sr = GetComponent<SpriteRenderer>();
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
@@ -74,7 +75,7 @@ public class Player : MonoBehaviour {
         && hitTf.gameObject == colChairObj) { // 衝突した椅子と違ったらリターン
             animSit(true);
             tf.localPosition = new Vector2(hitTf.localPosition.x + OFFSET_SIT_X, hitTf.localPosition.y + OFFSET_SIT_Y);
-            tf.localScale = new Vector2(hitTf.localScale.x, tf.localScale.y);
+            sr.flipX = hitTf.GetComponent<SpriteRenderer>().flipX;
             //* レイヤー 椅子より +1前に
             sr.sortingOrder = sr.sortingOrder + OFFSET_SIT_FRONT_SORTING;
             //* 全て椅子のアウトライン 初期化
