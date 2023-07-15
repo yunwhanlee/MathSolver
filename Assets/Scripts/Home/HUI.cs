@@ -30,6 +30,11 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject inventoryPanel; public GameObject InventoryPanel {get => inventoryPanel; set => inventoryPanel = value;}
     [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}
 
+    [Header("MENU TAP")]
+    [SerializeField] RectTransform menuTapFrame;
+    [SerializeField] GameObject menuTapFrameObjCollider;
+
+
     [Header("SETTING")]
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
 
@@ -190,6 +195,13 @@ public class HUI : MonoBehaviour {
     }
 
     #region HOME ICON EVENT
+    public void onClickMenuToogleBtn() {
+        bool isToggle = menuTapFrame.anchoredPosition.x == 0;
+        //* プレイヤー移動できないコライダー移動
+        menuTapFrameObjCollider.transform.localPosition = new Vector2(isToggle? 2.25f: 1.1f, menuTapFrameObjCollider.transform.position.y);
+        //* UI メニューFrame移動アニメー
+        StartCoroutine(coPlayMenuToogleBtnMoveAnim(isToggle)); // menuTapFrame.anchoredPosition = new Vector2(isToggle? 250 : 0, 0);
+    }
     public void onClickAchiveRankIconBtn() {
         topGroup.SetActive(false);
         // woodSignObj.SetActive(false);
@@ -340,6 +352,25 @@ IEnumerator coPlaySwitchScreenAnim() {
     yield return Util.time1;
     yield return Util.time0_5;
     switchScreenAnim.gameObject.SetActive(false);
+}
+IEnumerator coPlayMenuToogleBtnMoveAnim(bool isToggle) {
+    float targetX = isToggle ? 250f : 0f; // 移動する位置
+    float duration = 0.2f; // 掛かる時間
+    float elapsed = 0f; // 結果時間
+
+    Vector2 startPos = menuTapFrame.anchoredPosition;
+
+    while (elapsed < duration) {
+        elapsed += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsed / duration);
+        Vector2 newPosition = Vector2.Lerp(startPos, new Vector2(targetX, startPos.y), t);
+        menuTapFrame.anchoredPosition = newPosition;
+        yield return null;
+    }
+    //* Lerpなので、最後に正確な位置に調整
+    menuTapFrame.anchoredPosition = new Vector2(targetX, startPos.y);
+
+    yield break;
 }
 
 

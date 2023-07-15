@@ -35,7 +35,9 @@ public class TableDecoArea : MonoBehaviour {
         }
         //* Sorting Layer名 戻す
         if(col.CompareTag(Enum.TAG.Player.ToString())) {
-            var pl = col.GetComponentInParent<Player>();
+            var pl = col?.GetComponentInParent<Player>();
+            //* テーブルと衝突され、DECORATIONモードに入って、テーブルが消えたら、以下処理しない
+            if(pl == null) return;
             pl.Sr.sortingLayerName = Enum.SORTING_LAYER.Default.ToString();
         }
     }
