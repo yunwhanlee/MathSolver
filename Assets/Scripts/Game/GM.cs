@@ -257,7 +257,7 @@ public class GM : MonoBehaviour {
                 quiz.text = replaceTxtKeyword(qSO.QstDivide, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
-                    quiz.text += " 나머지는요?\n(분수로 알려주세요!)";
+                    quiz.text += "\n나머지는요?\n(분수로 알려주세요.)";
 
                 yield return coCreateObj(qSO.Obj1Name, lN1);
                 //* Callback

@@ -323,6 +323,7 @@ public void setDecorationMode(bool isActive) {
     }
 
     topGroup.SetActive(!isActive);
+    HM._.ui.menuTapFrameObjCollider.SetActive(!isActive);
     decorateModePanel.SetActive(isActive);
     HM._.funitureModeShadowFrameObj.SetActive(isActive);
     HM._.pl.gameObject.SetActive(!isActive);
