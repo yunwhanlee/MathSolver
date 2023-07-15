@@ -13,6 +13,7 @@ public class RoomObject : MonoBehaviour {
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr;}
     [SerializeField] bool isSelect; public bool IsSelect {get => isSelect; set => isSelect = value;}
     [SerializeField] Transform sitSpot;  public Transform SitSpot {get => sitSpot;}
+    [SerializeField] int tbDecoAreaSortingAddVal = 0;   public int TbDecoAreaSortingAddVal {get => tbDecoAreaSortingAddVal; set => tbDecoAreaSortingAddVal = value;}
 
     public void Start() {
         // if(HM._.state == HM.STATE.DECORATION_MODE) return;
@@ -81,7 +82,12 @@ public class RoomObject : MonoBehaviour {
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         if(backBefPos) transform.position = new Vector3(HM._.fUI.BefPos.x, HM._.fUI.BefPos.y, 0);
         sr = GetComponent<SpriteRenderer>();
-        sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
+        if(this.CompareTag(Enum.FUNITURE_CATE.Decoration.ToString())) {
+            sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y + tbDecoAreaSortingAddVal;
+        }
+        else {
+            sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
+        }
     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------
@@ -96,8 +102,8 @@ public class RoomObject : MonoBehaviour {
         //* 他のオブジェクトは 初期化
         RoomObject[] roomObjs = HM._.roomObjectGroup.GetComponentsInChildren<RoomObject>();
         Array.ForEach(roomObjs, obj => {
-            if(obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Mat.ToString()
-            || obj.Sr.sortingLayerName == Enum.SORTINGLAYER.Default.ToString()){
+            if(obj.Sr.sortingLayerName == Enum.SORTING_LAYER.Mat.ToString()
+            || obj.Sr.sortingLayerName == Enum.SORTING_LAYER.Default.ToString()){
                 HM._.ui.DecorateModePanel.SetActive(false);
                 obj.IsSelect = false;
                 obj.Sr.material = HM._.sprUnlitMt;

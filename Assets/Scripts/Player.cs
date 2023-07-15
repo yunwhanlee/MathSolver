@@ -31,6 +31,7 @@ public class Player : MonoBehaviour {
     //* Sit Chair
     [SerializeField] bool isSit; public bool IsSit {get => isSit; set => isSit = value;}
     [SerializeField] GameObject colChairObj;    public GameObject ColChairObj {get => colChairObj;}
+    [SerializeField] int tbDecoAreaSortingAddVal = 0;   public int TbDecoAreaSortingAddVal {get => tbDecoAreaSortingAddVal; set => tbDecoAreaSortingAddVal = value;}
 
     Transform tf;
 
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour {
         if(isSit) return;
 
         //* レイヤー
-        sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
+        sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y + tbDecoAreaSortingAddVal;
 
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
             //* プレイヤー方向
