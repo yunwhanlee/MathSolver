@@ -66,6 +66,11 @@ public class GUI : MonoBehaviour
             GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpFraction.ToString(), GM._.qm.HelpAnimPlayIdx++);
             if(GM._.qm.HelpAnimPlayIdx > MAX_IDX) StartCoroutine(coFinishHelpAnim());
         }
+        else if(GM._.qm.HelpAnimType == "underline") {
+            const int MAX_IDX = 3;
+            GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpGCD.ToString(), GM._.qm.HelpAnimPlayIdx++);
+            if(GM._.qm.HelpAnimPlayIdx > MAX_IDX) StartCoroutine(coFinishHelpAnim());
+        }
     }
 #endregion
 //-------------------------------------------------------------------------------------------------------------

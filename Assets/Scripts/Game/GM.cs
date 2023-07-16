@@ -269,6 +269,9 @@ public class GM : MonoBehaviour {
             }
             case "underline":
             case "left": { //* 最大公約数
+                GM._.qm.HelpAnimType = "underline";
+                GM._.qm.HelpSpeachBtn.SetActive(true);
+
                 const float POS_X = 0.65f;
                 int gcd = Util.getGreatestCommonDivisor(lN1, lN2);
                 quiz.text = replaceTxtKeyword(qSO.QstGreatestCommonDivisor, new string[]{qSO.Obj1Name, lNums[0], lNums[1], qSO.Obj2Name});

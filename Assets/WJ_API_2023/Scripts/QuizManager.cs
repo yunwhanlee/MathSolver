@@ -108,7 +108,9 @@ public class QuizManager : MonoBehaviour {
         if(helpAnimType == "frac") {
             GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpFraction.ToString(), helpAnimPlayIdx++);
         }
-        
+        else if(helpAnimType == "underline") {
+            GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpGCD.ToString(), helpAnimPlayIdx++);
+        }
     }
 #endregion
 //-------------------------------------------------------------------------------------------------------------
