@@ -25,6 +25,7 @@ public class GUI : MonoBehaviour
     [SerializeField] Canvas canvasAnim;
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
     [SerializeField] GameObject sceneSpawnBGAnim;
+    [SerializeField] Animator helpPanelAnim;    public Animator HelpPanelAnim {get => helpPanelAnim;}
 
     [Header("DEBUG")] 
     [SerializeField] TextMeshProUGUI isCreatingQuizObjTxt;
@@ -49,17 +50,24 @@ public class GUI : MonoBehaviour
             GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_CHOICE_DIFF);
         }
     }
-
-    void Update() {
-        // isCreatingQuizObjTxt.text = $"isCreatingQuizObjTxt: {(GM._.IsCreatingQuizObj? "<color=red>T</color>" : "<color=blue>F</color>")}";
-    }
-
 //-------------------------------------------------------------------------------------------------------------
-#region FUNC
+#region EVENT
 //-------------------------------------------------------------------------------------------------------------
     public void onclickBtnBackToHome() {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
+    public void onClickHelpPanelAnimBtn() {
+        Debug.Log("onClickHelpPanelAnimBtn");
+        if(GM._.qm.HelpAnimType == "frac") {
+            const int MAX_IDX = 2;
+            GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpFraction.ToString(), GM._.qm.HelpAnimPlayIdx++);
+            if(GM._.qm.HelpAnimPlayIdx > MAX_IDX) StartCoroutine(coFinishHelpAnim());
+        }
+    }
+#endregion
+//-------------------------------------------------------------------------------------------------------------
+#region FUNC
+//-------------------------------------------------------------------------------------------------------------
     public IEnumerator coShowQuestion(string qstTEXTDraw) {
         if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID);
 
@@ -98,6 +106,11 @@ public class GUI : MonoBehaviour
         //* 文字列 ➝ リストに戻す
         resList = listStr.Split(", ").ToList();
         return resList;
+    }
+    IEnumerator coFinishHelpAnim() {
+        yield return Util.realTime1;
+        Time.timeScale = 1;
+        helpPanelAnim.gameObject.SetActive(false);
     }
 #endregion
 }

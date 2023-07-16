@@ -17,6 +17,7 @@ public class Util : MonoBehaviour
     public static WaitForSeconds time1 = new WaitForSeconds(1);
     public static WaitForSeconds time2 = new WaitForSeconds(2);
     public static WaitForSecondsRealtime realTime0_01 = new WaitForSecondsRealtime(0.01f);
+    public static WaitForSecondsRealtime realTime1 = new WaitForSecondsRealtime(1);
     public static GameObject instantiateObj(GameObject obj, Transform tf) {
         GameObject ins = null;
         ins = Instantiate(obj, tf);

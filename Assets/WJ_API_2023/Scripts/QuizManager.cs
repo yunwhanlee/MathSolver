@@ -34,6 +34,11 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] GameObject hintFrame;
     [SerializeField] TEXDraw questionEquationTxtDraw;           // 문제 텍스트(※TextDraw로 변경 필요)
 
+    [Header("HELP")]
+    [SerializeField] string helpAnimType;   public string HelpAnimType {get => helpAnimType; set => helpAnimType = value;}
+    [SerializeField] int helpAnimPlayIdx;    public int HelpAnimPlayIdx {get => helpAnimPlayIdx; set => helpAnimPlayIdx = value;}
+    [SerializeField] GameObject helpSpeachBtn;  public GameObject HelpSpeachBtn {get => helpSpeachBtn;}
+
     [Header("QUIZ")]
     [SerializeField] TextMeshProUGUI questionDescriptionTxt;    // 문제 설명 텍스트
     [SerializeField] TextMeshProUGUI quizTxt; public TextMeshProUGUI QuizTxt {get => quizTxt; set => quizTxt = value;}
@@ -96,6 +101,15 @@ public class QuizManager : MonoBehaviour {
         wj_displayText.SetState("문제풀이 중", "-", "-", "-");
     }
     public void onClickSelectAnswerBtn(int idx) => StartCoroutine(SelectAnswer(idx));
+    public void onClickHelpSpeachBtn() {
+        Time.timeScale = 0;
+        helpAnimPlayIdx = 0; //* 初期化
+        GM._.gui.HelpPanelAnim.gameObject.SetActive(true);
+        if(helpAnimType == "frac") {
+            GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpFraction.ToString(), helpAnimPlayIdx++);
+        }
+        
+    }
 #endregion
 //-------------------------------------------------------------------------------------------------------------
 #region MAIN FUNC
@@ -167,6 +181,7 @@ public class QuizManager : MonoBehaviour {
         firstChoiceAnswer = null;
         diagChooseDiffPanel.SetActive(false);
         interactableAnswerBtns(false);
+        helpSpeachBtn.SetActive(false);
 
         //* 動物 切り替え
         if(curQuestionIndex != 0) GM._.Anm.setRandomSprLibAsset();

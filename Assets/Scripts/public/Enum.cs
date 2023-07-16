@@ -17,6 +17,7 @@ public class Enum {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
         BlackInOut, BlackIn, BlackOut, DoCamShake,
         DoBlinkAdd, DoBlinkMinus,
+        HelpFraction,
     };
     public enum BOX_NAME {
         Box , LeftBox, RightBox, _Blink, _QuestionMark,

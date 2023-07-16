@@ -250,6 +250,9 @@ public class GM : MonoBehaviour {
                 break;
             }
             case "frac": {
+                GM._.qm.HelpAnimType = "frac";
+                GM._.qm.HelpSpeachBtn.SetActive(true);
+
                 int value = lN1 / lN2;
                 int rest = lN1 % lN2;
                 Debug.Log($"value= {value}, rest= {rest}");
