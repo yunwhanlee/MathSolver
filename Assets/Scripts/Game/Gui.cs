@@ -31,6 +31,9 @@ public class GUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI isCreatingQuizObjTxt;
 
     IEnumerator Start() {
+        //TEST
+        helpPanelAnim.SetInteger("HelpGCD", 0);
+
         txtTeleType = GetComponent<TextTeleType>();
 
         //* Black Out Spawn Anim

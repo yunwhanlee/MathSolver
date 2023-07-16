@@ -23,9 +23,9 @@ MonoBehaviour:
   qstDivide: "OBJ1N1\uAC1C\uB97C N2\uAC1C\uC529 \n\uCE5C\uAD6C\uC5D0\uAC8C  \uB098\uB220\uC8FC\uACE0
     \uC2F6\uC5B4\uC694.\n\uBA87 \uB9C8\uB9AC\uAC00 \uBC1B\uC744 \uC218 \uC788\uB098\uC694?"
   qstGreatestCommonDivisor: "OBJ1N1\uAC1C\uC640 OBJ2N2\uAC1C\uB97C \uCD5C\uB300\uD55C
-    \uB9CE\uC740 \uCE5C\uAD6C\uC5D0\uAC8C \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0
-    \uC2F6\uC5B4\uC694.\n\uBA87 \uB9C8\uB9AC\uC5D0\uAC8C \uB098\uB220 \uC904 \uC218
-    \uC788\uB098\uC694?"
+    \uB9CE\uC740 \uCE5C\uAD6C\uB4E4\uC5D0\uAC8C \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0
+    \uC2F6\uC5B4\uC694. \uCD5C\uB300 \uBA87 \uB9C8\uB9AC\uC5D0\uAC8C \uB098\uB220
+    \uC904 \uC218 \uC788\uB098\uC694?"
   defObjNames:
   - apple
   - banana
@@ -33,5 +33,5 @@ MonoBehaviour:
   - onion
   - orange
   - potato
-  obj1Name: potato
-  obj2Name: carrot
+  obj1Name: onion
+  obj2Name: orange
