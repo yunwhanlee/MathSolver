@@ -49407,7 +49407,7 @@ GameObject:
   - component: {fileID: 1161992571}
   - component: {fileID: 1161992570}
   m_Layer: 0
-  m_Name: Text_Value
+  m_Name: ValTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96417,6 +96417,7 @@ MonoBehaviour:
   levelTxts:
   - {fileID: 430215400}
   - {fileID: 1276708259}
+  bonusValTxt: {fileID: 1161992570}
   expFilledCircleBar: {fileID: 571393973}
   settingExpSliderBar: {fileID: 855187309}
   settingExpSliderTxt: {fileID: 1422967562}

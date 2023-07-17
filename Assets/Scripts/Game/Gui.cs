@@ -32,7 +32,7 @@ public class GUI : MonoBehaviour
 
     IEnumerator Start() {
         //TEST
-        helpPanelAnim.SetInteger("HelpGCD", ++GM._.qm.HelpAnimPlayIdx);
+        helpPanelAnim.SetInteger(Enum.ANIM.HelpGCD.ToString(), ++GM._.qm.HelpAnimPlayIdx);
 
         txtTeleType = GetComponent<TextTeleType>();
 

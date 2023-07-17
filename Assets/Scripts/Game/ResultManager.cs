@@ -77,10 +77,9 @@ public class ResultManager : MonoBehaviour {
         }
 
         //* ボーナス反映
-        const float TEM_PER = 0.1f;
-        float lvBonus = (DB.Dt.Lv * TEM_PER + 1);
-        rewardExp = (int)(rewardExp * lvBonus);
-        rewardCoin = (int)(rewardCoin * lvBonus);
+        float bonus = GM._.Pl.calcBonusPercent();
+        rewardExp = (int)(rewardExp * bonus);
+        rewardCoin = (int)(rewardCoin * bonus);
         
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";

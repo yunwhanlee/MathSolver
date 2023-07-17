@@ -39,6 +39,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
 
     [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
+    [SerializeField] TextMeshProUGUI bonusValTxt;   public TextMeshProUGUI BonusValTxt {get => bonusValTxt; set => bonusValTxt = value;}
     [SerializeField] Image expFilledCircleBar;      public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] Slider settingExpSliderBar;    public Slider SettingExpSliderBar {get => settingExpSliderBar; set => settingExpSliderBar = value;}
     [SerializeField] TextMeshProUGUI settingExpSliderTxt;    public TextMeshProUGUI SettingExpSliderTxt {get => settingExpSliderTxt; set => settingExpSliderTxt = value;}
@@ -293,6 +294,7 @@ IEnumerator coUpdateUI() {
 
             //* 
             Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
+            bonusValTxt.text = $"+{HM._.pl.calcBonusPercent() * 100 - 100}%";
 
             //* 
             const int MAX_UNIT = 100;
