@@ -48,8 +48,8 @@ public abstract class TalkManager : MonoBehaviour {
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     //* 途中 処理
-    protected virtual string processMsg(int id) {
-        Debug.Log("processMsg:: TalkManager::");
+    protected virtual string setEvent(int id) {
+        Debug.Log("processMsg:: setEvent::");
         return getMsg(id, talkIdx);
     }
     //* 終了 処理
@@ -61,13 +61,14 @@ public abstract class TalkManager : MonoBehaviour {
     }
 
     private void play() {
+        if(HM._.state != HM.STATE.NORMAL) return;
         talk(curId);
         talkDialog.SetActive(isAction);
     }
 
     private void talk(int id) {
         //* 途中 処理
-        string rawMsg = processMsg(id);
+        string rawMsg = setEvent(id);
 
         //* 終了 処理
         if(rawMsg == null) {

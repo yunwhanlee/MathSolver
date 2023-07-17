@@ -38,6 +38,7 @@ public class HUI : MonoBehaviour {
     [Header("SETTING")]
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
 
+    [SerializeField] TextMeshProUGUI nickName;      public TextMeshProUGUI NickName {get => nickName;}
     [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
     [SerializeField] TextMeshProUGUI bonusValTxt;   public TextMeshProUGUI BonusValTxt {get => bonusValTxt; set => bonusValTxt = value;}
     [SerializeField] Image expFilledCircleBar;      public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
@@ -87,6 +88,8 @@ public class HUI : MonoBehaviour {
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
+    [SerializeField] GameObject nickNamePopUp;  public GameObject NickNamePopUp {get => nickNamePopUp; set => nickNamePopUp = value;}
+    [SerializeField] TMP_InputField nickNameInputField;  public TMP_InputField NickNameInputField {get => nickNameInputField; set => nickNameInputField = value;}
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
@@ -266,116 +269,149 @@ public class HUI : MonoBehaviour {
         DB.Dt.IsTutoDiagResultTrigger = true;
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
+    public void onLimitLengthNickNameInputTxt() {
+        int maxChars = isEnglish(nickNameInputField.text) ? 12 : 6;
+        if (nickNameInputField.text.Length > maxChars) {
+            nickNameInputField.text = nickNameInputField.text.Substring(0, maxChars);
+        }
+    }
+    public void onClickChangeNickNameBtn() {
+        displayNickNamePopUp(isActive: true);
+    }
+    public void onClickNickNameOkBtn() {
+        if(nickNameInputField.text.Length == 0) {
+            showErrorMsgPopUp("Please Input Nickname!");
+            return;
+        }
+        //* 処理
+        displayNickNamePopUp(isActive: false);
+        DB.Dt.NickName = nickNameInputField.text;
+        nickName.text = DB.Dt.NickName;
+    }
+    public void onClickNickNamePopUpExitBtn() {
+        displayNickNamePopUp(isActive: false);
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-IEnumerator coShowTutorialFinish() {
-    yield return Util.time1;
-    if(!DB.Dt.IsTutoRoomTrigger
-    && !DB.Dt.IsTutoFunitureShopTrigger
-    && !DB.Dt.IsTutoClothShopTrigger
-    && !DB.Dt.IsTutoInventoryTrigger
-    && !DB.Dt.IsTutoGoGameTrigger
-    && !DB.Dt.IsTutoDiagChoiceDiffTrigger
-    && !DB.Dt.IsTutoDiagFirstQuizTrigger
-    && !DB.Dt.IsTutoDiagFirstAnswerTrigger
-    && !DB.Dt.IsTutoDiagResultTrigger
-    && DB.Dt.IsTutoFinishTrigger) {
-        HM._.htm.action((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_FINISH);
-    }
-}
-
-IEnumerator coUpdateUI() {
-    while(true) {
-        try {
-            //* コイン
-            coinTxt.text = DB.Dt.Coin.ToString();
-
-            //* 
-            Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
-            bonusValTxt.text = $"+{HM._.pl.calcBonusPercent() * 100 - 100}%";
-
-            //* 
-            const int MAX_UNIT = 100;
-            expFilledCircleBar.fillAmount = Util.getExpPer();
-            settingExpSliderBar.value = Util.getExpPer();
-            settingExpSliderTxt.text = $"{DB.Dt.Exp} / {MAX_UNIT * DB.Dt.Lv}";
+    IEnumerator coShowTutorialFinish() {
+        yield return Util.time1;
+        if(!DB.Dt.IsTutoRoomTrigger
+        && !DB.Dt.IsTutoFunitureShopTrigger
+        && !DB.Dt.IsTutoClothShopTrigger
+        && !DB.Dt.IsTutoInventoryTrigger
+        && !DB.Dt.IsTutoGoGameTrigger
+        && !DB.Dt.IsTutoDiagChoiceDiffTrigger
+        && !DB.Dt.IsTutoDiagFirstQuizTrigger
+        && !DB.Dt.IsTutoDiagFirstAnswerTrigger
+        && !DB.Dt.IsTutoDiagResultTrigger
+        && DB.Dt.IsTutoFinishTrigger) {
+            HM._.htm.action((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_FINISH);
         }
-        catch(Exception err) {
-            Debug.LogWarning($"ERROR: {err}");
-            break;
+    }
+
+    IEnumerator coUpdateUI() {
+        while(true) {
+            try {
+                //* コイン
+                coinTxt.text = DB.Dt.Coin.ToString();
+
+                //* 
+                Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
+                bonusValTxt.text = $"+{HM._.pl.calcBonusPercent() * 100 - 100}%";
+
+                //* 
+                const int MAX_UNIT = 100;
+                expFilledCircleBar.fillAmount = Util.getExpPer();
+                settingExpSliderBar.value = Util.getExpPer();
+                settingExpSliderTxt.text = $"{DB.Dt.Exp} / {MAX_UNIT * DB.Dt.Lv}";
+            }
+            catch(Exception err) {
+                Debug.LogWarning($"ERROR: {err}");
+                break;
+            }
+            yield return new WaitForSeconds(0.2f);
         }
-        yield return new WaitForSeconds(0.2f);
-    }
-}
-
-public void setDecorationMode(bool isActive) {
-    HM._.state = isActive? HM.STATE.DECORATION_MODE : HM.STATE.NORMAL;
-
-    //* UI 表示・非表示
-    if(isActive) {
-        for(int i = 0; i < homeScenePanelArr.Length; i++) homeScenePanelArr[i].SetActive(!isActive);
-    }
-    else {
-        HM._.fUI.CurSelectedObj = null;
-        curHomeSceneIdx = 0;
-        woodSignTxt.text = LM._.localize("Home");
-        roomPanel.SetActive(true);
     }
 
-    topGroup.SetActive(!isActive);
-    HM._.ui.menuTapFrameObjCollider.SetActive(!isActive);
-    decorateModePanel.SetActive(isActive);
-    HM._.funitureModeShadowFrameObj.SetActive(isActive);
-    HM._.pl.gameObject.SetActive(!isActive);
-    HM._.pet.gameObject.SetActive(!isActive);
-}
+    public void setDecorationMode(bool isActive) {
+        HM._.state = isActive? HM.STATE.DECORATION_MODE : HM.STATE.NORMAL;
 
-public void showErrorMsgPopUp(string msg) => StartCoroutine(coShowErrorMsgPopUp(msg));
-IEnumerator coShowErrorMsgPopUp(string msg) {
-    errorMsgPopUp.SetActive(true);
-    errorMsgTxt.text = msg;
-    yield return Util.time1;
+        //* UI 表示・非表示
+        if(isActive) {
+            for(int i = 0; i < homeScenePanelArr.Length; i++) homeScenePanelArr[i].SetActive(!isActive);
+        }
+        else {
+            HM._.fUI.CurSelectedObj = null;
+            curHomeSceneIdx = 0;
+            woodSignTxt.text = LM._.localize("Home");
+            roomPanel.SetActive(true);
+        }
 
-    errorMsgPopUp.SetActive(false);
-    errorMsgTxt.text = "";
-}
+        topGroup.SetActive(!isActive);
+        HM._.ui.menuTapFrameObjCollider.SetActive(!isActive);
+        decorateModePanel.SetActive(isActive);
+        HM._.funitureModeShadowFrameObj.SetActive(isActive);
+        HM._.pl.gameObject.SetActive(!isActive);
+        HM._.pet.gameObject.SetActive(!isActive);
+    }
 
+    public void showErrorMsgPopUp(string msg) => StartCoroutine(coShowErrorMsgPopUp(msg));
+    IEnumerator coShowErrorMsgPopUp(string msg) {
+        errorMsgPopUp.SetActive(true);
+        errorMsgTxt.text = msg;
+        yield return Util.realTime1;
+
+        errorMsgPopUp.SetActive(false);
+        errorMsgTxt.text = "";
+    }
+    public void displayNickNamePopUp(bool isActive) {
+        HM._.state = (isActive)? HM.STATE.SETTING : HM.STATE.NORMAL;
+        nickNamePopUp.SetActive(isActive);
+        settingPanel.SetActive(!isActive); //* BUG なぜかこらが表示されたら、InputFeild入力できない
+        if(HM._.htm.IsAction) settingPanel.SetActive(false);
+        if(isActive) nickNameInputField.text = DB.Dt.NickName;
+    }
+    private bool isEnglish(string text) {
+        foreach (char c in text) {
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+                return true;
+        }
+        return false;
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region CANVAS ANIM
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-public void playSwitchScreenAnim() {
-    switchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
-    // StartCoroutine(coPlaySwitchScreenAnim());
-}
-IEnumerator coPlaySwitchScreenAnim() {
-    switchScreenAnim.gameObject.SetActive(true);
-    yield return Util.time1;
-    yield return Util.time0_5;
-    switchScreenAnim.gameObject.SetActive(false);
-}
-IEnumerator coPlayMenuToogleBtnMoveAnim(bool isToggle) {
-    float targetX = isToggle ? 250f : 0f; // 移動する位置
-    float duration = 0.2f; // 掛かる時間
-    float elapsed = 0f; // 結果時間
-
-    Vector2 startPos = menuTapFrame.anchoredPosition;
-
-    while (elapsed < duration) {
-        elapsed += Time.deltaTime;
-        float t = Mathf.Clamp01(elapsed / duration);
-        Vector2 newPosition = Vector2.Lerp(startPos, new Vector2(targetX, startPos.y), t);
-        menuTapFrame.anchoredPosition = newPosition;
-        yield return null;
+    public void playSwitchScreenAnim() {
+        switchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
+        // StartCoroutine(coPlaySwitchScreenAnim());
     }
-    //* Lerpなので、最後に正確な位置に調整
-    menuTapFrame.anchoredPosition = new Vector2(targetX, startPos.y);
+    IEnumerator coPlaySwitchScreenAnim() {
+        switchScreenAnim.gameObject.SetActive(true);
+        yield return Util.time1;
+        yield return Util.time0_5;
+        switchScreenAnim.gameObject.SetActive(false);
+    }
+    IEnumerator coPlayMenuToogleBtnMoveAnim(bool isToggle) {
+        float targetX = isToggle ? 250f : 0f; // 移動する位置
+        float duration = 0.2f; // 掛かる時間
+        float elapsed = 0f; // 結果時間
 
-    yield break;
-}
+        Vector2 startPos = menuTapFrame.anchoredPosition;
 
+        while (elapsed < duration) {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            Vector2 newPosition = Vector2.Lerp(startPos, new Vector2(targetX, startPos.y), t);
+            menuTapFrame.anchoredPosition = newPosition;
+            yield return null;
+        }
+        //* Lerpなので、最後に正確な位置に調整
+        menuTapFrame.anchoredPosition = new Vector2(targetX, startPos.y);
 
+        yield break;
+    }
 #endregion
 }

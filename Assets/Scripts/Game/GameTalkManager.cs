@@ -56,8 +56,8 @@ public class GameTalkManager : TalkManager {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    protected override string processMsg(int id) {
-        Debug.Log($"GameTalkManager:: processMsg(id={id}):: talkIdx= {talkIdx}");
+    protected override string setEvent(int id) {
+        Debug.Log($"GameTalkManager:: setEvent(id={id}):: talkIdx= {talkIdx}");
         string rawMsg = "";
         switch(id) {
             case (int)TALK_ID_IDX.TUTORIAL_DIAG_FIRST_ANSWER:

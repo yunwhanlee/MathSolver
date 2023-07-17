@@ -13,9 +13,12 @@ public class Data {
     public const int EXP_MAX_UNIT = 100;
 
     [Header("VALUE")]
+    [SerializeField] string nickName; public string NickName {get => nickName; set => nickName = value;}
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int exp; public int Exp {get => exp; set => exp = value;}
+
+    //TODO
     [SerializeField] int playerId; public int PlayerId {get => playerId; set => playerId = value;}
     [SerializeField] int petId; public int PetId {get => petId; set => petId = value;}
     [SerializeField] int bestScore; public int BestScore {get => bestScore; set => bestScore = value;}
@@ -155,6 +158,7 @@ public class DB : MonoBehaviour {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
         //* 財貨
+        dt.NickName = "";
         dt.Lv = 1;
         dt.Coin = 0;
         dt.Exp = 0;

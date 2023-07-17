@@ -25,14 +25,16 @@ public class HomeTalkManager : TalkManager {
     public override void generateData() {
         //* チュートリアル用
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_ROOM, new string[] {
-            "오오! 자네가 이번에 새로온 \n수학 조수구만!:1"
-            , "나는 이 별의마을의 수학해결사\n 송백 늑선생이라네.:1"
+            "오 반갑네! 이번에 새로온 \n수학 조수구만.:1"
+            , "자네 이름이 무엇인가?:1"
+            , "...:1"
+            , $"NICKNAME..!\n정말 멋진 이름이구만!:1"
+            , "나는 이 별의마을의 수학해결사\n 늑선생이라네. 반갑네!:1"
             , "수백년동안 우리 늑대가문은 \n 수학을 통해서:1"
             , "마을의 고민을\n해결해주었다네.:1"
             , "하지만... 사실..:1"
             , "난 수학을 잘 못한다네..:1"
-            , "히익?!...:0"
-            , "그래서 자네의 힘이 절실히 필요하네!:1"
+            , "그래서 자네의 힘이 절실히 필요해!:1"
             , "크흠..(헛 기침) :1"
             , "자 여기는 내 방안이라네.\n마을의 고민을 도와주고\n받은 코인으로:1"
             , "여러가구를 구입하고\n꾸밀 수 있지!:1"
@@ -82,6 +84,26 @@ public class HomeTalkManager : TalkManager {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    protected override string setEvent(int id) {
+        Debug.Log($"GameTalkManager:: setEvent(id={id}):: talkIdx= {talkIdx}");
+        string rawMsg = "";
+        switch(id) {
+            case (int)TALK_ID_IDX.TUTORIAL_ROOM:
+                if(talkIdx == 2) {
+                    Time.timeScale = 1;
+                    HM._.ui.displayNickNamePopUp(isActive: true);
+                }
+                if(talkIdx == 3) {
+                    Debug.Log("setEvent:: DB.Dt.NickName => " + DB.Dt.NickName);
+                    string msg = talkDt[(int)TALK_ID_IDX.TUTORIAL_ROOM][3];
+                    rawMsg = msg.Replace("NICKNAME", $"<color=blue>{DB.Dt.NickName}</color>");
+                    Time.timeScale = 0;
+                }
+                break;
+        }
+        return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
+    }
+/// 
     protected override void endSwitchProccess(int id) {
         switch(id) {
             case (int)TALK_ID_IDX.TUTORIAL_ROOM: 
