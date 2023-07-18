@@ -18,6 +18,7 @@ public class GameTalkManager : TalkManager {
     public override void generateData() {
         talkDt.Add((int)TALK_ID_IDX.TUTORIAL_DIAG_CHOICE_DIFF, new string[] {
             "오! 와주었구만!:0"
+            , "잘 부탁해용!:3"
             , "우선 자네의 수학능력을\n분석해야되네:0"
             , "부담 가질것 없이,\n위의 네가지 난이도중에서:0"
             , "자신에게 맞는 것을\n선택해주시게!:1"

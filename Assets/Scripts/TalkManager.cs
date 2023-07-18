@@ -23,6 +23,7 @@ public abstract class TalkManager : MonoBehaviour {
     [SerializeField] protected GameObject talkDialog;
     [SerializeField] protected TextMeshProUGUI talkTxt;
     [SerializeField] protected Image spkImg;
+    [SerializeField] protected RectTransform nameFrame;
     [SerializeField] protected TextMeshProUGUI spkName;
 
     protected void Awake() {
@@ -90,16 +91,30 @@ public abstract class TalkManager : MonoBehaviour {
             coTxtTeleTypeID = txtTeleType.coTextVisible(talkTxt);
             StartCoroutine(coTxtTeleTypeID);
 
-            //* スピーカー画像
-            switch(int.Parse(spkKey)) {
-                case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;
-                case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;
-                case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
-                case 3: spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); break;
+            //* スピーカー
+            int key = int.Parse(spkKey);
+            var pos = spkImg.rectTransform.anchoredPosition;
+            //* 画像
+            switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
+                case 0: case 1: case 2: 
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
+                    break;
+                case 3: 
+                    spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); 
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    break;
             }
-            //* スピーカー名前
-            switch(int.Parse(spkKey)) {
-                case 0: case 1: case 2: spkName.text = "송백 늑선생"; break;
+            //* 名前
+            switch(key) {
+                case 0: case 1: case 2: 
+                    spkName.text = "송백 늑선생"; 
+                    setNameFrameDirection(isLeft: true); // left
+                    break;
+                case 3:
+                    spkName.text = "동물친구1";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
             }
         }
         
@@ -114,6 +129,12 @@ public abstract class TalkManager : MonoBehaviour {
             return null;
         else 
             return msgs[talkIdx];
+    }
+
+    private void setNameFrameDirection(bool isLeft) {
+        spkName.rectTransform.localScale = new Vector2((isLeft? 1 : -1) * Mathf.Abs(spkName.rectTransform.localScale.x), spkName.rectTransform.localScale.y);
+        nameFrame.anchoredPosition = new Vector2((isLeft? -1 : 1) * Mathf.Abs(nameFrame.anchoredPosition.x), nameFrame.anchoredPosition.y);
+        nameFrame.localScale = new Vector2((isLeft? 1 : -1) * Mathf.Abs(nameFrame.localScale.x), nameFrame.localScale.y);
     }
 #endregion
 }
