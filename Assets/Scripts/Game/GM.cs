@@ -445,7 +445,7 @@ public class GM : MonoBehaviour {
 
     private IEnumerator coCreateQuestionMarkBox(string objName, int num, float posX) {
         yield return coCreateObj(objName, num, posX);
-        yield return Util.time0_3;
+        yield return Util.time0_2;
 
         //* 「?」Box
         BoxObj box = instBox(objName, posX);

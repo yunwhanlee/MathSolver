@@ -21,6 +21,7 @@ public abstract class TalkManager : MonoBehaviour {
     [SerializeField] protected int curId;
     [SerializeField] protected int talkIdx;
     [SerializeField] protected GameObject talkDialog;
+    private Animator talkDialogAnim;
     [SerializeField] protected TextMeshProUGUI talkTxt;
     [SerializeField] protected Image spkImg;
     [SerializeField] protected RectTransform nameFrame;
@@ -28,6 +29,7 @@ public abstract class TalkManager : MonoBehaviour {
 
     protected void Awake() {
         txtTeleType = GetComponent<TextTeleType>();
+        talkDialogAnim = talkDialog.GetComponent<Animator>();
         talkDt = new Dictionary<int, string[]>(); //* 対話データ
         generateData();
     }
@@ -87,6 +89,7 @@ public abstract class TalkManager : MonoBehaviour {
             talkTxt.text = msg;
 
             //* テレタイプ
+            talkDialogAnim.SetTrigger(Enum.ANIM.DoTalk.ToString());
             if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID); //! 以前のコルーチンが生きていたら、停止
             coTxtTeleTypeID = txtTeleType.coTextVisible(talkTxt);
             StartCoroutine(coTxtTeleTypeID);
