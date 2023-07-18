@@ -6,7 +6,8 @@ using TMPro;
 
 public abstract class TalkManager : MonoBehaviour {
     public enum SPK_IDX { //* Speaker Index
-        PL_IDLE, PL_HAPPY, PL_SAD
+        PL_IDLE, PL_HAPPY, PL_SAD,
+        ANIMAL_IDLE, ANIMAL_HAPPY, ANIMAL_SAD,
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -102,6 +103,10 @@ public abstract class TalkManager : MonoBehaviour {
                 case 0: case 1: case 2: 
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
+                    if(key == (int)SPK_IDX.PL_SAD) {
+                        talkDialogAnim.SetTrigger(Enum.ANIM.DoShock.ToString());
+                        Camera.main.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoCamShake.ToString());
+                    } 
                     break;
                 case 3: 
                     spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); 

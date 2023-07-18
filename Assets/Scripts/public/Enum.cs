@@ -18,7 +18,7 @@ public class Enum {
         BlackInOut, BlackIn, BlackOut, DoCamShake,
         DoBlinkAdd, DoBlinkMinus,
         HelpFraction, HelpGCD,
-        DoIdle, DoTalk, 
+        DoTalk, DoShock,
     };
     public enum BOX_NAME {
         Box , LeftBox, RightBox, _Blink, _QuestionMark,
