@@ -9,6 +9,9 @@ public abstract class TalkManager : MonoBehaviour {
         PL_IDLE, PL_HAPPY, PL_SAD
     };
 
+    IEnumerator coTxtTeleTypeID;
+    TextTeleType txtTeleType;
+
     //* DATA
     protected Dictionary<int, string[]> talkDt;
     [SerializeField] protected List<Sprite> spkSprDtList; //* Inspector viewで
@@ -20,10 +23,11 @@ public abstract class TalkManager : MonoBehaviour {
     [SerializeField] protected GameObject talkDialog;
     [SerializeField] protected TextMeshProUGUI talkTxt;
     [SerializeField] protected Image spkImg;
+    [SerializeField] protected TextMeshProUGUI spkName;
 
     protected void Awake() {
-        //* 対話データ
-        talkDt = new Dictionary<int, string[]>();
+        txtTeleType = GetComponent<TextTeleType>();
+        talkDt = new Dictionary<int, string[]>(); //* 対話データ
         generateData();
     }
 
@@ -81,11 +85,21 @@ public abstract class TalkManager : MonoBehaviour {
             //* メッセージ
             talkTxt.text = msg;
 
+            //* テレタイプ
+            if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID); //! 以前のコルーチンが生きていたら、停止
+            coTxtTeleTypeID = txtTeleType.coTextVisible(talkTxt);
+            StartCoroutine(coTxtTeleTypeID);
+
             //* スピーカー画像
             switch(int.Parse(spkKey)) {
                 case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;
                 case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;
                 case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
+                case 3: spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); break;
+            }
+            //* スピーカー名前
+            switch(int.Parse(spkKey)) {
+                case 0: case 1: case 2: spkName.text = "송백 늑선생"; break;
             }
         }
         
