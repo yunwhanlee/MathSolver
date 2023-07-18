@@ -51,6 +51,7 @@ public class Util : MonoBehaviour
     }
 
     public static IEnumerator coPlayBounceAnim(Transform objTf) {
+        Debug.Log($"coPlayBounceAnim:: {objTf}");
         //* Value
         bool isDecreasing = false;
         const float originSc = 1.0f;

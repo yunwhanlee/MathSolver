@@ -128,6 +128,7 @@ public class Player : MonoBehaviour {
     public void animSit(bool _isSit) {
         isSit = _isSit;
         HM._.pl.Anim.SetBool(Enum.ANIM.IsSit.ToString(), _isSit);
+        if(_isSit) StartCoroutine(Util.coPlayBounceAnim(this.transform));
     }
 #endregion
 ///------------------------------------------------------------------------------------------
