@@ -122,6 +122,9 @@ public class QuizManager : MonoBehaviour {
                 //* 診断評価パンネル 表示
                 diagChooseDiffPanel.SetActive(true);
                 break;
+            case Status.LEARNING:
+                getLearningButton.interactable = true;
+                break;
         }
 
         //* 診断評価 と 学習メソッド コールバック 登録

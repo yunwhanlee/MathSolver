@@ -17,7 +17,8 @@ public class WJ_Connector : MonoBehaviour
     public string strGameCD;        //게임코드
     public string strGameKey;       //게임키(Api Key)
 
-    private string strAuthorization;
+    //권한(토큰)
+    [SerializeField] private string strAuthorization;
 
     private string strMBR_ID;       //멤버 ID
     private string strDeviceNm;     //디바이스 이름
@@ -85,8 +86,7 @@ public class WJ_Connector : MonoBehaviour
         request.langCd = "KO";
         request.timeZone = TimeZoneInfo.Local.BaseUtcOffset.Hours;
 
-        switch (level)
-        {
+        switch (level){
             case 0: request.bgnLvl = "A"; break;
             case 1: request.bgnLvl = "B"; break;
             case 2: request.bgnLvl = "C"; break;
@@ -94,7 +94,22 @@ public class WJ_Connector : MonoBehaviour
             default: request.bgnLvl = "A"; break;
         }
 
-        yield return StartCoroutine(UWR_Post<Request_DN_Setting, DN_Response>(request, "https://prd-brs-relay-model.mathpid.com/api/v1/contest/diagnosis/setting", false));
+        Debug.Log("<color=yellow>Send_Diagnosis:: request"
+            + "\n gameCd= " + request.gameCd
+            + "\n mbrId= " + request.mbrId
+            + "\n deviceNm= " + request.deviceNm
+            + "\n gameVer= " + request.gameVer
+            + "\n osScnCd= " + request.osScnCd
+            + "\n langCd= " + request.langCd
+            + "\n timeZone= " + request.timeZone
+            + "\n bgnLvl= " + request.bgnLvl
+            + "</color>"
+        );
+
+        yield return StartCoroutine(UWR_Post<Request_DN_Setting, DN_Response>(
+            request, 
+            "https://prd-brs-relay-model.mathpid.com/api/v1/contest/diagnosis/setting", 
+            isSendAuth: false)); //* 唯一に診断評価スタートのみ 権限送り(トークン)が falseになっている
 
         onGetDiagnosis.Invoke();
 
@@ -102,21 +117,36 @@ public class WJ_Connector : MonoBehaviour
     }
 
     /// <summary>
-    /// 진단평가 매 문제 풀이 시 서버와 통신
+    /// 진단평가 매 문제 풀이 시 서버와 통신 (정답 골랐을 때)
     /// </summary>
     private IEnumerator SendProgress_Diagnosis(string _prgsCd, string _qstCd, string _qstCransr, string _ansrCwYn, long _sid, long _nQstDelayTime)
     {
         Request_DN_Progress request = new Request_DN_Progress();
-        request.mbrId = strMBR_ID;
         request.gameCd = strGameCD;
+        request.mbrId = strMBR_ID;
         request.prgsCd = _prgsCd;// "W";    // W: 진단 진행    E: 진단 완료    X: 기타 취소?
         request.qstCd = _qstCd;             // 문항 코드
         request.qstCransr = _qstCransr;     // 입력한 답내용
         request.ansrCwYn = _ansrCwYn;//"Y"; // 정답 여부
         request.sid = _sid;                 // 진단 ID
-        request.slvTime = _nQstDelayTime;//5000;
+        request.slvTime = _nQstDelayTime;   //5000;
 
-        yield return StartCoroutine(UWR_Post<Request_DN_Progress, DN_Response>(request, "https://prd-brs-relay-model.mathpid.com/api/v1/contest/diagnosis/progress", true));
+        Debug.Log("<color=green>SendProgress_Diagnosis:: request"
+            + "\n gameCd= " + request.gameCd
+            + "\n mbrId= " + request.mbrId
+            + "\n prgsCd= " + request.prgsCd
+            + "\n qstCd= " + request.qstCd
+            + "\n qstCransr= " + request.qstCransr
+            + "\n ansrCwYn= " + request.ansrCwYn
+            + "\n sid= " + request.sid
+            + "\n slvTime= " + request.slvTime
+            + "</color>"
+        );
+
+        yield return StartCoroutine(UWR_Post<Request_DN_Progress, DN_Response>(
+            request, 
+            "https://prd-brs-relay-model.mathpid.com/api/v1/contest/diagnosis/progress", 
+            true));
 
         onGetDiagnosis.Invoke();
 
@@ -140,7 +170,21 @@ public class WJ_Connector : MonoBehaviour
 
         request.mathpidId = "";
 
-        yield return StartCoroutine(UWR_Post<Request_Learning_Setting, Response_Learning_Setting>(request, "https://prd-brs-relay-model.mathpid.com/api/v1/contest/learning/setting", true));
+        Debug.Log("<color=red>Send_Learning:: request"
+            + "\n gameCd= " + request.gameCd
+            + "\n mbrId= " + request.mbrId
+            + "\n gameVer= " + request.gameVer
+            + "\n osScnCd= " + request.osScnCd
+            + "\n deviceNm= " + request.deviceNm
+            + "\n timeZone= " + request.timeZone
+            + "\n mathpidId= " + request.mathpidId
+            + "</color>"
+        );
+
+        yield return StartCoroutine(UWR_Post<Request_Learning_Setting, Response_Learning_Setting>(
+            request, 
+            "https://prd-brs-relay-model.mathpid.com/api/v1/contest/learning/setting", 
+            true));
 
         onGetLearning.Invoke();
 
@@ -164,7 +208,10 @@ public class WJ_Connector : MonoBehaviour
 
         request.data = cMyAnsrs;
 
-        yield return StartCoroutine(UWR_Post<Request_Learning_Progress, Response_Learning_Progress>(request, "https://prd-brs-relay-model.mathpid.com/api/v1/contest/learning/progress", true));
+        yield return StartCoroutine(UWR_Post<Request_Learning_Progress, Response_Learning_Progress>(
+            request, 
+            "https://prd-brs-relay-model.mathpid.com/api/v1/contest/learning/progress", 
+            true));
 
         yield return null;
     }
@@ -234,6 +281,7 @@ public class WJ_Connector : MonoBehaviour
                         break;
                 }
 
+                //* 権限(トークン) 発行
                 if (uwr.GetResponseHeaders().ContainsKey("Authorization")) strAuthorization = uwr.GetResponseHeader("Authorization");
             }
             else //실패 시
