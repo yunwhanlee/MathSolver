@@ -88,6 +88,8 @@ public class HUI : MonoBehaviour {
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
+    [SerializeField] GameObject successMsgPopUp;  public GameObject SuccessMsgPopUp {get => successMsgPopUp; set => successMsgPopUp = value;}
+    [SerializeField] TextMeshProUGUI successMsgTxt;   public TextMeshProUGUI SuccessMsgTxt {get => successMsgTxt; set => successMsgTxt = value;}
     [SerializeField] GameObject nickNamePopUp;  public GameObject NickNamePopUp {get => nickNamePopUp; set => nickNamePopUp = value;}
     [SerializeField] TMP_InputField nickNameInputField;  public TMP_InputField NickNameInputField {get => nickNameInputField; set => nickNameInputField = value;}
 
@@ -287,6 +289,7 @@ public class HUI : MonoBehaviour {
         displayNickNamePopUp(isActive: false);
         DB.Dt.NickName = nickNameInputField.text;
         nickName.text = DB.Dt.NickName;
+        if(!HM._.htm.IsAction) showSuccessMsgPopUp("NickName Change Success!");
     }
     public void onClickNickNamePopUpExitBtn() {
         displayNickNamePopUp(isActive: false);
@@ -357,14 +360,23 @@ public class HUI : MonoBehaviour {
         HM._.pet.gameObject.SetActive(!isActive);
     }
 
-    public void showErrorMsgPopUp(string msg) => StartCoroutine(coShowErrorMsgPopUp(msg));
-    IEnumerator coShowErrorMsgPopUp(string msg) {
+    public void showErrorMsgPopUp(string msg) => StartCoroutine(coErrorMsgPopUp(msg));
+    IEnumerator coErrorMsgPopUp(string msg) {
         errorMsgPopUp.SetActive(true);
         errorMsgTxt.text = msg;
         yield return Util.realTime1;
 
         errorMsgPopUp.SetActive(false);
         errorMsgTxt.text = "";
+    }
+    public void showSuccessMsgPopUp(string msg) => StartCoroutine(coSuccessMsgPopUp(msg));
+    IEnumerator coSuccessMsgPopUp(string msg) {
+        successMsgPopUp.SetActive(true);
+        successMsgTxt.text = msg;
+        yield return Util.realTime1;
+
+        successMsgPopUp.SetActive(false);
+        successMsgTxt.text = "";
     }
     public void displayNickNamePopUp(bool isActive) {
         HM._.state = (isActive)? HM.STATE.SETTING : HM.STATE.NORMAL;

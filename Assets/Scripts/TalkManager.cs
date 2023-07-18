@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using TMPro;
 
 public abstract class TalkManager : MonoBehaviour {
-    public enum SPEAKER_IDX {PLAYER};
+    public enum SPK_IDX { //* Speaker Index
+        PL_IDLE, PL_HAPPY, PL_SAD
+    };
 
     //* DATA
     protected Dictionary<int, string[]> talkDt;
-    protected List<Sprite> speakerSprDtList;
-
-    //* Speaker Spr
+    [SerializeField] protected List<Sprite> spkSprDtList; //* Inspector viewで
 
     //* Value
     [SerializeField] protected bool isAction; public bool IsAction {get => isAction;}
@@ -19,18 +19,12 @@ public abstract class TalkManager : MonoBehaviour {
     [SerializeField] protected int talkIdx;
     [SerializeField] protected GameObject talkDialog;
     [SerializeField] protected TextMeshProUGUI talkTxt;
-    [SerializeField] protected Image speakerImg;
+    [SerializeField] protected Image spkImg;
 
     protected void Awake() {
         //* 対話データ
         talkDt = new Dictionary<int, string[]>();
         generateData();
-    }
-
-    protected void Start() {
-        //* キャラの画像データ
-        speakerSprDtList = new List<Sprite>();
-        speakerSprDtList.Add(HM._.pl.IdleSpr);
     }
 
     public abstract void generateData();
@@ -47,13 +41,11 @@ public abstract class TalkManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    //* 途中 処理
-    protected virtual string setEvent(int id) {
-        Debug.Log("processMsg:: setEvent::");
+    protected virtual string setEvent(int id) { //* イベント 処理
+        Debug.Log("processMsg:: setEvent:: override必要！");
         return getMsg(id, talkIdx);
     }
-    //* 終了 処理
-    protected abstract void endSwitchProccess(int id); 
+    protected abstract void endSwitchProccess(int id); //* 終了 処理
 
     public void action(int id) {
         curId = id;
@@ -67,23 +59,23 @@ public abstract class TalkManager : MonoBehaviour {
     }
 
     private void talk(int id) {
-        //* 途中 処理
+        //* イベント 処理
         string rawMsg = setEvent(id);
 
-        //* 終了 処理
+        //* 対話 終了
         if(rawMsg == null) {
             Time.timeScale = 1;
             isAction = false;
             talkIdx = 0;
 
-            //* 追加処理
+            //* 終了 処理
             endSwitchProccess(id);
             return;
         }
-        //* 対話 表示
+        //* 対話 続き
         else {
             Time.timeScale = 0;
-            //* 分析 「メッセージ」と「スピーカー画像」
+            //* 分析 :「メッセージ」と「スピーカー画像」
             string msg = rawMsg.Split(":")[0];
             string spkKey = rawMsg.Split(":")[1];
             //* メッセージ
@@ -91,9 +83,9 @@ public abstract class TalkManager : MonoBehaviour {
 
             //* スピーカー画像
             switch(int.Parse(spkKey)) {
-                case (int)SPEAKER_IDX.PLAYER: 
-                    speakerImg.sprite = speakerSprDtList[(int)SPEAKER_IDX.PLAYER]; 
-                    break;
+                case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;
+                case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;
+                case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
             }
         }
         
