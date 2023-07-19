@@ -45,8 +45,9 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
     [SerializeField] Button[] diagSelectDiffBtn;
+    [SerializeField] Button   getLearningButton;    // 문제 받아오기 버튼
     [SerializeField] Button[] answerBtn = new Button[BTN_CNT]; public Button[] AnswerBtn {get => answerBtn;}  // 정답 버튼들
-    TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
+    TEXDraw[] answerBtnTxtDraw;                     // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
     [Header("STATUS")]
     [SerializeField] int curQuestionIndex;  public int CurQuestionIndex {get => curQuestionIndex;}
@@ -61,12 +62,13 @@ public class QuizManager : MonoBehaviour {
 
     [Header("DEBUG")]
     [SerializeField] WJ_DisplayText wj_displayText; // 텍스트 표시용(필수X)
-    [SerializeField] Button getLearningButton;      // 문제 받아오기 버튼
+    
 
     private void Awake() {
         //* Init
         diagChooseDiffPanel.SetActive(false);
         questionPanel.SetActive(false);
+        getLearningButton.gameObject.SetActive(false);
         answerBtnTxtDraw = new TEXDraw[answerBtn.Length];
         // quizAnswerResultArr = new string[8] {"N", "N", "N", "N", "N", "N", "N", "N"};
 
@@ -94,6 +96,7 @@ public class QuizManager : MonoBehaviour {
     }
     public void onClickGetLearningBtn() {
         Debug.Log($"onClickGetLearningBtn():: 学習 スタート");
+        getLearningButton.gameObject.SetActive(false);
         status = Status.LEARNING;
         quizAnswerResultArr = new string[8];
         wj_connector.Learning_GetQuestion();
@@ -124,7 +127,8 @@ public class QuizManager : MonoBehaviour {
                 }
                 //* 診断評価をもう受けたら
                 else {
-                    getLearningButton.interactable = true;
+                    // getLearningButton.interactable = true;
+                    getLearningButton.gameObject.SetActive(true);
                 }
                 break;
         }
@@ -155,7 +159,7 @@ public class QuizManager : MonoBehaviour {
                 Debug.Log("진단평가 끝! 학습 단계로 넘어갑니다.");
                 wj_displayText.SetState("진단평가 완료", "", "", "");
                 status = Status.LEARNING;
-                getLearningButton.interactable = true;
+                // getLearningButton.interactable = true;
 
                 //* 結果パンネル 表示
                 StartCoroutine(GM._.rm.coDisplayResultPanel());
