@@ -216,7 +216,7 @@ public class WJ_Connector : MonoBehaviour
     {
         string strBody = JsonUtility.ToJson(request);
 
-        using (UnityWebRequest uwr = UnityWebRequest.Post(url, string.Empty))
+        using (UnityWebRequest uwr = UnityWebRequest.PostWwwForm(url, string.Empty))
         {
             byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(strBody);
             uwr.uploadHandler = new UploadHandlerRaw(jsonToSend);
