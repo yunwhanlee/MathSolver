@@ -380,7 +380,7 @@ public class GM : MonoBehaviour {
     ///* オブジェクト 生成
     private IEnumerator coCreateObj(string objName, int num, float posX = 0) {
         for(int i = 0; i < num; i++) {
-            Debug.Log($"coCreateObj:: i= {i}, num = {num}");
+            // Debug.Log($"coCreateObj:: i= {i}, num = {num}");
             if(i == 0) {
                 instBox(objName, posX);
                 yield return Util.time0_5;

@@ -1,0 +1,4 @@
+Diagnosis & Learning
+    - Setting : 問題スタート時に
+    - Progress : 答えを選んだ度に
+

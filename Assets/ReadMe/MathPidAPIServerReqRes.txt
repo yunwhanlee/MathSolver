@@ -1,0 +1,29 @@
+【#1. 진단평가 이후 받은 데이터 목록】 ※값은 예시 다시 진단평가를 진행하면 토큰과 멤버ID는 바뀜.
+
+■MATH-PID(X) API 키
+2fMFJkLhGTGKc7G0kFe08hfSa3U1VStHcXCtuNzAFzw
+
+■인증 정보(Authorization 토큰)
+Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjaG4iOiJFMjgiLCJtYnIiOiJFMjgyMDIzMDcxOTE0MDEyMDEzMiIsImlhdCI6MTY1MTU2MDYxNywiZXhwIjozNTQ2ODA2NTE1fQ.W6g3Vn98gvnZo5B6mFhvujNUlikpluL_zR9WWypmwVs
+
+■멤버ID(mbrId == 사용자ID)
+E2820230719140120132
+
+【#2. 학습 실행 시, 처음에 서버로 인증 요구】
+Request_Learning_Setting
+
+□Request => {
+      "gameCd":"E28",
+      "mbrId":"E2820230719140120132",
+      "gameVer":"1.0",
+      "osScnCd":"Windows 11  (1",
+      "deviceNm":"PC",
+      "langCd":"KO",
+      "timeZone":9,
+      "mathpidId":""
+}
+
+
+진단평가를 한 번 완료한 뒤 ➝ 게임 종료 ➝ 재시작
+ ➝ 
+위의 대로 다시 게임을 실행 후 실행 해 본 결과....

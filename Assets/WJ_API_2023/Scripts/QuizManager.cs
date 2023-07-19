@@ -75,9 +75,7 @@ public class QuizManager : MonoBehaviour {
 
         wj_displayText.SetState("대기중", "", "", "");
     }
-
     void OnEnable() => Setup();
-
     void Update() {
         //* 問題 経過時間 カウント
         if (isSolvingQuestion) questionSolveTime += Time.deltaTime;
@@ -89,13 +87,14 @@ public class QuizManager : MonoBehaviour {
         //* (BUG) 重なって実行すること対応
         Array.ForEach(diagSelectDiffBtn, diffBtn => diffBtn.gameObject.SetActive(false));
         //* 選択レベルの診断評価 スタート
-        Debug.Log($"WJ_Sample:: onClickDiagChooseDifficultyBtn({diffLevel})");
+        Debug.Log($"onClickDiagChooseDifficultyBtn():: 診断評価 スタート({diffLevel})");
         status = Status.DIAGNOSIS;
         quizAnswerResultArr = new string[8];
         wj_connector.FirstRun_Diagnosis(diffLevel); //* サーバから通信し、GetDiagnosis()呼び出す
     }
     public void onClickGetLearningBtn() {
-        Debug.Log($"WJ_Sample:: onClickGetLearningBtn()");
+        Debug.Log($"onClickGetLearningBtn():: 学習 スタート");
+        status = Status.LEARNING;
         // quizAnswerResultArr = new string[8];
         wj_connector.Learning_GetQuestion();
         wj_displayText.SetState("문제풀이 중", "-", "-", "-");
@@ -119,11 +118,14 @@ public class QuizManager : MonoBehaviour {
     private void Setup() { //* #1
         switch (status) {
             case Status.WAITING:
-                //* 診断評価パンネル 表示
-                diagChooseDiffPanel.SetActive(true);
-                break;
-            case Status.LEARNING:
-                getLearningButton.interactable = true;
+                //* 診断評価がまだなら
+                if(DB.Dt.MyAuthorization == "" && DB.Dt.MyMBR_ID == "") {
+                    diagChooseDiffPanel.SetActive(true);
+                }
+                //* 診断評価をもう受けたら
+                else {
+                    getLearningButton.interactable = true;
+                }
                 break;
         }
 
