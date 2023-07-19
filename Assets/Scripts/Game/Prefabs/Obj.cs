@@ -14,7 +14,7 @@ public class Obj : MonoBehaviour
 //-------------------------------------------------------------------------------------------------------------
     public void addForce(Vector2 dir) {
         // Debug.Log($"Obj:: addForce(dir= {dir})");
-        int burstPower = Random.Range(350, 500);
+        int burstPower = Random.Range(250, 400);
         float power = burstPower * Time.deltaTime;
         rigid.AddForce(dir * power, ForceMode2D.Impulse);
     }
