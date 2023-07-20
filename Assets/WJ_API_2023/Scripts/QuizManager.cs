@@ -278,7 +278,7 @@ public class QuizManager : MonoBehaviour {
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
 
-                setAnswerProcess(ansrCwYn, idx);
+                setAnswerProcess(ref ansrCwYn, idx);
 
                 //* Answer結果 アニメー
                 if(isCorrect) { yield return coSuccessAnswer(idx);}
@@ -288,8 +288,11 @@ public class QuizManager : MonoBehaviour {
                 } 
 
                 curQuestionIndex++;
-                //* 選択したら次の診断問題Callbackも含めている
-                wj_connector.Diagnosis_SelectAnswer(answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
+                wj_connector.Diagnosis_SelectAnswer(
+                    answerBtnTxtDraw[idx].text, 
+                    ansrCwYn, 
+                    (int)(questionSolveTime * 1000)
+                );
                 questionPanel.SetActive(false);
                 questionSolveTime = 0;
                 break;
@@ -299,7 +302,7 @@ public class QuizManager : MonoBehaviour {
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
 
-                setAnswerProcess(ansrCwYn, idx);
+                setAnswerProcess(ref ansrCwYn, idx);
 
                 //* Answer結果 アニメー
                 if(isCorrect) { yield return coSuccessAnswer(idx);}
@@ -309,7 +312,12 @@ public class QuizManager : MonoBehaviour {
                 }  
 
                 curQuestionIndex++;
-                wj_connector.Learning_SelectAnswer(curQuestionIndex, answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
+                wj_connector.Learning_SelectAnswer(
+                    curQuestionIndex, 
+                    answerBtnTxtDraw[idx].text, 
+                    ansrCwYn, 
+                    (int)(questionSolveTime * 1000)
+                );
                 GetLearning(curQuestionIndex); //* 次の学習問題
                 questionPanel.SetActive(false);
                 questionSolveTime = 0;
@@ -327,7 +335,7 @@ public class QuizManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    private void setAnswerProcess(string ansrCwYn, int idx) {
+    private void setAnswerProcess(ref string ansrCwYn, int idx) {
         //* チュートリアル Quiz Answer
         if(GM._.qm.CurQuestionIndex == 0 && DB.Dt.IsTutoDiagFirstAnswerTrigger) {
             GM._.gtm.IsTutoQuizAnswerCorret = (ansrCwYn == "Y");

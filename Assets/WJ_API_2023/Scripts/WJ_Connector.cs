@@ -190,10 +190,14 @@ public class WJ_Connector : MonoBehaviour
         request.bgnDt = cLearnSet.data.bgnDt;
         request.data = cMyAnsrs;
 
+        int i= 0;
         Debug.Log("<color=red>SendProgress_Learning:: Request_Learning_Progress</color>"
             + "\n gameCd= " + request.gameCd + "\n mbrId= " + request.mbrId + "\n prgsCd= " + request.prgsCd
-            + "\n sid= " + request.sid + "\n bgnDt= " + request.bgnDt + "\n data= " + request.data
+            + "\n sid= " + request.sid + "\n bgnDt= " + request.bgnDt
         );
+        request.data.ForEach(dt => {
+            Debug.Log($"data{i++}: dt.qstCd({dt.qstCd}), dt.qstCransr({dt.qstCransr}), dt.ansrCwYn({dt.ansrCwYn}), dt.slvTime({dt.slvTime}ms)");
+        });
 
         yield return StartCoroutine(UWR_Post<Request_Learning_Progress, Response_Learning_Progress>(request, "https://prd-brs-relay-model.mathpid.com/api/v1/contest/learning/progress", 
             isSendAuth: true));
@@ -276,7 +280,22 @@ public class WJ_Connector : MonoBehaviour
                 Debug.LogError("결과를 받아오는 데 실패했습니다.");
                 Debug.LogError(uwr.error.ToString());
             }
-
+            
+            /*
+                ? 学習結果
+                ■Response => {
+                    "result":true, 
+                    "msg":"success",
+                    "data":{
+                        "explSpedCd":"ESC02",    //? 解く速度コード：ESC01(遅い)、ESC02(普通)、ESC03(早い)
+                        "explSped":80,           //? 解く速度値：0 ~ 100
+                        "lrnPrgsStsCd":"LPSC02", //? 結果進行コード：LPS01(動力)、LPS02(基本)、LPS03(充分)、LPS04(完璧)
+                        "acrcyCd":"A",           //? 解く正確度コード：D(未達)、C(普通)、B(高い)、A(完璧)
+                        "explAcrcyRt":100        //? 解く正確度値：0 ~ 100
+                    }
+                }
+            */
+            
             Debug.Log($"■Response => {uwr.downloadHandler.text}");
             uwr.Dispose();
         }
@@ -293,7 +312,7 @@ public class WJ_Connector : MonoBehaviour
     }
 
     /// <summary>
-    /// 진단 - 고른 정답을 저장 후 전송
+    /// 진단 - 고른 정답을 저장 후 각 문제마다 전송 
     /// </summary>
     public void Diagnosis_SelectAnswer(string _cransr, string _ansrYn, long _slvTime = 5000)
     {
@@ -309,13 +328,13 @@ public class WJ_Connector : MonoBehaviour
     }
 
     /// <summary>
-    /// 학습 - 고른 정답을 저장, 푼 문제가 8개가 되면 전송
+    /// 학습 - 고른 정답을 저장 후 푼 문제가 8개가 되면 딱 한번 전송
     /// </summary>
     public void Learning_SelectAnswer(int _index, string _cransr, string _ansrYn, long _slvTime = 5000)
     {
         if(cMyAnsrs == null) cMyAnsrs = new List<Learning_MyAnsr>();
 
-        cMyAnsrs.Add(new Learning_MyAnsr(cLearnSet.data.qsts[_index - 1].qstCd, _cransr, _ansrYn, 0));
+        cMyAnsrs.Add(new Learning_MyAnsr(cLearnSet.data.qsts[_index - 1].qstCd, _cransr, _ansrYn, _slvTime));
 
         if(cMyAnsrs.Count >= 8) {
             StartCoroutine(SendProgress_Learning());
