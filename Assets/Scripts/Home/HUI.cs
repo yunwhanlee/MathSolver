@@ -88,15 +88,27 @@ public class HUI : MonoBehaviour {
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
+
     [SerializeField] GameObject successMsgPopUp;  public GameObject SuccessMsgPopUp {get => successMsgPopUp; set => successMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI successMsgTxt;   public TextMeshProUGUI SuccessMsgTxt {get => successMsgTxt; set => successMsgTxt = value;}
+
     [SerializeField] GameObject nickNamePopUp;  public GameObject NickNamePopUp {get => nickNamePopUp; set => nickNamePopUp = value;}
     [SerializeField] TMP_InputField nickNameInputField;  public TMP_InputField NickNameInputField {get => nickNameInputField; set => nickNameInputField = value;}
+
+    [SerializeField] GameObject lvUpPopUp;   public GameObject LvUpPopUp {get => lvUpPopUp; set => lvUpPopUp = value;}
+    [SerializeField] TextMeshProUGUI lvUpPopUpValTxt;   public TextMeshProUGUI LvUpPopUpValTxt {get => lvUpPopUpValTxt; set => lvUpPopUpValTxt = value;}
+    [SerializeField] TextMeshProUGUI lvUpPopUpBonusTxt;   public TextMeshProUGUI LvUpPopUpBonusTxt {get => lvUpPopUpBonusTxt; set => lvUpPopUpBonusTxt = value;}
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
+
+        //* Level Up Check
+        if(DB.Dt.Lv != HM._.pl.BefLv) {
+            showLevelUpPopUp();
+            HM._.pl.BefLv++;
+        }
 
         //* Setting Add Event Listener
         const int EN = 0, KR = 1, JP = 2;
@@ -278,7 +290,7 @@ public class HUI : MonoBehaviour {
         }
     }
     public void onClickChangeNickNameBtn() {
-        displayNickNamePopUp(isActive: true);
+        showNickNamePopUp(isActive: true);
     }
     public void onClickNickNameOkBtn() {
         if(nickNameInputField.text.Length == 0) {
@@ -286,13 +298,13 @@ public class HUI : MonoBehaviour {
             return;
         }
         //* 処理
-        displayNickNamePopUp(isActive: false);
+        showNickNamePopUp(isActive: false);
         DB.Dt.NickName = nickNameInputField.text;
         nickName.text = DB.Dt.NickName;
         if(!HM._.htm.IsAction) showSuccessMsgPopUp("NickName Change Success!");
     }
     public void onClickNickNamePopUpExitBtn() {
-        displayNickNamePopUp(isActive: false);
+        showNickNamePopUp(isActive: false);
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -322,7 +334,7 @@ public class HUI : MonoBehaviour {
 
                 //* 
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
-                bonusValTxt.text = $"+{HM._.pl.calcBonusPercent() * 100 - 100}%";
+                bonusValTxt.text = $"+{HM._.pl.calcBonusPercent()}%";
 
                 //* 
                 const int MAX_UNIT = 100;
@@ -378,12 +390,17 @@ public class HUI : MonoBehaviour {
         successMsgPopUp.SetActive(false);
         successMsgTxt.text = "";
     }
-    public void displayNickNamePopUp(bool isActive) {
+    public void showNickNamePopUp(bool isActive) {
         HM._.state = (isActive)? HM.STATE.SETTING : HM.STATE.NORMAL;
         nickNamePopUp.SetActive(isActive);
         settingPanel.SetActive(!isActive); //* BUG なぜかこらが表示されたら、InputFeild入力できない
         if(HM._.htm.IsAction) settingPanel.SetActive(false);
         if(isActive) nickNameInputField.text = DB.Dt.NickName;
+    }
+    public void showLevelUpPopUp() {
+        lvUpPopUp.SetActive(true);
+        lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
+        lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcBonusPercent()}%";
     }
     private bool isEnglish(string text) {
         foreach (char c in text) {

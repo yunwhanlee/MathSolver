@@ -88,7 +88,7 @@ public class HomeTalkManager : TalkManager {
             case (int)TALK_ID_IDX.TUTORIAL_ROOM:
                 if(talkIdx == 2) {
                     Time.timeScale = 1;
-                    HM._.ui.displayNickNamePopUp(isActive: true);
+                    HM._.ui.showNickNamePopUp(isActive: true);
                 }
                 if(talkIdx == 3) {
                     Debug.Log("setEvent:: DB.Dt.NickName => " + DB.Dt.NickName);
