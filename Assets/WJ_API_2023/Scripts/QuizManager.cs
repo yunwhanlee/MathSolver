@@ -45,8 +45,9 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI stageTxt;  public TextMeshProUGUI StageTxt {get => stageTxt; set => StageTxt = value;}
 
     [SerializeField] Button[] diagSelectDiffBtn;
+    [SerializeField] Button   getLearningButton;    // 문제 받아오기 버튼
     [SerializeField] Button[] answerBtn = new Button[BTN_CNT]; public Button[] AnswerBtn {get => answerBtn;}  // 정답 버튼들
-    TEXDraw[] answerBtnTxtDraw;                                 // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
+    TEXDraw[] answerBtnTxtDraw;                     // 정답 버튼들 텍스트(※TextDraw로 변경 필요)
 
     [Header("STATUS")]
     [SerializeField] int curQuestionIndex;  public int CurQuestionIndex {get => curQuestionIndex;}
@@ -61,12 +62,13 @@ public class QuizManager : MonoBehaviour {
 
     [Header("DEBUG")]
     [SerializeField] WJ_DisplayText wj_displayText; // 텍스트 표시용(필수X)
-    [SerializeField] Button getLearningButton;      // 문제 받아오기 버튼
+    
 
     private void Awake() {
         //* Init
         diagChooseDiffPanel.SetActive(false);
         questionPanel.SetActive(false);
+        getLearningButton.gameObject.SetActive(false);
         answerBtnTxtDraw = new TEXDraw[answerBtn.Length];
         // quizAnswerResultArr = new string[8] {"N", "N", "N", "N", "N", "N", "N", "N"};
 
@@ -94,8 +96,9 @@ public class QuizManager : MonoBehaviour {
     }
     public void onClickGetLearningBtn() {
         Debug.Log($"onClickGetLearningBtn():: 学習 スタート");
+        getLearningButton.gameObject.SetActive(false);
         status = Status.LEARNING;
-        // quizAnswerResultArr = new string[8];
+        quizAnswerResultArr = new string[8];
         wj_connector.Learning_GetQuestion();
         wj_displayText.SetState("문제풀이 중", "-", "-", "-");
     }
@@ -124,7 +127,8 @@ public class QuizManager : MonoBehaviour {
                 }
                 //* 診断評価をもう受けたら
                 else {
-                    getLearningButton.interactable = true;
+                    // getLearningButton.interactable = true;
+                    getLearningButton.gameObject.SetActive(true);
                 }
                 break;
         }
@@ -138,12 +142,12 @@ public class QuizManager : MonoBehaviour {
     }
 
     /// <summary>
-    //* 진단평가:: 문제 받아오기 (초기 한번만 실행, 종료 후 수준평가 반환 값이 없음)
+    //* 진단평가:: 문제 받아오기  (종료 후 수준평가 반환 값이 없음)
     /// </summary>
     private void GetDiagnosis() {
-        Debug.Log("WJ_Sample:: GetDiagnosis():: 診断評価");
+        Debug.Log("GetDiagnosis():: 診断評価");
         switch (wj_connector.cDiagnotics.data.prgsCd) {
-            case "W":
+            case "W": //* 問題出し
                 StartCoroutine(coDisplayQuestion(wj_connector.cDiagnotics.data.textCn,
                             wj_connector.cDiagnotics.data.qstCn,
                             wj_connector.cDiagnotics.data.qstCransr,
@@ -151,11 +155,11 @@ public class QuizManager : MonoBehaviour {
                 );
                 wj_displayText.SetState("진단평가 중", "", "", "");
                 break;
-            case "E":
+            case "E": //* END(終わり)
                 Debug.Log("진단평가 끝! 학습 단계로 넘어갑니다.");
                 wj_displayText.SetState("진단평가 완료", "", "", "");
                 status = Status.LEARNING;
-                getLearningButton.interactable = true;
+                // getLearningButton.interactable = true;
 
                 //* 結果パンネル 表示
                 StartCoroutine(GM._.rm.coDisplayResultPanel());
@@ -164,17 +168,27 @@ public class QuizManager : MonoBehaviour {
     }
 
     /// <summary>
-    //* 학습평가:: n번째 문제 받아오기 (진단평가 이후 반복 실행, 종료 후 수준평가 반환 값 있음!)
+    //* 학습평가:: n번째 문제 받아오기 (종료 후 수준평가 반환 값 있음!)
     /// </summary>
     private void GetLearning(int idx) {
-        Debug.Log($"WJ_Sample:: GetLearning(${idx}) 問題読込");
+        Debug.Log($"GetLearning(${idx}) 学習");
+        //* スタートなら、curQuestionIndexも０に初期化
         if (idx == 0) curQuestionIndex = 0;
-
-        StartCoroutine(coDisplayQuestion(wj_connector.cLearnSet.data.qsts[idx].textCn,
-                    wj_connector.cLearnSet.data.qsts[idx].qstCn,
-                    wj_connector.cLearnSet.data.qsts[idx].qstCransr,
-                    wj_connector.cLearnSet.data.qsts[idx].qstWransr)
-        );
+        //* 問題出し
+        if(idx < 8) {
+            StartCoroutine(coDisplayQuestion(wj_connector.cLearnSet.data.qsts[idx].textCn,
+                        wj_connector.cLearnSet.data.qsts[idx].qstCn,
+                        wj_connector.cLearnSet.data.qsts[idx].qstCransr,
+                        wj_connector.cLearnSet.data.qsts[idx].qstWransr)
+            );
+        }
+        //* END(終わり)
+        else {
+            wj_displayText.SetState("문제풀이 완료", "", "", "");
+            
+            //* 結果パンネル 表示
+            StartCoroutine(GM._.rm.coDisplayResultPanel());
+        }
     }
 
     /// <summary>
@@ -188,6 +202,7 @@ public class QuizManager : MonoBehaviour {
         firstChoiceAnswer = null;
         diagChooseDiffPanel.SetActive(false);
         interactableAnswerBtns(false);
+        hintFrame.SetActive(false);
         helpSpeachBtn.SetActive(false);
 
         //* 動物 切り替え
@@ -259,81 +274,47 @@ public class QuizManager : MonoBehaviour {
         string ansrCwYn = "N";
 
         switch (status) {
-            case Status.DIAGNOSIS:
+            case Status.DIAGNOSIS: {
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cDiagnotics.data.qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
 
-                //* 最初選択の答え 保存
-                setFirstChoiceAnswer(ref ansrCwYn);
-
-                quizAnswerResultArr[curQuestionIndex] = ansrCwYn;
-
-                //* チュートリアル Quiz Answer
-                if(GM._.qm.CurQuestionIndex == 0 && DB.Dt.IsTutoDiagFirstAnswerTrigger) {
-                    GM._.gtm.IsTutoQuizAnswerCorret = isCorrect;
-                    GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_ANSWER);
-                }   
-
-                //* 答えした状況💛Frameで表示
-                Image heartImg = answerProgressFrameTf.GetChild(curQuestionIndex).GetComponent<Image>();
-                heartImg.sprite = (ansrCwYn == "Y")? correctHeartSpr : wrongHeartSpr;
-
-                //* 経過時間　カウント STOP
-                isSolvingQuestion = false;
+                setAnswerProcess(ansrCwYn, idx);
 
                 //* Answer結果 アニメー
-                if(isCorrect) { // 正解
-                    yield return coSuccessAnswer(idx);
-                }
+                if(isCorrect) { yield return coSuccessAnswer(idx);}
                 else { // 誤答
                     yield return coFailAnswer(idx);
-                    break; //TODO もう一回 チャレンジ　システム構築
+                    break; //* 下の処理しなくて、もう一回 チャレンジ
                 } 
 
                 curQuestionIndex++;
-
+                //* 選択したら次の診断問題Callbackも含めている
                 wj_connector.Diagnosis_SelectAnswer(answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
-
-                wj_displayText.SetState("진단평가 중", answerBtnTxtDraw[idx].text, ansrCwYn, questionSolveTime + " 초");
-
                 questionPanel.SetActive(false);
                 questionSolveTime = 0;
                 break;
+            }
 
-            case Status.LEARNING:
+            case Status.LEARNING: {
                 isCorrect   = answerBtnTxtDraw[idx].text.CompareTo(wj_connector.cLearnSet.data.qsts[curQuestionIndex].qstCransr) == 0 ? true : false;
                 ansrCwYn    = isCorrect ? "Y" : "N";
 
-                //* 最初選択の答え 保存
-                setFirstChoiceAnswer(ref ansrCwYn);
-
-                //* 経過時間　カウント STOP
-                isSolvingQuestion = false; 
+                setAnswerProcess(ansrCwYn, idx);
 
                 //* Answer結果 アニメー
-                if(isCorrect) { // 正解
-                    yield return coSuccessAnswer(idx);
-                }
+                if(isCorrect) { yield return coSuccessAnswer(idx);}
                 else { // 誤答
                     yield return coFailAnswer(idx);
-                    break; //TODO もう一回 チャレンジ　システム構築
+                    break; //* 下の処理しなくて、もう一回 チャレンジ
                 }  
 
                 curQuestionIndex++;
-
                 wj_connector.Learning_SelectAnswer(curQuestionIndex, answerBtnTxtDraw[idx].text, ansrCwYn, (int)(questionSolveTime * 1000));
-
-                wj_displayText.SetState("문제풀이 중", answerBtnTxtDraw[idx].text, ansrCwYn, questionSolveTime + " 초");
-
-                if (curQuestionIndex >= 8) 
-                {
-                    questionPanel.SetActive(false);
-                    wj_displayText.SetState("문제풀이 완료", "", "", "");
-                }
-                else GetLearning(curQuestionIndex);
-
+                GetLearning(curQuestionIndex); //* 次の学習問題
+                questionPanel.SetActive(false);
                 questionSolveTime = 0;
                 break;
+            }
         }
     }
 
@@ -346,6 +327,29 @@ public class QuizManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    private void setAnswerProcess(string ansrCwYn, int idx) {
+        //* チュートリアル Quiz Answer
+        if(GM._.qm.CurQuestionIndex == 0 && DB.Dt.IsTutoDiagFirstAnswerTrigger) {
+            GM._.gtm.IsTutoQuizAnswerCorret = (ansrCwYn == "Y");
+            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_ANSWER);
+        }
+
+        //* 最初選択の答え 保存
+        setFirstChoiceAnswer(ref ansrCwYn);
+
+        //* 答え結果
+        quizAnswerResultArr[curQuestionIndex] = ansrCwYn;
+
+        //* 答えした状況💛Frameで表示
+        Image heartImg = answerProgressFrameTf.GetChild(curQuestionIndex).GetComponent<Image>();
+        heartImg.sprite = (ansrCwYn == "Y")? correctHeartSpr : wrongHeartSpr;
+
+        //* 経過時間　カウント STOP
+        isSolvingQuestion = false;
+
+        //* ログ
+        wj_displayText.SetState($"{status.ToString()} 중", answerBtnTxtDraw[idx].text, ansrCwYn, questionSolveTime + " 초");
+    }
     private void setFirstChoiceAnswer(ref string answerResult) {
         if(firstChoiceAnswer == null) firstChoiceAnswer = answerResult;
         else answerResult = firstChoiceAnswer;

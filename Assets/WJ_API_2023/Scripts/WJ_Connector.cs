@@ -317,8 +317,7 @@ public class WJ_Connector : MonoBehaviour
 
         cMyAnsrs.Add(new Learning_MyAnsr(cLearnSet.data.qsts[_index - 1].qstCd, _cransr, _ansrYn, 0));
 
-        if(cMyAnsrs.Count >= 8)
-        {
+        if(cMyAnsrs.Count >= 8) {
             StartCoroutine(SendProgress_Learning());
         }
     }
