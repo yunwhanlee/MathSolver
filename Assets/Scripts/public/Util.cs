@@ -76,6 +76,7 @@ public class Util : MonoBehaviour
         int max = Data.EXP_MAX_UNIT * DB.Dt.Lv;
         if(DB.Dt.Exp == max) {
             DB.Dt.Lv++;
+            DB._.LvUpCnt++;
             DB.Dt.Exp = 0;
             return 1;
         }

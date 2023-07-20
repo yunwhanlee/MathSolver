@@ -105,9 +105,9 @@ public class HUI : MonoBehaviour {
         StartCoroutine(coUpdateUI());
 
         //* Level Up Check
-        if(DB.Dt.Lv != HM._.pl.BefLv) {
-            showLevelUpPopUp();
-            HM._.pl.BefLv++;
+        if(DB._.LvUpCnt > 0) {
+            DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
+            StartCoroutine(coShowLevelUpPopUp());
         }
 
         //* Setting Add Event Listener
@@ -306,6 +306,10 @@ public class HUI : MonoBehaviour {
     public void onClickNickNamePopUpExitBtn() {
         showNickNamePopUp(isActive: false);
     }
+    public void onClickLevelUpPopUpContinueBtn() {
+        HM._.state = HM.STATE.NORMAL;
+        lvUpPopUp.SetActive(false);
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
@@ -334,7 +338,7 @@ public class HUI : MonoBehaviour {
 
                 //* 
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
-                bonusValTxt.text = $"+{HM._.pl.calcBonusPercent()}%";
+                bonusValTxt.text = $"+{HM._.pl.calcBonusPercent() * 100 - 100}%";
 
                 //* 
                 const int MAX_UNIT = 100;
@@ -397,10 +401,12 @@ public class HUI : MonoBehaviour {
         if(HM._.htm.IsAction) settingPanel.SetActive(false);
         if(isActive) nickNameInputField.text = DB.Dt.NickName;
     }
-    public void showLevelUpPopUp() {
+    IEnumerator coShowLevelUpPopUp() {
+        yield return Util.time1;
+        HM._.state = HM.STATE.SETTING;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
-        lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcBonusPercent()}%";
+        lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcBonusPercent() * 100 - 100}%";
     }
     private bool isEnglish(string text) {
         foreach (char c in text) {

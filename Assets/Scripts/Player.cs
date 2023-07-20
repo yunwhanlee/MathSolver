@@ -22,8 +22,7 @@ public class Player : MonoBehaviour {
     [SerializeField] GameObject roarEF;
     [SerializeField] GameObject levelUpEF;
 
-    [Header("VALUE")]
-    [SerializeField] int befLv;    public int BefLv {get => befLv; set => befLv = value;}
+    [Header("VALUE")]    
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr; set => idleSpr = value;}
@@ -42,8 +41,6 @@ public class Player : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         sprLib = GetComponent<SpriteLibrary>();
-
-        befLv = DB.Dt.Lv;
     }
 
     void Update() {
@@ -98,7 +95,7 @@ public class Player : MonoBehaviour {
         //TODO ITEM
         //TODO 学習結果
 
-        return res * 100 - 100;
+        return res;
     }
 #endregion
 ///------------------------------------------------------------------------------------------
