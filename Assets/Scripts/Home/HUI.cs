@@ -20,6 +20,10 @@ public class HUI : MonoBehaviour {
     [SerializeField] Button woodSignArrowRightBtn;
 
     [Header("HOME PANEL")]
+
+    [SerializeField] Canvas canvasStatic; 
+    [SerializeField] Canvas canvasSelectMap;
+
     [SerializeField] GameObject topGroup; public GameObject TopGroup {get => topGroup; set => topGroup = value;}
     [SerializeField] GameObject[] homeScenePanelArr;    public GameObject[] HomeScenePanelArr {get => homeScenePanelArr; set => homeScenePanelArr = value;}
     [SerializeField] GameObject achiveRankPanel; public GameObject AchiveRankPanel {get => achiveRankPanel; set => achiveRankPanel = value;}
@@ -201,6 +205,15 @@ public class HUI : MonoBehaviour {
         inventorySpace.SetActive(isInv);
     }
     public void onClickGoRoom() {
+        //* From Select Map
+        if(canvasSelectMap) {
+            canvasStatic.gameObject.SetActive(true);
+            canvasSelectMap.gameObject.SetActive(false);
+            goGameDialog.SetActive(false);
+            return;
+        }
+
+        //* From Wood Arrow
         while(curHomeSceneIdx > (int)Enum.HOME.Room) {
             onClickWoodSignArrowBtn(dirVal: -1);
         }
@@ -239,9 +252,6 @@ public class HUI : MonoBehaviour {
     }
     #endregion
 
-    public void onClickGoGameDialogYesBtn() { //* Go Game!
-        StartCoroutine(HM._.GoToLoadingScene());
-    }
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
         achiveRankTitleTxt.text = (idx == 0)? LM._.localize("Achivement")
@@ -310,6 +320,17 @@ public class HUI : MonoBehaviour {
         HM._.state = HM.STATE.NORMAL;
         lvUpPopUp.SetActive(false);
     }
+    #region SELECT MAP
+    public void onClickGoGameDialogYesBtn() { // Choose Map
+        canvasSelectMap.gameObject.SetActive(true);
+        canvasStatic.gameObject.SetActive(false);
+        
+    }
+    public void onClickRegion(int idx) {
+        DB._.SelectRegionIdx = idx;
+        StartCoroutine(HM._.GoToLoadingScene());
+    }
+    #endregion
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC

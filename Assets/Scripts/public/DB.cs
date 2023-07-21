@@ -66,6 +66,7 @@ public class DB : MonoBehaviour {
     public static DB _ {get; private set;}
     [SerializeField] bool isReset;
     [SerializeField] int lvUpCnt;   public int LvUpCnt {get => lvUpCnt; set => lvUpCnt = value;}
+    [SerializeField] int selectRegionIdx;   public int SelectRegionIdx {get => selectRegionIdx; set => selectRegionIdx = value;}
     const string Database = "DB";
     const int DEF_WALL_IDX = 0;
     const int DEF_FLOOR_IDX = 9;
