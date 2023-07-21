@@ -30,6 +30,9 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
     [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
     [SerializeField] TextMeshProUGUI lvTxt;    public TextMeshProUGUI LvTxt {get => lvTxt; set => lvTxt = value;}
+    [SerializeField] GameObject lvBonusMsg;
+    [SerializeField] GameObject answerCntBonusMsg;
+    [SerializeField] GameObject legacyBonusMsg;
     [SerializeField] Image expFilledCircleBar;  public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] GameObject goHomePanelBtn;  public GameObject GoHomePanelBtn {get => goHomePanelBtn; set => goHomePanelBtn = value;}
 
@@ -70,19 +73,50 @@ public class ResultManager : MonoBehaviour {
         yield return Util.time0_5;
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
-    public IEnumerator coDisplayResultPanel() {
+    public IEnumerator coDisplayResultPanel(WJ_Connector connector = null) {
+        
+
         //* チュートリアル 結果
         if(DB.Dt.IsTutoDiagResultTrigger) {
             GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
         }
 
-        //* ボーナス反映
-        float bonus = GM._.Pl.calcBonusPercent();
-        rewardExp = (int)(rewardExp * bonus);
-        rewardCoin = (int)(rewardCoin * bonus);
-        
+        //* レベール ボーナス
+        float lvBonus = GM._.Pl.calcLvBonusPer();
+
+        //* 正解率 ボーナス (Learning専用)
+        float answerCntBonus = 0;
+        if(connector) {
+            var resSts = connector.cLearnProg.data.lrnPrgsStsCd;
+            answerCntBonus = (resSts == "LPS01")? 0
+                : (resSts == "LPS02")? 0.1f
+                : (resSts == "LPS03")? 0.25f
+                : 0.5f; //(resSts == "LPS04")
+        }
+        // TODO Regacy Item Bonus
+        //* 遺物 ボーナス
+        float legacyBonus = 0;
+
+
+        //* 総合
+        const float OFFSET_100PER = 1.0f;
+        float totalBonus = OFFSET_100PER + lvBonus + answerCntBonus + legacyBonus;
+
+        //* UI
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";
+
+        //* Bonus UI
+        lvBonusMsg.SetActive(lvBonus != 0);
+        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Level Bonus {lvBonus * 100}%";
+        answerCntBonusMsg.SetActive(answerCntBonus != 0);
+        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Answer Bonus {answerCntBonus * 100}%";
+        legacyBonusMsg.SetActive(legacyBonus != 0);
+        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Lecagy Bonus {legacyBonus * 100}%";
+
+        //* 渡す値
+        rewardExp = (int)(rewardExp * totalBonus);
+        rewardCoin = (int)(rewardCoin * totalBonus);
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
@@ -109,7 +143,7 @@ public class ResultManager : MonoBehaviour {
         int coinVal = 0;
 
         coinAttractionEF.SetActive(true);
-        yield return Util.time1;
+        // yield return Util.time1;
         int myCoin = int.Parse(topCoinTxt.text);
         while(isCoinUP) {
             coinVal += 10;

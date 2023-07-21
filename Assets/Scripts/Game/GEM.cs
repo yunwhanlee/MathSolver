@@ -57,6 +57,7 @@ public class GEM : MonoBehaviour { //* Game Effect Manager
         yield return delay;
         pool[idx].Release(effect);
     }
+    
 
     public void showDropItemTxtEF(int val, Vector3 pos, Color clr)
         => StartCoroutine(coShowDropItemTxtEF(val, pos, clr));

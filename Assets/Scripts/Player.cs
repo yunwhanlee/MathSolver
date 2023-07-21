@@ -87,15 +87,9 @@ public class Player : MonoBehaviour {
             animSit(false);
         }
     }
-    public float calcBonusPercent() {
-        float res = 1.0f;
-        //* LV
+    public float calcLvBonusPer() {
         const float LV_BONUS_PER = 0.1f;
-        res += DB.Dt.Lv * LV_BONUS_PER - LV_BONUS_PER;
-        //TODO ITEM
-        //TODO 学習結果
-
-        return res;
+        return DB.Dt.Lv * LV_BONUS_PER - LV_BONUS_PER; // 2 * 0.1f - 0.1f = 0.1f
     }
 #endregion
 ///------------------------------------------------------------------------------------------

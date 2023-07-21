@@ -338,7 +338,7 @@ public class HUI : MonoBehaviour {
 
                 //* 
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
-                bonusValTxt.text = $"+{HM._.pl.calcBonusPercent() * 100 - 100}%";
+                bonusValTxt.text = $"+{HM._.pl.calcLvBonusPer() * 100}%";
 
                 //* 
                 const int MAX_UNIT = 100;
@@ -406,7 +406,7 @@ public class HUI : MonoBehaviour {
         HM._.state = HM.STATE.SETTING;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
-        lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcBonusPercent() * 100 - 100}%";
+        lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcLvBonusPer() * 100}%";
     }
     private bool isEnglish(string text) {
         foreach (char c in text) {

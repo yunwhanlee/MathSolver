@@ -32,14 +32,14 @@ public class GM : MonoBehaviour {
 
     [Header("VALUE")]
     [SerializeField] bool isSelectCorrectAnswer;    public bool IsSelectCorrectAnswer {get => isSelectCorrectAnswer; set => isSelectCorrectAnswer = value;}
-    
+
     [Header("WORLD SPACE")]
     [SerializeField] GameObject worldSpaceQuizGroup;    public GameObject WorldSpaceQuizGroup {get => worldSpaceQuizGroup;}
 
     [Header("Spot")]
     [SerializeField] Transform plSpot;
     [SerializeField] Transform petSpot;
-    
+
     [Header("ANIMAL")]
     [SerializeField] Animal anm; public Animal Anm {get => anm;}
     [Header("LOAD OBJECT FROM HOME")]

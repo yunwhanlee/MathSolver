@@ -177,7 +177,7 @@ public class WJ_Connector : MonoBehaviour
     }
 
     /// <summary>
-    /// 학습 8문제 완료할때마다 서버와 통신하여 학습 결과를 받아옴
+    /// 학습 8문제 완료. 서버와 통신하여 결과를 받아옴
     /// </summary>
     private IEnumerator SendProgress_Learning()
     {
@@ -190,17 +190,22 @@ public class WJ_Connector : MonoBehaviour
         request.bgnDt = cLearnSet.data.bgnDt;
         request.data = cMyAnsrs;
 
-        int i= 0;
-        Debug.Log("<color=red>SendProgress_Learning:: Request_Learning_Progress</color>"
+        //* ログ
+        int i = 0;
+        Debug.Log("<color=yellow>SendProgress_Learning:: Request_Learning_Progress</color>"
             + "\n gameCd= " + request.gameCd + "\n mbrId= " + request.mbrId + "\n prgsCd= " + request.prgsCd
             + "\n sid= " + request.sid + "\n bgnDt= " + request.bgnDt
         );
         request.data.ForEach(dt => {
-            Debug.Log($"data{i++}: dt.qstCd({dt.qstCd}), dt.qstCransr({dt.qstCransr}), dt.ansrCwYn({dt.ansrCwYn}), dt.slvTime({dt.slvTime}ms)");
+            Debug.Log($"<color=yellow>data{i++}: dt.qstCd({dt.qstCd}), dt.qstCransr({dt.qstCransr}), dt.ansrCwYn({dt.ansrCwYn}), dt.slvTime({dt.slvTime}ms)</color>");
         });
 
         yield return StartCoroutine(UWR_Post<Request_Learning_Progress, Response_Learning_Progress>(request, "https://prd-brs-relay-model.mathpid.com/api/v1/contest/learning/progress", 
             isSendAuth: true));
+
+        //* 結果パンネル 表示
+        Debug.Log("lrnPrgsStsCd= " + cLearnProg.data.lrnPrgsStsCd);
+        StartCoroutine(GM._.rm.coDisplayResultPanel(this));
 
         yield return null;
     }

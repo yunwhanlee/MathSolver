@@ -135,8 +135,8 @@ public class QuizManager : MonoBehaviour {
 
         //* 診断評価 と 学習メソッド コールバック 登録
         if (wj_connector) {
-            wj_connector.onGetDiagnosis.AddListener(() => GetDiagnosis());
-            wj_connector.onGetLearning.AddListener(() => GetLearning(0));
+            wj_connector.onGetDiagnosis.AddListener(() => GetDiagnosis()); //* WJ_Connector:: Send_Diagnosis()で実行
+            wj_connector.onGetLearning.AddListener(() => GetLearning(0)); //* WJ_Connector:: Send_Learning()で実行
         }
         else Debug.LogError("Cannot find Connector");
     }
@@ -172,6 +172,7 @@ public class QuizManager : MonoBehaviour {
     /// </summary>
     private void GetLearning(int idx) {
         Debug.Log($"GetLearning(${idx}) 学習");
+        
         //* スタートなら、curQuestionIndexも０に初期化
         if (idx == 0) curQuestionIndex = 0;
         //* 問題出し
@@ -185,9 +186,7 @@ public class QuizManager : MonoBehaviour {
         //* END(終わり)
         else {
             wj_displayText.SetState("문제풀이 완료", "", "", "");
-            
-            //* 結果パンネル 表示
-            StartCoroutine(GM._.rm.coDisplayResultPanel());
+            //* 結果パンネル 表示 => WJ_Connector:: SendProgress_Learning()内
         }
     }
 
@@ -289,8 +288,8 @@ public class QuizManager : MonoBehaviour {
 
                 curQuestionIndex++;
                 wj_connector.Diagnosis_SelectAnswer(
-                    answerBtnTxtDraw[idx].text, 
-                    ansrCwYn, 
+                    answerBtnTxtDraw[idx].text,
+                    ansrCwYn,
                     (int)(questionSolveTime * 1000)
                 );
                 questionPanel.SetActive(false);
@@ -313,9 +312,9 @@ public class QuizManager : MonoBehaviour {
 
                 curQuestionIndex++;
                 wj_connector.Learning_SelectAnswer(
-                    curQuestionIndex, 
-                    answerBtnTxtDraw[idx].text, 
-                    ansrCwYn, 
+                    curQuestionIndex,
+                    answerBtnTxtDraw[idx].text,
+                    ansrCwYn,
                     (int)(questionSolveTime * 1000)
                 );
                 GetLearning(curQuestionIndex); //* 次の学習問題
