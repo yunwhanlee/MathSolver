@@ -81,8 +81,7 @@ public class GM : MonoBehaviour {
     }
 
     void Start() {
-        suffleMapBG();
-        setMapBG(0);
+
 
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
@@ -109,7 +108,10 @@ public class GM : MonoBehaviour {
             //* Move To plSpot Pos
             pet.transform.position = new Vector2(petSpot.position.x - 5, petSpot.position.y);
             pet.IsChasePlayer = false;
-            pet.TgPos = petSpot.position;
+
+            suffleMapBG();
+            setMapBG(0);
+            // pet.TgPos = petSpot.position;
         }
     }
 
@@ -665,7 +667,7 @@ public class GM : MonoBehaviour {
         if(GM._.qm.CurQuestionIndex == 0) {
             foreach(Transform bg in map) {
                 int rand = Random.Range(0, 100);
-                Debug.Log($"setMapBG(SelectMapIdx= {DB._.SelectMapIdx}):: {bg.name}: (rand > 50?)= {(rand > 50)}");
+                Debug.Log($"suffleMapBG():: {bg.name}: (rand > 50?)= {(rand > 50)}");
                 if(rand > 50) bg.SetAsFirstSibling();
             }
         }
@@ -675,8 +677,11 @@ public class GM : MonoBehaviour {
         var map = maps[DB._.SelectMapIdx];
         map.gameObject.SetActive(true);
 
+        const int PETSPOT = 0;
         for(int i = 0; i < map.childCount; i++) {
-            map.GetChild(i).gameObject.SetActive(bgIdx == i);
+            var bg = map.GetChild(i);
+            bg.gameObject.SetActive(bgIdx == i);
+            if(bgIdx == i)  pet.TgPos = bg.GetChild(PETSPOT).transform.localPosition;
         }
     }
 #endregion
