@@ -327,7 +327,7 @@ public class HUI : MonoBehaviour {
         
     }
     public void onClickRegion(int idx) {
-        DB._.SelectRegionIdx = idx;
+        DB._.SelectMapIdx = idx;
         StartCoroutine(HM._.GoToLoadingScene());
     }
     #endregion

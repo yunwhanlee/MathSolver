@@ -57,6 +57,9 @@ TagManager:
   - name: Mat
     uniqueID: 594039437
     locked: 0
+  - name: BG
+    uniqueID: 4037573067
+    locked: 0
   - name: Shadow
     uniqueID: 3766025451
     locked: 0

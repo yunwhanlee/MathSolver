@@ -51,6 +51,9 @@ public class GM : MonoBehaviour {
     [Header("ANIM")]
     [SerializeField] Animator successEFAnim; public Animator SuccessEFAnim {get => successEFAnim; set => successEFAnim = value;}
 
+    [Header("MAP")]
+    [SerializeField] Transform[] maps;
+
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
     [SerializeField] GameObject cloud2; public GameObject Cloud2 {get => cloud2; set => cloud2 = value;}
@@ -72,9 +75,15 @@ public class GM : MonoBehaviour {
 
         //* Anim
         successEFAnim.gameObject.SetActive(false);
+
+        //* マップ初期化 (全て非表示)
+        Array.ForEach(maps, map => map.gameObject.SetActive(false));
     }
 
     void Start() {
+        suffleMapBG();
+        setMapBG(0);
+
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
 
@@ -645,6 +654,29 @@ public class GM : MonoBehaviour {
             else 
                 cloud2.transform.position = new Vector2(5, cloud2.transform.position.y);
             yield return Util.time0_025;
+        }
+    }
+
+    private void suffleMapBG() {
+        var map = maps[DB._.SelectMapIdx];
+        map.gameObject.SetActive(true);
+
+        //* Suffle BGs
+        if(GM._.qm.CurQuestionIndex == 0) {
+            foreach(Transform bg in map) {
+                int rand = Random.Range(0, 100);
+                Debug.Log($"setMapBG(SelectMapIdx= {DB._.SelectMapIdx}):: {bg.name}: (rand > 50?)= {(rand > 50)}");
+                if(rand > 50) bg.SetAsFirstSibling();
+            }
+        }
+    }
+
+    public void setMapBG(int bgIdx) {
+        var map = maps[DB._.SelectMapIdx];
+        map.gameObject.SetActive(true);
+
+        for(int i = 0; i < map.childCount; i++) {
+            map.GetChild(i).gameObject.SetActive(bgIdx == i);
         }
     }
 #endregion

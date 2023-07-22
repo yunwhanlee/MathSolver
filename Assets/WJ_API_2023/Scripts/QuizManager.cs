@@ -204,6 +204,17 @@ public class QuizManager : MonoBehaviour {
         hintFrame.SetActive(false);
         helpSpeachBtn.SetActive(false);
 
+        //* 背景 切り替え
+        if(curQuestionIndex == 0) {
+            GM._.setMapBG(0);
+        }
+        else if(curQuestionIndex == 3) {
+            GM._.setMapBG(1);
+        }
+        else if(curQuestionIndex == 6) {
+            GM._.setMapBG(2);
+        }
+
         //* 動物 切り替え
         if(curQuestionIndex != 0) GM._.Anm.setRandomSprLibAsset();
 
