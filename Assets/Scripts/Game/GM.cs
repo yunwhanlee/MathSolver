@@ -10,6 +10,9 @@ using Random = UnityEngine.Random;
 using System.Text.RegularExpressions;
 
 public class GM : MonoBehaviour {
+    public enum GAME_STT {PLAY, RESULT};
+    [SerializeField] GAME_STT gameStatus;   public GAME_STT GameStatus {get => gameStatus; set => gameStatus = value;}
+
     const int BOX_S_MAX = 10; // Small
     const int BOX_M_MAX = 50; // Medium
     const int MOX_L_MAX = 100; // Large
@@ -75,6 +78,8 @@ public class GM : MonoBehaviour {
         qm = FindObjectOfType<QuizManager>();
         rm = FindObjectOfType<ResultManager>();
         gtm = FindObjectOfType<GameTalkManager>();
+
+        gameStatus = GAME_STT.PLAY;
 
         //* Anim
         successEFAnim.gameObject.SetActive(false);
@@ -709,10 +714,16 @@ public class GM : MonoBehaviour {
             }
         }
 
-        //* 特別背景 アニメーション
+        //* 特別背景 処理
         if(windMillBG.activeSelf) {
             cam.Anim.SetTrigger(Enum.ANIM.DoWindMillScrollDown.ToString());
+            cloud1.transform.position = new Vector2(cloud1.transform.position.x, 12);
+            cloud2.transform.position = new Vector2(cloud2.transform.position.x, 10);
             yield return Util.time0_5;
+        }
+        else {
+            cloud1.transform.position = new Vector2(cloud1.transform.position.x, 3.5f);
+            cloud2.transform.position = new Vector2(cloud2.transform.position.x, 3);
         }
 
         //* 背景 Switch変更 後処理

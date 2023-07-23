@@ -46,6 +46,10 @@ public class Pet : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
+        //* メインゲーム 結果画面なら、プレイヤーより必ず後ろ
+        if(GM._ && GM._.GameStatus == GM.GAME_STT.RESULT)
+            sr.sortingOrder = Mathf.RoundToInt(GM._.Pl.Sr.sortingOrder -1);
+
         //* プレイヤー 追いかける
         if(isChasePlayer) {
             bool plFlipX = HM._.pl.Sr.flipX;

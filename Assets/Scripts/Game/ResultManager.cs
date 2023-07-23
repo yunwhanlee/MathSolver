@@ -74,7 +74,7 @@ public class ResultManager : MonoBehaviour {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public IEnumerator coDisplayResultPanel(WJ_Connector connector = null) {
-        
+        GM._.GameStatus = GM.GAME_STT.RESULT;
 
         //* チュートリアル 結果
         if(DB.Dt.IsTutoDiagResultTrigger) {
