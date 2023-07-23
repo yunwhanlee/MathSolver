@@ -373,6 +373,7 @@ public class QuizManager : MonoBehaviour {
         Array.ForEach(answerBtn, btn => btn.interactable = isActive);
     }
     public IEnumerator coSuccessAnswer(int idx) {
+        helpSpeachBtn.SetActive(false);
         StartCoroutine(GM._.Pl.coRoarEF());
         StartCoroutine(GM._.Anm.coActiveAnimalHeartPoofEF());
         GM._.IsSelectCorrectAnswer = true;
