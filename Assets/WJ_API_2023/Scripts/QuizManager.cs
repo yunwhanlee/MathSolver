@@ -198,25 +198,19 @@ public class QuizManager : MonoBehaviour {
         Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation =<b>{qstEquation}</b>, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
 
         //* Init
+        GM._.initObjList();
         firstChoiceAnswer = null;
         diagChooseDiffPanel.SetActive(false);
         interactableAnswerBtns(false);
         hintFrame.SetActive(false);
         helpSpeachBtn.SetActive(false);
 
-        //* 背景 切り替え
-        if(curQuestionIndex == 0) {
-            GM._.setMapBG(0);
-        }
-        else if(curQuestionIndex == 3) {
-            GM._.setMapBG(1);
-        }
-        else if(curQuestionIndex == 6) {
-            GM._.setMapBG(2);
-        }
-
-        //* 動物 切り替え
-        if(curQuestionIndex != 0) GM._.Anm.setRandomSprLibAsset();
+        //* 背景、動物 切り替え
+        // if(curQuestionIndex == 0) yield return StartCoroutine(GM._.coSetMapBG(0));
+        if(curQuestionIndex == 3)
+            yield return StartCoroutine(GM._.coSetMapBG(1));
+        else if(curQuestionIndex == 6)
+            yield return StartCoroutine(GM._.coSetMapBG(2));
 
         //* 処理
         yield return coShowStageTxt();
@@ -229,7 +223,7 @@ public class QuizManager : MonoBehaviour {
         stageTxt.text = $"STAGE {stageNum} / 8";
         stageTxt.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(1);
         stageTxt.gameObject.SetActive(false);
     }
 

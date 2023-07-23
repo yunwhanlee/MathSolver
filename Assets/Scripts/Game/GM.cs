@@ -53,10 +53,13 @@ public class GM : MonoBehaviour {
 
     [Header("MAP")]
     [SerializeField] Transform[] maps;
+    [Header("SPECIAL CONTROL BG")]
+    [SerializeField] GameObject windMillBG;
 
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
     [SerializeField] GameObject cloud2; public GameObject Cloud2 {get => cloud2; set => cloud2 = value;}
+    [SerializeField] GameObject windMillWing; public GameObject WindMillWing {get => windMillWing; set => windMillWing = value;}
 
     [Header("OBJ & BOX")]
     [SerializeField] GameObject twoArmsBalanceObj;  public GameObject WwoArmsBalanceObj {get => twoArmsBalanceObj; set => twoArmsBalanceObj = value;}
@@ -82,9 +85,11 @@ public class GM : MonoBehaviour {
 
     void Start() {
 
-
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
+
+        //* Forest BG2: WindMill
+        StartCoroutine(coRotateWindMillWing());
 
         if(DB._) {
             Debug.Log($"GM:: Start():: pl= {pl}, pet= {pet}");
@@ -108,10 +113,10 @@ public class GM : MonoBehaviour {
             //* Move To plSpot Pos
             pet.transform.position = new Vector2(petSpot.position.x - 5, petSpot.position.y);
             pet.IsChasePlayer = false;
+            pet.Col.enabled = false;
 
             suffleMapBG();
-            setMapBG(0);
-            // pet.TgPos = petSpot.position;
+            StartCoroutine(coSetMapBG(0));
         }
     }
 
@@ -189,7 +194,7 @@ public class GM : MonoBehaviour {
         var quiz = qm.QuizTxt;
         quiz.text = "미 지원..";
 
-        initObjList();
+        // initObjList();
         qSO.Obj1Name = Util.getRandomList(qSO.ObjNameList);
         qSO.Obj2Name = Util.getRandomList(qSO.ObjNameList);
         int lN1 = int.Parse(lNums[0]); 
@@ -298,7 +303,7 @@ public class GM : MonoBehaviour {
         yield return coActiveSelectAnswer();
     }
 
-    private void initObjList() {
+    public void initObjList() {
         qSO.ObjNameList = new List<string>(qSO.DefObjNames);
         foreach(Transform obj in objGroupTf)
             Destroy(obj.gameObject);
@@ -659,6 +664,14 @@ public class GM : MonoBehaviour {
         }
     }
 
+    public IEnumerator coRotateWindMillWing() {
+        float moveSpeed = -8 * Time.deltaTime;
+        while(windMillWing.activeSelf) {
+            windMillWing.transform.Rotate(0, 0, moveSpeed);
+            yield return null;
+        }
+    }
+
     private void suffleMapBG() {
         var map = maps[DB._.SelectMapIdx];
         map.gameObject.SetActive(true);
@@ -673,16 +686,40 @@ public class GM : MonoBehaviour {
         }
     }
 
-    public void setMapBG(int bgIdx) {
+    public IEnumerator coSetMapBG(int bgIdx) {
         var map = maps[DB._.SelectMapIdx];
         map.gameObject.SetActive(true);
+
+        //* 背景 Switch変更 前処理
+        if(bgIdx > 0) {
+            //* Switch Anim
+            GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
+            yield return Util.time0_8;
+            //* 動物 切り替え
+            GM._.Anm.setRandomSprLibAsset();
+        }
 
         const int PETSPOT = 0;
         for(int i = 0; i < map.childCount; i++) {
             var bg = map.GetChild(i);
             bg.gameObject.SetActive(bgIdx == i);
-            if(bgIdx == i)  pet.TgPos = bg.GetChild(PETSPOT).transform.localPosition;
+            if(bgIdx == i) {
+                pet.TgPos = bg.GetChild(PETSPOT).transform.localPosition;
+                pet.Sr.flipX = true;
+            }
         }
+
+        //* 特別背景 アニメーション
+        if(windMillBG.activeSelf) {
+            cam.Anim.SetTrigger(Enum.ANIM.DoWindMillScrollDown.ToString());
+            yield return Util.time0_5;
+        }
+
+        //* 背景 Switch変更 後処理
+        if(bgIdx > 0) {
+            yield return Util.time0_8;
+        }
+        
     }
 #endregion
 }

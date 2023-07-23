@@ -14,6 +14,7 @@ public class Pet : MonoBehaviour {
 
     [Header("OUTSIDE")]
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
+    [SerializeField] BoxCollider2D col; public BoxCollider2D Col {get => col;}
 
     [Header("VALUE")]
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
@@ -30,6 +31,8 @@ public class Pet : MonoBehaviour {
     void Start() {
         tf = transform;
         plTf = HM._.pl.transform;
+        anim = GetComponent<Animator>();
+        col = GetComponent<BoxCollider2D>();
     }
 
     void Update() {
@@ -45,10 +48,12 @@ public class Pet : MonoBehaviour {
 
         //* プレイヤー 追いかける
         if(isChasePlayer) {
-            int dir = (HM._.pl.transform.localScale.x < 0)? -1 : 1;
+            bool plFlipX = HM._.pl.Sr.flipX;
+            int dir = plFlipX? -1 : 1;
             float x = Mathf.Clamp((plTf.position.x + (OFFSET_X * dir)), MIN_X, MAX_X);
             float y = Mathf.Clamp((plTf.position.y + OFFSET_Y), MIN_Y, MAX_Y);
             tgPos = new Vector2(x, y);
+            sr.flipX = plFlipX;
         }
 
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {

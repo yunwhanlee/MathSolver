@@ -15,10 +15,12 @@ public class Enum {
     };
     public enum ANIM {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
-        BlackInOut, BlackIn, BlackOut, DoCamShake,
+        BlackInOut, BlackIn, BlackOut,
+        DoCamShake, DoWindMillScrollDown, 
         DoBlinkAdd, DoBlinkMinus,
         HelpFraction, HelpGCD,
         DoTalk, DoShock,
+        DoSwitchBG, 
     };
     public enum BOX_NAME {
         Box , LeftBox, RightBox, _Blink, _QuestionMark,

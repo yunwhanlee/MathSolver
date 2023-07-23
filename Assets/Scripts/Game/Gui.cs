@@ -24,7 +24,7 @@ public class GUI : MonoBehaviour
     [SerializeField] GameObject blackPanel;
     [SerializeField] Canvas canvasAnim;
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
-    [SerializeField] GameObject sceneSpawnBGAnim;
+    [SerializeField] Animator bgDirectorAnim;   public Animator BgDirectorAnim {get => bgDirectorAnim;}
     [SerializeField] Animator helpPanelAnim;    public Animator HelpPanelAnim {get => helpPanelAnim;}
 
     [Header("DEBUG")] 
@@ -44,7 +44,7 @@ public class GUI : MonoBehaviour
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         //* BG Spawn Anim
         yield return Util.time0_2;
-        sceneSpawnBGAnim.SetActive(true);
+        bgDirectorAnim.gameObject.SetActive(true);
 
         //* チュートリアル
         if(DB.Dt.IsTutoDiagChoiceDiffTrigger) {
