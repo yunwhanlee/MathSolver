@@ -244,6 +244,10 @@ public class HUI : MonoBehaviour {
         achiveRankPanel.SetActive(false);
     }
     public void onClickDecorateModeIconBtn() {
+        if(HM._.roomObjectGroup.transform.childCount == 0) {
+            showErrorMsgPopUp("No furniture to relocate.");
+            return;
+        }
         setDecorationMode(isActive: true);
     }
     public void onClickDecorateModeCloseBtn() {
