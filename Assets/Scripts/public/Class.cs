@@ -120,6 +120,7 @@ public abstract class Item {
     public virtual void display() {
         create();
         this.IsArranged = true;
+        this.isNotify = false;
         //* ボタン Funiture UI最新化
         if(this is Funiture || this is BgFuniture)
             HM._.fUI.onClickShopLeftArrow();
@@ -144,7 +145,7 @@ public abstract class Item {
     }
     public virtual void arrange() {
         //* ロック
-        if(IsLock) {
+        if(isLock) {
             HM._.ui.InfoDialog.SetActive(true);
             HM._.ui.InfoDlgItemNameTxt.text = LM._.localize(name);
             HM._.ui.InfoDlgItemImg.sprite = spr;

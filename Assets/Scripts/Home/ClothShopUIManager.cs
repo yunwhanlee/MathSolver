@@ -105,11 +105,13 @@ public class ClothShopUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
     private void setReward(PlayerSkin reward) {
         reward.IsLock = false;
+        reward.IsNotify = true;
         rewardSpr = reward.Spr;
         rewardNameTxt.text = LM._.localize(reward.Name);
     }
     private void setReward(PetSkin reward) {
         reward.IsLock = false;
+        reward.IsNotify = true;
         rewardSpr = reward.Spr;
         rewardNameTxt.text = LM._.localize(reward.Name);
     }
