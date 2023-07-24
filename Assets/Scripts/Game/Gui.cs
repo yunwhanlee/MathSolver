@@ -24,8 +24,9 @@ public class GUI : MonoBehaviour
     [SerializeField] GameObject blackPanel;
     [SerializeField] Canvas canvasAnim;
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
-    [SerializeField] Animator bgDirectorAnim;   public Animator BgDirectorAnim {get => bgDirectorAnim;}
     [SerializeField] Animator helpPanelAnim;    public Animator HelpPanelAnim {get => helpPanelAnim;}
+    [SerializeField] Animator bgDirectorAnim;   public Animator BgDirectorAnim {get => bgDirectorAnim;}
+    [SerializeField] Sprite[] mapTransitionSprs;    public Sprite[] MapTransitionSprs {get => mapTransitionSprs;}
 
     [Header("DEBUG")] 
     [SerializeField] TextMeshProUGUI isCreatingQuizObjTxt;
@@ -33,8 +34,11 @@ public class GUI : MonoBehaviour
     IEnumerator Start() {
         //TEST
         helpPanelAnim.SetInteger(Enum.ANIM.HelpGCD.ToString(), ++GM._.qm.HelpAnimPlayIdx);
-
         txtTeleType = GetComponent<TextTeleType>();
+
+        //* マップによって、転換イメージ適用
+        foreach(Transform chd in bgDirectorAnim.transform)
+            chd.GetComponent<Image>().sprite = mapTransitionSprs[DB._.SelectMapIdx];
 
         //* Black Out Spawn Anim
         blackPanel.SetActive(true);

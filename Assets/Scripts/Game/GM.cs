@@ -123,6 +123,10 @@ public class GM : MonoBehaviour {
             pet.IsChasePlayer = false;
             pet.Col.enabled = false;
 
+            //* マップによって、転換イメージ適用
+            foreach(Transform chd in GM._.gui.BgDirectorAnim.transform)
+                chd.GetComponent<Image>().sprite = GM._.gui.MapTransitionSprs[DB._.SelectMapIdx];
+
             suffleMapBG();
             StartCoroutine(coSetMapBG(0));
         }
@@ -696,7 +700,7 @@ public class GM : MonoBehaviour {
 
     public IEnumerator coSetMapBG(int bgIdx) {
         var map = maps[DB._.SelectMapIdx];
-        map.gameObject.SetActive(true);
+        map.gameObject.SetActive(true);        
 
         //* 背景 Switch変更 前処理
         if(bgIdx > 0) {
@@ -733,18 +737,25 @@ public class GM : MonoBehaviour {
             plSpot.localScale = Vector2.one * 3;
             pl.Sr.flipX = true;
             qm.HelpSpeachBtn.transform.position = new Vector2(-415, 200);
+            pet.Sr.sortingLayerName = Enum.SORTING_LAYER.FrontDecoObj.ToString();
             //* Position
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
+            pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
             pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;
+            pl.transform.position = new Vector2(pl.TgPos.x - 5, pl.TgPos.y);
             anm.transform.position = curBg.GetChild(ANIMALPOS).transform.localPosition;
         }
         else {
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 3.5f);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 3);
-            plSpot.localScale = Vector2.one;
-            pl.TgPos = new Vector2(-2, -3);
+            pet.Sr.sortingLayerName = Enum.SORTING_LAYER.Default.ToString();
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
-            pl.Sr.flipX = false;
+            pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
+            pl.TgPos = new Vector2(-2, -3);
+            pl.transform.position = new Vector2(pl.TgPos.x - 5, pl.TgPos.y);
+            plSpot.localScale = Vector2.one;
+            pl.Sr.flipX = true;
+            anm.transform.position = new Vector2(2, -3);
         }
 
         //* 背景 Switch変更 後処理
