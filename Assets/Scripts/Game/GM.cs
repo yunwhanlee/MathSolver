@@ -727,11 +727,13 @@ public class GM : MonoBehaviour {
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 10);
             yield return Util.time0_5;
         }
-        else if(jungleFlowerBG.activeSelf || jungleFlowerBG1.activeSelf || jungleFlowerBG2.activeSelf) {
+        else if(jungleFlowerBG.activeSelf) {
             Debug.Log("jungleFlowerBG");
             anm.Sr.sortingOrder = 12;
             plSpot.localScale = Vector2.one * 3;
+            pl.Sr.flipX = true;
             qm.HelpSpeachBtn.transform.position = new Vector2(-415, 200);
+            //* Position
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;
             anm.transform.position = curBg.GetChild(ANIMALPOS).transform.localPosition;
@@ -739,6 +741,10 @@ public class GM : MonoBehaviour {
         else {
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 3.5f);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 3);
+            plSpot.localScale = Vector2.one;
+            pl.TgPos = new Vector2(-2, -3);
+            pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
+            pl.Sr.flipX = false;
         }
 
         //* 背景 Switch変更 後処理
