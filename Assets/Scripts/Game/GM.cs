@@ -730,7 +730,8 @@ public class GM : MonoBehaviour {
         else if(jungleFlowerBG.activeSelf || jungleFlowerBG1.activeSelf || jungleFlowerBG2.activeSelf) {
             Debug.Log("jungleFlowerBG");
             anm.Sr.sortingOrder = 12;
-            pl.transform.localScale = Vector2.one * 3;
+            plSpot.localScale = Vector2.one * 3;
+            qm.HelpSpeachBtn.transform.position = new Vector2(-415, 200);
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;
             anm.transform.position = curBg.GetChild(ANIMALPOS).transform.localPosition;
