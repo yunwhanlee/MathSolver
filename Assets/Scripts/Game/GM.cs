@@ -732,29 +732,34 @@ public class GM : MonoBehaviour {
             yield return Util.time0_5;
         }
         else if(jungleFlowerBG.activeSelf) {
-            Debug.Log("jungleFlowerBG");
-            anm.Sr.sortingOrder = 12;
-            plSpot.localScale = Vector2.one * 3;
-            pl.Sr.flipX = true;
-            qm.HelpSpeachBtn.transform.position = new Vector2(-415, 200);
-            pet.Sr.sortingLayerName = Enum.SORTING_LAYER.FrontDecoObj.ToString();
-            //* Position
+            Debug.Log("jungleFlowerBG.activeSelf:: jungleFlowerBG.name= " + jungleFlowerBG.name);
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
+            pet.Sr.sortingLayerName = Enum.SORTING_LAYER.FrontDecoObj.ToString();
+
             pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;
             pl.transform.position = new Vector2(pl.TgPos.x - 5, pl.TgPos.y);
+            plSpot.localScale = Vector2.one * 3;
+            pl.Sr.flipX = true;
+
+            anm.Sr.sortingOrder = 12;
             anm.transform.position = curBg.GetChild(ANIMALPOS).transform.localPosition;
+
+            qm.HelpSpeachBtn.transform.position = new Vector2(-415, 200);
         }
         else {
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 3.5f);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 3);
-            pet.Sr.sortingLayerName = Enum.SORTING_LAYER.Default.ToString();
+
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
+            pet.Sr.sortingLayerName = Enum.SORTING_LAYER.Default.ToString();
+
             pl.TgPos = new Vector2(-2, -3);
             pl.transform.position = new Vector2(pl.TgPos.x - 5, pl.TgPos.y);
             plSpot.localScale = Vector2.one;
             pl.Sr.flipX = true;
+
             anm.transform.position = new Vector2(2, -3);
         }
 

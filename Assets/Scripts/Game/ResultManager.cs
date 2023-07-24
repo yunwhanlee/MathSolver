@@ -51,7 +51,6 @@ public class ResultManager : MonoBehaviour {
         rewardCoin = 0;
         msgAnimTxt.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(false);
-        GM._.Pl.transform.localPosition = Vector2.one;
     }
 
     void Update() {
