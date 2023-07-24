@@ -58,6 +58,9 @@ public class GM : MonoBehaviour {
     [SerializeField] Transform[] maps;
     [Header("SPECIAL CONTROL BG")]
     [SerializeField] GameObject windMillBG;
+    [SerializeField] GameObject jungleFlowerBG;
+    [SerializeField] GameObject jungleFlowerBG1;
+    [SerializeField] GameObject jungleFlowerBG2;
 
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
@@ -704,22 +707,33 @@ public class GM : MonoBehaviour {
             GM._.Anm.setRandomSprLibAsset();
         }
 
-        const int PETSPOT = 0;
+        const int PETPOS = 0;
+        const int PALYERPOS = 1;
+        const int ANIMALPOS = 2;
         for(int i = 0; i < map.childCount; i++) {
             var bg = map.GetChild(i);
             bg.gameObject.SetActive(bgIdx == i);
             if(bgIdx == i) {
-                pet.TgPos = bg.GetChild(PETSPOT).transform.localPosition;
+                pet.TgPos = bg.GetChild(PETPOS).transform.localPosition;
                 pet.Sr.flipX = true;
             }
         }
 
         //* 特別背景 処理
+        var curBg = map.GetChild(bgIdx);
         if(windMillBG.activeSelf) {
             cam.Anim.SetTrigger(Enum.ANIM.DoWindMillScrollDown.ToString());
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 12);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 10);
             yield return Util.time0_5;
+        }
+        else if(jungleFlowerBG.activeSelf || jungleFlowerBG1.activeSelf || jungleFlowerBG2.activeSelf) {
+            Debug.Log("jungleFlowerBG");
+            anm.Sr.sortingOrder = 12;
+            pl.transform.localScale = Vector2.one * 3;
+            pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
+            pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;
+            anm.transform.position = curBg.GetChild(ANIMALPOS).transform.localPosition;
         }
         else {
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 3.5f);

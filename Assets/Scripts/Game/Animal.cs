@@ -6,6 +6,7 @@ using UnityEngine.U2D.Animation; //* SpriteLibrary
 public class Animal : MonoBehaviour {
     [Header("OUTSIDE")]
     Animator anim; public Animator Anim {get => anim;}
+    SpriteRenderer sr;  public SpriteRenderer Sr {get => sr;}
 
     [Header("ACTIVE TYPE")]
     [SerializeField] GameObject animalHeartPoofEF;
@@ -17,6 +18,7 @@ public class Animal : MonoBehaviour {
 
     void Start() {
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
         sprLib = GetComponent<SpriteLibrary>();
 
         //* Set Random SpriteLibraryAsset
