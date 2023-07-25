@@ -15,6 +15,7 @@ public class Animal : MonoBehaviour {
     [Header("VALUE")]
     SpriteLibrary sprLib; public SpriteLibrary SprLib {get => sprLib;}
     [SerializeField] List<SpriteLibraryAsset> animalSprLibAssetList; public List<SpriteLibraryAsset> AnimalSprLibAssetList {get => animalSprLibAssetList; set => animalSprLibAssetList = value;}
+    [SerializeField] List<SpriteLibraryAsset> jungleSmallAnimalSprLibAstList;   public List<SpriteLibraryAsset> JungleSmallAnimalSprLibAstList {get => jungleSmallAnimalSprLibAstList; set => jungleSmallAnimalSprLibAstList = value;}
 
     void Start() {
         anim = GetComponent<Animator>();
