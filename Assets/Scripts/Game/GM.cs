@@ -56,7 +56,8 @@ public class GM : MonoBehaviour {
 
     [Header("MAP")]
     [SerializeField] Transform[] maps;
-    [Header("SPECIAL CONTROL BG")]
+
+    [Header("SPECIAL BG ※(注意) 親Tfと関係なく、自分を必ず非表示！")]
     [SerializeField] GameObject windMillBG;
     [SerializeField] GameObject jungleFlowerBG;
     [SerializeField] GameObject jungleFlowerBG1;
@@ -700,6 +701,7 @@ public class GM : MonoBehaviour {
 
     public IEnumerator coSetMapBG(int bgIdx) {
         var map = maps[DB._.SelectMapIdx];
+        Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: map= {map.name}, bg= {map.GetChild(bgIdx)}");
         map.gameObject.SetActive(true);        
 
         //* 背景 Switch変更 前処理
@@ -711,9 +713,7 @@ public class GM : MonoBehaviour {
             GM._.Anm.setRandomSprLibAsset();
         }
 
-        const int PETPOS = 0;
-        const int PALYERPOS = 1;
-        const int ANIMALPOS = 2;
+        const int PETPOS = 0, PALYERPOS = 1, ANIMALPOS = 2;
         for(int i = 0; i < map.childCount; i++) {
             var bg = map.GetChild(i);
             bg.gameObject.SetActive(bgIdx == i);
@@ -725,41 +725,48 @@ public class GM : MonoBehaviour {
 
         //* 特別背景 処理
         var curBg = map.GetChild(bgIdx);
+        //* 風車 BG
         if(windMillBG.activeSelf) {
-            cam.Anim.SetTrigger(Enum.ANIM.DoWindMillScrollDown.ToString());
+            // 雲
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 12);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 10);
+            // カメラアニメー
+            cam.Anim.SetTrigger(Enum.ANIM.DoWindMillScrollDown.ToString());
             yield return Util.time0_5;
         }
+        //* ジャングルの花 BG
         else if(jungleFlowerBG.activeSelf) {
             Debug.Log("jungleFlowerBG.activeSelf:: jungleFlowerBG.name= " + jungleFlowerBG.name);
+            // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
             pet.Sr.sortingLayerName = Enum.SORTING_LAYER.FrontDecoObj.ToString();
-
+            // プレイヤー
             pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;
             pl.transform.position = new Vector2(pl.TgPos.x - 5, pl.TgPos.y);
             plSpot.localScale = Vector2.one * 3;
             pl.Sr.flipX = true;
-
+            // 動物
             anm.Sr.sortingOrder = 12;
             anm.transform.position = curBg.GetChild(ANIMALPOS).transform.localPosition;
-
+            // ヘルプ吹き出し💭
             qm.HelpSpeachBtn.transform.position = new Vector2(-415, 200);
         }
+        //* その以外
         else {
+            // 雲
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 3.5f);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 3);
-
+            // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
             pet.Sr.sortingLayerName = Enum.SORTING_LAYER.Default.ToString();
-
+            // プレイヤー
             pl.TgPos = new Vector2(-2, -3);
             pl.transform.position = new Vector2(pl.TgPos.x - 5, pl.TgPos.y);
             plSpot.localScale = Vector2.one;
             pl.Sr.flipX = true;
-
+            // 動物
             anm.transform.position = new Vector2(2, -3);
         }
 
