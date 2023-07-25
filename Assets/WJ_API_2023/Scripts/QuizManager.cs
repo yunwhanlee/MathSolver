@@ -28,7 +28,7 @@ public class QuizManager : MonoBehaviour {
     [SerializeField] GameObject questionPanel;                  // 문제 패널(진단,학습)
     [SerializeField] GameObject quizGroup;
     [SerializeField] GameObject answerBtnGroup;
-    [SerializeField] Transform answerProgressFrameTf;            // 答えた結果を💛で表示
+    [SerializeField] Transform answerProgressFrameTf;   public Transform AnswerProgressFrameTf {get => answerProgressFrameTf;}            // 答えた結果を☆で表示
 
     [Header("HINT")]
     [SerializeField] GameObject hintFrame;
@@ -354,9 +354,9 @@ public class QuizManager : MonoBehaviour {
         //* 答え結果
         quizAnswerResultArr[curQuestionIndex] = ansrCwYn;
 
-        //* 答えした状況💛Frameで表示
-        Image heartImg = answerProgressFrameTf.GetChild(curQuestionIndex).GetComponent<Image>();
-        heartImg.sprite = (ansrCwYn == "Y")? correctHeartSpr : wrongHeartSpr;
+        //* 答えした状況☆Frameで表示
+        Image starImg = answerProgressFrameTf.GetChild(curQuestionIndex).GetComponent<Image>();
+        starImg.sprite = (ansrCwYn == "Y")? correctHeartSpr : wrongHeartSpr;
 
         //* 経過時間　カウント STOP
         isSolvingQuestion = false;

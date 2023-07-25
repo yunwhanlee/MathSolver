@@ -123,6 +123,8 @@ public class ResultManager : MonoBehaviour {
         yield return Util.time1;
 
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
+
+        yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr);
         yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr);
         yield return coPlayCoinCollectAnim();
         yield return coPlayExpCollectionAnim();
@@ -224,6 +226,15 @@ public class ResultManager : MonoBehaviour {
                 isIncreasing = false;
             }
         }
+    }
+    IEnumerator coPlayAnswerProgressFrameStarAnim(string[] quizAnswerResultArr) {
+        Transform starIcons =  GM._.qm.AnswerProgressFrameTf;
+        for(int i = 0; i < starIcons.childCount; i++) {
+            Transform starIcon = starIcons.GetChild(i);
+            starIcon.GetChild(0).gameObject.SetActive(quizAnswerResultArr[i] == "Y");
+        }
+        yield return Util.time1;
+        yield return Util.time0_3;
     }
     IEnumerator coPlayStarAndMsgAnim(string[] quizAnswerResultArr) {
         //* Stars
