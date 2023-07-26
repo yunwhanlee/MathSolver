@@ -102,21 +102,21 @@ public class ResultManager : MonoBehaviour {
         const float OFFSET_100PER = 1.0f;
         float totalBonus = OFFSET_100PER + lvBonus + answerCntBonus + legacyBonus;
 
+        //* Result
+        rewardExp = (int)(rewardExp * totalBonus);
+        rewardCoin = (int)(rewardCoin * totalBonus);
+
         //* UI
         expTxt.text = $"+{rewardExp}";
         coinTxt.text = $"+{rewardCoin}";
 
         //* Bonus UI
         lvBonusMsg.SetActive(lvBonus != 0);
-        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Level Bonus <color=green><size=60>+{rewardExp * lvBonus}</size></color>"; // {lvBonus * 100}%
+        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Level Bonus <color=green><size=60>+{lvBonus * 100}%</size></color>";
         answerCntBonusMsg.SetActive(answerCntBonus != 0);
-        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Answer Bonus <color=green><size=60>+{rewardExp * answerCntBonus}</size></color>"; // {answerCntBonus * 100}%
+        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Answer Bonus <color=green><size=60>+{answerCntBonus * 100}%</size></color>";
         legacyBonusMsg.SetActive(legacyBonus != 0);
-        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Lecagy Bonus <color=green><size=60>+{rewardExp * legacyBonus}</size></color>"; // {legacyBonus * 100}%
-
-        //* 渡す値
-        rewardExp = (int)(rewardExp * totalBonus);
-        rewardCoin = (int)(rewardCoin * totalBonus);
+        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Lecagy Bonus <color=green><size=60>+{legacyBonus * 100}%</size></color>";
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
