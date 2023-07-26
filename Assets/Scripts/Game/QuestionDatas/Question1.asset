@@ -27,11 +27,20 @@ MonoBehaviour:
     \uC2F6\uC5B4\uC694. \uCD5C\uB300 \uBA87 \uB9C8\uB9AC\uC5D0\uAC8C \uB098\uB220
     \uC904\uC218 \uC788\uC8E0?"
   defObjNames:
+  - sunflowerseed
+  - cherry
+  - blueberry
+  - dotory
   - apple
   - banana
   - carrot
   - onion
   - orange
   - potato
-  obj1Name: apple
+  jungleObjNames:
+  - sunflowerseed
+  - cherry
+  - blueberry
+  - dotory
+  obj1Name: onion
   obj2Name: carrot

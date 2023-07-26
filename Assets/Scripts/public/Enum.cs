@@ -30,5 +30,5 @@ public class Enum {
     public enum LAYER {Chair};
     public enum SORTING_LAYER {Mat, Default, FrontDecoObj};
     public enum HOME_EF_IDX {FunitureSetupEF};
-    public enum OBJ_SPR_IDX {Apple, Carrot, Banana, Onion, Orange, Potato};
-}   
+    public enum OBJ_SPR_IDX {SunFlowerSeed, Cherry, Blueberry, Dotory ,Apple, Carrot, Banana, Onion, Orange, Potato};
+}

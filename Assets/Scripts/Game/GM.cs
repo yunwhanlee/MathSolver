@@ -207,8 +207,8 @@ public class GM : MonoBehaviour {
         quiz.text = "미 지원..";
 
         // initObjList();
-        qSO.Obj1Name = Util.getRandomList(qSO.ObjNameList);
-        qSO.Obj2Name = Util.getRandomList(qSO.ObjNameList);
+        qSO.Obj1Name = Util.getStuffObjRandomList(qSO.ObjNameList);
+        qSO.Obj2Name = Util.getStuffObjRandomList(qSO.ObjNameList);
         int lN1 = int.Parse(lNums[0]); 
         int lN2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
         int rN1 = rNums.Count > 0? int.Parse(rNums[0]) : 0;
@@ -316,6 +316,8 @@ public class GM : MonoBehaviour {
     }
 
     public void initObjList() {
+        string[] objNameList = jungleFlowerBG.activeSelf? qSO.JungleObjNames : qSO.DefObjNames;
+        Debug.Log("initObjList():: objNameList.Length= " + objNameList.Length);
         qSO.ObjNameList = new List<string>(qSO.DefObjNames);
         foreach(Transform obj in objGroupTf)
             Destroy(obj.gameObject);
@@ -704,6 +706,8 @@ public class GM : MonoBehaviour {
         map.gameObject.SetActive(true);        
 
         const int PETPOS = 0, PALYERPOS = 1, ANIMALPOS = 2;
+
+        //* 背景切り替え
         for(int i = 0; i < map.childCount; i++) {
             var bg = map.GetChild(i);
             bg.gameObject.SetActive(bgIdx == i);
@@ -713,7 +717,7 @@ public class GM : MonoBehaviour {
             }
         }
 
-        //* 背景 Switch変更 前処理
+        //* Switchアニメー 処理
         if(bgIdx > 0) {
             //* Switch Anim
             GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
@@ -769,11 +773,10 @@ public class GM : MonoBehaviour {
             anm.transform.position = new Vector2(2, -3);
         }
 
-        //* 背景 Switch変更 後処理
+        //* 最後 待機
         if(bgIdx > 0) {
             yield return Util.time0_8;
         }
-        
     }
 #endregion
 }

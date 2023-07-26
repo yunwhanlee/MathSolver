@@ -198,7 +198,6 @@ public class QuizManager : MonoBehaviour {
         Debug.Log($"WJ_Sample:: coDisplayQuestion(title ={title}, \nqstEquation =<b>{qstEquation}</b>, \nqstCorrectAnswer= {qstCorrectAnswer}, \nqstWrongAnswers= {qstWrongAnswers})::");
 
         //* Init
-        GM._.initObjList();
         firstChoiceAnswer = null;
         diagChooseDiffPanel.SetActive(false);
         interactableAnswerBtns(false);
@@ -212,6 +211,7 @@ public class QuizManager : MonoBehaviour {
         else GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
 
         //* 処理
+        GM._.initObjList();
         yield return coShowStageTxt();
         yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
         yield return GM._.gui.coShowQuestion(qstEquation);
