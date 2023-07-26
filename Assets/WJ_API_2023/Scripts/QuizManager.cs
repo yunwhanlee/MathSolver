@@ -203,6 +203,7 @@ public class QuizManager : MonoBehaviour {
         interactableAnswerBtns(false);
         hintFrame.SetActive(false);
         helpSpeachBtn.SetActive(false);
+        GM._.initObjList();
 
         //* 背景 切り替え
         if(curQuestionIndex == 0) {} //yield return StartCoroutine(GM._.coSetMapBG(0));} //* GM.Start()で行う。
@@ -211,7 +212,6 @@ public class QuizManager : MonoBehaviour {
         else GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
 
         //* 処理
-        GM._.initObjList();
         yield return coShowStageTxt();
         yield return coMakeQuestion(title, qstEquation, qstCorrectAnswer, qstWrongAnswers);
         yield return GM._.gui.coShowQuestion(qstEquation);
