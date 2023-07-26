@@ -108,11 +108,11 @@ public class ResultManager : MonoBehaviour {
 
         //* Bonus UI
         lvBonusMsg.SetActive(lvBonus != 0);
-        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Level Bonus {lvBonus * 100}%";
+        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Level Bonus <color=green><size=60>+{rewardExp * lvBonus}</size></color>"; // {lvBonus * 100}%
         answerCntBonusMsg.SetActive(answerCntBonus != 0);
-        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Answer Bonus {answerCntBonus * 100}%";
+        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Answer Bonus <color=green><size=60>+{rewardExp * answerCntBonus}</size></color>"; // {answerCntBonus * 100}%
         legacyBonusMsg.SetActive(legacyBonus != 0);
-        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Lecagy Bonus {legacyBonus * 100}%";
+        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Lecagy Bonus <color=green><size=60>+{rewardExp * legacyBonus}</size></color>"; // {legacyBonus * 100}%
 
         //* 渡す値
         rewardExp = (int)(rewardExp * totalBonus);
