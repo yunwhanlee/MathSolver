@@ -23,16 +23,22 @@ public class Animal : MonoBehaviour {
         sprLib = GetComponent<SpriteLibrary>();
 
         //* Set Random SpriteLibraryAsset
-        setRandomSprLibAsset();
+        // setRandomSprLibAsset();
     }
 ///------------------------------------------------------------------------------------------
 #region FUNC
 ///------------------------------------------------------------------------------------------
     public void setRandomSprLibAsset() {
-        int randIdx = Random.Range(0, animalSprLibAssetList.Count);
-        sprLib.spriteLibraryAsset = animalSprLibAssetList[randIdx];
+        List<SpriteLibraryAsset> animalList;
+        if(GM._.JungleFlowerBG.activeSelf) //* 一般動物
+            animalList = jungleSmallAnimalSprLibAstList;
+        else //* 小さい動物
+            animalList = animalSprLibAssetList;
+
+        int randIdx = Random.Range(0, animalList.Count);
+        sprLib.spriteLibraryAsset = animalList[randIdx];
         //* このリスト 削除
-        animalSprLibAssetList.RemoveAt(randIdx);
+        animalList.RemoveAt(randIdx);
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------

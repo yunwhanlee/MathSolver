@@ -10,6 +10,7 @@ public class QuestionSO : ScriptableObject { //* データ
     [SerializeField] string qstPlus; public string QstPlus {get => qstPlus;}
     [TextArea(2 ,6)]
     [SerializeField] string qstPlus_XEqu; public string QstPlus_XEqu {get => qstPlus_XEqu;}
+
     [TextArea(2 ,6)]
     [SerializeField] string qstMinus; public string QstMinus {get => qstMinus;}
     [TextArea(2 ,6)]

@@ -59,9 +59,7 @@ public class GM : MonoBehaviour {
 
     [Header("SPECIAL BG ※(注意) 親Tfと関係なく、自分を必ず非表示！")]
     [SerializeField] GameObject windMillBG;
-    [SerializeField] GameObject jungleFlowerBG;
-    [SerializeField] GameObject jungleFlowerBG1;
-    [SerializeField] GameObject jungleFlowerBG2;
+    [SerializeField] GameObject jungleFlowerBG;  public GameObject JungleFlowerBG {get => jungleFlowerBG;}
 
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
@@ -130,6 +128,7 @@ public class GM : MonoBehaviour {
 
             suffleMapBG();
             StartCoroutine(coSetMapBG(0));
+            GM._.Anm.setRandomSprLibAsset();
         }
     }
 
@@ -704,15 +703,6 @@ public class GM : MonoBehaviour {
         Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: map= {map.name}, bg= {map.GetChild(bgIdx)}");
         map.gameObject.SetActive(true);        
 
-        //* 背景 Switch変更 前処理
-        if(bgIdx > 0) {
-            //* Switch Anim
-            GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
-            yield return Util.time0_8;
-            //* 動物 切り替え
-            GM._.Anm.setRandomSprLibAsset();
-        }
-
         const int PETPOS = 0, PALYERPOS = 1, ANIMALPOS = 2;
         for(int i = 0; i < map.childCount; i++) {
             var bg = map.GetChild(i);
@@ -721,6 +711,15 @@ public class GM : MonoBehaviour {
                 pet.TgPos = bg.GetChild(PETPOS).transform.localPosition;
                 pet.Sr.flipX = true;
             }
+        }
+
+        //* 背景 Switch変更 前処理
+        if(bgIdx > 0) {
+            //* Switch Anim
+            GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
+            yield return Util.time0_8;
+            //* 動物 切り替え
+            GM._.Anm.setRandomSprLibAsset();
         }
 
         //* 特別背景 処理

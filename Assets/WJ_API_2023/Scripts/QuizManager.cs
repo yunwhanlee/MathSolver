@@ -206,7 +206,7 @@ public class QuizManager : MonoBehaviour {
         helpSpeachBtn.SetActive(false);
 
         //* 背景 切り替え
-        if(curQuestionIndex == 0) {} //* GM.Start()で行う。
+        if(curQuestionIndex == 0) {} //yield return StartCoroutine(GM._.coSetMapBG(0));} //* GM.Start()で行う。
         else if(curQuestionIndex == 3) yield return StartCoroutine(GM._.coSetMapBG(1));
         else if(curQuestionIndex == 6) yield return StartCoroutine(GM._.coSetMapBG(2));
         else GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
