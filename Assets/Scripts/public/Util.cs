@@ -26,7 +26,7 @@ public class Util : MonoBehaviour
     }
 
     public static T getStuffObjRandomList<T>(List<T> list) {
-        Debug.Log($"getStuffObjRandomList():: JungleFlowerBG.activeSelf= {GM._.JungleFlowerBG.activeSelf}");
+        Debug.Log($"getStuffObjRandomList():: GM._.BgStatus= {GM._.BgStatus}");
         int rand = Random.Range(0, list.Count);
         T res = list[rand]; 
         list.RemoveAt(rand);

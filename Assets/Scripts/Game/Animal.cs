@@ -30,7 +30,7 @@ public class Animal : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     public void setRandomSprLibAsset() {
         List<SpriteLibraryAsset> animalList;
-        if(GM._.JungleFlowerBG.activeSelf) //* 一般動物
+        if(GM._.BgStatus == GM.BG_STT.JungleFlower) //* 一般動物
             animalList = jungleSmallAnimalSprLibAstList;
         else //* 小さい動物
             animalList = animalSprLibAssetList;

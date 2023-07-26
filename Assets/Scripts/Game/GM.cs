@@ -12,6 +12,8 @@ using System.Text.RegularExpressions;
 public class GM : MonoBehaviour {
     public enum GAME_STT {PLAY, RESULT};
     [SerializeField] GAME_STT gameStatus;   public GAME_STT GameStatus {get => gameStatus; set => gameStatus = value;}
+    public enum BG_STT {Normal, WindMill, JungleFlower};
+    [SerializeField] BG_STT bgStatus;   public BG_STT BgStatus {get => bgStatus; set => bgStatus = value;}
 
     const int BOX_S_MAX = 10; // Small
     const int BOX_M_MAX = 50; // Medium
@@ -57,10 +59,6 @@ public class GM : MonoBehaviour {
     [Header("MAP")]
     [SerializeField] Transform[] maps;
 
-    [Header("SPECIAL BG ※(注意) 親Tfと関係なく、自分を必ず非表示！")]
-    [SerializeField] GameObject windMillBG;
-    [SerializeField] GameObject jungleFlowerBG;  public GameObject JungleFlowerBG {get => jungleFlowerBG;}
-
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
     [SerializeField] GameObject cloud2; public GameObject Cloud2 {get => cloud2; set => cloud2 = value;}
@@ -86,8 +84,11 @@ public class GM : MonoBehaviour {
         //* Anim
         successEFAnim.gameObject.SetActive(false);
 
-        //* マップ初期化 (全て非表示)
-        Array.ForEach(maps, map => map.gameObject.SetActive(false));
+        //* マップ(親)と背景(子)初期化：全て非活性 ⇒ 特集のBGのオブジェクト調整が活性化で行うため
+        Array.ForEach(maps, map => {
+            map.gameObject.SetActive(false);
+            foreach(Transform bg in map) bg.gameObject.SetActive(false);
+        });
     }
 
     void Start() {
@@ -122,7 +123,7 @@ public class GM : MonoBehaviour {
             pet.IsChasePlayer = false;
             pet.Col.enabled = false;
 
-            //* マップによって、転換イメージ適用
+            //* マップによって、Switch転換イメージ適用
             foreach(Transform chd in GM._.gui.BgDirectorAnim.transform)
                 chd.GetComponent<Image>().sprite = GM._.gui.MapTransitionSprs[DB._.SelectMapIdx];
 
@@ -316,7 +317,7 @@ public class GM : MonoBehaviour {
     }
 
     public void initObjList() {
-        string[] objNameList = jungleFlowerBG.activeSelf? qSO.JungleObjNames : qSO.DefObjNames;
+        string[] objNameList = (bgStatus == BG_STT.JungleFlower)? qSO.JungleObjNames : qSO.DefObjNames;
         Debug.Log("initObjList():: objNameList.Length= " + objNameList.Length);
         qSO.ObjNameList = new List<string>(qSO.DefObjNames);
         foreach(Transform obj in objGroupTf)
@@ -701,21 +702,10 @@ public class GM : MonoBehaviour {
     }
 
     public IEnumerator coSetMapBG(int bgIdx) {
-        var map = maps[DB._.SelectMapIdx];
-        Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: map= {map.name}, bg= {map.GetChild(bgIdx)}");
-        map.gameObject.SetActive(true);        
-
         const int PETPOS = 0, PALYERPOS = 1, ANIMALPOS = 2;
-
-        //* 背景切り替え
-        for(int i = 0; i < map.childCount; i++) {
-            var bg = map.GetChild(i);
-            bg.gameObject.SetActive(bgIdx == i);
-            if(bgIdx == i) {
-                pet.TgPos = bg.GetChild(PETPOS).transform.localPosition;
-                pet.Sr.flipX = true;
-            }
-        }
+        var map = maps[DB._.SelectMapIdx];
+        Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 親 map= {map.name}");
+        map.gameObject.SetActive(true);        
 
         //* Switchアニメー 処理
         if(bgIdx > 0) {
@@ -726,10 +716,32 @@ public class GM : MonoBehaviour {
             GM._.Anm.setRandomSprLibAsset();
         }
 
+        //* 背景 切り替え
+        for(int i = 0; i < map.childCount; i++) {
+            var bg = map.GetChild(i);
+            bg.gameObject.SetActive(bgIdx == i);
+            if(bgIdx == i) {
+                Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 子 bg.name= {bg.name}");
+                //* 背景種類 検査
+                if(bg.name.Contains(BG_STT.WindMill.ToString())) {
+                    bgStatus = BG_STT.WindMill;
+                }
+                else if(bg.name.Contains(BG_STT.JungleFlower.ToString())) {
+                    bgStatus = BG_STT.JungleFlower;
+                }
+                else {
+                    bgStatus = BG_STT.Normal;
+                }
+
+                pet.TgPos = bg.GetChild(PETPOS).transform.localPosition;
+                pet.Sr.flipX = true;
+            }
+        }
+
         //* 特別背景 処理
         var curBg = map.GetChild(bgIdx);
         //* 風車 BG
-        if(windMillBG.activeSelf) {
+        if(bgStatus == BG_STT.WindMill) {
             // 雲
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 12);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 10);
@@ -738,8 +750,8 @@ public class GM : MonoBehaviour {
             yield return Util.time0_5;
         }
         //* ジャングルの花 BG
-        else if(jungleFlowerBG.activeSelf) {
-            Debug.Log("jungleFlowerBG.activeSelf:: jungleFlowerBG.name= " + jungleFlowerBG.name);
+        else if(bgStatus == BG_STT.JungleFlower) {
+            Debug.Log("bgStatus= " + bgStatus);
             // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
