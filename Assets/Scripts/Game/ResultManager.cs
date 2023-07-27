@@ -124,8 +124,8 @@ public class ResultManager : MonoBehaviour {
 
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
 
-        yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr);
-        yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr);
+        yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr); //* 下のテーブル★
+        yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr); //* 空の回る★
         yield return coPlayCoinCollectAnim();
         yield return coPlayExpCollectionAnim();
 
@@ -267,7 +267,7 @@ public class ResultManager : MonoBehaviour {
         yield return Util.time0_5;
         starGroupTf.GetChild(idx).GetComponent<Image>().enabled = true;
         starGroupTf.GetChild(idx).GetComponent<Image>().sprite = starSpr;
-        starGroupTf.GetChild(idx).GetComponent<Image>().color = Color.white;
+        starGroupTf.GetChild(idx).GetComponent<Image>().color = new Color(1, 1, 1, 1);// Color.white;
     }
 #endregion
 }

@@ -1,0 +1,8 @@
+[주의사항]
+
+◆ Player & Pet
+1. DB.Dt에 생성한 Item클래스의 Name과 Prefab의 이름이 같아야 된다! (벽지, 바닥 Bg는 제외)
+    -> 그래야 아이탬 구매 후, 생성 가능.
+
+◆ Object 
+Enum.cs의 OBJ_SPR_IDX순서와 똑같이 Inspect뷰의 GameManager의 Obj Sprs에 등록해야 된다.
