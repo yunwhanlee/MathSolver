@@ -93,18 +93,28 @@ public class HUI : MonoBehaviour {
     [Header("POP UP")]
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
-
+    [Space(10)]
     [SerializeField] GameObject successMsgPopUp;  public GameObject SuccessMsgPopUp {get => successMsgPopUp; set => successMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI successMsgTxt;   public TextMeshProUGUI SuccessMsgTxt {get => successMsgTxt; set => successMsgTxt = value;}
-
+    [Space(10)]
     [SerializeField] GameObject nickNamePopUp;  public GameObject NickNamePopUp {get => nickNamePopUp; set => nickNamePopUp = value;}
     [SerializeField] TMP_InputField nickNameInputField;  public TMP_InputField NickNameInputField {get => nickNameInputField; set => nickNameInputField = value;}
-
+    [Space(10)]
     [SerializeField] GameObject lvUpPopUp;   public GameObject LvUpPopUp {get => lvUpPopUp; set => lvUpPopUp = value;}
     [SerializeField] TextMeshProUGUI lvUpPopUpValTxt;   public TextMeshProUGUI LvUpPopUpValTxt {get => lvUpPopUpValTxt; set => lvUpPopUpValTxt = value;}
     [SerializeField] TextMeshProUGUI lvUpPopUpBonusTxt;   public TextMeshProUGUI LvUpPopUpBonusTxt {get => lvUpPopUpBonusTxt; set => lvUpPopUpBonusTxt = value;}
+    [Space(10)]
+    [SerializeField] GameObject rewardPopUp;    public GameObject RewardPopUp {get => rewardPopUp; set => rewardPopUp = value;}
+    [SerializeField] Transform rewardItemGroup; public Transform RewardItemGroup {get => rewardItemGroup; set => rewardItemGroup = value;}
+    [SerializeField] TextMeshProUGUI rewardPopUpFameValTxt;    public TextMeshProUGUI RewardPopUpFameValTxt {get => rewardPopUpFameValTxt; set => rewardPopUpFameValTxt = value;}
+    [SerializeField] GameObject rewardItemPf;   public GameObject RewardItemPf {get => rewardItemPf; set => rewardItemPf = value;}
+    [SerializeField] List<RewardItemSO> rewardItemSOList;
 
     void Start() {
+        //! TEST
+        var rewards = new string[] {"coin_300"};
+        coActiveRewardPopUp(rewards);
+
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
@@ -112,7 +122,7 @@ public class HUI : MonoBehaviour {
         //* Level Up Check
         if(DB._.LvUpCnt > 0) {
             DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
-            StartCoroutine(coShowLevelUpPopUp());
+            StartCoroutine(coActiveLevelUpPopUp());
         }
 
         //* Setting Add Event Listener
@@ -230,30 +240,30 @@ public class HUI : MonoBehaviour {
     }
 
     #region HOME ICON EVENT
-    public void onClickMenuToogleBtn() {
-        bool isToggle = menuTapFrame.anchoredPosition.x == 0;
-        //* プレイヤー移動できないコライダー移動
-        menuTapFrameObjCollider.transform.localPosition = new Vector2(isToggle? 2.25f: 1.1f, menuTapFrameObjCollider.transform.position.y);
-        //* UI メニューFrame移動アニメー
-        StartCoroutine(coPlayMenuToogleBtnMoveAnim(isToggle)); // menuTapFrame.anchoredPosition = new Vector2(isToggle? 250 : 0, 0);
-    }
-    public void onClickAchiveRankIconBtn() {
-        topGroup.SetActive(false);
-        // woodSignObj.SetActive(false);
-        achiveRankPanel.SetActive(true);
-    }
-    public void onClickAchiveRankCloseBtn() {
-        topGroup.SetActive(true);
-        // woodSignObj.SetActive(true);
-        achiveRankPanel.SetActive(false);
-    }
-    public void onClickDecorateModeIconBtn() {
-        setDecorationMode(isActive: true);
-    }
-    public void onClickDecorateModeCloseBtn() {
-        HM._.fUI.setUpFunitureModeItem(isCancel: true);
-        setDecorationMode(isActive: false);
-    }
+        public void onClickMenuToogleBtn() {
+            bool isToggle = menuTapFrame.anchoredPosition.x == 0;
+            //* プレイヤー移動できないコライダー移動
+            menuTapFrameObjCollider.transform.localPosition = new Vector2(isToggle? 2.25f: 1.1f, menuTapFrameObjCollider.transform.position.y);
+            //* UI メニューFrame移動アニメー
+            StartCoroutine(coPlayMenuToogleBtnMoveAnim(isToggle)); // menuTapFrame.anchoredPosition = new Vector2(isToggle? 250 : 0, 0);
+        }
+        public void onClickAchiveRankIconBtn() {
+            topGroup.SetActive(false);
+            // woodSignObj.SetActive(false);
+            achiveRankPanel.SetActive(true);
+        }
+        public void onClickAchiveRankCloseBtn() {
+            topGroup.SetActive(true);
+            // woodSignObj.SetActive(true);
+            achiveRankPanel.SetActive(false);
+        }
+        public void onClickDecorateModeIconBtn() {
+            setDecorationMode(isActive: true);
+        }
+        public void onClickDecorateModeCloseBtn() {
+            HM._.fUI.setUpFunitureModeItem(isCancel: true);
+            setDecorationMode(isActive: false);
+        }
     #endregion
 
     public void onClickAchiveRankTypeBtn(int idx) {
@@ -324,19 +334,20 @@ public class HUI : MonoBehaviour {
         HM._.state = HM.STATE.NORMAL;
         lvUpPopUp.SetActive(false);
     }
+
     #region SELECT MAP
-    public void onClickGoGameDialogYesBtn() { // Choose Map
-        canvasSelectMap.gameObject.SetActive(true);
-        canvasStatic.gameObject.SetActive(false);
-    }
-    public void onClickGoGameDialogNoBtn() {
-        HM._.state = HM.STATE.NORMAL;
-        goGameDialog.SetActive(false);
-    }
-    public void onClickRegion(int idx) {
-        DB._.SelectMapIdx = idx;
-        StartCoroutine(HM._.GoToLoadingScene());
-    }
+        public void onClickGoGameDialogYesBtn() { // Choose Map
+            canvasSelectMap.gameObject.SetActive(true);
+            canvasStatic.gameObject.SetActive(false);
+        }
+        public void onClickGoGameDialogNoBtn() {
+            HM._.state = HM.STATE.NORMAL;
+            goGameDialog.SetActive(false);
+        }
+        public void onClickRegion(int idx) {
+            DB._.SelectMapIdx = idx;
+            StartCoroutine(HM._.GoToLoadingScene());
+        }
     #endregion
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -405,6 +416,18 @@ public class HUI : MonoBehaviour {
         HM._.pet.gameObject.SetActive(!isActive);
     }
 
+
+    private bool isEnglish(string text) {
+        foreach (char c in text) {
+            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+                return true;
+        }
+        return false;
+    }
+#endregion
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region POP UP
+///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void showErrorMsgPopUp(string msg) => StartCoroutine(coErrorMsgPopUp(msg));
     IEnumerator coErrorMsgPopUp(string msg) {
         errorMsgPopUp.SetActive(true);
@@ -430,19 +453,28 @@ public class HUI : MonoBehaviour {
         if(HM._.htm.IsAction) settingPanel.SetActive(false);
         if(isActive) nickNameInputField.text = DB.Dt.NickName;
     }
-    IEnumerator coShowLevelUpPopUp() {
+    IEnumerator coActiveLevelUpPopUp() {
         yield return Util.time1;
         HM._.state = HM.STATE.SETTING;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
         lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcLvBonusPer() * 100}%";
     }
-    private bool isEnglish(string text) {
-        foreach (char c in text) {
-            if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-                return true;
-        }
-        return false;
+    public void coActiveRewardPopUp(string[] rewards) {
+        HM._.state = HM.STATE.SETTING;
+        rewardPopUp.SetActive(true);
+        Array.ForEach(rewards, rwd => {
+            string resName = rwd.Split('_')[0];
+            string val = rwd.Split('_')[1];
+            RewardItemSO rwdInfo = rewardItemSOList.Find(list => list.name == resName);
+
+            Transform ins = Instantiate(rewardItemPf, rewardItemGroup).transform;
+            const int SPRITE = 0, VAL = 1, SEPCIAL_EF = 2;
+            ins.GetChild(SPRITE).GetComponent<Image>().sprite = rwdInfo.Spr;
+            ins.GetChild(VAL).GetComponent<TextMeshProUGUI>().text = val;
+            ins.GetChild(SEPCIAL_EF).gameObject.SetActive(rwdInfo.IsSpecial);
+        });
+        
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
