@@ -44,6 +44,7 @@ public class Player : MonoBehaviour {
     }
 
     void Update() {
+        if(HM._ != null && HM._.state != HM.STATE.NORMAL) return;
         if(isSit) return;
 
         //* レイヤー
@@ -134,6 +135,7 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.CompareTag(Enum.TAG.GoGame.ToString())) {
+            HM._.state = HM.STATE.SETTING;
             HM._.ui.GoGameDialog.SetActive(true);
         }
     }

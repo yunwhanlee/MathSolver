@@ -205,9 +205,12 @@ public class HUI : MonoBehaviour {
         room.SetActive(!isInv);
         inventorySpace.SetActive(isInv);
     }
+
     public void onClickGoRoom() {
         //* From Select Map
         if(canvasSelectMap) {
+            Time.timeScale = 1;
+            HM._.state = HM.STATE.NORMAL;
             canvasStatic.gameObject.SetActive(true);
             canvasSelectMap.gameObject.SetActive(false);
             goGameDialog.SetActive(false);
@@ -325,7 +328,10 @@ public class HUI : MonoBehaviour {
     public void onClickGoGameDialogYesBtn() { // Choose Map
         canvasSelectMap.gameObject.SetActive(true);
         canvasStatic.gameObject.SetActive(false);
-        
+    }
+    public void onClickGoGameDialogNoBtn() {
+        HM._.state = HM.STATE.NORMAL;
+        goGameDialog.SetActive(false);
     }
     public void onClickRegion(int idx) {
         DB._.SelectMapIdx = idx;
