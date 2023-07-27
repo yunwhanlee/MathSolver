@@ -214,7 +214,7 @@ public class GM : MonoBehaviour {
         int lN2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
         int rN1 = rNums.Count > 0? int.Parse(rNums[0]) : 0;
         int rN2 = rNums.Count > 1? int.Parse(rNums[1]) : 0;
-        Debug.Log($"coMakeQuiz:: lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
+        Debug.Log($"coMakeQuiz:: OBJ1= {qSO.Obj1Name}, OBJ2= {qSO.Obj2Name}, lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
@@ -359,15 +359,15 @@ public class GM : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    public Sprite getObjSprite(string name) {
+    public Sprite getObjSprite(string objName) {
         Sprite res = null;
         var enumObjIdx = System.Enum.GetValues(typeof(Enum.OBJ_SPR_IDX));
-        foreach (var enumVal in enumObjIdx) {
-            string enumValStr = enumVal.ToString().ToLower();
-            if (enumValStr == name) {
-                Debug.Log($"getObjSpriteIndex({name}):: {enumValStr} == {name} -> {enumVal.ToString() == name}");
-                int idx = (int)enumVal;
+        foreach (var val in enumObjIdx) {
+            string enumName = val.ToString().ToLower();
+            if (enumName == objName) {
+                int idx = (int)val;
                 res =  objSprs[idx];
+                Debug.Log($"getObjSprite({objName}):: enumName= {enumName}, res= {res}");
             }
         }
         return res;
@@ -410,8 +410,8 @@ public class GM : MonoBehaviour {
 
     ///* オブジェクト 生成
     private IEnumerator coCreateObj(string objName, int num, float posX = 0) {
+        Debug.Log($"coCreateObj(objName({objName}), num({num}))::");
         for(int i = 0; i < num; i++) {
-            // Debug.Log($"coCreateObj:: i= {i}, num = {num}");
             if(i == 0) {
                 instBox(objName, posX);
                 yield return Util.time0_5;
@@ -712,31 +712,29 @@ public class GM : MonoBehaviour {
             //* Switch Anim
             GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
             yield return Util.time0_8;
-            //* 動物 切り替え
-            GM._.Anm.setRandomSprLibAsset();
         }
 
-        //* 背景 切り替え
+        //* ★背景 切り替え
         for(int i = 0; i < map.childCount; i++) {
             var bg = map.GetChild(i);
             bg.gameObject.SetActive(bgIdx == i);
             if(bgIdx == i) {
                 Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 子 bg.name= {bg.name}");
                 //* 背景種類 検査
-                if(bg.name.Contains(BG_STT.WindMill.ToString())) {
+                if(bg.name.Contains(BG_STT.WindMill.ToString())) 
                     bgStatus = BG_STT.WindMill;
-                }
-                else if(bg.name.Contains(BG_STT.JungleFlower.ToString())) {
+                else if(bg.name.Contains(BG_STT.JungleFlower.ToString()))
                     bgStatus = BG_STT.JungleFlower;
-                }
-                else {
+                else 
                     bgStatus = BG_STT.Normal;
-                }
 
                 pet.TgPos = bg.GetChild(PETPOS).transform.localPosition;
                 pet.Sr.flipX = true;
             }
         }
+
+        //* 動物 切り替え
+        GM._.Anm.setRandomSprLibAsset();
 
         //* 特別背景 処理
         var curBg = map.GetChild(bgIdx);

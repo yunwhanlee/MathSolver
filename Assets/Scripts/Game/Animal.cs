@@ -14,8 +14,8 @@ public class Animal : MonoBehaviour {
 
     [Header("VALUE")]
     SpriteLibrary sprLib; public SpriteLibrary SprLib {get => sprLib;}
-    [SerializeField] List<SpriteLibraryAsset> animalSprLibAssetList; public List<SpriteLibraryAsset> AnimalSprLibAssetList {get => animalSprLibAssetList; set => animalSprLibAssetList = value;}
-    [SerializeField] List<SpriteLibraryAsset> jungleSmallAnimalSprLibAstList;   public List<SpriteLibraryAsset> JungleSmallAnimalSprLibAstList {get => jungleSmallAnimalSprLibAstList; set => jungleSmallAnimalSprLibAstList = value;}
+    [SerializeField] List<SpriteLibraryAsset> animalSprLibAssetList;
+    [SerializeField] List<SpriteLibraryAsset> jungleSmallAnimalSprLibAstList;
 
     void Start() {
         anim = GetComponent<Animator>();
@@ -37,6 +37,9 @@ public class Animal : MonoBehaviour {
 
         int randIdx = Random.Range(0, animalList.Count);
         sprLib.spriteLibraryAsset = animalList[randIdx];
+
+        Debug.Log($"setRandomSprLibAsset():: BgStatus= {GM._.BgStatus}, animalList[{randIdx}]= {animalList[randIdx].name}");
+
         //* このリスト 削除
         animalList.RemoveAt(randIdx);
     }

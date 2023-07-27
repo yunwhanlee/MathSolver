@@ -31,9 +31,9 @@ public class Enum {
     public enum SORTING_LAYER {Mat, Default, FrontDecoObj};
     public enum HOME_EF_IDX {FunitureSetupEF};
     public enum OBJ_SPR_IDX {
-        //* 一般
-        Apple, Carrot, Banana, Onion, Orange, Potato,
         //* 小さい
-        SunFlowerSeed, Cherry, Blueberry, Dotory,
+        SunFlowerSeed, Cherry, Blueberry, Dotory, Leaf,
+        //* 一般
+        Apple, Carrot, Banana, Onion, Orange, Potato, Branch, Rock,
     };
 }

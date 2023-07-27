@@ -33,10 +33,13 @@ MonoBehaviour:
   - onion
   - orange
   - potato
+  - branch
+  - rock
   jungleObjNames:
   - sunflowerseed
   - cherry
   - blueberry
   - dotory
-  obj1Name: cherry
-  obj2Name: banana
+  - leaf
+  obj1Name: banana
+  obj2Name: apple
