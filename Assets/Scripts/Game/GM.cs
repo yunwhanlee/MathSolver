@@ -207,7 +207,7 @@ public class GM : MonoBehaviour {
         var quiz = qm.QuizTxt;
         quiz.text = "미 지원..";
 
-        // initObjList();
+        initObjList();
         qSO.Obj1Name = Util.getStuffObjRandomList(qSO.ObjNameList);
         qSO.Obj2Name = Util.getStuffObjRandomList(qSO.ObjNameList);
         int lN1 = int.Parse(lNums[0]); 
@@ -317,9 +317,12 @@ public class GM : MonoBehaviour {
     }
 
     public void initObjList() {
-        string[] objNameList = (bgStatus == BG_STT.JungleFlower)? qSO.JungleObjNames : qSO.DefObjNames;
-        Debug.Log("initObjList():: objNameList.Length= " + objNameList.Length);
-        qSO.ObjNameList = new List<string>(qSO.DefObjNames);
+        string[] resList = (bgStatus == BG_STT.JungleFlower)? qSO.JungleObjNames : qSO.DefObjNames;
+        Debug.Log($"initObjList():: bgStatus= <b>{bgStatus}</b>, resList.Length= {resList.Length}");
+        qSO.ObjNameList = new List<string>(resList);
+        destroyAllObj();
+    }
+    private void destroyAllObj() {
         foreach(Transform obj in objGroupTf)
             Destroy(obj.gameObject);
     }
@@ -713,6 +716,9 @@ public class GM : MonoBehaviour {
             GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
             yield return Util.time0_8;
         }
+
+        //* オブジェクト 全て削除
+        destroyAllObj();
 
         //* ★背景 切り替え
         for(int i = 0; i < map.childCount; i++) {

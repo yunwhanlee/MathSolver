@@ -92,7 +92,6 @@ public class GUI : MonoBehaviour
         //* ストーリーテリング・オブジェクト生成
         // GM._.qm.QuizTxt.text = GM._.makeQuiz(analList);
         StartCoroutine(GM._.coMakeQuiz(analList));
-        
 
         //* テレタイプ
         coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt);

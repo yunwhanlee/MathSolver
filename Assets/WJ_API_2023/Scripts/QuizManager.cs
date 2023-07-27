@@ -203,7 +203,7 @@ public class QuizManager : MonoBehaviour {
         interactableAnswerBtns(false);
         hintFrame.SetActive(false);
         helpSpeachBtn.SetActive(false);
-        GM._.initObjList();
+        // GM._.initObjList();
 
         //* 背景 切り替え
         if(curQuestionIndex == 0) {} //yield return StartCoroutine(GM._.coSetMapBG(0));} //* GM.Start()で行う。
