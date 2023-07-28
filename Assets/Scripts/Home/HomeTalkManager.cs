@@ -73,9 +73,10 @@ public class HomeTalkManager : TalkManager {
             "후... 드디어\n집에 돌아왔구만:0"
             , "첫 해결사 일이었을텐데\n고생많았네!:1"
             , "받은 보수로\n가구점이나 의류점에서:0"
-            , "아이템을\n구매할 수 있다네:0"
+            , "아이템을\n구매할 수 있지:0"
             , "다양한 스킨과 가구를 구매해서:0"
             , "이 텅빈 집을\n아름답게 꾸며주게나!:0"
+            , "이거는 나의 작은 선물이네!:0"
         });
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -127,7 +128,11 @@ public class HomeTalkManager : TalkManager {
                 DB.Dt.IsTutoGoGameTrigger = false; 
                 break;
             case (int)TALK_ID_IDX.TUTORIAL_FINISH:
-                DB.Dt.IsTutoFinishTrigger = false; 
+                DB.Dt.IsTutoFinishTrigger = false;
+                StartCoroutine(HM._.ui.coActiveRewardPopUp(fame: 10, new Dictionary<RewardItemSO, int>() {
+                    {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Coin], 300},
+                    {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Exp], 100},
+                }));
                 break;
         }
     }

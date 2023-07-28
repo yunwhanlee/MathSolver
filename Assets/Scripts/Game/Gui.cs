@@ -52,8 +52,9 @@ public class GUI : MonoBehaviour
 
         //* チュートリアル
         if(DB.Dt.IsTutoDiagChoiceDiffTrigger) {
-            yield return Util.time1;
+            Debug.Log("DB.Dt.IsTutoDiagChoiceDiffTrigger");
             yield return Util.time0_3;
+            yield return Util.time1;
             GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_CHOICE_DIFF);
         }
     }

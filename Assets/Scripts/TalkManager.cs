@@ -56,12 +56,14 @@ public abstract class TalkManager : MonoBehaviour {
     protected abstract void endSwitchProccess(int id); //* 終了 処理
 
     public void action(int id) {
+        Debug.Log($"TalkManager:: action(id= {id})::");
         curId = id;
         play(); //* 最初スタート
     }
 
     private void play() {
-        if(HM._.state != HM.STATE.NORMAL) return;
+        if(HM._ && HM._.state != HM.STATE.NORMAL) return;
+        Debug.Log($"TalkManager:: play()::");
         talk(curId);
         talkDialog.SetActive(isAction);
     }

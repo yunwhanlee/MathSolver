@@ -110,7 +110,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] Transform rewardItemGroup; public Transform RewardItemGroup {get => rewardItemGroup; set => rewardItemGroup = value;}
     [SerializeField] TextMeshProUGUI rewardPopUpFameValTxt;    public TextMeshProUGUI RewardPopUpFameValTxt {get => rewardPopUpFameValTxt; set => rewardPopUpFameValTxt = value;}
     [SerializeField] GameObject rwdPf;   public GameObject RwdPf {get => rwdPf; set => rwdPf = value;}
-    [SerializeField] List<RewardItemSO> rwdSOList;
+    [SerializeField] List<RewardItemSO> rwdSOList;  public List<RewardItemSO> RwdSOList {get => rwdSOList;}
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
@@ -159,14 +159,14 @@ public class HUI : MonoBehaviour {
 
     void Update() {
         //! TEST
-        if(Input.GetKeyDown(KeyCode.A)) {
-            Debug.Log("GetKeyDown(KeyCode.A)");
+        if(Input.GetKeyDown(KeyCode.Q)) {
+            Debug.Log("GetKeyDown(KeyCode.Q)");
             StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
                 {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
             }));
         }
-        if(Input.GetKeyDown(KeyCode.S)) {
-            Debug.Log("GetKeyDown(KeyCode.S)");
+        if(Input.GetKeyDown(KeyCode.W)) {
+            Debug.Log("GetKeyDown(KeyCode.W)");
             StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
                 {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
                 {rwdSOList[(int)Enum.RWD_IDX.Exp], 300},
@@ -349,6 +349,7 @@ public class HUI : MonoBehaviour {
     public void onClickRewardPopUpAcceptBtn() {
         HM._.state = HM.STATE.NORMAL;
         rewardPopUp.SetActive(false);
+        checkLevelUp();
     }
 
     #region SELECT MAP
@@ -478,14 +479,14 @@ public class HUI : MonoBehaviour {
 
         yield return coCreateRewardItemList(rewardDic, lvUpItemGroup);
     }
-    IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
+    public IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
         HM._.state = HM.STATE.SETTING;
         rewardPopUp.SetActive(true);
         rewardPopUpFameValTxt.text = $"+{fame}";
 
         yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
     }
-    IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
+    private IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
         const int SPRITE = 0, VAL = 1, SEPCIAL_EF = 2;
 
         //* init ItemGroup
@@ -508,7 +509,6 @@ public class HUI : MonoBehaviour {
             else if(rwdInfo.name == Enum.RWD_IDX.Exp.ToString()) {
                 DB.Dt.Exp += val;
                 DB.Dt.getExpPer();                
-                checkLevelUp();
             }
         }
     }
@@ -516,7 +516,7 @@ public class HUI : MonoBehaviour {
         if(DB._.LvUpCnt > 0) {
             DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
             StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
-                {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+                {rwdSOList[(int)Enum.RWD_IDX.Coin], DB.Dt.Lv * 100},
             }));
         }
     }
