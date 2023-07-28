@@ -101,29 +101,29 @@ public class HUI : MonoBehaviour {
     [SerializeField] TMP_InputField nickNameInputField;  public TMP_InputField NickNameInputField {get => nickNameInputField; set => nickNameInputField = value;}
     [Space(10)]
     [SerializeField] GameObject lvUpPopUp;   public GameObject LvUpPopUp {get => lvUpPopUp; set => lvUpPopUp = value;}
+    [SerializeField] Transform lvUpItemGroup; public Transform LvUpItemGroup {get => lvUpItemGroup; set => lvUpItemGroup = value;}
+
     [SerializeField] TextMeshProUGUI lvUpPopUpValTxt;   public TextMeshProUGUI LvUpPopUpValTxt {get => lvUpPopUpValTxt; set => lvUpPopUpValTxt = value;}
     [SerializeField] TextMeshProUGUI lvUpPopUpBonusTxt;   public TextMeshProUGUI LvUpPopUpBonusTxt {get => lvUpPopUpBonusTxt; set => lvUpPopUpBonusTxt = value;}
     [Space(10)]
     [SerializeField] GameObject rewardPopUp;    public GameObject RewardPopUp {get => rewardPopUp; set => rewardPopUp = value;}
     [SerializeField] Transform rewardItemGroup; public Transform RewardItemGroup {get => rewardItemGroup; set => rewardItemGroup = value;}
     [SerializeField] TextMeshProUGUI rewardPopUpFameValTxt;    public TextMeshProUGUI RewardPopUpFameValTxt {get => rewardPopUpFameValTxt; set => rewardPopUpFameValTxt = value;}
-    [SerializeField] GameObject rewardItemPf;   public GameObject RewardItemPf {get => rewardItemPf; set => rewardItemPf = value;}
-    [SerializeField] List<RewardItemSO> rewardItemSOList;
+    [SerializeField] GameObject rwdPf;   public GameObject RwdPf {get => rwdPf; set => rwdPf = value;}
+    [SerializeField] List<RewardItemSO> rwdSOList;
 
     void Start() {
-        //! TEST
-        var rewards = new string[] {"coin_300"};
-        coActiveRewardPopUp(rewards);
-
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
 
         //* Level Up Check
-        if(DB._.LvUpCnt > 0) {
-            DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
-            StartCoroutine(coActiveLevelUpPopUp());
-        }
+        // if(DB._.LvUpCnt > 0) {
+        //     DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
+        //     StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
+        //         {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+        //     }));
+        // }
 
         //* Setting Add Event Listener
         const int EN = 0, KR = 1, JP = 2;
@@ -160,6 +160,23 @@ public class HUI : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == 0);
         }
         achiveRankTitleTxt.text = LM._.localize("Achivement");;//Enum.ACHIVERANK.Achivement.ToString();
+    }
+
+    void Update() {
+        //! TEST
+        if(Input.GetKeyDown(KeyCode.A)) {
+            Debug.Log("GetKeyDown(KeyCode.A)");
+            StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
+                {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+            }));
+        }
+        if(Input.GetKeyDown(KeyCode.S)) {
+            Debug.Log("GetKeyDown(KeyCode.S)");
+            StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
+                {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+                {rwdSOList[(int)Enum.RWD_IDX.Exp], 300},
+            }));
+        }
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -330,9 +347,13 @@ public class HUI : MonoBehaviour {
     public void onClickNickNamePopUpExitBtn() {
         showNickNamePopUp(isActive: false);
     }
-    public void onClickLevelUpPopUpContinueBtn() {
+    public void onClickLevelUpPopUpAcceptBtn() {
         HM._.state = HM.STATE.NORMAL;
         lvUpPopUp.SetActive(false);
+    }
+    public void onClickRewardPopUpAcceptBtn() {
+        HM._.state = HM.STATE.NORMAL;
+        rewardPopUp.SetActive(false);
     }
 
     #region SELECT MAP
@@ -453,28 +474,39 @@ public class HUI : MonoBehaviour {
         if(HM._.htm.IsAction) settingPanel.SetActive(false);
         if(isActive) nickNameInputField.text = DB.Dt.NickName;
     }
-    IEnumerator coActiveLevelUpPopUp() {
+    IEnumerator coActiveLevelUpPopUp(Dictionary<RewardItemSO, int> rewardDic) {
         yield return Util.time1;
         HM._.state = HM.STATE.SETTING;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
         lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcLvBonusPer() * 100}%";
+
+        yield return coCreateRewardItemList(rewardDic, lvUpItemGroup);
     }
-    public void coActiveRewardPopUp(string[] rewards) {
+    IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
         HM._.state = HM.STATE.SETTING;
         rewardPopUp.SetActive(true);
-        Array.ForEach(rewards, rwd => {
-            string resName = rwd.Split('_')[0];
-            string val = rwd.Split('_')[1];
-            RewardItemSO rwdInfo = rewardItemSOList.Find(list => list.name == resName);
+        rewardPopUpFameValTxt.text = $"+{fame}";
 
-            Transform ins = Instantiate(rewardItemPf, rewardItemGroup).transform;
-            const int SPRITE = 0, VAL = 1, SEPCIAL_EF = 2;
+        yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
+    }
+    IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
+        const int SPRITE = 0, VAL = 1, SEPCIAL_EF = 2;
+
+        //* init ItemGroup
+        foreach(Transform chd in itemGroupTf) Destroy(chd.gameObject);
+
+        //* Instantiate
+        foreach(var pair in rewardDic) {
+            yield return Util.time0_2;
+            RewardItemSO rwdInfo = pair.Key;
+            int val = pair.Value;
+            Transform ins = Instantiate(rwdPf, itemGroupTf).transform;
             ins.GetChild(SPRITE).GetComponent<Image>().sprite = rwdInfo.Spr;
-            ins.GetChild(VAL).GetComponent<TextMeshProUGUI>().text = val;
+            ins.GetChild(SPRITE).GetComponent<Image>().color = rwdInfo.Clr;
+            ins.GetChild(VAL).GetComponent<TextMeshProUGUI>().text = val.ToString();
             ins.GetChild(SEPCIAL_EF).gameObject.SetActive(rwdInfo.IsSpecial);
-        });
-        
+        }
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

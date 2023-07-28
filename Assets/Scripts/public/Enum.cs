@@ -36,4 +36,7 @@ public class Enum {
         //* 一般
         Apple, Carrot, Banana, Onion, Orange, Potato, Branch, Rock,
     };
+    public enum RWD_IDX {
+        Coin, Exp,
+    };
 }

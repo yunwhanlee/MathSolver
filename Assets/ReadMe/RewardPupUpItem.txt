@@ -1,0 +1,15 @@
+【Reward PupUp アイテム 登録方法】：★全てはHomeシーンのみ対応★
+
+1. SO (ScriptableObject)追加。
+    - パス：Assets/Scprits/Home/RewardItemSOListディレクトリ。
+    - 登録したいアイテム名のSOを新しく作成。(例：coin)
+    - 登録したSOのInspectorビューの情報を埋める。
+
+2. 作ったRewardItemSOをアイテムリストへ登録。
+    - HUIManagerオブジェクト ➝ HUI.csのInspectorビュー ➝ RwdSOListへドラッグ＆ドロップ。
+    - リストへ登録した順番と同じくEnum.RWD_IDXにアイテム名を必ず登録すること！
+
+3. 使用
+    - HUI.cs内、coActiveRewardPopUp(Dictionary<RewardItemSO, int> rewardDic)に使う。
+    - パラメータrewardDicは、「Key：登録したアイテムSO」 と 「Value：数量」 になる。
+    - アイテムSOは以前に登録したrwdSOListを使う。
