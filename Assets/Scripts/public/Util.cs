@@ -73,14 +73,4 @@ public class Util : MonoBehaviour
             yield return null;
         }
     }
-    public static float getExpPer() {
-        int max = Data.EXP_MAX_UNIT * DB.Dt.Lv;
-        if(DB.Dt.Exp == max) {
-            DB.Dt.Lv++;
-            DB._.LvUpCnt++;
-            DB.Dt.Exp = 0;
-            return 1;
-        }
-        return ((float)DB.Dt.Exp) / ((float)max);
-    }
 }

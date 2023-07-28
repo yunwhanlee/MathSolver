@@ -118,12 +118,7 @@ public class HUI : MonoBehaviour {
         StartCoroutine(coUpdateUI());
 
         //* Level Up Check
-        // if(DB._.LvUpCnt > 0) {
-        //     DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
-        //     StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
-        //         {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
-        //     }));
-        // }
+        checkLevelUp();
 
         //* Setting Add Event Listener
         const int EN = 0, KR = 1, JP = 2;
@@ -403,8 +398,8 @@ public class HUI : MonoBehaviour {
 
                 //* 
                 const int MAX_UNIT = 100;
-                expFilledCircleBar.fillAmount = Util.getExpPer();
-                settingExpSliderBar.value = Util.getExpPer();
+                expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
+                settingExpSliderBar.value = DB.Dt.getExpPer();
                 settingExpSliderTxt.text = $"{DB.Dt.Exp} / {MAX_UNIT * DB.Dt.Lv}";
             }
             catch(Exception err) {
@@ -506,6 +501,23 @@ public class HUI : MonoBehaviour {
             ins.GetChild(SPRITE).GetComponent<Image>().color = rwdInfo.Clr;
             ins.GetChild(VAL).GetComponent<TextMeshProUGUI>().text = val.ToString();
             ins.GetChild(SEPCIAL_EF).gameObject.SetActive(rwdInfo.IsSpecial);
+
+            //* Set Data
+            if(rwdInfo.name == Enum.RWD_IDX.Coin.ToString())
+                DB.Dt.setCoin(val);
+            else if(rwdInfo.name == Enum.RWD_IDX.Exp.ToString()) {
+                DB.Dt.Exp += val;
+                DB.Dt.getExpPer();                
+                checkLevelUp();
+            }
+        }
+    }
+    private void checkLevelUp() {
+        if(DB._.LvUpCnt > 0) {
+            DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
+            StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
+                {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+            }));
         }
     }
 #endregion

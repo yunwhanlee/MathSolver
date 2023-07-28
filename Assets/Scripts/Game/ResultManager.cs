@@ -44,7 +44,7 @@ public class ResultManager : MonoBehaviour {
         //* 以前のコイン量 表示
         topCoinTxt.text = DB.Dt.Coin.ToString();
         lvTxt.text = DB.Dt.Lv.ToString();
-        expFilledCircleBar.fillAmount = Util.getExpPer();
+        expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
 
         //* Init
         rewardExp = 0;
@@ -168,7 +168,7 @@ public class ResultManager : MonoBehaviour {
             expVal++;
             if(expVal <= rewardExp) {
                 DB.Dt.Exp++;
-                expFilledCircleBar.fillAmount = Util.getExpPer();
+                expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 if(expFilledCircleBar.fillAmount == 1)
                     StartCoroutine(GM._.Pl.coLevelUpEF());
             }

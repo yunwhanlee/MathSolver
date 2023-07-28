@@ -56,6 +56,16 @@ public class Data {
         coin += value;
         if(coin < 0) coin = 0;
     }
+    public float getExpPer() {
+        int max = EXP_MAX_UNIT * lv;
+        if(DB.Dt.Exp >= max) {
+            lv++;
+            DB._.LvUpCnt++;
+            exp = 0;
+            return 1;
+        }
+        return ((float)exp) / ((float)max);
+    }
 }
 #endregion
 
