@@ -111,6 +111,9 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI rewardPopUpFameValTxt;    public TextMeshProUGUI RewardPopUpFameValTxt {get => rewardPopUpFameValTxt; set => rewardPopUpFameValTxt = value;}
     [SerializeField] GameObject rwdPf;   public GameObject RwdPf {get => rwdPf; set => rwdPf = value;}
     [SerializeField] List<RewardItemSO> rwdSOList;  public List<RewardItemSO> RwdSOList {get => rwdSOList;}
+    [Space(10)]
+    [SerializeField] GameObject mapUnlockPopUp;   public GameObject MapUnlockPopUp {get => mapUnlockPopUp; set => mapUnlockPopUp = value;}
+    [SerializeField] TextMeshProUGUI mapUnlockPopUpNameTxt;    public TextMeshProUGUI MapUnlockPopUpNameTxt {get => mapUnlockPopUpNameTxt; set => mapUnlockPopUpNameTxt = value;}
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());

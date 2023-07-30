@@ -40,6 +40,19 @@ public class Data {
     [SerializeField] bool isTutoDiagFirstAnswerTrigger;   public bool IsTutoDiagFirstAnswerTrigger {get => isTutoDiagFirstAnswerTrigger; set => isTutoDiagFirstAnswerTrigger = value;}
     [SerializeField] bool isTutoDiagResultTrigger;   public bool IsTutoDiagResultTrigger {get => isTutoDiagResultTrigger; set => isTutoDiagResultTrigger = value;}
 
+    [Header("MAP UNLOCK TRIGGER")]
+    [SerializeField] bool isMap1BG1Trigger;   public bool IsMap1BG1Trigger {get => isMap1BG1Trigger; set => isMap1BG1Trigger = value;} //* 最初だから、いつも活性化
+    [SerializeField] bool isMap1BG2Trigger;   public bool IsMap1BG2Trigger {get => isMap1BG2Trigger; set => isMap1BG2Trigger = value;}
+    [SerializeField] bool isMap1BG3Trigger;   public bool IsMap1BG3Trigger {get => isMap1BG3Trigger; set => isMap1BG3Trigger = value;}
+
+    [SerializeField] bool isMap2BG1Trigger;   public bool IsMap2BG1Trigger {get => isMap2BG1Trigger; set => isMap2BG1Trigger = value;}
+    [SerializeField] bool isMap2BG2Trigger;   public bool IsMap2BG2Trigger {get => isMap2BG2Trigger; set => isMap2BG2Trigger = value;}
+    [SerializeField] bool isMap2BG3Trigger;   public bool IsMap2BG3Trigger {get => isMap2BG3Trigger; set => isMap2BG3Trigger = value;}
+
+    [SerializeField] bool isMap3BG1Trigger;   public bool IsMap3BG1Trigger {get => isMap3BG1Trigger; set => isMap3BG1Trigger = value;}
+    [SerializeField] bool isMap3BG2Trigger;   public bool IsMap3BG2Trigger {get => isMap3BG2Trigger; set => isMap3BG2Trigger = value;}
+    [SerializeField] bool isMap3BG3Trigger;   public bool IsMap3BG3Trigger {get => isMap3BG3Trigger; set => isMap3BG3Trigger = value;}
+
     [FormerlySerializedAs("Funiture Items Data")] //* ⇐ Inspectorビューで全て宣言
     [Header("FUNITURE ITEM")]
     [SerializeField] Funiture[] funitures;    public Funiture[] Funitures {get => funitures; set => funitures = value;}
@@ -183,6 +196,7 @@ public class DB : MonoBehaviour {
         //* 服屋 値段
         dt.GachaCnt = 1;
 
+        //* Tutorial Trigger
         dt.IsTutoRoomTrigger = true;
         dt.IsTutoFunitureShopTrigger = true;
         dt.IsTutoClothShopTrigger = true;
@@ -194,6 +208,17 @@ public class DB : MonoBehaviour {
         dt.IsTutoDiagFirstQuizTrigger = true;
         dt.IsTutoDiagFirstAnswerTrigger = true;
         dt.IsTutoDiagResultTrigger = true;
+
+        //* MapUnlock Trigger
+        dt.IsMap1BG1Trigger = true; //* 最初だから、いつも活性化
+        dt.IsMap1BG2Trigger = false;
+        dt.IsMap1BG3Trigger = false;
+        dt.IsMap2BG1Trigger = false;
+        dt.IsMap2BG2Trigger = false;
+        dt.IsMap2BG3Trigger = false;
+        dt.IsMap3BG1Trigger = false;
+        dt.IsMap3BG2Trigger = false;
+        dt.IsMap3BG3Trigger = false;
 
         #region FUNITURE
         //* ロック
