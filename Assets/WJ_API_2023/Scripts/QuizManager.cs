@@ -205,11 +205,18 @@ public class QuizManager : MonoBehaviour {
         helpSpeachBtn.SetActive(false);
         // GM._.initObjList();
 
-        //* 背景 切り替え
-        if(curQuestionIndex == 0) {} //yield return StartCoroutine(GM._.coSetMapBG(0));} //* GM.Start()で行う。
-        else if(curQuestionIndex == 3) yield return StartCoroutine(GM._.coSetMapBG(1));
-        else if(curQuestionIndex == 6) yield return StartCoroutine(GM._.coSetMapBG(2));
-        else GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
+        var map = GM._.Maps[DB._.SelectMapIdx];
+        Debug.Log($"coDisplayQuestion:: map.childCount= {map.childCount}");
+
+        if (curQuestionIndex > 0 && map.childCount >= 2) {
+            if (map.childCount == 3 && (curQuestionIndex == 3 || curQuestionIndex == 6))
+                yield return StartCoroutine(GM._.coSetMapBG(curQuestionIndex == 3 ? 1 : 2));
+            else if (map.childCount == 2 && curQuestionIndex == 4)
+                yield return StartCoroutine(GM._.coSetMapBG(1));
+            else
+                GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
+        }
+
 
         //* 処理
         yield return coShowStageTxt();

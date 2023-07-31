@@ -52,10 +52,8 @@ public class WorldMapManager : MonoBehaviour {
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgNames[THIRD]));
         }
 
-        if(onMapPopUpActionList.Count > 0) {
-            onMapPopUpActionList[0].Invoke();
-            onMapPopUpActionList.RemoveAt(0);
-        }
+        //* アクション 読込
+        callbackMapPopUpAction();
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
@@ -63,16 +61,19 @@ public class WorldMapManager : MonoBehaviour {
     public void onClickClosePopUpBtn() {
         HM._.ui.MapUnlockPopUp.SetActive(false);
 
-        if(onMapPopUpActionList.Count > 0) {
-            HM._.ui.MapUnlockPopUp.SetActive(true);
-            onMapPopUpActionList[0].Invoke();
-            onMapPopUpActionList.RemoveAt(0);
-        }
+        //* 次のアクション 読込
+        callbackMapPopUpAction();
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    private void callbackMapPopUpAction() {
+        if(onMapPopUpActionList.Count > 0) {
+            onMapPopUpActionList[0].Invoke();
+            onMapPopUpActionList.RemoveAt(0);
+        }
+    }
     private void displayUnlockPopUp(string name) {
         Debug.Log($"displayUnlockPopUp({name})::");
         HM._.ui.MapUnlockPopUp.SetActive(true);

@@ -57,7 +57,7 @@ public class GM : MonoBehaviour {
     [SerializeField] Animator successEFAnim; public Animator SuccessEFAnim {get => successEFAnim; set => successEFAnim = value;}
 
     [Header("MAP")]
-    [SerializeField] Transform[] maps;
+    [SerializeField] Transform[] maps;   public Transform[] Maps {get => maps; set => maps = value;}
 
     [Header("BG SPRITE")]
     [SerializeField] GameObject cloud1; public GameObject Cloud1 {get => cloud1; set => cloud1 = value;}
@@ -127,9 +127,10 @@ public class GM : MonoBehaviour {
             foreach(Transform chd in GM._.gui.BgDirectorAnim.transform)
                 chd.GetComponent<Image>().sprite = GM._.gui.MapTransitionSprs[DB._.SelectMapIdx];
 
-            suffleMapBG();
+            //* Set アンロック背景
+            deleteLockedBG(); // Lv制限でロック背景は削除
+            suffleMapBG(); // 残った背景の順番を混ぜる
             StartCoroutine(coSetMapBG(0));
-            GM._.Anm.setRandomSprLibAsset();
         }
     }
 
@@ -687,6 +688,29 @@ public class GM : MonoBehaviour {
         while(windMillWing.activeSelf) {
             windMillWing.transform.Rotate(0, 0, moveSpeed);
             yield return null;
+            if(!windMillWing) break;
+        }
+    }
+
+    private void deleteLockedBG() {
+        //* ロック背景 削除
+        switch(DB._.SelectMapIdx) {
+            case 0: destroyBG(4, 7);    break;
+            case 1: destroyBG(14, 17);  break;
+            case 2: destroyBG(24, 27);  break;
+        }
+    }
+
+    private void destroyBG(int firstMapUnlockLv, int secondMapUnlockLv) {
+        Transform map = maps[DB._.SelectMapIdx];
+        int lv = DB.Dt.Lv;
+
+        if(DB.Dt.Lv < firstMapUnlockLv) {
+            DestroyImmediate(map.GetChild(1).gameObject);
+            DestroyImmediate(map.GetChild(1).gameObject);
+        }
+        else if(DB.Dt.Lv < secondMapUnlockLv) {
+            DestroyImmediate(map.GetChild(1).gameObject);
         }
     }
 
@@ -707,8 +731,13 @@ public class GM : MonoBehaviour {
     public IEnumerator coSetMapBG(int bgIdx) {
         const int PETPOS = 0, PALYERPOS = 1, ANIMALPOS = 2;
         var map = maps[DB._.SelectMapIdx];
-        Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 親 map= {map.name}");
-        map.gameObject.SetActive(true);        
+        int chdLen = map.childCount - 1;
+        Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 親 map= {map.name}, chdLen= {chdLen}");
+        map.gameObject.SetActive(true);
+
+        //* 背景インデックス 確認
+        if(chdLen < bgIdx)
+            bgIdx = chdLen;
 
         //* Switchアニメー 処理
         if(bgIdx > 0) {

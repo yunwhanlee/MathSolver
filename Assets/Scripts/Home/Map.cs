@@ -12,7 +12,7 @@ public class Map : MonoBehaviour {
     [SerializeField] Image[] bgImgs;    public Image[] BgImgs {get => bgImgs;}
     [SerializeField] TextMeshProUGUI[] bgLimitLvTxts;     public TextMeshProUGUI[] BgLimitLvTxts {get => bgLimitLvTxts;}
 
-    void Start() {
+    void Awake() {
         isBgUnlocks = new bool[3];
     }
 
@@ -28,7 +28,7 @@ public class Map : MonoBehaviour {
         isBgUnlocks[THIRD] = LV >= limitLvIdx3;
 
         //* 処理
-        btn.interactable = (LV >= 1);
+        btn.interactable = (LV >= limitLvIdx1);
         bgImgs[FIRST].color = (isBgUnlocks[FIRST])? Color.white : Color.gray;
         bgLimitLvTxts[FIRST].gameObject.SetActive(!isBgUnlocks[FIRST]);
         bgImgs[SECOND].color = (isBgUnlocks[SECOND])? Color.white : Color.gray;
