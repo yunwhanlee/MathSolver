@@ -208,15 +208,17 @@ public class QuizManager : MonoBehaviour {
         //* 背景 切り替え
         var map = GM._.Maps[DB._.SelectMapIdx];
         Debug.Log($"coDisplayQuestion:: map.childCount= {map.childCount}");
-        if (curQuestionIndex > 0 && map.childCount >= 2) {
-            if (map.childCount == 3 && (curQuestionIndex == 3 || curQuestionIndex == 6))
+        if (curQuestionIndex > 0) {
+            if (map.childCount == 3 && (curQuestionIndex == 3 || curQuestionIndex == 6)) {
                 yield return StartCoroutine(GM._.coSetMapBG(curQuestionIndex == 3 ? 1 : 2));
-            else if (map.childCount == 2 && curQuestionIndex == 4)
+            }
+            else if (map.childCount == 2 && curQuestionIndex == 4) {
                 yield return StartCoroutine(GM._.coSetMapBG(1));
-            else
+            }
+            else {
                 GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
+            }
         }
-
 
         //* 処理
         yield return coShowStageTxt();
