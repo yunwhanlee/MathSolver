@@ -205,9 +205,9 @@ public class QuizManager : MonoBehaviour {
         helpSpeachBtn.SetActive(false);
         // GM._.initObjList();
 
+        //* 背景 切り替え
         var map = GM._.Maps[DB._.SelectMapIdx];
         Debug.Log($"coDisplayQuestion:: map.childCount= {map.childCount}");
-
         if (curQuestionIndex > 0 && map.childCount >= 2) {
             if (map.childCount == 3 && (curQuestionIndex == 3 || curQuestionIndex == 6))
                 yield return StartCoroutine(GM._.coSetMapBG(curQuestionIndex == 3 ? 1 : 2));
