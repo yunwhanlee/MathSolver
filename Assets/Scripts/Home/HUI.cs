@@ -366,7 +366,7 @@ public class HUI : MonoBehaviour {
             HM._.state = HM.STATE.NORMAL;
             goGameDialog.SetActive(false);
         }
-        public void onClickRegion(int idx) {
+        public void onClickBgArea(int idx) {
             DB._.SelectMapIdx = idx;
             StartCoroutine(HM._.GoToLoadingScene());
         }
