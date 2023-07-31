@@ -29,15 +29,15 @@ public class Map : MonoBehaviour {
 
         //* 処理
         bgBtns[FIRST].interactable = (!isBgUnlocks[FIRST]);
-        bgImgs[FIRST].color = (isBgUnlocks[FIRST])? Color.white : Color.gray;
+        // bgImgs[FIRST].color = (isBgUnlocks[FIRST])? Color.white : Color.gray;
         bgLimitLvTxts[FIRST].gameObject.SetActive(!isBgUnlocks[FIRST]);
 
         bgBtns[SECOND].interactable = (!isBgUnlocks[SECOND]);
-        bgImgs[SECOND].color = (isBgUnlocks[SECOND])? Color.white : Color.gray;
+        // bgImgs[SECOND].color = (isBgUnlocks[SECOND])? Color.white : Color.gray;
         bgLimitLvTxts[SECOND].gameObject.SetActive(!isBgUnlocks[SECOND]);
 
         bgBtns[THIRD].interactable = (!isBgUnlocks[THIRD]);
-        bgImgs[THIRD].color = (isBgUnlocks[THIRD])? Color.white : Color.gray;
+        // bgImgs[THIRD].color = (isBgUnlocks[THIRD])? Color.white : Color.gray;
         bgLimitLvTxts[THIRD].gameObject.SetActive(!isBgUnlocks[THIRD]);
     }
 
