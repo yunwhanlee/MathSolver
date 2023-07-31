@@ -118,6 +118,7 @@ public class GM : MonoBehaviour {
 
             //* Set Parent DB → petSpot 
             pet.transform.SetParent(petSpot);
+
             //* Move To plSpot Pos
             pet.transform.position = new Vector2(petSpot.position.x - 5, petSpot.position.y);
             pet.IsChasePlayer = false;

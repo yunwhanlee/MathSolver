@@ -38,7 +38,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] RectTransform menuTapFrame;
     [SerializeField] GameObject menuTapFrameObjCollider;
 
-
     [Header("SETTING")]
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
 
@@ -113,7 +112,10 @@ public class HUI : MonoBehaviour {
     [SerializeField] List<RewardItemSO> rwdSOList;  public List<RewardItemSO> RwdSOList {get => rwdSOList;}
     [Space(10)]
     [SerializeField] GameObject mapUnlockPopUp;   public GameObject MapUnlockPopUp {get => mapUnlockPopUp; set => mapUnlockPopUp = value;}
-    [SerializeField] TextMeshProUGUI mapUnlockPopUpNameTxt;    public TextMeshProUGUI MapUnlockPopUpNameTxt {get => mapUnlockPopUpNameTxt; set => mapUnlockPopUpNameTxt = value;}
+    [SerializeField] RectTransform mapImageOutlineFrame;   public RectTransform MapImageOutlineFrame {get => mapImageOutlineFrame;}
+    [SerializeField] TextMeshProUGUI mapUnlockPopUpNameTxt;    public TextMeshProUGUI MapUnlockPopUpNameTxt {get => mapUnlockPopUpNameTxt;}
+    [SerializeField] TextMeshProUGUI mapUnlockPopUpCttTxt;    public TextMeshProUGUI MapUnlockPopUpCttTxt {get => mapUnlockPopUpCttTxt;}
+
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
