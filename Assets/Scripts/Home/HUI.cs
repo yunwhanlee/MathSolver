@@ -115,7 +115,9 @@ public class HUI : MonoBehaviour {
     [SerializeField] RectTransform mapImageOutlineFrame;   public RectTransform MapImageOutlineFrame {get => mapImageOutlineFrame;}
     [SerializeField] TextMeshProUGUI mapUnlockPopUpNameTxt;    public TextMeshProUGUI MapUnlockPopUpNameTxt {get => mapUnlockPopUpNameTxt;}
     [SerializeField] TextMeshProUGUI mapUnlockPopUpCttTxt;    public TextMeshProUGUI MapUnlockPopUpCttTxt {get => mapUnlockPopUpCttTxt;}
-
+    [Space(10)]
+    [SerializeField] GameObject goMapPupUp;   public GameObject GoMapPupUp {get => goMapPupUp; set => goMapPupUp = value;}
+    [SerializeField] TextMeshProUGUI goMapPupUpTitleTxt;   public TextMeshProUGUI GoMapPupUpTitleTxt {get => goMapPupUpTitleTxt; set => goMapPupUpTitleTxt = value;}
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
@@ -368,7 +370,23 @@ public class HUI : MonoBehaviour {
         }
         public void onClickBgArea(int idx) {
             DB._.SelectMapIdx = idx;
+            var map = HM._.wmm.Maps[idx];
+            Array.ForEach(map.BgBtns, bgBtn => {
+                bgBtn.GetComponent<Image>().color = Color.yellow;
+            });
+            StartCoroutine(map.coPlayBounce());
+            displayGoMapPupUp(map.MapName);
+        }
+        public void onClickGoMapPupUpYesBtn() {
+            Time.timeScale = 1;
             StartCoroutine(HM._.GoToLoadingScene());
+        }
+        public void onClickGoMapPupUpCloseBtn() {
+            var map = HM._.wmm.Maps[DB._.SelectMapIdx];
+            Array.ForEach(map.BgBtns, bgBtn => {
+                bgBtn.GetComponent<Image>().color = Color.white;
+            });
+            goMapPupUp.SetActive(false);
         }
     #endregion
 #endregion
@@ -438,13 +456,18 @@ public class HUI : MonoBehaviour {
         HM._.pet.gameObject.SetActive(!isActive);
     }
 
-
     private bool isEnglish(string text) {
         foreach (char c in text) {
             if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
                 return true;
         }
         return false;
+    }
+
+    private void displayGoMapPupUp(string mapName) {
+        goMapPupUp.SetActive(true);
+        goMapPupUpTitleTxt.text = mapName;
+
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

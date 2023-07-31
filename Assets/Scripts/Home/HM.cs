@@ -18,6 +18,7 @@ public class HM : MonoBehaviour {
     public InventoryUIManager iUI;
     public HEM em;
     public HomeTalkManager htm;
+    public WorldMapManager wmm;
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;
@@ -49,13 +50,14 @@ public class HM : MonoBehaviour {
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     public IEnumerator GoToLoadingScene() {
+        Debug.Log("GoToLoadingScene()::");
         pl.transform.SetParent(DB._.transform);
         pet.transform.SetParent(DB._.transform);
         pl.transform.gameObject.SetActive(false);
         pet.transform.gameObject.SetActive(false);
 
         HM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
-        HM._.ui.SwitchScreenAnim.SetTrigger("BlackIn");
+        HM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;
         SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
 

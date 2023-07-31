@@ -6,6 +6,7 @@ using TMPro;
 
 public class Map : MonoBehaviour {
     [SerializeField] string mapName;       public string MapName {get => mapName; set => mapName = value;}
+    [SerializeField] Sprite mapSpr;       public Sprite MapSpr {get => mapSpr; set => mapSpr = value;}
     [SerializeField] bool[] isBgUnlocks;    public bool[] IsBgUnlocks {get => isBgUnlocks; set => isBgUnlocks = value;}
     [SerializeField] string[] bgNames;   public string[] BgNames {get => bgNames; set => bgNames = value;}
     [SerializeField] Button[] bgBtns;        public Button[] BgBtns {get => bgBtns;}
@@ -28,19 +29,42 @@ public class Map : MonoBehaviour {
         isBgUnlocks[THIRD] = LV >= limitLvIdx3;
 
         //* 処理
-        bgBtns[FIRST].interactable = (!isBgUnlocks[FIRST]);
+        bgBtns[FIRST].interactable = (isBgUnlocks[FIRST]);
         // bgImgs[FIRST].color = (isBgUnlocks[FIRST])? Color.white : Color.gray;
         bgLimitLvTxts[FIRST].gameObject.SetActive(!isBgUnlocks[FIRST]);
 
-        bgBtns[SECOND].interactable = (!isBgUnlocks[SECOND]);
+        bgBtns[SECOND].interactable = (isBgUnlocks[SECOND]);
         // bgImgs[SECOND].color = (isBgUnlocks[SECOND])? Color.white : Color.gray;
         bgLimitLvTxts[SECOND].gameObject.SetActive(!isBgUnlocks[SECOND]);
 
-        bgBtns[THIRD].interactable = (!isBgUnlocks[THIRD]);
+        bgBtns[THIRD].interactable = (isBgUnlocks[THIRD]);
         // bgImgs[THIRD].color = (isBgUnlocks[THIRD])? Color.white : Color.gray;
         bgLimitLvTxts[THIRD].gameObject.SetActive(!isBgUnlocks[THIRD]);
     }
 
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region ANIM
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#endregion
+    public IEnumerator coPlayBounce() {
+        //* Value
+        bool isDecreasing = false;
+        const float originSc = 1.0f;
+        float spd = 1.5f * Time.deltaTime;
+        const float maxSc = 1.2f;
 
+        //* Scale Bounce
+        while(true) {
+            if(!isDecreasing) {
+                transform.localScale = new Vector2(transform.localScale.x + spd, transform.localScale.y + spd);
+                if(transform.localScale.x > maxSc) isDecreasing = true;
+            }
+            else {
+                transform.localScale = new Vector2(transform.localScale.x - spd, transform.localScale.y - spd);
+                if(transform.localScale.x <= originSc) break;
+            }
+            yield return null;
+        }
+    }
 #endregion
 }

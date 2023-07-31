@@ -13,7 +13,7 @@ public class WorldMapManager : MonoBehaviour {
     [SerializeField] Sprite normalEdgeSpr, goldenEdgeSpr;
     [SerializeField] Color normalFontClr, goldenFontClr;
     [SerializeField] Canvas worldMapCanvas;
-    [SerializeField] Map[] maps;
+    [SerializeField] Map[] maps;    public Map[] Maps {get => maps;}
     [SerializeField] List<UnityAction> onMapPopUpActionList;
 
     private void Start() {
@@ -84,7 +84,7 @@ public class WorldMapManager : MonoBehaviour {
     private void displayUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
         Debug.Log($"displayUnlockPopUp({name}):: btn= {btn.name}");
         Time.timeScale = 0;
-        btn.GetComponent<Animator>().SetTrigger("DoFirstActive");
+        btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
         HM._.ui.MapUnlockPopUp.SetActive(true);
 
         HM._.ui.MapUnlockPopUpNameTxt.color = isMapUnlock? goldenFontClr : normalFontClr;

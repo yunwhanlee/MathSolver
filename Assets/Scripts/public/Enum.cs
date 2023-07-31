@@ -21,6 +21,7 @@ public class Enum {
         HelpFraction, HelpGCD,
         DoTalk, DoShock,
         DoSwitchBG, 
+        DoFirstActive,
     };
     public enum BOX_NAME {
         Box , LeftBox, RightBox, _Blink, _QuestionMark,
