@@ -327,6 +327,7 @@ public class HUI : MonoBehaviour {
         DB.Dt.IsTutoClothShopTrigger = true;
         DB.Dt.IsTutoInventoryTrigger = true;
         DB.Dt.IsTutoGoGameTrigger = true;
+        DB.Dt.IsTutoWorldMapTrigger = true;
         DB.Dt.IsTutoFinishTrigger = true;
         DB.Dt.IsTutoDiagChoiceDiffTrigger = true;
         DB.Dt.IsTutoDiagFirstQuizTrigger = true;
@@ -374,7 +375,8 @@ public class HUI : MonoBehaviour {
             HM._.state = HM.STATE.NORMAL;
             canvasSelectMap.gameObject.SetActive(true);
             canvasStatic.gameObject.SetActive(false);
-            HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
+            if(DB.Dt.IsTutoWorldMapTrigger)
+                HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
         }
         public void onClickGoGameDialogNoBtn() {
             HM._.state = HM.STATE.NORMAL;
@@ -412,6 +414,7 @@ public class HUI : MonoBehaviour {
         && !DB.Dt.IsTutoClothShopTrigger
         && !DB.Dt.IsTutoInventoryTrigger
         && !DB.Dt.IsTutoGoGameTrigger
+        && !DB.Dt.IsTutoWorldMapTrigger
         && !DB.Dt.IsTutoDiagChoiceDiffTrigger
         && !DB.Dt.IsTutoDiagFirstQuizTrigger
         && !DB.Dt.IsTutoDiagFirstAnswerTrigger
@@ -475,11 +478,20 @@ public class HUI : MonoBehaviour {
         }
         return false;
     }
-
     private void displayGoMapPupUp(string mapName) {
         goMapPupUp.SetActive(true);
         goMapPupUpTitleTxt.text = mapName;
-
+    }
+    private void setRewardItemObj(Item item) {
+        item.purchase(isFree: true);
+    }
+    private void checkLevelUp() {
+        if(DB._.LvUpCnt > 0) {
+            DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
+            StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
+                {rwdSOList[(int)Enum.RWD_IDX.Coin], DB.Dt.Lv * 100},
+            }));
+        }
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -526,7 +538,7 @@ public class HUI : MonoBehaviour {
 
         yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
     }
-    public void activeNewFuniturePupUp(Sprite spr, string name) {
+    public void activeNewFuniturePopUp(Sprite spr, string name) {
         newFuniturePopUp.SetActive(true);
         newFuniturePopUpImg.sprite = spr;
         newFuniturePopUpTitleTxt.text = name;
@@ -563,17 +575,6 @@ public class HUI : MonoBehaviour {
                 const int WOOD_CHAIR = 0;
                 onRewardPopUpAction += () => setRewardItemObj(DB.Dt.Funitures[WOOD_CHAIR]);
             }
-        }
-    }
-    private void setRewardItemObj(Item item) {
-        item.purchase(isFree: true);
-    }
-    private void checkLevelUp() {
-        if(DB._.LvUpCnt > 0) {
-            DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
-            StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
-                {rwdSOList[(int)Enum.RWD_IDX.Coin], DB.Dt.Lv * 100},
-            }));
         }
     }
 #endregion

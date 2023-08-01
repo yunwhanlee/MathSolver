@@ -135,13 +135,13 @@ public abstract class Item {
         if(isFree){
             Debug.Log("🎁イベントリワードで提供");
             isLock = false;
-            HM._.ui.activeNewFuniturePupUp(spr, name);
+            HM._.ui.activeNewFuniturePopUp(spr, name);
         }
         else if(DB.Dt.Coin >= this.Price) {
             Debug.Log("💰購入成功！！");
             DB.Dt.setCoin(-this.Price);
             isLock = false;
-            HM._.ui.activeNewFuniturePupUp(spr, name);
+            HM._.ui.activeNewFuniturePopUp(spr, name);
         }
         else {
             Debug.Log("😢 お金がたりない！！");

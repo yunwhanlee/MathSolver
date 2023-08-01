@@ -204,7 +204,6 @@ public class DB : MonoBehaviour {
         dt.IsTutoInventoryTrigger = true;
         dt.IsTutoGoGameTrigger = true;
         dt.IsTutoWorldMapTrigger = true;
-
         dt.IsTutoFinishTrigger = true;
 
         dt.IsTutoDiagChoiceDiffTrigger = true;
