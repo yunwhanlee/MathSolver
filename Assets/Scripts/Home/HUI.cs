@@ -204,7 +204,7 @@ public class HUI : MonoBehaviour {
         && !DB.Dt.IsTutoClothShopTrigger
         && !DB.Dt.IsTutoInventoryTrigger
         && DB.Dt.IsTutoGoGameTrigger) {
-            HM._.htm.action((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_GOGAME);
+            HM._.htm.action((int)HomeTalkManager.ID.TUTO_GOGAME);
         }
 
         //* パンネル 表示・非表示
@@ -405,7 +405,7 @@ public class HUI : MonoBehaviour {
         && !DB.Dt.IsTutoDiagFirstAnswerTrigger
         && !DB.Dt.IsTutoDiagResultTrigger
         && DB.Dt.IsTutoFinishTrigger) {
-            HM._.htm.action((int)HomeTalkManager.TALK_ID_IDX.TUTORIAL_FINISH);
+            HM._.htm.action((int)HomeTalkManager.ID.TUTO_FINISH);
         }
     }
 

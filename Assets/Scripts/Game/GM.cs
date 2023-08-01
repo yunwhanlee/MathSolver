@@ -496,7 +496,7 @@ public class GM : MonoBehaviour {
 
     private void showTutoDiagFirstQuiz() {
         if(qm.CurQuestionIndex == 0 && qm.Status == Status.DIAGNOSIS && DB.Dt.IsTutoDiagFirstQuizTrigger) {
-            gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_QUIZ);
+            gtm.action((int)GameTalkManager.ID.TUTO_DIAG_FIRST_QUIZ);
         }
     }
 

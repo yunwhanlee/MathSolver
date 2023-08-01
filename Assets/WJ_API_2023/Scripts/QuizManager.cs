@@ -351,7 +351,7 @@ public class QuizManager : MonoBehaviour {
         //* チュートリアル Quiz Answer
         if(GM._.qm.CurQuestionIndex == 0 && DB.Dt.IsTutoDiagFirstAnswerTrigger) {
             GM._.gtm.IsTutoQuizAnswerCorret = (ansrCwYn == "Y");
-            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_FIRST_ANSWER);
+            GM._.gtm.action((int)GameTalkManager.ID.TUTO_DIAG_FIRST_ANSWER);
         }
 
         //* 最初選択の答え 保存

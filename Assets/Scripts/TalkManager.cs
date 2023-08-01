@@ -6,12 +6,14 @@ using TMPro;
 
 public abstract class TalkManager : MonoBehaviour {
     public enum SPK_IDX { //* Speaker Index
-        PL_IDLE, PL_HAPPY, PL_SAD,
-        ANIMAL_IDLE, ANIMAL_HAPPY, ANIMAL_SAD,
+        Pl_Idle, pl_Happy, Pl_Sad,
+        Animal_Idle, Animal_Happy, Animal_Sad,
+        DotalMan, MoongMom
     };
 
     IEnumerator coTxtTeleTypeID;
     TextTeleType txtTeleType;
+    [SerializeField] protected RectTransform tutoHandFocusTf; 
 
     //* DATA
     protected Dictionary<int, string[]> talkDt;
@@ -100,29 +102,42 @@ public abstract class TalkManager : MonoBehaviour {
             //* スピーカー
             int key = int.Parse(spkKey);
             var pos = spkImg.rectTransform.anchoredPosition;
-            //* 画像
+            
             switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
-                case 0: case 1: case 2: 
+                case 0: case 1: case 2:
+                    //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
-                    if(key == (int)SPK_IDX.PL_SAD) {
+                    if(key == (int)SPK_IDX.Pl_Sad) {
                         talkDialogAnim.SetTrigger(Enum.ANIM.DoShock.ToString());
                         Camera.main.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoCamShake.ToString());
-                    } 
-                    break;
-                case 3: 
-                    spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); 
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    break;
-            }
-            //* 名前
-            switch(key) {
-                case 0: case 1: case 2: 
-                    spkName.text = "송백 늑선생"; 
+                    }
+                    //* 名前
+                    spkName.text = "늑선생"; 
                     setNameFrameDirection(isLeft: true); // left
                     break;
-                case 3:
-                    spkName.text = "동물친구1";
+                case 3: case 4: case 5:
+                    //* 画像
+                    spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); 
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "동물친구";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
+                case 6: 
+                    //* 画像
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "도톨아저씨";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
+                case 7: 
+                    //* 画像
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "뭉이어멈";
                     setNameFrameDirection(isLeft: false); // right
                     break;
             }

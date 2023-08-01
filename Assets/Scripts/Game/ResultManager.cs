@@ -78,7 +78,7 @@ public class ResultManager : MonoBehaviour {
 
         //* チュートリアル 結果
         if(DB.Dt.IsTutoDiagResultTrigger) {
-            GM._.gtm.action((int)GameTalkManager.TALK_ID_IDX.TUTORIAL_DIAG_RESULT);
+            GM._.gtm.action((int)GameTalkManager.ID.TUTO_DIAG_RESULT);
         }
 
         //* レベール ボーナス
