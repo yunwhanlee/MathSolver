@@ -29,17 +29,20 @@ public class Map : MonoBehaviour {
         isBgUnlocks[THIRD] = LV >= limitLvIdx3;
 
         //* 処理
-        bgBtns[FIRST].interactable = (isBgUnlocks[FIRST]);
-        // bgImgs[FIRST].color = (isBgUnlocks[FIRST])? Color.white : Color.gray;
+        bgBtns[FIRST].interactable = isBgUnlocks[FIRST];
         bgLimitLvTxts[FIRST].gameObject.SetActive(!isBgUnlocks[FIRST]);
 
-        bgBtns[SECOND].interactable = (isBgUnlocks[SECOND]);
-        // bgImgs[SECOND].color = (isBgUnlocks[SECOND])? Color.white : Color.gray;
+        bgBtns[SECOND].interactable = isBgUnlocks[SECOND];
         bgLimitLvTxts[SECOND].gameObject.SetActive(!isBgUnlocks[SECOND]);
 
-        bgBtns[THIRD].interactable = (isBgUnlocks[THIRD]);
-        // bgImgs[THIRD].color = (isBgUnlocks[THIRD])? Color.white : Color.gray;
+        bgBtns[THIRD].interactable = isBgUnlocks[THIRD];
         bgLimitLvTxts[THIRD].gameObject.SetActive(!isBgUnlocks[THIRD]);
+
+        Debug.Log($"WorldMapManager:: init({limitLvIdx1}, {limitLvIdx2}, {limitLvIdx3}):: " + 
+            "bgBtns[FIRST].interactable =" + bgBtns[FIRST].interactable + 
+            ", bgBtns[SECOND].interactable =" + bgBtns[SECOND].interactable + 
+            ", bgBtns[THIRD].interactable =" + bgBtns[THIRD].interactable
+        );
     }
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

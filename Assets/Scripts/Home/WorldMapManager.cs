@@ -30,31 +30,39 @@ public class WorldMapManager : MonoBehaviour {
         //* Check UnLockTrigger
         //* Map 1
         if(m1.IsBgUnlocks[SECOND] && !DB.Dt.IsMap1BG2Trigger) {
+            DB.Dt.IsMap1BG2Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m1.BgBtns[SECOND], m1.BgNames[SECOND]));
         }
         if(m1.IsBgUnlocks[THIRD] && !DB.Dt.IsMap1BG3Trigger) {
+            DB.Dt.IsMap1BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m1.BgBtns[THIRD], m1.BgNames[THIRD]));
         }
         //* Map 2
         if(m2.IsBgUnlocks[FIRST] && !DB.Dt.IsMap2BG1Trigger) {
+            DB.Dt.IsMap2BG1Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[FIRST], m2.MapName, true));
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[FIRST], m2.BgNames[FIRST]));
         }
         if(m2.IsBgUnlocks[SECOND] && !DB.Dt.IsMap2BG2Trigger) {
+            DB.Dt.IsMap2BG2Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[SECOND], m2.BgNames[SECOND]));
         }
         if(m2.IsBgUnlocks[THIRD] && !DB.Dt.IsMap2BG3Trigger) {
+            DB.Dt.IsMap2BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[THIRD], m2.BgNames[THIRD]));
         }
         //* Map 3
         if(m3.IsBgUnlocks[FIRST] && !DB.Dt.IsMap3BG1Trigger) {
+            DB.Dt.IsMap3BG1Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[FIRST], m3.MapName, true));
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[FIRST], m3.BgNames[FIRST]));
         }
         if(m3.IsBgUnlocks[SECOND] && !DB.Dt.IsMap3BG2Trigger) {
+            DB.Dt.IsMap3BG2Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[SECOND], m3.BgNames[SECOND]));
         }
         if(m3.IsBgUnlocks[THIRD] && !DB.Dt.IsMap3BG3Trigger) {
+            DB.Dt.IsMap3BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[THIRD], m3.BgNames[THIRD]));
         }
 
@@ -83,8 +91,10 @@ public class WorldMapManager : MonoBehaviour {
     }
     private void displayUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
         Debug.Log($"displayUnlockPopUp({name}):: btn= {btn.name}");
+        const int HIGHLIGHTEF = 1;
         Time.timeScale = 0;
         btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
+        btn.transform.GetChild(HIGHLIGHTEF).gameObject.SetActive(true);
         HM._.ui.MapUnlockPopUp.SetActive(true);
 
         HM._.ui.MapUnlockPopUpNameTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
