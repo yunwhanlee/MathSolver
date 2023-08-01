@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 using TMPro;
@@ -20,7 +21,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] Button woodSignArrowRightBtn;
 
     [Header("HOME PANEL")]
-
     [SerializeField] Canvas canvasStatic; 
     [SerializeField] Canvas canvasSelectMap;
 
@@ -90,6 +90,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
 
     [Header("POP UP")]
+    UnityAction onRewardPopUpAction;
+
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
     [Space(10)]
@@ -125,6 +127,7 @@ public class HUI : MonoBehaviour {
 
 
     void Start() {
+        onRewardPopUpAction = () => {};
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
@@ -363,10 +366,7 @@ public class HUI : MonoBehaviour {
         rewardPopUp.SetActive(false);
 
         checkLevelUp();
-
-        //* チュートリアル リワード
-        const int WOOD_CHAIR = 0;
-        DB.Dt.Funitures[WOOD_CHAIR].purchase(isFree: true);
+        onRewardPopUpAction();
     }
 
     #region SELECT MAP
@@ -542,6 +542,8 @@ public class HUI : MonoBehaviour {
             yield return Util.time0_2;
             RewardItemSO rwdInfo = pair.Key;
             int val = pair.Value;
+            Debug.Log($"coCreateRewardItemList():: rwdInfo= {rwdInfo}");
+
             //* UI
             Transform ins = Instantiate(rwdPf, itemGroupTf).transform;
             ins.GetChild(SEPCIAL_EF).gameObject.SetActive(rwdInfo.IsSpecial);
@@ -556,7 +558,15 @@ public class HUI : MonoBehaviour {
                 DB.Dt.Exp += val;
                 DB.Dt.getExpPer();
             }
+            else if(rwdInfo.name == Enum.RWD_IDX.WoodChair.ToString()) {
+                //* アイテムリワードPopUp CallBack
+                const int WOOD_CHAIR = 0;
+                onRewardPopUpAction += () => setRewardItemObj(DB.Dt.Funitures[WOOD_CHAIR]);
+            }
         }
+    }
+    private void setRewardItemObj(Item item) {
+        item.purchase(isFree: true);
     }
     private void checkLevelUp() {
         if(DB._.LvUpCnt > 0) {
