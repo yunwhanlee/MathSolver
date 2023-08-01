@@ -20,7 +20,9 @@ public class Map : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void init(int limitLvIdx1, int limitLvIdx2, int limitLvIdx3) {
+    public List<Button> init(int limitLvIdx1, int limitLvIdx2, int limitLvIdx3) {
+        List<Button> lockBtnList = new List<Button>();
+
         const int FIRST = 0, SECOND = 1, THIRD = 2;
         int LV = DB.Dt.Lv;
 
@@ -38,11 +40,18 @@ public class Map : MonoBehaviour {
         bgBtns[THIRD].interactable = isBgUnlocks[THIRD];
         bgLimitLvTxts[THIRD].gameObject.SetActive(!isBgUnlocks[THIRD]);
 
+        //* 返す(ロックBGリスト集める ➡ グレーグラデーションするため)
+        if(!isBgUnlocks[FIRST]) lockBtnList.Add(bgBtns[FIRST]);
+        if(!isBgUnlocks[SECOND]) lockBtnList.Add(bgBtns[SECOND]);
+        if(!isBgUnlocks[THIRD]) lockBtnList.Add(bgBtns[THIRD]);
+
         Debug.Log($"WorldMapManager:: init({limitLvIdx1}, {limitLvIdx2}, {limitLvIdx3}):: " + 
             "bgBtns[FIRST].interactable =" + bgBtns[FIRST].interactable + 
             ", bgBtns[SECOND].interactable =" + bgBtns[SECOND].interactable + 
             ", bgBtns[THIRD].interactable =" + bgBtns[THIRD].interactable
         );
+
+        return lockBtnList;
     }
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

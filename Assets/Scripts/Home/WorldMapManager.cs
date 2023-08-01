@@ -22,10 +22,24 @@ public class WorldMapManager : MonoBehaviour {
         var m3 = maps[2];
         onMapPopUpActionList = new List<UnityAction>();
 
+        List<Button> lockBtnList = new List<Button>();
+
         //* マップ 初期化
-        m1.init(1, 4, 7);
-        m2.init(10, 14, 17);
-        m3.init(20, 24, 27);
+        lockBtnList.AddRange(m1.init(1, 4, 7));
+        lockBtnList.AddRange(m2.init(10, 14, 17));
+        lockBtnList.AddRange(m3.init(20, 24, 27));
+
+        //* LockBtnList グレーグラデーション処理
+        const float DEF_CLR = 0.5f;
+        const float SUB_UNIT = 0.05f;
+        int i = 0;
+        lockBtnList.ForEach(btn => {
+            Debug.Log($"lockBtnList : {btn.name}");
+            var btnClr = btn.colors;
+            float subVal = i * SUB_UNIT;
+            float val = DEF_CLR - subVal;
+            btnClr.disabledColor = new Color(val, val, val);
+        });
 
         //* Check UnLockTrigger
         //* Map 1
