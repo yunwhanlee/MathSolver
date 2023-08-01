@@ -135,7 +135,6 @@ public class HomeTalkManager : TalkManager {
                     activeHandFocus(STAR_MOUNTAION_POS);
                 }
                 break;
-            
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
     }

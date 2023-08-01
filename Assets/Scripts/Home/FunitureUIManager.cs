@@ -47,7 +47,7 @@ public class FunitureUIManager : MonoBehaviour
 #region SHOP EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickCategoryBtn(int idx) {
-        Debug.Log($"BBB onClickCategoryBtn(idx: {idx})");
+        Debug.Log($"onClickCategoryBtn(idx: {idx})");
         //* 初期化
         page = 0;
         Array.ForEach(itemBtns, itemBtn => itemBtn.init());
@@ -60,15 +60,15 @@ public class FunitureUIManager : MonoBehaviour
             categoryBtns[i].image.color = (i == idx)? Color.green : Color.white;
 
         //* アイテム リスト 最新化して並べる
-        showItemList();
+        updateItemList();
     }
     public void onClickShopLeftArrow() {
         setPageByArrowBtn(pageDir: -1); //* ページ
-        showItemList(); //* アイテムリスト 並べる
+        updateItemList(); //* アイテムリスト 並べる
     }
     public void onClickShopRightArrow() {
         setPageByArrowBtn(pageDir: +1); //* ページ
-        showItemList(); //* アイテムリスト 並べる
+        updateItemList(); //* アイテムリスト 並べる
     }
     public void onClickItemListBtn(int idx) {
         //* ペースも含めた 実際のINDEX
@@ -83,6 +83,16 @@ public class FunitureUIManager : MonoBehaviour
     public void onClickInfoDialogPurchaseBtn() {
         Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
         item.purchase(); //* 購入
+    }
+    public void onClickNewFuniturePopUpDisplayBtn() {
+        HM._.ui.NewFuniturePopUp.SetActive(false);
+        Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
+        item.display();
+    }
+    public void onClickNewFuniturePopUpCloseBtn() {
+        HM._.ui.NewFuniturePopUp.SetActive(false);
+        //* 最新化
+        updateItemList();
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +115,7 @@ public class FunitureUIManager : MonoBehaviour
         HM._.ui.onClickDecorateModeCloseBtn();
 
         //* 最新化
-        showItemList();
+        updateItemList();
     }
     public void onClickFunitureModeItemFlatBtn() {
         if(!curSelectedObj) {
@@ -180,11 +190,13 @@ public class FunitureUIManager : MonoBehaviour
         page = Mathf.Clamp(page, 0, (len - 1) / ITEM_BTN_CNT);
         Debug.Log($"onClickPageArrowBtn():: category= {category}, len= {len}, page= {page}");
     }
-    private void showItemList() {
+    private void updateItemList() {
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
         int end = Mathf.Clamp(start + ITEM_BTN_CNT, min: start, max: len);
         Debug.Log($"showItemList():: cate={category}, getCategoryItemLenght= {len}");
+
+        HM._.ui.InfoDialog.gameObject.SetActive(false);
 
         //* ページ 表示
         const int PG_IDX_OFFSET = 1;

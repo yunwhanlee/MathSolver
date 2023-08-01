@@ -12,6 +12,8 @@ public class TouchControl : MonoBehaviour
             if(HM._.state != HM.STATE.NORMAL) return;
             if(HM._.ui.CurHomeSceneIdx != (int)Enum.HOME.Room) return;
             if(HM._.htm.IsAction) return;
+            if(HM._.funitureModeShadowFrameObj.activeSelf) //* NewFuniturePopUpが LevelUpPopUpと重なったら、STATE.NORMALになるバグ対応。
+                HM._.state = HM.STATE.DECORATION_MODE;
 
             Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPos, transform.forward, MAX_DISTANCE);
@@ -19,6 +21,9 @@ public class TouchControl : MonoBehaviour
             for(int i = 0; i < hits.Length; i++) {
                 var hit = hits[i];
                 Debug.Log($"TouchControl:: Hit.tag= {hit.transform.tag}, Hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
+
+
+
                 bool isIconUIArea = hit.transform.CompareTag(Enum.TAG.IconBtnGroupArea.ToString());
                 bool isChair = HM._.isChair(hit.transform.gameObject);
                 bool isPlayer = hit.transform.CompareTag(Enum.TAG.Player.ToString());

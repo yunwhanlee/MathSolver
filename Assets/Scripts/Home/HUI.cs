@@ -120,7 +120,9 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI goMapPupUpTitleTxt;   public TextMeshProUGUI GoMapPupUpTitleTxt {get => goMapPupUpTitleTxt; set => goMapPupUpTitleTxt = value;}
     [Space(10)]
     [SerializeField] GameObject newFuniturePopUp;   public GameObject NewFuniturePopUp {get => newFuniturePopUp;}
+    [SerializeField] Image newFuniturePopUpImg;   public Image NewFuniturePopUpImg {get => newFuniturePopUpImg;}
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
+
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
@@ -359,7 +361,12 @@ public class HUI : MonoBehaviour {
     public void onClickRewardPopUpAcceptBtn() {
         HM._.state = HM.STATE.NORMAL;
         rewardPopUp.SetActive(false);
+
         checkLevelUp();
+
+        //* チュートリアル リワード
+        const int WOOD_CHAIR = 0;
+        DB.Dt.Funitures[WOOD_CHAIR].purchase(isFree: true);
     }
 
     #region SELECT MAP
@@ -518,6 +525,11 @@ public class HUI : MonoBehaviour {
         rewardPopUpFameValTxt.text = $"+{fame}";
 
         yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
+    }
+    public void activeNewFuniturePupUp(Sprite spr, string name) {
+        newFuniturePopUp.SetActive(true);
+        newFuniturePopUpImg.sprite = spr;
+        newFuniturePopUpTitleTxt.text = name;
     }
     private IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
         const int SEPCIAL_EF = 0, SPRITE = 1, VAL = 2;
