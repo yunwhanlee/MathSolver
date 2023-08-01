@@ -38,6 +38,6 @@ public class Enum {
         Apple, Carrot, Banana, Onion, Orange, Potato, Branch, Rock,
     };
     public enum RWD_IDX {
-        Coin, Exp,
+        Coin, Exp, WoodChair
     };
 }

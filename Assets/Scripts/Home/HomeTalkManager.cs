@@ -5,12 +5,17 @@ using UnityEngine.UI;
 using TMPro;
 
 public class HomeTalkManager : TalkManager {
+    readonly Vector2 WOOD_ARROW_POS = new Vector2(300, 770);
+    readonly Vector2 FOOT_HOLD_POS = new Vector2(100, -950);
+    readonly Vector2 STAR_MOUNTAION_POS = new Vector2(-120, -250);
+
     public enum ID {
         TUTO_ROOM
         , TUTO_FUNITURESHOP
         , TUTO_CLOTHSHOP
         , TUTO_INV
         , TUTO_GOGAME
+        , TUTO_WORLDMAP
         , TUTO_FINISH
     };
 
@@ -27,7 +32,7 @@ public class HomeTalkManager : TalkManager {
             "만나서 반가워!\n새로온 수학조수구나!:0"
             , "이름이 어떻게되니?:0"
             , "...:0"
-            , $"NICKNAME..!\n정말 멋진 이름이야!:1"
+            , $"NICKNAME!\n정말 멋진 이름이야!:1"
             , "나는 이 마을 수학해결사 늑선생이야. 잘 부탁해!:0"
             , "사실... 비밀인데...:0"
             , "돌부리에 걸려 넘어진 뒤로 머리를 다쳐서:0"
@@ -49,39 +54,45 @@ public class HomeTalkManager : TalkManager {
             "이곳은 뭉이어멈의 의류점이야.:0"
             , "어머어머 반가워요~!:7"
             , "저희가게는 스킨과 펫을 팔고있어요. 호호:7"
-            , "물건 들어오는게 랜덤이라:7"
+            , "그때그때 물건이\n들어오는게 랜덤이라:7"
             , "뭐가 나올지 저도 모른답니다. 호호:7"
             , "자주 놀러와요~!\n호홍:7"
             , "자!\n다시 화살표를 눌러줘!:0"
         });
         talkDt.Add((int)ID.TUTO_INV, new string[] {
-            "여기는 인벤토리 공간이야.:0"
-            , "스킨과 펫 변경이 가능해!:0"
-            , "다시 화살표를 눌러\n처음으로 돌아가자!:0"
+            "여기는 인벤토리야.:0"
+            , "스킨과 펫의\n변경이 가능해!:0"
+            , "화살표를 눌러\n처음으로 돌아가자!:0"
         });
         talkDt.Add((int)ID.TUTO_GOGAME, new string[] {
             "흠.. 어디보자..:0"
-            , "동물친구들을\n도와주러 갈겸..:0"
-            , "자네의 수학실력을\n한번 파악해볼까?:1"
-            , "겁먹지 말게나!\n내가 있지 않나?!:1"
-            , "찬찬히,\n설명해주겠다네.:0"
-            , "준비가되면, 화면아래\n발판으로 가보시게나!:0"
+            , "동물친구들을\n도와주러 갈겸,:0"
+            , "수학실력을\n한 번 파악해볼까?:1"
+            , "대화가 종료되면\n손가락이 발판을 가리킬거야.:0"
+            , "자 그럼.. 가볼까?!:1"
+        });
+        talkDt.Add((int)ID.TUTO_WORLDMAP, new string[] {
+            "이곳은 월드맵이야.:0"
+            , "지금은 한 지역만 갈 수 있지만:2"
+            , "레벨이 오를수록 더 많은 지역이 열릴거야!:0"
+            , "돌아가고 싶다면, 우측 아래의 집을 클릭하면되!:0"
+            , "자 그럼, 손가락이\n가리킨 지역을 클릭해 줘!:0"
         });
         talkDt.Add((int)ID.TUTO_FINISH, new string[] {
-            "후... 드디어\n집에 돌아왔구만:0"
-            , "첫 해결사 일이었을텐데\n고생많았네!:1"
-            , "받은 보수로\n가구점이나 의류점에서:0"
-            , "아이템을\n구매할 수 있지:0"
-            , "다양한 스킨과 가구를 구매해서:0"
-            , "이 텅빈 집을\n아름답게 꾸며주게나!:0"
-            , "이거는 나의 작은 선물이네!:0"
+            "수고 많았어!:0"
+            , "첫 해결사 일인데도\n잘 하던데?!:1"
+            , "획득한 코인으로\n가구점과 의류점에서:0"
+            , "다양한 스킨과 가구를\n구매 할 수 있어.:0"
+            , "이거는 작은 선물이야!:0"
+            // , "이 코인으로 의류점에서\n랜덤뽑기를 해 봐!:0"
         });
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region FUNC
+#region SET EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     protected override string setEvent(int id) {
         Debug.Log($"GameTalkManager:: setEvent(id={id}):: talkIdx= {talkIdx}");
+
         string rawMsg = "";
         switch(id) {
             case (int)ID.TUTO_ROOM:
@@ -95,28 +106,36 @@ public class HomeTalkManager : TalkManager {
                     Time.timeScale = 0;
                 }
                 if(talkIdx == 12) {
-                    tutoHandFocusTf.gameObject.SetActive(true);
-                    tutoHandFocusTf.anchoredPosition = new Vector2(155, 375);
+                    activeHandFocus(WOOD_ARROW_POS);
                 }
                 break;
             case (int)ID.TUTO_FUNITURESHOP:
                 if(talkIdx == 4) {
-                    tutoHandFocusTf.gameObject.SetActive(true);
-                    tutoHandFocusTf.anchoredPosition = new Vector2(155, 375);
+                    activeHandFocus(WOOD_ARROW_POS);
                 }
                 break;
             case (int)ID.TUTO_CLOTHSHOP:
                 if(talkIdx == 6) {
-                    tutoHandFocusTf.gameObject.SetActive(true);
-                    tutoHandFocusTf.anchoredPosition = new Vector2(155, 375);
+                    activeHandFocus(WOOD_ARROW_POS);
                 }
                 break;
             case (int)ID.TUTO_INV:
                 if(talkIdx == 2) {
-                    tutoHandFocusTf.gameObject.SetActive(true);
-                    tutoHandFocusTf.anchoredPosition = new Vector2(155, 375);
+                    activeHandFocus(WOOD_ARROW_POS);
                 }
                 break;
+            case (int)ID.TUTO_GOGAME:
+                // なし
+                break;
+            case (int)ID.TUTO_WORLDMAP:
+                if(talkIdx == 0) {
+                    tutoHandFocusTf.gameObject.SetActive(false);
+                }
+                if(talkIdx == 4) {
+                    activeHandFocus(STAR_MOUNTAION_POS);
+                }
+                break;
+            
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
     }
@@ -148,16 +167,31 @@ public class HomeTalkManager : TalkManager {
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
                 break;
             case (int)ID.TUTO_GOGAME:
-                DB.Dt.IsTutoGoGameTrigger = false; 
+                DB.Dt.IsTutoGoGameTrigger = false;
+                activeHandFocus(FOOT_HOLD_POS);
+                break;
+            case (int)ID.TUTO_WORLDMAP:
+                DB.Dt.IsTutoWorldMapTrigger = false;
+                tutoHandFocusTf.gameObject.SetActive(false);
                 break;
             case (int)ID.TUTO_FINISH:
                 DB.Dt.IsTutoFinishTrigger = false;
                 StartCoroutine(HM._.ui.coActiveRewardPopUp(fame: 10, new Dictionary<RewardItemSO, int>() {
                     {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Coin], 300},
                     {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Exp], 100},
+                    {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.WoodChair], 1}
                 }));
                 break;
         }
     }
     #endregion
+
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNC
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void activeHandFocus(Vector2 pos) {
+        tutoHandFocusTf.gameObject.SetActive(true);
+        tutoHandFocusTf.anchoredPosition = pos;
+    }
+#endregion
 }

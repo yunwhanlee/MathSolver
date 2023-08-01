@@ -118,6 +118,9 @@ public class HUI : MonoBehaviour {
     [Space(10)]
     [SerializeField] GameObject goMapPupUp;   public GameObject GoMapPupUp {get => goMapPupUp; set => goMapPupUp = value;}
     [SerializeField] TextMeshProUGUI goMapPupUpTitleTxt;   public TextMeshProUGUI GoMapPupUpTitleTxt {get => goMapPupUpTitleTxt; set => goMapPupUpTitleTxt = value;}
+    [Space(10)]
+    [SerializeField] GameObject newFuniturePopUp;   public GameObject NewFuniturePopUp {get => newFuniturePopUp;}
+    [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
 
     void Start() {
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
@@ -361,8 +364,10 @@ public class HUI : MonoBehaviour {
 
     #region SELECT MAP
         public void onClickGoGameDialogYesBtn() { // Choose Map
+            HM._.state = HM.STATE.NORMAL;
             canvasSelectMap.gameObject.SetActive(true);
             canvasStatic.gameObject.SetActive(false);
+            HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
         }
         public void onClickGoGameDialogNoBtn() {
             HM._.state = HM.STATE.NORMAL;
@@ -515,7 +520,7 @@ public class HUI : MonoBehaviour {
         yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
     }
     private IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
-        const int SPRITE = 0, VAL = 1, SEPCIAL_EF = 2;
+        const int SEPCIAL_EF = 0, SPRITE = 1, VAL = 2;
 
         //* init ItemGroup
         foreach(Transform chd in itemGroupTf) Destroy(chd.gameObject);
@@ -525,18 +530,19 @@ public class HUI : MonoBehaviour {
             yield return Util.time0_2;
             RewardItemSO rwdInfo = pair.Key;
             int val = pair.Value;
+            //* UI
             Transform ins = Instantiate(rwdPf, itemGroupTf).transform;
+            ins.GetChild(SEPCIAL_EF).gameObject.SetActive(rwdInfo.IsSpecial);
             ins.GetChild(SPRITE).GetComponent<Image>().sprite = rwdInfo.Spr;
             ins.GetChild(SPRITE).GetComponent<Image>().color = rwdInfo.Clr;
             ins.GetChild(VAL).GetComponent<TextMeshProUGUI>().text = val.ToString();
-            ins.GetChild(SEPCIAL_EF).gameObject.SetActive(rwdInfo.IsSpecial);
 
             //* Set Data
             if(rwdInfo.name == Enum.RWD_IDX.Coin.ToString())
                 DB.Dt.setCoin(val);
             else if(rwdInfo.name == Enum.RWD_IDX.Exp.ToString()) {
                 DB.Dt.Exp += val;
-                DB.Dt.getExpPer();                
+                DB.Dt.getExpPer();
             }
         }
     }
