@@ -141,7 +141,7 @@ public class HomeTalkManager : TalkManager {
 /// 
     protected override void endSwitchProccess(int id) {
         switch(id) {
-            case (int)ID.TUTO_ROOM: 
+            case (int)ID.TUTO_ROOM:
                 TutorialRoomPanelBtn.SetActive(false); 
                 DB.Dt.IsTutoRoomTrigger = false;
                 tutoHandFocusTf.gameObject.SetActive(false);

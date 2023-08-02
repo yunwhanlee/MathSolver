@@ -276,13 +276,14 @@ public class HUI : MonoBehaviour {
         }
         public void onClickAchiveRankIconBtn() {
             topGroup.SetActive(false);
-            // woodSignObj.SetActive(false);
             achiveRankPanel.SetActive(true);
+            HM._.qm.updateMainQuestList();
+            // woodSignObj.SetActive(false);
         }
         public void onClickAchiveRankCloseBtn() {
             topGroup.SetActive(true);
-            // woodSignObj.SetActive(true);
             achiveRankPanel.SetActive(false);
+            // woodSignObj.SetActive(true);
         }
         public void onClickDecorateModeIconBtn() {
             setDecorationMode(isActive: true);
@@ -296,7 +297,7 @@ public class HUI : MonoBehaviour {
     public void onClickAchiveRankTypeBtn(int idx) {
         //* Title
         achiveRankTitleTxt.text = (idx == 0)? LM._.localize("Achivement")
-            : (idx == 1)? LM._.localize("Mission")//Enum.ACHIVERANK.Mission.ToString()
+            : (idx == 1)? LM._.localize("Quest")//Enum.ACHIVERANK.Mission.ToString()
             : LM._.localize("Rank");//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
 
         //* Display

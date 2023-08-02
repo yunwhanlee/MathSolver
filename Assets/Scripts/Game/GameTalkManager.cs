@@ -65,13 +65,17 @@ public class GameTalkManager : TalkManager {
 
     protected override void endSwitchProccess(int id) {
         switch(id) {
-            case 0: DB.Dt.IsTutoDiagChoiceDiffTrigger = false;
+            case 0:
+                DB.Dt.IsTutoDiagChoiceDiffTrigger = false;
                 break;
-            case 1: DB.Dt.IsTutoDiagFirstQuizTrigger = false; 
+            case 1:
+                DB.Dt.IsTutoDiagFirstQuizTrigger = false;
                 break;
-            case 2: DB.Dt.IsTutoDiagFirstAnswerTrigger = false; 
+            case 2:
+                DB.Dt.IsTutoDiagFirstAnswerTrigger = false;
                 break;
-            case 3: DB.Dt.IsTutoDiagResultTrigger = false; 
+            case 3:
+                DB.Dt.IsTutoDiagResultTrigger = false;
                 break;
         }
     }
