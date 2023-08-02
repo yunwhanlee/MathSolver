@@ -23,6 +23,7 @@ public class Data {
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int exp; public int Exp {get => exp; set => exp = value;}
+    [SerializeField] int mainQuestID; public int MainQuestID {get => mainQuestID; set => mainQuestID = value;}
 
     [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
 
@@ -193,6 +194,7 @@ public class DB : MonoBehaviour {
         dt.Lv = 1;
         dt.Coin = 0;
         dt.Exp = 0;
+        dt.MainQuestID = 0;
 
         //* 服屋 値段
         dt.GachaCnt = 1;
