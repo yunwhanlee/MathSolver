@@ -5,11 +5,16 @@ using UnityEngine.UI;
 using TMPro;
 
 public class Quest : MonoBehaviour {
+    public enum TYPE {MainQuest, RepeatQuest};
+
     //* Value
+    [SerializeField] TYPE type;                 public TYPE Type {get => type;}
+    [SerializeField] int id;                    public int Id {get => id;}
     [SerializeField] string qName;              public string QName {get => qName;}
     [SerializeField] int clearCurVal;           public int ClearCurVal {get => clearCurVal; set => clearCurVal = value;}
     [SerializeField] int clearMaxVal;           public int ClearMaxVal {get => clearMaxVal;}
 
+    //* UI
     [SerializeField] Image iconFrameImg;        public Image IconFrameImg {get => iconFrameImg;}
     [SerializeField] Image iconImg;             public Image IconImg {get => iconImg;}
     [SerializeField] TextMeshProUGUI titleTxt;  public TextMeshProUGUI TitleTxt {get => titleTxt;}
@@ -20,12 +25,14 @@ public class Quest : MonoBehaviour {
 
     void Awake() {
         //* Init
-        qName = this.gameObject.name;
+        foreach (QuestManager.MQ_ID mqID in System.Enum.GetValues(typeof(QuestManager.MQ_ID))) // オブジェクト名とMQ_IDのリスト名と同じくすること
+            if(this.name == mqID.ToString()) id = (int)mqID;
         statusGauge.maxValue = clearMaxVal;
+        rewardBtn.onClick.AddListener(() => onClickRewardBtn(id));
     }
 
     void OnEnable() {
-        Debug.Log($"Quest:: qName={qName} OnEnable()");
+        Debug.Log($"Quest:: OnEnable():: qName={qName} == QuestManager.MQ_ID.Tutorial.ToString()={QuestManager.MQ_ID.Tutorial.ToString()}");
         if(qName == QuestManager.MQ_ID.Tutorial.ToString()) {
             clearCurVal = setTutorialClearVal();
             statusGauge.value = clearCurVal;
@@ -37,6 +44,12 @@ public class Quest : MonoBehaviour {
         }
     }
 /// -----------------------------------------------------------------------------------------------------------------
+#region EVENT
+/// -----------------------------------------------------------------------------------------------------------------
+    public void onClickAcceptBtn() => acceptQuest();
+    public void onClickRewardBtn(int id) => HM._.qm.getReward(id);
+#endregion
+/// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     public void acceptQuest() {
@@ -46,7 +59,7 @@ public class Quest : MonoBehaviour {
     }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
-#region QUEST ID (CLEAR VALUE)
+#region QUEST ID : STATUS
 /// -----------------------------------------------------------------------------------------------------------------
     private int setTutorialClearVal() {
         int res = 0;
@@ -57,12 +70,12 @@ public class Quest : MonoBehaviour {
         if(!dt.IsTutoInventoryTrigger) res++;
         if(!dt.IsTutoGoGameTrigger) res++;
         if(!dt.IsTutoWorldMapTrigger) res++;
-        if(!dt.IsTutoFinishTrigger) res++;
         if(!dt.IsTutoDiagChoiceDiffTrigger) res++;
         if(!dt.IsTutoDiagFirstQuizTrigger) res++;
         if(!dt.IsTutoDiagFirstAnswerTrigger) res++;
         if(!dt.IsTutoDiagResultTrigger) res++;
-
+        // if(!dt.IsTutoFinishTrigger) res++;
+        Debug.Log($"setTutorialClearVal():: res= {res}");
         return res;
     }
 #endregion

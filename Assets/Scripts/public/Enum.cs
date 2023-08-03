@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,4 +41,9 @@ public class Enum {
     public enum RWD_IDX {
         Coin, Exp, WoodChair
     };
+
+    internal static IEnumerable<QuestManager.MQ_ID> GetValues(Type type)
+    {
+        throw new NotImplementedException();
+    }
 }

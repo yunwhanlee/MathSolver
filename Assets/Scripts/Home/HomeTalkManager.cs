@@ -8,6 +8,10 @@ public class HomeTalkManager : TalkManager {
     readonly Vector2 WOOD_ARROW_POS = new Vector2(300, 770);
     readonly Vector2 FOOT_HOLD_POS = new Vector2(100, -950);
     readonly Vector2 STAR_MOUNTAION_POS = new Vector2(-120, -250);
+    readonly Vector2 MENUTAP_QUEST_ICON_POS = new Vector2(500, -650);
+    readonly Vector2 QUEST_CATE_POS = new Vector2(100, 550);
+    readonly Vector2 QUEST_REWARD_BTN_POS = new Vector2(450, 250);
+
 
     public enum ID {
         TUTO_ROOM
@@ -81,10 +85,10 @@ public class HomeTalkManager : TalkManager {
         talkDt.Add((int)ID.TUTO_FINISH, new string[] {
             "수고 많았어!:0"
             , "첫 해결사 일인데도\n잘 하던데?!:1"
-            , "획득한 코인으로\n가구점과 의류점에서:0"
-            , "다양한 스킨과 가구를\n구매 할 수 있어.:0"
-            , "이거는 작은 선물이야!:0"
-            , "이 코인으로 의류점에서\n랜덤뽑기를 해봐!:0"
+            , "보상을 받으러 가볼까?\n퀘스트창을 열어보자.:0"
+            , "손가락이 가리키는\n아이콘을 누른 뒤,:0"
+            , "퀘스트 카테고리 선택.:0"
+            , "보상버튼을 클릭해 줘!:0"
         });
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -100,39 +104,43 @@ public class HomeTalkManager : TalkManager {
                     Time.timeScale = 1;
                     HM._.ui.showNickNamePopUp(isActive: true);
                 }
-                if(talkIdx == 3) {
+                else if(talkIdx == 3) {
                     string msg = talkDt[(int)ID.TUTO_ROOM][3];
                     rawMsg = msg.Replace("NICKNAME", $"<color=blue>{DB.Dt.NickName}</color>");
                     Time.timeScale = 0;
                 }
-                if(talkIdx == 12) {
-                    activeHandFocus(WOOD_ARROW_POS);
-                }
+                if(talkIdx == 12) activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_FUNITURESHOP:
-                if(talkIdx == 4) {
-                    activeHandFocus(WOOD_ARROW_POS);
-                }
+                if(talkIdx == 4) activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_CLOTHSHOP:
-                if(talkIdx == 6) {
-                    activeHandFocus(WOOD_ARROW_POS);
-                }
+                if(talkIdx == 6) activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_INV:
-                if(talkIdx == 2) {
-                    activeHandFocus(WOOD_ARROW_POS);
-                }
+                if(talkIdx == 2) activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_GOGAME:
                 // なし
                 break;
             case (int)ID.TUTO_WORLDMAP:
-                if(talkIdx == 0) {
-                    tutoHandFocusTf.gameObject.SetActive(false);
+                if(talkIdx == 0) tutoHandFocusTf.gameObject.SetActive(false);
+                else if(talkIdx == 4) activeHandFocus(STAR_MOUNTAION_POS);
+                break;
+            case (int)ID.TUTO_FINISH:
+                if(talkIdx == 3) {
+                    talkFrameTf.anchoredPosition = new Vector2(0, 500);
+                    HM._.ui.MenuTapFrame.anchoredPosition = new Vector2(0, HM._.ui.MenuTapFrame.anchoredPosition.y);
+                    activeHandFocus(MENUTAP_QUEST_ICON_POS);
                 }
-                if(talkIdx == 4) {
-                    activeHandFocus(STAR_MOUNTAION_POS);
+                else if(talkIdx == 4) {
+                    talkFrameTf.anchoredPosition = new Vector2(0, 0);
+                    HM._.ui.onClickAchiveRankIconBtn();
+                    HM._.ui.onClickAchiveRankTypeBtn(1);
+                    activeHandFocus(QUEST_CATE_POS);
+                }
+                else if(talkIdx == 5) {
+                    activeHandFocus(QUEST_REWARD_BTN_POS);
                 }
                 break;
         }
@@ -175,11 +183,6 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.TUTO_FINISH:
                 DB.Dt.IsTutoFinishTrigger = false;
-                StartCoroutine(HM._.ui.coActiveRewardPopUp(fame: 10, new Dictionary<RewardItemSO, int>() {
-                    {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Coin], 300},
-                    {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Exp], 100},
-                    {HM._.ui.RwdSOList[(int)Enum.RWD_IDX.WoodChair], 1}
-                }));
                 break;
         }
     }

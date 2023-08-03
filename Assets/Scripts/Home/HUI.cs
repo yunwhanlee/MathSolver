@@ -9,7 +9,7 @@ using System;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
-public class HUI : MonoBehaviour {
+public class HUI : MonoBehaviour { 
     [SerializeField] Color selectedTypeBtnClr;
     [SerializeField] TextMeshProUGUI coinTxt; public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
 
@@ -26,7 +26,8 @@ public class HUI : MonoBehaviour {
 
     [SerializeField] GameObject topGroup; public GameObject TopGroup {get => topGroup; set => topGroup = value;}
     [SerializeField] GameObject[] homeScenePanelArr;    public GameObject[] HomeScenePanelArr {get => homeScenePanelArr; set => homeScenePanelArr = value;}
-    [SerializeField] GameObject achiveRankPanel; public GameObject AchiveRankPanel {get => achiveRankPanel; set => achiveRankPanel = value;}
+    [SerializeField] GameObject achiveRankPanel; public GameObject 
+    Panel {get => achiveRankPanel; set => achiveRankPanel = value;}
     [SerializeField] GameObject decorateModePanel; public GameObject DecorateModePanel {get => decorateModePanel; set => decorateModePanel = value;}
     [SerializeField] GameObject roomPanel; public GameObject RoomPanel {get => roomPanel; set => roomPanel = value;}
     [SerializeField] GameObject ikeaShopPanel; public GameObject IkeaShopPanel {get => ikeaShopPanel; set => ikeaShopPanel = value;}
@@ -35,7 +36,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}
 
     [Header("MENU TAP")]
-    [SerializeField] RectTransform menuTapFrame;
+    [SerializeField] RectTransform menuTapFrame;    public RectTransform MenuTapFrame {get => menuTapFrame;}
     [SerializeField] GameObject menuTapFrameObjCollider;
 
     [Header("SETTING")]
