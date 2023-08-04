@@ -89,9 +89,9 @@ public class HomeTalkManager : TalkManager {
         #endregion
 
         #region FOREST
-        talkDt.Add((int)ID.TUTO_FINISH, new string[] {
-            ":0"
-        });
+        // talkDt.Add((int)ID.TUTO_FINISH, new string[] {
+        //     ":0"
+        // });
         #endregion
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
