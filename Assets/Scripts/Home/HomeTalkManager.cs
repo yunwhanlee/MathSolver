@@ -14,13 +14,8 @@ public class HomeTalkManager : TalkManager {
 
 
     public enum ID {
-        TUTO_ROOM
-        , TUTO_FUNITURESHOP
-        , TUTO_CLOTHSHOP
-        , TUTO_INV
-        , TUTO_GOGAME
-        , TUTO_WORLDMAP
-        , TUTO_FINISH
+        TUTO_ROOM, TUTO_FUNITURESHOP, TUTO_CLOTHSHOP, TUTO_INV, TUTO_GOGAME, TUTO_WORLDMAP, TUTO_FINISH,
+        UNLOCK_MAP1_WINDMILL, UNLOCK_MAP1_ORCHARD, OPEN_JUNGLE_MAP2,
     };
 
     [Header("EXTRA")]
@@ -31,6 +26,7 @@ public class HomeTalkManager : TalkManager {
     }
 
     public override void generateData() {
+        #region TUTORIAL
         //* チュートリアル用
         talkDt.Add((int)ID.TUTO_ROOM, new string[] {
             "만나서 반가워!\n새로온 수학조수구나!:0"
@@ -90,6 +86,13 @@ public class HomeTalkManager : TalkManager {
             , "퀘스트 카테고리 선택.:0"
             , "보상버튼을 클릭해 줘!:0"
         });
+        #endregion
+
+        #region FOREST
+        talkDt.Add((int)ID.TUTO_FINISH, new string[] {
+            ":0"
+        });
+        #endregion
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region SET EVENT

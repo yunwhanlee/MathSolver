@@ -28,7 +28,7 @@ public class QuestManager : MonoBehaviour {
         Array.ForEach(mainQuests, mq => {
             if(i == DB.Dt.MainQuestID) {
                 mq.gameObject.SetActive(true);
-                mq.acceptQuest();
+                mq.acceptQuest(); //* メインクエストは自動承知
             }
             else {
                 mq.gameObject.SetActive(false);
