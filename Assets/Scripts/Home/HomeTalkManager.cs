@@ -15,7 +15,9 @@ public class HomeTalkManager : TalkManager {
 
     public enum ID {
         TUTO_ROOM, TUTO_FUNITURESHOP, TUTO_CLOTHSHOP, TUTO_INV, TUTO_GOGAME, TUTO_WORLDMAP, TUTO_FINISH,
-        UNLOCK_MAP1_WINDMILL, UNLOCK_MAP1_ORCHARD, OPEN_JUNGLE_MAP2,
+        UnlockMap1Windmill, UnlockMap1Orchard, 
+        OpenJungleMap2, UnlockMap2Bush, UnlockMap2MoneyWat,
+        OpenTundraMap3, UnlockMap3SnowMountain, UnlockMap3IceDragon,
     };
 
     [Header("EXTRA")]

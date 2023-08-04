@@ -26,13 +26,43 @@ public class Quest : MonoBehaviour {
 
     void Awake() {
         //* Init
-        foreach (QuestManager.MQ_ID mqID in System.Enum.GetValues(typeof(QuestManager.MQ_ID))) // オブジェクト名とMQ_IDのリスト名と同じくすること
-            if(this.name == mqID.ToString()) id = (int)mqID;
+        // foreach (QuestManager.MQ_ID mqID in System.Enum.GetValues(typeof(QuestManager.MQ_ID))) // オブジェクト名とMQ_IDのリスト名と同じくすること
+        //     if(this.name == mqID.ToString()) id = (int)mqID;
         statusGauge.maxValue = clearMaxVal;
         rewardBtn.onClick.AddListener(() => onClickRewardBtn(id));
     }
 
     void OnEnable() {
+        updateStatusGauge();
+    }
+/// -----------------------------------------------------------------------------------------------------------------
+#region EVENT
+/// -----------------------------------------------------------------------------------------------------------------
+    public void onClickAcceptBtn() => acceptQuest();
+    public void onClickRewardBtn(int id) => HM._.qm.getReward(id);
+#endregion
+/// -----------------------------------------------------------------------------------------------------------------
+#region FUNC
+/// -----------------------------------------------------------------------------------------------------------------
+
+
+    public void acceptQuest() {
+        acceptBtn.gameObject.SetActive(false);
+        rewardBtn.gameObject.SetActive(true);
+        // rewardBtn.interactable = false;
+        updateStatusGauge();
+    }
+    private void setStatusGauge(int val) {
+        clearCurVal = val;
+        statusGauge.value = clearCurVal;
+        //* リワードボタン 活性化
+        rewardBtn.interactable = clearCurVal >= clearMaxVal;
+    }
+#endregion
+/// -----------------------------------------------------------------------------------------------------------------
+#region QUEST ID : STATUS
+/// -----------------------------------------------------------------------------------------------------------------
+    private void updateStatusGauge() {
         Debug.Log($"Quest:: OnEnable():: qName={qName} == QuestManager.MQ_ID.Tutorial.ToString()={QuestManager.MQ_ID.Tutorial.ToString()}");
         switch(DB.Dt.MainQuestID) {
             case (int)QuestManager.MQ_ID.Tutorial:
@@ -50,30 +80,6 @@ public class Quest : MonoBehaviour {
                 break;
         }
     }
-/// -----------------------------------------------------------------------------------------------------------------
-#region EVENT
-/// -----------------------------------------------------------------------------------------------------------------
-    public void onClickAcceptBtn() => acceptQuest();
-    public void onClickRewardBtn(int id) => HM._.qm.getReward(id);
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region FUNC
-/// -----------------------------------------------------------------------------------------------------------------
-    public void acceptQuest() {
-        acceptBtn.gameObject.SetActive(false);
-        rewardBtn.gameObject.SetActive(true);
-        rewardBtn.interactable = false;
-    }
-    private void setStatusGauge(int val) {
-        clearCurVal = val;
-        statusGauge.value = clearCurVal;
-        //* リワードボタン 活性化
-        if(clearCurVal == clearMaxVal) rewardBtn.interactable = true;
-    }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region QUEST ID : STATUS
-/// -----------------------------------------------------------------------------------------------------------------
     private int getTutoClearVal() {
         int res = 0;
         var dt = DB.Dt;

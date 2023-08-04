@@ -6,12 +6,15 @@ using System;
 
 public class QuestManager : MonoBehaviour {
     public enum MQ_ID { //* MainQuest ID
-        Tutorial, 
+        Tutorial,
+        //* Map1
         UnlockMap1Windmill, 
         UnlockMap1Orchard,
+        //* Map2
         OpenJungleMap2,
         UnlockMap2Bush,
         UnlockMap2MoneyWat,
+        //* Map3
         OpenTundraMap3,
         UnlockMap3SnowMountain,
         UnlockMap3IceDragon,
@@ -28,7 +31,7 @@ public class QuestManager : MonoBehaviour {
         Array.ForEach(mainQuests, mq => {
             if(i == DB.Dt.MainQuestID) {
                 mq.gameObject.SetActive(true);
-                mq.acceptQuest(); //* メインクエストは自動承知
+                // mq.acceptQuest(); //* メインクエストは自動承知
             }
             else {
                 mq.gameObject.SetActive(false);
