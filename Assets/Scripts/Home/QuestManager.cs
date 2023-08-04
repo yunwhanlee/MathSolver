@@ -43,12 +43,31 @@ public class QuestManager : MonoBehaviour {
     public void getReward(int id) {
         var hui = HM._.ui;
         var rwdList = hui.RwdSOList;
-        if(id == (int)MQ_ID.Tutorial) {
-            StartCoroutine(hui.coActiveRewardPopUp(fame: 10, new Dictionary<RewardItemSO, int>() {
-                {rwdList[(int)Enum.RWD_IDX.Coin], 300},
-                {rwdList[(int)Enum.RWD_IDX.Exp], 100},
-                {rwdList[(int)Enum.RWD_IDX.WoodChair], 1}
-            }));
+        switch(id) {
+            case (int)MQ_ID.Tutorial:
+                StartCoroutine(hui.coActiveRewardPopUp(fame: 10, new Dictionary<RewardItemSO, int>() {
+                    {rwdList[(int)Enum.RWD_IDX.Coin], 300},
+                    {rwdList[(int)Enum.RWD_IDX.Exp], 100},
+                    {rwdList[(int)Enum.RWD_IDX.WoodChair], 1}
+                }));
+                break;
+            case (int)MQ_ID.UnlockMap1Windmill:
+            case (int)MQ_ID.UnlockMap1Orchard:
+            case (int)MQ_ID.OpenJungleMap2:
+            case (int)MQ_ID.UnlockMap2Bush:
+            case (int)MQ_ID.UnlockMap2MoneyWat:
+            case (int)MQ_ID.OpenTundraMap3:
+            case (int)MQ_ID.UnlockMap3SnowMountain:
+            case (int)MQ_ID.UnlockMap3IceDragon:
+                //* Value     Def                        Unit
+                int fameVal = 10  + (DB.Dt.MainQuestID * 5);
+                int coinVal = 300 + (DB.Dt.MainQuestID * 150);
+                int expVal =  100 + (DB.Dt.MainQuestID * 50);
+                StartCoroutine(hui.coActiveRewardPopUp(fame: fameVal, new Dictionary<RewardItemSO, int>() {
+                    {rwdList[(int)Enum.RWD_IDX.Coin], coinVal},
+                    {rwdList[(int)Enum.RWD_IDX.Exp], expVal},
+                }));
+                break;
         }
         DB.Dt.MainQuestID++;
         updateMainQuestList();

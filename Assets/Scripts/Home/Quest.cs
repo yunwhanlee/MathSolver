@@ -13,6 +13,7 @@ public class Quest : MonoBehaviour {
     [SerializeField] string qName;              public string QName {get => qName;}
     [SerializeField] int clearCurVal;           public int ClearCurVal {get => clearCurVal; set => clearCurVal = value;}
     [SerializeField] int clearMaxVal;           public int ClearMaxVal {get => clearMaxVal;}
+    
 
     //* UI
     [SerializeField] Image iconFrameImg;        public Image IconFrameImg {get => iconFrameImg;}
@@ -35,34 +36,17 @@ public class Quest : MonoBehaviour {
         Debug.Log($"Quest:: OnEnable():: qName={qName} == QuestManager.MQ_ID.Tutorial.ToString()={QuestManager.MQ_ID.Tutorial.ToString()}");
         switch(DB.Dt.MainQuestID) {
             case (int)QuestManager.MQ_ID.Tutorial:
-                clearCurVal = setTutorialClearVal();
-                statusGauge.value = clearCurVal;
-                //* リワードボタン 活性化
-                if(clearCurVal == clearMaxVal) rewardBtn.interactable = true;
+                setStatusGauge(getTutoClearVal());
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap1Windmill:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.UnlockMap1Orchard:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.OpenJungleMap2:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.UnlockMap2Bush:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.UnlockMap2MoneyWat:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.OpenTundraMap3:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.UnlockMap3SnowMountain:
-                //TODO
-                break;
             case (int)QuestManager.MQ_ID.UnlockMap3IceDragon:
-                //TODO
+                setStatusGauge(DB.Dt.Lv);
                 break;
         }
     }
@@ -80,11 +64,17 @@ public class Quest : MonoBehaviour {
         rewardBtn.gameObject.SetActive(true);
         rewardBtn.interactable = false;
     }
+    private void setStatusGauge(int val) {
+        clearCurVal = val;
+        statusGauge.value = clearCurVal;
+        //* リワードボタン 活性化
+        if(clearCurVal == clearMaxVal) rewardBtn.interactable = true;
+    }
 #endregion
 /// -----------------------------------------------------------------------------------------------------------------
 #region QUEST ID : STATUS
 /// -----------------------------------------------------------------------------------------------------------------
-    private int setTutorialClearVal() {
+    private int getTutoClearVal() {
         int res = 0;
         var dt = DB.Dt;
         if(!dt.IsTutoRoomTrigger) res++;
@@ -98,7 +88,7 @@ public class Quest : MonoBehaviour {
         if(!dt.IsTutoDiagFirstAnswerTrigger) res++;
         if(!dt.IsTutoDiagResultTrigger) res++;
         // if(!dt.IsTutoFinishTrigger) res++;
-        Debug.Log($"setTutorialClearVal():: res= {res}");
+        Debug.Log($"getTutoClearVal():: res= {res}");
         return res;
     }
 #endregion
