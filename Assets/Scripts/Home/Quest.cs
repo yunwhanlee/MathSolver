@@ -33,14 +33,37 @@ public class Quest : MonoBehaviour {
 
     void OnEnable() {
         Debug.Log($"Quest:: OnEnable():: qName={qName} == QuestManager.MQ_ID.Tutorial.ToString()={QuestManager.MQ_ID.Tutorial.ToString()}");
-        if(qName == QuestManager.MQ_ID.Tutorial.ToString()) {
-            clearCurVal = setTutorialClearVal();
-            statusGauge.value = clearCurVal;
-            //* リワードボタン 活性化
-            if(clearCurVal == clearMaxVal) rewardBtn.interactable = true;
-        }
-        else if(qName == QuestManager.MQ_ID.Tutorial.ToString()) {
-            //TODO
+        switch(DB.Dt.MainQuestID) {
+            case (int)QuestManager.MQ_ID.Tutorial:
+                clearCurVal = setTutorialClearVal();
+                statusGauge.value = clearCurVal;
+                //* リワードボタン 活性化
+                if(clearCurVal == clearMaxVal) rewardBtn.interactable = true;
+                break;
+            case (int)QuestManager.MQ_ID.UnlockMap1Windmill:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.UnlockMap1Orchard:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.OpenJungleMap2:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.UnlockMap2Bush:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.UnlockMap2MoneyWat:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.OpenTundraMap3:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.UnlockMap3SnowMountain:
+                //TODO
+                break;
+            case (int)QuestManager.MQ_ID.UnlockMap3IceDragon:
+                //TODO
+                break;
         }
     }
 /// -----------------------------------------------------------------------------------------------------------------

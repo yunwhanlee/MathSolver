@@ -34,11 +34,12 @@ public class WorldMapManager : MonoBehaviour {
         const float SUB_UNIT = 0.05f;
         int i = 0;
         lockBtnList.ForEach(btn => {
-            Debug.Log($"lockBtnList : {btn.name}");
             var btnClr = btn.colors;
-            float subVal = i * SUB_UNIT;
+            float subVal = i++ * SUB_UNIT;
             float val = DEF_CLR - subVal;
             btnClr.disabledColor = new Color(val, val, val);
+            Debug.Log($"lockBtnList : {btn.name}.disabledColor= {val}");
+            btn.colors = btnClr; //* 適用
         });
 
         //* Check UnLockTrigger
