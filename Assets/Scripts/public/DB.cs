@@ -73,11 +73,12 @@ public class Data {
     }
     public float getExpPer() {
         int max = EXP_MAX_UNIT * lv;
-        if(DB.Dt.Exp >= max) {
+        //* Level Up!
+        if(exp >= max) {
             lv++;
             DB._.LvUpCnt++;
-            exp = 0;
-            return 1;
+            exp -= max;
+            return exp;
         }
         return ((float)exp) / ((float)max);
     }

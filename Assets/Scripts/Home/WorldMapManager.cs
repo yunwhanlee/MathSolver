@@ -15,11 +15,13 @@ public class WorldMapManager : MonoBehaviour {
     [SerializeField] RectTransform scrollViewCtt;   public RectTransform ScrollViewCtt {get => scrollViewCtt;}
     [SerializeField] Sprite normalEdgeSpr, goldenEdgeSpr;
     [SerializeField] Color normalFontClr, goldenFontClr;
-    [SerializeField] Canvas worldMapCanvas;
     [SerializeField] Map[] maps;    public Map[] Maps {get => maps;}
     [SerializeField] List<UnityAction> onMapPopUpActionList;
 
-    private void Start() {
+    void OnEnable() => init();
+
+    public void init() {
+        Debug.Log("OnEnable() WorldMapManager:: ");
         var m1 = maps[0];
         var m2 = maps[1];
         var m3 = maps[2];

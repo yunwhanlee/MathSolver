@@ -369,7 +369,7 @@ public class HUI : MonoBehaviour {
         rewardPopUp.SetActive(false);
 
         checkLevelUp();
-        onRewardPopUpAccept();
+        onRewardPopUpAccept?.Invoke();
         onRewardPopUpAccept = null; //* 初期化
     }
 
@@ -490,6 +490,7 @@ public class HUI : MonoBehaviour {
     }
     private void checkLevelUp() {
         if(DB._.LvUpCnt > 0) {
+            Debug.Log($"checkLevelUp():: LvUpCnt= {DB._.LvUpCnt}");
             DB._.LvUpCnt = 0; //TODO Double Levelの場合対応
             StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
                 {rwdSOList[(int)Enum.RWD_IDX.Coin], DB.Dt.Lv * 100},
