@@ -6,10 +6,13 @@ using UnityEngine.Events;
 using TMPro;
 
 public class WorldMapManager : MonoBehaviour {
+    //* Scroll Pos
+    const int START_POS = -1920;
+
     const int FIRST = 0, SECOND = 1, THIRD = 2;
     const int OUTLINE_FRAME_SIZE = 850;
     const int INNER_FRAME_SIZE = 700;
-
+    [SerializeField] RectTransform scrollViewCtt;   public RectTransform ScrollViewCtt {get => scrollViewCtt;}
     [SerializeField] Sprite normalEdgeSpr, goldenEdgeSpr;
     [SerializeField] Color normalFontClr, goldenFontClr;
     [SerializeField] Canvas worldMapCanvas;
@@ -120,6 +123,17 @@ public class WorldMapManager : MonoBehaviour {
         HM._.ui.MapImageOutlineFrame.GetComponent<Image>().sprite = isMapUnlock? goldenEdgeSpr : normalEdgeSpr;
         HM._.ui.MapImageOutlineFrame.sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE, OUTLINE_FRAME_SIZE) : new Vector2(INNER_FRAME_SIZE, INNER_FRAME_SIZE);
         HM._.ui.MapImageOutlineFrame.GetChild(0).GetComponent<RectTransform>().sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE - 50, OUTLINE_FRAME_SIZE - 50) : new Vector2(INNER_FRAME_SIZE - 50, INNER_FRAME_SIZE - 50);
+    }
+    public void showUnlockBg(int mapIdx, int bgIdx) {
+        //* ワールドマップ 表示
+        gameObject.SetActive(true);
+        //* SetScrollPos
+        var bg = maps[mapIdx].BgBtns[bgIdx];
+        Debug.Log($"setScrollPos({mapIdx}, {bgIdx}):: {bg.name}");
+        //* ↑方向：⊖値
+        float posY = START_POS - bg.GetComponent<RectTransform>().localPosition.y;
+        scrollViewCtt.anchoredPosition = new Vector2(0, posY);
+        
     }
 
 #endregion

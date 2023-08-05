@@ -169,7 +169,7 @@ public class HomeTalkManager : TalkManager {
             , "수학해결사님 우리들을 좀 도와줘개미:10"
             , "그럼 알려주개미!! :10"
             , "크아.. 이놈의 인기..\n또 시작이군..:2"
-            , "어쩔수없다. 조수! 수학이 필요한 곳을 외면할 수는 없는 법:1"
+            , "어쩔수없다. 수학이 필요한 곳을 외면할 수는 없지:1"
             , "수학연장 챙겨라!:1"
             , "고맙개미!:10"
         });
@@ -177,7 +177,7 @@ public class HomeTalkManager : TalkManager {
             "정말 고맙개미!!:10"
             , "덕분에 덤불마을이 수학의힘으로 평화로워졌개미!:10"
             , "자 그럼 이제 원숭이가 있는 신전을 알려줘야지?:0"
-            , "알고있개미. 그 신전은 몽키와트라는 장소다개미.:10"
+            , "알고있개미. 그 신전은 몽키와트라는 곳이다개미.:10"
             , "미리 길을 열어두었개미. 그리고 가면된다개미.:10"
             , "고마워! 드디어 찾았다 몽키와트 신전!:0"
         });
@@ -317,23 +317,38 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.TUTO_FINISH:
                 DB.Dt.IsTutoFinishTrigger = false;
                 break;
-            case (int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT:   
+            case (int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP1_WINDMILL_REWARD:   
+                HM._.wmm.showUnlockBg(mapIdx: 0, bgIdx: 1);
                 break;
-            case (int)ID.UNLOCK_MAP1_WINDMILL_REWARD:   break;
             case (int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP1_ORCHARD_REWARD:   break;
+            case (int)ID.UNLOCK_MAP1_ORCHARD_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 0, bgIdx: 2);
+                break;
             case (int)ID.OPEN_JUNGLE_MAP2_ACCEPT:   break;
-            case (int)ID.OPEN_JUNGLE_MAP2_REWARD:   break;
+            case (int)ID.OPEN_JUNGLE_MAP2_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 0);
+                break;
             case (int)ID.UNLOCK_MAP2_BUSH_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_BUSH_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_BUSH_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 1);
+                break;
             case (int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 2);
+                break;
             case (int)ID.OPEN_TUNDRA_MAP3_ACCEPT:   break;
-            case (int)ID.OPEN_TUNDRA_MAP3_REWARD:   break;
+            case (int)ID.OPEN_TUNDRA_MAP3_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 2, bgIdx: 0);
+                break;
             case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 2, bgIdx: 1);
+                break;
             case (int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD:
+                HM._.wmm.showUnlockBg(mapIdx: 2, bgIdx: 2);
+                break;
         }
     }
     #endregion
