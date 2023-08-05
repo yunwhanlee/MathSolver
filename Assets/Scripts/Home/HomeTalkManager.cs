@@ -5,19 +5,23 @@ using UnityEngine.UI;
 using TMPro;
 
 public class HomeTalkManager : TalkManager {
-    readonly Vector2 WOOD_ARROW_POS = new Vector2(300, 770);
-    readonly Vector2 FOOT_HOLD_POS = new Vector2(100, -950);
-    readonly Vector2 STAR_MOUNTAION_POS = new Vector2(-120, -250);
-    readonly Vector2 MENUTAP_QUEST_ICON_POS = new Vector2(500, -650);
-    readonly Vector2 QUEST_CATE_POS = new Vector2(100, 550);
-    readonly Vector2 QUEST_REWARD_BTN_POS = new Vector2(450, 250);
-
+    readonly Vector2 WOOD_ARROW_POS = new (300, 770);
+    readonly Vector2 FOOT_HOLD_POS = new (100, -950);
+    readonly Vector2 STAR_MOUNTAION_POS = new (-120, -250);
+    readonly Vector2 MENUTAP_QUEST_ICON_POS = new (500, -650);
+    readonly Vector2 QUEST_CATE_POS = new (100, 550);
+    readonly Vector2 QUEST_REWARD_BTN_POS = new (450, 250);
 
     public enum ID {
         TUTO_ROOM, TUTO_FUNITURESHOP, TUTO_CLOTHSHOP, TUTO_INV, TUTO_GOGAME, TUTO_WORLDMAP, TUTO_FINISH,
-        UnlockMap1Windmill, UnlockMap1Orchard, 
-        OpenJungleMap2, UnlockMap2Bush, UnlockMap2MoneyWat,
-        OpenTundraMap3, UnlockMap3SnowMountain, UnlockMap3IceDragon,
+        UNLOCK_MAP1_WINDMILL_ACCEPT, UNLOCK_MAP1_WINDMILL_REWARD,
+        UNLOCK_MAP1_ORCHARD_ACCEPT, UNLOCK_MAP1_ORCHARD_REWARD,
+        OPEN_JUNGLE_MAP2_ACCEPT,  OPEN_JUNGLE_MAP2_REWARD,
+        UNLOCK_MAP2_BUSH_ACCEPT,  UNLOCK_MAP2_BUSH_REWARD,
+        UNLOCK_MAP2_MONKEYWAT_ACCEPT, UNLOCK_MAP2_MONKEYWAT_REWARD,
+        OPEN_TUNDRA_MAP3_ACCEPT,  OPEN_TUNDRA_MAP3_REWARD,
+        UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT,  UNLOCK_MAP3_SNOWMOUNTAION_REWARD,
+        UNLOCK_MAP3_ICEDRAGON_ACCEPT, UNLOCK_MAP3_ICEDRAGON_REWARD,
     };
 
     [Header("EXTRA")]
@@ -90,10 +94,114 @@ public class HomeTalkManager : TalkManager {
         });
         #endregion
 
-        #region FOREST
-        // talkDt.Add((int)ID.TUTO_FINISH, new string[] {
-        //     ":0"
-        // });
+        #region UNLOCK QUEST
+        talkDt.Add((int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT, new string[] {
+            "자 이제 본격적으로\n해결사 일을 진행해볼까?:0",
+            "문제를 풀면서, 레벨4를 달성해보자!:0"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP1_WINDMILL_REWARD, new string[] {
+            "안녕하세요.\n해결사 선생님!:3"
+            , "괜찮으시면,풍차농장에도\n꼭 들러주세요!:3"
+            , "오오.. 다른곳에서도 소문이 났나봐:0"
+            , "월드맵으로 가보자\n이제 풍차농장에도 갈수 있어!:1"
+        });
+
+        talkDt.Add((int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT, new string[] {
+            "새로운 지역도 도와주면서\n레벨을 7까지 올려보자!:0"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP1_ORCHARD_REWARD, new string[] {
+            "해결사 선생님!!:4"
+            , "얼마나 찾고 있었는지 몰라요:5"
+            , "저희 과수원에도 꼭 놀러와주세요!:3"
+            , "월드맵으로 가보자\n이제 과수원에도 갈수 있어!:1"
+        });
+
+        talkDt.Add((int)ID.OPEN_JUNGLE_MAP2_ACCEPT, new string[] {
+            "새로운 지역도 도와주면서\n레벨을 10을 달성해줘!:0"
+        });
+        talkDt.Add((int)ID.OPEN_JUNGLE_MAP2_REWARD, new string[] {
+            "이야 벌써 레벨10을 달성했구나!\n대단해!:1"
+            , "이미 별숲마을에서는 수학 잘하기로 소문이 자자하다구!:1"
+            , "(어디선가 머리 콩!):8"
+            , "아얏!:2"
+            , "우끼끼!!:8"
+            , "뭐야?! 처음보는 원숭이인데?:0"
+            , "(머리 콩!):8"
+            , "아악! 또 때렷어!:2"
+            , "우끼! 나 잡아봐라!\n(후다닥):8"
+            , "잡아! 당장 잡아!!:1"
+        });
+
+        talkDt.Add((int)ID.UNLOCK_MAP2_BUSH_ACCEPT, new string[] {
+            "으...\n정글로 도망가버렸어..:2"
+            , "(톡톡..):9"
+            , "저기.. 안녕하세유?\n혹시 수학해결사 맞나유?:9"
+            , "맞는데..\n누..누구시죠?:0"
+            , "혹시, 머리를 두번때리고 간 원숭이를 찾으시나유?:9"
+            , "아앗..맞아요!:2"
+            , "역시! 저는 정글에사는 주민인데요.\n저희 수학문제를 도와주면:9"
+            , "원숭이가 어디로 갔는지 알려드릴게유.:9"
+            , "수학연장 챙겨라\n바로 갑니다.:1"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP2_BUSH_REWARD, new string[] {
+            "도와주셔서 너무 감사합니다유.:9"
+            , "이제 어디로 갔는지 당장 말해요!:0"
+            , "원숭이들은 몽키와트라는 신전에서 생활해유:9"
+            , "아마 거기가시면 찾으실 수 있을거에유.:9"
+            , "덤불지대 근처라는 소문은 들었지만:9"
+            , "워낙 베일에 쌓인 곳이라서 그 이상은 몰라유..:9"
+            , "덤불지대? 거기가 어디지?!:0"
+            , "걱정마세유. 제 친구 개미에게 부탁해놨어유.:9"
+            , "조만간 선생님을 찾아뵐거에유.:9"
+            , "좋았어!!:1"
+        });
+
+        talkDt.Add((int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT, new string[] {
+            "안녕하세개미!:10"
+            , "여기가 수학천재 해결사님의 집인가개미?:10"
+            , "(두리번 두리번..):0"
+            , "음..뭐지 누가 날 불렀는데 아무도 없..:0"
+            , "발 아래개미! :10"
+            , "앗! 왠 개미가?!:2"
+            , "개구리 친구한테 부탁받았개미\n원숭이를 찾고있다개미?:10"
+            , "맞아요! 어딧나요 원숭이는!!:1"
+            , "잠시만개미, 우리 덤불마을 지금 수학문제 때문에 힘들개미:10"
+            , "수학해결사님 우리들을 좀 도와줘개미:10"
+            , "그럼 알려주개미!! :10"
+            , "크아.. 이놈의 인기..\n또 시작이군..:2"
+            , "어쩔수없다. 조수! 수학이 필요한 곳을 외면할 수는 없는 법:1"
+            , "수학연장 챙겨라!:1"
+            , "고맙개미!:10"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD, new string[] {
+            "정말 고맙개미!!:10"
+            , "덕분에 덤불마을이 수학의힘으로 평화로워졌개미!:10"
+            , "자 그럼 이제 원숭이가 있는 신전을 알려줘야지?:0"
+            , "알고있개미. 그 신전은 몽키와트라는 장소다개미.:10"
+            , "미리 길을 열어두었개미. 그리고 가면된다개미.:10"
+            , "고마워! 드디어 찾았다 몽키와트 신전!:0"
+        });
+
+        talkDt.Add((int)ID.OPEN_TUNDRA_MAP3_ACCEPT, new string[] {
+            "TODO:0"
+        });
+        talkDt.Add((int)ID.OPEN_TUNDRA_MAP3_REWARD, new string[] {
+            "TODO:0"
+        });
+
+        talkDt.Add((int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT, new string[] {
+            "TODO:0"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD, new string[] {
+            "TODO:0"
+        });
+
+        talkDt.Add((int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT, new string[] {
+            "TODO:0"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD, new string[] {
+            "TODO:0"
+        });
         #endregion
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -103,7 +211,9 @@ public class HomeTalkManager : TalkManager {
         Debug.Log($"GameTalkManager:: setEvent(id={id}):: talkIdx= {talkIdx}");
 
         string rawMsg = "";
+        //* 一旦ここ使わなくても、全てのIDは登録すること！
         switch(id) {
+            #region TUTORIAL
             case (int)ID.TUTO_ROOM:
                 if(talkIdx == 2) {
                     Time.timeScale = 1;
@@ -148,11 +258,29 @@ public class HomeTalkManager : TalkManager {
                     activeHandFocus(QUEST_REWARD_BTN_POS);
                 }
                 break;
+            case (int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP1_WINDMILL_REWARD:   break;
+            case (int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP1_ORCHARD_REWARD:   break;
+            case (int)ID.OPEN_JUNGLE_MAP2_ACCEPT:   break;
+            case (int)ID.OPEN_JUNGLE_MAP2_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_BUSH_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP2_BUSH_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD:   break;
+            case (int)ID.OPEN_TUNDRA_MAP3_ACCEPT:   break;
+            case (int)ID.OPEN_TUNDRA_MAP3_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD:   break;
+            #endregion
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
     }
 /// 
     protected override void endSwitchProccess(int id) {
+        Debug.Log($"<b>endSwitchProccess(id= {id}):: </b>");
         switch(id) {
             case (int)ID.TUTO_ROOM:
                 TutorialRoomPanelBtn.SetActive(false); 
@@ -189,6 +317,23 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.TUTO_FINISH:
                 DB.Dt.IsTutoFinishTrigger = false;
                 break;
+            case (int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT:   
+                break;
+            case (int)ID.UNLOCK_MAP1_WINDMILL_REWARD:   break;
+            case (int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP1_ORCHARD_REWARD:   break;
+            case (int)ID.OPEN_JUNGLE_MAP2_ACCEPT:   break;
+            case (int)ID.OPEN_JUNGLE_MAP2_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_BUSH_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP2_BUSH_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD:   break;
+            case (int)ID.OPEN_TUNDRA_MAP3_ACCEPT:   break;
+            case (int)ID.OPEN_TUNDRA_MAP3_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD:   break;
         }
     }
     #endregion

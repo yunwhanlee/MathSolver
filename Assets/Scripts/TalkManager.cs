@@ -8,7 +8,8 @@ public abstract class TalkManager : MonoBehaviour {
     public enum SPK_IDX { //* Speaker Index
         Pl_Idle, pl_Happy, Pl_Sad,
         Animal_Idle, Animal_Happy, Animal_Sad,
-        DotalMan, MoongMom
+        DotalMan, MoongMom, 
+        Monkey, JungleAnimal, 
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -72,6 +73,7 @@ public abstract class TalkManager : MonoBehaviour {
     }
 
     private void talk(int id) {
+        Debug.Log($"talk(id= {id})::");
         //* イベント 処理
         string rawMsg = setEvent(id);
 
@@ -119,7 +121,7 @@ public abstract class TalkManager : MonoBehaviour {
                     break;
                 case 3: case 4: case 5:
                     //* 画像
-                    spkImg.sprite = GM._.Anm.SprLib.GetSprite("Idle", "Entry"); 
+                    spkImg.sprite = spkSprDtList[key]; 
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
                     //* 名前
                     spkName.text = "동물친구";
@@ -141,6 +143,22 @@ public abstract class TalkManager : MonoBehaviour {
                     spkName.text = "뭉이어멈";
                     setNameFrameDirection(isLeft: false); // right
                     break;
+                case 8: 
+                    //* 画像
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "원숭이";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
+                case 9: 
+                    //* 画像
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "개구리";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
             }
         }
         
@@ -150,6 +168,7 @@ public abstract class TalkManager : MonoBehaviour {
     }
 
     protected string getMsg(int id, int talkIdx) {
+        Debug.Log($"getMsg(id= {id}, talkIdx= {talkIdx})::");
         string[] msgs = talkDt[id];
         if(talkIdx == msgs.Length)
             return null;

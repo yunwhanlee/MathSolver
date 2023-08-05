@@ -26,8 +26,7 @@ public class HUI : MonoBehaviour {
 
     [SerializeField] GameObject topGroup; public GameObject TopGroup {get => topGroup; set => topGroup = value;}
     [SerializeField] GameObject[] homeScenePanelArr;    public GameObject[] HomeScenePanelArr {get => homeScenePanelArr; set => homeScenePanelArr = value;}
-    [SerializeField] GameObject achiveRankPanel; public GameObject 
-    Panel {get => achiveRankPanel; set => achiveRankPanel = value;}
+    [SerializeField] GameObject achiveRankPanel; public GameObject AchiveRankPanel {get => achiveRankPanel; set => achiveRankPanel = value;}
     [SerializeField] GameObject decorateModePanel; public GameObject DecorateModePanel {get => decorateModePanel; set => decorateModePanel = value;}
     [SerializeField] GameObject roomPanel; public GameObject RoomPanel {get => roomPanel; set => roomPanel = value;}
     [SerializeField] GameObject ikeaShopPanel; public GameObject IkeaShopPanel {get => ikeaShopPanel; set => ikeaShopPanel = value;}
@@ -91,7 +90,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
 
     [Header("POP UP")]
-    UnityAction onRewardPopUpAction;
+    [SerializeField] UnityAction onRewardPopUpAccept;   public UnityAction OnRewardPopUpAccept {get => onRewardPopUpAccept; set => onRewardPopUpAccept = value;}
 
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
@@ -128,7 +127,7 @@ public class HUI : MonoBehaviour {
 
 
     void Start() {
-        onRewardPopUpAction = () => {};
+        onRewardPopUpAccept = () => {};
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
@@ -365,11 +364,13 @@ public class HUI : MonoBehaviour {
         lvUpPopUp.SetActive(false);
     }
     public void onClickRewardPopUpAcceptBtn() {
+        Debug.Log("onClickRewardPopUpAcceptBtn():: ");
         HM._.state = HM.STATE.NORMAL;
         rewardPopUp.SetActive(false);
 
         checkLevelUp();
-        onRewardPopUpAction();
+        onRewardPopUpAccept();
+        onRewardPopUpAccept = null; //* 初期化
     }
 
     #region SELECT MAP
@@ -575,7 +576,7 @@ public class HUI : MonoBehaviour {
             else if(rwdInfo.name == Enum.RWD_IDX.WoodChair.ToString()) {
                 //* アイテムリワードPopUp CallBack
                 const int WOOD_CHAIR = 0;
-                onRewardPopUpAction += () => setRewardItemObj(DB.Dt.Funitures[WOOD_CHAIR]);
+                onRewardPopUpAccept += () => setRewardItemObj(DB.Dt.Funitures[WOOD_CHAIR]);
             }
         }
     }

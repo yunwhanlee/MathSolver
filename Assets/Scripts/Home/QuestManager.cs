@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System;
 
 public class QuestManager : MonoBehaviour {
@@ -20,6 +21,8 @@ public class QuestManager : MonoBehaviour {
         UnlockMap3IceDragon,
     }
 
+
+
     //* Quests
     [SerializeField] Quest[] mainQuests;    public Quest[] MainQuests {get => mainQuests;}
 
@@ -27,11 +30,16 @@ public class QuestManager : MonoBehaviour {
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     public void updateMainQuestList() {
+        Debug.Log($"updateMainQuestList():: MainQuestID= {DB.Dt.MainQuestID}");
         int i = 0;
         Array.ForEach(mainQuests, mq => {
             if(i == DB.Dt.MainQuestID) {
                 mq.gameObject.SetActive(true);
-                // mq.acceptQuest(); //* メインクエストは自動承知
+                //* チュートリアルは最初からAccept
+                if(DB.Dt.MainQuestID == (int)MQ_ID.Tutorial)
+                    mq.acceptQuest();
+                // else
+                //     HM._.ui.OnRewardPopUpAccept += () => mq.acceptQuest();
             }
             else {
                 mq.gameObject.SetActive(false);
@@ -44,39 +52,79 @@ public class QuestManager : MonoBehaviour {
 #region REWARD
 /// -----------------------------------------------------------------------------------------------------------------
     public void getReward(int id) {
-        var hui = HM._.ui;
-        var rwdList = hui.RwdSOList;
+        Debug.Log($"getReward({id}):: DB.Dt.MainQuestID= {DB.Dt.MainQuestID}");
         switch(id) {
             case (int)MQ_ID.Tutorial:
-                StartCoroutine(hui.coActiveRewardPopUp(fame: 10, new Dictionary<RewardItemSO, int>() {
-                    {rwdList[(int)Enum.RWD_IDX.Coin], 300},
-                    {rwdList[(int)Enum.RWD_IDX.Exp], 100},
-                    {rwdList[(int)Enum.RWD_IDX.WoodChair], 1}
-                }));
+                var extraItem = new Dictionary<RewardItemSO, int>() {{HM._.ui.RwdSOList[(int)Enum.RWD_IDX.WoodChair], 1}};
+                setRewardList(extraItem);
                 break;
             case (int)MQ_ID.UnlockMap1Windmill:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_WINDMILL_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest(); //* 他のMainQuestは以前のクエストリワードを受けたら、自動受け取り
+                break;
             case (int)MQ_ID.UnlockMap1Orchard:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_ORCHARD_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
+                break;
             case (int)MQ_ID.OpenJungleMap2:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_JUNGLE_MAP2_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
+                break;
             case (int)MQ_ID.UnlockMap2Bush:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BUSH_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
+                break;
             case (int)MQ_ID.UnlockMap2MoneyWat:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MONKEYWAT_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
+                break;
             case (int)MQ_ID.OpenTundraMap3:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_TUNDRA_MAP3_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
+                break;
             case (int)MQ_ID.UnlockMap3SnowMountain:
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
+                break;
             case (int)MQ_ID.UnlockMap3IceDragon:
-                //* Value     Def                        Unit
-                int fameVal = 10  + (DB.Dt.MainQuestID * 5);
-                int coinVal = 300 + (DB.Dt.MainQuestID * 150);
-                int expVal =  100 + (DB.Dt.MainQuestID * 50);
-                StartCoroutine(hui.coActiveRewardPopUp(fame: fameVal, new Dictionary<RewardItemSO, int>() {
-                    {rwdList[(int)Enum.RWD_IDX.Coin], coinVal},
-                    {rwdList[(int)Enum.RWD_IDX.Exp], expVal},
-                }));
+                setRewardList();
+                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_ICEDRAGON_REWARD);
+                // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
         }
+        
         DB.Dt.MainQuestID++;
         updateMainQuestList();
 
         if(HM._.htm.TutoHandFocusTf.gameObject.activeSelf)
             HM._.htm.TutoHandFocusTf.gameObject.SetActive(false);
+    }
+
+    private void setRewardList(Dictionary<RewardItemSO, int> extraItem = null) {
+        //* Value    (Def)                      (Unit)
+        int fameVal = 10  + (DB.Dt.MainQuestID * 5);
+        int coinVal = 300 + (DB.Dt.MainQuestID * 150);
+        int expVal = 100 + (DB.Dt.MainQuestID * 50);
+
+        //* Add Reward List
+        var rwdList = new Dictionary<RewardItemSO, int> {
+            { HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Coin], coinVal },
+            { HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Exp], expVal }
+        };
+
+        //* Extraアイテムが有ったら、加える
+        if (extraItem != null) 
+            foreach (var item in extraItem)
+                rwdList.Add(item.Key, item.Value);
+
+        StartCoroutine(HM._.ui.coActiveRewardPopUp(fame: fameVal, rwdList));
     }
 #endregion
 }

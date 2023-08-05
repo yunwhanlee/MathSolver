@@ -84,16 +84,16 @@ public class FunitureUIManager : MonoBehaviour
         Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
         item.purchase(); //* 購入
     }
-    public void onClickNewFuniturePopUpDisplayBtn() {
-        HM._.ui.NewFuniturePopUp.SetActive(false);
-        Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
-        item.display();
-    }
     public void onClickNewFuniturePopUpCloseBtn() {
         HM._.ui.NewFuniturePopUp.SetActive(false);
         //* 最新化
         updateItemList();
     }
+    // public void onClickNewFuniturePopUpDisplayBtn() {
+    //     HM._.ui.NewFuniturePopUp.SetActive(false);
+    //     Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
+    //     item.display();
+    // }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNITURE MODE EVENT
