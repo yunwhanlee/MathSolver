@@ -145,6 +145,7 @@ public class HUI : MonoBehaviour {
         // curLangTxt.text = (LM._.curLangIndex == EN)? "English"
         //     :(LM._.curLangIndex == KR)? "한국어"
         //     : "日本語";
+
         //* Current Country Icon
         curLangImg.sprite = (LM._.curLangIndex == EN)? HM._.conturiesIcons[EN] 
             :(LM._.curLangIndex == KR)? HM._.conturiesIcons[KR]
@@ -165,9 +166,10 @@ public class HUI : MonoBehaviour {
         woodSignTxt.text = LM._.localize("Home");//"서재";//Enum.HOME.Room.ToString();
 
         //* 業績・ランク
+        const int QUEST = 1;
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
-            achiveRankTypeBtns[i].GetComponent<Image>().color = (i == 0)? selectedTypeBtnClr : Color.white;
-            achiveRankScrollFrames[i].SetActive(i == 0);
+            achiveRankTypeBtns[i].GetComponent<Image>().color = (i == QUEST)? selectedTypeBtnClr : Color.white;
+            achiveRankScrollFrames[i].SetActive(i == QUEST);
         }
         achiveRankTitleTxt.text = LM._.localize("Achivement");;//Enum.ACHIVERANK.Achivement.ToString();
     }
@@ -375,6 +377,8 @@ public class HUI : MonoBehaviour {
 
     #region SELECT MAP
         public void onClickGoGameDialogYesBtn() { // Choose Map
+            var lv = DB.Dt.Lv;
+
             HM._.state = HM.STATE.NORMAL;
             canvasSelectMap.gameObject.SetActive(true);
             canvasStatic.gameObject.SetActive(false);
@@ -383,25 +387,14 @@ public class HUI : MonoBehaviour {
             if(DB.Dt.IsTutoWorldMapTrigger)
                 HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
 
-            
-            // const int ACCEPT = 0;
-            // if(!DB.Dt.IsUnlockMap1BG2Arr[ACCEPT])
-            //     HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG2_ACCEPT);
-            // else if(!DB.Dt.IsUnlockMap1BG3Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG3_ACCEPT);
-            // else if(!DB.Dt.IsOpenMap2UnlockBG1Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT);
-            // else if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG2_ACCEPT);
-            // else if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG3_ACCEPT);
-            // else if(!DB.Dt.IsOpenMap3UnlockBG1Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
-            // else if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_ACCEPT);
-            // else if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
-            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
-
+            //* もし、メインクエストのACCEPTしなかったら、自動受託
+            onClickAchiveRankIconBtn();
+            var mq = HM._.qm.MainQuests[DB.Dt.MainQuestID];
+            if(mq.AcceptBtn.gameObject.activeSelf){
+                Debug.Log($"onClickGoGameDialogYesBtn():: MainQuest.name= {mq.name}, Auto Accept!");
+                mq.acceptQuest();
+            }
+            onClickAchiveRankCloseBtn();
         }
         public void onClickGoGameDialogNoBtn() {
             HM._.state = HM.STATE.NORMAL;
