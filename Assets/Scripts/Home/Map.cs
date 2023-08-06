@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Map : MonoBehaviour {
     [SerializeField] string mapName;       public string MapName {get => mapName; set => mapName = value;}
@@ -13,9 +14,27 @@ public class Map : MonoBehaviour {
     [SerializeField] Image[] bgImgs;    public Image[] BgImgs {get => bgImgs;}
     [SerializeField] TextMeshProUGUI[] bgLimitLvTxts;     public TextMeshProUGUI[] BgLimitLvTxts {get => bgLimitLvTxts;}
 
+    [Header("EXTRA")]
+    const int windmillSpd = 30;
+    [SerializeField] Transform windmillGroup;
+
     // void Awake() {
         // isBgUnlocks = new bool[3];
     // }
+
+    void Update() {
+        if(windmillGroup) {
+            int i = 0;
+            Array.ForEach(windmillGroup.GetComponentsInChildren<RectTransform>(), windmill => {
+                float curAngZ = windmill.localRotation.eulerAngles.z;
+                float spd = (i <= 2)? windmillSpd: windmillSpd * 0.5f;
+                spd *= (i <= 2)? -1 : +1;
+                Quaternion newRotation = Quaternion.Euler(0, 0, curAngZ + spd * Time.deltaTime);
+                windmill.localRotation = newRotation;
+                i++;
+            });
+        }
+    }
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
