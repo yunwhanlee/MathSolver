@@ -64,12 +64,6 @@ public class QuestManager : MonoBehaviour {
                         mq.setBtns(DB.Dt.IsUnlockMap3BG3Arr[0]);
                         break;
                 }
-                //* チュートリアルは最初からAccept
-                // if(DB.Dt.MainQuestID == (int)MQ_ID.Tutorial) {
-                //     mq.AcceptBtn.gameObject.SetActive(false);
-                //     mq.RewardBtn.gameObject.SetActive(true);
-                //     // mq.acceptQuest();
-                // }
             }
             else {
                 mq.gameObject.SetActive(false);
