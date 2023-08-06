@@ -6,6 +6,7 @@ using TMPro;
 
 public class HomeTalkManager : TalkManager {
     readonly Vector2 WOOD_ARROW_POS = new (300, 770);
+    
     readonly Vector2 FOOT_HOLD_POS = new (100, -950);
     readonly Vector2 STAR_MOUNTAION_POS = new (-120, -250);
     readonly Vector2 MENUTAP_QUEST_ICON_POS = new (500, -650);
@@ -14,14 +15,16 @@ public class HomeTalkManager : TalkManager {
 
     public enum ID {
         TUTO_ROOM, TUTO_FUNITURESHOP, TUTO_CLOTHSHOP, TUTO_INV, TUTO_GOGAME, TUTO_WORLDMAP, TUTO_FINISH,
-        UNLOCK_MAP1_WINDMILL_ACCEPT, UNLOCK_MAP1_WINDMILL_REWARD,
-        UNLOCK_MAP1_ORCHARD_ACCEPT, UNLOCK_MAP1_ORCHARD_REWARD,
-        OPEN_JUNGLE_MAP2_ACCEPT,  OPEN_JUNGLE_MAP2_REWARD,
-        UNLOCK_MAP2_BUSH_ACCEPT,  UNLOCK_MAP2_BUSH_REWARD,
-        UNLOCK_MAP2_MONKEYWAT_ACCEPT, UNLOCK_MAP2_MONKEYWAT_REWARD,
-        OPEN_TUNDRA_MAP3_ACCEPT,  OPEN_TUNDRA_MAP3_REWARD,
-        UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT,  UNLOCK_MAP3_SNOWMOUNTAION_REWARD,
-        UNLOCK_MAP3_ICEDRAGON_ACCEPT, UNLOCK_MAP3_ICEDRAGON_REWARD,
+        UNLOCK_MAP1_BG2_ACCEPT, UNLOCK_MAP1_BG2_REWARD,
+        UNLOCK_MAP1_BG3_ACCEPT, UNLOCK_MAP1_BG3_REWARD,
+        //* Jungle
+        OPEN_MAP2_UNLOCK_BG1_ACCEPT, OPEN_MAP2_UNLOCK_BG1_REWARD,
+        UNLOCK_MAP2_BG2_ACCEPT, UNLOCK_MAP2_BG2_REWARD,
+        UNLOCK_MAP2_BG3_ACCEPT, UNLOCK_MAP2_BG3_REWARD,
+        //* Tundra
+        OPEN_MAP3_UNLOCK_BG1_ACCEPT, OPEN_MAP3_UNLOCK_BG1_REWARD,
+        UNLOCK_MAP3_BG2_ACCEPT, UNLOCK_MAP3_BG2_REWARD,
+        UNLOCK_MAP3_BG3_ACCEPT, UNLOCK_MAP3_BG3_REWARD,
     };
 
     [Header("EXTRA")]
@@ -95,31 +98,31 @@ public class HomeTalkManager : TalkManager {
         #endregion
 
         #region UNLOCK QUEST
-        talkDt.Add((int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP1_BG2_ACCEPT, new string[] {
             "자 이제 본격적으로\n해결사 일을 진행해볼까?:0",
             "문제를 풀면서, 레벨4를 달성해보자!:0"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP1_WINDMILL_REWARD, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP1_BG2_REWARD, new string[] {
             "안녕하세요.\n해결사 선생님!:3"
             , "괜찮으시면,풍차농장에도\n꼭 들러주세요!:3"
             , "오오.. 다른곳에서도 소문이 났나봐:0"
             , "월드맵으로 가보자\n이제 풍차농장에도 갈수 있어!:1"
         });
 
-        talkDt.Add((int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP1_BG3_ACCEPT, new string[] {
             "새로운 지역도 도와주면서\n레벨을 7까지 올려보자!:0"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP1_ORCHARD_REWARD, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP1_BG3_REWARD, new string[] {
             "해결사 선생님!!:4"
             , "얼마나 찾고 있었는지 몰라요:5"
             , "저희 과수원에도 꼭 놀러와주세요!:3"
             , "월드맵으로 가보자\n이제 과수원에도 갈수 있어!:1"
         });
 
-        talkDt.Add((int)ID.OPEN_JUNGLE_MAP2_ACCEPT, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT, new string[] {
             "새로운 지역도 도와주면서\n레벨을 10을 달성해줘!:0"
         });
-        talkDt.Add((int)ID.OPEN_JUNGLE_MAP2_REWARD, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] {
             "이야 벌써 레벨10을 달성했구나!\n대단해!:1"
             , "이미 별숲마을에서는 수학 잘하기로 소문이 자자하다구!:1"
             , "(어디선가 머리 콩!):8"
@@ -132,18 +135,18 @@ public class HomeTalkManager : TalkManager {
             , "잡아! 당장 잡아!!:1"
         });
 
-        talkDt.Add((int)ID.UNLOCK_MAP2_BUSH_ACCEPT, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP2_BG2_ACCEPT, new string[] {
             "으...\n정글로 도망가버렸어..:2"
             , "(톡톡..):9"
             , "저기.. 안녕하세유?\n혹시 수학해결사 맞나유?:9"
             , "맞는데..\n누..누구시죠?:0"
             , "혹시, 머리를 두번때리고 간 원숭이를 찾으시나유?:9"
             , "아앗..맞아요!:2"
-            , "역시! 저는 정글에사는 주민인데요.\n저희 수학문제를 도와주면:9"
+            , "저는 정글 늪지대주민인디.\n저희 수학문제를 도와주면:9"
             , "원숭이가 어디로 갔는지 알려드릴게유.:9"
             , "수학연장 챙겨라\n바로 갑니다.:1"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP2_BUSH_REWARD, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] {
             "도와주셔서 너무 감사합니다유.:9"
             , "이제 어디로 갔는지 당장 말해요!:0"
             , "원숭이들은 몽키와트라는 신전에서 생활해유:9"
@@ -156,7 +159,7 @@ public class HomeTalkManager : TalkManager {
             , "좋았어!!:1"
         });
 
-        talkDt.Add((int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP2_BG3_ACCEPT, new string[] {
             "안녕하세개미!:10"
             , "여기가 수학천재 해결사님의 집인가개미?:10"
             , "(두리번 두리번..):0"
@@ -173,7 +176,7 @@ public class HomeTalkManager : TalkManager {
             , "수학연장 챙겨라!:1"
             , "고맙개미!:10"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP2_BG3_REWARD, new string[] {
             "정말 고맙개미!!:10"
             , "덕분에 덤불마을이 수학의힘으로 평화로워졌개미!:10"
             , "자 그럼 이제 원숭이가 있는 신전을 알려줘야지?:0"
@@ -182,24 +185,24 @@ public class HomeTalkManager : TalkManager {
             , "고마워! 드디어 찾았다 몽키와트 신전!:0"
         });
 
-        talkDt.Add((int)ID.OPEN_TUNDRA_MAP3_ACCEPT, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT, new string[] {
             "TODO:0"
         });
-        talkDt.Add((int)ID.OPEN_TUNDRA_MAP3_REWARD, new string[] {
-            "TODO:0"
-        });
-
-        talkDt.Add((int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT, new string[] {
-            "TODO:0"
-        });
-        talkDt.Add((int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] {
             "TODO:0"
         });
 
-        talkDt.Add((int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
             "TODO:0"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG2_REWARD, new string[] {
+            "TODO:0"
+        });
+
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG3_ACCEPT, new string[] {
+            "TODO:0"
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG3_REWARD, new string[] {
             "TODO:0"
         });
         #endregion
@@ -258,33 +261,34 @@ public class HomeTalkManager : TalkManager {
                     activeHandFocus(QUEST_REWARD_BTN_POS);
                 }
                 break;
-            case (int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP1_WINDMILL_REWARD:   break;
-            case (int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP1_ORCHARD_REWARD:   break;
-            case (int)ID.OPEN_JUNGLE_MAP2_ACCEPT:   break;
-            case (int)ID.OPEN_JUNGLE_MAP2_REWARD:   break;
-            case (int)ID.UNLOCK_MAP2_BUSH_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_BUSH_REWARD:   break;
-            case (int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD:   break;
-            case (int)ID.OPEN_TUNDRA_MAP3_ACCEPT:   break;
-            case (int)ID.OPEN_TUNDRA_MAP3_REWARD:   break;
-            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD:   break;
-            case (int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD:   break;
+            case (int)ID.UNLOCK_MAP1_BG2_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP1_BG2_REWARD:   break;
+            case (int)ID.UNLOCK_MAP1_BG3_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP1_BG3_REWARD:   break;
+            case (int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT:   break;
+            case (int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_BG2_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP2_BG2_REWARD:   break;
+            case (int)ID.UNLOCK_MAP2_BG3_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP2_BG3_REWARD:   break;
+            case (int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT:   break;
+            case (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_BG2_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP3_BG2_REWARD:   break;
+            case (int)ID.UNLOCK_MAP3_BG3_ACCEPT:   break;
+            case (int)ID.UNLOCK_MAP3_BG3_REWARD:   break;
             #endregion
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
     }
 /// 
     protected override void endSwitchProccess(int id) {
+        const int ACCEPT = 0, REWARD = 1; //* Unlock Map:BG
         Debug.Log($"<b>endSwitchProccess(id= {id}):: </b>");
         switch(id) {
             case (int)ID.TUTO_ROOM:
-                TutorialRoomPanelBtn.SetActive(false); 
                 DB.Dt.IsTutoRoomTrigger = false;
+                TutorialRoomPanelBtn.SetActive(false); 
                 tutoHandFocusTf.gameObject.SetActive(false);
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
                 action((int)ID.TUTO_FUNITURESHOP);
@@ -317,36 +321,63 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.TUTO_FINISH:
                 DB.Dt.IsTutoFinishTrigger = false;
                 break;
-            case (int)ID.UNLOCK_MAP1_WINDMILL_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP1_WINDMILL_REWARD:   
+        //* Forest
+            case (int)ID.UNLOCK_MAP1_BG2_ACCEPT:
+                DB.Dt.IsUnlockMap1BG2Arr[ACCEPT] = true;
+                break;
+            case (int)ID.UNLOCK_MAP1_BG2_REWARD:
+                DB.Dt.IsUnlockMap1BG2Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 0, bgIdx: 1);
                 break;
-            case (int)ID.UNLOCK_MAP1_ORCHARD_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP1_ORCHARD_REWARD:
+            case (int)ID.UNLOCK_MAP1_BG3_ACCEPT:
+                DB.Dt.IsUnlockMap1BG3Arr[ACCEPT] = true;
+                break;
+            case (int)ID.UNLOCK_MAP1_BG3_REWARD:
+                DB.Dt.IsUnlockMap1BG3Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 0, bgIdx: 2);
                 break;
-            case (int)ID.OPEN_JUNGLE_MAP2_ACCEPT:   break;
-            case (int)ID.OPEN_JUNGLE_MAP2_REWARD:
+        //* Jungle
+            case (int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT:
+                DB.Dt.IsOpenMap2UnlockBG1Arr[ACCEPT] = true;
+                break;
+            case (int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD:
+                DB.Dt.IsOpenMap2UnlockBG1Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 0);
                 break;
-            case (int)ID.UNLOCK_MAP2_BUSH_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_BUSH_REWARD:
+            case (int)ID.UNLOCK_MAP2_BG2_ACCEPT:
+                DB.Dt.IsUnlockMap2BG2Arr[ACCEPT] = true;
+                break;
+            case (int)ID.UNLOCK_MAP2_BG2_REWARD:
+                DB.Dt.IsUnlockMap2BG2Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 1);
                 break;
-            case (int)ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_MONKEYWAT_REWARD:
+            case (int)ID.UNLOCK_MAP2_BG3_ACCEPT:
+                DB.Dt.IsUnlockMap2BG3Arr[ACCEPT] = true;
+                break;
+            case (int)ID.UNLOCK_MAP2_BG3_REWARD:
+                DB.Dt.IsUnlockMap2BG3Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 2);
                 break;
-            case (int)ID.OPEN_TUNDRA_MAP3_ACCEPT:   break;
-            case (int)ID.OPEN_TUNDRA_MAP3_REWARD:
+        //* Tundra
+            case (int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT:
+                DB.Dt.IsOpenMap3UnlockBG1Arr[ACCEPT] = true;
+                break;
+            case (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD:
+                DB.Dt.IsOpenMap3UnlockBG1Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 2, bgIdx: 0);
                 break;
-            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD:
+            case (int)ID.UNLOCK_MAP3_BG2_ACCEPT:
+                DB.Dt.IsUnlockMap3BG2Arr[ACCEPT] = true;
+                break;
+            case (int)ID.UNLOCK_MAP3_BG2_REWARD:
+                DB.Dt.IsUnlockMap3BG2Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 2, bgIdx: 1);
                 break;
-            case (int)ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_ICEDRAGON_REWARD:
+            case (int)ID.UNLOCK_MAP3_BG3_ACCEPT:
+                DB.Dt.IsUnlockMap3BG3Arr[ACCEPT] = true;
+                break;
+            case (int)ID.UNLOCK_MAP3_BG3_REWARD:
+                DB.Dt.IsUnlockMap3BG3Arr[REWARD] = true;
                 HM._.wmm.showUnlockBg(mapIdx: 2, bgIdx: 2);
                 break;
         }

@@ -21,8 +21,6 @@ public class QuestManager : MonoBehaviour {
         UnlockMap3IceDragon,
     }
 
-
-
     //* Quests
     [SerializeField] Quest[] mainQuests;    public Quest[] MainQuests {get => mainQuests;}
 
@@ -35,11 +33,43 @@ public class QuestManager : MonoBehaviour {
         Array.ForEach(mainQuests, mq => {
             if(i == DB.Dt.MainQuestID) {
                 mq.gameObject.SetActive(true);
+
+                //* Buttons
+                switch(DB.Dt.MainQuestID) {
+                    case (int)MQ_ID.Tutorial: //* チュートリアルは最初からAccept
+                        mq.setBtns(true);
+                        break;
+                    case (int)MQ_ID.UnlockMap1Windmill:
+                        mq.setBtns(DB.Dt.IsUnlockMap1BG2Arr[0]);
+                        break;
+                    case (int)MQ_ID.UnlockMap1Orchard:
+                        mq.setBtns(DB.Dt.IsUnlockMap1BG3Arr[0]);
+                        break;
+                    case (int)MQ_ID.OpenJungleMap2:
+                        mq.setBtns(DB.Dt.IsOpenMap2UnlockBG1Arr[0]);
+                        break;
+                    case (int)MQ_ID.UnlockMap2Bush:
+                        mq.setBtns(DB.Dt.IsUnlockMap2BG2Arr[0]);
+                        break;
+                    case (int)MQ_ID.UnlockMap2MoneyWat:
+                        mq.setBtns(DB.Dt.IsUnlockMap2BG3Arr[0]);
+                        break;
+                    case (int)MQ_ID.OpenTundraMap3:
+                        mq.setBtns(DB.Dt.IsOpenMap3UnlockBG1Arr[0]);
+                        break;
+                    case (int)MQ_ID.UnlockMap3SnowMountain:
+                        mq.setBtns(DB.Dt.IsUnlockMap3BG2Arr[0]);
+                        break;
+                    case (int)MQ_ID.UnlockMap3IceDragon:
+                        mq.setBtns(DB.Dt.IsUnlockMap3BG3Arr[0]);
+                        break;
+                }
                 //* チュートリアルは最初からAccept
-                if(DB.Dt.MainQuestID == (int)MQ_ID.Tutorial)
-                    mq.acceptQuest();
-                // else
-                //     HM._.ui.OnRewardPopUpAccept += () => mq.acceptQuest();
+                // if(DB.Dt.MainQuestID == (int)MQ_ID.Tutorial) {
+                //     mq.AcceptBtn.gameObject.SetActive(false);
+                //     mq.RewardBtn.gameObject.SetActive(true);
+                //     // mq.acceptQuest();
+                // }
             }
             else {
                 mq.gameObject.SetActive(false);
@@ -52,6 +82,7 @@ public class QuestManager : MonoBehaviour {
 #region REWARD
 /// -----------------------------------------------------------------------------------------------------------------
     public void getReward(int id) {
+        const int REWARD = 1;
         Debug.Log($"getReward({id}):: DB.Dt.MainQuestID= {DB.Dt.MainQuestID}");
         switch(id) {
             case (int)MQ_ID.Tutorial:
@@ -59,43 +90,52 @@ public class QuestManager : MonoBehaviour {
                 setRewardList(extraItem);
                 break;
             case (int)MQ_ID.UnlockMap1Windmill:
+                Debug.Log($"getReward():: UnlockMap1Windmill:: DB.Dt.IsUnlockMap1BG2Arr[REWARD]= {DB.Dt.IsUnlockMap1BG2Arr[REWARD]}");
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_WINDMILL_REWARD);
+                if(!DB.Dt.IsUnlockMap1BG2Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG2_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest(); //* 他のMainQuestは以前のクエストリワードを受けたら、自動受け取り
                 break;
             case (int)MQ_ID.UnlockMap1Orchard:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_ORCHARD_REWARD);
+                if(!DB.Dt.IsUnlockMap1BG3Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG3_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
             case (int)MQ_ID.OpenJungleMap2:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_JUNGLE_MAP2_REWARD);
+                if(!DB.Dt.IsOpenMap2UnlockBG1Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP2_UNLOCK_BG1_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
             case (int)MQ_ID.UnlockMap2Bush:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BUSH_REWARD);
+                if(!DB.Dt.IsUnlockMap2BG2Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG2_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
             case (int)MQ_ID.UnlockMap2MoneyWat:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MONKEYWAT_REWARD);
+                if(!DB.Dt.IsUnlockMap2BG3Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG3_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
             case (int)MQ_ID.OpenTundraMap3:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_TUNDRA_MAP3_REWARD);
+                if(!DB.Dt.IsOpenMap3UnlockBG1Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
             case (int)MQ_ID.UnlockMap3SnowMountain:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_SNOWMOUNTAION_REWARD);
+                if(!DB.Dt.IsUnlockMap3BG2Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
             case (int)MQ_ID.UnlockMap3IceDragon:
                 setRewardList();
-                HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_ICEDRAGON_REWARD);
+                if(!DB.Dt.IsUnlockMap3BG3Arr[REWARD])
+                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_REWARD);
                 // HM._.ui.OnRewardPopUpAccept += () => mainQuests[id].acceptQuest();
                 break;
         }

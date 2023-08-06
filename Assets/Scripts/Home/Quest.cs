@@ -43,52 +43,53 @@ public class Quest : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
+    public void setBtns(bool isActive) {
+        acceptBtn.gameObject.SetActive(!isActive);
+        rewardBtn.gameObject.SetActive(isActive);
+    }
     public void acceptQuest() {
+        const int ACCEPT = 0;
         Debug.Log($"acceptQuest():: id= {id}");
         acceptBtn.gameObject.SetActive(false);
         rewardBtn.gameObject.SetActive(true);
         //* Accept Talk
         switch(id) {
             case (int)QuestManager.MQ_ID.UnlockMap1Windmill:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_WINDMILL_ACCEPT);
+                if(!DB.Dt.IsUnlockMap1BG2Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG2_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap1Orchard:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_ORCHARD_ACCEPT);
+                if(!DB.Dt.IsUnlockMap1BG3Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG3_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.OpenJungleMap2:
-                HM._.htm.action((int)HomeTalkManager.ID.OPEN_JUNGLE_MAP2_ACCEPT);
+                if(!DB.Dt.IsOpenMap2UnlockBG1Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap2Bush:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BUSH_ACCEPT);
+                if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG2_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap2MoneyWat:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MONKEYWAT_ACCEPT);
+                if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG3_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.OpenTundraMap3:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT);
+                if(!DB.Dt.IsOpenMap3UnlockBG1Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap3SnowMountain:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_SNOWMOUNTAION_ACCEPT);
+                if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap3IceDragon:
-                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_ICEDRAGON_ACCEPT);
+                if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
+                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
                 break;
         }
         updateStatusGauge();
     }
-    private void setStatusGauge(int val) {
-        clearCurVal = val;
-        statusGauge.value = clearCurVal;
-        cttTxt.text = contentStr + $" {clearCurVal} / {clearMaxVal}";
-        //* リワードボタン 活性化
-        bool isFinish = clearCurVal >= clearMaxVal;
-        rewardBtn.interactable = isFinish;
-        cttTxt.color = isFinish? Color.white : Color.gray;
-    }
-#endregion
-/// -----------------------------------------------------------------------------------------------------------------
-#region QUEST ID : STATUS
-/// -----------------------------------------------------------------------------------------------------------------
+
     private void updateStatusGauge() {
         Debug.Log($"Quest:: updateStatusGauge():: qName={qName} == QuestManager.MQ_ID.Tutorial.ToString()={QuestManager.MQ_ID.Tutorial.ToString()}");
         switch(DB.Dt.MainQuestID) {
@@ -106,6 +107,15 @@ public class Quest : MonoBehaviour {
                 setStatusGauge(DB.Dt.Lv);
                 break;
         }
+    }
+    private void setStatusGauge(int val) {
+        clearCurVal = val;
+        statusGauge.value = clearCurVal;
+        cttTxt.text = contentStr + $" {clearCurVal} / {clearMaxVal}";
+        //* リワードボタン 活性化
+        bool isFinish = clearCurVal >= clearMaxVal;
+        rewardBtn.interactable = isFinish;
+        cttTxt.color = isFinish? Color.white : Color.gray;
     }
     private int getTutoClearVal() {
         int res = 0;

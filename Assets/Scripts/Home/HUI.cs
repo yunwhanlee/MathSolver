@@ -378,8 +378,30 @@ public class HUI : MonoBehaviour {
             HM._.state = HM.STATE.NORMAL;
             canvasSelectMap.gameObject.SetActive(true);
             canvasStatic.gameObject.SetActive(false);
+
+            //* Quest
             if(DB.Dt.IsTutoWorldMapTrigger)
                 HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
+
+            
+            // const int ACCEPT = 0;
+            // if(!DB.Dt.IsUnlockMap1BG2Arr[ACCEPT])
+            //     HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG2_ACCEPT);
+            // else if(!DB.Dt.IsUnlockMap1BG3Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG3_ACCEPT);
+            // else if(!DB.Dt.IsOpenMap2UnlockBG1Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT);
+            // else if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG2_ACCEPT);
+            // else if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG3_ACCEPT);
+            // else if(!DB.Dt.IsOpenMap3UnlockBG1Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
+            // else if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_ACCEPT);
+            // else if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
+            //         HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
+
         }
         public void onClickGoGameDialogNoBtn() {
             HM._.state = HM.STATE.NORMAL;

@@ -13,9 +13,9 @@ public class Map : MonoBehaviour {
     [SerializeField] Image[] bgImgs;    public Image[] BgImgs {get => bgImgs;}
     [SerializeField] TextMeshProUGUI[] bgLimitLvTxts;     public TextMeshProUGUI[] BgLimitLvTxts {get => bgLimitLvTxts;}
 
-    void Awake() {
-        isBgUnlocks = new bool[3];
-    }
+    // void Awake() {
+        // isBgUnlocks = new bool[3];
+    // }
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
