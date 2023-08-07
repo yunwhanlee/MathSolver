@@ -128,15 +128,29 @@ public class InventoryUIManager : MonoBehaviour
             InventoryItemBtn itemBtn = itemBtns[i % ITEM_BTN_CNT];
             Item item = getSelectedItem(i);
 
-            //* Parent <-Pattern Mathcing <- Child 
+            //* Parent <-Pattern Mathcing <- Child
             switch(item) {
-                case PlayerSkin plSk:   itemBtn.updateItemFrame(plSk);  break;
-                case PetSkin ptSk: itemBtn.updateItemFrame(ptSk);       break;
+                case PlayerSkin plSk:
+                    itemBtn.updateItemFrame(plSk);
+                    break;
+                case PetSkin ptSk:
+                    itemBtn.updateItemFrame(ptSk);
+                    break;
             }
         }
+        
+        //* カテゴリのNEWお知らせアイコン 表示
+        activeNewItemNofityIcon();
 
         //* 有効なフレームのみ 表示
         Array.ForEach(itemBtns, ib => ib.Obj.SetActive(ib.Img.sprite));
+    }
+
+    private void activeNewItemNofityIcon() {
+        var catePlSkinNotifyObj = categoryBtns[0].transform.GetChild(1).gameObject;
+        var catePetNotifyObj = categoryBtns[1].transform.GetChild(1).gameObject;
+        catePlSkinNotifyObj.SetActive(Array.Exists(DB.Dt.PlSkins, plsk => plsk.IsNotify));
+        catePetNotifyObj.SetActive(Array.Exists(DB.Dt.PtSkins, ptsk => ptsk.IsNotify));
     }
 #endregion
 }
