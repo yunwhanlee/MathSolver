@@ -222,7 +222,7 @@ public class Funiture : Item {
         rObj.Start(); 
 
         //* 選択されて、デコレーションモード 用意
-        rObj.IsSelect = true;
+        rObj.IsSelect = false;
         rObj.Sr.material = HM._.outlineAnimMt; //* アウトライン 付き
         HM._.fUI.CurSelectedObj = rObj.gameObject;
         HM._.ui.InfoDialog.SetActive(false);
@@ -232,7 +232,7 @@ public class Funiture : Item {
         const float OFFSET_Z = -1;
         rObj.transform.position = new Vector3(rObj.transform.position.x, rObj.transform.position.y, OFFSET_Z);
 
-        //* 飾りモードの影よりレイヤーを前に配置
+        //* 飾りモード：一番レイヤーを前に配置
         rObj.Sr.sortingOrder = 100;
         Debug.Log($"SORTING AA createFunitureItem:: {rObj.gameObject.name}.sortingOrder= {rObj.Sr.sortingOrder}");
     }

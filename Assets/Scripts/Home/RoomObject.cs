@@ -20,6 +20,12 @@ public class RoomObject : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         pivotOffsetHalfY = sr.bounds.size.y * 0.5f;
 
+        if(sr.sortingOrder == 100) {
+            Debug.Log($"RoomObject.cs:: Start():: Create Deco Mode: {this.name} sortingOrder = 100");
+            return;
+        }
+        
+
         //* レイヤー
         setSortingOrderByPosY();
         Debug.Log($"BBB Spr割り当て:: {sr.gameObject.name}.sortingOrder= {sr.sortingOrder})");
@@ -88,6 +94,9 @@ public class RoomObject : MonoBehaviour {
         else {
             sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
         }
+    }
+    public void setSortingOrderBeforeDrag() {
+        sr.sortingOrder = 100;
     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------
