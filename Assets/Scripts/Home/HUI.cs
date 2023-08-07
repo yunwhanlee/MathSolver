@@ -22,7 +22,7 @@ public class HUI : MonoBehaviour {
 
     [Header("HOME PANEL")]
     [SerializeField] Canvas canvasStatic; 
-    [SerializeField] Canvas canvasSelectMap;
+    [SerializeField] Canvas canvasWorldMap;
 
     [SerializeField] GameObject topGroup; public GameObject TopGroup {get => topGroup; set => topGroup = value;}
     [SerializeField] GameObject[] homeScenePanelArr;    public GameObject[] HomeScenePanelArr {get => homeScenePanelArr; set => homeScenePanelArr = value;}
@@ -246,20 +246,21 @@ public class HUI : MonoBehaviour {
     }
 
     public void onClickGoRoom() {
-        //* From Select Map
-        if(canvasSelectMap) {
+        if(canvasWorldMap.gameObject.activeSelf) {
+            Debug.Log("onClickGoRoom():: From Select World Map");
             Time.timeScale = 1;
             HM._.state = HM.STATE.NORMAL;
             canvasStatic.gameObject.SetActive(true);
-            canvasSelectMap.gameObject.SetActive(false);
+            canvasWorldMap.gameObject.SetActive(false);
             goGameDialog.SetActive(false);
-            return;
+        }
+        else {
+            Debug.Log("onClickGoRoom():: From ClothShop");
+            while(curHomeSceneIdx > (int)Enum.HOME.Room) {
+                onClickWoodSignArrowBtn(dirVal: -1);
+            }
         }
 
-        //* From Wood Arrow
-        while(curHomeSceneIdx > (int)Enum.HOME.Room) {
-            onClickWoodSignArrowBtn(dirVal: -1);
-        }
     }
     public void onClickGoClothShop() {
         infoDialog.SetActive(false);
@@ -380,7 +381,7 @@ public class HUI : MonoBehaviour {
             var lv = DB.Dt.Lv;
 
             HM._.state = HM.STATE.NORMAL;
-            canvasSelectMap.gameObject.SetActive(true);
+            canvasWorldMap.gameObject.SetActive(true);
             canvasStatic.gameObject.SetActive(false);
 
             //* Quest
