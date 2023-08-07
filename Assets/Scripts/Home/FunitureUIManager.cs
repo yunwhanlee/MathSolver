@@ -111,6 +111,7 @@ public class FunitureUIManager : MonoBehaviour
         if(itemDt == null) return;
 
         itemDt.IsArranged = false; //* 配置トリガー OFF
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.time2);
         Destroy(curSelectedObj); //* オブジェクト 破壊
         HM._.ui.onClickDecorateModeCloseBtn();
 
