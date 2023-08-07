@@ -23,12 +23,23 @@ public class Data {
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int exp; public int Exp {get => exp; set => exp = value;}
-    [SerializeField] int mainQuestID; public int MainQuestID {get => mainQuestID; set => mainQuestID = value;}
 
+    //* Home
+    [SerializeField] int mainQuestID; public int MainQuestID {get => mainQuestID; set => mainQuestID = value;}
     [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
 
+    [Header("ACHIEVEMENT")]
+    [SerializeField] int acvCorrectAnswerLv;  public int AcvCorrectAnswerLv {get => acvCorrectAnswerLv; set => acvCorrectAnswerLv = value;}
+    [SerializeField] int acvCorrectAnswerCnt;  public int AcvCorrectAnswerCnt {get => acvCorrectAnswerCnt; set => acvCorrectAnswerCnt = value;}
+    [SerializeField] int acvSkinLv;  public int AcvSkinLv {get => acvSkinLv; set => acvSkinLv = value;}
+    [SerializeField] int acvSkinCnt;  public int AcvSkinCnt {get => acvSkinCnt; set => acvSkinCnt = value;}
+    [SerializeField] int acvPetLv;  public int AcvPetLv {get => acvPetLv; set => acvPetLv = value;}
+    [SerializeField] int acvPetCnt;  public int AcvPetCnt {get => acvPetCnt; set => acvPetCnt = value;}
+    [SerializeField] int acvCoinAmountLv;  public int AcvCoinAmountLv {get => acvCoinAmountLv; set => acvCoinAmountLv = value;}
+    [SerializeField] int acvCoinAmount;  public int AcvCoinAmount {get => acvCoinAmount; set => acvCoinAmount = value;}
+
+    
     [Header("QUEST TUTORIAL TRIGGER")]
-    //* Home
     [SerializeField] bool isTutoRoomTrigger;   public bool IsTutoRoomTrigger {get => isTutoRoomTrigger; set => isTutoRoomTrigger = value;}
     [SerializeField] bool isTutoFunitureShopTrigger;   public bool IsTutoFunitureShopTrigger {get => isTutoFunitureShopTrigger; set => isTutoFunitureShopTrigger = value;}
     [SerializeField] bool isTutoClothShopTrigger;   public bool IsTutoClothShopTrigger {get => isTutoClothShopTrigger; set => isTutoClothShopTrigger = value;}
@@ -53,7 +64,6 @@ public class Data {
     [SerializeField] bool[] isOpenMap3UnlockBG1Arr;  public bool[] IsOpenMap3UnlockBG1Arr {get => isOpenMap3UnlockBG1Arr; set => isOpenMap3UnlockBG1Arr = value;}
     [SerializeField] bool[] isUnlockMap3BG2Arr;  public bool[] IsUnlockMap3BG2Arr {get => isUnlockMap3BG2Arr; set => isUnlockMap3BG2Arr = value;}
     [SerializeField] bool[] isUnlockMap3BG3Arr;  public bool[] IsUnlockMap3BG3Arr {get => isUnlockMap3BG3Arr; set => isUnlockMap3BG3Arr = value;}
-
 
     [Header("MAP UNLOCK TRIGGER")]
     [SerializeField] bool isMap1BG1Trigger;   public bool IsMap1BG1Trigger {get => isMap1BG1Trigger; set => isMap1BG1Trigger = value;} //* 最初だから、いつも活性化
@@ -213,6 +223,17 @@ public class DB : MonoBehaviour {
         //* 服屋 値段
         dt.GachaCnt = 1;
 
+        #region ACHIEVE
+        dt.AcvCorrectAnswerLv = 1;
+        dt.AcvCorrectAnswerCnt = 0;
+        dt.AcvSkinLv = 1;
+        dt.AcvSkinCnt = 0;
+        dt.AcvPetLv = 1;
+        dt.AcvPetCnt = 0;
+        dt.AcvCoinAmountLv = 1;
+        dt.AcvCoinAmount = 0;
+        #endregion
+
         #region QUEST
         //* Tutorial Trigger
         dt.IsTutoRoomTrigger = true;
@@ -323,7 +344,6 @@ public class DB : MonoBehaviour {
             item.SprLibraryAsset = copyItems[i++].SprLibraryAsset;
         });
     }
-
     #endregion
 #endregion
 }

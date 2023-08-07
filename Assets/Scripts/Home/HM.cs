@@ -18,6 +18,7 @@ public class HM : MonoBehaviour {
     public InventoryUIManager iUI;
     public HEM em;
     public HomeTalkManager htm;
+    public AchieveManager am;
     public QuestManager qm;
     public WorldMapManager wmm;
 
