@@ -122,6 +122,11 @@ public class WorldMapManager : MonoBehaviour {
         HM._.ui.MapUnlockPopUpNameTxt.text = name;
         HM._.ui.MapUnlockPopUpCttTxt.text = isMapUnlock? "Found a new map!" : "New place open!";
 
+        //* Unlock Map or Bg Sprite
+        HM._.ui.MapUnlockImg.sprite = (name == "Jungle")? HM._.wmm.Maps[1].MapSpr
+            : (name == "Tundra")? HM._.wmm.Maps[2].MapSpr
+            : btn.GetComponent<Image>().sprite;
+
         HM._.ui.MapImageOutlineFrame.GetComponent<Image>().sprite = isMapUnlock? goldenEdgeSpr : normalEdgeSpr;
         HM._.ui.MapImageOutlineFrame.sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE, OUTLINE_FRAME_SIZE) : new Vector2(INNER_FRAME_SIZE, INNER_FRAME_SIZE);
         HM._.ui.MapImageOutlineFrame.GetChild(0).GetComponent<RectTransform>().sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE - 50, OUTLINE_FRAME_SIZE - 50) : new Vector2(INNER_FRAME_SIZE - 50, INNER_FRAME_SIZE - 50);

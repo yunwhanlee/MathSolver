@@ -117,11 +117,14 @@ public class HUI : MonoBehaviour {
     [Space(10)]
     [SerializeField] GameObject mapUnlockPopUp;   public GameObject MapUnlockPopUp {get => mapUnlockPopUp; set => mapUnlockPopUp = value;}
     [SerializeField] RectTransform mapImageOutlineFrame;   public RectTransform MapImageOutlineFrame {get => mapImageOutlineFrame;}
+    [SerializeField] Image mapUnlockImg;    public Image MapUnlockImg {get => mapUnlockImg;}
     [SerializeField] TextMeshProUGUI mapUnlockPopUpNameTxt;    public TextMeshProUGUI MapUnlockPopUpNameTxt {get => mapUnlockPopUpNameTxt;}
     [SerializeField] TextMeshProUGUI mapUnlockPopUpCttTxt;    public TextMeshProUGUI MapUnlockPopUpCttTxt {get => mapUnlockPopUpCttTxt;}
+
     [Space(10)]
-    [SerializeField] GameObject goMapPupUp;   public GameObject GoMapPupUp {get => goMapPupUp; set => goMapPupUp = value;}
-    [SerializeField] TextMeshProUGUI goMapPupUpTitleTxt;   public TextMeshProUGUI GoMapPupUpTitleTxt {get => goMapPupUpTitleTxt; set => goMapPupUpTitleTxt = value;}
+    [SerializeField] GameObject goMapPopUp;   public GameObject GoMapPopUp {get => goMapPopUp; set => goMapPopUp = value;}
+    [SerializeField] Image goMapPopUpMapImg;     public Image GoMapPopUpMapImg {get => goMapPopUpMapImg; set => goMapPopUpMapImg = value;}
+    [SerializeField] TextMeshProUGUI goMapPopUpTitleTxt;   public TextMeshProUGUI GoMapPopUpTitleTxt {get => goMapPopUpTitleTxt; set => goMapPopUpTitleTxt = value;}
     [Space(10)]
     [SerializeField] GameObject newFuniturePopUp;   public GameObject NewFuniturePopUp {get => newFuniturePopUp;}
     [SerializeField] Image newFuniturePopUpImg;   public Image NewFuniturePopUpImg {get => newFuniturePopUpImg;}
@@ -421,7 +424,7 @@ public class HUI : MonoBehaviour {
             Array.ForEach(map.BgBtns, bgBtn => {
                 bgBtn.GetComponent<Image>().color = Color.white;
             });
-            goMapPupUp.SetActive(false);
+            goMapPopUp.SetActive(false);
         }
     #endregion
 #endregion
@@ -516,8 +519,12 @@ public class HUI : MonoBehaviour {
         return false;
     }
     private void displayGoMapPupUp(string mapName) {
-        goMapPupUp.SetActive(true);
-        goMapPupUpTitleTxt.text = mapName;
+        goMapPopUp.SetActive(true);
+        goMapPopUpMapImg.sprite = (mapName == "Forest")? HM._.wmm.Maps[0].MapSpr
+            : (mapName == "Jungle")? HM._.wmm.Maps[1].MapSpr
+            : (mapName == "Tundra")? HM._.wmm.Maps[2].MapSpr : null;
+        if(goMapPopUpMapImg.sprite == null) Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");
+        goMapPopUpTitleTxt.text = mapName;
     }
     private void setRewardItemObj(Item item) {
         item.purchase(isFree: true);
