@@ -176,7 +176,8 @@ public abstract class Item {
                 hui.InfoDialog.SetActive(true);
                 hui.setInfoDlgData(this);
                 var arrangeBtn = hui.activeInfoDlgBtn(idx: 2);
-                arrangeBtn.onClick.AddListener(() => display());
+                arrangeBtn.onClick.RemoveAllListeners(); //* イベント 初期化
+                arrangeBtn.onClick.AddListener(() => display()); //* 家具 配置 イベント
             }
         }
     }

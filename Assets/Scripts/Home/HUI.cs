@@ -477,12 +477,11 @@ public class HUI : MonoBehaviour {
     /// <param name="idx">[0]: Purchase, [1]: MoveBtn, [2]: Arrange</param>
     public Button activeInfoDlgBtn(int idx) {
         Button resBtn = null;
-        int i = 0;
-        Array.ForEach(infoDlgBtnGroup.GetComponentsInChildren<Button>(), btn => {
+        for(int i = 0; i < infoDlgBtnGroup.childCount; i++) {
+            var btn = infoDlgBtnGroup.GetChild(i).GetComponent<Button>();
             btn.gameObject.SetActive(i == idx);
             if(i == idx) resBtn = btn;
-            i++;
-        });
+        }
         return resBtn;
     }
 
