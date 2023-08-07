@@ -151,21 +151,18 @@ public abstract class Item {
         }
     }
     public virtual void arrange() {
+        var hui = HM._.ui;
         //* ロック
         if(isLock) {
-            HM._.ui.InfoDialog.SetActive(true);
-            HM._.ui.InfoDlgItemNameTxt.text = LM._.localize(name);
-            HM._.ui.InfoDlgItemImg.sprite = spr;
-            HM._.ui.InfoDlgItemPriceTxt.text = this.Price.ToString();
+            hui.InfoDialog.SetActive(true);
+            hui.setInfoDlgData(this);
             switch(this) {
                 case Funiture: case BgFuniture:
-                    HM._.ui.InfoDlgPurchaseBtn.gameObject.SetActive(true);
-                    HM._.ui.InfoDlgMoveBtn.gameObject.SetActive(false);
+                    hui.activeInfoDlgBtn(idx: 0);
                     //*--> fui.onClickInfoDialogPurchaseBtn()でアイテム 購入
                     break;
                 case PlayerSkin: case PetSkin:
-                    HM._.ui.InfoDlgPurchaseBtn.gameObject.SetActive(false);
-                    HM._.ui.InfoDlgMoveBtn.gameObject.SetActive(true);
+                    hui.activeInfoDlgBtn(idx: 1);
                     //*--> ui.onClickGoClothShop()で、場所移動
                     break;
             }
@@ -173,11 +170,13 @@ public abstract class Item {
         //* 配置
         else {
             if(isArranged) {
-                HM._.ui.showErrorMsgPopUp(LM._.localize("Already in use!"));
-                return;
+                hui.showErrorMsgPopUp(LM._.localize("Already in use!"));
             }
             else {
-                display();
+                hui.InfoDialog.SetActive(true);
+                hui.setInfoDlgData(this);
+                var arrangeBtn = hui.activeInfoDlgBtn(idx: 2);
+                arrangeBtn.onClick.AddListener(() => display());
             }
         }
     }

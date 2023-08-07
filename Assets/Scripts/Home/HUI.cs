@@ -83,8 +83,10 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
     [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
     [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
+    [SerializeField] Transform infoDlgBtnGroup;    public Transform InfoDlgBtnGroup {get => infoDlgBtnGroup;}
     [SerializeField] Button infoDlgPurchaseBtn;    public Button InfoDlgPurchaseBtn {get => infoDlgPurchaseBtn; set => infoDlgPurchaseBtn = value;}
     [SerializeField] Button infoDlgMoveBtn;    public Button InfoDlgMoveBtn {get => infoDlgMoveBtn; set => infoDlgMoveBtn = value;}
+    [SerializeField] Button infoDlgArrangeBtn;    public Button InfoDlgArrangeBtn {get => infoDlgArrangeBtn; set => infoDlgArrangeBtn = value;}
 
     [Header("CANVAS ANIM")]
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
@@ -466,6 +468,22 @@ public class HUI : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.2f);
         }
+    }
+    public void setInfoDlgData(Item item) {
+        infoDlgItemNameTxt.text = LM._.localize(item.Name);
+        infoDlgItemImg.sprite = item.Spr;
+        infoDlgItemPriceTxt.text = item.Price.ToString();
+    }
+    /// <param name="idx">[0]: Purchase, [1]: MoveBtn, [2]: Arrange</param>
+    public Button activeInfoDlgBtn(int idx) {
+        Button resBtn = null;
+        int i = 0;
+        Array.ForEach(infoDlgBtnGroup.GetComponentsInChildren<Button>(), btn => {
+            btn.gameObject.SetActive(i == idx);
+            if(i == idx) resBtn = btn;
+            i++;
+        });
+        return resBtn;
     }
 
     public void setDecorationMode(bool isActive) {
