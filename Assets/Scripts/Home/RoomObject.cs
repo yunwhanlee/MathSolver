@@ -71,6 +71,8 @@ public class RoomObject : MonoBehaviour {
         if(HM._.state != HM.STATE.DECORATION_MODE) return;
         if(!isSelect) return;
 
+        HM._.fUI.saveFunitureItemPos();
+
         Debug.Log("OnMouseUp");
         HM._.ui.DecorateModePanel.SetActive(true);
     }
@@ -94,9 +96,6 @@ public class RoomObject : MonoBehaviour {
         else {
             sr.sortingOrder = Mathf.RoundToInt(transform.position.y) * REVERSE_Y;
         }
-    }
-    public void setSortingOrderBeforeDrag() {
-        sr.sortingOrder = 100;
     }
 #endregion
 //---------------------------------------------------------------------------------------------------------------

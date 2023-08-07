@@ -268,19 +268,6 @@ public class FunitureUIManager : MonoBehaviour
         curRoomObject.IsSelect = false;
         HM._.ui.DecorateModePanel.SetActive(false);
 
-        //* Z値 ０に戻す
-        var tf = curSelectedObj.transform;
-        tf.position = new Vector3(tf.position.x, tf.position.y, 0);
-
-        //* 位置データ 保存
-        Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
-        float x = (float)Math.Round(tf.position.x, 3);
-        float y = (float)Math.Round(tf.position.y, 3);
-        itemDt.Pos = new Vector2(x, y);
-
-        //* 反転データ 保存
-        itemDt.IsFlat = (tf.localScale.x < 0);
-
         //* アウトライン 消す
         var sr = curRoomObject.Sr;
         sr.material = HM._.sprUnlitMt;
@@ -288,6 +275,21 @@ public class FunitureUIManager : MonoBehaviour
         //* タッチの動き
         HM._.touchCtr.enabled = true;
         HM._.pl.enabled = true;
+    }
+
+    public void saveFunitureItemPos() {
+        //* Z値 ０に戻す
+        var curObjtf = curSelectedObj.transform;
+        curObjtf.position = new Vector3(curObjtf.position.x, curObjtf.position.y, 0);
+
+        //* ★位置データ 保存
+        Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
+        float x = (float)Math.Round(curObjtf.position.x, 3);
+        float y = (float)Math.Round(curObjtf.position.y, 3);
+        itemDt.Pos = new Vector2(x, y);
+
+        //* 反転データ 保存
+        itemDt.IsFlat = (curObjtf.localScale.x < 0);
     }
 #endregion
 }
