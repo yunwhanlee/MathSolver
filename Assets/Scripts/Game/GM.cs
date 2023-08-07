@@ -707,11 +707,11 @@ public class GM : MonoBehaviour {
         int lv = DB.Dt.Lv;
 
         if(DB.Dt.Lv < firstMapUnlockLv) {
-            DestroyImmediate(map.GetChild(1).gameObject);
-            DestroyImmediate(map.GetChild(1).gameObject);
+            DestroyImmediate(map.GetChild(map.childCount-1).gameObject);
+            DestroyImmediate(map.GetChild(map.childCount-1).gameObject);
         }
         else if(DB.Dt.Lv < secondMapUnlockLv) {
-            DestroyImmediate(map.GetChild(1).gameObject);
+            DestroyImmediate(map.GetChild(map.childCount-1).gameObject);
         }
     }
 

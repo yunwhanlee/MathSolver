@@ -91,6 +91,7 @@ public class Data {
 
 
     public void setCoin(int value) {
+        acvCoinAmount++;
         coin += value;
         if(coin < 0) coin = 0;
     }

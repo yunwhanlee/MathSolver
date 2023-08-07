@@ -104,12 +104,14 @@ public class ClothShopUIManager : MonoBehaviour
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     private void setReward(PlayerSkin reward) {
+        DB.Dt.AcvPetCnt++;
         reward.IsLock = false;
         reward.IsNotify = true;
         rewardSpr = reward.Spr;
         rewardNameTxt.text = LM._.localize(reward.Name);
     }
     private void setReward(PetSkin reward) {
+        DB.Dt.AcvSkinCnt++;
         reward.IsLock = false;
         reward.IsNotify = true;
         rewardSpr = reward.Spr;

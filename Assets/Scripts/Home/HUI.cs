@@ -470,6 +470,7 @@ public class HUI : MonoBehaviour {
         }
     }
     public void setInfoDlgData(Item item) {
+        Debug.Log($"setInfoDlgData(item):: item.Name= {item.Name}");
         infoDlgItemNameTxt.text = LM._.localize(item.Name);
         infoDlgItemImg.sprite = item.Spr;
         infoDlgItemPriceTxt.text = item.Price.ToString();
