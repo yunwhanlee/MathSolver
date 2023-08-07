@@ -214,9 +214,24 @@ public class FunitureUIManager : MonoBehaviour
             }
         }
 
+        //* カテゴリのNEWお知らせアイコン 表示
+        activeCategoryNewNofityIcon();
+
         //* 有効なフレームのみ 表示
         Array.ForEach(itemBtns, ib => ib.Obj.SetActive(ib.Img.sprite));
     }
+
+    private void activeCategoryNewNofityIcon() {
+        var cateFunitureNotifyObj = categoryBtns[0].transform.GetChild(1).gameObject;
+        var cateDecoNotifyObj = categoryBtns[1].transform.GetChild(1).gameObject;
+        var cateBgNotifyObj = categoryBtns[2].transform.GetChild(1).gameObject;
+        var cateMatNotifyObj = categoryBtns[3].transform.GetChild(1).gameObject;
+        cateFunitureNotifyObj.SetActive(Array.Exists(DB.Dt.Funitures, fn => fn.IsNotify));
+        cateDecoNotifyObj.SetActive(Array.Exists(DB.Dt.Decorations, dc => dc.IsNotify));
+        cateBgNotifyObj.SetActive(Array.Exists(DB.Dt.Bgs, bg => bg.IsNotify));
+        cateMatNotifyObj.SetActive(Array.Exists(DB.Dt.Mats, mt => mt.IsNotify));
+    }
+
     public void createFunitureItem(int idx) {
         HM._.state = HM.STATE.DECORATION_MODE;
 
