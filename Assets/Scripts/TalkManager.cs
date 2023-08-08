@@ -9,7 +9,9 @@ public abstract class TalkManager : MonoBehaviour {
         Pl_Idle, pl_Happy, Pl_Sad,
         Animal_Idle, Animal_Happy, Animal_Sad,
         DotalMan, MoongMom, 
-        Monkey, JungleAnimal, 
+        Monkey_Idle, Monkey_Happy, Monkey_Sad,
+        Flog_Idle, Flog_Happy, Flog_Sad, 
+        Ant_Idle, Ant_Happy, Ant_Sad,
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -106,7 +108,7 @@ public abstract class TalkManager : MonoBehaviour {
             var pos = spkImg.rectTransform.anchoredPosition;
             
             switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
-                case 0: case 1: case 2:
+                case (int)SPK_IDX.Pl_Idle: case (int)SPK_IDX.pl_Happy: case (int)SPK_IDX.Pl_Sad:
                     //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
@@ -118,7 +120,7 @@ public abstract class TalkManager : MonoBehaviour {
                     spkName.text = "늑선생"; 
                     setNameFrameDirection(isLeft: true); // left
                     break;
-                case 3: case 4: case 5:
+                case (int)SPK_IDX.Animal_Idle: case (int)SPK_IDX.Animal_Happy: case (int)SPK_IDX.Animal_Sad:
                     //* 画像
                     spkImg.sprite = spkSprDtList[key]; 
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
@@ -126,7 +128,7 @@ public abstract class TalkManager : MonoBehaviour {
                     spkName.text = "동물친구";
                     setNameFrameDirection(isLeft: false); // right
                     break;
-                case 6: 
+                case (int)SPK_IDX.DotalMan: 
                     //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
@@ -134,7 +136,7 @@ public abstract class TalkManager : MonoBehaviour {
                     spkName.text = "도톨아저씨";
                     setNameFrameDirection(isLeft: false); // right
                     break;
-                case 7: 
+                case (int)SPK_IDX.MoongMom: 
                     //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
@@ -142,7 +144,7 @@ public abstract class TalkManager : MonoBehaviour {
                     spkName.text = "뭉이어멈";
                     setNameFrameDirection(isLeft: false); // right
                     break;
-                case 8: 
+                case (int)SPK_IDX.Monkey_Idle: case (int)SPK_IDX.Monkey_Happy: case (int)SPK_IDX.Monkey_Sad: 
                     //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
@@ -150,12 +152,20 @@ public abstract class TalkManager : MonoBehaviour {
                     spkName.text = "원숭이";
                     setNameFrameDirection(isLeft: false); // right
                     break;
-                case 9: 
+                case (int)SPK_IDX.Flog_Idle: case (int)SPK_IDX.Flog_Happy: case (int)SPK_IDX.Flog_Sad: 
                     //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
                     //* 名前
                     spkName.text = "개구리";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
+                case (int)SPK_IDX.Ant_Idle: case (int)SPK_IDX.Ant_Happy: case (int)SPK_IDX.Ant_Sad: 
+                    //* 画像
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "개미";
                     setNameFrameDirection(isLeft: false); // right
                     break;
             }
