@@ -13,6 +13,7 @@ public class Map : MonoBehaviour {
     [SerializeField] Button[] bgBtns;        public Button[] BgBtns {get => bgBtns;}
     [SerializeField] Image[] bgImgs;    public Image[] BgImgs {get => bgImgs;}
     [SerializeField] TextMeshProUGUI[] bgLimitLvTxts;     public TextMeshProUGUI[] BgLimitLvTxts {get => bgLimitLvTxts;}
+    [SerializeField] Button minigameBtn;    public Button MinigameBtn {get => minigameBtn;}
 
     [Header("EXTRA")]
     const int windmillSpd = 30;
@@ -33,6 +34,11 @@ public class Map : MonoBehaviour {
                 windmill.localRotation = newRotation;
                 i++;
             });
+        }
+
+        //* MiniGame 表示
+        if(bgBtns[2].interactable && !minigameBtn.interactable) {
+            minigameBtn.interactable = true;
         }
     }
 

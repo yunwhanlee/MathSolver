@@ -134,9 +134,11 @@ public class WorldMapManager : MonoBehaviour {
     public void showUnlockBg(int mapIdx, int bgIdx) {
         //* ワールドマップ 表示
         gameObject.SetActive(true);
+
         //* SetScrollPos
         var bg = maps[mapIdx].BgBtns[bgIdx];
         Debug.Log($"setScrollPos({mapIdx}, {bgIdx}):: {bg.name}");
+
         //* ↑方向：⊖値
         float posY = START_POS - bg.GetComponent<RectTransform>().localPosition.y;
         scrollViewCtt.anchoredPosition = new Vector2(0, posY);
