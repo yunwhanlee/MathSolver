@@ -227,38 +227,38 @@ public class HomeTalkManager : TalkManager {
                     rawMsg = msg.Replace("NICKNAME", $"<color=blue>{DB.Dt.NickName}</color>");
                     Time.timeScale = 0;
                 }
-                if(talkIdx == 12) activeHandFocus(WOOD_ARROW_POS);
+                if(talkIdx == 12) HM._.ui.activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_FUNITURESHOP:
-                if(talkIdx == 4) activeHandFocus(WOOD_ARROW_POS);
+                if(talkIdx == 4) HM._.ui.activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_CLOTHSHOP:
-                if(talkIdx == 6) activeHandFocus(WOOD_ARROW_POS);
+                if(talkIdx == 6) HM._.ui.activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_INV:
-                if(talkIdx == 2) activeHandFocus(WOOD_ARROW_POS);
+                if(talkIdx == 2) HM._.ui.activeHandFocus(WOOD_ARROW_POS);
                 break;
             case (int)ID.TUTO_GOGAME:
                 // なし
                 break;
             case (int)ID.TUTO_WORLDMAP:
-                if(talkIdx == 0) tutoHandFocusTf.gameObject.SetActive(false);
-                else if(talkIdx == 4) activeHandFocus(STAR_MOUNTAION_POS);
+                if(talkIdx == 0) HM._.ui.HandFocusTf.gameObject.SetActive(false);
+                else if(talkIdx == 4) HM._.ui.activeHandFocus(STAR_MOUNTAION_POS);
                 break;
             case (int)ID.TUTO_FINISH:
                 if(talkIdx == 3) {
                     talkFrameTf.anchoredPosition = new Vector2(0, 500);
                     HM._.ui.MenuTapFrame.anchoredPosition = new Vector2(0, HM._.ui.MenuTapFrame.anchoredPosition.y);
-                    activeHandFocus(MENUTAP_QUEST_ICON_POS);
+                    HM._.ui.activeHandFocus(MENUTAP_QUEST_ICON_POS);
                 }
                 else if(talkIdx == 4) {
                     talkFrameTf.anchoredPosition = new Vector2(0, 0);
                     HM._.ui.onClickAchiveRankIconBtn();
                     HM._.ui.onClickAchiveRankTypeBtn(1);
-                    activeHandFocus(QUEST_CATE_POS);
+                    HM._.ui.activeHandFocus(QUEST_CATE_POS);
                 }
                 else if(talkIdx == 5) {
-                    activeHandFocus(QUEST_REWARD_BTN_POS);
+                    HM._.ui.activeHandFocus(QUEST_REWARD_BTN_POS);
                 }
                 break;
             case (int)ID.UNLOCK_MAP1_BG2_ACCEPT:   break;
@@ -289,34 +289,34 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.TUTO_ROOM:
                 DB.Dt.IsTutoRoomTrigger = false;
                 TutorialRoomPanelBtn.SetActive(false); 
-                tutoHandFocusTf.gameObject.SetActive(false);
+                HM._.ui.HandFocusTf.gameObject.SetActive(false);
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
                 action((int)ID.TUTO_FUNITURESHOP);
                 break;
             case (int)ID.TUTO_FUNITURESHOP:
                 DB.Dt.IsTutoFunitureShopTrigger = false;
-                tutoHandFocusTf.gameObject.SetActive(false);
+                HM._.ui.HandFocusTf.gameObject.SetActive(false);
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
                 action((int)ID.TUTO_CLOTHSHOP);
                 break;
             case (int)ID.TUTO_CLOTHSHOP: 
                 DB.Dt.IsTutoClothShopTrigger = false;
-                tutoHandFocusTf.gameObject.SetActive(false);
+                HM._.ui.HandFocusTf.gameObject.SetActive(false);
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
                 action((int)ID.TUTO_INV);
                 break;
             case (int)ID.TUTO_INV:
                 DB.Dt.IsTutoInventoryTrigger = false;
-                tutoHandFocusTf.gameObject.SetActive(false);
+                HM._.ui.HandFocusTf.gameObject.SetActive(false);
                 HM._.ui.onClickWoodSignArrowBtn(dirVal: 1);
                 break;
             case (int)ID.TUTO_GOGAME:
                 DB.Dt.IsTutoGoGameTrigger = false;
-                activeHandFocus(FOOT_HOLD_POS);
+                HM._.ui.activeHandFocus(FOOT_HOLD_POS);
                 break;
             case (int)ID.TUTO_WORLDMAP:
                 DB.Dt.IsTutoWorldMapTrigger = false;
-                tutoHandFocusTf.gameObject.SetActive(false);
+                HM._.ui.HandFocusTf.gameObject.SetActive(false);
                 break;
             case (int)ID.TUTO_FINISH:
                 DB.Dt.IsTutoFinishTrigger = false;
@@ -383,13 +383,4 @@ public class HomeTalkManager : TalkManager {
         }
     }
     #endregion
-
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region FUNC
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void activeHandFocus(Vector2 pos) {
-        tutoHandFocusTf.gameObject.SetActive(true);
-        tutoHandFocusTf.anchoredPosition = pos;
-    }
-#endregion
 }

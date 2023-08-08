@@ -14,7 +14,6 @@ public abstract class TalkManager : MonoBehaviour {
 
     IEnumerator coTxtTeleTypeID;
     TextTeleType txtTeleType;
-    [SerializeField] protected RectTransform tutoHandFocusTf;   public RectTransform TutoHandFocusTf {get => tutoHandFocusTf;}
     [SerializeField] protected RectTransform talkFrameTf;
 
     //* DATA

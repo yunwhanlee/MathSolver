@@ -27,7 +27,7 @@ public class Quest : MonoBehaviour {
     private void Awake() {
         //* Init
         // foreach (QuestManager.MQ_ID mqID in System.Enum.GetValues(typeof(QuestManager.MQ_ID))) if(this.name == mqID.ToString()) id = (int)mqID;
-        statusGauge.maxValue = clearMaxVal;
+        // statusGauge.maxValue = clearMaxVal;
         rewardBtn.onClick.AddListener(() => onClickRewardBtn(id));
     }
 
@@ -90,7 +90,7 @@ public class Quest : MonoBehaviour {
         updateStatusGauge();
     }
 
-    private void updateStatusGauge() {
+    public void updateStatusGauge() {
         Debug.Log($"Quest:: updateStatusGauge():: qName={qName} == QuestManager.MQ_ID.Tutorial.ToString()={QuestManager.MQ_ID.Tutorial.ToString()}");
         switch(DB.Dt.MainQuestID) {
             case (int)QuestManager.MQ_ID.Tutorial:
@@ -110,7 +110,7 @@ public class Quest : MonoBehaviour {
     }
     private void setStatusGauge(int val) {
         clearCurVal = val;
-        statusGauge.value = clearCurVal;
+        statusGauge.value = (float)clearCurVal / clearMaxVal;
         cttTxt.text = contentStr + $" {clearCurVal} / {clearMaxVal}";
         //* リワードボタン 活性化
         bool isFinish = clearCurVal >= clearMaxVal;

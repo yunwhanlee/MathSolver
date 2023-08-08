@@ -34,6 +34,12 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject inventoryPanel; public GameObject InventoryPanel {get => inventoryPanel; set => inventoryPanel = value;}
     [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}
 
+    [Header("MAIN QUEST BOX (AT HOME)")]
+    [SerializeField] Button mainQuestBoxBtn;    public Button MainQuestBoxBtn {get => mainQuestBoxBtn;}
+    [SerializeField] Image mainQuestBoxIconImg;     public Image MainQuestBoxIconImg {get => mainQuestBoxIconImg;}
+    [SerializeField] TextMeshProUGUI mainQuestBoxTitleTxt;     public TextMeshProUGUI MainQuestBoxTitleTxt {get => mainQuestBoxTitleTxt;}
+    [SerializeField] Slider mainQuestBoxSlider;    public Slider MainQuestBoxSlider {get => mainQuestBoxSlider;}
+
     [Header("MENU TAP")]
     [SerializeField] RectTransform menuTapFrame;    public RectTransform MenuTapFrame {get => menuTapFrame;}
     [SerializeField] GameObject menuTapFrameObjCollider;
@@ -90,6 +96,7 @@ public class HUI : MonoBehaviour {
 
     [Header("CANVAS ANIM")]
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
+    [SerializeField] protected RectTransform handFocusTf;   public RectTransform HandFocusTf {get => handFocusTf;}
 
     [Header("POP UP")]
     [SerializeField] UnityAction onRewardPopUpAccept;   public UnityAction OnRewardPopUpAccept {get => onRewardPopUpAccept; set => onRewardPopUpAccept = value;}
@@ -286,7 +293,7 @@ public class HUI : MonoBehaviour {
             topGroup.SetActive(false);
             achiveRankPanel.SetActive(true);
             HM._.qm.updateMainQuestList();
-            // woodSignObj.SetActive(false);
+            handFocusTf.gameObject.SetActive(false);
         }
         public void onClickAchiveRankCloseBtn() {
             topGroup.SetActive(true);
@@ -431,6 +438,10 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void activeHandFocus(Vector2 pos) {
+        handFocusTf.gameObject.SetActive(true);
+        handFocusTf.anchoredPosition = pos;
+    }
     IEnumerator coShowTutorialFinish() {
         yield return Util.time1;
         if(!DB.Dt.IsTutoRoomTrigger

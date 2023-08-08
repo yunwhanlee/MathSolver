@@ -24,9 +24,32 @@ public class QuestManager : MonoBehaviour {
     //* Quests
     [SerializeField] Quest[] mainQuests;    public Quest[] MainQuests {get => mainQuests;}
 
+    void Start() {
+        InvokeRepeating("updateMainQuestBox", 0.1f, 0.1f);
+    }
+
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
+    private void updateMainQuestBox() { //* InvokeRepeating
+        var mq = mainQuests[DB.Dt.MainQuestID];
+        mq.updateStatusGauge();
+        //* MainQuestBox At Home
+        HM._.ui.MainQuestBoxIconImg.sprite = mq.IconImg.sprite;
+        HM._.ui.MainQuestBoxTitleTxt.text = mq.ContentStr;
+        HM._.ui.MainQuestBoxSlider.value = (float)mq.ClearCurVal / mq.ClearMaxVal;
+        
+        //* Hand Focus
+        bool isFinish = mq.ClearCurVal >= mq.ClearMaxVal;
+        bool isActiveAchivePanel = HM._.ui.AchiveRankPanel.activeSelf;
+        bool isActiveHandFocues = HM._.ui.HandFocusTf.gameObject.activeSelf;
+        if(!isActiveAchivePanel && !isActiveHandFocues && isFinish) {
+            Vector2 prAncPos = HM._.ui.TopGroup.GetComponent<RectTransform>().anchoredPosition;
+            Vector2 myPos = HM._.ui.MainQuestBoxBtn.GetComponent<RectTransform>().anchoredPosition;
+            Vector2 centeringPos = new Vector2(100, -100);
+            HM._.ui.activeHandFocus(prAncPos + myPos + centeringPos);
+        }
+    }
     public void updateMainQuestList() {
         Debug.Log($"updateMainQuestList():: MainQuestID= {DB.Dt.MainQuestID}");
         int i = 0;
@@ -129,8 +152,8 @@ public class QuestManager : MonoBehaviour {
         DB.Dt.MainQuestID++;
         updateMainQuestList();
 
-        if(HM._.htm.TutoHandFocusTf.gameObject.activeSelf)
-            HM._.htm.TutoHandFocusTf.gameObject.SetActive(false);
+        if(HM._.ui.HandFocusTf.gameObject.activeSelf)
+            HM._.ui.HandFocusTf.gameObject.SetActive(false);
     }
 
     private void setRewardList(Dictionary<RewardItemSO, int> extraItem = null) {
