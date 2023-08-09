@@ -141,13 +141,23 @@ public class Player : MonoBehaviour {
     }
 
     private void OnTriggerStay2D(Collider2D col) {
-        //* Sit Trigger ON
-        collideWithChair(true, col);
+        if(HM._) {
+            collideWithChair(true, col); //* Sit Trigger ON
+        }
+        else {
+
+        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D col) {
-        //* Sit Trigger OFF
-        collideWithChair(false, col);
+        if(HM._) {
+            collideWithChair(false, col); //* Sit Trigger OFF
+        }
+        else {
+
+        }
+        
     }
 #endregion
     private void collideWithChair(bool isTrigger, Collider2D col) {

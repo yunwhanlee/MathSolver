@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enum {
-    public enum SCENE {Title, Home, Loading, Game};
+    public enum SCENE {Title, Home, Loading, Game, MiniGame};
     public enum HOME {Room, IkeaShop, ClothShop, Inventory};
     public enum ACHIVERANK {Achivement, Mission, Rank};
     public enum FUNITURE_CATE {Funiture, Decoration, Bg, Mat};
     public enum INV_CATE {Player, Pet};
     public enum FUNITURE_BG {Wall, Floor};
+    public enum MAP {
+        Forest, Jungle, Tundra,
+        MiniGame1_Orchard = 1000, MiniGame2_Monkeywat = 2000, MiniGame3_IceDragon = 3000
+    };
     public enum TAG {
         GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj,
         TableDecoArea,

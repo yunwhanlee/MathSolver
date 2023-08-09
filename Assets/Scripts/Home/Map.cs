@@ -83,7 +83,7 @@ public class Map : MonoBehaviour {
 #region ANIM
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #endregion
-    public IEnumerator coPlayBounce() {
+    public IEnumerator coBounceAnim() {
         //* Value
         bool isDecreasing = false;
         const float originSc = 1.0f;

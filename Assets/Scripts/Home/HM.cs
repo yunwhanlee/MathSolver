@@ -51,7 +51,7 @@ public class HM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
-    public IEnumerator GoToLoadingScene() {
+    public IEnumerator GoToLoadingScene(string name) {
         Debug.Log("GoToLoadingScene()::");
         pl.transform.SetParent(DB._.transform);
         pet.transform.SetParent(DB._.transform);
@@ -61,8 +61,7 @@ public class HM : MonoBehaviour {
         HM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         HM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;
-        SceneManager.LoadScene(Enum.SCENE.Loading.ToString());
-
+        SceneManager.LoadScene(name);
     }
 
     private void createFunitureItemsBySaveData(Item[] itemDts) {

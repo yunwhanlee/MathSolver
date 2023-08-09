@@ -142,7 +142,13 @@ public class WorldMapManager : MonoBehaviour {
         //* ↑方向：⊖値
         float posY = START_POS - bg.GetComponent<RectTransform>().localPosition.y;
         scrollViewCtt.anchoredPosition = new Vector2(0, posY);
-        
+    }
+    public Map getMap(int idx) {
+        int res = (idx == (int)Enum.MAP.MiniGame1_Orchard)? (int)Enum.MAP.Forest
+        : (idx == (int)Enum.MAP.MiniGame2_Monkeywat)? (int)Enum.MAP.Jungle
+        : (idx == (int)Enum.MAP.MiniGame3_IceDragon)? (int)Enum.MAP.Tundra
+        : idx;
+        return maps[res];
     }
 
 #endregion

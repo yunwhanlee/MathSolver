@@ -415,19 +415,32 @@ public class HUI : MonoBehaviour {
         }
         public void onClickBgArea(int idx) {
             DB._.SelectMapIdx = idx;
-            var map = HM._.wmm.Maps[idx];
+            var map = HM._.wmm.getMap(idx);
             Array.ForEach(map.BgBtns, bgBtn => {
                 bgBtn.GetComponent<Image>().color = Color.yellow;
             });
-            StartCoroutine(map.coPlayBounce());
-            displayGoMapPupUp(map.MapName);
+            StartCoroutine(map.coBounceAnim());
+            displayGoMapPupUp((idx == (int)Enum.MAP.MiniGame1_Orchard)? Enum.MAP.MiniGame1_Orchard.ToString()
+                : (idx == (int)Enum.MAP.MiniGame2_Monkeywat)? Enum.MAP.MiniGame2_Monkeywat.ToString()
+                : (idx == (int)Enum.MAP.MiniGame3_IceDragon)? Enum.MAP.MiniGame3_IceDragon.ToString()
+                : map.MapName
+            );
         }
         public void onClickGoMapPupUpYesBtn() {
             Time.timeScale = 1;
-            StartCoroutine(HM._.GoToLoadingScene());
+            int idx = DB._.SelectMapIdx;
+            Debug.Log($"onClickGoMapPupUpYesBtn():: DB._.SelectMapIdx= {idx}");
+            if(idx == (int)Enum.MAP.MiniGame1_Orchard
+            || idx == (int)Enum.MAP.MiniGame2_Monkeywat
+            || idx == (int)Enum.MAP.MiniGame3_IceDragon) {
+                StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
+            }
+            else {
+                StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.Loading.ToString()));
+            }
         }
         public void onClickGoMapPupUpCloseBtn() {
-            var map = HM._.wmm.Maps[DB._.SelectMapIdx];
+            var map = HM._.wmm.getMap(DB._.SelectMapIdx);
             Array.ForEach(map.BgBtns, bgBtn => {
                 bgBtn.GetComponent<Image>().color = Color.white;
             });
@@ -530,11 +543,25 @@ public class HUI : MonoBehaviour {
         return false;
     }
     private void displayGoMapPupUp(string mapName) {
+        const int FR = (int)Enum.MAP.Forest;
+        const int JG = (int)Enum.MAP.Jungle;
+        const int TD = (int)Enum.MAP.Tundra;
+        const int BG3 = 2;
         goMapPopUp.SetActive(true);
-        goMapPopUpMapImg.sprite = (mapName == "Forest")? HM._.wmm.Maps[0].MapSpr
-            : (mapName == "Jungle")? HM._.wmm.Maps[1].MapSpr
-            : (mapName == "Tundra")? HM._.wmm.Maps[2].MapSpr : null;
-        if(goMapPopUpMapImg.sprite == null) Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");
+        goMapPopUpMapImg.sprite = 
+            //* Map
+            (mapName == Enum.MAP.Forest.ToString())? HM._.wmm.Maps[FR].MapSpr
+            : (mapName == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[JG].MapSpr
+            : (mapName == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[TD].MapSpr
+            //* MiniGame
+            : (mapName == Enum.MAP.MiniGame1_Orchard.ToString())? HM._.wmm.Maps[FR].BgImgs[BG3].sprite
+            : (mapName == Enum.MAP.MiniGame2_Monkeywat.ToString())? HM._.wmm.Maps[JG].BgImgs[BG3].sprite
+            : (mapName == Enum.MAP.MiniGame3_IceDragon.ToString())? HM._.wmm.Maps[TD].BgImgs[BG3].sprite
+            : null;
+        if(goMapPopUpMapImg.sprite == null) {
+            Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");
+            return;
+        }
         goMapPopUpTitleTxt.text = mapName;
     }
     private void setRewardItemObj(Item item) {

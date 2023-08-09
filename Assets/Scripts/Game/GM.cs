@@ -22,6 +22,7 @@ public class GM : MonoBehaviour {
     const float BOX_SPAWN_Y = 6.0f;
     const float OBJ_SPAWN_Y = 4.0f;
 
+    //* OUTSIDE 
     public static GM _;
     public Cam cam;
     public GUI gui; // Game UI Manager
