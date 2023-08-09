@@ -11,8 +11,33 @@ public class MGUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI titleTxt;      public TextMeshProUGUI TitleTxt {get => titleTxt;}
     [SerializeField] TextMeshProUGUI contentTxt;    public TextMeshProUGUI ContentTxt {get => contentTxt;}
 
+    //* MiniGame1 Forest
+    [SerializeField] Button leftArrowBtn;
+    [SerializeField] Button rightArrowBtn;
+
     void Start() {
         scoreTxt.text = "";
+    }
+
+    void Update() {
+        #region MINIGAME1 FOREST
+        //* Btn onPressed
+        bool isLeftArrowBtnPressed = leftArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
+        bool isRightArrowBtnPressed = rightArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
+        
+        //* Player Moving Control
+        if(isLeftArrowBtnPressed) {
+            Debug.Log($"leftArrowBtn.color= {isLeftArrowBtnPressed}");
+            movePlayer(isLeft: true);
+        }
+        else if(isRightArrowBtnPressed) {
+            Debug.Log($"RightArrowBtn.color= {isRightArrowBtnPressed}");
+            movePlayer(isLeft: false);
+        }
+        else {
+            MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
+        }
+        #endregion
     }
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,5 +54,16 @@ public class MGUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    private void movePlayer(bool isLeft) {
+        const float minX = -2, maxX = 2;
+        var pl = MGM._.Pl;
+        var plPos = pl.transform.localPosition;
+        float spd = MGM._.PlMoveSpd * Time.deltaTime;
+
+        pl.walk();
+        pl.Sr.flipX = isLeft;
+        float x = plPos.x + (isLeft? -spd : spd);
+        pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
+    }
 #endregion
 }

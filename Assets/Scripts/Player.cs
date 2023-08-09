@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
 
     void Update() {
         if(HM._ != null && HM._.state != HM.STATE.NORMAL) return;
+        if(MGM._) return; //* MiniGame時には以下処理しない
         if(isSit) return;
 
         //* レイヤー

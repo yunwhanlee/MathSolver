@@ -45,6 +45,9 @@ public class Enum {
     public enum RWD_IDX {
         Coin, Exp, WoodChair
     };
+    public enum OBJ_NAME {
+        apple, goldApple, bomb,
+    }
 
     internal static IEnumerable<QuestManager.MQ_ID> GetValues(Type type)
     {

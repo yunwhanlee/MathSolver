@@ -48,6 +48,7 @@ public class GM : MonoBehaviour {
 
     [Header("ANIMAL")]
     [SerializeField] Animal anm; public Animal Anm {get => anm;}
+
     [Header("LOAD OBJECT FROM HOME")]
     [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;}
     [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;}

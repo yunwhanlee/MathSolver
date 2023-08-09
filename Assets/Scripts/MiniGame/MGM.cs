@@ -15,23 +15,26 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
     //TODO MiniGameTalkManager
 
+    [Header("LOAD OBJECT FROM HOME")]
+    [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;}
+    [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;}
+
     //* Public Value
     [Header("MAPS")]
     [SerializeField] int id;
     [SerializeField] GameObject[] maps;
-    [SerializeField] int score = 0;
+    [SerializeField] int score;         public int Score {get => score; set => score = value;}
     [SerializeField] float curTime;
     [SerializeField] float totalTime;
     [SerializeField] float maxTime = 10;
 
-    //* Private Value
     //* MiniGame1 Forest
-    [SerializeField] Sprite[] mg1ObjSprs; // Apple, GoldApple, Bomb
     [SerializeField] float appleSpan = 1;
-
+    [SerializeField] float plMoveSpd;    public float PlMoveSpd {get => plMoveSpd;}
 
     void Awake() {
         _ = this;
+        score = 0;
         cam = Camera.main.GetComponent<Cam>();
         ui = GameObject.Find("MinigameUIManager").GetComponent<MGUI>();
         mgem = GameObject.Find("MinigameEffectManager").GetComponent<MGEM>();
@@ -61,18 +64,20 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             ui.PlayTimerTxt.text = STATUS.FINISH.ToString();
         }
 
-        //* Create Apples
+        //* Create Apples (MiniGame1 Forest)
         if(curTime >= appleSpan) {
             curTime = 0;
             Vector2 pos = new Vector2(Random.Range(-2.0f, 2.0f), 6);
             float spd = Random.Range(50, 150) * Time.deltaTime;
-            Obj obj = mgem.createObj((int)MGEM.IDX.AppleObj, pos, Util.time6).GetComponent<Obj>();
 
-            //* 種類 設定
-            const int APPLE = 0, BOMB = 1, GOLD_APPLE = 2;
             int rand = Random.Range(0, 100);
-            int objIdx = (rand <= 70)? APPLE : (rand <= 20)? BOMB : GOLD_APPLE;
-            obj.SprRdr.sprite = mg1ObjSprs[objIdx];
+
+            //* ランダム種類 設定
+            int objIdx = (rand <= 70)? (int)MGEM.IDX.AppleObj
+                : (rand <= 20)? (int)MGEM.IDX.GoldAppleObj
+                : (int)MGEM.IDX.BombObj;
+
+            Obj obj = mgem.createObj(objIdx, pos, Util.time8).GetComponent<Obj>();
             obj.name = obj.SprRdr.sprite.name;
 
             obj.transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));

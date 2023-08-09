@@ -1,14 +1,16 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Obj : MonoBehaviour
 {
+
     [SerializeField] Collider2D col;
     [SerializeField] Rigidbody2D rigid; public Rigidbody2D Rigid {get => rigid;}
     [SerializeField] SpriteRenderer sprRdr; public SpriteRenderer SprRdr {get => sprRdr;}
     [SerializeField] bool isDisappear;   public bool IsDisappear {get => isDisappear; set => isDisappear = value;}
+
+    [SerializeField] Coroutine coroutineID = null;  public Coroutine CoroutineID {get => coroutineID; set => coroutineID = value;}
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
