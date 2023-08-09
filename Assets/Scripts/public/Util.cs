@@ -58,8 +58,8 @@ public class Util : MonoBehaviour
         //* Value
         bool isDecreasing = false;
         const float originSc = 1.0f;
-        float spd = 1.5f * Time.deltaTime;
-        const float maxSc = 1.2f;
+        float spd = 2f * Time.deltaTime;
+        const float maxSc = 1.15f;
 
         //* Scale Bounce
         while(true) {

@@ -21,6 +21,8 @@ public class MGUI : MonoBehaviour {
 
     void Update() {
         #region MINIGAME1 FOREST
+        if(MGM._.IsStun) return;
+
         //* Btn onPressed
         bool isLeftArrowBtnPressed = leftArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
         bool isRightArrowBtnPressed = rightArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);

@@ -29,6 +29,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] float maxTime = 10;
 
     //* MiniGame1 Forest
+    [SerializeField] bool isStun;       public bool IsStun {get => isStun; set => isStun = value;}
     [SerializeField] float appleSpan = 1;
     [SerializeField] float plMoveSpd;    public float PlMoveSpd {get => plMoveSpd;}
 
@@ -98,6 +99,14 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             : (DB._.SelectMapIdx == (int)Enum.MAP.MiniGame3_IceDragon)? 2 : -1;
         if(idx == -1) Debug.LogError("存在しないマップINDEXです。０");
         return idx;
+    }
+
+    //* MiniGame1
+    public IEnumerator coSetPlayerStun() {
+        isStun = true;
+        yield return Util.time1;
+        yield return Util.time0_5;
+        isStun = false;
     }
 #endregion
 }
