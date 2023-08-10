@@ -5,4 +5,9 @@ using UnityEngine;
 public static class Config {
     public readonly static string OPERATION_REGEX_PATTERN = @"[+\-]|minus|times|frac|underline|left";
     public readonly static string TEXTDRAW_REGEX_PATTERN = @"[-+x=?]|minus|times|frac|underline|left|\d+";
+
+    public readonly static int MINIGAME1_MAX_VAL = 400;
+    public readonly static int[] MINIGAME1_EASY_OBJ_DATA = new int[2] {1, 2};
+    public readonly static int[] MINIGAME1_NORMAL_OBJ_DATA = new int[3] {2, 4, 8};
+    public readonly static int[] MINIGAME1_HARD_OBJ_DATA = new int[3] {3, 6, 9};
 }

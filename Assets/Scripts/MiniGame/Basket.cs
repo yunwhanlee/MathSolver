@@ -10,12 +10,12 @@ public class Basket : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col) {
         Debug.Log($"Basket():: col.name= {col.name}");
         if(col.CompareTag(Enum.TAG.Apple.ToString())) {
-            MGM._.Score++;
+            MGM._.Score += MGM._.ApplePoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.AppleObj);
         }
         else if(col.CompareTag(Enum.TAG.Bomb.ToString())) {
-            Mathf.Clamp(MGM._.Score--, 0, 999);
+            Mathf.Clamp(MGM._.Score / 4, 0, 999);
             MGM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
             MGM._.Pl.Anim.SetTrigger(Enum.ANIM.DoFail.ToString());
             MGM._.mgem.showEF((int)MGEM.IDX.StunEF, transform.position, Util.time2);
@@ -24,7 +24,7 @@ public class Basket : MonoBehaviour {
             StartCoroutine(MGM._.coSetPlayerStun());
         }
         else if(col.CompareTag(Enum.TAG.GoldApple.ToString())) {
-            MGM._.Score += 3;
+            MGM._.Score += MGM._.GoldApplePoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.GoldAppleObj);

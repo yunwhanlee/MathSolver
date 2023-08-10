@@ -7,6 +7,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     public enum STATUS {READY, PLAY, FINISH, PAUSE};
     [SerializeField] STATUS status; public STATUS Status {get => status; set => status = value;}
 
+    public enum MODE {EASY, NORMAL, HARD};
+    [SerializeField] MODE mode; public MODE Mode {get => mode;}
+
     //* OUTSIDE
     public static MGM _;
     public Cam cam;
@@ -20,29 +23,50 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
 
     //* Public Value
-    [Header("MAPS")]
     [SerializeField] int id;
     [SerializeField] GameObject[] maps;
+    [SerializeField] GameObject newBestScoreEF;
     [SerializeField] int score;         public int Score {get => score; set => score = value;}
     [SerializeField] float curTime;
     [SerializeField] float totalTime;
-    [SerializeField] float maxTime = 10;
+    [SerializeField] float maxTime;
 
     //* MiniGame1 Forest
     [SerializeField] bool isStun;       public bool IsStun {get => isStun; set => isStun = value;}
     [SerializeField] float appleSpan = 1;
     [SerializeField] float plMoveSpd;    public float PlMoveSpd {get => plMoveSpd;}
+    [SerializeField] int applePoint;       public int ApplePoint {get => applePoint;}
+    [SerializeField] int goldApplePoint;   public int GoldApplePoint {get => goldApplePoint;}
+    [SerializeField] int diamondPoint;     public int DiamondPoint {get => diamondPoint;}
 
     void Awake() {
         _ = this;
-        score = 0;
         cam = Camera.main.GetComponent<Cam>();
         ui = GameObject.Find("MinigameUIManager").GetComponent<MGUI>();
         mgem = GameObject.Find("MinigameEffectManager").GetComponent<MGEM>();
         mgrm = GameObject.Find("MinigameResultManager").GetComponent<MGResultManager>();
 
+        score = 0;
+        maxTime = 10;
         id = getMapIdx();
         maps[id].SetActive(true);
+        mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
+
+        //* Set Obj Point
+        if(mode == MODE.EASY) {
+            applePoint = Config.MINIGAME1_EASY_OBJ_DATA[0];
+            goldApplePoint = Config.MINIGAME1_EASY_OBJ_DATA[1];
+        }
+        else if(mode == MODE.NORMAL) {
+            applePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[0];
+            goldApplePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[1];
+            diamondPoint = Config.MINIGAME1_NORMAL_OBJ_DATA[2];
+        }
+        else if(mode == MODE.HARD) {
+            applePoint = Config.MINIGAME1_HARD_OBJ_DATA[0];
+            goldApplePoint = Config.MINIGAME1_HARD_OBJ_DATA[1];
+            diamondPoint = Config.MINIGAME1_HARD_OBJ_DATA[2];
+        }
     }
 
     void Update() {
@@ -57,13 +81,24 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             : (id == 0)? $"<sprite name=banana>: {score}"
             : $"<sprite name=todo>: {score}";
 
-        //* Timer Txt & Finish Game
+        //* Timer
         float remainTime = (maxTime - totalTime);
         if(remainTime > 0) 
             ui.PlayTimerTxt.text = remainTime.ToString("N0");
+        //* Finish
         else {
             status = STATUS.FINISH;
-            ui.PlayTimerTxt.text = STATUS.FINISH.ToString();
+
+            //* Update Best Score
+            if(score > DB.Dt.Minigame1BestScore) {
+                DB.Dt.Minigame1BestScore = score;
+                newBestScoreEF.SetActive(true);
+                ui.PlayTimerTxt.text = $"<color=yellow>NEW !\nBEST : {score}</color>";
+            }
+            else {
+                ui.PlayTimerTxt.text = $"BEST : {score}";
+            }
+
             MGM._.pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
             
             //* 残るオブジェクト全て破壊

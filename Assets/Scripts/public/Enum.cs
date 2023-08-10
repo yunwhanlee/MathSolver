@@ -12,8 +12,11 @@ public class Enum {
     public enum FUNITURE_BG {Wall, Floor};
     public enum MAP {
         Forest, Jungle, Tundra,
-        MiniGame1_Orchard = 1000, MiniGame2_Monkeywat = 2000, MiniGame3_IceDragon = 3000
+        MiniGame1_Orchard, MiniGame2_Monkeywat, MiniGame3_IceDragon
     };
+    public enum MINIGAME_LV {
+        Easy, Normal, Hard
+    }
     public enum TAG {
         GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj,
         TableDecoArea,
