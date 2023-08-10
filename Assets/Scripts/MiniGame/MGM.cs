@@ -12,12 +12,12 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     public Cam cam;
     public MGUI ui;
     public MGEM mgem; //* ObjとEF生成 (pool)
-
+    public MGResultManager mgrm;
+    [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;} //* LOAD OBJECT FROM HOME
+    [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;} //* LOAD OBJECT FROM HOME
     //TODO MiniGameTalkManager
 
-    [Header("LOAD OBJECT FROM HOME")]
-    [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;}
-    [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;}
+
 
     //* Public Value
     [Header("MAPS")]
@@ -39,6 +39,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         cam = Camera.main.GetComponent<Cam>();
         ui = GameObject.Find("MinigameUIManager").GetComponent<MGUI>();
         mgem = GameObject.Find("MinigameEffectManager").GetComponent<MGEM>();
+        mgrm = GameObject.Find("MinigameResultManager").GetComponent<MGResultManager>();
 
         id = getMapIdx();
         maps[id].SetActive(true);
@@ -63,23 +64,35 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         else {
             status = STATUS.FINISH;
             ui.PlayTimerTxt.text = STATUS.FINISH.ToString();
+            MGM._.pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
+            
+            //* 残るオブジェクト全て破壊
+            MGM._.mgem.releaseAllObj();
+
+            //* Exp & Coin Reward
+            const int EXP_VAL = 5, COIN_VAL = 10;
+            mgrm.setReward(EXP_VAL * score, COIN_VAL * score);
+            StartCoroutine(MGM._.mgrm.coDisplayResultPanel());
         }
 
         //* Create Apples (MiniGame1 Forest)
+        appleSpan = (remainTime > maxTime * 0.6f)? 1 
+            : (remainTime > maxTime * 0.4f)? 0.7f
+            : (remainTime > maxTime * 0.3f)? 0.5f
+            : 0.3f;
+
         if(curTime >= appleSpan) {
             curTime = 0;
             Vector2 pos = new Vector2(Random.Range(-2.0f, 2.0f), 6);
-            float spd = Random.Range(50, 150) * Time.deltaTime;
-
-            int rand = Random.Range(0, 100);
+            float spd = Random.Range(100, 200) * Time.deltaTime;
 
             //* ランダム種類 設定
-            int objIdx = (rand <= 70)? (int)MGEM.IDX.AppleObj
-                : (rand <= 20)? (int)MGEM.IDX.GoldAppleObj
+            int rand = Random.Range(0, 100);
+            int objIdx = (rand <= 60)? (int)MGEM.IDX.AppleObj
+                : (rand <= 80)? (int)MGEM.IDX.GoldAppleObj
                 : (int)MGEM.IDX.BombObj;
 
             Obj obj = mgem.createObj(objIdx, pos, Util.time8).GetComponent<Obj>();
-            obj.name = obj.SprRdr.sprite.name;
 
             obj.transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
             obj.Rigid.bodyType = RigidbodyType2D.Kinematic;

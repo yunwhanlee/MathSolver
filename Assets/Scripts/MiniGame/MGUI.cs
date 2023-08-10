@@ -5,22 +5,30 @@ using UnityEngine.UI;
 using TMPro;
 
 public class MGUI : MonoBehaviour {
-    [SerializeField] Button startBtn;
+
+    [SerializeField] GameObject resultPanel;    public GameObject ResultPanel {get => resultPanel; set => resultPanel = value;}
+    [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
+
+    [SerializeField] Button startScrBtn;
     [SerializeField] TextMeshProUGUI scoreTxt;   public TextMeshProUGUI ScoreTxt {get => scoreTxt;}
     [SerializeField] TextMeshProUGUI playTimerTxt;  public TextMeshProUGUI PlayTimerTxt {get => playTimerTxt;}
     [SerializeField] TextMeshProUGUI titleTxt;      public TextMeshProUGUI TitleTxt {get => titleTxt;}
     [SerializeField] TextMeshProUGUI contentTxt;    public TextMeshProUGUI ContentTxt {get => contentTxt;}
 
     //* MiniGame1 Forest
-    [SerializeField] Button leftArrowBtn;
-    [SerializeField] Button rightArrowBtn;
+    [SerializeField] Button leftArrowBtn;   public Button LeftArrowBtn {get => leftArrowBtn; set => leftArrowBtn = value;}
+    [SerializeField] Button rightArrowBtn;   public Button RightArrowBtn {get => rightArrowBtn; set => rightArrowBtn = value;}
 
     void Start() {
+        resultPanel.SetActive(false);
         scoreTxt.text = "";
+        leftArrowBtn.gameObject.SetActive(false);
+        rightArrowBtn.gameObject.SetActive(false);
     }
 
     void Update() {
         #region MINIGAME1 FOREST
+        if(MGM._.Status != MGM.STATUS.PLAY) return;
         if(MGM._.IsStun) return;
 
         //* Btn onPressed
@@ -28,17 +36,9 @@ public class MGUI : MonoBehaviour {
         bool isRightArrowBtnPressed = rightArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
         
         //* Player Moving Control
-        if(isLeftArrowBtnPressed) {
-            Debug.Log($"leftArrowBtn.color= {isLeftArrowBtnPressed}");
-            movePlayer(isLeft: true);
-        }
-        else if(isRightArrowBtnPressed) {
-            Debug.Log($"RightArrowBtn.color= {isRightArrowBtnPressed}");
-            movePlayer(isLeft: false);
-        }
-        else {
-            MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
-        }
+        if(isLeftArrowBtnPressed) movePlayer(isLeft: true);
+        else if(isRightArrowBtnPressed) movePlayer(isLeft: false);
+        else MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
         #endregion
     }
 
@@ -47,10 +47,10 @@ public class MGUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickStartBtn() {
         Debug.Log("onClickStartBtn():: Status: READY ➝ PLAY");
-        MGM._.Status = MGM.STATUS.PLAY;
-        startBtn.gameObject.SetActive(false);
-        titleTxt.gameObject.SetActive(false);
-        contentTxt.gameObject.SetActive(false);
+        startScrBtn.gameObject.SetActive(false);
+        leftArrowBtn.gameObject.SetActive(true);
+        rightArrowBtn.gameObject.SetActive(true);
+        StartCoroutine(coReadyStartCount());
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +66,17 @@ public class MGUI : MonoBehaviour {
         pl.Sr.flipX = isLeft;
         float x = plPos.x + (isLeft? -spd : spd);
         pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
+    }
+    
+    private IEnumerator coReadyStartCount() {
+        titleTxt.text = "Ready";
+        contentTxt.text = "";
+        yield return Util.time1;
+        MGM._.Status = MGM.STATUS.PLAY;
+        titleTxt.text = "Start!";
+        yield return Util.time1;
+        titleTxt.gameObject.SetActive(false);
+        contentTxt.gameObject.SetActive(false);
     }
 #endregion
 }

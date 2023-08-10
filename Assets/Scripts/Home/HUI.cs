@@ -21,9 +21,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] Button woodSignArrowRightBtn;
 
     [Header("HOME PANEL")]
-    [SerializeField] Canvas canvasStatic; 
+    [SerializeField] Canvas canvasStatic;
     [SerializeField] Canvas canvasWorldMap;
-
     [SerializeField] GameObject topGroup; public GameObject TopGroup {get => topGroup; set => topGroup = value;}
     [SerializeField] GameObject[] homeScenePanelArr;    public GameObject[] HomeScenePanelArr {get => homeScenePanelArr; set => homeScenePanelArr = value;}
     [SerializeField] GameObject achiveRankPanel; public GameObject AchiveRankPanel {get => achiveRankPanel; set => achiveRankPanel = value;}
@@ -546,7 +545,6 @@ public class HUI : MonoBehaviour {
         const int FR = (int)Enum.MAP.Forest;
         const int JG = (int)Enum.MAP.Jungle;
         const int TD = (int)Enum.MAP.Tundra;
-        const int BG3 = 2;
         goMapPopUp.SetActive(true);
         goMapPopUpMapImg.sprite = 
             //* Map
@@ -554,9 +552,9 @@ public class HUI : MonoBehaviour {
             : (mapName == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[JG].MapSpr
             : (mapName == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[TD].MapSpr
             //* MiniGame
-            : (mapName == Enum.MAP.MiniGame1_Orchard.ToString())? HM._.wmm.Maps[FR].BgImgs[BG3].sprite
-            : (mapName == Enum.MAP.MiniGame2_Monkeywat.ToString())? HM._.wmm.Maps[JG].BgImgs[BG3].sprite
-            : (mapName == Enum.MAP.MiniGame3_IceDragon.ToString())? HM._.wmm.Maps[TD].BgImgs[BG3].sprite
+            : (mapName == Enum.MAP.MiniGame1_Orchard.ToString())? HM._.wmm.Maps[FR].MiniGameSpr
+            : (mapName == Enum.MAP.MiniGame2_Monkeywat.ToString())? HM._.wmm.Maps[JG].MiniGameSpr
+            : (mapName == Enum.MAP.MiniGame3_IceDragon.ToString())? HM._.wmm.Maps[TD].MiniGameSpr
             : null;
         if(goMapPopUpMapImg.sprite == null) {
             Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");

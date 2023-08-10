@@ -8,6 +8,7 @@ using System;
 public class Map : MonoBehaviour {
     [SerializeField] string mapName;       public string MapName {get => mapName; set => mapName = value;}
     [SerializeField] Sprite mapSpr;       public Sprite MapSpr {get => mapSpr; set => mapSpr = value;}
+    [SerializeField] Sprite miniGameSpr;  public Sprite MiniGameSpr {get => miniGameSpr; set => miniGameSpr = value;}
     [SerializeField] bool[] isBgUnlocks;    public bool[] IsBgUnlocks {get => isBgUnlocks; set => isBgUnlocks = value;}
     [SerializeField] string[] bgNames;   public string[] BgNames {get => bgNames; set => bgNames = value;}
     [SerializeField] Button[] bgBtns;        public Button[] BgBtns {get => bgBtns;}

@@ -8,7 +8,7 @@ public class MGEM : MonoBehaviour {
         //* Obj
         AppleObj, GoldAppleObj, BombObj
         //* EF
-        ,StunEF, BasketCatchEF, ExplosionBombEF,
+        ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF,
     }
 
     //* MiniGame1
@@ -18,6 +18,7 @@ public class MGEM : MonoBehaviour {
     [SerializeField] GameObject stunEF;
     [SerializeField] GameObject basketCatchEF;
     [SerializeField] GameObject explosionBombEF;
+    [SerializeField] GameObject shineSpoutGoldEF;
 
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
     [SerializeField] Transform objectGroup;
@@ -30,7 +31,8 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(bombObj, max: 3, objectGroup));
         pool.Add(initEF(stunEF, max: 1, effectGroup));
         pool.Add(initEF(basketCatchEF, max: 4, effectGroup));
-        pool.Add(initEF(explosionBombEF, max: 1, effectGroup));
+        pool.Add(initEF(explosionBombEF, max: 2, effectGroup));
+        pool.Add(initEF(shineSpoutGoldEF, max: 2, effectGroup));
     }
 
 /// -----------------------------------------------------------------------------------------------------------------
@@ -61,6 +63,15 @@ public class MGEM : MonoBehaviour {
     public GameObject createObj(int idx, Vector3 pos, WaitForSeconds delay) {
         GameObject obj = pool[idx].Get();
         //! オブジェクト生成は必ずObjクラスにすること
+        //* 名前
+        obj.name = (idx == 0)? IDX.AppleObj.ToString()
+            : (idx == 1)? IDX.GoldAppleObj.ToString()
+            : (idx == 2)? IDX.BombObj.ToString() : null;
+        if(obj.name == null) {
+            Debug.LogError("ERROR: MGEM:: createObjで、オブジェクト名がNULLです！");
+            return null;
+        }
+        //* 生成(コールティン 開始) 
         obj.GetComponent<Obj>().CoroutineID = StartCoroutine(coCreateObj(obj, idx, pos, delay));
         return obj;
     }
@@ -69,10 +80,10 @@ public class MGEM : MonoBehaviour {
         obj.transform.position = position;
 
         yield return delay;
-        if(!obj.activeSelf){
-            yield break; //* もし、既に(Release)破壊されたら以下処理しない
-        } 
-        pool[idx].Release(obj);
+        Debug.Log($"coCreateObj():: delay -> release:: obj= {obj}");
+        if (obj != null && obj.activeSelf) { //* もし、既に(Release)破壊されたら以下処理しない
+            pool[idx].Release(obj);
+        }
     }
 
     public void showEF(int idx, Vector3 pos, WaitForSeconds delay)
@@ -94,5 +105,20 @@ public class MGEM : MonoBehaviour {
         pool[idx].Release(obj);
     }
 
+    public void releaseAllObj() {
+        for(int i = 0; i < objectGroup.childCount; i++) {
+            var obj = objectGroup.GetChild(i).gameObject;
+            string name = obj.name;
+            int idx = (name == IDX.AppleObj.ToString())? 0
+                : (name == IDX.GoldAppleObj.ToString())? 1
+                : (name == IDX.BombObj.ToString())? 2 : -1;
+
+            //* 戻す
+            if (obj != null && obj.activeSelf) {
+                pool[idx].Release(obj);
+                showEF((int)IDX.BasketCatchEF, obj.transform.position, Util.time2);
+            }
+        }
+    }
 #endregion
 }

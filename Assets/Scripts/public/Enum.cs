@@ -17,6 +17,7 @@ public class Enum {
     public enum TAG {
         GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj,
         TableDecoArea,
+        Apple, Bomb, GoldApple, //* MiniGame1
     };
     public enum ANIM {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
@@ -46,7 +47,6 @@ public class Enum {
         Coin, Exp, WoodChair
     };
     public enum OBJ_NAME {
-        apple, goldApple, bomb,
     }
 
     internal static IEnumerable<QuestManager.MQ_ID> GetValues(Type type)
