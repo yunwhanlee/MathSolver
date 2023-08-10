@@ -126,7 +126,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] Image mapUnlockImg;    public Image MapUnlockImg {get => mapUnlockImg;}
     [SerializeField] TextMeshProUGUI mapUnlockPopUpNameTxt;    public TextMeshProUGUI MapUnlockPopUpNameTxt {get => mapUnlockPopUpNameTxt;}
     [SerializeField] TextMeshProUGUI mapUnlockPopUpCttTxt;    public TextMeshProUGUI MapUnlockPopUpCttTxt {get => mapUnlockPopUpCttTxt;}
-
     [Space(10)]
     [SerializeField] GameObject goMapPopUp;   public GameObject GoMapPopUp {get => goMapPopUp; set => goMapPopUp = value;}
     [SerializeField] Image goMapPopUpMapImg;     public Image GoMapPopUpMapImg {get => goMapPopUpMapImg; set => goMapPopUpMapImg = value;}
@@ -135,7 +134,14 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject newFuniturePopUp;   public GameObject NewFuniturePopUp {get => newFuniturePopUp;}
     [SerializeField] Image newFuniturePopUpImg;   public Image NewFuniturePopUpImg {get => newFuniturePopUpImg;}
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
-
+    [Space(10)] //* MiniGame Lv PopUp
+    int[] mgLvUnlockScores = new int[3] {0, 100, 200};
+    [SerializeField] GameObject mgLvPopUp;   public GameObject MgLvPopUp {get => mgLvPopUp;}
+    [SerializeField] GameObject[] mgLvPopUpInfoIcons;          public GameObject[] MgLvPopUpInfoIcons {get => mgLvPopUpInfoIcons;}
+    [SerializeField] Button[] mgLvPopUpBtns;  public Button[] MgLvPopUpBtns {get => mgLvPopUpBtns;}
+    [SerializeField] GameObject[] mgLvPopUpBtnLockFrames;
+    [SerializeField] GameObject[] mgLvPopUpBtnFocusLines;
+    [SerializeField] Button mgLvPopUpPlayBtn;   public Button MgLvPopUpPlayBtn {get => mgLvPopUpPlayBtn;}
 
     void Start() {
         onRewardPopUpAccept = () => {};
@@ -183,6 +189,18 @@ public class HUI : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == QUEST);
         }
         achiveRankTitleTxt.text = LM._.localize("Achivement");;//Enum.ACHIVERANK.Achivement.ToString();
+
+        //* MiniGame Level PopUp 初期化
+        for(int i = 0; i < mgLvPopUpBtns.Length; i++) {
+            int last = mgLvPopUpBtns[i].transform.childCount;
+            mgLvPopUpBtnFocusLines[i] = mgLvPopUpBtns[i].transform.GetChild(last - 1).gameObject;
+            mgLvPopUpBtnLockFrames[i] = mgLvPopUpBtns[i].transform.GetChild(last - 2).gameObject;
+        }
+        
+        //* LockFrame 初期化
+        mgLvPopUpBtnLockFrames[0].SetActive(DB.Dt.Minigame1BestScore < mgLvUnlockScores[0]);
+        mgLvPopUpBtnLockFrames[1].SetActive(DB.Dt.Minigame1BestScore < mgLvUnlockScores[1]);
+        mgLvPopUpBtnLockFrames[2].SetActive(DB.Dt.Minigame1BestScore < mgLvUnlockScores[2]);
     }
 
     void Update() {
@@ -388,63 +406,103 @@ public class HUI : MonoBehaviour {
     }
 
     #region SELECT MAP
-        public void onClickGoGameDialogYesBtn() { // Choose Map
-            var lv = DB.Dt.Lv;
+    public void onClickGoGameDialogYesBtn() { // Choose Map
+        var lv = DB.Dt.Lv;
 
-            HM._.state = HM.STATE.NORMAL;
-            canvasWorldMap.gameObject.SetActive(true);
-            canvasStatic.gameObject.SetActive(false);
+        HM._.state = HM.STATE.NORMAL;
+        canvasWorldMap.gameObject.SetActive(true);
+        canvasStatic.gameObject.SetActive(false);
 
-            //* Quest
-            if(DB.Dt.IsTutoWorldMapTrigger)
-                HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
+        //* Quest
+        if(DB.Dt.IsTutoWorldMapTrigger)
+            HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
 
-            //* もし、メインクエストのACCEPTしなかったら、自動受託
-            onClickAchiveRankIconBtn();
-            var mq = HM._.qm.MainQuests[DB.Dt.MainQuestID];
-            if(mq.AcceptBtn.gameObject.activeSelf){
-                Debug.Log($"onClickGoGameDialogYesBtn():: MainQuest.name= {mq.name}, Auto Accept!");
-                mq.acceptQuest();
-            }
-            onClickAchiveRankCloseBtn();
+        //* もし、メインクエストのACCEPTしなかったら、自動受託
+        onClickAchiveRankIconBtn();
+        var mq = HM._.qm.MainQuests[DB.Dt.MainQuestID];
+        if(mq.AcceptBtn.gameObject.activeSelf){
+            Debug.Log($"onClickGoGameDialogYesBtn():: MainQuest.name= {mq.name}, Auto Accept!");
+            mq.acceptQuest();
         }
-        public void onClickGoGameDialogNoBtn() {
-            HM._.state = HM.STATE.NORMAL;
-            goGameDialog.SetActive(false);
+        onClickAchiveRankCloseBtn();
+    }
+    public void onClickGoGameDialogNoBtn() {
+        HM._.state = HM.STATE.NORMAL;
+        goGameDialog.SetActive(false);
+    }
+    public void onClickBgArea(int idx) {
+        DB._.SelectMapIdx = idx;
+        var map = HM._.wmm.getMap(idx);
+        Array.ForEach(map.BgBtns, bgBtn => {
+            bgBtn.GetComponent<Image>().color = Color.yellow;
+        });
+        StartCoroutine(map.coBounceAnim());
+        displayGoMapPupUp((idx == (int)Enum.MAP.MiniGame1_Orchard)? Enum.MAP.MiniGame1_Orchard.ToString()
+            : (idx == (int)Enum.MAP.MiniGame2_Monkeywat)? Enum.MAP.MiniGame2_Monkeywat.ToString()
+            : (idx == (int)Enum.MAP.MiniGame3_IceDragon)? Enum.MAP.MiniGame3_IceDragon.ToString()
+            : map.MapName
+        );
+    }
+    public void onClickGoMapPupUpYesBtn() {
+        Time.timeScale = 1;
+        int idx = DB._.SelectMapIdx;
+        Debug.Log($"onClickGoMapPupUpYesBtn():: DB._.SelectMapIdx= {idx}");
+        if(idx == (int)Enum.MAP.MiniGame1_Orchard
+        || idx == (int)Enum.MAP.MiniGame2_Monkeywat
+        || idx == (int)Enum.MAP.MiniGame3_IceDragon) {
+            StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
         }
-        public void onClickBgArea(int idx) {
-            DB._.SelectMapIdx = idx;
-            var map = HM._.wmm.getMap(idx);
-            Array.ForEach(map.BgBtns, bgBtn => {
-                bgBtn.GetComponent<Image>().color = Color.yellow;
-            });
-            StartCoroutine(map.coBounceAnim());
-            displayGoMapPupUp((idx == (int)Enum.MAP.MiniGame1_Orchard)? Enum.MAP.MiniGame1_Orchard.ToString()
-                : (idx == (int)Enum.MAP.MiniGame2_Monkeywat)? Enum.MAP.MiniGame2_Monkeywat.ToString()
-                : (idx == (int)Enum.MAP.MiniGame3_IceDragon)? Enum.MAP.MiniGame3_IceDragon.ToString()
-                : map.MapName
-            );
+        else {
+            StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.Loading.ToString()));
         }
-        public void onClickGoMapPupUpYesBtn() {
-            Time.timeScale = 1;
-            int idx = DB._.SelectMapIdx;
-            Debug.Log($"onClickGoMapPupUpYesBtn():: DB._.SelectMapIdx= {idx}");
-            if(idx == (int)Enum.MAP.MiniGame1_Orchard
-            || idx == (int)Enum.MAP.MiniGame2_Monkeywat
-            || idx == (int)Enum.MAP.MiniGame3_IceDragon) {
-                StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
-            }
-            else {
-                StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.Loading.ToString()));
-            }
+    }
+    public void onClickGoMapPupUpCloseBtn() {
+        var map = HM._.wmm.getMap(DB._.SelectMapIdx);
+        Array.ForEach(map.BgBtns, bgBtn => {
+            bgBtn.GetComponent<Image>().color = Color.white;
+        });
+        goMapPopUp.SetActive(false);
+    }
+    #endregion
+
+    #region MINIGAME LEVEL POPUP
+    public void onClickMinigameLvPopUpLvBtn(int idx) {
+        const int EASY = 0, NORMAL = 1, HARD = 2;
+
+        //* ロックしたら、解禁条件のお知らせ
+        if(mgLvPopUpBtnLockFrames[idx].activeSelf) {
+            showErrorMsgPopUp($"Achieve {mgLvUnlockScores[idx]} Best Score!");
+            return;
         }
-        public void onClickGoMapPupUpCloseBtn() {
-            var map = HM._.wmm.getMap(DB._.SelectMapIdx);
-            Array.ForEach(map.BgBtns, bgBtn => {
-                bgBtn.GetComponent<Image>().color = Color.white;
-            });
-            goMapPopUp.SetActive(false);
+
+        //* 選択 枠
+        for(int i = 0; i< mgLvPopUpBtns.Length; i++)
+            mgLvPopUpBtnFocusLines[i].SetActive(i == idx);
+
+        //* 登場するアイテムの情報表示欄
+        const int APPLE = 0, GOLDAPPLE = 1, DIAMOND = 2;
+        switch(idx) {
+            case EASY:
+                mgLvPopUpInfoIcons[APPLE].SetActive(true);
+                mgLvPopUpInfoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+1";
+                mgLvPopUpInfoIcons[GOLDAPPLE].SetActive(true);
+                mgLvPopUpInfoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+3";
+                mgLvPopUpInfoIcons[DIAMOND].SetActive(false);
+                break;
+            case NORMAL:
+                mgLvPopUpInfoIcons[APPLE].SetActive(true);
+                mgLvPopUpInfoIcons[GOLDAPPLE].SetActive(true);
+                mgLvPopUpInfoIcons[DIAMOND].SetActive(true);
+                break;
+            case HARD:
+                mgLvPopUpInfoIcons[APPLE].SetActive(true);
+                mgLvPopUpInfoIcons[GOLDAPPLE].SetActive(true);
+                mgLvPopUpInfoIcons[DIAMOND].SetActive(true);
+                break;
         }
+
+    }
+
     #endregion
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

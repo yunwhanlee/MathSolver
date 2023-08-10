@@ -27,6 +27,7 @@ public class Data {
     //* Home
     [SerializeField] int mainQuestID; public int MainQuestID {get => mainQuestID; set => mainQuestID = value;}
     [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
+    [SerializeField] int minigame1BestScore;    public int Minigame1BestScore {get => minigame1BestScore; set => minigame1BestScore = value;}
 
     [Header("ACHIEVEMENT")]
     [SerializeField] int acvCorrectAnswerLv;  public int AcvCorrectAnswerLv {get => acvCorrectAnswerLv; set => acvCorrectAnswerLv = value;}
@@ -223,6 +224,7 @@ public class DB : MonoBehaviour {
 
         //* 服屋 値段
         dt.GachaCnt = 1;
+        dt.Minigame1BestScore = 0;
 
         #region ACHIEVE
         dt.AcvCorrectAnswerLv = 1;
