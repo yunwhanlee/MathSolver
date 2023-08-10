@@ -23,11 +23,17 @@ public class Data {
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int exp; public int Exp {get => exp; set => exp = value;}
+    [SerializeField] int fame; public int Fame {get => fame; set => fame = value;}
 
     //* Home
     [SerializeField] int mainQuestID; public int MainQuestID {get => mainQuestID; set => mainQuestID = value;}
     [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
     [SerializeField] int minigame1BestScore;    public int Minigame1BestScore {get => minigame1BestScore; set => minigame1BestScore = value;}
+
+    [Header("MINIGAME REWARD")]
+    [SerializeField] bool[] minigame1RewardTriggers; public bool[] Minigame1RewardTriggers {get => minigame1RewardTriggers; set => minigame1RewardTriggers = value;}
+    //TODO [SerializeField] bool[] minigame2RewardTriggers; public bool[] Minigame2RewardTriggers {get => minigame2RewardTriggers; set => minigame2RewardTriggers = value;}
+    //TODO [SerializeField] bool[] minigame3RewardTriggers; public bool[] Minigame3RewardTriggers {get => minigame3RewardTriggers; set => minigame3RewardTriggers = value;}
 
     [Header("ACHIEVEMENT")]
     [SerializeField] int acvCorrectAnswerLv;  public int AcvCorrectAnswerLv {get => acvCorrectAnswerLv; set => acvCorrectAnswerLv = value;}
@@ -39,7 +45,6 @@ public class Data {
     [SerializeField] int acvCoinAmountLv;  public int AcvCoinAmountLv {get => acvCoinAmountLv; set => acvCoinAmountLv = value;}
     [SerializeField] int acvCoinAmount;  public int AcvCoinAmount {get => acvCoinAmount; set => acvCoinAmount = value;}
 
-    
     [Header("QUEST TUTORIAL TRIGGER")]
     [SerializeField] bool isTutoRoomTrigger;   public bool IsTutoRoomTrigger {get => isTutoRoomTrigger; set => isTutoRoomTrigger = value;}
     [SerializeField] bool isTutoFunitureShopTrigger;   public bool IsTutoFunitureShopTrigger {get => isTutoFunitureShopTrigger; set => isTutoFunitureShopTrigger = value;}
@@ -221,11 +226,16 @@ public class DB : MonoBehaviour {
         dt.Lv = 1;
         dt.Coin = 0;
         dt.Exp = 0;
+        dt.Fame = 0;
         dt.MainQuestID = 0;
 
         //* 服屋 値段
         dt.GachaCnt = 1;
         dt.Minigame1BestScore = 0;
+
+        #region MINIGAME REWARD
+        dt.Minigame1RewardTriggers = new bool[3] {false, false, false};
+        #endregion
 
         #region ACHIEVE
         dt.AcvCorrectAnswerLv = 1;

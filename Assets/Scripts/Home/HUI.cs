@@ -134,16 +134,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject newFuniturePopUp;   public GameObject NewFuniturePopUp {get => newFuniturePopUp;}
     [SerializeField] Image newFuniturePopUpImg;   public Image NewFuniturePopUpImg {get => newFuniturePopUpImg;}
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
-    [Space(10)] //* MiniGame Lv PopUp
-    int[] mgLvUnlockScores = new int[3] {0, 100, 200};
-    [SerializeField] GameObject mgLvPopUp;   public GameObject MgLvPopUp {get => mgLvPopUp;}
-    [SerializeField] GameObject[] mgLvPopUpInfoIcons;          public GameObject[] MgLvPopUpInfoIcons {get => mgLvPopUpInfoIcons;}
-    [SerializeField] Button[] mgLvPopUpBtns;  public Button[] MgLvPopUpBtns {get => mgLvPopUpBtns;}
-    [SerializeField] GameObject[] mgLvPopUpBtnLockFrames;
-    [SerializeField] GameObject[] mgLvPopUpBtnFocusLines;
-    [SerializeField] Button mgLvPopUpPlayBtn;   public Button MgLvPopUpPlayBtn {get => mgLvPopUpPlayBtn;}
-    [SerializeField] Slider mgLvPopUpBestScoreSlider;   public Slider MgLvPopUpBestScoreSlider {get => mgLvPopUpBestScoreSlider;}
-    [SerializeField] TextMeshProUGUI mgLvPopUpBestScoreSliderValTxt;
 
     void Start() {
         onRewardPopUpAccept = () => {};
@@ -190,25 +180,7 @@ public class HUI : MonoBehaviour {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == QUEST)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == QUEST);
         }
-        achiveRankTitleTxt.text = LM._.localize("Achivement");;//Enum.ACHIVERANK.Achivement.ToString();
-
-        #region MINIGAME 1
-        //* MiniGame1 Level PopUp 初期化
-        for(int i = 0; i < mgLvPopUpBtns.Length; i++) {
-            int last = mgLvPopUpBtns[i].transform.childCount;
-            mgLvPopUpBtnFocusLines[i] = mgLvPopUpBtns[i].transform.GetChild(last - 1).gameObject;
-            mgLvPopUpBtnLockFrames[i] = mgLvPopUpBtns[i].transform.GetChild(last - 2).gameObject;
-        }
-
-        //* LockFrame 初期化
-        mgLvPopUpBtnLockFrames[(int)Enum.MINIGAME_LV.Easy].SetActive(DB.Dt.Minigame1BestScore < mgLvUnlockScores[(int)Enum.MINIGAME_LV.Easy]);
-        mgLvPopUpBtnLockFrames[(int)Enum.MINIGAME_LV.Normal].SetActive(DB.Dt.Minigame1BestScore < mgLvUnlockScores[(int)Enum.MINIGAME_LV.Normal]);
-        mgLvPopUpBtnLockFrames[(int)Enum.MINIGAME_LV.Hard].SetActive(DB.Dt.Minigame1BestScore < mgLvUnlockScores[(int)Enum.MINIGAME_LV.Hard]);
-
-        //* Best Score Slider
-        mgLvPopUpBestScoreSlider.value = DB.Dt.Minigame1BestScore;
-        mgLvPopUpBestScoreSliderValTxt.text = $"<color=white>{DB.Dt.Minigame1BestScore}</color> / {Config.MINIGAME1_MAX_VAL}";
-        #endregion
+        achiveRankTitleTxt.text = LM._.localize("Achivement");//Enum.ACHIVERANK.Achivement.ToString();
     }
 
     void Update() {
@@ -458,60 +430,6 @@ public class HUI : MonoBehaviour {
             bgBtn.GetComponent<Image>().color = Color.white;
         });
         goMapPopUp.SetActive(false);
-    }
-    #endregion
-
-    #region MINIGAME LEVEL POPUP
-    public void onClickMinigameExclamationMarkBtn(int idx) { //* [3]:Minigame1, [4]:Minigame2, [5]:Minigame3
-        DB._.SelectMapIdx = idx; 
-        mgLvPopUp.SetActive(true);
-        
-    }
-    public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
-        const int EASY = 0, NORMAL = 1, HARD = 2;
-        DB._.MinigameLv = difficultyLvIdx;
-
-        //* ロックしたら、解禁条件のお知らせ
-        if(mgLvPopUpBtnLockFrames[difficultyLvIdx].activeSelf) {
-            showErrorMsgPopUp($"Achieve {mgLvUnlockScores[difficultyLvIdx]} Best Score!");
-            return;
-        }
-
-        //* 選択 枠
-        for(int i = 0; i< mgLvPopUpBtns.Length; i++)
-            mgLvPopUpBtnFocusLines[i].SetActive(i == difficultyLvIdx);
-
-        //* 登場するアイテムの情報表示欄
-        //* Minigame 1
-        const int APPLE = 0, GOLDAPPLE = 1, DIAMOND = 2;
-        switch(difficultyLvIdx) {
-            case EASY:
-                mgLvPopUpInfoIcons[APPLE].SetActive(true);
-                mgLvPopUpInfoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_EASY_OBJ_DATA[APPLE]}";
-                mgLvPopUpInfoIcons[GOLDAPPLE].SetActive(true);
-                mgLvPopUpInfoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_EASY_OBJ_DATA[GOLDAPPLE]}";
-                mgLvPopUpInfoIcons[DIAMOND].SetActive(false);
-                break;
-            case NORMAL:
-                mgLvPopUpInfoIcons[APPLE].SetActive(true);
-                mgLvPopUpInfoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+2{Config.MINIGAME1_NORMAL_OBJ_DATA[APPLE]}";
-                mgLvPopUpInfoIcons[GOLDAPPLE].SetActive(true);
-                mgLvPopUpInfoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[GOLDAPPLE]}";
-                mgLvPopUpInfoIcons[DIAMOND].SetActive(true);
-                mgLvPopUpInfoIcons[DIAMOND].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[DIAMOND]}";
-                break;
-            case HARD:
-                mgLvPopUpInfoIcons[APPLE].SetActive(true);
-                mgLvPopUpInfoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_HARD_OBJ_DATA[APPLE]}";
-                mgLvPopUpInfoIcons[GOLDAPPLE].SetActive(true);
-                mgLvPopUpInfoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_HARD_OBJ_DATA[GOLDAPPLE]}";
-                mgLvPopUpInfoIcons[DIAMOND].SetActive(true);
-                mgLvPopUpInfoIcons[DIAMOND].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_HARD_OBJ_DATA[DIAMOND]}";
-                break;
-        }
-    }
-    public void onClickMinigamePlayBtn() {
-        StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
     }
     #endregion
 #endregion

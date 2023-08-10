@@ -21,6 +21,7 @@ public class HM : MonoBehaviour {
     public AchieveManager am;
     public QuestManager qm;
     public WorldMapManager wmm;
+    public HomeMinigameManager hmgm;
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;
