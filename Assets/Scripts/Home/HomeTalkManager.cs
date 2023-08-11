@@ -122,11 +122,10 @@ public class HomeTalkManager : TalkManager {
             , "월드맵으로 가보자\n이제 과수원에도 갈수 있어!:1"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_MINIGAME, new string[] {
-            "선생님 안녕하세요!:4"
-            , "저희 과수원에서 사과따기 체험을 진행하고 있는데요.:5"
-            , "떨어지는 사과를 받는 게임이에요!:4"
-            , "모두 클리어하면 엄청난 보상도 있답니다!:5"
-            , "과수원지역 <size=100><sprite name=exclamation></size>를 찾아주세요.\n첫회는 무료에요!:5"
+            "저희 과수원에서 사과따기 체험을 진행하고 있는데요.:3"
+            , "떨어지는 사과를 받는 게임이에요!:3"
+            , "모두 클리어하면 엄청난 보상도 있답니다!:4"
+            , "과수원지역 <size=100><sprite name=exclamation></size>를 찾아주세요.\n첫회는 무료에요!:4"
         });
         #endregion
         #region MAP2 JUNGLE

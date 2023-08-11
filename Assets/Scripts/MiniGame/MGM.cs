@@ -24,12 +24,12 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
     //* Public Value
     [SerializeField] int id;
-    [SerializeField] GameObject[] maps;
-    [SerializeField] GameObject newBestScoreEF;
     [SerializeField] int score;         public int Score {get => score; set => score = value;}
     [SerializeField] float curTime;
     [SerializeField] float totalTime;
     [SerializeField] float maxTime;
+    [SerializeField] GameObject[] maps;
+    [SerializeField] GameObject newBestScoreEF;
 
     //* MiniGame1 Forest
     [SerializeField] bool isStun;       public bool IsStun {get => isStun; set => isStun = value;}
@@ -159,8 +159,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     //* MiniGame1
     public IEnumerator coSetPlayerStun() {
         isStun = true;
-        yield return Util.time1;
-        yield return Util.time0_5;
+        yield return Util.time1_5;
         isStun = false;
     }
 #endregion

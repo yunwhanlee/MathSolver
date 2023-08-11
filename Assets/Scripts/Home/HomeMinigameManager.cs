@@ -96,14 +96,14 @@ public class HomeMinigameManager : MonoBehaviour {
             HM._.wmm.displayUnlockPopUp(null, name, true);
     }
     public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
-        const int EASY = 0, NORMAL = 1, HARD = 2;
-        DB._.MinigameLv = difficultyLvIdx;
-
         //* ロックしたら、解禁条件のお知らせ
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
             HM._.ui.showErrorMsgPopUp($"Achieve {Config.MINIGAME1_REWARD_SCORES[difficultyLvIdx]} Best Score!");
             return;
         }
+
+        const int EASY = 0, NORMAL = 1, HARD = 2;
+        DB._.MinigameLv = difficultyLvIdx;
 
         //* Play Price
         playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv].ToString();

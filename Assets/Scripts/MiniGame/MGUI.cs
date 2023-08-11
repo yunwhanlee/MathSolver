@@ -10,6 +10,7 @@ public class MGUI : MonoBehaviour {
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
 
     [SerializeField] Button startScrBtn;
+    [SerializeField] TextMeshProUGUI modeTxt;
     [SerializeField] TextMeshProUGUI scoreTxt;   public TextMeshProUGUI ScoreTxt {get => scoreTxt;}
     [SerializeField] TextMeshProUGUI playTimerTxt;  public TextMeshProUGUI PlayTimerTxt {get => playTimerTxt;}
     [SerializeField] TextMeshProUGUI titleTxt;      public TextMeshProUGUI TitleTxt {get => titleTxt;}
@@ -22,6 +23,9 @@ public class MGUI : MonoBehaviour {
     void Start() {
         resultPanel.SetActive(false);
         scoreTxt.text = "";
+        modeTxt.text = (DB._.MinigameLv == 0)? MGM.MODE.EASY.ToString()
+            : (DB._.MinigameLv == 1)? MGM.MODE.NORMAL.ToString()
+            : MGM.MODE.HARD.ToString();
         leftArrowBtn.gameObject.SetActive(false);
         rightArrowBtn.gameObject.SetActive(false);
     }
@@ -36,9 +40,12 @@ public class MGUI : MonoBehaviour {
         bool isRightArrowBtnPressed = rightArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
         
         //* Player Moving Control
-        if(isLeftArrowBtnPressed) movePlayer(isLeft: true);
-        else if(isRightArrowBtnPressed) movePlayer(isLeft: false);
-        else MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
+        if(isLeftArrowBtnPressed)
+            movePlayer(isLeft: true);
+        if(isRightArrowBtnPressed) 
+            movePlayer(isLeft: false);
+        if(!isRightArrowBtnPressed && !isRightArrowBtnPressed) 
+            MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
         #endregion
     }
 

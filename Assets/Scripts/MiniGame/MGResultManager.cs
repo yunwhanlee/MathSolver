@@ -89,7 +89,7 @@ public class MGResultManager : MonoBehaviour {
 
         coinAttractionEF.SetActive(true);
         // yield return Util.time1;
-        int myCoin = int.Parse(topCoinTxt.text);
+        int myCoin = DB.Dt.Coin;
         while(isCoinUP) {
             coinVal += 5;
             if(coinVal <= rewardCoin) topCoinTxt.text = $"{coinVal + myCoin}";

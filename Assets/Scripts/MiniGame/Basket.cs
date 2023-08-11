@@ -15,11 +15,11 @@ public class Basket : MonoBehaviour {
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.AppleObj);
         }
         else if(col.CompareTag(Enum.TAG.Bomb.ToString())) {
-            MGM._.Score = Mathf.Clamp(MGM._.Score / 10, 0, 999);
+            MGM._.Score = Mathf.Clamp((int)(MGM._.Score * 0.9f), 0, 999);
             MGM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
             MGM._.Pl.Anim.SetTrigger(Enum.ANIM.DoFail.ToString());
-            MGM._.mgem.showEF((int)MGEM.IDX.StunEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ExplosionBombEF, transform.position, Util.time2);
+            MGM._.mgem.showEF((int)MGEM.IDX.StunEF, transform.position, Util.time1_5);
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.BombObj);
             StartCoroutine(MGM._.coSetPlayerStun());
         }
