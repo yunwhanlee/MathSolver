@@ -298,6 +298,10 @@ public class HUI : MonoBehaviour {
             // woodSignObj.SetActive(true);
         }
         public void onClickDecorateModeIconBtn() {
+            if(roomObjectGroupTf.childCount == 0) {
+                HM._.ui.showErrorMsgPopUp("조정할 가구가 없습니다.");
+                return;
+            }
             setDecorationMode(isActive: true);
         }
         public void onClickDecorateModeCloseBtn() {
