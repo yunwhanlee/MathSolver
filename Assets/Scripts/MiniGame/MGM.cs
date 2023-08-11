@@ -47,7 +47,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         mgrm = GameObject.Find("MinigameResultManager").GetComponent<MGResultManager>();
 
         score = 0;
-        maxTime = 10;
+        maxTime = 60;
         id = getMapIdx();
         maps[id].SetActive(true);
         mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
@@ -99,15 +99,15 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 ui.PlayTimerTxt.text = $"BEST : {score}";
             }
 
-            MGM._.pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
+            pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
             
             //* 残るオブジェクト全て破壊
-            MGM._.mgem.releaseAllObj();
+            mgem.releaseAllObj();
 
             //* Exp & Coin Reward
             const int EXP_VAL = 5, COIN_VAL = 10;
             mgrm.setReward(EXP_VAL * score, COIN_VAL * score);
-            StartCoroutine(MGM._.mgrm.coDisplayResultPanel());
+            StartCoroutine(mgrm.coDisplayResultPanel());
         }
 
         //* Create Apples (MiniGame1 Forest)
@@ -123,9 +123,16 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
             //* ランダム種類 設定
             int rand = Random.Range(0, 100);
-            int objIdx = (rand <= 60)? (int)MGEM.IDX.AppleObj
-                : (rand <= 80)? (int)MGEM.IDX.GoldAppleObj
-                : (int)MGEM.IDX.BombObj;
+            int objIdx = 0;
+            if(mode == MODE.EASY)
+                objIdx = (rand <= 60)? (int)MGEM.IDX.AppleObj
+                    : (rand <= 80)? (int)MGEM.IDX.GoldAppleObj
+                    : (int)MGEM.IDX.BombObj;
+            else
+                objIdx = (rand <= 45)? (int)MGEM.IDX.AppleObj
+                    : (rand <= 70)? (int)MGEM.IDX.GoldAppleObj
+                    : (rand <= 90)? (int)MGEM.IDX.BombObj
+                    : (int)MGEM.IDX.DiamondObj;
 
             Obj obj = mgem.createObj(objIdx, pos, Util.time8).GetComponent<Obj>();
 

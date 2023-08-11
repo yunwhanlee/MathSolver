@@ -10,5 +10,5 @@ public static class Config {
     public readonly static int[] MINIGAME1_REWARD_SCORES = new int[3] {100, 250, MINIGAME1_MAX_VAL};
     public readonly static int[] MINIGAME1_EASY_OBJ_DATA = new int[2] {1, 2};
     public readonly static int[] MINIGAME1_NORMAL_OBJ_DATA = new int[3] {2, 4, 8};
-    public readonly static int[] MINIGAME1_HARD_OBJ_DATA = new int[3] {3, 6, 9};
+    public readonly static int[] MINIGAME1_HARD_OBJ_DATA = new int[3] {3, 6, 10};
 }

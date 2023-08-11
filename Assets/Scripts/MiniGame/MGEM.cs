@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class MGEM : MonoBehaviour {
     public enum IDX {
         //* Obj
-        AppleObj, GoldAppleObj, BombObj
+        AppleObj, GoldAppleObj, BombObj, DiamondObj
         //* EF
         ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF,
     }
@@ -15,6 +15,8 @@ public class MGEM : MonoBehaviour {
     [SerializeField] GameObject appleObj;
     [SerializeField] GameObject goldAppleObj;
     [SerializeField] GameObject bombObj;
+    [SerializeField] GameObject diamondObj;
+
     [SerializeField] GameObject stunEF;
     [SerializeField] GameObject basketCatchEF;
     [SerializeField] GameObject explosionBombEF;
@@ -29,6 +31,8 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(appleObj, max: 10, objectGroup));
         pool.Add(initEF(goldAppleObj, max: 3, objectGroup));
         pool.Add(initEF(bombObj, max: 3, objectGroup));
+        pool.Add(initEF(diamondObj, max: 3, objectGroup));
+
         pool.Add(initEF(stunEF, max: 1, effectGroup));
         pool.Add(initEF(basketCatchEF, max: 4, effectGroup));
         pool.Add(initEF(explosionBombEF, max: 2, effectGroup));
@@ -66,7 +70,8 @@ public class MGEM : MonoBehaviour {
         //* 名前
         obj.name = (idx == 0)? IDX.AppleObj.ToString()
             : (idx == 1)? IDX.GoldAppleObj.ToString()
-            : (idx == 2)? IDX.BombObj.ToString() : null;
+            : (idx == 2)? IDX.BombObj.ToString()
+            : (idx == 3)? IDX.DiamondObj.ToString() : null;
         if(obj.name == null) {
             Debug.LogError("ERROR: MGEM:: createObjで、オブジェクト名がNULLです！");
             return null;
@@ -111,7 +116,8 @@ public class MGEM : MonoBehaviour {
             string name = obj.name;
             int idx = (name == IDX.AppleObj.ToString())? 0
                 : (name == IDX.GoldAppleObj.ToString())? 1
-                : (name == IDX.BombObj.ToString())? 2 : -1;
+                : (name == IDX.BombObj.ToString())? 2
+                : (name == IDX.DiamondObj.ToString())? 3 : -1;
 
             //* 戻す
             if (obj != null && obj.activeSelf) {

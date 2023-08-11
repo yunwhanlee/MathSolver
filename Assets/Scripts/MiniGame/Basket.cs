@@ -15,7 +15,7 @@ public class Basket : MonoBehaviour {
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.AppleObj);
         }
         else if(col.CompareTag(Enum.TAG.Bomb.ToString())) {
-            Mathf.Clamp(MGM._.Score / 4, 0, 999);
+            MGM._.Score = Mathf.Clamp(MGM._.Score / 10, 0, 999);
             MGM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
             MGM._.Pl.Anim.SetTrigger(Enum.ANIM.DoFail.ToString());
             MGM._.mgem.showEF((int)MGEM.IDX.StunEF, transform.position, Util.time2);
@@ -28,6 +28,12 @@ public class Basket : MonoBehaviour {
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.GoldAppleObj);
+        }
+        else if(col.CompareTag(Enum.TAG.Diamond.ToString())) {
+            MGM._.Score += MGM._.DiamondPoint;
+            MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
+            MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
+            releaseAndBounce(col.gameObject, (int)MGEM.IDX.DiamondObj);
         }
     }
 #endregion

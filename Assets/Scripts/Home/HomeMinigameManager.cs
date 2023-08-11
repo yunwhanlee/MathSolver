@@ -7,12 +7,17 @@ using TMPro;
 public class HomeMinigameManager : MonoBehaviour {
     [SerializeField] GameObject minigameLvPopUp;   public GameObject MinigameLvPopUp {get => minigameLvPopUp;}
     [SerializeField] GameObject[] infoIcons;          public GameObject[] InfoIcons {get => infoIcons;}
+
     [SerializeField] Button[] lvBtns;  public Button[] LvBtns {get => lvBtns;}
     [SerializeField] GameObject[] lvBtnFocusLines;
     [SerializeField] GameObject[] lvBtnLockFrames;
     [SerializeField] Button playBtn;   public Button PlayBtn {get => playBtn;}
-    [SerializeField] Slider bestScoreSlider;   public Slider BestScoreSlider {get => bestScoreSlider;}
+
     [SerializeField] Button[] rewardIconBtns;      public Button[] RewardIconBtns {get => rewardIconBtns;}
+    [SerializeField] TextMeshProUGUI[] rewardIconBtnValTxts;      public TextMeshProUGUI[] RewardIconBtnValTxts {get => rewardIconBtnValTxts;}
+    [SerializeField] Image[] rewardCheckIcons;      public Image[] RewardCheckIcons {get => rewardCheckIcons;}
+
+    [SerializeField] Slider bestScoreSlider;   public Slider BestScoreSlider {get => bestScoreSlider;}
     [SerializeField] TextMeshProUGUI bestScoreSliderValTxt;
 
 
@@ -25,6 +30,11 @@ public class HomeMinigameManager : MonoBehaviour {
             lvBtnLockFrames[i] = lvBtns[i].transform.GetChild(last - 2).gameObject;
         }
 
+        //* RewardBtn 初期化
+        for(int i = 0; i < rewardIconBtns.Length; i++) {
+            rewardIconBtnValTxts[i] = rewardIconBtns[i].GetComponentInChildren<TextMeshProUGUI>();
+            rewardCheckIcons[i] = rewardIconBtns[i].GetComponentsInChildren<Image>(true)[1];
+        }
         
         int mg1BestScore = DB.Dt.Minigame1BestScore;
         int easyScore = Config.MINIGAME1_REWARD_SCORES[(int)Enum.MINIGAME_LV.Easy];
@@ -32,14 +42,26 @@ public class HomeMinigameManager : MonoBehaviour {
         int hardScore = Config.MINIGAME1_REWARD_SCORES[(int)Enum.MINIGAME_LV.Hard];
 
         //* LockFrame 表示
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Easy].SetActive(mg1BestScore < easyScore);
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Normal].SetActive(mg1BestScore < normalScore);
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Hard].SetActive(mg1BestScore < hardScore);
+        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Easy].SetActive(false);
+        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Normal].SetActive(!(mg1BestScore >= easyScore));
+        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Hard].SetActive(!(mg1BestScore >= normalScore));
 
         //* Slider Reward IconBtn 活性化
-        if(mg1BestScore >= easyScore && !DB.Dt.Minigame1RewardTriggers[0]) rewardIconBtns[(int)Enum.MINIGAME_LV.Easy].interactable = true;
-        if(mg1BestScore >= normalScore && !DB.Dt.Minigame1RewardTriggers[1]) rewardIconBtns[(int)Enum.MINIGAME_LV.Normal].interactable = true;
-        if(mg1BestScore >= hardScore  && !DB.Dt.Minigame1RewardTriggers[2]) rewardIconBtns[(int)Enum.MINIGAME_LV.Hard].interactable = true;
+        if(mg1BestScore >= easyScore) {
+            bool isTrigger = !DB.Dt.Minigame1RewardTriggers[0];
+            rewardIconBtns[(int)Enum.MINIGAME_LV.Easy].interactable = isTrigger;
+            rewardCheckIcons[(int)Enum.MINIGAME_LV.Easy].gameObject.SetActive(!isTrigger);
+        }
+        if(mg1BestScore >= normalScore && !DB.Dt.Minigame1RewardTriggers[1]) {
+            bool isTrigger = !DB.Dt.Minigame1RewardTriggers[1];
+            rewardIconBtns[(int)Enum.MINIGAME_LV.Normal].interactable = isTrigger;
+            rewardCheckIcons[(int)Enum.MINIGAME_LV.Normal].gameObject.SetActive(!isTrigger);
+        }
+        if(mg1BestScore >= hardScore  && !DB.Dt.Minigame1RewardTriggers[2]) {
+            bool isTrigger = !DB.Dt.Minigame1RewardTriggers[2];
+            rewardIconBtns[(int)Enum.MINIGAME_LV.Hard].interactable = isTrigger;
+            rewardCheckIcons[(int)Enum.MINIGAME_LV.Hard].gameObject.SetActive(!isTrigger);
+        }
 
         //* Best Score Slider
         bestScoreSlider.value = mg1BestScore;
@@ -81,7 +103,7 @@ public class HomeMinigameManager : MonoBehaviour {
                 break;
             case NORMAL:
                 infoIcons[APPLE].SetActive(true);
-                infoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+2{Config.MINIGAME1_NORMAL_OBJ_DATA[APPLE]}";
+                infoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[APPLE]}";
                 infoIcons[GOLDAPPLE].SetActive(true);
                 infoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[GOLDAPPLE]}";
                 infoIcons[DIAMOND].SetActive(true);
@@ -104,15 +126,21 @@ public class HomeMinigameManager : MonoBehaviour {
         switch(idx) {
             case 0: 
                 DB.Dt.Fame += 20;
+                DB.Dt.Minigame1RewardTriggers[0] = true;
                 rewardIconBtns[0].interactable = false;
+                rewardCheckIcons[0].gameObject.SetActive(true);
                 break;
             case 1: 
                 DB.Dt.Fame += 40;
+                DB.Dt.Minigame1RewardTriggers[1] = true;
                 rewardIconBtns[1].interactable = false;
+                rewardCheckIcons[1].gameObject.SetActive(true);
                 break;
             case 2: 
                 //TODO Unlock GoldApple Pet
+                DB.Dt.Minigame1RewardTriggers[2] = true;
                 rewardIconBtns[2].interactable = false;
+                rewardCheckIcons[2].gameObject.SetActive(true);
                 break;
         }
     }

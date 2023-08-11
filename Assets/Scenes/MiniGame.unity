@@ -55315,6 +55315,7 @@ MonoBehaviour:
   appleObj: {fileID: 2619637683612948568, guid: e1967434004220b4b8351a2bc173bb95, type: 3}
   goldAppleObj: {fileID: 2619637683612948568, guid: 50ee886a25534cb4d9ba82671fe7ebf7, type: 3}
   bombObj: {fileID: 2619637683612948568, guid: 4d69b8949f1696c4c908827e97528d3a, type: 3}
+  diamondObj: {fileID: 2619637683612948568, guid: 70c67df693ca1704b80183a2aab6c4b4, type: 3}
   stunEF: {fileID: 805991252325466734, guid: ad8358208c88dcd4e9fb983e83332f83, type: 3}
   basketCatchEF: {fileID: 7636059257846893010, guid: 284a82521aea975449d642e8377554bb, type: 3}
   explosionBombEF: {fileID: 3693342793208664365, guid: a4ad8ffc7ce4ea74daddd6a0338671e4, type: 3}

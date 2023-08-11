@@ -48,7 +48,7 @@ public class HUI : MonoBehaviour {
 
     [SerializeField] TextMeshProUGUI nickName;      public TextMeshProUGUI NickName {get => nickName;}
     [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
-    [SerializeField] TextMeshProUGUI lvBonusValTxt;   public TextMeshProUGUI LvBonusValTxt {get => lvBonusValTxt; set => lvBonusValTxt = value;}
+    [SerializeField] TextMeshProUGUI fameValTxt;   public TextMeshProUGUI FameValTxt {get => fameValTxt; set => fameValTxt = value;}
     [SerializeField] TextMeshProUGUI legacyBonusValTxt;   public TextMeshProUGUI LegacyBonusValTxt {get => legacyBonusValTxt; set => legacyBonusValTxt = value;}
     [SerializeField] Image expFilledCircleBar;      public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] Slider settingExpSliderBar;    public Slider SettingExpSliderBar {get => settingExpSliderBar; set => settingExpSliderBar = value;}
@@ -465,7 +465,7 @@ public class HUI : MonoBehaviour {
 
                 //* 
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
-                lvBonusValTxt.text = $"+{HM._.pl.calcLvBonusPer() * 100}%";
+                fameValTxt.text = DB.Dt.Fame.ToString();//$"+{HM._.pl.calcLvBonusPer() * 100}%";
                 legacyBonusValTxt.text = $"+{HM._.pl.calcLegacyBonusPer() * 100}%";
 
                 //* 

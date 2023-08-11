@@ -17,6 +17,7 @@ TagManager:
   - Apple
   - GoldApple
   - Bomb
+  - Diamond
   layers:
   - Default
   - TransparentFX

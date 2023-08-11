@@ -20,7 +20,7 @@ public class Enum {
     public enum TAG {
         GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj,
         TableDecoArea,
-        Apple, Bomb, GoldApple, //* MiniGame1
+        Apple, Bomb, GoldApple, Diamond//* MiniGame1
     };
     public enum ANIM {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,

@@ -22,8 +22,6 @@ public class TouchControl : MonoBehaviour
                 var hit = hits[i];
                 Debug.Log($"TouchControl:: Hit.tag= {hit.transform.tag}, Hit.name= {hit.transform.name}, mouseWorldPos= {mouseWorldPos}");
 
-
-
                 bool isIconUIArea = hit.transform.CompareTag(Enum.TAG.IconBtnGroupArea.ToString());
                 bool isChair = HM._.isChair(hit.transform.gameObject);
                 bool isPlayer = hit.transform.CompareTag(Enum.TAG.Player.ToString());
