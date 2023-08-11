@@ -12,6 +12,7 @@ public class HomeMinigameManager : MonoBehaviour {
     [SerializeField] GameObject[] lvBtnFocusLines;
     [SerializeField] GameObject[] lvBtnLockFrames;
     [SerializeField] Button playBtn;   public Button PlayBtn {get => playBtn;}
+    [SerializeField] TextMeshProUGUI playPriceTxt;   public TextMeshProUGUI PlayPriceTxt {get => playPriceTxt;}
 
     [SerializeField] Button[] rewardIconBtns;      public Button[] RewardIconBtns {get => rewardIconBtns;}
     [SerializeField] TextMeshProUGUI[] rewardIconBtnValTxts;      public TextMeshProUGUI[] RewardIconBtnValTxts {get => rewardIconBtnValTxts;}
@@ -23,6 +24,9 @@ public class HomeMinigameManager : MonoBehaviour {
 
     void Start() {
         #region MINIGAME 1
+        //* Price Easyモード 初期化 
+        playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[0].ToString();
+
         //* Frame 初期化
         for(int i = 0; i < lvBtns.Length; i++) {
             int last = lvBtns[i].transform.childCount;
@@ -80,6 +84,9 @@ public class HomeMinigameManager : MonoBehaviour {
         const int EASY = 0, NORMAL = 1, HARD = 2;
         DB._.MinigameLv = difficultyLvIdx;
 
+        //* Play Price
+        playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv].ToString();
+
         //* ロックしたら、解禁条件のお知らせ
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
             HM._.ui.showErrorMsgPopUp($"Achieve {Config.MINIGAME1_REWARD_SCORES[difficultyLvIdx]} Best Score!");
@@ -120,6 +127,12 @@ public class HomeMinigameManager : MonoBehaviour {
         }
     }
     public void onClickMinigamePlayBtn() {
+        int price = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv]; 
+        if(DB.Dt.Coin >= price)
+            DB.Dt.setCoin(-price);
+        else
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
+
         StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
     }
     public void onClickSliderRewardIconBtn(int idx) {
