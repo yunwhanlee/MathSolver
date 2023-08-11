@@ -90,8 +90,8 @@ public class Player : MonoBehaviour {
         }
     }
     public float calcLvBonusPer() {
-        const float LV_BONUS_PER = 0.1f;
-        return DB.Dt.Lv * LV_BONUS_PER - LV_BONUS_PER; // 2 * 0.1f - 0.1f = 0.1f
+        float lvBonusPer = Config.LV_BONUS_PER;
+        return DB.Dt.Lv * lvBonusPer - lvBonusPer; // 2 * 0.1f - 0.1f = 0.1f
     }
     public float calcLegacyBonusPer() {
         //TODO

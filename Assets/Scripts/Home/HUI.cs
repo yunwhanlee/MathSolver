@@ -598,8 +598,10 @@ public class HUI : MonoBehaviour {
         HM._.state = HM.STATE.SETTING;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
-        lvUpPopUpBonusTxt.text = $"Bonus\nCoin & Exp +{HM._.pl.calcLvBonusPer() * 100}%";
-
+        int curBonus = (int)(HM._.pl.calcLvBonusPer() * 100);
+        int addBonus = (int)(Config.LV_BONUS_PER * 100);
+        
+        lvUpPopUpBonusTxt.text = $"{LM._.localize("Coin")} & {LM._.localize("Exp")} {LM._.localize("Bonus")} {curBonus}%\n<color=green>(+{addBonus}%)</color>";
         yield return coCreateRewardItemList(rewardDic, lvUpItemGroup);
     }
     public IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
