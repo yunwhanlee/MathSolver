@@ -149,9 +149,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         //! For TEST
         if(DB._ == null) return 0;
 
-        int idx = (DB._.SelectMapIdx == (int)Enum.MAP.MiniGame1_Orchard)? 0
-            : (DB._.SelectMapIdx == (int)Enum.MAP.MiniGame2_Monkeywat)? 1
-            : (DB._.SelectMapIdx == (int)Enum.MAP.MiniGame3_IceDragon)? 2 : -1;
+        int idx = (DB._.SelectMapIdx == (int)Enum.MAP.Minigame1)? 0
+            : (DB._.SelectMapIdx == (int)Enum.MAP.Minigame2)? 1
+            : (DB._.SelectMapIdx == (int)Enum.MAP.Minigame3)? 2 : -1;
         if(idx == -1) Debug.LogError("存在しないマップINDEXです。０");
         return idx;
     }

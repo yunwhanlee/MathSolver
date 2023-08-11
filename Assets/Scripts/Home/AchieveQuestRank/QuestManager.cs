@@ -44,10 +44,8 @@ public class QuestManager : MonoBehaviour {
         bool isActiveAchivePanel = HM._.ui.AchiveRankPanel.activeSelf;
         bool isActiveHandFocues = HM._.ui.HandFocusTf.gameObject.activeSelf;
         if(!isActiveAchivePanel && !isActiveHandFocues && isFinish) {
-            Vector2 prAncPos = HM._.ui.TopGroup.GetComponent<RectTransform>().anchoredPosition;
-            Vector2 myPos = HM._.ui.MainQuestBoxBtn.GetComponent<RectTransform>().anchoredPosition;
-            Vector2 centeringPos = new Vector2(100, -100);
-            HM._.ui.activeHandFocus(prAncPos + myPos + centeringPos);
+            var homeMainQuestBoxPos = new Vector2(-300, 650);
+            HM._.ui.activeHandFocus(homeMainQuestBoxPos);
         }
     }
     public void updateMainQuestList() {

@@ -56,6 +56,7 @@ public class WorldMapManager : MonoBehaviour {
         if(m1.IsBgUnlocks[THIRD] && !DB.Dt.IsMap1BG3Trigger) {
             DB.Dt.IsMap1BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m1.BgBtns[THIRD], m1.BgNames[THIRD]));
+            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_MINIGAME));
         }
         //* Map 2
         if(m2.IsBgUnlocks[FIRST] && !DB.Dt.IsMap2BG1Trigger) {
@@ -70,6 +71,7 @@ public class WorldMapManager : MonoBehaviour {
         if(m2.IsBgUnlocks[THIRD] && !DB.Dt.IsMap2BG3Trigger) {
             DB.Dt.IsMap2BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[THIRD], m2.BgNames[THIRD]));
+            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MINIGAME));
         }
         //* Map 3
         if(m3.IsBgUnlocks[FIRST] && !DB.Dt.IsMap3BG1Trigger) {
@@ -84,6 +86,7 @@ public class WorldMapManager : MonoBehaviour {
         if(m3.IsBgUnlocks[THIRD] && !DB.Dt.IsMap3BG3Trigger) {
             DB.Dt.IsMap3BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[THIRD], m3.BgNames[THIRD]));
+            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_MINIGAME));
         }
 
         //* アクション 読込
@@ -109,44 +112,58 @@ public class WorldMapManager : MonoBehaviour {
             onMapPopUpActionList.RemoveAt(0);
         }
     }
-    private void displayUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
-        Debug.Log($"displayUnlockPopUp({name}):: btn= {btn.name}");
+    public void displayUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
+        Debug.Log($"displayUnlockPopUp({name}):: ");
         const int HIGHLIGHTEF = 1;
         Time.timeScale = 0;
-        btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
-        btn.transform.GetChild(HIGHLIGHTEF).gameObject.SetActive(true);
+        if(btn) btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
+        if(btn) btn.transform.GetChild(HIGHLIGHTEF).gameObject.SetActive(true);
         HM._.ui.MapUnlockPopUp.SetActive(true);
 
         HM._.ui.MapUnlockPopUpNameTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
         HM._.ui.MapUnlockPopUpCttTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
         HM._.ui.MapUnlockPopUpNameTxt.text = name;
-        HM._.ui.MapUnlockPopUpCttTxt.text = isMapUnlock? "Found a new map!" : "New place open!";
+        HM._.ui.MapUnlockPopUpCttTxt.text = 
+            (name == Enum.MAP.Minigame1.ToString())? "Take the Falling Apples!"
+            : (name == Enum.MAP.Minigame2.ToString())? "TODO"
+            : (name == Enum.MAP.Minigame3.ToString())? "TODO"
+            : isMapUnlock? "Found a new map!"
+            : !isMapUnlock? "New place open!"
+            : null;
 
-        //* Unlock Map or Bg Sprite
-        HM._.ui.MapUnlockImg.sprite = (name == "Jungle")? HM._.wmm.Maps[1].MapSpr
-            : (name == "Tundra")? HM._.wmm.Maps[2].MapSpr
+        //* Unlock Map or Bg or Minigame
+        HM._.ui.MapUnlockImg.sprite = 
+            (name == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[1].MapSpr
+            : (name == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[2].MapSpr
+            : (name == Enum.MAP.Minigame1.ToString())? HM._.wmm.Maps[0].MiniGameSpr
+            : (name == Enum.MAP.Minigame2.ToString())? HM._.wmm.Maps[1].MiniGameSpr
+            : (name == Enum.MAP.Minigame3.ToString())? HM._.wmm.Maps[2].MiniGameSpr
             : btn.GetComponent<Image>().sprite;
 
         HM._.ui.MapImageOutlineFrame.GetComponent<Image>().sprite = isMapUnlock? goldenEdgeSpr : normalEdgeSpr;
         HM._.ui.MapImageOutlineFrame.sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE, OUTLINE_FRAME_SIZE) : new Vector2(INNER_FRAME_SIZE, INNER_FRAME_SIZE);
         HM._.ui.MapImageOutlineFrame.GetChild(0).GetComponent<RectTransform>().sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE - 50, OUTLINE_FRAME_SIZE - 50) : new Vector2(INNER_FRAME_SIZE - 50, INNER_FRAME_SIZE - 50);
     }
+
     public void showUnlockBg(int mapIdx, int bgIdx) {
         //* ワールドマップ 表示
         gameObject.SetActive(true);
 
         //* SetScrollPos
         var bg = maps[mapIdx].BgBtns[bgIdx];
+        var limitLvTxt = maps[mapIdx].BgLimitLvTxts[bgIdx];
         Debug.Log($"setScrollPos({mapIdx}, {bgIdx}):: {bg.name}");
 
+        limitLvTxt.text = "<color=yellow>NEW!</color>";
         //* ↑方向：⊖値
         float posY = START_POS - bg.GetComponent<RectTransform>().localPosition.y;
         scrollViewCtt.anchoredPosition = new Vector2(0, posY);
     }
+
     public Map getMap(int idx) {
-        int res = (idx == (int)Enum.MAP.MiniGame1_Orchard)? (int)Enum.MAP.Forest
-        : (idx == (int)Enum.MAP.MiniGame2_Monkeywat)? (int)Enum.MAP.Jungle
-        : (idx == (int)Enum.MAP.MiniGame3_IceDragon)? (int)Enum.MAP.Tundra
+        int res = (idx == (int)Enum.MAP.Minigame1)? (int)Enum.MAP.Forest
+        : (idx == (int)Enum.MAP.Minigame2)? (int)Enum.MAP.Jungle
+        : (idx == (int)Enum.MAP.Minigame3)? (int)Enum.MAP.Tundra
         : idx;
         return maps[res];
     }

@@ -24,8 +24,14 @@ public class HomeMinigameManager : MonoBehaviour {
 
     void Start() {
         #region MINIGAME 1
-        //* Price Easyモード 初期化 
-        playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[0].ToString();
+        //* Price Easyモード 初期化 (最初なら、Free)
+        if(DB.Dt.Minigame1BestScore == 0) {
+            playPriceTxt.text = "Free";
+            lvBtns[0].interactable = false;
+        }
+        else {
+            playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[0].ToString();
+        }
 
         //* Frame 初期化
         for(int i = 0; i < lvBtns.Length; i++) {
@@ -77,21 +83,30 @@ public class HomeMinigameManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     #region MINIGAME LEVEL POPUP
     public void onClickMinigameExclamationMarkBtn(int idx) { //* [3]:Minigame1, [4]:Minigame2, [5]:Minigame3
-        DB._.SelectMapIdx = idx; 
+        DB._.SelectMapIdx = idx;
         minigameLvPopUp.SetActive(true);
+
+        //* Display Unlock Minigame PopUp!
+        string name = (idx == 3 && !DB.Dt.IsUnlockMinigame1)? Enum.MAP.Minigame1.ToString()
+            : (idx == 4 && !DB.Dt.IsUnlockMinigame2)? Enum.MAP.Minigame2.ToString()
+            : (idx == 5 && !DB.Dt.IsUnlockMinigame3)? Enum.MAP.Minigame3.ToString()
+            : null;
+
+        if(name != null)
+            HM._.wmm.displayUnlockPopUp(null, name, true);
     }
     public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
         const int EASY = 0, NORMAL = 1, HARD = 2;
         DB._.MinigameLv = difficultyLvIdx;
-
-        //* Play Price
-        playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv].ToString();
 
         //* ロックしたら、解禁条件のお知らせ
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
             HM._.ui.showErrorMsgPopUp($"Achieve {Config.MINIGAME1_REWARD_SCORES[difficultyLvIdx]} Best Score!");
             return;
         }
+
+        //* Play Price
+        playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv].ToString();
 
         //* 選択 枠
         for(int i = 0; i< lvBtns.Length; i++)
@@ -128,12 +143,16 @@ public class HomeMinigameManager : MonoBehaviour {
     }
     public void onClickMinigamePlayBtn() {
         int price = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv]; 
-        if(DB.Dt.Coin >= price)
+        if(DB.Dt.Minigame1BestScore == 0) { //* 最初は無料
+            StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
+        }
+        else if(DB.Dt.Coin >= price) {
             DB.Dt.setCoin(-price);
-        else
+            StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
+        }
+        else {
             HM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
-
-        StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
+        }
     }
     public void onClickSliderRewardIconBtn(int idx) {
         switch(idx) {

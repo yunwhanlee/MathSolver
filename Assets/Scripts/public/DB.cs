@@ -62,14 +62,17 @@ public class Data {
     [Header("QUEST UNLOCK MAP:BG → [0]: Accept, [1]: Reward")]
     [SerializeField] bool[] isUnlockMap1BG2Arr;  public bool[] IsUnlockMap1BG2Arr {get => isUnlockMap1BG2Arr; set => isUnlockMap1BG2Arr = value;}
     [SerializeField] bool[] isUnlockMap1BG3Arr;  public bool[] IsUnlockMap1BG3Arr {get => isUnlockMap1BG3Arr; set => isUnlockMap1BG3Arr = value;}
+    [SerializeField] bool isUnlockMinigame1;     public bool IsUnlockMinigame1 {get => isUnlockMinigame1; set => isUnlockMinigame1 = value;}
     //* Jungle
     [SerializeField] bool[] isOpenMap2UnlockBG1Arr;  public bool[] IsOpenMap2UnlockBG1Arr {get => isOpenMap2UnlockBG1Arr; set => isOpenMap2UnlockBG1Arr = value;}
     [SerializeField] bool[] isUnlockMap2BG2Arr;  public bool[] IsUnlockMap2BG2Arr {get => isUnlockMap2BG2Arr; set => isUnlockMap2BG2Arr = value;}
     [SerializeField] bool[] isUnlockMap2BG3Arr;  public bool[] IsUnlockMap2BG3Arr {get => isUnlockMap2BG3Arr; set => isUnlockMap2BG3Arr = value;}
+    [SerializeField] bool isUnlockMinigame2;     public bool IsUnlockMinigame2 {get => isUnlockMinigame2; set => isUnlockMinigame2 = value;}
     //* Tundra
     [SerializeField] bool[] isOpenMap3UnlockBG1Arr;  public bool[] IsOpenMap3UnlockBG1Arr {get => isOpenMap3UnlockBG1Arr; set => isOpenMap3UnlockBG1Arr = value;}
     [SerializeField] bool[] isUnlockMap3BG2Arr;  public bool[] IsUnlockMap3BG2Arr {get => isUnlockMap3BG2Arr; set => isUnlockMap3BG2Arr = value;}
     [SerializeField] bool[] isUnlockMap3BG3Arr;  public bool[] IsUnlockMap3BG3Arr {get => isUnlockMap3BG3Arr; set => isUnlockMap3BG3Arr = value;}
+    [SerializeField] bool isUnlockMinigame3;     public bool IsUnlockMinigame3 {get => isUnlockMinigame3; set => isUnlockMinigame3 = value;}
 
     [Header("MAP UNLOCK TRIGGER")]
     [SerializeField] bool isMap1BG1Trigger;   public bool IsMap1BG1Trigger {get => isMap1BG1Trigger; set => isMap1BG1Trigger = value;} //* 最初だから、いつも活性化
@@ -263,15 +266,19 @@ public class DB : MonoBehaviour {
         dt.IsTutoDiagFirstAnswerTrigger = true;
         dt.IsTutoDiagResultTrigger = true;
 
+        
         //* Unlock Map:BG
         dt.IsUnlockMap1BG2Arr = new bool[2] {false, false};
         dt.IsUnlockMap1BG3Arr = new bool[2] {false, false};
+        dt.IsUnlockMinigame1 = false;
         dt.IsOpenMap2UnlockBG1Arr = new bool[2] {false, false};
         dt.IsUnlockMap2BG2Arr = new bool[2] {false, false};
         dt.IsUnlockMap2BG3Arr = new bool[2] {false, false};
+        dt.IsUnlockMinigame2 = false;
         dt.IsOpenMap3UnlockBG1Arr = new bool[2] {false, false};
         dt.IsUnlockMap3BG2Arr = new bool[2] {false, false};
         dt.IsUnlockMap3BG3Arr = new bool[2] {false, false};
+        dt.IsUnlockMinigame3 = false;
 
         #endregion
 

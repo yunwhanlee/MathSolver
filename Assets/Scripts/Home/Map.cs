@@ -15,6 +15,7 @@ public class Map : MonoBehaviour {
     [SerializeField] Image[] bgImgs;    public Image[] BgImgs {get => bgImgs;}
     [SerializeField] TextMeshProUGUI[] bgLimitLvTxts;     public TextMeshProUGUI[] BgLimitLvTxts {get => bgLimitLvTxts;}
     [SerializeField] Button minigameBtn;    public Button MinigameBtn {get => minigameBtn;}
+    [SerializeField] Sprite minigameSpr;    public Sprite MinigameSpr {get => minigameSpr;}
 
     [Header("EXTRA")]
     const int windmillSpd = 30;
