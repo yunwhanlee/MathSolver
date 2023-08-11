@@ -8,11 +8,16 @@ using TMPro;
 public class InventoryUIManager : MonoBehaviour
 {
     const int ITEM_BTN_CNT = 9;
+    const int CATE_ON = 0, CATE_OFF = 1;
     public bool testUnlockMode = false; //! TEST
 
     [Header("CATEGORY")]
     [SerializeField] Enum.INV_CATE category; public Enum.INV_CATE Category {get => category;}
+    [SerializeField] Sprite[] catePlSprs;
+    [SerializeField] Sprite[] catePetSprs;
+
     [SerializeField] Button[] categoryBtns; public Button[] CategoryBtns {get => categoryBtns; set => categoryBtns = value;}
+    [SerializeField] Image[] categoryBtnIcons;
     [Header("PAGE")]
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
@@ -54,9 +59,13 @@ public class InventoryUIManager : MonoBehaviour
         //* カテゴリ IDX
         setCategoryIdx(idx);
 
+        //* カテゴリ アイコン 表示
+        categoryBtnIcons[(int)Enum.INV_CATE.Player].sprite = (idx == 0)? catePlSprs[CATE_ON] : catePlSprs[CATE_OFF];
+        categoryBtnIcons[(int)Enum.INV_CATE.Pet].sprite = (idx == 1)? catePetSprs[CATE_ON] : catePetSprs[CATE_OFF];
+
         //* カテゴリ 背景色
         for(int i = 0; i < categoryBtns.Length; i++) 
-            categoryBtns[i].image.color = (i == idx)? Color.green : Color.white;
+            categoryBtns[i].image.color = (i == idx)? Config.CATE_SELECT_COLOR : Color.white;
 
         //* アイテム リスト 最新化して並べる
         showItemList();

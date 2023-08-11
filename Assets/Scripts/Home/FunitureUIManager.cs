@@ -9,9 +9,16 @@ using TMPro;
 public class FunitureUIManager : MonoBehaviour
 {
     const int ITEM_BTN_CNT = 9;
+    const int CATE_ON = 0, CATE_OFF = 1;
     [Header("CATEGORY")]
     [SerializeField] Enum.FUNITURE_CATE category; public Enum.FUNITURE_CATE Category {get => category;}
+    [SerializeField] Sprite[] cateBgSprs;
+    [SerializeField] Sprite[] cateDecorationSprs;
+    [SerializeField] Sprite[] cateFurnitureSprs;
+    [SerializeField] Sprite[] cateMatSprs;
+
     [SerializeField] Button[] categoryBtns; public Button[] CategoryBtns {get => categoryBtns; set => categoryBtns = value;}
+    [SerializeField] Image[] categoryBtnIcons;
     [Header("PAGE")]
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
@@ -55,9 +62,15 @@ public class FunitureUIManager : MonoBehaviour
         //* カテゴリ IDX
         setCategoryIdx(idx);
 
+        //* カテゴリ アイコン 表示
+        categoryBtnIcons[(int)Enum.FUNITURE_CATE.Funiture].sprite = (idx == 0)? cateFurnitureSprs[CATE_ON] : cateFurnitureSprs[CATE_OFF];
+        categoryBtnIcons[(int)Enum.FUNITURE_CATE.Decoration].sprite = (idx == 1)? cateDecorationSprs[CATE_ON] : cateDecorationSprs[CATE_OFF];
+        categoryBtnIcons[(int)Enum.FUNITURE_CATE.Bg].sprite = (idx == 2)? cateBgSprs[CATE_ON] : cateBgSprs[CATE_OFF];
+        categoryBtnIcons[(int)Enum.FUNITURE_CATE.Mat].sprite = (idx == 3)? cateMatSprs[CATE_ON] : cateMatSprs[CATE_OFF];
+
         //* カテゴリ 背景色
-        for(int i = 0; i < categoryBtns.Length; i++) 
-            categoryBtns[i].image.color = (i == idx)? Color.green : Color.white;
+        for(int i = 0; i < categoryBtns.Length; i++)
+            categoryBtns[i].image.color = (i == idx)? Config.CATE_SELECT_COLOR : Color.white;
 
         //* アイテム リスト 最新化して並べる
         updateItemList();
