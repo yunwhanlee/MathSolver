@@ -173,6 +173,11 @@ public abstract class Item {
                 hui.showErrorMsgPopUp(LM._.localize("Already in use!"));
             }
             else {
+                //* Petの場合、「X」リストクリックしたら、InfoDialog表示しなくすぐ適用
+                if(this is PetSkin && name == "X") {
+                    display();
+                    return;
+                }
                 hui.InfoDialog.SetActive(true);
                 hui.setInfoDlgData(this);
                 var arrangeBtn = hui.activeInfoDlgBtn(idx: 2);
