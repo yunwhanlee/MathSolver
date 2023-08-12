@@ -384,7 +384,7 @@ public class QuizManager : MonoBehaviour {
         DB.Dt.AcvCorrectAnswerCnt++;
         helpSpeachBtn.SetActive(false);
         StartCoroutine(GM._.Pl.coRoarEF());
-        StartCoroutine(GM._.Anm.coActiveAnimalHeartPoofEF());
+        StartCoroutine(GM._.Anm.coCorrectEF());
         GM._.IsSelectCorrectAnswer = true;
 
         //* 演算子によって登録した関数 コールバック
@@ -444,7 +444,7 @@ public class QuizManager : MonoBehaviour {
     }
     public IEnumerator coFailAnswer(int idx) {
         GM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
-        StartCoroutine(GM._.Anm.coActiveAnimalHeartBreakEF());
+        StartCoroutine(GM._.Anm.coWrongEF());
         answerBtn[idx].GetComponent<Image>().color = Color.red;
         GM._.charaAnimByAnswer(isCorret: false);
         hintFrame.SetActive(true);

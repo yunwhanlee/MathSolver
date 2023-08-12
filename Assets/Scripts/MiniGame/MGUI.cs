@@ -42,9 +42,9 @@ public class MGUI : MonoBehaviour {
         //* Player Moving Control
         if(isLeftArrowBtnPressed)
             movePlayer(isLeft: true);
-        if(isRightArrowBtnPressed) 
+        else if(isRightArrowBtnPressed) 
             movePlayer(isLeft: false);
-        if(!isRightArrowBtnPressed && !isRightArrowBtnPressed) 
+        else
             MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
         #endregion
     }

@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.U2D.Animation; //* SpriteLibrary
 
 public class Animal : MonoBehaviour {
+    string[] TALK_CORRECT_STRS = {"대단해!", "우와!", "역시!", "만세!", "고마워요!"};
+    string[] TALK_WRONG_STRS = {"헉!", "안돼..", "끄아아", "앗?!", "선생님?!"};
+
     [Header("OUTSIDE")]
     Animator anim; public Animator Anim {get => anim;}
     SpriteRenderer sr;  public SpriteRenderer Sr {get => sr;}
@@ -11,6 +15,7 @@ public class Animal : MonoBehaviour {
     [Header("ACTIVE TYPE")]
     [SerializeField] GameObject animalHeartPoofEF;
     [SerializeField] GameObject animalHeartBreakEF;
+    [SerializeField] GameObject animalTalkEF;
 
     [Header("VALUE")]
     SpriteLibrary sprLib; public SpriteLibrary SprLib {get => sprLib;}
@@ -21,6 +26,8 @@ public class Animal : MonoBehaviour {
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         sprLib = GetComponent<SpriteLibrary>();
+
+        animalTalkEF.SetActive(false);
 
         //* Set Random SpriteLibraryAsset
         // setRandomSprLibAsset();
@@ -47,15 +54,21 @@ public class Animal : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region EFFECT
 /// -----------------------------------------------------------------------------------------------------------------
-    public IEnumerator coActiveAnimalHeartPoofEF() {
+    public IEnumerator coCorrectEF() {
         animalHeartPoofEF.SetActive(true);
+        animalTalkEF.SetActive(true);
+        animalTalkEF.GetComponentInChildren<TextMeshPro>().text = TALK_CORRECT_STRS[Random.Range(0, TALK_CORRECT_STRS.Length)];
         yield return Util.time2;
         animalHeartPoofEF.SetActive(false);
+        animalTalkEF.SetActive(false);
     }
-    public IEnumerator coActiveAnimalHeartBreakEF() {
+    public IEnumerator coWrongEF() {
         animalHeartBreakEF.SetActive(true);
+        animalTalkEF.SetActive(true);
+        animalTalkEF.GetComponentInChildren<TextMeshPro>().text = TALK_WRONG_STRS[Random.Range(0, TALK_WRONG_STRS.Length)];
         yield return Util.time2;
         animalHeartBreakEF.SetActive(false);
+        animalTalkEF.SetActive(false);
     }
 #endregion
 }
