@@ -151,6 +151,7 @@ public abstract class Item {
         }
     }
     public virtual void arrange() {
+        Debug.Log("arrange()::");
         var hui = HM._.ui;
         //* ロック
         if(isLock) {

@@ -87,10 +87,12 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
     [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
     [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
-    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
+    
     [SerializeField] Transform infoDlgBtnGroup;    public Transform InfoDlgBtnGroup {get => infoDlgBtnGroup;}
     [SerializeField] Button infoDlgPurchaseBtn;    public Button InfoDlgPurchaseBtn {get => infoDlgPurchaseBtn; set => infoDlgPurchaseBtn = value;}
+    [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
     [SerializeField] Button infoDlgMoveBtn;    public Button InfoDlgMoveBtn {get => infoDlgMoveBtn; set => infoDlgMoveBtn = value;}
+    [SerializeField] TextMeshProUGUI infoDlgMoveCttTxt;    public TextMeshProUGUI InfoDlgMoveCttTxt {get => infoDlgMoveCttTxt; set => infoDlgMoveCttTxt = value;}
     [SerializeField] Button infoDlgArrangeBtn;    public Button InfoDlgArrangeBtn {get => infoDlgArrangeBtn; set => infoDlgArrangeBtn = value;}
 
     [Header("CANVAS ANIM")]
@@ -487,6 +489,17 @@ public class HUI : MonoBehaviour {
     }
     public void setInfoDlgData(Item item) {
         Debug.Log($"setInfoDlgData(item):: item.Name= {item.Name}");
+
+        //* 例外
+        switch(item.Name) {
+            case "GoldApple Pet":
+                infoDlgMoveCttTxt.text = "Minigame1 Clear";
+                break;
+            default: 
+                infoDlgMoveCttTxt.text = "Go Clothshop";
+                break;
+        }
+
         infoDlgItemNameTxt.text = LM._.localize(item.Name);
         infoDlgItemImg.sprite = item.Spr;
         infoDlgItemPriceTxt.text = item.Price.ToString();
