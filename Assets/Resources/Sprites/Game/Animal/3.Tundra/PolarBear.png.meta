@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3bfacc9ad7ee32d448bcad0c4f1fe1f5
+guid: ee2700f1fd845d84ea99b1829422ce3e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Flog_0
+      name: PolarBearIdle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 342
-        height: 383
+        width: 454
+        height: 298
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +137,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03b186c97ea2167408bc3cb92e5dc052
-      internalID: 968052429
+      spriteID: 5f9767090f70f6b4999b5952c47250e1
+      internalID: -163084472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flog_1
+      name: PolarBearIdle_1
       rect:
         serializedVersion: 2
-        x: 342
+        x: 454
         y: 0
-        width: 342
-        height: 383
+        width: 454
+        height: 298
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +158,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54c00e1dc0245414b8416fe1093feba1
-      internalID: 1315666858
+      spriteID: b85320955f0a43346a9f490a6f4caee7
+      internalID: 1455469938
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flog_2
+      name: PolarBearIdle_2
       rect:
         serializedVersion: 2
-        x: 684
+        x: 908
         y: 0
-        width: 342
-        height: 383
+        width: 454
+        height: 298
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bc992610059e0a46bcb934212b10099
-      internalID: -1845734031
+      spriteID: 36aa40a58a1e27441bc6b25965001a20
+      internalID: 91897212
       vertices: []
       indices: 
       edges: []
@@ -196,9 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Flog_0: 968052429
-      Flog_1: 1315666858
-      Flog_2: -1845734031
+      PolarBearIdle_0: -163084472
+      PolarBearIdle_1: 1455469938
+      PolarBearIdle_2: 91897212
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
