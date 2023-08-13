@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 public class GM : MonoBehaviour {
     public enum GAME_STT {PLAY, RESULT};
     [SerializeField] GAME_STT gameStatus;   public GAME_STT GameStatus {get => gameStatus; set => gameStatus = value;}
-    public enum BG_STT {Normal, WindMill, JungleFlower};
+    public enum BG_STT {Normal, WindMill, Bush};
     [SerializeField] BG_STT bgStatus;   public BG_STT BgStatus {get => bgStatus; set => bgStatus = value;}
 
     const int BOX_S_MAX = 10; // Small
@@ -321,7 +321,7 @@ public class GM : MonoBehaviour {
     }
 
     public void initObjList() {
-        string[] resList = (bgStatus == BG_STT.JungleFlower)? qSO.JungleObjNames : qSO.DefObjNames;
+        string[] resList = (bgStatus == BG_STT.Bush)? qSO.JungleObjNames : qSO.DefObjNames;
         Debug.Log($"initObjList():: bgStatus= <b>{bgStatus}</b>, resList.Length= {resList.Length}");
         qSO.ObjNameList = new List<string>(resList);
         destroyAllObj();
@@ -761,8 +761,8 @@ public class GM : MonoBehaviour {
                 //* 背景種類 検査
                 if(bg.name.Contains(BG_STT.WindMill.ToString())) 
                     bgStatus = BG_STT.WindMill;
-                else if(bg.name.Contains(BG_STT.JungleFlower.ToString()))
-                    bgStatus = BG_STT.JungleFlower;
+                else if(bg.name.Contains(BG_STT.Bush.ToString()))
+                    bgStatus = BG_STT.Bush;
                 else 
                     bgStatus = BG_STT.Normal;
 
@@ -786,7 +786,7 @@ public class GM : MonoBehaviour {
             yield return Util.time0_5;
         }
         //* ジャングルの花 BG
-        else if(bgStatus == BG_STT.JungleFlower) {
+        else if(bgStatus == BG_STT.Bush) {
             Debug.Log("bgStatus= " + bgStatus);
             // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;

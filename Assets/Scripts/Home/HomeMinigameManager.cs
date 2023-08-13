@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class HomeMinigameManager : MonoBehaviour {
     [SerializeField] GameObject minigameLvPopUp;   public GameObject MinigameLvPopUp {get => minigameLvPopUp;}
@@ -169,7 +170,9 @@ public class HomeMinigameManager : MonoBehaviour {
                 rewardCheckIcons[1].gameObject.SetActive(true);
                 break;
             case 2: 
-                //TODO Unlock GoldApple Pet
+                PetSkin goldApplePet = Array.Find(DB.Dt.PtSkins, pet => pet.Name == "GoldApple Pet");
+                HM._.cUI.setReward(goldApplePet);
+                HM._.ui.activeNewFuniturePopUp(goldApplePet.Spr, goldApplePet.Name);
                 DB.Dt.Minigame1RewardTriggers[2] = true;
                 rewardIconBtns[2].interactable = false;
                 rewardCheckIcons[2].gameObject.SetActive(true);

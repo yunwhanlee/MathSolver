@@ -110,6 +110,7 @@ public abstract class TalkManager : MonoBehaviour {
             switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
                 case (int)SPK_IDX.Pl_Idle: case (int)SPK_IDX.pl_Happy: case (int)SPK_IDX.Pl_Sad:
                     //* 画像
+                    Debug.Log($"TalkManager:: talk():: spkImg.spr = {spkSprDtList[key]}");
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
                     if(key == (int)SPK_IDX.Pl_Sad) {

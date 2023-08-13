@@ -15,6 +15,7 @@ public class HM : MonoBehaviour {
     public HUI ui;
     public TouchControl touchCtr;
     public FunitureUIManager fUI;
+    public ClothShopUIManager cUI;
     public InventoryUIManager iUI;
     public HEM em;
     public HomeTalkManager htm;
