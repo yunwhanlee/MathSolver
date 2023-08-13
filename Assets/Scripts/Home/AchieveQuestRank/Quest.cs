@@ -76,7 +76,7 @@ public class Quest : MonoBehaviour {
                 break;
             case (int)QuestManager.MQ_ID.OpenTundraMap3:
                 if(!DB.Dt.IsOpenMap3UnlockBG1Arr[ACCEPT])
-                    HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
+                    HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap3SnowMountain:
                 if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])

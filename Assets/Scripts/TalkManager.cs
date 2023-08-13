@@ -12,6 +12,7 @@ public abstract class TalkManager : MonoBehaviour {
         Monkey_Idle, Monkey_Happy, Monkey_Sad,
         Flog_Idle, Flog_Happy, Flog_Sad, 
         Ant_Idle, Ant_Happy, Ant_Sad,
+        WarriorMonkey_Idle, WarriorMonkey_Happy, WarriorMonkey_Sad,
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -167,6 +168,14 @@ public abstract class TalkManager : MonoBehaviour {
                     spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
                     //* 名前
                     spkName.text = "개미";
+                    setNameFrameDirection(isLeft: false); // right
+                    break;
+                case (int)SPK_IDX.WarriorMonkey_Idle: case (int)SPK_IDX.WarriorMonkey_Happy: case (int)SPK_IDX.WarriorMonkey_Sad:
+                    //* 画像
+                    spkImg.sprite = spkSprDtList[key];
+                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
+                    //* 名前
+                    spkName.text = "전사원숭이";
                     setNameFrameDirection(isLeft: false); // right
                     break;
             }
