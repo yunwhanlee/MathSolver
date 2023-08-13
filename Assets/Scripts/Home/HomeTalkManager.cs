@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class HomeTalkManager : TalkManager {
     readonly Vector2 WOOD_ARROW_POS = new (300, 770);
@@ -307,7 +308,10 @@ public class HomeTalkManager : TalkManager {
 /// 
     protected override void endSwitchProccess(int id) {
         const int ACCEPT = 0, REWARD = 1; //* Unlock Map:BG
-        Debug.Log($"<b>endSwitchProccess(id= {id}):: </b>");
+        var enumValArr = (ID[])System.Enum.GetValues(typeof(ID));
+        ID idVal = Array.Find(enumValArr, value => (int)value == id);
+        Debug.Log($"<color=yellow>endSwitchProccess( id=> {id}. {idVal}):: </color>");
+        
         switch(id) {
             #region TUTORIAL
             case (int)ID.TUTO_ROOM:
