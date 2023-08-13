@@ -114,7 +114,7 @@ public class HomeTalkManager : TalkManager {
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_ACCEPT, new string[] {
-            "새로운 지역도 도와주면서\n레벨을 7까지 올려보자!:0"
+            "풍차지역도 도와주면서\n레벨을 7까지 올려보자!:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_REWARD, new string[] {
             "해결사 선생님!!:4"
@@ -127,11 +127,12 @@ public class HomeTalkManager : TalkManager {
             , "떨어지는 사과를 받는 게임이에요!:3"
             , "모두 클리어하면 엄청난 보상도 있답니다!:4"
             , "과수원지역 <size=100><sprite name=exclamation></size>를 찾아주세요.\n첫회는 무료에요!:4"
+            , "사과따기 미니게임이 오픈했어!:1"
         });
         #endregion
         #region MAP2 JUNGLE
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT, new string[] {
-            "새로운 지역도 도와주면서\n레벨을 10을 달성해줘!:0"
+            "이제 과수원 지역도 도와주면서\n레벨을 10을 달성해보자!:0"
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] {
             "이야 벌써 레벨10을 달성했구나!\n대단해!:1"
@@ -149,29 +150,31 @@ public class HomeTalkManager : TalkManager {
         talkDt.Add((int)ID.UNLOCK_MAP2_BG2_ACCEPT, new string[] {
             "으...\n정글로 도망가버렸어..:2"
             , "(톡톡..):11"
-            , "저기.. 안녕하세유?\n혹시 수학해결사 맞나유?:11"
+            , "저기.. 안녕하세유?\n혹시 수학해결사 맞개굴?:11"
             , "맞는데..\n누..누구시죠?:0"
-            , "혹시, 머리를 두번때리고 간 원숭이를 찾으시나유?:11"
+            , "혹시, 머리를 두번때리고 간 원숭이를 찾으시개굴?:11"
             , "아앗..맞아요!:2"
-            , "저는 정글 늪지대주민인디.\n저희 수학문제를 도와주면:11"
-            , "원숭이가 어디로 갔는지 알려드릴게유.:12"
-            , "수학연장 챙겨라\n바로 갑니다.:1"
+            , "저는 정글 늪지대주민인디,\n저희 수학문제를 도와주면:11"
+            , "원숭이가 어디로 갔는지 알려드릴개굴.:12"
+            , "새로운 정글맵이 오픈했어!:1"
+            , "흠.. 우선 늪지대 지역을 도와주며 레벨 14를 달성하자!:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] {
-            "도와주셔서 너무 감사합니다유.:12"
-            , "이제 어디로 갔는지 당장 말해요!:0"
-            , "원숭이들은 몽키와트라는 신전에서 생활해유:11"
-            , "아마 거기가시면 찾으실 수 있을거에유.:11"
-            , "덤불지대 근처라는 소문은 들었지만:11"
-            , "워낙 베일에 쌓인 곳이라서 그 이상은 몰라유..:13"
+            "도와주셔서 너무 감사개굴.:12"
+            , "이제 어디로 갔는지 당장 말해!:1"
+            , "원숭이들은 몽키와트라는 신전에서 생활해개굴:11"
+            , "아마 거기가시면 찾으실 수 있개굴.:11"
+            , "덤불지대 근처라는 소문은 들었지만,:11"
+            , "워낙 비밀에 쌓인 곳이라서 그 이상은 몰라개굴.:13"
             , "덤불지대? 거기가 어디지?!:0"
-            , "걱정마세유. 제 친구 개미에게 부탁해놨어유.:11"
-            , "조만간 선생님을 찾아뵐거에유.:11"
+            , "걱정마개굴! 친구 개미에게 부탁해놨개굴.:11"
+            , "조만간 선생님을 찾아갈거라개굴.:11"
             , "좋았어!!:1"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP2_BG3_ACCEPT, new string[] {
-            "안녕하세개미!:14"
+            "(그로부터 며칠 뒤..):0"
+            , "안녕하세개미!:14"
             , "여기가 수학천재 해결사님의 집인가개미?:15"
             , "(두리번 두리번..):0"
             , "음..뭐지 누가 날 불렀는데 아무도 없..:0"
@@ -180,49 +183,49 @@ public class HomeTalkManager : TalkManager {
             , "개구리 친구한테 부탁받았개미\n원숭이를 찾고있다개미?:14"
             , "맞아요! 어딧나요\n원숭이는!!:1"
             , "잠시만개미, 우리 덤불마을 지금 수학문제 때문에 힘들개미:16"
-            , "수학해결사님 우리들을 좀 도와줘개미:15"
+            , "수학해결사님 우리들도 좀 도와줘개미:15"
             , "그럼 알려주개미!! :14"
-            , "크아.. 이놈의 인기..\n또 시작이군..:2"
-            , "어쩔수없다. 수학이 필요한 곳을 외면할 수는 없지:1"
-            , "수학연장 챙겨라!:1"
+            , "크아..:2"
+            , "어쩔수없다! 수학이 필요한 곳을 외면할 수는 없는법:1"
             , "고맙개미!:15"
+            , "덤불마을도 도와주며 레벨 17을 달성하자!:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG3_REWARD, new string[] {
             "정말 고맙개미!!:15"
             , "덕분에 덤불마을이 수학의힘으로 평화로워졌개미!:15"
             , "자 그럼 이제 원숭이가 있는 신전을 알려줘야지?:0"
             , "알고있개미. 그 신전은 몽키와트라는 곳이다개미.:14"
-            , "미리 길을 열어두었개미. 그리고 가면된다개미.:14"
-            , "고마워! 드디어 찾았다 몽키와트 신전!:0"
+            , "미리 길을 열어두었개미. 그리로 가면된다개미!:14"
+            , "고마워! 드디어 찾았다! 기다려라 몽키와트 신전!:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_MINIGAME, new string[] {
-            ""
+            "TODO UNLOCK_MAP2_MINIGAME:0"
         });
         #endregion
 
         #region MAP3 TUNDRA
         talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT, new string[] {
-            "TODO:0"
+            "TODO OPEN_MAP3_UNLOCK_BG1_ACCEPT:0"
         });
         talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] {
-            "TODO:0"
+            "TODO OPEN_MAP3_UNLOCK_BG1_REWARD:0"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
-            "TODO:0"
+            "TODO UNLOCK_MAP3_BG2_ACCEPT:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_REWARD, new string[] {
-            "TODO:0"
+            "TODO UNLOCK_MAP3_BG2_REWARD:0"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG3_ACCEPT, new string[] {
-            "TODO:0"
+            "TODO UNLOCK_MAP3_BG3_ACCEPT:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_BG3_REWARD, new string[] {
-            "TODO:0"
+            "TODO UNLOCK_MAP3_BG3_REWARD:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_MINIGAME, new string[] {
-            ""
+            "TODO UNLOCK_MAP3_MINIGAME"
         });
         #endregion
     }
@@ -367,6 +370,7 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.UNLOCK_MAP1_MINIGAME:
                 DB.Dt.IsUnlockMinigame1 = true;
+                HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn();
                 break;
             #endregion
             #region MAP2 JUNGLE
@@ -393,6 +397,7 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.UNLOCK_MAP2_MINIGAME:
                 DB.Dt.IsUnlockMinigame2 = true;
+                HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn();
                 break;
             #endregion
             #region MAP3 TUNDRA
@@ -419,6 +424,7 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.UNLOCK_MAP3_MINIGAME:
                 DB.Dt.IsUnlockMinigame3 = true;
+                HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn();
                 break;
             #endregion
         }
