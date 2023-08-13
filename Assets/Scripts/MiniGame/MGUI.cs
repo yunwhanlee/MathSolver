@@ -10,6 +10,7 @@ public class MGUI : MonoBehaviour {
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
 
     [SerializeField] Button startScrBtn;
+    [SerializeField] TextMeshProUGUI playerLvTxt;
     [SerializeField] TextMeshProUGUI modeTxt;
     [SerializeField] TextMeshProUGUI scoreTxt;   public TextMeshProUGUI ScoreTxt {get => scoreTxt;}
     [SerializeField] TextMeshProUGUI playTimerTxt;  public TextMeshProUGUI PlayTimerTxt {get => playTimerTxt;}
@@ -22,10 +23,11 @@ public class MGUI : MonoBehaviour {
 
     void Start() {
         resultPanel.SetActive(false);
-        scoreTxt.text = "";
+        playerLvTxt.text = DB.Dt.Lv.ToString();
         modeTxt.text = (DB._.MinigameLv == 0)? MGM.MODE.EASY.ToString()
             : (DB._.MinigameLv == 1)? MGM.MODE.NORMAL.ToString()
             : MGM.MODE.HARD.ToString();
+        scoreTxt.text = "";
         leftArrowBtn.gameObject.SetActive(false);
         rightArrowBtn.gameObject.SetActive(false);
     }

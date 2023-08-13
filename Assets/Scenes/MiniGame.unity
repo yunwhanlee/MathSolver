@@ -32078,11 +32078,12 @@ MonoBehaviour:
   resultPanel: {fileID: 1981230484}
   switchScreenAnim: {fileID: 663995367}
   startScrBtn: {fileID: 693338977}
+  playerLvTxt: {fileID: 1264498441}
+  modeTxt: {fileID: 638887785}
   scoreTxt: {fileID: 1112301641}
   playTimerTxt: {fileID: 1910987446}
   titleTxt: {fileID: 611418270}
   contentTxt: {fileID: 551525847}
-  modeTxt: {fileID: 638887785}
   leftArrowBtn: {fileID: 907207171}
   rightArrowBtn: {fileID: 1066406329}
 --- !u!1 &638075488
@@ -55592,6 +55593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalHeartPoofEF: {fileID: 7574954464884734497}
   animalHeartBreakEF: {fileID: 2072932532479037043}
+  animalTalkEF: {fileID: 0}
   animalSprLibAssetList:
   - {fileID: 7108339969198208228, guid: 92479fcafd0d0074e8d112eb43a375f7, type: 3}
   - {fileID: 7108339969198208228, guid: ba5814afadf5ab34dac0e6c6bbeccc03, type: 3}
