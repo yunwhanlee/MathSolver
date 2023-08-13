@@ -205,6 +205,11 @@ public class HUI : MonoBehaviour {
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickWoodSignArrowBtn(int dirVal) { //* directionValue : -1 or 1にすること。
+        if(HM._.qm.IsFinishMainQuest) {
+            showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
+            return;
+        }
+
         //* 現在シーン パンネル INDEX
         if(dirVal == -1 || dirVal == 1) {
             curHomeSceneIdx += dirVal; // Left or Right
@@ -300,6 +305,10 @@ public class HUI : MonoBehaviour {
             // woodSignObj.SetActive(true);
         }
         public void onClickDecorateModeIconBtn() {
+            if(HM._.qm.IsFinishMainQuest) {
+                showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
+                return;
+            }
             if(roomObjectGroupTf.childCount == 0) {
                 HM._.ui.showErrorMsgPopUp("조정할 가구가 없습니다.");
                 return;
@@ -393,7 +402,10 @@ public class HUI : MonoBehaviour {
 
     #region SELECT MAP
     public void onClickGoGameDialogYesBtn() { // Choose Map
-        var lv = DB.Dt.Lv;
+        if(HM._.qm.IsFinishMainQuest) {
+            showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
+            return;
+        }
 
         HM._.state = HM.STATE.NORMAL;
         canvasWorldMap.gameObject.SetActive(true);

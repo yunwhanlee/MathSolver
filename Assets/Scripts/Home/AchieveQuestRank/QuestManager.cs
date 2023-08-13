@@ -22,9 +22,11 @@ public class QuestManager : MonoBehaviour {
     }
 
     //* Quests
+    [SerializeField] bool isFinishMainQuest;    public bool IsFinishMainQuest {get => isFinishMainQuest; set => isFinishMainQuest = value;}
     [SerializeField] Quest[] mainQuests;    public Quest[] MainQuests {get => mainQuests;}
 
     void Start() {
+        //* メインクエスト 達成 表示
         InvokeRepeating("updateMainQuestBox", 0.1f, 0.1f);
     }
 
@@ -47,6 +49,8 @@ public class QuestManager : MonoBehaviour {
             var homeMainQuestBoxPos = new Vector2(-300, 650);
             HM._.ui.activeHandFocus(homeMainQuestBoxPos);
         }
+        //* メインクエストの達成：MainQuestBoxクリックのみできるように制限をかける
+        isFinishMainQuest = isActiveHandFocues;
     }
     public void updateMainQuestList() {
         Debug.Log($"updateMainQuestList():: MainQuestID= {DB.Dt.MainQuestID}");

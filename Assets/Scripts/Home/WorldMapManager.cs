@@ -148,6 +148,8 @@ public class WorldMapManager : MonoBehaviour {
     public void showUnlockBg(int mapIdx, int bgIdx) {
         //* ワールドマップ 表示
         gameObject.SetActive(true);
+        HM._.ui.TopGroup.SetActive(true);
+        HM._.ui.AchiveRankPanel.SetActive(false);
 
         //* SetScrollPos
         var bg = maps[mapIdx].BgBtns[bgIdx];
