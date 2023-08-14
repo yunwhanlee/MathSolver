@@ -43,9 +43,11 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
     [Space(10)]
     [Header("MINIGAME 2 VALUE")]
-
+    [SerializeField] Transform skyBG;
+    [SerializeField] float padSpan = 0.5f;
     [SerializeField] int jumpPower;      public int JumpPower {get => jumpPower;}
-    [SerializeField] float createPosY;
+    [SerializeField] float createPadPosY;
+    [SerializeField] float camUpSpeed = 30;
 
 
     void Awake() {
@@ -89,17 +91,16 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             }
             case TYPE.MINIGAME2: {
                 //* Base Pads
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(-1.5f, 0), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(0, 0), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(1.5f, 0), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(-1.5f, createPadPosY), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(0, createPadPosY), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(1.5f, createPadPosY), Util.time999);
 
                 //* Random Pads
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
-                
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
                 break;
             }
             case TYPE.MINIGAME3: {
@@ -186,6 +187,15 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 break;
             }
             case TYPE.MINIGAME2: {
+                Debug.Log("MGM:: update():: ");
+                if(curTime >= padSpan) {
+                    curTime = 0;
+                    mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                }
+                cam.transform.Translate(0, camUpSpeed * Time.deltaTime, 0);
+                if(cam.transform.position.y > 13) {
+                    skyBG.Translate(0, -camUpSpeed * Time.deltaTime, 0);
+                }
                 
                 break;
             }

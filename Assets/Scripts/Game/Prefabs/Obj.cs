@@ -45,7 +45,16 @@ public class Obj : MonoBehaviour {
             if(isDirDown) {
                 MGM._.Pl.jump();
                 MGM._.mgem.releaseObj(this.gameObject, (int)MGEM.IDX.JumpingPadObj);
+                col.isTrigger = true;
+                this.GetComponent<SpriteRenderer>().color = Color.white;
             }
+        }
+        //* 削除 JumpingPad
+        else if(col.CompareTag(Enum.TAG.EraseObjLine.ToString())) {
+            Debug.Log($"<b>Obj:: OnTriggerExit2D(col= {col.tag}):: Obj.name= {this.name}</b>");
+            col.isTrigger = true;
+            this.GetComponent<SpriteRenderer>().color = Color.white;
+            MGM._.mgem.releaseObj(this.gameObject, (int)MGEM.IDX.JumpingPadObj);
         }
     }
 #endregion

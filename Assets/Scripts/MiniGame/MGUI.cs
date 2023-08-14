@@ -92,23 +92,29 @@ public class MGUI : MonoBehaviour {
         pl.walk();
         pl.Sr.flipX = isLeft;
         float x = plPos.x + (isLeft? -spd : spd);
-        pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
+        if(MGM._.Type == MGM.TYPE.MINIGAME1)
+            pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
+        else 
+            pl.transform.localPosition = new Vector2(x, plPos.y);
     }
     
     private IEnumerator coReadyStartCount() {
         titleTxt.text = "Ready";
         contentTxt.text = "";
+
         yield return Util.time1;
         MGM._.Status = MGM.STATUS.PLAY;
         titleTxt.text = "Start!";
-        yield return Util.time1;
-        titleTxt.gameObject.SetActive(false);
-        contentTxt.gameObject.SetActive(false);
-
         //* ミニーゲーム 最初のアクション
         if(MGM._.Type == MGM.TYPE.MINIGAME2) {
             MGM._.Pl.jump();
         }
+
+        yield return Util.time1;
+        titleTxt.gameObject.SetActive(false);
+        contentTxt.gameObject.SetActive(false);
+
+
     }
 #endregion
 }

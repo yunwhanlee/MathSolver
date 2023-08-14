@@ -19,6 +19,7 @@ TagManager:
   - Bomb
   - Diamond
   - JumpingPad
+  - EraseObjLine
   layers:
   - Default
   - TransparentFX
