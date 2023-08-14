@@ -28,7 +28,7 @@ public class MGResultManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
-    private IEnumerator coGoHome() {
+    public IEnumerator coGoHome() {
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         MGM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;

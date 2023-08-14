@@ -84,13 +84,14 @@ public class HomeMinigameManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     #region MINIGAME LEVEL POPUP
     public void onClickMinigameExclamationMarkBtn(int idx) { //* [3]:Minigame1, [4]:Minigame2, [5]:Minigame3
+        Debug.Log($"onClickMinigameExclamationMarkBtn(idx={idx}):: ");
         DB._.SelectMapIdx = idx;
         minigameLvPopUp.SetActive(true);
 
-        //* Display Unlock Minigame PopUp!
-        string name = (idx == 3 && !DB.Dt.IsUnlockMinigame1)? Enum.MAP.Minigame1.ToString()
-            : (idx == 4 && !DB.Dt.IsUnlockMinigame2)? Enum.MAP.Minigame2.ToString()
-            : (idx == 5 && !DB.Dt.IsUnlockMinigame3)? Enum.MAP.Minigame3.ToString()
+        //* Display PopUp!
+        string name = (idx == 3 && DB.Dt.Minigame1BestScore == 0)? Enum.MAP.Minigame1.ToString()
+            //TODO : (idx == 4 && !DB.Dt.IsUnlockMinigame2)? Enum.MAP.Minigame2.ToString()
+            //TODO : (idx == 5 && !DB.Dt.IsUnlockMinigame3)? Enum.MAP.Minigame3.ToString()
             : null;
 
         if(name != null)

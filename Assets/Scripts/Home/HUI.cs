@@ -9,7 +9,8 @@ using System;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
-public class HUI : MonoBehaviour { 
+public class HUI : MonoBehaviour {
+    UnityAction onRewardPopUpAccept;   public UnityAction OnRewardPopUpAccept {get => onRewardPopUpAccept; set => onRewardPopUpAccept = value;}
     [SerializeField] Color selectedTypeBtnClr;
     [SerializeField] TextMeshProUGUI coinTxt; public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
 
@@ -79,9 +80,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] Transform invSpacePlayerTf;
     [SerializeField] Transform invSpacePetTf;
 
-    [Header("GO GAME DIALOG")]
-    [SerializeField] GameObject goGameDialog; public GameObject GoGameDialog {get => goGameDialog; set => goGameDialog = value;}
-
     [Header("SHOP & INV INFO DIALOG")]
     [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
     [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
@@ -97,11 +95,12 @@ public class HUI : MonoBehaviour {
 
     [Header("CANVAS ANIM")]
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
-    [SerializeField] protected RectTransform handFocusTf;   public RectTransform HandFocusTf {get => handFocusTf;}
+    [SerializeField] RectTransform handFocusTf;   public RectTransform HandFocusTf {get => handFocusTf;}
+
+    
 
     [Header("POP UP")]
-    [SerializeField] UnityAction onRewardPopUpAccept;   public UnityAction OnRewardPopUpAccept {get => onRewardPopUpAccept; set => onRewardPopUpAccept = value;}
-
+    [SerializeField] GameObject goGamePopUp; public GameObject GoGamePopUp {get => goGamePopUp; set => goGamePopUp = value;}
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
     [SerializeField] TextMeshProUGUI errorMsgTxt;   public TextMeshProUGUI ErrorMsgTxt {get => errorMsgTxt; set => errorMsgTxt = value;}
     [Space(10)]
@@ -268,7 +267,7 @@ public class HUI : MonoBehaviour {
             HM._.state = HM.STATE.NORMAL;
             canvasStatic.gameObject.SetActive(true);
             canvasWorldMap.gameObject.SetActive(false);
-            goGameDialog.SetActive(false);
+            goGamePopUp.SetActive(false);
         }
         else {
             Debug.Log("onClickGoRoom():: From ClothShop");
@@ -426,7 +425,7 @@ public class HUI : MonoBehaviour {
     }
     public void onClickGoGameDialogNoBtn() {
         HM._.state = HM.STATE.NORMAL;
-        goGameDialog.SetActive(false);
+        goGamePopUp.SetActive(false);
     }
     public void onClickBgArea(int idx) {
         DB._.SelectMapIdx = idx;

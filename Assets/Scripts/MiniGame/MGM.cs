@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MGM : MonoBehaviour { //* MiniGame Manager
-
+    const int MIN_X = -2, MAX_X =2;
     public enum STATUS {READY, PLAY, FINISH, PAUSE};
     [SerializeField] STATUS status; public STATUS Status {get => status; set => status = value;}
-
+    public enum TYPE {MINIGAME1, MINIGAME2, MINIGAME3};
+    [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
     public enum MODE {EASY, NORMAL, HARD};
     [SerializeField] MODE mode; public MODE Mode {get => mode;}
 
@@ -18,9 +19,8 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     public MGResultManager mgrm;
     [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;} //* LOAD OBJECT FROM HOME
     [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;} //* LOAD OBJECT FROM HOME
+
     //TODO MiniGameTalkManager
-
-
 
     //* Public Value
     [SerializeField] int id;
@@ -31,6 +31,8 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] GameObject[] maps;
     [SerializeField] GameObject newBestScoreEF;
 
+    [Space(10)]
+    [Header("MINIGAME 2 VALUE")]
     //* MiniGame1 Forest
     [SerializeField] bool isStun;       public bool IsStun {get => isStun; set => isStun = value;}
     [SerializeField] float appleSpan = 1;
@@ -38,6 +40,13 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] int applePoint;       public int ApplePoint {get => applePoint;}
     [SerializeField] int goldApplePoint;   public int GoldApplePoint {get => goldApplePoint;}
     [SerializeField] int diamondPoint;     public int DiamondPoint {get => diamondPoint;}
+
+    [Space(10)]
+    [Header("MINIGAME 2 VALUE")]
+
+    [SerializeField] int jumpPower;      public int JumpPower {get => jumpPower;}
+    [SerializeField] float createPosY;
+
 
     void Awake() {
         _ = this;
@@ -48,24 +57,55 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
         score = 0;
         maxTime = 60;
+
+        //* 選択したゲーム(ID)
         id = getMapIdx();
         maps[id].SetActive(true);
-        mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
+        type = (id == 0)? TYPE.MINIGAME1 : (id == 1)? TYPE.MINIGAME2 : TYPE.MINIGAME3;
 
-        //* Set Obj Point
-        if(mode == MODE.EASY) {
-            applePoint = Config.MINIGAME1_EASY_OBJ_DATA[0];
-            goldApplePoint = Config.MINIGAME1_EASY_OBJ_DATA[1];
-        }
-        else if(mode == MODE.NORMAL) {
-            applePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[0];
-            goldApplePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[1];
-            diamondPoint = Config.MINIGAME1_NORMAL_OBJ_DATA[2];
-        }
-        else if(mode == MODE.HARD) {
-            applePoint = Config.MINIGAME1_HARD_OBJ_DATA[0];
-            goldApplePoint = Config.MINIGAME1_HARD_OBJ_DATA[1];
-            diamondPoint = Config.MINIGAME1_HARD_OBJ_DATA[2];
+        //* 選択したモード
+        if(DB._ == null) mode = MODE.EASY; //! TEST
+        else mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
+
+        //* タイプ
+        switch(type) {
+            case TYPE.MINIGAME1: {
+                //* モード データ設定
+                if(mode == MODE.EASY) {
+                    applePoint = Config.MINIGAME1_EASY_OBJ_DATA[0];
+                    goldApplePoint = Config.MINIGAME1_EASY_OBJ_DATA[1];
+                }
+                else if(mode == MODE.NORMAL) {
+                    applePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[0];
+                    goldApplePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[1];
+                    diamondPoint = Config.MINIGAME1_NORMAL_OBJ_DATA[2];
+                }
+                else if(mode == MODE.HARD) {
+                    applePoint = Config.MINIGAME1_HARD_OBJ_DATA[0];
+                    goldApplePoint = Config.MINIGAME1_HARD_OBJ_DATA[1];
+                    diamondPoint = Config.MINIGAME1_HARD_OBJ_DATA[2];
+                }
+                break;
+            }
+            case TYPE.MINIGAME2: {
+                //* Base Pads
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(-1.5f, 0), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(0, 0), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(1.5f, 0), Util.time999);
+
+                //* Random Pads
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPosY += 2), Util.time999);
+                
+                break;
+            }
+            case TYPE.MINIGAME3: {
+                //TODO
+                break;
+            }
         }
     }
 
@@ -110,35 +150,49 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             StartCoroutine(mgrm.coDisplayResultPanel());
         }
 
-        //* Create Apples (MiniGame1 Forest)
-        appleSpan = (remainTime > maxTime * 0.6f)? 1 
-            : (remainTime > maxTime * 0.4f)? 0.7f
-            : (remainTime > maxTime * 0.3f)? 0.5f
-            : 0.3f;
+        //* タイプ
+        switch(type) {
+            case TYPE.MINIGAME1: {
+                //* Create Apples
+                appleSpan = (remainTime > maxTime * 0.6f)? 1 
+                    : (remainTime > maxTime * 0.4f)? 0.7f
+                    : (remainTime > maxTime * 0.3f)? 0.5f
+                    : 0.3f;
 
-        if(curTime >= appleSpan) {
-            curTime = 0;
-            Vector2 pos = new Vector2(Random.Range(-2.0f, 2.0f), 6);
-            float spd = Random.Range(100, 200) * Time.deltaTime;
+                if(curTime >= appleSpan) {
+                    curTime = 0;
+                    Vector2 pos = new Vector2(Random.Range(MIN_X, MAX_X), 6);
+                    float spd = Random.Range(100, 200) * Time.deltaTime;
 
-            //* ランダム種類 設定
-            int rand = Random.Range(0, 100);
-            int objIdx = 0;
-            if(mode == MODE.EASY)
-                objIdx = (rand <= 60)? (int)MGEM.IDX.AppleObj
-                    : (rand <= 80)? (int)MGEM.IDX.GoldAppleObj
-                    : (int)MGEM.IDX.BombObj;
-            else
-                objIdx = (rand <= 45)? (int)MGEM.IDX.AppleObj
-                    : (rand <= 70)? (int)MGEM.IDX.GoldAppleObj
-                    : (rand <= 90)? (int)MGEM.IDX.BombObj
-                    : (int)MGEM.IDX.DiamondObj;
+                    //* ランダム種類 設定
+                    int rand = Random.Range(0, 100);
+                    int objIdx = 0;
+                    if(mode == MODE.EASY)
+                        objIdx = (rand <= 60)? (int)MGEM.IDX.AppleObj
+                            : (rand <= 80)? (int)MGEM.IDX.GoldAppleObj
+                            : (int)MGEM.IDX.BombObj;
+                    else
+                        objIdx = (rand <= 45)? (int)MGEM.IDX.AppleObj
+                            : (rand <= 70)? (int)MGEM.IDX.GoldAppleObj
+                            : (rand <= 90)? (int)MGEM.IDX.BombObj
+                            : (int)MGEM.IDX.DiamondObj;
 
-            Obj obj = mgem.createObj(objIdx, pos, Util.time8).GetComponent<Obj>();
+                    Obj obj = mgem.createObj(objIdx, pos, Util.time8).GetComponent<Obj>();
 
-            obj.transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
-            obj.Rigid.bodyType = RigidbodyType2D.Kinematic;
-            obj.Rigid.velocity = Vector2.down * spd;
+                    obj.transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
+                    obj.Rigid.bodyType = RigidbodyType2D.Kinematic;
+                    obj.Rigid.velocity = Vector2.down * spd;
+                }
+                break;
+            }
+            case TYPE.MINIGAME2: {
+                
+                break;
+            }
+            case TYPE.MINIGAME3: {
+                //TODO
+                break;
+            }
         }
     }
 
@@ -147,7 +201,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     private int getMapIdx() {
         //! For TEST
-        if(DB._ == null) return 0;
+        if(DB._ == null) return 1;
 
         int idx = (DB._.SelectMapIdx == (int)Enum.MAP.Minigame1)? 0
             : (DB._.SelectMapIdx == (int)Enum.MAP.Minigame2)? 1

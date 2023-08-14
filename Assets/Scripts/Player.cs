@@ -16,6 +16,7 @@ public class Player : MonoBehaviour {
     [Header("OUTSIDE")]
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
     [SerializeField] Collider2D col; public Collider2D Col {get => col; set => col = value;}
+    [SerializeField] Rigidbody2D rigid; public Rigidbody2D Rigid {get => rigid;}
     [SerializeField] Animator anim; public Animator Anim {get => anim; set => anim = value;}
 
     [Header("ACTIVE EF")]
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour {
         tgPos = transform.position;
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
+        rigid = GetComponent<Rigidbody2D>();
         sprLib = GetComponent<SpriteLibrary>();
     }
 
@@ -71,6 +73,12 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
 #region FUNC
 ///------------------------------------------------------------------------------------------
+    public void jump() {
+        Debug.Log($"Player:: jump():: ");
+        float val = MGM._.JumpPower * Time.fixedDeltaTime;
+        rigid.velocity = Vector2.zero;
+        rigid.AddForce(Vector2.up * val, ForceMode2D.Impulse);
+    }
     public void setSit(Transform hitTf) {
         //* 座る
         if(!isSit 
@@ -96,6 +104,23 @@ public class Player : MonoBehaviour {
     public float calcLegacyBonusPer() {
         //TODO
         return 0;
+    }
+    private void collideWithChair(bool isTrigger, Collider2D col) {
+        if(HM._.isChair(col.gameObject)) {
+            if(isTrigger) {
+                if(isSit) return;
+                colChairObj = col.gameObject;
+                //* 衝突した一つのみアウトライン表示
+                HM._.clearAllChairOutline();
+                var obj = colChairObj.GetComponent<RoomObject>();
+                obj.Sr.material = HM._.outlineMt;
+            }
+            else {
+                //* アウトライン解除
+                colChairObj = null;
+                HM._.clearAllChairOutline();
+            }
+        }
     }
 #endregion
 ///------------------------------------------------------------------------------------------
@@ -132,50 +157,36 @@ public class Player : MonoBehaviour {
     }
 #endregion
 ///------------------------------------------------------------------------------------------
-#region COLLIDER
+#region COLLIDER (Collision)
+///------------------------------------------------------------------------------------------
+    private void OnCollisionEnter2D(Collision2D col) {
+        //* Minigame 2
+        if(col.gameObject.CompareTag(Enum.TAG.JumpingPad.ToString())) {
+            jump();
+            MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.JumpingPadObj);
+        }
+    }
+#endregion
+///------------------------------------------------------------------------------------------
+#region COLLIDER (Trigger)
 ///------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.CompareTag(Enum.TAG.GoGame.ToString())) {
             HM._.state = HM.STATE.SETTING;
-            HM._.ui.GoGameDialog.SetActive(true);
+            HM._.ui.GoGamePopUp.SetActive(true);
         }
     }
-
     private void OnTriggerStay2D(Collider2D col) {
         if(HM._) {
             collideWithChair(true, col); //* Sit Trigger ON
         }
-        else {
-
-        }
-        
     }
 
     private void OnTriggerExit2D(Collider2D col) {
         if(HM._) {
             collideWithChair(false, col); //* Sit Trigger OFF
         }
-        else {
-
-        }
-        
     }
 #endregion
-    private void collideWithChair(bool isTrigger, Collider2D col) {
-        if(HM._.isChair(col.gameObject)) {
-            if(isTrigger) {
-                if(isSit) return;
-                colChairObj = col.gameObject;
-                //* 衝突した一つのみアウトライン表示
-                HM._.clearAllChairOutline();
-                var obj = colChairObj.GetComponent<RoomObject>();
-                obj.Sr.material = HM._.outlineMt;
-            }
-            else {
-                //* アウトライン解除
-                colChairObj = null;
-                HM._.clearAllChairOutline();
-            }
-        }
-    }
+
 }

@@ -146,6 +146,8 @@ public class WorldMapManager : MonoBehaviour {
         HM._.ui.MapUnlockPopUpNameTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
         HM._.ui.MapUnlockPopUpCttTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
         HM._.ui.MapUnlockPopUpNameTxt.text = name;
+
+        //* Content Text
         HM._.ui.MapUnlockPopUpCttTxt.text = 
             (name == Enum.MAP.Minigame1.ToString())? "Take the Falling Apples!"
             : (name == Enum.MAP.Minigame2.ToString())? "TODO"
@@ -154,7 +156,7 @@ public class WorldMapManager : MonoBehaviour {
             : !isMapUnlock? "New place open!"
             : null;
 
-        //* Unlock Map or Bg or Minigame
+        //* Sprite
         HM._.ui.MapUnlockImg.sprite = 
             (name == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[1].MapSpr
             : (name == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[2].MapSpr

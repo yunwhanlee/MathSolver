@@ -18,6 +18,7 @@ TagManager:
   - GoldApple
   - Bomb
   - Diamond
+  - JumpingPad
   layers:
   - Default
   - TransparentFX

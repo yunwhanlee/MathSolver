@@ -7,6 +7,7 @@ using TMPro;
 public class MGUI : MonoBehaviour {
 
     [SerializeField] GameObject resultPanel;    public GameObject ResultPanel {get => resultPanel; set => resultPanel = value;}
+    [SerializeField] GameObject giveUpPopUp;    public GameObject GiveUpPopUp {get => giveUpPopUp; set => giveUpPopUp = value;}
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
 
     [SerializeField] Button startScrBtn;
@@ -23,10 +24,15 @@ public class MGUI : MonoBehaviour {
 
     void Start() {
         resultPanel.SetActive(false);
-        playerLvTxt.text = DB.Dt.Lv.ToString();
-        modeTxt.text = (DB._.MinigameLv == 0)? MGM.MODE.EASY.ToString()
+
+        if(DB._ == null) playerLvTxt.text = "99"; //! TEST
+        else playerLvTxt.text = DB.Dt.Lv.ToString();
+
+        if(DB._ == null) modeTxt.text = MGM.MODE.NORMAL.ToString(); //! TEST
+        else modeTxt.text = (DB._.MinigameLv == 0)? MGM.MODE.EASY.ToString()
             : (DB._.MinigameLv == 1)? MGM.MODE.NORMAL.ToString()
             : MGM.MODE.HARD.ToString();
+
         scoreTxt.text = "";
         leftArrowBtn.gameObject.SetActive(false);
         rightArrowBtn.gameObject.SetActive(false);
@@ -61,6 +67,18 @@ public class MGUI : MonoBehaviour {
         rightArrowBtn.gameObject.SetActive(true);
         StartCoroutine(coReadyStartCount());
     }
+    public void onClickExitIconBtn() {
+        Time.timeScale = 0;
+        giveUpPopUp.SetActive(true);
+    }
+    public void onClickGiveUpPopUpYesBtn() {
+        Time.timeScale = 1;
+        StartCoroutine(MGM._.mgrm.coGoHome());
+    }
+    public void onClickGiveUpPopUpNoBtn() {
+        Time.timeScale = 1;
+        giveUpPopUp.SetActive(false);
+    }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
@@ -86,6 +104,11 @@ public class MGUI : MonoBehaviour {
         yield return Util.time1;
         titleTxt.gameObject.SetActive(false);
         contentTxt.gameObject.SetActive(false);
+
+        //* ミニーゲーム 最初のアクション
+        if(MGM._.Type == MGM.TYPE.MINIGAME2) {
+            MGM._.Pl.jump();
+        }
     }
 #endregion
 }
