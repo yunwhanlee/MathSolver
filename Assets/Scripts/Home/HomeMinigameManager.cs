@@ -4,9 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Events;
 
 public class HomeMinigameManager : MonoBehaviour {
+    UnityAction[] onInits = new UnityAction[2];
+
     [SerializeField] GameObject minigameLvPopUp;   public GameObject MinigameLvPopUp {get => minigameLvPopUp;}
+    [SerializeField] TextMeshProUGUI nameTxt;
+    [SerializeField] TextMeshProUGUI titleTxt;
+
     [SerializeField] GameObject[] infoIcons;          public GameObject[] InfoIcons {get => infoIcons;}
 
     [SerializeField] Button[] lvBtns;  public Button[] LvBtns {get => lvBtns;}
@@ -24,16 +30,6 @@ public class HomeMinigameManager : MonoBehaviour {
 
 
     void Start() {
-        #region MINIGAME 1
-        //* Price Easyモード 初期化 (最初なら、Free)
-        if(DB.Dt.Minigame1BestScore == 0) {
-            playPriceTxt.text = "Free";
-            lvBtns[0].interactable = false;
-        }
-        else {
-            playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[0].ToString();
-        }
-
         //* Frame 初期化
         for(int i = 0; i < lvBtns.Length; i++) {
             int last = lvBtns[i].transform.childCount;
@@ -46,39 +42,65 @@ public class HomeMinigameManager : MonoBehaviour {
             rewardIconBtnValTxts[i] = rewardIconBtns[i].GetComponentInChildren<TextMeshProUGUI>();
             rewardCheckIcons[i] = rewardIconBtns[i].GetComponentsInChildren<Image>(true)[1];
         }
-        
-        int mg1BestScore = DB.Dt.Minigame1BestScore;
-        int easyScore = Config.MINIGAME1_REWARD_SCORES[(int)Enum.MINIGAME_LV.Easy];
-        int normalScore = Config.MINIGAME1_REWARD_SCORES[(int)Enum.MINIGAME_LV.Normal];
-        int hardScore = Config.MINIGAME1_REWARD_SCORES[(int)Enum.MINIGAME_LV.Hard];
+
+        onInits[0] = () => init(Enum.MAP.Minigame1.ToString(), "Catch Falling apples!"
+                            , DB.Dt.Minigame1BestScore, Config.MINIGAME1_REWARD_SCORES
+                            , DB.Dt.Minigame1RewardTriggers, Config.MINIGAME1_MAX_VAL
+        );
+        onInits[1] = () => init(Enum.MAP.Minigame2.ToString(), "Jump to the sky!"
+                            , DB.Dt.Minigame2BestScore, Config.MINIGAME2_REWARD_SCORES
+                            , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL
+        );
+    }
+
+
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+#region FUNC
+///---------------------------------------------------------------------------------------------------------------------------------------------------
+    void init(string name, string title, int bestScore, int[] rewardScores, bool[] rewardTrigger, int maxVal) {
+        nameTxt.text = name;
+        titleTxt.text = title;
+
+        HM._.wmm.displayUnlockPopUp(null, name, true);
+
+        if(bestScore == 0) {
+            playPriceTxt.text = "Free";
+            lvBtns[0].interactable = false;
+        }
+        else 
+            playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[0].ToString();
+
+        int easyScore = rewardScores[(int)Enum.MINIGAME_LV.Easy];
+        int normalScore = rewardScores[(int)Enum.MINIGAME_LV.Normal];
+        int hardScore = rewardScores[(int)Enum.MINIGAME_LV.Hard];
 
         //* LockFrame 表示
         lvBtnLockFrames[(int)Enum.MINIGAME_LV.Easy].SetActive(false);
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Normal].SetActive(!(mg1BestScore >= easyScore));
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Hard].SetActive(!(mg1BestScore >= normalScore));
+        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Normal].SetActive(!(bestScore >= easyScore));
+        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Hard].SetActive(!(bestScore >= normalScore));
 
         //* Slider Reward IconBtn 活性化
-        if(mg1BestScore >= easyScore) {
-            bool isTrigger = !DB.Dt.Minigame1RewardTriggers[0];
+        if(bestScore >= easyScore) {
+            bool isTrigger = !rewardTrigger[0];
             rewardIconBtns[(int)Enum.MINIGAME_LV.Easy].interactable = isTrigger;
             rewardCheckIcons[(int)Enum.MINIGAME_LV.Easy].gameObject.SetActive(!isTrigger);
         }
-        if(mg1BestScore >= normalScore && !DB.Dt.Minigame1RewardTriggers[1]) {
-            bool isTrigger = !DB.Dt.Minigame1RewardTriggers[1];
+        if(bestScore >= normalScore && !rewardTrigger[1]) {
+            bool isTrigger = !rewardTrigger[1];
             rewardIconBtns[(int)Enum.MINIGAME_LV.Normal].interactable = isTrigger;
             rewardCheckIcons[(int)Enum.MINIGAME_LV.Normal].gameObject.SetActive(!isTrigger);
         }
-        if(mg1BestScore >= hardScore  && !DB.Dt.Minigame1RewardTriggers[2]) {
-            bool isTrigger = !DB.Dt.Minigame1RewardTriggers[2];
+        if(bestScore >= hardScore  && !rewardTrigger[2]) {
+            bool isTrigger = !rewardTrigger[2];
             rewardIconBtns[(int)Enum.MINIGAME_LV.Hard].interactable = isTrigger;
             rewardCheckIcons[(int)Enum.MINIGAME_LV.Hard].gameObject.SetActive(!isTrigger);
         }
 
         //* Best Score Slider
-        bestScoreSlider.value = mg1BestScore;
-        bestScoreSliderValTxt.text = $"<color=white>{mg1BestScore}</color> / {Config.MINIGAME1_MAX_VAL}";
-        #endregion
+        bestScoreSlider.value = bestScore;
+        bestScoreSliderValTxt.text = $"<color=white>{bestScore}</color> / {maxVal}";
     }
+#endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,14 +110,9 @@ public class HomeMinigameManager : MonoBehaviour {
         DB._.SelectMapIdx = idx;
         minigameLvPopUp.SetActive(true);
 
-        //* Display PopUp!
-        string name = (idx == 3 && DB.Dt.Minigame1BestScore == 0)? Enum.MAP.Minigame1.ToString()
-            //TODO : (idx == 4 && !DB.Dt.IsUnlockMinigame2)? Enum.MAP.Minigame2.ToString()
-            //TODO : (idx == 5 && !DB.Dt.IsUnlockMinigame3)? Enum.MAP.Minigame3.ToString()
-            : null;
-
-        if(name != null)
-            HM._.wmm.displayUnlockPopUp(null, name, true);
+        //* Init
+        int offsetIdx = (idx == 3)? 0 : (idx == 4)? 1 : 2;
+        onInits[offsetIdx].Invoke();
     }
     public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
         //* ロックしたら、解禁条件のお知らせ
@@ -108,7 +125,7 @@ public class HomeMinigameManager : MonoBehaviour {
         DB._.MinigameLv = difficultyLvIdx;
 
         //* Play Price
-        playPriceTxt.text = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv].ToString();
+        playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv].ToString();
 
         //* 選択 枠
         for(int i = 0; i< lvBtns.Length; i++)
@@ -144,7 +161,7 @@ public class HomeMinigameManager : MonoBehaviour {
         }
     }
     public void onClickMinigamePlayBtn() {
-        int price = Config.MINIGMAE1_PLAY_PRICES[DB._.MinigameLv]; 
+        int price = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv]; 
         if(DB.Dt.Minigame1BestScore == 0) { //* 最初は無料
             StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
         }
