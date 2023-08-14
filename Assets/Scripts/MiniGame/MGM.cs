@@ -23,6 +23,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     //TODO MiniGameTalkManager
 
     //* Public Value
+    [SerializeField] bool isFinish;
     [SerializeField] int id;
     [SerializeField] int score;         public int Score {get => score; set => score = value;}
     [SerializeField] float curTime;
@@ -44,10 +45,13 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [Space(10)]
     [Header("MINIGAME 2 VALUE")]
     [SerializeField] Transform skyBG;
-    [SerializeField] float padSpan = 0.5f;
+    [SerializeField] Transform createPadYSpot;
+    [SerializeField] GameObject floorColliderObj;   public GameObject FloorColliderObj {get => floorColliderObj;}
+    [SerializeField] float padSpan;
     [SerializeField] int jumpPower;      public int JumpPower {get => jumpPower;}
     [SerializeField] float createPadPosY;
     [SerializeField] float camUpSpeed = 30;
+
 
 
     void Awake() {
@@ -96,11 +100,16 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(1.5f, createPadPosY), Util.time999);
 
                 //* Random Pads
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
-                mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                var pad1 = mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.BananaObj, new Vector2(pad1.transform.position.x, pad1.transform.position.y + 1), Util.time999);
+                var pad2 = mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.BananaObj, new Vector2(pad2.transform.position.x, pad2.transform.position.y + 1), Util.time999);
+                var pad3 = mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.BananaObj, new Vector2(pad3.transform.position.x, pad3.transform.position.y + 1), Util.time999);
+                var pad4 = mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.BananaObj, new Vector2(pad4.transform.position.x, pad4.transform.position.y + 1), Util.time999);
+                var pad5 = mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
+                mgem.createObj((int)MGEM.IDX.BananaObj, new Vector2(pad5.transform.position.x, pad5.transform.position.y + 1), Util.time999);
                 break;
             }
             case TYPE.MINIGAME3: {
@@ -111,28 +120,16 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     }
 
     void Update() {
-        if(status != STATUS.PLAY) return;
-
-        //* Time
-        totalTime += Time.deltaTime;
-        curTime += Time.deltaTime;
-
-        //* Score Txt
-        ui.ScoreTxt.text = (id == 0)? $"<sprite name=apple>: {score}"
-            : (id == 0)? $"<sprite name=banana>: {score}"
-            : $"<sprite name=todo>: {score}";
-
-        //* Timer
-        float remainTime = (maxTime - totalTime);
-        if(remainTime > 0) 
-            ui.PlayTimerTxt.text = remainTime.ToString("N0");
-        //* Finish
-        else {
-            status = STATUS.FINISH;
-
+        if(status == STATUS.FINISH && !isFinish) {
+            isFinish = true;
             //* Update Best Score
-            if(score > DB.Dt.Minigame1BestScore) {
+            if(type == TYPE.MINIGAME1 && score > DB.Dt.Minigame1BestScore) {
                 DB.Dt.Minigame1BestScore = score;
+                newBestScoreEF.SetActive(true);
+                ui.PlayTimerTxt.text = $"<color=yellow>NEW !\nBEST : {score}</color>";
+            }
+            else if(type == TYPE.MINIGAME2 && score > DB.Dt.Minigame2BestScore) {
+                DB.Dt.Minigame2BestScore = score;
                 newBestScoreEF.SetActive(true);
                 ui.PlayTimerTxt.text = $"<color=yellow>NEW !\nBEST : {score}</color>";
             }
@@ -149,12 +146,38 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             const int EXP_VAL = 5, COIN_VAL = 10;
             mgrm.setReward(EXP_VAL * score, COIN_VAL * score);
             StartCoroutine(mgrm.coDisplayResultPanel());
+
+            //* Minigame2の場合
+            if(type == TYPE.MINIGAME2) {
+                StartCoroutine(coSetResultMinigame2()); 
+            }
+            return;
+        }
+
+        if(status != STATUS.PLAY) return;
+
+        //* Time
+        totalTime += Time.deltaTime;
+        curTime += Time.deltaTime;
+
+        //* Score Txt
+        ui.ScoreTxt.text = (id == 0)? $"<sprite name=apple>: {score}"
+            : (id == 1)? $"<sprite name=banana>: {score}"
+            : $"<sprite name=todo>: {score}";
+
+        //* Timer
+        float remainTime = (maxTime - totalTime);
+        if(remainTime > 0) 
+            ui.PlayTimerTxt.text = remainTime.ToString("N0");
+        //* Finish
+        else {
+            status = STATUS.FINISH;
         }
 
         //* タイプ
         switch(type) {
             case TYPE.MINIGAME1: {
-                //* Create Apples
+                //* リンゴ 生成時間
                 appleSpan = (remainTime > maxTime * 0.6f)? 1 
                     : (remainTime > maxTime * 0.4f)? 0.7f
                     : (remainTime > maxTime * 0.3f)? 0.5f
@@ -187,12 +210,35 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 break;
             }
             case TYPE.MINIGAME2: {
-                Debug.Log("MGM:: update():: ");
-                if(curTime >= padSpan) {
-                    curTime = 0;
-                    mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(Random.Range(MIN_X, MAX_X + 1), createPadPosY += 2), Util.time999);
-                }
+                float lvBalance = (remainTime > maxTime * 0.6f)? 0.65f
+                    : (remainTime > maxTime * 0.4f)? 0.8f
+                    : (remainTime > maxTime * 0.3f)? 0.9f
+                    : 1.1f;
+
+                //* 足場 生成時間
+                padSpan = lvBalance;
+
+                //* カメラー 上スクロール
                 cam.transform.Translate(0, camUpSpeed * Time.deltaTime, 0);
+
+                if(curTime >= padSpan) {
+                    Debug.Log($"<color=yellow>MGM:: update():: MINIGAME2 足場生成！ createPadYSpot= {createPadYSpot.transform.position}, padSpan= {padSpan}</color>");
+                    curTime = 0;
+                    var pad = mgem.createObj(
+                        (int)MGEM.IDX.JumpingPadObj, 
+                        new Vector2(Random.Range(MIN_X, MAX_X + 1), 
+                        createPadYSpot.transform.position.y), 
+                        Util.time999
+                    );
+                    var pos = new Vector2(pad.transform.position.x, pad.transform.position.y + 1);
+
+                    //* ランダム種類 設定
+                    int rand = Random.Range(0, 100);
+                    int objIdx = (rand <= 70)? (int)MGEM.IDX.BananaObj
+                        : (int)MGEM.IDX.GoldBananaObj;
+                    mgem.createObj(objIdx, pos, Util.time13);
+                }
+
                 if(cam.transform.position.y > 13) {
                     skyBG.Translate(0, -camUpSpeed * Time.deltaTime, 0);
                 }
@@ -225,6 +271,12 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         isStun = true;
         yield return Util.time1_5;
         isStun = false;
+    }
+    IEnumerator coSetResultMinigame2() {
+        yield return Util.time1_5;
+        pl.transform.position = new Vector2(0, -3.5f);
+        pl.Rigid.bodyType = RigidbodyType2D.Static; //* 位置固定
+        cam.transform.position = new Vector3(0, 0, -10);
     }
 #endregion
 }

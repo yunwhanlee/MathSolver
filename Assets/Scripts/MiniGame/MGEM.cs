@@ -7,9 +7,10 @@ public class MGEM : MonoBehaviour {
     public enum IDX {
         //* Obj
         AppleObj, GoldAppleObj, BombObj, DiamondObj // Minigame 1
-        ,JumpingPadObj // Minigame 2
+        ,JumpingPadObj, BananaObj, GoldBananaObj // Minigame 2
         //* EF
-        ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF,
+        ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF
+        ,DecalWoodEF
     }
 
     //* MiniGame1
@@ -18,11 +19,15 @@ public class MGEM : MonoBehaviour {
     [SerializeField] GameObject bombObj;
     [SerializeField] GameObject diamondObj;
     [SerializeField] GameObject logObj;
+    [SerializeField] GameObject bananaObj;
+    [SerializeField] GameObject goldBananaObj;
 
     [SerializeField] GameObject stunEF;
     [SerializeField] GameObject basketCatchEF;
     [SerializeField] GameObject explosionBombEF;
     [SerializeField] GameObject shineSpoutGoldEF;
+    [SerializeField] GameObject decalWoodEF;
+
 
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
     [SerializeField] Transform objectGroup;  public Transform ObjectGroup {get => objectGroup; set => objectGroup = value;}
@@ -34,12 +39,15 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(goldAppleObj, max: 3, objectGroup));
         pool.Add(initEF(bombObj, max: 3, objectGroup));
         pool.Add(initEF(diamondObj, max: 3, objectGroup));
-        pool.Add(initEF(logObj, max: 10, objectGroup));
+        pool.Add(initEF(logObj, max: 15, objectGroup));
+        pool.Add(initEF(bananaObj, max: 10, objectGroup));
+        pool.Add(initEF(goldBananaObj, max: 5, objectGroup));
 
         pool.Add(initEF(stunEF, max: 1, effectGroup));
         pool.Add(initEF(basketCatchEF, max: 4, effectGroup));
         pool.Add(initEF(explosionBombEF, max: 2, effectGroup));
         pool.Add(initEF(shineSpoutGoldEF, max: 2, effectGroup));
+        pool.Add(initEF(decalWoodEF, max: 4, effectGroup));
     }
 
 /// -----------------------------------------------------------------------------------------------------------------
@@ -76,6 +84,8 @@ public class MGEM : MonoBehaviour {
             : (idx == 2)? IDX.BombObj.ToString()
             : (idx == 3)? IDX.DiamondObj.ToString()
             : (idx == 4)? IDX.JumpingPadObj.ToString()
+            : (idx == 5)? IDX.BananaObj.ToString()
+            : (idx == 6)? IDX.GoldBananaObj.ToString()
             : null;
         if(obj.name == null) {
             Debug.LogError("ERROR: MGEM:: createObjで、オブジェクト名がNULLです！");
@@ -124,6 +134,8 @@ public class MGEM : MonoBehaviour {
                 : (name == IDX.BombObj.ToString())? 2
                 : (name == IDX.DiamondObj.ToString())? 3
                 : (name == IDX.JumpingPadObj.ToString())? 4
+                : (name == IDX.BananaObj.ToString())? 5
+                : (name == IDX.GoldBananaObj.ToString())? 6
                 : -1;
             //* 戻す
             if (obj != null && obj.activeSelf) {

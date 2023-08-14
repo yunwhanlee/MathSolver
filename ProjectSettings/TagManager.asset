@@ -20,6 +20,9 @@ TagManager:
   - Diamond
   - JumpingPad
   - EraseObjLine
+  - Banana
+  - GoldBanana
+  - PlayerNoCollideArea
   layers:
   - Default
   - TransparentFX

@@ -409,6 +409,7 @@ public class HUI : MonoBehaviour {
         HM._.state = HM.STATE.NORMAL;
         canvasWorldMap.gameObject.SetActive(true);
         canvasStatic.gameObject.SetActive(false);
+        goGamePopUp.gameObject.SetActive(false);
 
         //* Quest
         if(DB.Dt.IsTutoWorldMapTrigger)

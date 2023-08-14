@@ -163,7 +163,10 @@ public class Player : MonoBehaviour {
         //* Minigame 2
         if(col.gameObject.CompareTag(Enum.TAG.JumpingPad.ToString())) {
             jump();
+            MGM._.mgem.showEF((int)MGEM.IDX.DecalWoodEF, col.transform.position, Util.time1);
             MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.JumpingPadObj);
+            col.transform.GetComponent<Collider2D>().isTrigger = true;
+            this.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 #endregion
@@ -175,6 +178,14 @@ public class Player : MonoBehaviour {
             HM._.state = HM.STATE.SETTING;
             HM._.ui.GoGamePopUp.SetActive(true);
         }
+        else if(col.gameObject.CompareTag(Enum.TAG.EraseObjLine.ToString())) {
+            MGM._.Status = MGM.STATUS.FINISH;
+        }
+        else if(col.gameObject.CompareTag(Enum.TAG.PlayerNoCollideArea.ToString())) {
+            Debug.Log("<color=red>Player:: OnTriggerEnter2D():: PlayerNoCollideArea</color>");
+            col.isTrigger = true;
+        }
+
     }
     private void OnTriggerStay2D(Collider2D col) {
         if(HM._) {
@@ -185,6 +196,10 @@ public class Player : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D col) {
         if(HM._) {
             collideWithChair(false, col); //* Sit Trigger OFF
+        }
+        else if(col.gameObject.CompareTag(Enum.TAG.PlayerNoCollideArea.ToString())) {
+            Debug.Log("<color=red>Player:: OnTriggerExit2D():: PlayerNoCollideArea</color>");
+            col.isTrigger = false;
         }
     }
 #endregion

@@ -36,10 +36,20 @@ public class MGUI : MonoBehaviour {
         scoreTxt.text = "";
         leftArrowBtn.gameObject.SetActive(false);
         rightArrowBtn.gameObject.SetActive(false);
+
+        //* タイトル
+        titleTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Catch falling apples"
+            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "Jump to the sky"
+            : "TODO MINIGAME3 TITLE";
+
+        //* コンテンツ
+        contentTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Collect as many apples as you can!"
+            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "collect bananas without falling off!"
+            : "TODO MINIGAME3 CONTENT";
     }
 
     void Update() {
-        #region MINIGAME1 FOREST
+        #region MINIGAME1 & MINIGAME 2
         if(MGM._.Status != MGM.STATUS.PLAY) return;
         if(MGM._.IsStun) return;
 
@@ -105,9 +115,11 @@ public class MGUI : MonoBehaviour {
         yield return Util.time1;
         MGM._.Status = MGM.STATUS.PLAY;
         titleTxt.text = "Start!";
+
         //* ミニーゲーム 最初のアクション
         if(MGM._.Type == MGM.TYPE.MINIGAME2) {
             MGM._.Pl.jump();
+            MGM._.FloorColliderObj.SetActive(false);
         }
 
         yield return Util.time1;

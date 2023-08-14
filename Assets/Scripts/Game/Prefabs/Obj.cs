@@ -34,26 +34,31 @@ public class Obj : MonoBehaviour {
 #region COLLIDER (Trigger)
 ///------------------------------------------------------------------------------------------
     private void OnTriggerExit2D(Collider2D col) {
+        //* 自分が🍌オブジェクトなら、処理しない
+        if(CompareTag(Enum.TAG.Banana.ToString())) return;
+        if(CompareTag(Enum.TAG.GoldBanana.ToString())) return;
+
         if(col.CompareTag(Enum.TAG.Player.ToString())) {
-            Debug.Log($"<b>Obj:: OnTriggerExit2D(col= {col.tag}):: Obj.name= {this.name}, Player.velocity.dir= {MGM._.Pl.Rigid.velocity.normalized}</b>");
-            this.GetComponent<BoxCollider2D>().isTrigger = false;
-            this.GetComponent<SpriteRenderer>().color = Color.red;
+            Debug.Log($"<b>Obj:: OnTriggerExit2D(col= {col.tag}):: Obj.name= {name}, Player.velocity.dir= {MGM._.Pl.Rigid.velocity.normalized}</b>");
+            GetComponent<BoxCollider2D>().isTrigger = false;
+            // GetComponent<SpriteRenderer>().color = Color.red;
 
             //* 上から下へ落ちる時、橋場とぶつかったらTriggerExit()なので、PlayerへCollisionEnter2Dが有っても、ぶつからない問題があり、
             //* 動く方向を把握して、下向きならジャンプを直接させる。
             bool isDirDown = MGM._.Pl.Rigid.velocity.normalized.y < 0;
             if(isDirDown) {
                 MGM._.Pl.jump();
-                MGM._.mgem.releaseObj(this.gameObject, (int)MGEM.IDX.JumpingPadObj);
-                col.isTrigger = true;
-                this.GetComponent<SpriteRenderer>().color = Color.white;
+                MGM._.mgem.showEF((int)MGEM.IDX.DecalWoodEF, gameObject.transform.position, Util.time1);
+                MGM._.mgem.releaseObj(gameObject, (int)MGEM.IDX.JumpingPadObj);
+                this.col.isTrigger = true;
+                // GetComponent<SpriteRenderer>().color = Color.white;
             }
         }
         //* 削除 JumpingPad
         else if(col.CompareTag(Enum.TAG.EraseObjLine.ToString())) {
-            Debug.Log($"<b>Obj:: OnTriggerExit2D(col= {col.tag}):: Obj.name= {this.name}</b>");
+            Debug.Log($"<b>Obj:: OnTriggerExit2D(col= {col.tag}):: Obj.name= {name}</b>");
             col.isTrigger = true;
-            this.GetComponent<SpriteRenderer>().color = Color.white;
+            // GetComponent<SpriteRenderer>().color = Color.white;
             MGM._.mgem.releaseObj(this.gameObject, (int)MGEM.IDX.JumpingPadObj);
         }
     }
