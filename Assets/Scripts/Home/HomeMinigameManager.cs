@@ -17,9 +17,9 @@ public class minigameInfo {
     [SerializeField] Sprite labelSpr;   public Sprite LabelSpr {get => labelSpr;}
     [SerializeField] Sprite finalRewardSpr;  public Sprite FinalRewardSpr {get => finalRewardSpr;}
     [SerializeField] Sprite[] iconSpr;  public Sprite[] IconSpr {get => iconSpr;}
-    [SerializeField] int[] easyVals;  public int[] EasyVals {get => easyVals;}
-    [SerializeField] int[] normalVals;  public int[] NormalVals {get => normalVals;}
-    [SerializeField] int[] hardVals;  public int[] HardVals {get => hardVals;}
+    [SerializeField] int[] easyVals;  public int[] EasyVals {get => easyVals; set => easyVals = value;}
+    [SerializeField] int[] normalVals;  public int[] NormalVals {get => normalVals; set => normalVals = value;}
+    [SerializeField] int[] hardVals;  public int[] HardVals {get => hardVals; set => hardVals = value;}
 }
 
 public class HomeMinigameManager : MonoBehaviour {
@@ -29,14 +29,17 @@ public class HomeMinigameManager : MonoBehaviour {
     [SerializeField] Image topFrame1Img, topFrame2Img, labelImg;
     [SerializeField] TextMeshProUGUI nameTxt;
     [SerializeField] TextMeshProUGUI titleTxt;
-    [SerializeField] minigameInfo mg1InfoData;
-    [SerializeField] minigameInfo mg2InfoData;
-    [SerializeField] minigameInfo mg3InfoData;
+
+    [Header("MINIGAME INFOリスト データ")]
+    [SerializeField] minigameInfo mg1InfoData, mg2InfoData, mg3InfoData;
     [SerializeField] GameObject[] infoIconList;          public GameObject[] InfoIconList {get => infoIconList;}
 
+    [Header("難易度 ボタン")]
     [SerializeField] Button[] lvBtns;  public Button[] LvBtns {get => lvBtns;}
     [SerializeField] GameObject[] lvBtnFocusLines;
     [SerializeField] GameObject[] lvBtnLockFrames;
+
+    [Header("PLAY ボタン")]
     [SerializeField] Button playBtn;   public Button PlayBtn {get => playBtn;}
     [SerializeField] TextMeshProUGUI playPriceTxt;   public TextMeshProUGUI PlayPriceTxt {get => playPriceTxt;}
     
@@ -64,13 +67,25 @@ public class HomeMinigameManager : MonoBehaviour {
             rewardCheckIcons[i] = rewardIconBtns[i].GetComponentsInChildren<Image>(true)[1];
         }
 
+        //* 各々 難易度のValデータ登録
+        mg1InfoData.EasyVals = Config.MINIGAME1_EASY_OBJ_DATA;
+        mg1InfoData.NormalVals = Config.MINIGAME1_NORMAL_OBJ_DATA;
+        mg1InfoData.HardVals = Config.MINIGAME1_HARD_OBJ_DATA;
+
+        mg2InfoData.EasyVals = Config.MINIGAME2_EASY_OBJ_DATA;
+        mg2InfoData.NormalVals = Config.MINIGAME2_NORMAL_OBJ_DATA;
+        mg2InfoData.HardVals = Config.MINIGAME2_HARD_OBJ_DATA;
+
+        //TODO mg3
+
+        //* Delegate Callback 初期化 購読
         onInits[0] = () => init(Enum.MG.Minigame1.ToString(), "Catch Falling apples!"
-                            , DB.Dt.Minigame1BestScore, Config.MINIGAME1_UNLOCK_SCORES
-                            , DB.Dt.Minigame1RewardTriggers, Config.MINIGAME1_MAX_VAL, mg1InfoData
+            , DB.Dt.Minigame1BestScore, Config.MINIGAME1_UNLOCK_SCORES
+            , DB.Dt.Minigame1RewardTriggers, Config.MINIGAME1_MAX_VAL, mg1InfoData
         );
         onInits[1] = () => init(Enum.MG.Minigame2.ToString(), "Jump to the sky!"
-                            , DB.Dt.Minigame2BestScore, Config.MINIGAME2_UNLOCK_SCORES
-                            , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL, mg2InfoData
+            , DB.Dt.Minigame2BestScore, Config.MINIGAME2_UNLOCK_SCORES
+            , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL, mg2InfoData
         );
         //TODO Tundra onInits[2]
     }
@@ -89,14 +104,12 @@ public class HomeMinigameManager : MonoBehaviour {
         labelImg.sprite = infoData.LabelSpr;
         rewardIconBtns[2].GetComponent<Image>().sprite = infoData.FinalRewardSpr;
 
-        Debug.Log("name--> " + name);
         nameTxt.text = name;
         titleTxt.text = title;
 
-        HM._.wmm.displayUnlockPopUp(null, name, true);
-
         if(bestScore == 0) {
             playPriceTxt.text = "Free";
+            HM._.wmm.displayUnlockPopUp(null, name, true);
         }
         else 
             playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[0].ToString();
@@ -133,6 +146,11 @@ public class HomeMinigameManager : MonoBehaviour {
         bool isTrigger = !rewardTrigger;
         rewardIconBtns[idx].interactable = isTrigger;
         rewardCheckIcons[idx].gameObject.SetActive(!isTrigger);
+    }
+    private void setInfoList(int idx, Sprite iconSpr, int val) {
+        infoIconList[idx].SetActive(true);
+        infoIconList[idx].GetComponent<Image>().sprite = iconSpr;
+        infoIconList[idx].GetComponentInChildren<TextMeshProUGUI>().text = $"+{val}";
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -176,35 +194,19 @@ public class HomeMinigameManager : MonoBehaviour {
         const int EASY = 0, NORMAL = 1, HARD = 2;
         switch(difficultyLvIdx) {
             case EASY:
-                infoIconList[0].SetActive(true);
-                infoIconList[0].GetComponent<Image>().sprite = infoData.IconSpr[0];
-                infoIconList[0].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.EasyVals[0]}";
-                infoIconList[1].SetActive(true);
-                infoIconList[1].GetComponent<Image>().sprite = infoData.IconSpr[1];
-                infoIconList[1].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.EasyVals[1]}";
+                setInfoList(0, infoData.IconSpr[0], infoData.EasyVals[0]);
+                setInfoList(1, infoData.IconSpr[1], infoData.EasyVals[1]);
                 infoIconList[2].SetActive(false);
                 break;
             case NORMAL:
-                infoIconList[0].SetActive(true);
-                infoIconList[0].GetComponent<Image>().sprite = infoData.IconSpr[0];
-                infoIconList[0].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.NormalVals[0]}";
-                infoIconList[1].SetActive(true);
-                infoIconList[1].GetComponent<Image>().sprite = infoData.IconSpr[1];
-                infoIconList[1].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.NormalVals[1]}";
-                infoIconList[2].SetActive(true);
-                infoIconList[2].GetComponent<Image>().sprite = infoData.IconSpr[2];
-                infoIconList[2].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.NormalVals[2]}";
+                setInfoList(0, infoData.IconSpr[0], infoData.NormalVals[0]);
+                setInfoList(1, infoData.IconSpr[1], infoData.NormalVals[1]);
+                setInfoList(2, infoData.IconSpr[2], infoData.NormalVals[2]);
                 break;
             case HARD:
-                infoIconList[0].SetActive(true);
-                infoIconList[0].GetComponent<Image>().sprite = infoData.IconSpr[0];
-                infoIconList[0].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.HardVals[0]}";
-                infoIconList[1].SetActive(true);
-                infoIconList[1].GetComponent<Image>().sprite = infoData.IconSpr[1];
-                infoIconList[1].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.HardVals[1]}";
-                infoIconList[2].SetActive(true);
-                infoIconList[2].GetComponent<Image>().sprite = infoData.IconSpr[2];
-                infoIconList[2].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.HardVals[2]}";
+                setInfoList(0, infoData.IconSpr[0], infoData.HardVals[0]);
+                setInfoList(1, infoData.IconSpr[1], infoData.HardVals[1]);
+                setInfoList(2, infoData.IconSpr[2], infoData.HardVals[2]);
                 break;
         }
     }

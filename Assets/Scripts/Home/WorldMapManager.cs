@@ -133,14 +133,12 @@ public class WorldMapManager : MonoBehaviour {
     }
     public void displayUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
         Debug.Log($"displayUnlockPopUp(btn == null? {btn == null}, {name}):: ");
-        const int HIGHLIGHTEF = 1;
         Time.timeScale = 0;
         if(btn) btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
         if(btn) {
             Transform highLightEFTf = Array.Find(btn.GetComponentsInChildren<Transform>(true), tf => tf.name == "HighlightEF");
             highLightEFTf.gameObject.SetActive(true);
-        }
-        // }btn.transform.GetChild(HIGHLIGHTEF).gameObject.SetActive(true);
+        }        
         HM._.ui.MapUnlockPopUp.SetActive(true);
 
         HM._.ui.MapUnlockPopUpNameTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
