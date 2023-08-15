@@ -81,7 +81,8 @@ public class WorldMapManager : MonoBehaviour {
         if(m2.IsBgUnlocks[THIRD] && !DB.Dt.IsMap2BG3Trigger) {
             DB.Dt.IsMap2BG3Trigger = true;
             onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[THIRD], m2.BgNames[THIRD]));
-            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MINIGAME));
+            // onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MINIGAME));
+            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT));
             //? endSwitchProccess():: (int)ID.UNLOCK_MAP1_MINIGAMEで　MainQuests[MainQuestID].onClickAcceptBtn()実行
         }
         #endregion

@@ -198,13 +198,19 @@ public class HomeTalkManager : TalkManager {
             , "미리 길을 열어두었개미. 그리로 가면된다개미!:14"
             , "고마워! 드디어 찾았다! 기다려라 몽키와트 신전!:0"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP2_MINIGAME, new string[] {
-            "TODO UNLOCK_MAP2_MINIGAME:0"
+        talkDt.Add((int)ID.UNLOCK_MAP2_MINIGAME, new string[] { //* #2
+            "잠깐!!:17"
+            , "네..넹?:2"
+            , "우리 신전에서는 하늘로 올라가는 전통행사가 있지:17"
+            , "경건한 마음으로 바나나와 황금바나나를 획득한다!!:17"
+            , "맞다개굴! 정글 전통행사 하늘로 점프! 미니게임이 열렸개굴.:12"
+            , "전부클리어하면, 귀여운 펫 보상도 있다개굴!:12"
+            , "신전지역 <size=100><sprite name=exclamation></size>를 클릭해봐개굴!:11"
         });
         #endregion
 
         #region MAP3 TUNDRA
-        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT, new string[] { //* #1
             "흠..여기가 몽키와트 신전인가..:0"
             , "룰루랄라~ 우끼~:8"
             , "아닛! 드디어 찾았다 이 녀석!!:1"
@@ -417,12 +423,13 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.UNLOCK_MAP2_MINIGAME:
                 DB.Dt.IsUnlockMinigame2 = true;
-                HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn();
+                // HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn();
                 break;
             #endregion
             #region MAP3 TUNDRA
             case (int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT:
                 DB.Dt.IsOpenMap3UnlockBG1Arr[ACCEPT] = true;
+                HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MINIGAME);
                 break;
             case (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD:
                 DB.Dt.IsOpenMap3UnlockBG1Arr[REWARD] = true;
