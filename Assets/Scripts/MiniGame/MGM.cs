@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 public class MGM : MonoBehaviour { //* MiniGame Manager
     const int MIN_X = -2, MAX_X =2;
@@ -17,8 +19,8 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     public MGUI ui;
     public MGEM mgem; //* ObjとEF生成 (pool)
     public MGResultManager mgrm;
-    [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;} //* LOAD OBJECT FROM HOME
-    [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;} //* LOAD OBJECT FROM HOME
+    [SerializeField] Player pl; public Player Pl {get => pl; set => pl = value;} //* LOAD ID SPRTIE
+    [SerializeField] Pet pet; public Pet Pet {get => pet; set => pet = value;} //* LOAD  ID SPRTIE
 
     //TODO MiniGameTalkManager
 
@@ -29,11 +31,11 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] float curTime;
     [SerializeField] float totalTime;
     [SerializeField] float maxTime;
-    [SerializeField] GameObject[] maps;
+    [SerializeField] GameObject[] mapGroups;
     [SerializeField] GameObject newBestScoreEF;
 
     [Space(10)]
-    [Header("MINIGAME 2 VALUE")]
+    [Header("MINIGAME 1 VALUE")]
     //* MiniGame1 Forest
     [SerializeField] bool isStun;       public bool IsStun {get => isStun; set => isStun = value;}
     [SerializeField] float appleSpan = 1;
@@ -46,7 +48,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [Header("MINIGAME 2 VALUE")]
     [SerializeField] Transform skyBG;
     [SerializeField] Transform createPadYSpot;
+    [SerializeField] GameObject camMinigame2Group;
     [SerializeField] GameObject floorColliderObj;   public GameObject FloorColliderObj {get => floorColliderObj;}
+    [SerializeField] GameObject Parachute;
     [SerializeField] float padSpan;
     [SerializeField] int jumpPower;      public int JumpPower {get => jumpPower;}
     [SerializeField] float createPadPosY;
@@ -62,14 +66,22 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         mgrm = GameObject.Find("MinigameResultManager").GetComponent<MGResultManager>();
 
         score = 0;
-        maxTime = 60;
+        // maxTime = 60;
 
         //* 選択したゲーム(ID)
-        idx = getIdx();
-        maps[idx].SetActive(true);
+        idx = (DB._ == null)? (int)TYPE.MINIGAME2 : DB._.SelectMinigameIdx;
         type = (idx == 0)? TYPE.MINIGAME1 : (idx == 1)? TYPE.MINIGAME2 : TYPE.MINIGAME3;
 
-        //* 選択したモード
+        //* マップ 表示
+        for(int i = 0; i < mapGroups.Length; i++)
+            mapGroups[i].SetActive(i == idx); 
+
+        //* ミニゲームによって、オブジェクト処理
+        pl = mapGroups[idx].GetComponentInChildren<Player>(); //* Set Player
+        camMinigame2Group.SetActive(type == TYPE.MINIGAME2); //* MiniGame2：CamChildGroup 活性化
+        cam.Anim.enabled = !(type == TYPE.MINIGAME2); //* カメラー Yを動かすために、MiniGame2ならOFF
+
+        //* 選択した 難易度(モード)
         if(DB._ == null) mode = MODE.EASY; //! TEST
         else mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
 
@@ -120,6 +132,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     }
 
     void Update() {
+        //* ゲーム終了
         if(status == STATUS.FINISH && !isFinish) {
             isFinish = true;
             //* Update Best Score
@@ -138,7 +151,6 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             }
 
             pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
-            
             //* 残るオブジェクト全て破壊
             mgem.releaseAllObj();
 
@@ -210,10 +222,10 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 break;
             }
             case TYPE.MINIGAME2: {
-                float lvBalance = (remainTime > maxTime * 0.6f)? 0.65f
-                    : (remainTime > maxTime * 0.4f)? 0.8f
-                    : (remainTime > maxTime * 0.3f)? 0.9f
-                    : 1.1f;
+                float lvBalance = (remainTime > maxTime * 0.6f)? 0.5f
+                    : (remainTime > maxTime * 0.4f)? 0.75f
+                    : (remainTime > maxTime * 0.3f)? 0.875f
+                    : 1f;
 
                 //* 足場 生成時間
                 padSpan = lvBalance;
@@ -255,12 +267,6 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    private int getIdx() {
-        //! For TEST
-        if(DB._ == null) return 1;
-        return DB._.SelectMinigameIdx;
-    }
-
     //* MiniGame1
     public IEnumerator coSetPlayerStun() {
         isStun = true;
@@ -269,9 +275,33 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     }
     IEnumerator coSetResultMinigame2() {
         yield return Util.time1_5;
-        pl.transform.position = new Vector2(0, -3.5f);
-        pl.Rigid.bodyType = RigidbodyType2D.Static; //* 位置固定
+        cam.Anim.enabled = true;
         cam.transform.position = new Vector3(0, 0, -10);
+        floorColliderObj.SetActive(true);
+        pl.Rigid.velocity = Vector3.zero;
+        pl.transform.GetChild(0).gameObject.SetActive(false);
+
+        //* Fail
+        if(totalTime < maxTime) {
+            pl.transform.position = new Vector2(0, 15f);
+            pl.transform.rotation = Quaternion.Euler(0, 0, 95);
+            pl.Sr.flipX = false;
+
+            yield return Util.time1;
+            yield return Util.time0_3;
+            pl.Anim.SetTrigger(Enum.ANIM.DoFail.ToString());
+            cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
+            Util.coPlayBounceAnim(pl.transform);
+            yield return Util.time0_5;
+            pl.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        //* Success
+        else {
+            Parachute.SetActive(true);
+            pl.transform.position = new Vector2(0, 5);
+            pl.Rigid.gravityScale = 0.1f;
+        }
+        
     }
 #endregion
 }
