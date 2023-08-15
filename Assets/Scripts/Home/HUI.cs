@@ -348,18 +348,19 @@ public class HUI : MonoBehaviour {
     public void onClickLanguageBtn() {
         selectLangDialog.SetActive(true);
     }
-    public void onClickTutorialSettingBtn() {
-        DB.Dt.IsTutoRoomTrigger = true;
-        DB.Dt.IsTutoFunitureShopTrigger = true;
-        DB.Dt.IsTutoClothShopTrigger = true;
-        DB.Dt.IsTutoInventoryTrigger = true;
-        DB.Dt.IsTutoGoGameTrigger = true;
-        DB.Dt.IsTutoWorldMapTrigger = true;
-        DB.Dt.IsTutoFinishTrigger = true;
-        DB.Dt.IsTutoDiagChoiceDiffTrigger = true;
-        DB.Dt.IsTutoDiagFirstQuizTrigger = true;
-        DB.Dt.IsTutoDiagFirstAnswerTrigger = true;
-        DB.Dt.IsTutoDiagResultTrigger = true;
+    public void onClickResetBtn() {
+        DB._.reset();
+        // DB.Dt.IsTutoRoomTrigger = true;
+        // DB.Dt.IsTutoFunitureShopTrigger = true;
+        // DB.Dt.IsTutoClothShopTrigger = true;
+        // DB.Dt.IsTutoInventoryTrigger = true;
+        // DB.Dt.IsTutoGoGameTrigger = true;
+        // DB.Dt.IsTutoWorldMapTrigger = true;
+        // DB.Dt.IsTutoFinishTrigger = true;
+        // DB.Dt.IsTutoDiagChoiceDiffTrigger = true;
+        // DB.Dt.IsTutoDiagFirstQuizTrigger = true;
+        // DB.Dt.IsTutoDiagFirstAnswerTrigger = true;
+        // DB.Dt.IsTutoDiagResultTrigger = true;
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public void onLimitLengthNickNameInputTxt() {
