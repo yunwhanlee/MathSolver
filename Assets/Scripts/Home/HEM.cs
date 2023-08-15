@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 public class HEM : MonoBehaviour { //* Home Effect Manager
     public enum IDX {
-        FunitureSetupEF, CoinBurstTopEF
+        FunitureSetupEF, CoinBurstTopEF, UISparkleAreaWhiteEF
     };
     [SerializeField] Transform effectGroup;
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
@@ -13,7 +13,6 @@ public class HEM : MonoBehaviour { //* Home Effect Manager
     [Header("CREATE TYPE")]
     [SerializeField] GameObject funitureSetupEF;      public GameObject FunitureSetupEF {get => funitureSetupEF; set => funitureSetupEF = value;}
     [SerializeField] GameObject coinBurstTopEF;      public GameObject CoinBurstTopEF {get => coinBurstTopEF; set => coinBurstTopEF = value;}
-
     // [Header("ACTIVE TYPE")]
 
     void Awake() {

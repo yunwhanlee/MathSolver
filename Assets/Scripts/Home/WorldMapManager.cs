@@ -187,6 +187,7 @@ public class WorldMapManager : MonoBehaviour {
         //* スクロールを上がるには、⊖値代入
         Debug.Log($"<color=yellow>mapIdx({mapIdx}) scrollViewCtt.anchoredPosition= parentAnchoredPosY({parentAnchoredPosY}) + childPosY({childPosY})</color>");
         scrollViewCtt.anchoredPosition = new Vector2(0, (-parentAnchoredPosY) + (-childPosY));
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, Vector3.zero, Util.time8);
     }
 
     public Map getMap(int idx) {
