@@ -12,8 +12,10 @@ public class Enum {
     public enum FUNITURE_BG {Wall, Floor};
     public enum MAP {
         Forest, Jungle, Tundra,
-        Minigame1, Minigame2, Minigame3
     };
+    public enum MG {
+        Minigame1, Minigame2, Minigame3
+    }
     public enum MINIGAME_LV {
         Easy, Normal, Hard
     }

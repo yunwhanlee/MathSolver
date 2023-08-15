@@ -149,9 +149,9 @@ public class WorldMapManager : MonoBehaviour {
 
         //* Content Text
         HM._.ui.MapUnlockPopUpCttTxt.text = 
-            (name == Enum.MAP.Minigame1.ToString())? "Take the Falling Apples!"
-            : (name == Enum.MAP.Minigame2.ToString())? "TODO"
-            : (name == Enum.MAP.Minigame3.ToString())? "TODO"
+            (name == Enum.MG.Minigame1.ToString())? "Catch Falling apples!"
+            : (name == Enum.MG.Minigame2.ToString())? "Jump to the sky!"
+            : (name == Enum.MG.Minigame3.ToString())? "TODO"
             : isMapUnlock? "Found a new map!"
             : !isMapUnlock? "New place open!"
             : null;
@@ -160,9 +160,9 @@ public class WorldMapManager : MonoBehaviour {
         HM._.ui.MapUnlockImg.sprite = 
             (name == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[1].MapSpr
             : (name == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[2].MapSpr
-            : (name == Enum.MAP.Minigame1.ToString())? HM._.wmm.Maps[0].MiniGameSpr
-            : (name == Enum.MAP.Minigame2.ToString())? HM._.wmm.Maps[1].MiniGameSpr
-            : (name == Enum.MAP.Minigame3.ToString())? HM._.wmm.Maps[2].MiniGameSpr
+            : (name == Enum.MG.Minigame1.ToString())? HM._.wmm.Maps[0].MiniGameSpr
+            : (name == Enum.MG.Minigame2.ToString())? HM._.wmm.Maps[1].MiniGameSpr
+            : (name == Enum.MG.Minigame3.ToString())? HM._.wmm.Maps[2].MiniGameSpr
             : btn.GetComponent<Image>().sprite;
 
         HM._.ui.MapImageOutlineFrame.GetComponent<Image>().sprite = isMapUnlock? goldenEdgeSpr : normalEdgeSpr;
@@ -189,9 +189,9 @@ public class WorldMapManager : MonoBehaviour {
     }
 
     public Map getMap(int idx) {
-        int res = (idx == (int)Enum.MAP.Minigame1)? (int)Enum.MAP.Forest
-        : (idx == (int)Enum.MAP.Minigame2)? (int)Enum.MAP.Jungle
-        : (idx == (int)Enum.MAP.Minigame3)? (int)Enum.MAP.Tundra
+        int res = (idx == 0)? (int)Enum.MAP.Forest
+        : (idx == 1)? (int)Enum.MAP.Jungle
+        : (idx == 2)? (int)Enum.MAP.Tundra
         : idx;
         return maps[res];
     }

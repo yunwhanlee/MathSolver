@@ -6,23 +6,44 @@ using TMPro;
 using System;
 using UnityEngine.Events;
 
+/// <summary>
+/// ミニーゲームPopUp アイテム情報
+/// </summary>
+[System.Serializable]
+public class minigameInfo {
+
+    [SerializeField] Color frameColor;  public Color FrameColor {get => frameColor;}
+    [SerializeField] Sprite minigameSpr;   public Sprite MinigameSpr {get => minigameSpr;}
+    [SerializeField] Sprite labelSpr;   public Sprite LabelSpr {get => labelSpr;}
+    [SerializeField] Sprite finalRewardSpr;  public Sprite FinalRewardSpr {get => finalRewardSpr;}
+    [SerializeField] Sprite[] iconSpr;  public Sprite[] IconSpr {get => iconSpr;}
+    [SerializeField] int[] easyVals;  public int[] EasyVals {get => easyVals;}
+    [SerializeField] int[] normalVals;  public int[] NormalVals {get => normalVals;}
+    [SerializeField] int[] hardVals;  public int[] HardVals {get => hardVals;}
+}
+
 public class HomeMinigameManager : MonoBehaviour {
     UnityAction[] onInits = new UnityAction[2];
 
     [SerializeField] GameObject minigameLvPopUp;   public GameObject MinigameLvPopUp {get => minigameLvPopUp;}
+    [SerializeField] Image topFrame1Img, topFrame2Img, labelImg;
     [SerializeField] TextMeshProUGUI nameTxt;
     [SerializeField] TextMeshProUGUI titleTxt;
-
-    [SerializeField] GameObject[] infoIcons;          public GameObject[] InfoIcons {get => infoIcons;}
+    [SerializeField] minigameInfo mg1InfoData;
+    [SerializeField] minigameInfo mg2InfoData;
+    [SerializeField] minigameInfo mg3InfoData;
+    [SerializeField] GameObject[] infoIconList;          public GameObject[] InfoIconList {get => infoIconList;}
 
     [SerializeField] Button[] lvBtns;  public Button[] LvBtns {get => lvBtns;}
     [SerializeField] GameObject[] lvBtnFocusLines;
     [SerializeField] GameObject[] lvBtnLockFrames;
     [SerializeField] Button playBtn;   public Button PlayBtn {get => playBtn;}
     [SerializeField] TextMeshProUGUI playPriceTxt;   public TextMeshProUGUI PlayPriceTxt {get => playPriceTxt;}
-
+    
+    [Header("BEST SCORE SLIDER")]
     [SerializeField] Button[] rewardIconBtns;      public Button[] RewardIconBtns {get => rewardIconBtns;}
     [SerializeField] TextMeshProUGUI[] rewardIconBtnValTxts;      public TextMeshProUGUI[] RewardIconBtnValTxts {get => rewardIconBtnValTxts;}
+    [SerializeField] TextMeshProUGUI[] unlockScoreTxts;      public TextMeshProUGUI[] UnlockScoreTxts {get => unlockScoreTxts;}
     [SerializeField] Image[] rewardCheckIcons;      public Image[] RewardCheckIcons {get => rewardCheckIcons;}
 
     [SerializeField] Slider bestScoreSlider;   public Slider BestScoreSlider {get => bestScoreSlider;}
@@ -43,21 +64,32 @@ public class HomeMinigameManager : MonoBehaviour {
             rewardCheckIcons[i] = rewardIconBtns[i].GetComponentsInChildren<Image>(true)[1];
         }
 
-        onInits[0] = () => init(Enum.MAP.Minigame1.ToString(), "Catch Falling apples!"
-                            , DB.Dt.Minigame1BestScore, Config.MINIGAME1_REWARD_SCORES
-                            , DB.Dt.Minigame1RewardTriggers, Config.MINIGAME1_MAX_VAL
+        onInits[0] = () => init(Enum.MG.Minigame1.ToString(), "Catch Falling apples!"
+                            , DB.Dt.Minigame1BestScore, Config.MINIGAME1_UNLOCK_SCORES
+                            , DB.Dt.Minigame1RewardTriggers, Config.MINIGAME1_MAX_VAL, mg1InfoData
         );
-        onInits[1] = () => init(Enum.MAP.Minigame2.ToString(), "Jump to the sky!"
-                            , DB.Dt.Minigame2BestScore, Config.MINIGAME2_REWARD_SCORES
-                            , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL
+        onInits[1] = () => init(Enum.MG.Minigame2.ToString(), "Jump to the sky!"
+                            , DB.Dt.Minigame2BestScore, Config.MINIGAME2_UNLOCK_SCORES
+                            , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL, mg2InfoData
         );
+        //TODO Tundra onInits[2]
     }
 
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    void init(string name, string title, int bestScore, int[] rewardScores, bool[] rewardTrigger, int maxVal) {
+    private void init(string name, string title, int bestScore, int[] unlockScores, bool[] rewardTrigger, int maxVal, minigameInfo infoData) {
+        const int EASY = (int)Enum.MINIGAME_LV.Easy, 
+            NORMAL = (int)Enum.MINIGAME_LV.Normal, 
+            HARD = (int)Enum.MINIGAME_LV.Hard;
+
+        topFrame1Img.color = infoData.FrameColor;
+        topFrame2Img.color = infoData.FrameColor;
+        labelImg.sprite = infoData.LabelSpr;
+        rewardIconBtns[2].GetComponent<Image>().sprite = infoData.FinalRewardSpr;
+
+        Debug.Log("name--> " + name);
         nameTxt.text = name;
         titleTxt.text = title;
 
@@ -65,98 +97,114 @@ public class HomeMinigameManager : MonoBehaviour {
 
         if(bestScore == 0) {
             playPriceTxt.text = "Free";
-            lvBtns[0].interactable = false;
         }
         else 
             playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[0].ToString();
 
-        int easyScore = rewardScores[(int)Enum.MINIGAME_LV.Easy];
-        int normalScore = rewardScores[(int)Enum.MINIGAME_LV.Normal];
-        int hardScore = rewardScores[(int)Enum.MINIGAME_LV.Hard];
+        int easyScore = unlockScores[EASY];
+        int normalScore = unlockScores[NORMAL];
+        int hardScore = unlockScores[HARD];
 
         //* LockFrame 表示
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Easy].SetActive(false);
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Normal].SetActive(!(bestScore >= easyScore));
-        lvBtnLockFrames[(int)Enum.MINIGAME_LV.Hard].SetActive(!(bestScore >= normalScore));
+        lvBtnLockFrames[EASY].SetActive(false);
+        lvBtnLockFrames[NORMAL].SetActive(!(bestScore >= easyScore));
+        lvBtnLockFrames[HARD].SetActive(!(bestScore >= normalScore));
+
+        //* Slider Data
+        unlockScoreTxts[EASY].text = easyScore.ToString() + "\nNormal";
+        unlockScoreTxts[NORMAL].text = normalScore.ToString() + "\nHard";
+        unlockScoreTxts[HARD].text = hardScore.ToString();
+
+        onClickMinigameLvPopUpLvBtn(0);
 
         //* Slider Reward IconBtn 活性化
-        if(bestScore >= easyScore) {
-            bool isTrigger = !rewardTrigger[0];
-            rewardIconBtns[(int)Enum.MINIGAME_LV.Easy].interactable = isTrigger;
-            rewardCheckIcons[(int)Enum.MINIGAME_LV.Easy].gameObject.SetActive(!isTrigger);
-        }
-        if(bestScore >= normalScore && !rewardTrigger[1]) {
-            bool isTrigger = !rewardTrigger[1];
-            rewardIconBtns[(int)Enum.MINIGAME_LV.Normal].interactable = isTrigger;
-            rewardCheckIcons[(int)Enum.MINIGAME_LV.Normal].gameObject.SetActive(!isTrigger);
-        }
-        if(bestScore >= hardScore  && !rewardTrigger[2]) {
-            bool isTrigger = !rewardTrigger[2];
-            rewardIconBtns[(int)Enum.MINIGAME_LV.Hard].interactable = isTrigger;
-            rewardCheckIcons[(int)Enum.MINIGAME_LV.Hard].gameObject.SetActive(!isTrigger);
-        }
+        if(bestScore >= easyScore)
+            activeRewardIcon(EASY, rewardTrigger[0]);
+        if(bestScore >= normalScore && !rewardTrigger[1])
+            activeRewardIcon(NORMAL, rewardTrigger[1]);
+        if(bestScore >= hardScore  && !rewardTrigger[2])
+            activeRewardIcon(HARD, rewardTrigger[2]);
 
         //* Best Score Slider
         bestScoreSlider.value = bestScore;
         bestScoreSliderValTxt.text = $"<color=white>{bestScore}</color> / {maxVal}";
+    }
+    private void activeRewardIcon(int idx, bool rewardTrigger) {
+        bool isTrigger = !rewardTrigger;
+        rewardIconBtns[idx].interactable = isTrigger;
+        rewardCheckIcons[idx].gameObject.SetActive(!isTrigger);
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     #region MINIGAME LEVEL POPUP
-    public void onClickMinigameExclamationMarkBtn(int idx) { //* [3]:Minigame1, [4]:Minigame2, [5]:Minigame3
+    public void onClickMinigameExclamationMarkBtn(int idx) {
         Debug.Log($"onClickMinigameExclamationMarkBtn(idx={idx}):: ");
-        DB._.SelectMapIdx = idx;
+        DB._.SelectMinigameIdx = idx;
         minigameLvPopUp.SetActive(true);
-
-        //* Init
-        int offsetIdx = (idx == 3)? 0 : (idx == 4)? 1 : 2;
-        onInits[offsetIdx].Invoke();
+        onInits[idx].Invoke(); //* Init
     }
     public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
-        //* ロックしたら、解禁条件のお知らせ
+        //* ロックしたら、解禁条件のお知らせ、以下処理しない
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
-            HM._.ui.showErrorMsgPopUp($"Achieve {Config.MINIGAME1_REWARD_SCORES[difficultyLvIdx]} Best Score!");
+            int[] unlockScores = (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame1)? Config.MINIGAME1_UNLOCK_SCORES
+                : (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame2)? Config.MINIGAME2_UNLOCK_SCORES
+                : null;
+            HM._.ui.showErrorMsgPopUp($"Achieve {unlockScores[difficultyLvIdx]} Score!");
             return;
         }
 
-        const int EASY = 0, NORMAL = 1, HARD = 2;
+        //* 選択した難易度
         DB._.MinigameLv = difficultyLvIdx;
 
         //* Play Price
-        playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv].ToString();
+        if(playPriceTxt.text != "Free")
+            playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv].ToString();
 
         //* 選択 枠
         for(int i = 0; i< lvBtns.Length; i++)
             lvBtnFocusLines[i].SetActive(i == difficultyLvIdx);
 
+        //* 選択したミニーゲーム データ
+        minigameInfo infoData = (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame1)? mg1InfoData
+            : (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame2)? mg2InfoData
+            : mg3InfoData;
+
         //* 登場するアイテムの情報表示欄
         //* Minigame 1
-        const int APPLE = 0, GOLDAPPLE = 1, DIAMOND = 2;
+        const int EASY = 0, NORMAL = 1, HARD = 2;
         switch(difficultyLvIdx) {
             case EASY:
-                infoIcons[APPLE].SetActive(true);
-                infoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_EASY_OBJ_DATA[APPLE]}";
-                infoIcons[GOLDAPPLE].SetActive(true);
-                infoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_EASY_OBJ_DATA[GOLDAPPLE]}";
-                infoIcons[DIAMOND].SetActive(false);
+                infoIconList[0].SetActive(true);
+                infoIconList[0].GetComponent<Image>().sprite = infoData.IconSpr[0];
+                infoIconList[0].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.EasyVals[0]}";
+                infoIconList[1].SetActive(true);
+                infoIconList[1].GetComponent<Image>().sprite = infoData.IconSpr[1];
+                infoIconList[1].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.EasyVals[1]}";
+                infoIconList[2].SetActive(false);
                 break;
             case NORMAL:
-                infoIcons[APPLE].SetActive(true);
-                infoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[APPLE]}";
-                infoIcons[GOLDAPPLE].SetActive(true);
-                infoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[GOLDAPPLE]}";
-                infoIcons[DIAMOND].SetActive(true);
-                infoIcons[DIAMOND].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_NORMAL_OBJ_DATA[DIAMOND]}";
+                infoIconList[0].SetActive(true);
+                infoIconList[0].GetComponent<Image>().sprite = infoData.IconSpr[0];
+                infoIconList[0].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.NormalVals[0]}";
+                infoIconList[1].SetActive(true);
+                infoIconList[1].GetComponent<Image>().sprite = infoData.IconSpr[1];
+                infoIconList[1].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.NormalVals[1]}";
+                infoIconList[2].SetActive(true);
+                infoIconList[2].GetComponent<Image>().sprite = infoData.IconSpr[2];
+                infoIconList[2].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.NormalVals[2]}";
                 break;
             case HARD:
-                infoIcons[APPLE].SetActive(true);
-                infoIcons[APPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_HARD_OBJ_DATA[APPLE]}";
-                infoIcons[GOLDAPPLE].SetActive(true);
-                infoIcons[GOLDAPPLE].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_HARD_OBJ_DATA[GOLDAPPLE]}";
-                infoIcons[DIAMOND].SetActive(true);
-                infoIcons[DIAMOND].GetComponentInChildren<TextMeshProUGUI>().text = $"+{Config.MINIGAME1_HARD_OBJ_DATA[DIAMOND]}";
+                infoIconList[0].SetActive(true);
+                infoIconList[0].GetComponent<Image>().sprite = infoData.IconSpr[0];
+                infoIconList[0].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.HardVals[0]}";
+                infoIconList[1].SetActive(true);
+                infoIconList[1].GetComponent<Image>().sprite = infoData.IconSpr[1];
+                infoIconList[1].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.HardVals[1]}";
+                infoIconList[2].SetActive(true);
+                infoIconList[2].GetComponent<Image>().sprite = infoData.IconSpr[2];
+                infoIconList[2].GetComponentInChildren<TextMeshProUGUI>().text = $"+{infoData.HardVals[2]}";
                 break;
         }
     }

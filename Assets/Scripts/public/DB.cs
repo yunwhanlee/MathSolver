@@ -127,6 +127,7 @@ public class DB : MonoBehaviour {
     [SerializeField] bool isReset;
     [SerializeField] int lvUpCnt;   public int LvUpCnt {get => lvUpCnt; set => lvUpCnt = value;}
     [SerializeField] int selectMapIdx;   public int SelectMapIdx {get => selectMapIdx; set => selectMapIdx = value;}
+    [SerializeField] int selectMinigameIdx;   public int SelectMinigameIdx {get => selectMinigameIdx; set => selectMinigameIdx = value;}
     [SerializeField] int minigameLv;    public int MinigameLv {get => minigameLv; set => minigameLv = value;} //* Minigame 難易度
     const string Database = "DB";
     const int DEF_WALL_IDX = 0;

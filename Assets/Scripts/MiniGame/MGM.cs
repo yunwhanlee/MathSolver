@@ -24,7 +24,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
     //* Public Value
     [SerializeField] bool isFinish;
-    [SerializeField] int id;
+    [SerializeField] int idx;
     [SerializeField] int score;         public int Score {get => score; set => score = value;}
     [SerializeField] float curTime;
     [SerializeField] float totalTime;
@@ -65,9 +65,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         maxTime = 60;
 
         //* 選択したゲーム(ID)
-        id = getMapIdx();
-        maps[id].SetActive(true);
-        type = (id == 0)? TYPE.MINIGAME1 : (id == 1)? TYPE.MINIGAME2 : TYPE.MINIGAME3;
+        idx = getIdx();
+        maps[idx].SetActive(true);
+        type = (idx == 0)? TYPE.MINIGAME1 : (idx == 1)? TYPE.MINIGAME2 : TYPE.MINIGAME3;
 
         //* 選択したモード
         if(DB._ == null) mode = MODE.EASY; //! TEST
@@ -161,8 +161,8 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         curTime += Time.deltaTime;
 
         //* Score Txt
-        ui.ScoreTxt.text = (id == 0)? $"<sprite name=apple>: {score}"
-            : (id == 1)? $"<sprite name=banana>: {score}"
+        ui.ScoreTxt.text = (idx == 0)? $"<sprite name=apple>: {score}"
+            : (idx == 1)? $"<sprite name=banana>: {score}"
             : $"<sprite name=todo>: {score}";
 
         //* Timer
@@ -255,15 +255,10 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    private int getMapIdx() {
+    private int getIdx() {
         //! For TEST
         if(DB._ == null) return 1;
-
-        int idx = (DB._.SelectMapIdx == (int)Enum.MAP.Minigame1)? 0
-            : (DB._.SelectMapIdx == (int)Enum.MAP.Minigame2)? 1
-            : (DB._.SelectMapIdx == (int)Enum.MAP.Minigame3)? 2 : -1;
-        if(idx == -1) Debug.LogError("存在しないマップINDEXです。０");
-        return idx;
+        return DB._.SelectMinigameIdx;
     }
 
     //* MiniGame1

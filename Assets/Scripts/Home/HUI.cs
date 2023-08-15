@@ -567,9 +567,9 @@ public class HUI : MonoBehaviour {
             : (mapName == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[JG].MapSpr
             : (mapName == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[TD].MapSpr
             //* MiniGame
-            : (mapName == Enum.MAP.Minigame1.ToString())? HM._.wmm.Maps[FR].MiniGameSpr
-            : (mapName == Enum.MAP.Minigame2.ToString())? HM._.wmm.Maps[JG].MiniGameSpr
-            : (mapName == Enum.MAP.Minigame3.ToString())? HM._.wmm.Maps[TD].MiniGameSpr
+            : (mapName == Enum.MG.Minigame1.ToString())? HM._.wmm.Maps[FR].MiniGameSpr
+            : (mapName == Enum.MG.Minigame2.ToString())? HM._.wmm.Maps[JG].MiniGameSpr
+            : (mapName == Enum.MG.Minigame3.ToString())? HM._.wmm.Maps[TD].MiniGameSpr
             : null;
         if(goMapPopUpMapImg.sprite == null) {
             Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");
