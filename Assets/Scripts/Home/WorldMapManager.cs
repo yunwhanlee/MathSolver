@@ -173,18 +173,20 @@ public class WorldMapManager : MonoBehaviour {
         //* ワールドマップ 表示 → 自動で、Enabled():: init():: callbackMapPopUpAction() 実行
         gameObject.SetActive(true);
 
-        // HM._.ui.TopGroup.SetActive(true);
-        // HM._.ui.AchiveRankPanel.SetActive(false);
+        HM._.ui.TopGroup.SetActive(true);
+        HM._.ui.AchiveRankPanel.SetActive(false);
 
-        //* SetScrollPos
-        var bg = maps[mapIdx].BgBtns[bgIdx];
-        var limitLvTxt = maps[mapIdx].BgLimitLvTxts[bgIdx];
-        Debug.Log($"setScrollPos({mapIdx}, {bgIdx}):: {bg.name}");
+        //* Set Scroll PosY
+        var map = maps[mapIdx]; 
+        var bg = map.BgBtns[bgIdx];
+        var limitLvTxt = map.BgLimitLvTxts[bgIdx];
+        float parentAnchoredPosY = map.BgBtnGroup.GetComponent<RectTransform>().anchoredPosition.y;
+        float childPosY = bg.GetComponent<RectTransform>().localPosition.y;
 
         limitLvTxt.text = "<color=yellow>NEW!</color>";
-        //* ↑方向：⊖値
-        float posY = START_POS - bg.GetComponent<RectTransform>().localPosition.y;
-        scrollViewCtt.anchoredPosition = new Vector2(0, posY);
+        //* スクロールを上がるには、⊖値代入
+        Debug.Log($"<color=yellow>mapIdx({mapIdx}) scrollViewCtt.anchoredPosition= parentAnchoredPosY({parentAnchoredPosY}) + childPosY({childPosY})</color>");
+        scrollViewCtt.anchoredPosition = new Vector2(0, (-parentAnchoredPosY) + (-childPosY));
     }
 
     public Map getMap(int idx) {

@@ -402,10 +402,10 @@ public class HUI : MonoBehaviour {
 
     #region SELECT MAP
     public void onClickGoGameDialogYesBtn() { // Choose Map
-        if(HM._.qm.IsFinishMainQuest) {
-            showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
-            return;
-        }
+        // if(HM._.qm.IsFinishMainQuest) {
+            // showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
+            // return;
+        // }
 
         HM._.state = HM.STATE.NORMAL;
         canvasWorldMap.gameObject.SetActive(true);

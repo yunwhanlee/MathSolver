@@ -11,6 +11,7 @@ public class Map : MonoBehaviour {
     [SerializeField] Sprite miniGameSpr;  public Sprite MiniGameSpr {get => miniGameSpr; set => miniGameSpr = value;}
     [SerializeField] bool[] isBgUnlocks;    public bool[] IsBgUnlocks {get => isBgUnlocks; set => isBgUnlocks = value;}
     [SerializeField] string[] bgNames;   public string[] BgNames {get => bgNames; set => bgNames = value;}
+    [SerializeField] RectTransform bgBtnGroup;  public RectTransform BgBtnGroup {get => bgBtnGroup;}
     [SerializeField] Button[] bgBtns;        public Button[] BgBtns {get => bgBtns;}
     [SerializeField] Image[] bgImgs;    public Image[] BgImgs {get => bgImgs;}
     [SerializeField] TextMeshProUGUI[] bgLimitLvTxts;     public TextMeshProUGUI[] BgLimitLvTxts {get => bgLimitLvTxts;}
