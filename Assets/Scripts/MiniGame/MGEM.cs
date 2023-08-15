@@ -10,7 +10,7 @@ public class MGEM : MonoBehaviour {
         ,JumpingPadObj, BananaObj, GoldBananaObj // Minigame 2
         //* EF
         ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF
-        ,DecalWoodEF
+        ,DecalWoodEF, FireworkBlueEF,
     }
 
     //* MiniGame1
@@ -27,6 +27,7 @@ public class MGEM : MonoBehaviour {
     [SerializeField] GameObject explosionBombEF;
     [SerializeField] GameObject shineSpoutGoldEF;
     [SerializeField] GameObject decalWoodEF;
+    [SerializeField] GameObject fireworkBlueEF;
 
 
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
@@ -48,6 +49,7 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(explosionBombEF, max: 2, effectGroup));
         pool.Add(initEF(shineSpoutGoldEF, max: 2, effectGroup));
         pool.Add(initEF(decalWoodEF, max: 4, effectGroup));
+        pool.Add(initEF(fireworkBlueEF, max: 3, effectGroup));
     }
 
 /// -----------------------------------------------------------------------------------------------------------------

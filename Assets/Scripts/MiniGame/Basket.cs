@@ -11,7 +11,7 @@ public class Basket : MonoBehaviour {
         Debug.Log($"Basket():: col.name= {col.name}");
         //* Minigame 1
         if(col.CompareTag(Enum.TAG.Apple.ToString())) {
-            MGM._.Score += MGM._.ApplePoint;
+            MGM._.Score += MGM._.GeneralPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.AppleObj);
         }
@@ -25,28 +25,29 @@ public class Basket : MonoBehaviour {
             StartCoroutine(MGM._.coSetPlayerStun());
         }
         else if(col.CompareTag(Enum.TAG.GoldApple.ToString())) {
-            MGM._.Score += MGM._.GoldApplePoint;
+            MGM._.Score += MGM._.GoldPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.GoldAppleObj);
         }
-        else if(col.CompareTag(Enum.TAG.Diamond.ToString())) {
-            MGM._.Score += MGM._.DiamondPoint;
-            MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
-            MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
-            releaseAndBounce(col.gameObject, (int)MGEM.IDX.DiamondObj);
-        }
         //* Minigame 2
         else if(col.gameObject.CompareTag(Enum.TAG.Banana.ToString())) {
-            MGM._.Score += 1;
+            MGM._.Score += MGM._.GeneralPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, col.transform.position, Util.time999);
             MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.BananaObj);
         }
         else if(col.gameObject.CompareTag(Enum.TAG.GoldBanana.ToString())) {
-            MGM._.Score += 3;
+            MGM._.Score += MGM._.GoldPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
             MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.GoldBananaObj);
+        }
+        //* Public
+        else if(col.CompareTag(Enum.TAG.Diamond.ToString())) {
+            MGM._.Score += MGM._.DiamondPoint;
+            MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
+            MGM._.mgem.showEF((int)MGEM.IDX.FireworkBlueEF, transform.position, Util.time2);
+            releaseAndBounce(col.gameObject, (int)MGEM.IDX.DiamondObj);
         }
     }
 #endregion

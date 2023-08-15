@@ -33,16 +33,15 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] float maxTime;
     [SerializeField] GameObject[] mapGroups;
     [SerializeField] GameObject newBestScoreEF;
-
+    [SerializeField] int generalPoint;       public int GeneralPoint {get => generalPoint;}
+    [SerializeField] int goldPoint;   public int GoldPoint {get => goldPoint;}
+    [SerializeField] int diamondPoint;     public int DiamondPoint {get => diamondPoint;}
     [Space(10)]
     [Header("MINIGAME 1 VALUE")]
     //* MiniGame1 Forest
     [SerializeField] bool isStun;       public bool IsStun {get => isStun; set => isStun = value;}
     [SerializeField] float appleSpan = 1;
     [SerializeField] float plMoveSpd;    public float PlMoveSpd {get => plMoveSpd;}
-    [SerializeField] int applePoint;       public int ApplePoint {get => applePoint;}
-    [SerializeField] int goldApplePoint;   public int GoldApplePoint {get => goldApplePoint;}
-    [SerializeField] int diamondPoint;     public int DiamondPoint {get => diamondPoint;}
 
     [Space(10)]
     [Header("MINIGAME 2 VALUE")]
@@ -55,8 +54,6 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] int jumpPower;      public int JumpPower {get => jumpPower;}
     [SerializeField] float createPadPosY;
     [SerializeField] float camUpSpeed = 30;
-
-
 
     void Awake() {
         _ = this;
@@ -88,24 +85,20 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         //* タイプ
         switch(type) {
             case TYPE.MINIGAME1: {
-                //* モード データ設定
-                if(mode == MODE.EASY) {
-                    applePoint = Config.MINIGAME1_EASY_OBJ_DATA[0];
-                    goldApplePoint = Config.MINIGAME1_EASY_OBJ_DATA[1];
-                }
-                else if(mode == MODE.NORMAL) {
-                    applePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[0];
-                    goldApplePoint = Config.MINIGAME1_NORMAL_OBJ_DATA[1];
-                    diamondPoint = Config.MINIGAME1_NORMAL_OBJ_DATA[2];
-                }
-                else if(mode == MODE.HARD) {
-                    applePoint = Config.MINIGAME1_HARD_OBJ_DATA[0];
-                    goldApplePoint = Config.MINIGAME1_HARD_OBJ_DATA[1];
-                    diamondPoint = Config.MINIGAME1_HARD_OBJ_DATA[2];
-                }
+                //* モード Info データ設定
+                setPoint(Config.MINIGAME1_EASY_OBJ_DATA
+                    , Config.MINIGAME1_NORMAL_OBJ_DATA
+                    , Config.MINIGAME1_HARD_OBJ_DATA
+                );
                 break;
             }
             case TYPE.MINIGAME2: {
+                //* モード Info データ設定
+                setPoint(Config.MINIGAME2_EASY_OBJ_DATA
+                    , Config.MINIGAME2_NORMAL_OBJ_DATA
+                    , Config.MINIGAME2_HARD_OBJ_DATA
+                );
+
                 //* Base Pads
                 mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(-1.5f, createPadPosY), Util.time999);
                 mgem.createObj((int)MGEM.IDX.JumpingPadObj, new Vector2(0, createPadPosY), Util.time999);
@@ -212,7 +205,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                             : (rand <= 70)? (int)MGEM.IDX.GoldAppleObj
                             : (rand <= 90)? (int)MGEM.IDX.BombObj
                             : (int)MGEM.IDX.DiamondObj;
-
+                    //* 生成
                     Obj obj = mgem.createObj(objIdx, pos, Util.time8).GetComponent<Obj>();
 
                     obj.transform.rotation = Quaternion.Euler(0,0,Random.Range(0, 360));
@@ -223,9 +216,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             }
             case TYPE.MINIGAME2: {
                 float lvBalance = (remainTime > maxTime * 0.6f)? 0.5f
-                    : (remainTime > maxTime * 0.4f)? 0.75f
-                    : (remainTime > maxTime * 0.3f)? 0.875f
-                    : 1f;
+                    : (remainTime > maxTime * 0.4f)? 0.6f
+                    : (remainTime > maxTime * 0.3f)? 0.7f
+                    : 0.8f;
 
                 //* 足場 生成時間
                 padSpan = lvBalance;
@@ -246,9 +239,20 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
                     //* ランダム種類 設定
                     int rand = Random.Range(0, 100);
-                    int objIdx = (rand <= 70)? (int)MGEM.IDX.BananaObj
-                        : (int)MGEM.IDX.GoldBananaObj;
-                    mgem.createObj(objIdx, pos, Util.time13);
+                    int objIdx = 0;
+                    if(mode == MODE.EASY)
+                        objIdx = (rand <= 70)? (int)MGEM.IDX.BananaObj
+                            : (int)MGEM.IDX.GoldBananaObj;
+                    else
+                        objIdx = (rand <= 60)? (int)MGEM.IDX.BananaObj
+                            : (rand <= 80)? (int)MGEM.IDX.GoldBananaObj
+                            : (int)MGEM.IDX.DiamondObj;
+                    //* 生成
+                    var obj = mgem.createObj(objIdx, pos, Util.time13);
+                    if(obj.name == MGEM.IDX.DiamondObj.ToString()) {
+                        obj.GetComponent<Rigidbody2D>().gravityScale = 0.025f;
+                        obj.GetComponent<Rigidbody2D>().mass = 0.05f;
+                    }
                 }
 
                 if(cam.transform.position.y > 13) {
@@ -267,12 +271,29 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    private void setPoint(int[] easyDts, int[] normalDts, int[] hardDts) {
+        if(mode == MODE.EASY) {
+            generalPoint = easyDts[0];
+            goldPoint = easyDts[1];
+        }
+        else if(mode == MODE.NORMAL) {
+            generalPoint = normalDts[0];
+            goldPoint = normalDts[1];
+            diamondPoint = normalDts[2];
+        }
+        else if(mode == MODE.HARD) {
+            generalPoint = hardDts[0];
+            goldPoint = hardDts[1];
+            diamondPoint = hardDts[2];
+        }
+    }
     //* MiniGame1
     public IEnumerator coSetPlayerStun() {
         isStun = true;
         yield return Util.time1_5;
         isStun = false;
     }
+    //* MiniGame2
     IEnumerator coSetResultMinigame2() {
         yield return Util.time1_5;
         cam.Anim.enabled = true;
