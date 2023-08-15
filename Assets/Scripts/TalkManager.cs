@@ -95,6 +95,15 @@ public abstract class TalkManager : MonoBehaviour {
             //* 分析 :「メッセージ」と「スピーカー画像」
             string msg = rawMsg.Split(":")[0];
             string spkKey = rawMsg.Split(":")[1];
+            bool isFlip = false;
+            if(spkKey.Contains("_")) {
+                string[] spkKeyParts = spkKey.Split("_");
+                if (spkKeyParts.Length >= 2) {
+                    Debug.Log(spkKeyParts[0] + ", " + spkKeyParts[1]);
+                    spkKey = spkKeyParts[0];
+                    isFlip = spkKeyParts[1] == "FLIP";
+                }
+            }
             //* メッセージ
             talkTxt.text = msg;
 
@@ -109,9 +118,10 @@ public abstract class TalkManager : MonoBehaviour {
             var pos = spkImg.rectTransform.anchoredPosition;
             
             switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
-                case (int)SPK_IDX.Pl_Idle: case (int)SPK_IDX.pl_Happy: case (int)SPK_IDX.Pl_Sad:
-                    //* 画像
+                case (int)SPK_IDX.Pl_Idle: case (int)SPK_IDX.pl_Happy: case (int)SPK_IDX.Pl_Sad: 
+                {
                     Debug.Log($"TalkManager:: talk():: spkImg.spr = {spkSprDtList[key]}");
+                    //* 画像
                     spkImg.sprite = spkSprDtList[key];
                     spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
                     if(key == (int)SPK_IDX.Pl_Sad) {
@@ -120,70 +130,62 @@ public abstract class TalkManager : MonoBehaviour {
                     }
                     //* 名前
                     spkName.text = "늑선생"; 
-                    setNameFrameDirection(isLeft: true); // left
+                    setNameCardDir(isLeft: true); // left
                     break;
+                }
                 case (int)SPK_IDX.Animal_Idle: case (int)SPK_IDX.Animal_Happy: case (int)SPK_IDX.Animal_Sad:
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key]; 
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "동물친구";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("동물친구", key, pos, isFlip);
                     break;
+                }
                 case (int)SPK_IDX.DotalMan: 
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "도톨아저씨";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("도톨아저씨", key, pos, isFlip);
                     break;
+                }
                 case (int)SPK_IDX.MoongMom: 
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "뭉이어멈";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("뭉이어멈", key, pos, isFlip);
                     break;
+                }
                 case (int)SPK_IDX.Monkey_Idle: case (int)SPK_IDX.Monkey_Happy: case (int)SPK_IDX.Monkey_Sad: 
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "원숭이";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("원숭이", key, pos, isFlip);
                     break;
+                }
                 case (int)SPK_IDX.Flog_Idle: case (int)SPK_IDX.Flog_Happy: case (int)SPK_IDX.Flog_Sad: 
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "개구리";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("개구리", key, pos, isFlip);
                     break;
+                }
                 case (int)SPK_IDX.Ant_Idle: case (int)SPK_IDX.Ant_Happy: case (int)SPK_IDX.Ant_Sad: 
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "개미";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("개미", key, pos, isFlip);
                     break;
+                }
                 case (int)SPK_IDX.WarriorMonkey_Idle: case (int)SPK_IDX.WarriorMonkey_Happy: case (int)SPK_IDX.WarriorMonkey_Sad:
-                    //* 画像
-                    spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(Mathf.Abs(pos.x), pos.y);
-                    //* 名前
-                    spkName.text = "전사원숭이";
-                    setNameFrameDirection(isLeft: false); // right
+                {
+                    setOtherPortrait("전사원숭이", key, pos, isFlip);
                     break;
+                }
             }
         }
         
         //* 次の対話準備
         isAction = true;
         talkIdx++;
+    }
+
+    private void setOtherPortrait(string name, int key, Vector3 pos, bool isFlip) {
+        //* 画像
+        spkImg.sprite = spkSprDtList[key];
+        float posX = Mathf.Abs(pos.x) * (isFlip? -1 : 1);
+        spkImg.rectTransform.anchoredPosition = new Vector2(posX, pos.y);
+        Vector3 sc = spkImg.transform.localScale;
+        spkImg.transform.localScale = new Vector3(Mathf.Abs(sc.x) * (isFlip? -1 : 1) , sc.y, sc.z);
+        //* 名前
+        spkName.text = name;
+        setNameCardDir(isLeft: isFlip); // right
     }
 
     protected string getMsg(int id, int talkIdx) {
@@ -195,7 +197,7 @@ public abstract class TalkManager : MonoBehaviour {
             return msgs[talkIdx];
     }
 
-    private void setNameFrameDirection(bool isLeft) {
+    private void setNameCardDir(bool isLeft) {
         spkName.rectTransform.localScale = new Vector2((isLeft? 1 : -1) * Mathf.Abs(spkName.rectTransform.localScale.x), spkName.rectTransform.localScale.y);
         nameFrame.anchoredPosition = new Vector2((isLeft? -1 : 1) * Mathf.Abs(nameFrame.anchoredPosition.x), nameFrame.anchoredPosition.y);
         nameFrame.localScale = new Vector2((isLeft? 1 : -1) * Mathf.Abs(nameFrame.localScale.x), nameFrame.localScale.y);
