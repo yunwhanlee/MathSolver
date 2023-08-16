@@ -9,7 +9,13 @@
     - HUIManagerオブジェクト ➝ HUI.csのInspectorビュー ➝ RwdSOListへドラッグ＆ドロップ。
     - リストへ登録した順番と同じくEnum.RWD_IDXにアイテム名を必ず登録すること！
 
-3. 使用
+3. Prefab登録。
+
+4. DBのInspectorビューへ登録。
+    - 登録が終わったら、必ずDBスクリプトをCopy Componentし、一回ゲームスタートしてPASTEしないと保存できない！
+    - 一回RESETかける。
+
+5. 使用
     - HUI.cs内、coActiveRewardPopUp(Dictionary<RewardItemSO, int> rewardDic)に使う。
     - パラメータrewardDicは、「Key：登録したアイテムSO」 と 「Value：数量」 になる。
     - アイテムSOは以前に登録したrwdSOListを使う。
