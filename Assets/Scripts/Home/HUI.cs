@@ -349,18 +349,8 @@ public class HUI : MonoBehaviour {
         selectLangDialog.SetActive(true);
     }
     public void onClickResetBtn() {
+        // DB.Dt.IsTutoRoomTrigger = true; DB.Dt.IsTutoFunitureShopTrigger = true; DB.Dt.IsTutoClothShopTrigger = true; DB.Dt.IsTutoInventoryTrigger = true; DB.Dt.IsTutoGoGameTrigger = true; DB.Dt.IsTutoWorldMapTrigger = true; DB.Dt.IsTutoFinishTrigger = true; DB.Dt.IsTutoDiagChoiceDiffTrigger = true; DB.Dt.IsTutoDiagFirstQuizTrigger = true; DB.Dt.IsTutoDiagFirstAnswerTrigger = true; DB.Dt.IsTutoDiagResultTrigger = true;
         DB._.reset();
-        // DB.Dt.IsTutoRoomTrigger = true;
-        // DB.Dt.IsTutoFunitureShopTrigger = true;
-        // DB.Dt.IsTutoClothShopTrigger = true;
-        // DB.Dt.IsTutoInventoryTrigger = true;
-        // DB.Dt.IsTutoGoGameTrigger = true;
-        // DB.Dt.IsTutoWorldMapTrigger = true;
-        // DB.Dt.IsTutoFinishTrigger = true;
-        // DB.Dt.IsTutoDiagChoiceDiffTrigger = true;
-        // DB.Dt.IsTutoDiagFirstQuizTrigger = true;
-        // DB.Dt.IsTutoDiagFirstAnswerTrigger = true;
-        // DB.Dt.IsTutoDiagResultTrigger = true;
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public void onLimitLengthNickNameInputTxt() {
@@ -558,19 +548,16 @@ public class HUI : MonoBehaviour {
         return false;
     }
     private void displayGoMapPupUp(string mapName) {
-        const int FR = (int)Enum.MAP.Forest;
-        const int JG = (int)Enum.MAP.Jungle;
-        const int TD = (int)Enum.MAP.Tundra;
         goMapPopUp.SetActive(true);
         goMapPopUpMapImg.sprite = 
             //* Map
-            (mapName == Enum.MAP.Forest.ToString())? HM._.wmm.Maps[FR].MapSpr
-            : (mapName == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[JG].MapSpr
-            : (mapName == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[TD].MapSpr
+            (mapName == Enum.MAP.Forest.ToString())? HM._.wmm.Maps[(int)Enum.MAP.Forest].MapSpr
+            : (mapName == Enum.MAP.Jungle.ToString())? HM._.wmm.Maps[(int)Enum.MAP.Jungle].MapSpr
+            : (mapName == Enum.MAP.Tundra.ToString())? HM._.wmm.Maps[(int)Enum.MAP.Tundra].MapSpr
             //* MiniGame
-            : (mapName == Enum.MG.Minigame1.ToString())? HM._.wmm.Maps[FR].MiniGameSpr
-            : (mapName == Enum.MG.Minigame2.ToString())? HM._.wmm.Maps[JG].MiniGameSpr
-            : (mapName == Enum.MG.Minigame3.ToString())? HM._.wmm.Maps[TD].MiniGameSpr
+            : (mapName == Enum.MG.Minigame1.ToString())? HM._.wmm.Maps[(int)Enum.MAP.Forest].MiniGameSpr
+            : (mapName == Enum.MG.Minigame2.ToString())? HM._.wmm.Maps[(int)Enum.MAP.Jungle].MiniGameSpr
+            : (mapName == Enum.MG.Minigame3.ToString())? HM._.wmm.Maps[(int)Enum.MAP.Tundra].MiniGameSpr
             : null;
         if(goMapPopUpMapImg.sprite == null) {
             Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");

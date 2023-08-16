@@ -12,7 +12,11 @@ using System.Text.RegularExpressions;
 public class GM : MonoBehaviour {
     public enum GAME_STT {PLAY, RESULT};
     [SerializeField] GAME_STT gameStatus;   public GAME_STT GameStatus {get => gameStatus; set => gameStatus = value;}
-    public enum BG_STT {Normal, WindMill, Bush};
+    public enum BG_STT {
+        StarMountain, Windmill, Orchard, //* Forest
+        Swamp, Bush, MonkeyWat, //* Jungle
+        EntranceOfTundra, SnowMountain, IceDragon //* Tundra
+    };
     [SerializeField] BG_STT bgStatus;   public BG_STT BgStatus {get => bgStatus; set => bgStatus = value;}
 
     const int BOX_S_MAX = 10; // Small
@@ -735,12 +739,11 @@ public class GM : MonoBehaviour {
         const int PETPOS = 0, PALYERPOS = 1, ANIMALPOS = 2;
         var map = maps[DB._.SelectMapIdx];
         int chdLen = map.childCount - 1;
-        Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 親 map= {map.name}, chdLen= {chdLen}");
+        Debug.Log($"<color=green>coSetMapBG(bgIdx({bgIdx})):: map= {map.name}, chdLen= {chdLen}</color>");
         map.gameObject.SetActive(true);
 
         //* 背景インデックス 確認
-        if(chdLen < bgIdx)
-            bgIdx = chdLen;
+        if(chdLen < bgIdx) bgIdx = chdLen;
 
         //* Switchアニメー 処理
         if(bgIdx > 0) {
@@ -758,13 +761,16 @@ public class GM : MonoBehaviour {
             bg.gameObject.SetActive(bgIdx == i);
             if(bgIdx == i) {
                 Debug.Log($"coSetMapBG(bgIdx({bgIdx})):: 子 bg.name= {bg.name}");
-                //* 背景種類 検査
-                if(bg.name.Contains(BG_STT.WindMill.ToString())) 
-                    bgStatus = BG_STT.WindMill;
-                else if(bg.name.Contains(BG_STT.Bush.ToString()))
-                    bgStatus = BG_STT.Bush;
-                else 
-                    bgStatus = BG_STT.Normal;
+                //* Set BG Status
+                if(bg.name.Contains(BG_STT.StarMountain.ToString()))    bgStatus = BG_STT.StarMountain;
+                else if(bg.name.Contains(BG_STT.Windmill.ToString()))   bgStatus = BG_STT.Windmill;
+                else if(bg.name.Contains(BG_STT.Orchard.ToString()))   bgStatus = BG_STT.Orchard;
+                else if(bg.name.Contains(BG_STT.Swamp.ToString()))   bgStatus = BG_STT.Swamp;
+                else if(bg.name.Contains(BG_STT.Bush.ToString()))   bgStatus = BG_STT.Bush;
+                else if(bg.name.Contains(BG_STT.MonkeyWat.ToString()))   bgStatus = BG_STT.MonkeyWat;
+                else if(bg.name.Contains(BG_STT.EntranceOfTundra.ToString()))   bgStatus = BG_STT.EntranceOfTundra;
+                else if(bg.name.Contains(BG_STT.SnowMountain.ToString()))   bgStatus = BG_STT.SnowMountain;
+                else if(bg.name.Contains(BG_STT.IceDragon.ToString()))   bgStatus = BG_STT.IceDragon;
 
                 pet.TgPos = bg.GetChild(PETPOS).transform.localPosition;
                 pet.Sr.flipX = true;
@@ -772,12 +778,12 @@ public class GM : MonoBehaviour {
         }
 
         //* 動物 切り替え
-        GM._.Anm.setRandomSprLibAsset();
+        GM._.Anm.setRandomAnimal();
 
         //* 特別背景 処理
         var curBg = map.GetChild(bgIdx);
         //* 風車 BG
-        if(bgStatus == BG_STT.WindMill) {
+        if(bgStatus == BG_STT.Windmill) {
             // 雲
             cloud1.transform.position = new Vector2(cloud1.transform.position.x, 12);
             cloud2.transform.position = new Vector2(cloud2.transform.position.x, 10);
@@ -821,7 +827,7 @@ public class GM : MonoBehaviour {
             anm.transform.position = new Vector2(2, -3);
         }
 
-        //* 最後 待機
+        //* 最後Idxなら 待機
         if(bgIdx > 0) {
             yield return Util.time0_8;
         }

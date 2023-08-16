@@ -10,15 +10,9 @@ public class Enum {
     public enum FUNITURE_CATE {Funiture, Decoration, Bg, Mat};
     public enum INV_CATE {Player, Pet};
     public enum FUNITURE_BG {Wall, Floor};
-    public enum MAP {
-        Forest, Jungle, Tundra,
-    };
-    public enum MG {
-        Minigame1, Minigame2, Minigame3
-    }
-    public enum MINIGAME_LV {
-        Easy, Normal, Hard
-    }
+    public enum MAP {Forest, Jungle, Tundra};
+    public enum MG {Minigame1, Minigame2, Minigame3}
+    public enum MINIGAME_LV {Easy, Normal, Hard}
     public enum TAG {
         GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj,
         TableDecoArea,

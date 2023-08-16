@@ -216,7 +216,7 @@ public class QuizManager : MonoBehaviour {
                 yield return StartCoroutine(GM._.coSetMapBG(1));
             }
             else {
-                GM._.Anm.setRandomSprLibAsset(); //* 動物 切り替え
+                GM._.Anm.setRandomAnimal(); //* 動物 切り替え
             }
         }
 

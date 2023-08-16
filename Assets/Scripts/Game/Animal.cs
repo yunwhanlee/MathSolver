@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class Animal : MonoBehaviour {
 
     [Header("OUTSIDE")]
     Animator anim; public Animator Anim {get => anim;}
-    SpriteRenderer sr;  public SpriteRenderer Sr {get => sr;}
+    SpriteRenderer sr;  public SpriteRenderer Sr {get => sr;} //* Sorting Order
 
     [Header("ACTIVE TYPE")]
     [SerializeField] GameObject animalHeartPoofEF;
@@ -18,9 +19,19 @@ public class Animal : MonoBehaviour {
     [SerializeField] GameObject animalTalkEF;
 
     [Header("VALUE")]
-    SpriteLibrary sprLib; public SpriteLibrary SprLib {get => sprLib;}
+    SpriteLibrary sprLib;
+    
     [SerializeField] List<SpriteLibraryAsset> animalSprLibAssetList;
     [SerializeField] List<SpriteLibraryAsset> jungleSmallAnimalSprLibAstList;
+
+    [Header("FOREST")]
+    [SerializeField] List<SpriteLibraryAsset> forestAnimalList; // 最大8
+    [Header("JUNGLE")]
+    [SerializeField] List<SpriteLibraryAsset> swampAnimalList; // 最大8
+    [SerializeField] List<SpriteLibraryAsset> bushAnimalList; // 最大4
+    [SerializeField] List<SpriteLibraryAsset> monkeyWatAnimalList; // 最大3
+    [Header("TUNDRA : デザインもっと必要")]
+    [SerializeField] List<SpriteLibraryAsset> tundraAnimalList; // 最大8
 
     void Start() {
         anim = GetComponent<Animator>();
@@ -30,22 +41,56 @@ public class Animal : MonoBehaviour {
         animalTalkEF.SetActive(false);
 
         //* Set Random SpriteLibraryAsset
-        // setRandomSprLibAsset();
+        // setRandomAnimal();
     }
 ///------------------------------------------------------------------------------------------
 #region FUNC
 ///------------------------------------------------------------------------------------------
-    public void setRandomSprLibAsset() {
-        List<SpriteLibraryAsset> animalList;
-        if(GM._.BgStatus == GM.BG_STT.Bush) //* 一般動物
-            animalList = jungleSmallAnimalSprLibAstList;
-        else //* 小さい動物
-            animalList = animalSprLibAssetList;
+    public void setRandomAnimal() {
+        List<SpriteLibraryAsset> animalList = null;
+
+        switch(GM._.BgStatus) {
+            case GM.BG_STT.StarMountain :
+            case GM.BG_STT.Windmill :
+            case GM.BG_STT.Orchard : {
+                animalList = forestAnimalList;
+                break;
+            }
+            case GM.BG_STT.Swamp : {
+                animalList = swampAnimalList;
+                break;
+            }
+            case GM.BG_STT.Bush : {
+                animalList = bushAnimalList;
+                break;
+            }
+            case GM.BG_STT.MonkeyWat : {
+                animalList = monkeyWatAnimalList;
+                break;
+            }
+            case GM.BG_STT.EntranceOfTundra :
+            case GM.BG_STT.SnowMountain :
+            case GM.BG_STT.IceDragon : {
+                animalList = tundraAnimalList;
+                break;
+            }
+        }
+
+        // if(GM._.BgStatus == GM.BG_STT.Bush) //* 一般動物
+        //     animalList = jungleSmallAnimalSprLibAstList;
+        // else //* 小さい動物
+        //     animalList = animalSprLibAssetList;
+
+        //! Error対応
+        if(animalList == null) {
+            Debug.LogError("Animal:: animalListを初期化することができません。");
+            return;
+        }
 
         int randIdx = Random.Range(0, animalList.Count);
         sprLib.spriteLibraryAsset = animalList[randIdx];
 
-        Debug.Log($"setRandomSprLibAsset():: BgStatus= {GM._.BgStatus}, animalList[{randIdx}]= {animalList[randIdx].name}");
+        Debug.Log($"setRandomAnimal():: BgStatus= {GM._.BgStatus}, animalList[{randIdx}]= {animalList[randIdx].name}");
 
         //* このリスト 削除
         animalList.RemoveAt(randIdx);
