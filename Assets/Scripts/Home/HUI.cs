@@ -82,6 +82,7 @@ public class HUI : MonoBehaviour {
 
     [Header("SHOP & INV INFO DIALOG")]
     [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
+    [SerializeField] Sprite[] infoMoveBtnIconSprs;
     [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
     [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
     [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}
@@ -90,6 +91,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] Button infoDlgPurchaseBtn;    public Button InfoDlgPurchaseBtn {get => infoDlgPurchaseBtn; set => infoDlgPurchaseBtn = value;}
     [SerializeField] TextMeshProUGUI infoDlgItemPriceTxt;    public TextMeshProUGUI InfoDlgItemPriceTxt {get => infoDlgItemPriceTxt; set => infoDlgItemPriceTxt = value;}
     [SerializeField] Button infoDlgMoveBtn;    public Button InfoDlgMoveBtn {get => infoDlgMoveBtn; set => infoDlgMoveBtn = value;}
+    [SerializeField] Image infoDlgMoveIconImg;
     [SerializeField] TextMeshProUGUI infoDlgMoveCttTxt;    public TextMeshProUGUI InfoDlgMoveCttTxt {get => infoDlgMoveCttTxt; set => infoDlgMoveCttTxt = value;}
     [SerializeField] Button infoDlgArrangeBtn;    public Button InfoDlgArrangeBtn {get => infoDlgArrangeBtn; set => infoDlgArrangeBtn = value;}
 
@@ -491,22 +493,44 @@ public class HUI : MonoBehaviour {
         }
     }
     public void setInfoDlgData(Item item) {
-        Debug.Log($"setInfoDlgData(item):: item.Name= {item.Name}");
+        Debug.Log($"setInfoDlgData(item):: item.Name= {item.Name}, item.Price= {item.Price}");
+        const int CLOTH_ICON = 0, QUEST_ICON = 1, MINIGAME_ICON = 2, FAME_ICON = 3;
+        string moveBtncontent = "";
+        Sprite moveBtnIconSpr = null;
 
-        //* 例外
+        //* 例外1（スキン）
         switch(item.Name) {
             case "GoldApple Pet":
-                infoDlgMoveCttTxt.text = "Minigame1 Clear";
+                moveBtncontent = "Minigame1 Clear";
+                moveBtnIconSpr = infoMoveBtnIconSprs[MINIGAME_ICON];
                 break;
             default: 
-                infoDlgMoveCttTxt.text = "Go Clothshop";
+                moveBtncontent = "Go Clothshop";
+                moveBtnIconSpr = infoMoveBtnIconSprs[CLOTH_ICON];
                 break;
+        }
+
+        //* 例外2（家具）
+        if(item.Price.Split("_").Length >= 2) {
+            string keyword = item.Price.Split("_")[0];
+            string condition = item.Price.Split("_")[1];
+            moveBtncontent = condition;
+            int iconIdx = (keyword == "quest")? QUEST_ICON : (keyword == "fame")? FAME_ICON : -1;
+            moveBtnIconSpr = infoMoveBtnIconSprs[iconIdx];
         }
 
         infoDlgItemNameTxt.text = LM._.localize(item.Name);
         infoDlgItemImg.sprite = item.Spr;
         infoDlgItemPriceTxt.text = item.Price.ToString();
+
+        //* MoveBtn
+        infoDlgMoveIconImg.sprite = moveBtnIconSpr;
+        infoDlgMoveCttTxt.text = moveBtncontent;
     }
+
+    /// <summary>
+    /// Infoダイアログ 表示
+    /// </summary>
     /// <param name="idx">[0]: Purchase, [1]: MoveBtn, [2]: Arrange</param>
     public Button activeInfoDlgBtn(int idx) {
         Button resBtn = null;

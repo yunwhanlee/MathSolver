@@ -35,20 +35,25 @@ public abstract class ItemFrameBtn {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class FunitureShopItemBtn : ItemFrameBtn {
+    //* 追加
+    const int COIN_ICON = 0, FAME_ICON = 1, EMPTY = 2;
     [SerializeField] TextMeshProUGUI priceTxt; public TextMeshProUGUI PriceTxt {get => priceTxt; set => priceTxt = value;}
+    [SerializeField] Image priceIconImg;
 
     public FunitureShopItemBtn( //* 親 param
     GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj
-    ,TextMeshProUGUI priceTxt) //* 子 param
+    ,TextMeshProUGUI priceTxt, Image priceIconImg) //* 子 param
     :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj) { //* 親 コンストラクター 呼出し
         //* 子 要素
         this.priceTxt = priceTxt;
+        this.priceIconImg = priceIconImg;
     }
 
     public override void init() {
         base.init();
-        //* 子 要素
+        //* 子 要素 (初期化)
         priceTxt.text = "";
+        priceIconImg.sprite = HM._.fUI.PriceIconSprs[COIN_ICON];
     }
 
     public override void updateItemFrame(Item item) {
@@ -60,11 +65,11 @@ public class FunitureShopItemBtn : ItemFrameBtn {
             //* 子 要素
             if(item is Funiture) {
                 var ft = item as Funiture;
-                priceTxt.text = ft.Price.ToString();
+                priceTxt.text = convertPriceTxt(ft.Price);
             }
             else if(item is BgFuniture) {
                 var bg = item as BgFuniture;
-                priceTxt.text = bg.Price.ToString();
+                priceTxt.text = convertPriceTxt(bg.Price);
             }
             //* priceTxtObj (非)表示
             priceTxt.transform.parent.gameObject.SetActive(item.IsLock);
@@ -72,6 +77,20 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);
         }
+    }
+    private string convertPriceTxt(string priceTxt) {
+        Debug.Log($"convertPriceTxt(priceTxt= {priceTxt})");
+        string res = priceTxt;
+        if(priceTxt.Contains("quest")) {
+            res = "???";
+            priceIconImg.sprite = HM._.fUI.PriceIconSprs[EMPTY];
+        }
+        else if(priceTxt.Contains("fame")) {
+            res = priceTxt.Split("_")[1];
+            Debug.Log("priceIconImg.name= " + priceIconImg);
+            priceIconImg.sprite = HM._.fUI.PriceIconSprs[FAME_ICON];
+        }
+        return res;
     }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,7 +133,7 @@ public abstract class Item {
     [SerializeField] bool isArranged;   public bool IsArranged {get => isArranged; set => isArranged = value;}
 
     //* 抽象 : ★★★ 親クラスで、抽象メソッドが呼ばれても、実際に動く場所は「子」クラスだから大丈夫
-    public abstract int Price {get; set;} //? 子のpriceがあれば、使う
+    public abstract string Price {get; set;} //? 子のpriceがあれば、使う
     public abstract void create();
     //* 仮想
     public virtual void display() {
@@ -138,9 +157,9 @@ public abstract class Item {
             isNotify = true;
             HM._.ui.activeNewFuniturePopUp(spr, name);
         }
-        else if(DB.Dt.Coin >= this.Price) {
+        else if(DB.Dt.Coin >= int.Parse(this.Price)) {
             Debug.Log("💰購入成功！！");
-            DB.Dt.setCoin(-this.Price);
+            DB.Dt.setCoin(-int.Parse(this.Price));
             isLock = false;
             isNotify = true;
             HM._.ui.activeNewFuniturePopUp(spr, name);
@@ -151,22 +170,28 @@ public abstract class Item {
         }
     }
     public virtual void arrange() {
-        Debug.Log("arrange()::");
+        const int PURCHASE_BTN = 0, MOVE_BTN = 1;
+        Debug.Log($"<color=white>Item:: arrange():: name= {name} ,Price= {Price}</color>");
         var hui = HM._.ui;
         //* ロック
         if(isLock) {
+            //* Infoダイアログ 表示
             hui.InfoDialog.SetActive(true);
-            hui.setInfoDlgData(this);
             switch(this) {
-                case Funiture: case BgFuniture:
-                    hui.activeInfoDlgBtn(idx: 0);
-                    //*--> fui.onClickInfoDialogPurchaseBtn()でアイテム 購入
+                case Funiture:
+                case BgFuniture:
+                    //* 家具のみPriceが有るので、活用
+                    int index = (this.Price.Contains("quest") || this.Price.Contains("fame"))? MOVE_BTN : PURCHASE_BTN;
+                    hui.activeInfoDlgBtn(idx: index);
+                    //--> fui.onClickInfoDialogPurchaseBtn()でアイテム 購入
                     break;
-                case PlayerSkin: case PetSkin:
-                    hui.activeInfoDlgBtn(idx: 1);
-                    //*--> ui.onClickGoClothShop()で、場所移動
+                case PlayerSkin:
+                case PetSkin:
+                    hui.activeInfoDlgBtn(idx: MOVE_BTN);
+                    //--> ui.onClickGoClothShop()で、場所移動
                     break;
             }
+            hui.setInfoDlgData(this); //* 適用
         }
         //* 配置
         else {
@@ -200,7 +225,7 @@ public abstract class Item {
 [System.Serializable]
 public class Funiture : Item {
     [Header("追加")]
-    [SerializeField] int price; public override int Price {get => price; set => price = value;}
+    [SerializeField] string price; public override string Price {get => price; set => price = value;}
     [SerializeField] GameObject prefab;    public GameObject Prefab {get => prefab; set => prefab = value;}
     [SerializeField] Vector2 pos;   public Vector2 Pos {get => pos; set => pos = value;}
     [SerializeField] bool isFlat;  public bool IsFlat {get => isFlat; set => isFlat = value;}
@@ -254,7 +279,7 @@ public class Funiture : Item {
 public class BgFuniture : Item {
     public enum TYPE {Wall, Floor};
     [Header("追加")]
-    [SerializeField] int price; public override int Price {get => price; set => price = value;}
+    [SerializeField] string price; public override string Price {get => price; set => price = value;}
     [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
 
     public override void create() {
@@ -285,7 +310,7 @@ public class BgFuniture : Item {
 public class PlayerSkin : Item {
     [Header("追加")]
     [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset; set => sprLibraryAsset = value;}
-    public override int Price { get => 0; set {} } // 使わない
+    public override string Price { get => ""; set {} } // 使わない
 
     public override void create() {
         //* 画像 (タイプによって)
@@ -317,7 +342,7 @@ public class PlayerSkin : Item {
 public class PetSkin : Item {
     [Header("追加")]
     [SerializeField] SpriteLibraryAsset sprLibraryAsset;    public SpriteLibraryAsset SprLibraryAsset {get => sprLibraryAsset; set => sprLibraryAsset = value;}
-    public override int Price { get => 0; set {} } // 使わない
+    public override string Price { get => ""; set {} } // 使わない
 
     public override void create() {
         //* 画像 (タイプによって)

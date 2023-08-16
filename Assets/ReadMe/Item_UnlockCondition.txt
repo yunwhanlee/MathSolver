@@ -1,0 +1,28 @@
+InfoDialog & FunitrueShop Btns of Item Unlock Condition
+
+インベントリへある「アイテム」：家具、スキン(Player, Pet)はアンロック条件がある。
+
+- （普通）家具：購入、スキン：ガチャ。
+- （特集）の場合がある。
+    ★ DBのInspectorビューに登録したデータを基に判断。
+        【家具】 は Price（String型）変数で判断。
+            1.(普通) Priceへ{1000}値段を書く。
+            2.(クエスト) Priceへ"quest_{クエスト解禁条件}"を書く ※ 例）quest_Forest clear とか quest_Minigame1など
+            3.(名声) Priceへ"fame_{10}"を書く
+
+            ＜関連スクリプト＞
+                (price文字 転換・変更) Class:: updateItemFrame:: convertPriceTxt(string priceTxt)メソッド
+                (どのボタン活性化するか確認) Class:: Item:: arrange()メソッド
+                (MoveBtnアイコンと文字 設定) HUI:: setInfoDlgData(Item item)メソッド
+
+        -----------------------------------------------------
+
+        【スキン】は Name（String型）変数で判断。
+            1. Nameへ書いた名前が HUI::setInfoDlgData()内、siwtch文で有ったら、特別な解禁を判断。
+               つまり、switch文で特別処理をする名前を一々登録必要がある。
+
+            ＜関連スクリプト＞
+                (どのボタン活性化するか確認) Class:: Item:: arrange()メソッド
+                (MoveBtnアイコンと文字 設定) HUI:: setInfoDlgData(Item item)メソッド
+
+

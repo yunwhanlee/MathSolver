@@ -16,9 +16,10 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] Sprite[] cateDecorationSprs;
     [SerializeField] Sprite[] cateFurnitureSprs;
     [SerializeField] Sprite[] cateMatSprs;
-
     [SerializeField] Button[] categoryBtns; public Button[] CategoryBtns {get => categoryBtns; set => categoryBtns = value;}
     [SerializeField] Image[] categoryBtnIcons;
+    [Header("PRICE ICONS")]
+    [SerializeField] Sprite[] priceIconSprs;    public Sprite[] PriceIconSprs {get => priceIconSprs;}
     [Header("PAGE")]
     [SerializeField] int page;
     [SerializeField] TextMeshProUGUI pageTxt;
@@ -36,14 +37,16 @@ public class FunitureUIManager : MonoBehaviour
         itemBtns = new FunitureShopItemBtn[content.childCount];
         for(int i = 0; i < content.childCount; i++) {
             Transform tf = content.GetChild(i);
+            //* コンストラクタ（初期化）
             itemBtns[i] = new FunitureShopItemBtn(
                 obj: tf.gameObject, 
                 img: tf.GetChild(IMG).GetComponent<Image>(),
                 lockFrameObj: tf.GetChild(LOCKFRAME).gameObject,
                 notifyObj: tf.GetChild(NOTIFY).gameObject,
                 arrangeFrameObj: tf.GetChild(ARRANGE).gameObject,
-                //* 子 要素
-                priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>()
+                //* 子（追加） 要素
+                priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>(),
+                priceIconImg: tf.GetChild(PRICE).GetComponentInChildren<Image>()
             );
         }
 
