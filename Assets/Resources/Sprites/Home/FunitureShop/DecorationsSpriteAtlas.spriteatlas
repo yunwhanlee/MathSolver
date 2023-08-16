@@ -58,6 +58,7 @@ SpriteAtlas:
     - d71212c2cfae3154c8d64705549940dc: 21300000
     - f1e01a943833c394f83a8774979ebda5: 21300000
     - f7d73e656a2094b4382757403edab935: 21300000
+    - 2ecdbae78e37b4c4c8321b4497db5a1a: 21300000
     - 7914d429362afae4b8ba477f92511806: 21300000
     - 885437a934ed3fa459e2b4c9b066472c: 21300000
     - c387407a3692e914d9302dcc01272bde: 21300000
@@ -76,6 +77,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d71212c2cfae3154c8d64705549940dc, type: 3}
   - {fileID: 21300000, guid: f1e01a943833c394f83a8774979ebda5, type: 3}
   - {fileID: 21300000, guid: f7d73e656a2094b4382757403edab935, type: 3}
+  - {fileID: 21300000, guid: 2ecdbae78e37b4c4c8321b4497db5a1a, type: 3}
   - {fileID: 21300000, guid: 7914d429362afae4b8ba477f92511806, type: 3}
   - {fileID: 21300000, guid: 885437a934ed3fa459e2b4c9b066472c, type: 3}
   - {fileID: 21300000, guid: c387407a3692e914d9302dcc01272bde, type: 3}
@@ -93,6 +95,7 @@ SpriteAtlas:
   - Deco_KettleBell
   - Deco_MountainVase
   - Deco_SpaceWarriorFigure
+  - Deco_IceDragonStatue
   - Deco_GlassRhinoceros
   - Deco_WoodenWolfStatue
   - Deco_KettleVase
