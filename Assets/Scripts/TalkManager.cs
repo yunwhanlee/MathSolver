@@ -53,10 +53,33 @@ public abstract class TalkManager : MonoBehaviour {
     public void onClickRegistActionBtn(int id) => action(id);
     //* スキップ
     public void onClickSkipBtn() {
-        int lastIdx = talkDt[curId].Length - 1;
-        Debug.Log($"TalkManager:: onClickSkipBtn():: talkDt[curId({curId})], lastIdx= {lastIdx}-> {talkDt[curId][lastIdx]}");
-        if(talkIdx == 1) talkIdx = lastIdx;
-        play();
+        //! JUST FOR TEST : 診断評価ができなかったので、システム的によくない。
+        if(DB.Dt.IsTutoRoomTrigger) {
+            DB.Dt.IsTutoRoomTrigger = false;
+            DB.Dt.IsTutoFunitureShopTrigger = false;
+            DB.Dt.IsTutoClothShopTrigger = false;
+            DB.Dt.IsTutoInventoryTrigger = false;
+            DB.Dt.IsTutoGoGameTrigger = false;
+            DB.Dt.IsTutoWorldMapTrigger = false;
+            DB.Dt.IsTutoFinishTrigger = false;
+            DB.Dt.IsTutoDiagChoiceDiffTrigger = false;
+            DB.Dt.IsTutoDiagFirstQuizTrigger = false;
+            DB.Dt.IsTutoDiagFirstAnswerTrigger = false;
+            DB.Dt.IsTutoDiagResultTrigger = false;
+            Time.timeScale = 1;
+            isAction = false;
+            talkIdx = 0;
+            curId = 5;
+            talkDialog.SetActive(false);
+        }
+        else {
+            //? これが有っている
+            int lastIdx = talkDt[curId].Length - 1;
+            Debug.Log($"TalkManager:: onClickSkipBtn():: talkDt[curId({curId})], lastIdx= {lastIdx}-> {talkDt[curId][lastIdx]}");
+            if(talkIdx == 1) talkIdx = lastIdx;
+            play();
+        }
+        
     }
 #endregion
 

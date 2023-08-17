@@ -34,7 +34,11 @@ public class HomeTalkManager : TalkManager {
     [Header("EXTRA")]
     [SerializeField] GameObject TutorialRoomPanelBtn;
 
-    void Start() {
+    // void Start() {
+    //     TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
+    // }
+
+    void Update() {
         TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
     }
 

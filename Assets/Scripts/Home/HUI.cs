@@ -191,17 +191,11 @@ public class HUI : MonoBehaviour {
 
     void Update() {
         //! TEST
-        if(Input.GetKeyDown(KeyCode.Q)) {
-            Debug.Log("GetKeyDown(KeyCode.Q)");
-            StartCoroutine(coActiveLevelUpPopUp( new Dictionary<RewardItemSO, int>() {
-                {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
-            }));
-        }
         if(Input.GetKeyDown(KeyCode.W)) {
             Debug.Log("GetKeyDown(KeyCode.W)");
             StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
                 {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
-                {rwdSOList[(int)Enum.RWD_IDX.Exp], 300},
+                {rwdSOList[(int)Enum.RWD_IDX.Exp], DB.Dt.MaxExp},
             }));
         }
     }
