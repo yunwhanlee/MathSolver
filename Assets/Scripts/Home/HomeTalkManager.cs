@@ -48,6 +48,12 @@ public class HomeTalkManager : TalkManager {
         talkDt.Add((int)ID.TUTO_ROOM, new string[] {
             "만나서 반가워!\n새로온 수학조수구나!:0" // -> talkIdx[1]
             , "이름이 어떻게되니?:0"
+            , "시발:0"
+            , "시발:5_FLIP"
+            , "시발:11_FLIP"
+            , "시발:0"
+            , "시발:17_FLIP"
+            , "시발:20"
             , "...:0"
             , $"NICKNAME!\n정말 멋진 이름이야!:1"
             , "나는 이 마을 수학해결사 늑선생이야. 잘 부탁해!:0"

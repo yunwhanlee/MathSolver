@@ -145,8 +145,12 @@ public abstract class TalkManager : MonoBehaviour {
             StartCoroutine(coTxtTeleTypeID);
 
             //* スピーカー
+            const int DEF_X = -340, DEF_Y = -500;
+            const int DEF_SC = 2;
             int key = int.Parse(spkKey);
-            var pos = spkImg.rectTransform.anchoredPosition;
+            var tf = spkImg.rectTransform;
+            tf.anchoredPosition = new Vector2(DEF_X, DEF_Y); // Default Pos
+            tf.localScale = new Vector2(DEF_SC, DEF_SC);
             
             switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
                 case (int)SPK_IDX.Pl_Idle: case (int)SPK_IDX.pl_Happy: case (int)SPK_IDX.Pl_Sad: 
@@ -154,7 +158,7 @@ public abstract class TalkManager : MonoBehaviour {
                     Debug.Log($"TalkManager:: talk():: spkImg.spr = {spkSprDtList[key]}");
                     //* 画像
                     spkImg.sprite = spkSprDtList[key];
-                    spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(pos.x), pos.y);
+                    spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(tf.anchoredPosition.x), tf.anchoredPosition.y);
                     if(key == (int)SPK_IDX.Pl_Sad) {
                         talkDialogAnim.SetTrigger(Enum.ANIM.DoShock.ToString());
                         Camera.main.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoCamShake.ToString());
@@ -166,42 +170,43 @@ public abstract class TalkManager : MonoBehaviour {
                 }
                 case (int)SPK_IDX.Animal_Idle: case (int)SPK_IDX.Animal_Happy: case (int)SPK_IDX.Animal_Sad:
                 {
-                    setOtherPortrait("동물친구", key, pos, isFlip);
+                    setOtherPortrait("동물친구", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.DotalMan: 
                 {
-                    setOtherPortrait("도톨아저씨", key, pos, isFlip);
+                    setOtherPortrait("도톨아저씨", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.MoongMom: 
                 {
-                    setOtherPortrait("뭉이어멈", key, pos, isFlip);
+                    setOtherPortrait("뭉이어멈", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.Monkey_Idle: case (int)SPK_IDX.Monkey_Happy: case (int)SPK_IDX.Monkey_Sad: 
                 {
-                    setOtherPortrait("원숭이", key, pos, isFlip);
+                    setOtherPortrait("원숭이", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.Flog_Idle: case (int)SPK_IDX.Flog_Happy: case (int)SPK_IDX.Flog_Sad: 
                 {
-                    setOtherPortrait("개구리", key, pos, isFlip);
+                    setOtherPortrait("개구리", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.Ant_Idle: case (int)SPK_IDX.Ant_Happy: case (int)SPK_IDX.Ant_Sad: 
                 {
-                    setOtherPortrait("개미", key, pos, isFlip);
+                    setOtherPortrait("개미", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.WarriorMonkey_Idle: case (int)SPK_IDX.WarriorMonkey_Happy: case (int)SPK_IDX.WarriorMonkey_Sad:
                 {
-                    setOtherPortrait("전사원숭이", key, pos, isFlip);
+                    setOtherPortrait("전사원숭이", key, tf.anchoredPosition, isFlip);
                     break;
                 }
                 case (int)SPK_IDX.Monkey_God:
                 {
-                    setOtherPortrait("몽키신", key, pos, isFlip);
+                    tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 150);
+                    setOtherPortrait("몽키신", key, tf.anchoredPosition, isFlip);
                     break;
                 }
             }
