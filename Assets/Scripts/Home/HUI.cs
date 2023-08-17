@@ -304,7 +304,9 @@ public class HUI : MonoBehaviour {
         public void onClickAchiveRankCloseBtn() {
             topGroup.SetActive(true);
             achiveRankPanel.SetActive(false);
-            // woodSignObj.SetActive(true);
+            //* 前の場所によった表示に 最新化
+            onClickWoodSignArrowBtn(dirVal: -1);
+            onClickWoodSignArrowBtn(dirVal: +1);
         }
         public void onClickDecorateModeIconBtn() {
             if(HM._.qm.IsFinishMainQuest) {
@@ -532,7 +534,14 @@ public class HUI : MonoBehaviour {
                     break;
                 case "fame": 
                     moveBtnIconSpr = infoMoveBtnIconSprs[FAME_ICON];
-                    onClickMoveBtn = onClickPortraitBtn;
+                    onClickMoveBtn = () => {
+                        int neededFame = int.Parse(conditionCtt);
+                        if(DB.Dt.Fame >= neededFame) 
+                            item.purchase(isFree: true);
+                        else
+                            showErrorMsgPopUp($"Not enough fame(now {DB.Dt.Fame})");
+                    };
+                    
                     break;
             }
 
@@ -666,9 +675,11 @@ public class HUI : MonoBehaviour {
         yield return coCreateRewardItemList(rewardDic, lvUpItemGroup);
     }
     public IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
+        Debug.Log($"coActiveRewardPopUp(fame= {fame}, rewardDic= {rewardDic}):: ");
         HM._.state = HM.STATE.SETTING;
         rewardPopUp.SetActive(true);
         rewardPopUpFameValTxt.text = $"+{fame}";
+        DB.Dt.Fame += fame;
 
         yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
     }
