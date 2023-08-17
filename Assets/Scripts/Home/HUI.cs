@@ -283,6 +283,7 @@ public class HUI : MonoBehaviour {
 
     }
     public void onClickGoClothShop() {
+        Debug.Log("onClickGoClothShop()::");
         infoDialog.SetActive(false);
         while(curHomeSceneIdx > (int)Enum.HOME.ClothShop) {
             onClickWoodSignArrowBtn(dirVal: -1);
@@ -298,7 +299,10 @@ public class HUI : MonoBehaviour {
             StartCoroutine(coPlayMenuToogleBtnMoveAnim(isToggle)); // menuTapFrame.anchoredPosition = new Vector2(isToggle? 250 : 0, 0);
         }
         public void onClickAchiveRankIconBtn() {
+            Debug.Log("onClickAchiveRankIconBtn()::");
             topGroup.SetActive(false);
+            infoDialog.SetActive(false);
+            roomPanel.SetActive(true);
             achiveRankPanel.SetActive(true);
             HM._.qm.updateMainQuestList();
             handFocusTf.gameObject.SetActive(false);
@@ -341,8 +345,10 @@ public class HUI : MonoBehaviour {
         infoDialog.SetActive(true);
     }
     public void onClickPortraitBtn() {
+        Debug.Log("onClickPortraitBtn()::");
         HM._.state = HM.STATE.SETTING;
         topGroup.SetActive(false);
+        infoDialog.SetActive(false);
         settingPanel.SetActive(true);
     }
     public void onClickSettingPanelCloseBtn() {
@@ -397,6 +403,7 @@ public class HUI : MonoBehaviour {
 
     #region SELECT MAP
     public void onClickGoGameDialogYesBtn() { // Choose Map
+        Debug.Log("onClickGoGameDialogYesBtn()::");
         // if(HM._.qm.IsFinishMainQuest) {
             // showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
             // return;
@@ -500,27 +507,46 @@ public class HUI : MonoBehaviour {
         const int CLOTH_ICON = 0, QUEST_ICON = 1, MINIGAME_ICON = 2, FAME_ICON = 3;
         string moveBtncontent = "";
         Sprite moveBtnIconSpr = null;
+        UnityAction onClickMoveBtn = () => {};
+        infoDlgMoveBtn.onClick.RemoveAllListeners();
 
         //* 例外1（スキン）
         switch(item.Name) {
             case "GoldApple Pet":
                 moveBtncontent = "Minigame1 Clear";
                 moveBtnIconSpr = infoMoveBtnIconSprs[MINIGAME_ICON];
+                onClickMoveBtn = onClickGoGameDialogYesBtn;
+                
                 break;
             default: 
                 moveBtncontent = "Go Clothshop";
                 moveBtnIconSpr = infoMoveBtnIconSprs[CLOTH_ICON];
+                onClickMoveBtn = onClickGoClothShop;
                 break;
         }
 
         //* 例外2（家具）
         if(item.Price.Split("_").Length >= 2) {
             string keyword = item.Price.Split("_")[0];
-            string condition = item.Price.Split("_")[1];
-            moveBtncontent = condition;
-            int iconIdx = (keyword == "quest")? QUEST_ICON : (keyword == "fame")? FAME_ICON : -1;
-            moveBtnIconSpr = infoMoveBtnIconSprs[iconIdx];
+            string conditionCtt = item.Price.Split("_")[1];
+
+            //* キーワードで、アイコンとイベント適用
+            switch(keyword) {
+                case "quest":
+                    moveBtnIconSpr = infoMoveBtnIconSprs[QUEST_ICON];
+                    onClickMoveBtn = onClickAchiveRankIconBtn;
+                    break;
+                case "fame": 
+                    moveBtnIconSpr = infoMoveBtnIconSprs[FAME_ICON];
+                    onClickMoveBtn = onClickPortraitBtn;
+                    break;
+            }
+
+            //* 条件内容
+            moveBtncontent = conditionCtt;
         }
+
+        infoDlgMoveBtn.onClick.AddListener(onClickMoveBtn);
 
         infoDlgItemNameTxt.text = LM._.localize(item.Name);
         infoDlgItemImg.sprite = item.Spr;
