@@ -83,6 +83,9 @@ public class HUI : MonoBehaviour {
     [Header("SHOP & INV INFO DIALOG")]
     [SerializeField] int curSelectedItemIdx;    public int CurSelectedItemIdx {get => curSelectedItemIdx; set => curSelectedItemIdx = value;}
     [SerializeField] Sprite[] infoMoveBtnIconSprs;
+    [SerializeField] Sprite[] priceIconSprs;    public Sprite[] PriceIconSprs {get => priceIconSprs;}
+    [SerializeField] Sprite[] itemBtnFrameSprs; public Sprite[] ItemBtnFrameSprs {get => itemBtnFrameSprs;} // [0] : NORMAL, [1] : Special
+
     [SerializeField] GameObject infoDialog; public GameObject InfoDialog {get => infoDialog; set => infoDialog = value;}
     [SerializeField] TextMeshProUGUI infoDlgItemNameTxt;    public TextMeshProUGUI InfoDlgItemNameTxt {get => infoDlgItemNameTxt; set => infoDlgItemNameTxt = value;}
     [SerializeField] Image infoDlgItemImg;    public Image InfoDlgItemImg {get => infoDlgItemImg; set => infoDlgItemImg = value;}

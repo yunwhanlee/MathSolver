@@ -29,7 +29,13 @@ public abstract class ItemFrameBtn {
         notifyObj.SetActive(false);
         arrangeFrameObj.SetActive(false);
     }
-    public abstract void updateItemFrame(Item item);
+    public virtual void updateItemFrame(Item item) {
+        Img.sprite = item.Spr;
+        LockFrameObj.SetActive(item.IsLock);
+        NotifyObj.SetActive(item.IsNotify);
+        ArrangeFrameObj.SetActive(item.IsArranged);
+        Obj.GetComponent<Image>().sprite = HM._.ui.ItemBtnFrameSprs[(int)item.Grade];
+    }
 }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -53,24 +59,17 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         base.init();
         //* 子 要素 (初期化)
         priceTxt.text = "";
-        priceIconImg.sprite = HM._.fUI.PriceIconSprs[COIN_ICON];
+        priceIconImg.sprite = HM._.ui.PriceIconSprs[COIN_ICON];
     }
 
     public override void updateItemFrame(Item item) {
         try {
-            Img.sprite = item.Spr;
-            LockFrameObj.SetActive(item.IsLock);
-            NotifyObj.SetActive(item.IsNotify);
-            ArrangeFrameObj.SetActive(item.IsArranged);
+            base.updateItemFrame(item);
             //* 子 要素
-            if(item is Funiture) {
-                var ft = item as Funiture;
-                priceTxt.text = convertPriceTxt(ft.Price);
-            }
-            else if(item is BgFuniture) {
-                var bg = item as BgFuniture;
-                priceTxt.text = convertPriceTxt(bg.Price);
-            }
+            if(item is Funiture)  // var ft = item as Funiture;
+                priceTxt.text = convertPriceTxt(item.Price);
+            else if(item is BgFuniture)  // var bg = item as BgFuniture;
+                priceTxt.text = convertPriceTxt(item.Price);
             //* priceTxtObj (非)表示
             priceTxt.transform.parent.gameObject.SetActive(item.IsLock);
         }
@@ -83,12 +82,11 @@ public class FunitureShopItemBtn : ItemFrameBtn {
         string res = priceTxt;
         if(priceTxt.Contains("quest")) {
             res = "???";
-            priceIconImg.sprite = HM._.fUI.PriceIconSprs[EMPTY];
+            priceIconImg.sprite = HM._.ui.PriceIconSprs[EMPTY];
         }
         else if(priceTxt.Contains("fame")) {
             res = priceTxt.Split("_")[1];
-            Debug.Log("priceIconImg.name= " + priceIconImg);
-            priceIconImg.sprite = HM._.fUI.PriceIconSprs[FAME_ICON];
+            priceIconImg.sprite = HM._.ui.PriceIconSprs[FAME_ICON];
         }
         return res;
     }
@@ -109,10 +107,7 @@ public class InventoryItemBtn : ItemFrameBtn {
 
     public override void updateItemFrame(Item item) {
         try {
-            Img.sprite = item.Spr;
-            LockFrameObj.SetActive(item.IsLock);
-            NotifyObj.SetActive(item.IsNotify);
-            ArrangeFrameObj.SetActive(item.IsArranged);
+            base.updateItemFrame(item);
         }
         catch(NullReferenceException err) {
             Debug.LogError("<color=yellow>DBManagerのInspectorビューに、Nullを確認してください。</color>" + "\n " + err);
@@ -125,7 +120,9 @@ public class InventoryItemBtn : ItemFrameBtn {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public abstract class Item {
+    public enum GRADE {Normal, Special};
     [SerializeField] string name;   public string Name {get => name;}
+    [SerializeField] GRADE grade;   public GRADE Grade {get => grade;}
     [SerializeField] Sprite spr;    public Sprite Spr {get => spr; set => spr = value;}
     // [SerializeField] int id;    public int Id {get => id; set => id = value;}
     [SerializeField] bool isLock;    public bool IsLock {get => isLock; set => isLock = value;}
