@@ -17,7 +17,7 @@ public class WorldMapManager : MonoBehaviour {
     [SerializeField] Sprite normalEdgeSpr, goldenEdgeSpr;
     [SerializeField] Color normalFontClr, goldenFontClr;
     [SerializeField] Map[] maps;    public Map[] Maps {get => maps;}
-    [SerializeField] List<UnityAction> onMapPopUpActionList;
+    [SerializeField] List<UnityAction> onActionList;    public List<UnityAction> OnActionList {get => onActionList; set => onActionList = value;}
 
     void OnEnable() => init();
 
@@ -26,7 +26,7 @@ public class WorldMapManager : MonoBehaviour {
         var m1 = maps[0];
         var m2 = maps[1];
         var m3 = maps[2];
-        onMapPopUpActionList = new List<UnityAction>();
+        onActionList = new List<UnityAction>();
 
         List<Button> lockBtnList = new List<Button>();
 
@@ -49,91 +49,103 @@ public class WorldMapManager : MonoBehaviour {
         });
 
         #region UNLOCK MAP1
-        //* Windmill
+        //* StarMountain Finish ➝ Windmill
         if(m1.IsBgUnlocks[SECOND] && !DB.Dt.IsMap1BG2Trigger) {
             DB.Dt.IsMap1BG2Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m1.BgBtns[SECOND], m1.BgNames[SECOND]));
-            onMapPopUpActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
+            onActionList.Add(() => displayMapUnlockPopUp(m1.BgBtns[SECOND], m1.BgNames[SECOND]));
+            onActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
         }
-        //* Orchard + Minigame1
+        //* Windmill ➝ Orchard + Minigame1
         if(m1.IsBgUnlocks[THIRD] && !DB.Dt.IsMap1BG3Trigger) {
             DB.Dt.IsMap1BG3Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m1.BgBtns[THIRD], m1.BgNames[THIRD]));
-            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_MINIGAME));
+            onActionList.Add(() => displayMapUnlockPopUp(m1.BgBtns[THIRD], m1.BgNames[THIRD]));
+            onActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_MINIGAME));
             //? endSwitchProccess():: (int)ID.UNLOCK_MAP1_MINIGAMEで　MainQuests[MainQuestID].onClickAcceptBtn()実行
         }
         #endregion
         #region UNLOCK MAP2
-        //* Jungle Open & Swamp
+        //* Orchard Finish ➝ Jungle Open & Swamp
         if(m2.IsBgUnlocks[FIRST] && !DB.Dt.IsMap2BG1Trigger) {
             DB.Dt.IsMap2BG1Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[FIRST], m2.MapName, true));
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[FIRST], m2.BgNames[FIRST]));
-            onMapPopUpActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
+            onActionList.Add(() => displayMapUnlockPopUp(m2.BgBtns[FIRST], m2.MapName, true));
+            onActionList.Add(() => displayMapUnlockPopUp(m2.BgBtns[FIRST], m2.BgNames[FIRST]));
+            onActionList.Add(() => HM._.ui.OnDisplayNewItemPopUp()); //* Forest Finish : WoodenWolf Statue
+            onActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
         }
-        //* Bush
+        //* Swamp Finish ➝ Bush
         if(m2.IsBgUnlocks[SECOND] && !DB.Dt.IsMap2BG2Trigger) {
             DB.Dt.IsMap2BG2Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[SECOND], m2.BgNames[SECOND]));
-            onMapPopUpActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
+            onActionList.Add(() => displayMapUnlockPopUp(m2.BgBtns[SECOND], m2.BgNames[SECOND]));
+            onActionList.Add(() => HM._.ui.OnDisplayNewItemPopUp()); //* Swamp Finish : Frog Chair
+            onActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
         }
-        //* MokeyWat + Minigame2
+        //* Bush Finish ➝ MokeyWat + Minigame2
         if(m2.IsBgUnlocks[THIRD] && !DB.Dt.IsMap2BG3Trigger) {
             DB.Dt.IsMap2BG3Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m2.BgBtns[THIRD], m2.BgNames[THIRD]));
+            onActionList.Add(() => displayMapUnlockPopUp(m2.BgBtns[THIRD], m2.BgNames[THIRD]));
             // onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_MINIGAME));
-            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT));
+            onActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT));
             //? endSwitchProccess():: (int)ID.UNLOCK_MAP1_MINIGAMEで　MainQuests[MainQuestID].onClickAcceptBtn()実行
         }
         #endregion
         #region UNLOCK MAP3
-        //* Tundra Open & Entrance of tundra
+        //* MokeyWat Finish ➝ Tundra Open & Entrance of tundra
         if(m3.IsBgUnlocks[FIRST] && !DB.Dt.IsMap3BG1Trigger) {
             DB.Dt.IsMap3BG1Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[FIRST], m3.MapName, true));
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[FIRST], m3.BgNames[FIRST]));
-            onMapPopUpActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
+            onActionList.Add(() => displayMapUnlockPopUp(m3.BgBtns[FIRST], m3.MapName, true));
+            onActionList.Add(() => displayMapUnlockPopUp(m3.BgBtns[FIRST], m3.BgNames[FIRST]));
+            onActionList.Add(() => HM._.ui.OnDisplayNewItemPopUp()); //* Jungle Finish : GoldenMonkey Statue
+            onActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
         }
-        //* Snow mountain
+        //* Entrance of tundra Finish ➝ Snow mountain
         if(m3.IsBgUnlocks[SECOND] && !DB.Dt.IsMap3BG2Trigger) {
             DB.Dt.IsMap3BG2Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[SECOND], m3.BgNames[SECOND]));
-            onMapPopUpActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
+            onActionList.Add(() => displayMapUnlockPopUp(m3.BgBtns[SECOND], m3.BgNames[SECOND]));
+            onActionList.Add(() => HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn());
         }
-        //* Ice Dragon + Minigame3
+        //* Snow mountain Finish ➝ Ice Dragon + Minigame3
         if(m3.IsBgUnlocks[THIRD] && !DB.Dt.IsMap3BG3Trigger) {
             DB.Dt.IsMap3BG3Trigger = true;
-            onMapPopUpActionList.Add(() => displayUnlockPopUp(m3.BgBtns[THIRD], m3.BgNames[THIRD]));
-            onMapPopUpActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_MINIGAME));
+            onActionList.Add(() => displayMapUnlockPopUp(m3.BgBtns[THIRD], m3.BgNames[THIRD]));
+            onActionList.Add(() => HM._.ui.OnDisplayNewItemPopUp()); //* Snow mountain Finish : IceDragon Statue
+            onActionList.Add(() => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_MINIGAME));
             //? endSwitchProccess():: (int)ID.UNLOCK_MAP1_MINIGAMEで　MainQuests[MainQuestID].onClickAcceptBtn()実行
         }
         #endregion
 
-        //* アクション 読込
-        callbackMapPopUpAction();
+        //* アクションリスト 開始
+        callbackOnActionList();
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void onClickClosePopUpBtn() {
+    public void onClickMapUnlockPopUpCloseBtn() {
+        Debug.Log("<color=red>onClickMapUnlockPopUpCloseBtn()::</color>");
         Time.timeScale = 1;
         HM._.ui.MapUnlockPopUp.SetActive(false);
 
         //* 次のアクション 読込
-        callbackMapPopUpAction();
+        callbackOnActionList();
     }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    private void callbackMapPopUpAction() {
-        if(onMapPopUpActionList.Count > 0) {
-            onMapPopUpActionList[0].Invoke();
-            onMapPopUpActionList.RemoveAt(0);
-        }
+
+    /// <summary>
+    /// (内容) UnityAction onActionListを通じて、順番通りメソッドを処理
+    /// (登録) onActionList.Add(() => メソッド());
+    /// (次番) 必ず前のメソッドが終わった最後に、この関数を呼び出すこと！
+    /// </summary>
+    public void callbackOnActionList() {
+        if(onActionList == null) return;
+        if(onActionList.Count <= 0) return;
+        Debug.Log($"callbackOnActionList():: onActionList.Count= {onActionList.Count}");
+        onActionList[0]?.Invoke();
+        onActionList.RemoveAt(0);
     }
-    public void displayUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
-        Debug.Log($"displayUnlockPopUp(btn == null? {btn == null}, {name}):: ");
+    public void displayMapUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
+        Debug.Log($"displayMapUnlockPopUp(btn == null? {btn == null}, {name}):: ");
         Time.timeScale = 0;
         if(btn) btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
         if(btn) {

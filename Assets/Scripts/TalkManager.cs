@@ -13,6 +13,7 @@ public abstract class TalkManager : MonoBehaviour {
         Flog_Idle, Flog_Happy, Flog_Sad, 
         Ant_Idle, Ant_Happy, Ant_Sad,
         WarriorMonkey_Idle, WarriorMonkey_Happy, WarriorMonkey_Sad,
+        Monkey_God,
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -166,6 +167,11 @@ public abstract class TalkManager : MonoBehaviour {
                 case (int)SPK_IDX.WarriorMonkey_Idle: case (int)SPK_IDX.WarriorMonkey_Happy: case (int)SPK_IDX.WarriorMonkey_Sad:
                 {
                     setOtherPortrait("전사원숭이", key, pos, isFlip);
+                    break;
+                }
+                case (int)SPK_IDX.Monkey_God:
+                {
+                    setOtherPortrait("몽키신", key, pos, isFlip);
                     break;
                 }
             }

@@ -44,7 +44,8 @@ public class Enum {
         Apple, Carrot, Banana, Onion, Orange, Potato, Branch, Rock,
     };
     public enum RWD_IDX {
-        Coin, Exp, WoodChair
+        Coin, Exp, WoodChair, FrogChair, 
+        WoodenWolfStatue, GoldenMonkeyStatue, IceDragonStatue
     };
 
     internal static IEnumerable<QuestManager.MQ_ID> GetValues(Type type)

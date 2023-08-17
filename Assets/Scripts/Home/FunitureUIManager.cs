@@ -104,12 +104,10 @@ public class FunitureUIManager : MonoBehaviour
         HM._.ui.NewFuniturePopUp.SetActive(false);
         //* 最新化
         updateItemList();
+
+        //* 次のアクション 読込 (WorldMapNamager:: init()イベントで使われる場合)
+        HM._.wmm.callbackOnActionList();
     }
-    // public void onClickNewFuniturePopUpDisplayBtn() {
-    //     HM._.ui.NewFuniturePopUp.SetActive(false);
-    //     Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
-    //     item.display();
-    // }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNITURE MODE EVENT

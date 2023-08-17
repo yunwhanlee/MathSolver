@@ -15,7 +15,7 @@
     - 登録が終わったら、必ずDBスクリプトをCopy Componentし、一回ゲームスタートしてPASTEしないと保存できない！
     - 一回RESETかける。
 
-5. 使用
+5. 処理作成
     - HUI.cs内、coActiveRewardPopUp(Dictionary<RewardItemSO, int> rewardDic)に使う。
     - パラメータrewardDicは、「Key：登録したアイテムSO」 と 「Value：数量」 になる。
     - アイテムSOは以前に登録したrwdSOListを使う。

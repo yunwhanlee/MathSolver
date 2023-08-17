@@ -105,49 +105,50 @@ public class QuestManager : MonoBehaviour {
         Debug.Log($"getReward({id}):: DB.Dt.MainQuestID= {DB.Dt.MainQuestID}");
         switch(id) {
             case (int)MQ_ID.Tutorial:
-                var extraItem = new Dictionary<RewardItemSO, int>() {{HM._.ui.RwdSOList[(int)Enum.RWD_IDX.WoodChair], 1}};
-                setRewardList(extraItem);
+                setMainQuestReward(new Dictionary<RewardItemSO, int> {{HM._.ui.RwdSOList[(int)Enum.RWD_IDX.WoodChair], 1}});
                 break;
-            case (int)MQ_ID.UnlockMap1Windmill:
-                Debug.Log($"getReward():: UnlockMap1Windmill:: DB.Dt.IsUnlockMap1BG2Arr[REWARD]= {DB.Dt.IsUnlockMap1BG2Arr[REWARD]}");
-                setRewardList();
+            //* FOREST
+            case (int)MQ_ID.UnlockMap1Windmill:                
+                setMainQuestReward();
                 if(!DB.Dt.IsUnlockMap1BG2Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG2_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG2_REWARD);
                 break;
             case (int)MQ_ID.UnlockMap1Orchard:
-                setRewardList();
+                setMainQuestReward();
                 if(!DB.Dt.IsUnlockMap1BG3Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG3_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP1_BG3_REWARD);
                 break;
+            //* JUNGLE
             case (int)MQ_ID.OpenJungleMap2:
-                setRewardList();
+                setMainQuestReward(getExtraReward(Enum.RWD_IDX.WoodenWolfStatue));
                 if(!DB.Dt.IsOpenMap2UnlockBG1Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP2_UNLOCK_BG1_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP2_UNLOCK_BG1_REWARD);
                 break;
             case (int)MQ_ID.UnlockMap2Bush:
-                setRewardList();
+                setMainQuestReward(getExtraReward(Enum.RWD_IDX.FrogChair));
                 if(!DB.Dt.IsUnlockMap2BG2Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG2_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG2_REWARD);
                 break;
             case (int)MQ_ID.UnlockMap2MoneyWat:
-                setRewardList();
+                setMainQuestReward();
                 if(!DB.Dt.IsUnlockMap2BG3Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG3_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP2_BG3_REWARD);
                 break;
+            //* TUNDRA
             case (int)MQ_ID.OpenTundraMap3:
-                setRewardList();
+                setMainQuestReward(getExtraReward(Enum.RWD_IDX.GoldenMonkeyStatue));
                 if(!DB.Dt.IsOpenMap3UnlockBG1Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_REWARD);
                 break;
             case (int)MQ_ID.UnlockMap3SnowMountain:
-                setRewardList();
+                setMainQuestReward();
                 if(!DB.Dt.IsUnlockMap3BG2Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_REWARD);
                 break;
             case (int)MQ_ID.UnlockMap3IceDragon:
-                setRewardList();
+                setMainQuestReward(getExtraReward(Enum.RWD_IDX.IceDragonStatue));
                 if(!DB.Dt.IsUnlockMap3BG3Arr[REWARD])
-                    HM._.ui.OnRewardPopUpAccept += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_REWARD);
+                    HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_REWARD);
                 break;
         }
         
@@ -157,8 +158,12 @@ public class QuestManager : MonoBehaviour {
         if(HM._.ui.HandFocusTf.gameObject.activeSelf)
             HM._.ui.HandFocusTf.gameObject.SetActive(false);
     }
-
-    private void setRewardList(Dictionary<RewardItemSO, int> extraItem = null) {
+    public Dictionary<RewardItemSO, int> getExtraReward(Enum.RWD_IDX enumRewardIdx) {
+        return new Dictionary<RewardItemSO, int> {
+            {HM._.ui.RwdSOList[(int)enumRewardIdx], 1}
+        };
+    }
+    public void setMainQuestReward(Dictionary<RewardItemSO, int> extraItem = null) {
         //* Value    (Def)                      (Unit)
         int fameVal = 10  + (DB.Dt.MainQuestID * 5);
         int coinVal = 300 + (DB.Dt.MainQuestID * 150);

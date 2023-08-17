@@ -109,7 +109,7 @@ public class HomeMinigameManager : MonoBehaviour {
 
         if(bestScore == 0) {
             playPriceTxt.text = "Free";
-            HM._.wmm.displayUnlockPopUp(null, name, true);
+            HM._.wmm.displayMapUnlockPopUp(null, name, true);
         }
         else 
             playPriceTxt.text = Config.MINIGMAE_PLAY_PRICES[0].ToString();

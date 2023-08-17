@@ -10,7 +10,8 @@ using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
 
 public class HUI : MonoBehaviour {
-    UnityAction onRewardPopUpAccept;   public UnityAction OnRewardPopUpAccept {get => onRewardPopUpAccept; set => onRewardPopUpAccept = value;}
+    UnityAction onAcceptRewardPopUp;   public UnityAction OnAcceptRewardPopUp {get => onAcceptRewardPopUp; set => onAcceptRewardPopUp = value;}
+    UnityAction onDisplayNewItemPopUp; public UnityAction OnDisplayNewItemPopUp {get => onDisplayNewItemPopUp; set => onDisplayNewItemPopUp = value;}
     [SerializeField] Color selectedTypeBtnClr;
     [SerializeField] TextMeshProUGUI coinTxt; public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
 
@@ -142,7 +143,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
 
     void Start() {
-        onRewardPopUpAccept = () => {};
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
@@ -397,8 +397,8 @@ public class HUI : MonoBehaviour {
         rewardPopUp.SetActive(false);
 
         checkLevelUp();
-        onRewardPopUpAccept?.Invoke();
-        onRewardPopUpAccept = null; //* 初期化
+        onAcceptRewardPopUp?.Invoke();
+        onAcceptRewardPopUp = null; //* 初期化
     }
 
     #region SELECT MAP
@@ -618,7 +618,8 @@ public class HUI : MonoBehaviour {
         }
         goMapPopUpTitleTxt.text = mapName;
     }
-    private void setRewardItemObj(Item item) {
+    private void displayNewItemPopUp(Item item) {
+        Time.timeScale = 0;
         item.purchase(isFree: true);
     }
     private void checkLevelUp() {
@@ -684,6 +685,9 @@ public class HUI : MonoBehaviour {
     }
     private IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
         const int SEPCIAL_EF = 0, SPRITE = 1, VAL = 2;
+        var dt = DB.Dt;
+        var funiArr = dt.Funitures;
+        var decoArr = dt.Decorations;
 
         //* init ItemGroup
         foreach(Transform chd in itemGroupTf) Destroy(chd.gameObject);
@@ -702,17 +706,34 @@ public class HUI : MonoBehaviour {
             ins.GetChild(SPRITE).GetComponent<Image>().color = rwdInfo.Clr;
             ins.GetChild(VAL).GetComponent<TextMeshProUGUI>().text = val.ToString();
 
-            //* Set Data
+            //* Set Data            
             if(rwdInfo.name == Enum.RWD_IDX.Coin.ToString())
-                DB.Dt.setCoin(val);
+                dt.setCoin(val);
             else if(rwdInfo.name == Enum.RWD_IDX.Exp.ToString()) {
-                DB.Dt.Exp += val;
-                DB.Dt.getExpPer();
+                dt.Exp += val;
+                dt.getExpPer();
             }
+            //* Tutorial ➝ Reward Popupを閉じたら、すぐ読み出し
             else if(rwdInfo.name == Enum.RWD_IDX.WoodChair.ToString()) {
-                //* アイテムリワードPopUp CallBack
-                const int WOOD_CHAIR = 0;
-                onRewardPopUpAccept += () => setRewardItemObj(DB.Dt.Funitures[WOOD_CHAIR]);
+                int idx = Array.FindIndex(funiArr, item => item.Spr.name.Contains(Enum.RWD_IDX.WoodChair.ToString()));
+                onAcceptRewardPopUp += () => displayNewItemPopUp(funiArr[idx]);
+            }
+            //* MainQuest Unlock Map ➝ WorldMapManager:: init():: onActionList.Add()として、順番通り読み出し
+            else if(rwdInfo.name == Enum.RWD_IDX.FrogChair.ToString()) {
+                int idx = Array.FindIndex(funiArr, item => item.Spr.name.Contains(Enum.RWD_IDX.FrogChair.ToString()));
+                onDisplayNewItemPopUp = () => displayNewItemPopUp(funiArr[idx]); //-> WorldMapManager:: init():: onActionList.Add()へ使う
+            }
+            else if(rwdInfo.name == Enum.RWD_IDX.WoodenWolfStatue.ToString()) {
+                int idx = Array.FindIndex(decoArr, item => item.Spr.name.Contains(Enum.RWD_IDX.WoodenWolfStatue.ToString()));
+                onDisplayNewItemPopUp = () => displayNewItemPopUp(decoArr[idx]); //-> WorldMapManager:: init():: onActionList.Add()へ使う
+            }
+            else if(rwdInfo.name == Enum.RWD_IDX.GoldenMonkeyStatue.ToString()) {
+                int idx = Array.FindIndex(decoArr, item => item.Spr.name.Contains(Enum.RWD_IDX.GoldenMonkeyStatue.ToString()));
+                onDisplayNewItemPopUp = () => displayNewItemPopUp(decoArr[idx]); //-> WorldMapManager:: init():: onActionList.Add()へ使う
+            }
+            else if(rwdInfo.name == Enum.RWD_IDX.IceDragonStatue.ToString()) {
+                int idx = Array.FindIndex(decoArr, item => item.Spr.name.Contains(Enum.RWD_IDX.IceDragonStatue.ToString()));
+                onDisplayNewItemPopUp = () => displayNewItemPopUp(decoArr[idx]); //-> WorldMapManager:: init():: onActionList.Add()へ使う
             }
         }
     }

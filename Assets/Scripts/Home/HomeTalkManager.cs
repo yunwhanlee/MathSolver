@@ -136,7 +136,8 @@ public class HomeTalkManager : TalkManager {
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] {
             "이야 벌써 레벨10을 달성했구나!\n대단해!:1"
-            , "이미 별숲마을에서는 수학 잘하기로 소문이 자자하다구!:1"
+            , "선생님, 정말 감사합니다!\n주민들이 조각상선물을 준비했어요. 받아주세요!!:4"
+            , "허허허, 뭐 이런것까지!..:1"
             , "(어디선가 머리 콩!):9"
             , "아얏!:2"
             , "우끼끼!!:8"
@@ -160,16 +161,17 @@ public class HomeTalkManager : TalkManager {
             , "흠.. 우선 늪지대 지역을 도와주며 레벨 14를 달성하자!:0"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] {
-            "도와주셔서 너무 감사개굴.:12"
+            "도와줘서 너무 감사개굴.:12"
             , "이제 어디로 갔는지 당장 말해!:1"
             , "원숭이들은 몽키와트라는 신전에서 생활해개굴:11"
             , "아마 거기가시면 찾으실 수 있개굴.:11"
             , "덤불지대 근처라는 소문은 들었지만,:11"
             , "워낙 비밀에 쌓인 곳이라서 그 이상은 몰라개굴.:13"
-            , "덤불지대? 거기가 어디지?!:0"
-            , "걱정마개굴! 개미친구에게 부탁해놨개굴.:11"
+            , "덤불지대? 거긴 어디지?!:0"
+            , "걱정마개굴! 착한 개미친구에게 부탁해놨개굴.:11"
             , "조만간 선생님을 찾아갈거라개굴.:11"
             , "좋았어!!:1"
+            , "이건 늪지대 주민들의 선물이다개굴!:12"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP2_BG3_ACCEPT, new string[] {
@@ -228,13 +230,51 @@ public class HomeTalkManager : TalkManager {
             , "저희 정글을 도와주시는 수학해결사님이다개미! :14_FLIP"
             , "음.. 하지만 증거가 없다! 마침잘됫군.:17"
             , "우리신전의 수학고민이 날이가는대로 쌓여서:17"
-            , "몽키신님이 화나셧는지 날씨가 좋지않아.:17"
+            , "몽키신님이 화나셧는지 날씨가 좋지않다.:17"
             , "우리신전을 도와주면 믿도록하지!:17"
             , "히익 제가 도와드려야지요!\n(사..살았다..):0"
             , "신전도 도와주면서 친밀도를 쌓고, 레벨 20을 달성하자.:0"
         });
         talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] {
-            "TODO OPEN_MAP3_UNLOCK_BG1_REWARD:0"
+            "고맙다! 수학선생!!:18"
+            , "하하! 별말씀을요!:1"
+            , "선생님이 신전의 수학고민을 해결해준 덕분에:18"
+            , "몽키신님의 노여움이 사라져서! 날씨 좋아졌다!:18"
+            , "처음엔 정말 미안했다. 아기원숭이를 때린다는 줄 알고.:19"
+            , "아 맞다! 내 머리를 또 때리고 튄(또대튀), 아기원숭이 그때 보셨죠?!:2"
+            , "응? 그때는 수학선생밖에 없었는데.? 혼자서 누굴 때린다뭐다해서:17"
+            , "무서운 몽키킬러인줄 알았다. 덜덜덜:19"
+            , "엥? 뭐라구요?! 분명히 또때튀한 아기원숭이가 있었는데..:2"
+            , "스으윽..(정글 신전 높은 곳에서) :0"
+            , "허.허.허.허:8"
+            , "아앗?! 너는!!:1"
+            , "나를 찾고 있는가.끼?..:8"
+            , "(퍼엉!):8"
+            , "....:20"
+            , "다 당신은?! 몽키신님??!!:19_FLIP"
+            , "뭐..라고?!:2"
+            , "(넙쭉)\n황금바나나 몽키신님을 위하여.. 우끼!:19_FLIP"
+            , "(넙쭉)\n몽키신님을 위하개굴..:11_FLIP"
+            , "(넙쭉)\n몽키신님을 위하개미..:14_FLIP"
+            , "허.허.. 미안하게 됫끼.\n정글에 수학고민이 쌓여가,:20"
+            , "스트레스로 인해 날씨가 안좋아졌끼..:20"
+            , "하지만, 우리원숭이 자손들은 정글밖에 나가본적이 없끼..:20"
+            , "그래서 이 내가 직접 수학해결사를 찾아나선거다끼.:20"
+            , "아아.. 그런거였군요..(감동):0"
+            , "과격하게 또때튀를 한건 미안하다끼.. 나에겐 시간이 별로 없었다끼..:20"
+            , "아닙니다.. 신께서 직접 행동하시다니.. 너무 감동입니다..:0"
+            , "크허어엉 몽키신님..:19_FLIP"
+            , "(주륵..):14_FLIP"
+            , "이제.. 시간이 다 됫구만..끼:20"
+            , "나는 다시 하늘로 올라가, 잠을자겠다끼.:20"
+            , "우리의 수학영웅이여, 부디 이 선물을 받아주게끼!:20"
+            , "우리 정글의 영웅이자 친구라는 증표다끼!:20"
+            , "그럼...(스르르륵..) 정글과 이 세계의 평화를 부탁한디끼..:20"
+            , "몽키신님을 위하여.. 우끼!:19_FLIP"
+            , "우끼!:11_FLIP"
+            , "우끼!:14_FLIP"
+            , "우끼!!!:1"
+            , "[메인퀘스트 : 정글스토리 완료..]:0"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
@@ -314,23 +354,23 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.UNLOCK_MAP1_BG2_REWARD:   break;
             case (int)ID.UNLOCK_MAP1_BG3_ACCEPT:   break;
             case (int)ID.UNLOCK_MAP1_BG3_REWARD:   break;
-            case (int)ID.UNLOCK_MAP1_MINIGAME:   break;
+            case (int)ID.UNLOCK_MAP1_MINIGAME:     break;
 
             case (int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT:   break;
             case (int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD:   break;
-            case (int)ID.UNLOCK_MAP2_BG2_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_BG2_REWARD:   break;
-            case (int)ID.UNLOCK_MAP2_BG3_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP2_BG3_REWARD:   break;
-            case (int)ID.UNLOCK_MAP2_MINIGAME:   break;
+            case (int)ID.UNLOCK_MAP2_BG2_ACCEPT:        break;
+            case (int)ID.UNLOCK_MAP2_BG2_REWARD:        break;
+            case (int)ID.UNLOCK_MAP2_BG3_ACCEPT:        break;
+            case (int)ID.UNLOCK_MAP2_BG3_REWARD:        break;
+            case (int)ID.UNLOCK_MAP2_MINIGAME:          break;
 
             case (int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT:   break;
             case (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD:   break;
-            case (int)ID.UNLOCK_MAP3_BG2_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_BG2_REWARD:   break;
-            case (int)ID.UNLOCK_MAP3_BG3_ACCEPT:   break;
-            case (int)ID.UNLOCK_MAP3_BG3_REWARD:   break;
-            case (int)ID.UNLOCK_MAP3_MINIGAME:   break;
+            case (int)ID.UNLOCK_MAP3_BG2_ACCEPT:        break;
+            case (int)ID.UNLOCK_MAP3_BG2_REWARD:        break;
+            case (int)ID.UNLOCK_MAP3_BG3_ACCEPT:        break;
+            case (int)ID.UNLOCK_MAP3_BG3_REWARD:        break;
+            case (int)ID.UNLOCK_MAP3_MINIGAME:          break;
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
     }
@@ -412,6 +452,7 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.UNLOCK_MAP2_BG2_REWARD:
                 DB.Dt.IsUnlockMap2BG2Arr[REWARD] = true;
+                // HM._.ui.OnDisplayNewItemPopUp();
                 HM._.wmm.showUnlockBg(mapIdx: 1, bgIdx: 1);
                 break;
             case (int)ID.UNLOCK_MAP2_BG3_ACCEPT:
