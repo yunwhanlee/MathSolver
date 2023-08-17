@@ -51,6 +51,13 @@ public abstract class TalkManager : MonoBehaviour {
     public void onClickPlayActionBtn() => play();
     //* 対話開始をボタンイベントでする時、使います
     public void onClickRegistActionBtn(int id) => action(id);
+    //* スキップ
+    public void onClickSkipBtn() {
+        int lastIdx = talkDt[curId].Length - 1;
+        Debug.Log($"TalkManager:: onClickSkipBtn():: talkDt[curId({curId})], lastIdx= {lastIdx}-> {talkDt[curId][lastIdx]}");
+        if(talkIdx == 1) talkIdx = lastIdx;
+        play();
+    }
 #endregion
 
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -76,7 +83,7 @@ public abstract class TalkManager : MonoBehaviour {
     }
 
     private void talk(int id) {
-        Debug.Log($"talk(id= {id})::");
+        Debug.Log($"talk(id= {id}):: talkIdx= {talkIdx}");
         //* イベント 処理
         string rawMsg = setEvent(id);
 

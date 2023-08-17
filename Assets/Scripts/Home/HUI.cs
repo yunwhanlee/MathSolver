@@ -490,10 +490,10 @@ public class HUI : MonoBehaviour {
                 legacyBonusValTxt.text = $"+{HM._.pl.calcLegacyBonusPer() * 100}%";
 
                 //* 
-                const int MAX_UNIT = 100;
+                
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 settingExpSliderBar.value = DB.Dt.getExpPer();
-                settingExpSliderTxt.text = $"{DB.Dt.Exp} / {MAX_UNIT * DB.Dt.Lv}";
+                settingExpSliderTxt.text = $"{DB.Dt.Exp} / {DB.Dt.MaxExp}";
             }
             catch(Exception err) {
                 Debug.LogWarning($"ERROR: {err}");

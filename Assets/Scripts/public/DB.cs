@@ -10,9 +10,6 @@ using System;
 //* -----------------------------------------------------------------------------------------------------------------
 [System.Serializable]
 public class Data {
-    public const int EXP_MAX_UNIT = 100;
-
-
     [Header("VALUE")]
     //* Math-Pid-Info
     [SerializeField] string myAuthorization;   public string MyAuthorization {get => myAuthorization; set => myAuthorization = value;}
@@ -23,6 +20,7 @@ public class Data {
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
     [SerializeField] int coin; public int Coin {get => coin; set => coin = value;}
     [SerializeField] int exp; public int Exp {get => exp; set => exp = value;}
+    [SerializeField] int maxExp; public int MaxExp {get => maxExp; set => maxExp = value;}
     [SerializeField] int fame; public int Fame {get => fame; set => fame = value;}
 
     //* Home
@@ -106,15 +104,15 @@ public class Data {
         if(coin < 0) coin = 0;
     }
     public float getExpPer() {
-        int max = EXP_MAX_UNIT * lv;
+        maxExp = Config.LV_EXP_UNIT * lv;
         //* Level Up!
-        if(exp >= max) {
+        if(exp >= maxExp) {
             lv++;
             DB._.LvUpCnt++;
-            exp -= max;
+            exp -= maxExp;
             return exp;
         }
-        return ((float)exp) / ((float)max);
+        return ((float)exp) / ((float)maxExp);
     }
 }
 #endregion
@@ -129,9 +127,8 @@ public class DB : MonoBehaviour {
     [SerializeField] int selectMapIdx;   public int SelectMapIdx {get => selectMapIdx; set => selectMapIdx = value;}
     [SerializeField] int selectMinigameIdx;   public int SelectMinigameIdx {get => selectMinigameIdx; set => selectMinigameIdx = value;}
     [SerializeField] int minigameLv;    public int MinigameLv {get => minigameLv; set => minigameLv = value;} //* Minigame 難易度
+
     const string Database = "DB";
-    const int DEF_WALL_IDX = 0;
-    const int DEF_FLOOR_IDX = 9;
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
         Application.targetFrameRate = 60;
@@ -141,12 +138,11 @@ public class DB : MonoBehaviour {
         Debug.Log($"Awake {_ == null}");
         if(_ == null) {
             _ = this;
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
         else {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
-            
         #endregion
 
         Data copyDt = null;
@@ -231,6 +227,7 @@ public class DB : MonoBehaviour {
         dt.Lv = 1;
         dt.Coin = 0;
         dt.Exp = 0;
+        dt.MaxExp = Config.LV_EXP_UNIT * dt.Lv;
         dt.Fame = 0;
         dt.MainQuestID = 0;
 

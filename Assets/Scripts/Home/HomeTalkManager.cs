@@ -42,7 +42,7 @@ public class HomeTalkManager : TalkManager {
         #region TUTORIAL
         //* チュートリアル用
         talkDt.Add((int)ID.TUTO_ROOM, new string[] {
-            "만나서 반가워!\n새로온 수학조수구나!:0"
+            "만나서 반가워!\n새로온 수학조수구나!:0" // -> talkIdx[1]
             , "이름이 어떻게되니?:0"
             , "...:0"
             , $"NICKNAME!\n정말 멋진 이름이야!:1"
@@ -57,7 +57,7 @@ public class HomeTalkManager : TalkManager {
             , "위쪽 나무판 화살표를 눌러보겠니?:0"
         });
         talkDt.Add((int)ID.TUTO_FUNITURESHOP, new string[] {
-            "이곳은 장인 도톨씨의 가구점이야.:0"
+            "이곳은 장인 도톨씨의 가구점이야.:0" // -> talkIdx[1]
             , "어서오시게!:6"
             , "의자와 탁자, 장식품, 벽지, 매트 등:6"
             , "다양한 가구를 판매하고있으니\n자주 들러주게나!:6"
@@ -270,11 +270,11 @@ public class HomeTalkManager : TalkManager {
             , "우리의 수학영웅이여, 부디 이 선물을 받아주게끼!:20"
             , "우리 정글의 영웅이자 친구라는 증표다끼!:20"
             , "그럼...(스르르륵..) 정글과 이 세계의 평화를 부탁한디끼..:20"
-            , "몽키신님을 위하여.. 우끼!:19_FLIP"
+            , "몽키신님을 위하여.. 우끼!:18_FLIP"
             , "우끼!:11_FLIP"
             , "우끼!:14_FLIP"
             , "우끼!!!:1"
-            , "[메인퀘스트 : 정글스토리 완료..]:0"
+            , "정글 메인퀘스트 완료!:0"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
