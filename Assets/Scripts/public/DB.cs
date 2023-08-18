@@ -28,6 +28,7 @@ public class Data {
     [SerializeField] int gachaCnt;  public int GachaCnt {get => gachaCnt; set => gachaCnt = value;}
     [SerializeField] int minigame1BestScore;    public int Minigame1BestScore {get => minigame1BestScore; set => minigame1BestScore = value;}
     [SerializeField] int minigame2BestScore;    public int Minigame2BestScore {get => minigame2BestScore; set => minigame2BestScore = value;}
+    [SerializeField] int minigame3BestScore;    public int Minigame3BestScore {get => minigame3BestScore; set => minigame3BestScore = value;}
 
     [Header("MINIGAME REWARD")]
     [SerializeField] bool[] minigame1RewardTriggers; public bool[] Minigame1RewardTriggers {get => minigame1RewardTriggers; set => minigame1RewardTriggers = value;}
@@ -235,6 +236,7 @@ public class DB : MonoBehaviour {
         dt.GachaCnt = 1;
         dt.Minigame1BestScore = 0;
         dt.Minigame2BestScore = 0;
+        dt.Minigame3BestScore = 0;
 
         #region MINIGAME REWARD
         dt.Minigame1RewardTriggers = new bool[3] {false, false, false};

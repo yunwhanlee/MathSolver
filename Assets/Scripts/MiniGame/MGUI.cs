@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Mathematics;
 
 public class MGUI : MonoBehaviour {
 
@@ -18,9 +19,17 @@ public class MGUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI titleTxt;      public TextMeshProUGUI TitleTxt {get => titleTxt;}
     [SerializeField] TextMeshProUGUI contentTxt;    public TextMeshProUGUI ContentTxt {get => contentTxt;}
 
+    [SerializeField] bool isLeftArrowBtnPressed;
+    [SerializeField] bool isRightArrowBtnPressed;
+
     //* MiniGame1 Forest
     [SerializeField] Button leftArrowBtn;   public Button LeftArrowBtn {get => leftArrowBtn; set => leftArrowBtn = value;}
     [SerializeField] Button rightArrowBtn;   public Button RightArrowBtn {get => rightArrowBtn; set => rightArrowBtn = value;}
+
+    //* MiniGame3 Tundra
+    [SerializeField] bool isRotating = false;  // 각도 보간 진행 여부
+    [SerializeField] float targetRotationZ = 0f;  // 목표 각도 (오른쪽일 때 5, 왼쪽일 때 -5)
+    private float rotationStep = 90f;  // 회전 각도의 변화 속도 (각도/초)
 
     void Start() {
         resultPanel.SetActive(false);
@@ -38,14 +47,14 @@ public class MGUI : MonoBehaviour {
         rightArrowBtn.gameObject.SetActive(false);
 
         //* タイトル
-        titleTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Catch falling apples"
-            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "Jump to the sky"
-            : "TODO MINIGAME3 TITLE";
+        titleTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Catch falling apples!"
+            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "Jump to the sky!"
+            : "Snow sledding!";
 
         //* コンテンツ
         contentTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Collect as many apples as you can!"
-            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "collect bananas without falling off!"
-            : "TODO MINIGAME3 CONTENT";
+            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "Collect bananas without falling off!"
+            : "Collect blueberries avoiding obstacles.";
     }
 
     void Update() {
@@ -54,16 +63,25 @@ public class MGUI : MonoBehaviour {
         if(MGM._.IsStun) return;
 
         //* Btn onPressed
-        bool isLeftArrowBtnPressed = leftArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
-        bool isRightArrowBtnPressed = rightArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
+        isLeftArrowBtnPressed = leftArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
+        isRightArrowBtnPressed = rightArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
         
         //* Player Moving Control
-        if(isLeftArrowBtnPressed)
-            movePlayer(isLeft: true);
-        else if(isRightArrowBtnPressed) 
-            movePlayer(isLeft: false);
-        else
-            MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
+        if(isLeftArrowBtnPressed)    movePlayer(isLeft: true);
+        else if(isRightArrowBtnPressed)    movePlayer(isLeft: false);
+        else { //* Moving Stop
+            switch(MGM._.Type) {
+                case MGM.TYPE.MINIGAME1:
+                case MGM.TYPE.MINIGAME2:
+                    MGM._.Pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
+                    break;
+                case MGM.TYPE.MINIGAME3:
+                    //* 徐々に角度０に戻す
+                    float newRotationZ = Mathf.MoveTowardsAngle(MGM._.Pl.transform.localRotation.eulerAngles.z, 0f, rotationStep * Time.deltaTime);
+                    MGM._.Pl.transform.localRotation = Quaternion.Euler(0f, 0f, newRotationZ);
+                    break;
+            }
+        }
         #endregion
     }
 
@@ -99,13 +117,32 @@ public class MGUI : MonoBehaviour {
         var plPos = pl.transform.localPosition;
         float spd = MGM._.PlMoveSpd * Time.deltaTime;
 
-        pl.walk();
+        
         pl.Sr.flipX = isLeft;
         float x = plPos.x + (isLeft? -spd : spd);
-        if(MGM._.Type == MGM.TYPE.MINIGAME1)
-            pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
-        else 
-            pl.transform.localPosition = new Vector2(x, plPos.y);
+
+        switch(MGM._.Type) {
+            case MGM.TYPE.MINIGAME1:
+                pl.walk();
+                pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
+                break;
+            case MGM.TYPE.MINIGAME2:
+                pl.walk();
+                pl.transform.localPosition = new Vector2(x, plPos.y);
+                break;
+            case MGM.TYPE.MINIGAME3:
+                //* 動きによって、Playerの角度も少し回転
+                if (isLeftArrowBtnPressed || isRightArrowBtnPressed) {
+                    const int leftAngleMax = 10, rightAngleMax = 350;
+                    float rotationDelta = isLeft? rotationStep * Time.deltaTime : -rotationStep * Time.deltaTime;
+                    float zAngle = pl.transform.localRotation.eulerAngles.z + rotationDelta;
+                    if(isLeft) zAngle = Mathf.Clamp(zAngle, 0, leftAngleMax);
+                    else zAngle = Mathf.Clamp(zAngle, rightAngleMax, 360);
+                    pl.transform.localRotation = Quaternion.Euler(0, 0, zAngle);
+                }
+                pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
+                break;
+        }
     }
     
     private IEnumerator coReadyStartCount() {

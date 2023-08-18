@@ -415,13 +415,14 @@ public class HUI : MonoBehaviour {
             HM._.htm.action((int)HomeTalkManager.ID.TUTO_WORLDMAP);
 
         //* もし、メインクエストのACCEPTしなかったら、自動受託
-        onClickAchiveRankIconBtn();
+        // onClickAchiveRankIconBtn();
+
         var mq = HM._.qm.MainQuests[DB.Dt.MainQuestID];
         if(mq.AcceptBtn.gameObject.activeSelf){
             Debug.Log($"onClickGoGameDialogYesBtn():: MainQuest.name= {mq.name}, Auto Accept!");
             mq.acceptQuest();
         }
-        onClickAchiveRankCloseBtn();
+        // onClickAchiveRankCloseBtn();
     }
     public void onClickGoGameDialogNoBtn() {
         HM._.state = HM.STATE.NORMAL;

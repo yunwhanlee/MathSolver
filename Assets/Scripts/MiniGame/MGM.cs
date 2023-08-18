@@ -66,7 +66,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         // maxTime = 60;
 
         //* 選択したゲーム(ID)
-        idx = (DB._ == null)? (int)TYPE.MINIGAME2 : DB._.SelectMinigameIdx;
+        idx = (DB._ == null)? (int)TYPE.MINIGAME3 : DB._.SelectMinigameIdx;
         type = (idx == 0)? TYPE.MINIGAME1 : (idx == 1)? TYPE.MINIGAME2 : TYPE.MINIGAME3;
 
         //* マップ 表示
@@ -139,8 +139,10 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 newBestScoreEF.SetActive(true);
                 ui.PlayTimerTxt.text = $"<color=yellow>NEW !\nBEST : {score}</color>";
             }
-            else {
-                ui.PlayTimerTxt.text = $"BEST : {score}";
+            else if(type == TYPE.MINIGAME3 && score > DB.Dt.Minigame3BestScore) {
+                DB.Dt.Minigame3BestScore = score;
+                newBestScoreEF.SetActive(true);
+                ui.PlayTimerTxt.text = $"<color=yellow>NEW !\nBEST : {score}</color>";
             }
 
             pl.Anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);
