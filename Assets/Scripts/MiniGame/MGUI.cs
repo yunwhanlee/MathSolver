@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.Mathematics;
+using System;
 
 public class MGUI : MonoBehaviour {
-
     [SerializeField] GameObject resultPanel;    public GameObject ResultPanel {get => resultPanel; set => resultPanel = value;}
     [SerializeField] GameObject giveUpPopUp;    public GameObject GiveUpPopUp {get => giveUpPopUp; set => giveUpPopUp = value;}
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
+    [SerializeField] Image[] switchScreenImgs;
+    [SerializeField] Sprite[] switchScreenSprs;
 
     [SerializeField] Button startScrBtn;
     [SerializeField] TextMeshProUGUI playerLvTxt;
@@ -34,6 +36,11 @@ public class MGUI : MonoBehaviour {
     void Start() {
         var mgm = MGM._;
         resultPanel.SetActive(false);
+        Array.ForEach(switchScreenImgs, img => 
+            img.sprite = (mgm.Type == MGM.TYPE.MINIGAME1)? switchScreenSprs[0]
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? switchScreenSprs[1]
+            : switchScreenSprs[2]
+        );
 
         if(DB._ == null) playerLvTxt.text = "99"; //! TEST
         else playerLvTxt.text = DB.Dt.Lv.ToString();
