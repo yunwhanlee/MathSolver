@@ -79,11 +79,11 @@ public class Quest : MonoBehaviour {
                     HM._.htm.action((int)HomeTalkManager.ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap3SnowMountain:
-                if(!DB.Dt.IsUnlockMap2BG2Arr[ACCEPT])
+                if(!DB.Dt.IsUnlockMap3BG2Arr[ACCEPT])
                     HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG2_ACCEPT);
                 break;
             case (int)QuestManager.MQ_ID.UnlockMap3IceDragon:
-                if(!DB.Dt.IsUnlockMap2BG3Arr[ACCEPT])
+                if(!DB.Dt.IsUnlockMap3BG3Arr[ACCEPT])
                     HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
                 break;
         }

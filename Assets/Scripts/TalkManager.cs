@@ -7,16 +7,20 @@ using System;
 using System.Linq;
 
 public abstract class TalkManager : MonoBehaviour {
-    public enum SPK_IDX { //* Speaker Index
+    public enum SPK { //* Speaker Index
         Empty = -1,
-        Pl_Idle, pl_Happy, Pl_Sad,
-        Animal_Idle, Animal_Happy, Animal_Sad,
-        DotalMan, MoongMom, 
+        Pl_Idle, Pl_Happy, Pl_Sad,
+        Mole_Idle, Mole_Happy, Mole_Sad,
+        Bear_Idle, Bear_Happy, Bear_Sad,
+        Duck_Happy, DotalMan, MoongMom,
         Monkey_Idle, Monkey_Happy, Monkey_Sad,
-        Flog_Idle, Flog_Happy, Flog_Sad, 
+        Frog_Idle, Frog_Happy, Frog_Sad, 
         Ant_Idle, Ant_Happy, Ant_Sad,
         WarriorMonkey_Idle, WarriorMonkey_Happy, WarriorMonkey_Sad,
         Monkey_God,
+        Seal_Idle, Seal_Happy, Seal_Sad,
+        TundraBear_Idle, TundraBear_Happy, TundraBear_Sad,
+        SnowRabbit_Idle, SnowRabbit_Happy, SnowRabbit_Sad,
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -182,56 +186,80 @@ public abstract class TalkManager : MonoBehaviour {
                 tf.localScale = new Vector2(DEF_SC, DEF_SC);
                 
                 switch(key) { // case 0: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_IDLE]; break;   // case 1: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_HAPPY]; break;  // case 2: spkImg.sprite = spkSprDtList[(int)SPK_IDX.PL_SAD]; break;
-                    case (int)SPK_IDX.Empty: {
+                    case (int)SPK.Empty: {
                         spkImg.enabled = false;
                         nameFrame.gameObject.SetActive(false);
                         break;
                     }
-                    case (int)SPK_IDX.Pl_Idle: case (int)SPK_IDX.pl_Happy: case (int)SPK_IDX.Pl_Sad: {
+                    case (int)SPK.Pl_Idle: case (int)SPK.Pl_Happy: case (int)SPK.Pl_Sad: {
                         Debug.Log($"TalkManager:: talk():: spkImg.spr = {spkSprDtList[key]}");
                         //* 画像
                         spkImg.sprite = spkSprDtList[key];
                         spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(tf.anchoredPosition.x), tf.anchoredPosition.y);
-                        if(key == (int)SPK_IDX.Pl_Sad) {
+                        if(key == (int)SPK.Pl_Sad) {
                             talkDialogAnim.SetTrigger(Enum.ANIM.DoShock.ToString());
                             Camera.main.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoCamShake.ToString());
                         }
                         //* 名前
-                        spkName.text = "늑선생"; 
-                        setNameCardDir(isLeft: true); // left
+                        // spkName.text = "늑선생"; 
+                        // setNameCardDir(isLeft: true); // left
+                        setOtherPortrait(spkImg, "늑선생", key, tf.anchoredPosition, !isFlip, isPlayer: true);
                         break;
                     }
-                    case (int)SPK_IDX.Animal_Idle: case (int)SPK_IDX.Animal_Happy: case (int)SPK_IDX.Animal_Sad: {
-                        setOtherPortrait(spkImg, "동물친구", key, tf.anchoredPosition, isFlip);
+                    case (int)SPK.Mole_Idle: case (int)SPK.Mole_Happy: case (int)SPK.Mole_Sad: {
+                        setOtherPortrait(spkImg, "두더지", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.DotalMan: {
+                    case (int)SPK.Bear_Idle: case (int)SPK.Bear_Happy: case (int)SPK.Bear_Sad: {
+                        setOtherPortrait(spkImg, "곰돌이", key, tf.anchoredPosition, isFlip);
+                        break;
+                    }
+                    case (int)SPK.Duck_Happy: {
+                        setOtherPortrait(spkImg, "오리", key, tf.anchoredPosition, isFlip);
+                        break;
+                    }
+                    case (int)SPK.DotalMan: {
                         setOtherPortrait(spkImg, "도톨아저씨", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.MoongMom: {
+                    case (int)SPK.MoongMom: {
                         setOtherPortrait(spkImg, "뭉이어멈", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.Monkey_Idle: case (int)SPK_IDX.Monkey_Happy: case (int)SPK_IDX.Monkey_Sad: {
+                    case (int)SPK.Monkey_Idle: case (int)SPK.Monkey_Happy: case (int)SPK.Monkey_Sad: {
                         setOtherPortrait(spkImg, "원숭이", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.Flog_Idle: case (int)SPK_IDX.Flog_Happy: case (int)SPK_IDX.Flog_Sad: {
+                    case (int)SPK.Frog_Idle: case (int)SPK.Frog_Happy: case (int)SPK.Frog_Sad: {
                         setOtherPortrait(spkImg, "개구리", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.Ant_Idle: case (int)SPK_IDX.Ant_Happy: case (int)SPK_IDX.Ant_Sad: {
+                    case (int)SPK.Ant_Idle: case (int)SPK.Ant_Happy: case (int)SPK.Ant_Sad: {
+                        tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 50);
                         setOtherPortrait(spkImg, "개미", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.WarriorMonkey_Idle: case (int)SPK_IDX.WarriorMonkey_Happy: case (int)SPK_IDX.WarriorMonkey_Sad:{
+                    case (int)SPK.WarriorMonkey_Idle: case (int)SPK.WarriorMonkey_Happy: case (int)SPK.WarriorMonkey_Sad:{
                         setOtherPortrait(spkImg, "전사원숭이", key, tf.anchoredPosition, isFlip);
                         break;
                     }
-                    case (int)SPK_IDX.Monkey_God: {
+                    case (int)SPK.Monkey_God: {
                         tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 150);
                         setOtherPortrait(spkImg, "몽키신", key, tf.anchoredPosition, isFlip);
+                        break;
+                    }
+                    case (int)SPK.Seal_Idle: case (int)SPK.Seal_Happy: case (int)SPK.Seal_Sad: {
+                        tf.anchoredPosition = new Vector2(DEF_X + 50, DEF_Y);
+                        setOtherPortrait(spkImg, "물개", key, tf.anchoredPosition, isFlip);
+                        break;
+                    }
+                    case (int)SPK.TundraBear_Idle: case (int)SPK.TundraBear_Happy: case (int)SPK.TundraBear_Sad: {
+                        setOtherPortrait(spkImg, "곰돌이", key, tf.anchoredPosition, isFlip);
+                        break;
+                    }
+                    case (int)SPK.SnowRabbit_Idle: case (int)SPK.SnowRabbit_Happy: case (int)SPK.SnowRabbit_Sad: {
+                        tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 50);
+                        setOtherPortrait(spkImg, "눈토끼", key, tf.anchoredPosition, isFlip);
                         break;
                     }
                 }
@@ -243,13 +271,13 @@ public abstract class TalkManager : MonoBehaviour {
         talkIdx++;
     }
 
-    private void setOtherPortrait(Image spkImg, string name, int key, Vector3 pos, bool isFlip) {
+    private void setOtherPortrait(Image spkImg, string name, int key, Vector3 pos, bool isFlip, bool isPlayer = false) {
         //* 画像
         spkImg.sprite = spkSprDtList[key];
         float posX = Mathf.Abs(pos.x) * (isFlip? -1 : 1);
         spkImg.rectTransform.anchoredPosition = new Vector2(posX, pos.y);
         Vector3 sc = spkImg.transform.localScale;
-        spkImg.transform.localScale = new Vector3(Mathf.Abs(sc.x) * (isFlip? -1 : 1) , sc.y, sc.z);
+        spkImg.transform.localScale = new Vector3(Mathf.Abs(sc.x) * (isFlip? -1 : 1) * ( isPlayer? -1 : 1) , sc.y, sc.z);
         //* 名前
         spkName.text = name;
         setNameCardDir(isLeft: isFlip); // right
