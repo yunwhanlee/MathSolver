@@ -32,6 +32,7 @@ public class MGUI : MonoBehaviour {
     private float rotationStep = 90f;  // 회전 각도의 변화 속도 (각도/초)
 
     void Start() {
+        var mgm = MGM._;
         resultPanel.SetActive(false);
 
         if(DB._ == null) playerLvTxt.text = "99"; //! TEST
@@ -47,14 +48,19 @@ public class MGUI : MonoBehaviour {
         rightArrowBtn.gameObject.SetActive(false);
 
         //* タイトル
-        titleTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Catch falling apples!"
-            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "Jump to the sky!"
+        titleTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? "Catch falling apples!"
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? "Jump to the sky!"
             : "Snow sledding!";
 
         //* コンテンツ
-        contentTxt.text = (MGM._.Type == MGM.TYPE.MINIGAME1)? "Collect as many apples as you can!"
-            : (MGM._.Type == MGM.TYPE.MINIGAME2)? "Collect bananas without falling off!"
+        contentTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? "Collect as many apples as you can!"
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? "Collect bananas without falling off!"
             : "Collect blueberries avoiding obstacles.";
+
+        //* Score Txt
+        scoreTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? $"<sprite name=apple>: {mgm.Score}"
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? $"<sprite name=banana>: {mgm.Score}"
+            : $"<sprite name=blueberry>: {mgm.Score}";
     }
 
     void Update() {
@@ -131,17 +137,20 @@ public class MGUI : MonoBehaviour {
                 pl.transform.localPosition = new Vector2(x, plPos.y);
                 break;
             case MGM.TYPE.MINIGAME3:
-                //* 動きによって、Playerの角度も少し回転
-                if (isLeftArrowBtnPressed || isRightArrowBtnPressed) {
-                    const int leftAngleMax = 10, rightAngleMax = 350;
-                    float rotationDelta = isLeft? rotationStep * Time.deltaTime : -rotationStep * Time.deltaTime;
-                    float zAngle = pl.transform.localRotation.eulerAngles.z + rotationDelta;
-                    if(isLeft) zAngle = Mathf.Clamp(zAngle, 0, leftAngleMax);
-                    else zAngle = Mathf.Clamp(zAngle, rightAngleMax, 360);
-                    pl.transform.localRotation = Quaternion.Euler(0, 0, zAngle);
-                }
+                setPlayerMovingRot(isLeft, pl.gameObject); //* 動きによって、Playerの角度も少し回転
                 pl.transform.localPosition = new Vector2(Mathf.Clamp(x, minX, maxX) , plPos.y);
                 break;
+        }
+    }
+
+    private void setPlayerMovingRot(bool isLeft, GameObject pl) {
+        if (isLeftArrowBtnPressed || isRightArrowBtnPressed) {
+            const int leftAngleMax = 10, rightAngleMax = 350;
+            float rotationDelta = isLeft? rotationStep * Time.deltaTime : -rotationStep * Time.deltaTime;
+            float zAngle = pl.transform.localRotation.eulerAngles.z + rotationDelta;
+            if(isLeft) zAngle = Mathf.Clamp(zAngle, 0, leftAngleMax);
+            else zAngle = Mathf.Clamp(zAngle, rightAngleMax, 360);
+            pl.transform.localRotation = Quaternion.Euler(0, 0, zAngle);
         }
     }
     

@@ -11,9 +11,28 @@ public class Obj : MonoBehaviour {
 
     [SerializeField] Coroutine coroutineID = null;  public Coroutine CoroutineID {get => coroutineID; set => coroutineID = value;}
 
+    [Header("MINIGAME 3")]
+    [SerializeField] bool isMoving;  public bool IsMoving {get => isMoving; set => isMoving = value;}
+    [SerializeField] float movingSpeed;   public float MovingSpeed {get => movingSpeed; set => movingSpeed = value;}
+
+    void OnDisable() {
+        isMoving = false;
+        movingSpeed = 0;
+    }
+
+    void Update() {
+        if(isMoving) {
+            transform.transform.Translate(0, movingSpeed * Time.deltaTime, 0);
+        }
+    }
+
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    public void activeMoving(float spd) {
+        isMoving = true;
+        movingSpeed = spd;
+    }
     public void addForce(Vector2 dir) {
         // Debug.Log($"Obj:: addForce(dir= {dir})");
         int burstPower = Random.Range(250, 400);

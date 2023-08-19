@@ -8,6 +8,7 @@ public class MGEM : MonoBehaviour {
         //* Obj
         AppleObj, GoldAppleObj, BombObj, DiamondObj // Minigame 1
         ,JumpingPadObj, BananaObj, GoldBananaObj // Minigame 2
+        ,ObstacleObj, BlueberryObj // Minigame 3
         //* EF
         ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF
         ,DecalWoodEF, FireworkBlueEF,
@@ -17,10 +18,17 @@ public class MGEM : MonoBehaviour {
     [SerializeField] GameObject appleObj;
     [SerializeField] GameObject goldAppleObj;
     [SerializeField] GameObject bombObj;
-    [SerializeField] GameObject diamondObj;
+    //* MiniGame2
     [SerializeField] GameObject logObj;
     [SerializeField] GameObject bananaObj;
     [SerializeField] GameObject goldBananaObj;
+    //* MiniGame3
+    [SerializeField] GameObject obstacleObj;
+    [SerializeField] GameObject blueberryObj;
+
+    //* 共通
+    [SerializeField] GameObject diamondObj;
+
 
     [SerializeField] GameObject stunEF;
     [SerializeField] GameObject basketCatchEF;
@@ -43,6 +51,8 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(logObj, max: 15, objectGroup));
         pool.Add(initEF(bananaObj, max: 10, objectGroup));
         pool.Add(initEF(goldBananaObj, max: 5, objectGroup));
+        pool.Add(initEF(obstacleObj, max: 15, objectGroup));
+        pool.Add(initEF(blueberryObj, max: 10, objectGroup));
 
         pool.Add(initEF(stunEF, max: 1, effectGroup));
         pool.Add(initEF(basketCatchEF, max: 4, effectGroup));
@@ -88,6 +98,8 @@ public class MGEM : MonoBehaviour {
             : (idx == 4)? IDX.JumpingPadObj.ToString()
             : (idx == 5)? IDX.BananaObj.ToString()
             : (idx == 6)? IDX.GoldBananaObj.ToString()
+            : (idx == 7)? IDX.ObstacleObj.ToString()
+            : (idx == 8)? IDX.BlueberryObj.ToString()
             : null;
         if(obj.name == null) {
             Debug.LogError("ERROR: MGEM:: createObjで、オブジェクト名がNULLです！");
@@ -138,6 +150,8 @@ public class MGEM : MonoBehaviour {
                 : (name == IDX.JumpingPadObj.ToString())? 4
                 : (name == IDX.BananaObj.ToString())? 5
                 : (name == IDX.GoldBananaObj.ToString())? 6
+                : (name == IDX.ObstacleObj.ToString())? 7
+                : (name == IDX.BlueberryObj.ToString())? 8
                 : -1;
             //* 戻す
             if (obj != null && obj.activeSelf) {

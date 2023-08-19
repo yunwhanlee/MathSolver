@@ -55,6 +55,11 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] float createPadPosY;
     [SerializeField] float camUpSpeed = 30;
 
+    [Space(10)]
+    [Header("MINIGAME 3 VALUE")]
+    [SerializeField] GameObject snowFloorBG;
+    [SerializeField] float snowFloorSpd;
+
     void Awake() {
         _ = this;
         cam = Camera.main.GetComponent<Cam>();
@@ -79,7 +84,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         cam.Anim.enabled = !(type == TYPE.MINIGAME2); //* カメラー Yを動かすために、MiniGame2ならOFF
 
         //* 選択した 難易度(モード)
-        if(DB._ == null) mode = MODE.EASY; //! TEST
+        if(DB._ == null) mode = mode; //! TEST
         else mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
 
         //* タイプ
@@ -166,11 +171,6 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         //* Time
         totalTime += Time.deltaTime;
         curTime += Time.deltaTime;
-
-        //* Score Txt
-        ui.ScoreTxt.text = (idx == 0)? $"<sprite name=apple>: {score}"
-            : (idx == 1)? $"<sprite name=banana>: {score}"
-            : $"<sprite name=todo>: {score}";
 
         //* Timer
         float remainTime = (maxTime - totalTime);
@@ -264,7 +264,58 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 break;
             }
             case TYPE.MINIGAME3: {
-                //TODO
+                //* SnowFloor PosY Speed
+                const float startBgPosY = -24, maxBgPosY = 24;
+                const float createPosY = -9;
+                snowFloorSpd = (mode == MODE.EASY)? 4 : (mode == MODE.NORMAL)? 5 : 6;
+                snowFloorBG.transform.Translate(0, snowFloorSpd * Time.deltaTime, 0);
+                if(snowFloorBG.transform.localPosition.y > maxBgPosY) 
+                    snowFloorBG.transform.localPosition = new Vector2(0, startBgPosY);
+
+                //* Create Object
+                float createSpan = (mode == MODE.EASY)? 1 : (mode == MODE.NORMAL)? 0.75f : 0.5f;
+
+                if(curTime >= createSpan) {
+                    curTime = 0;
+                    List<int> posXList = new List<int>() {-2, -1, 0, 1, 2};
+                    //* Create Obstacle 
+                    int randCnt = Random.Range(0, 100 + 1); 
+                    int cnt = (randCnt < 5)? 0 : (randCnt < 70)? 1 : 2;
+                    for(int i = 0; i < cnt; i++) {
+                        //* PosX
+                        int obstacleRandIdx = Random.Range(0, posXList.Count);
+                        float obstaclePosX = posXList[obstacleRandIdx];
+                        //* PosY
+                        int randY = Random.Range(-3, 3 + 1);
+                        float posY = createPosY + randY * 0.25f;
+                        //* Create
+                        Obj obstacle = mgem.createObj((int)MGEM.IDX.ObstacleObj, new Vector2(obstaclePosX, posY), Util.time8).GetComponent<Obj>();
+                        obstacle.activeMoving(snowFloorSpd);
+                        //* Scale
+                        int randSc = Random.Range(0, 2 + 1);
+                        float sc = randSc * 0.2f;
+                        Vector2 objSc = obstacle.transform.localScale;
+                        obstacle.transform.localScale = new Vector3(objSc.x + sc, objSc.y + sc, 1);
+                        //* Random List Remove
+                        posXList.RemoveAt(obstacleRandIdx);
+                    }
+
+                    //* Create Item
+                    randCnt = Random.Range(0, 100 + 1); 
+                    cnt = (randCnt < 20)? 0 : (randCnt < 80)? 1 : 2;
+
+                    //* Create Obstacle 
+                    for(int i = 0; i < cnt; i++) {
+                        //* PosX
+                        int itemRandIdx = Random.Range(0, posXList.Count);
+                        float posX = posXList[itemRandIdx];
+                        //* Create
+                        Obj item = mgem.createObj((int)MGEM.IDX.BlueberryObj, new Vector2(posX, createPosY * 1.25f), Util.time8).GetComponent<Obj>();
+                        item.activeMoving(snowFloorSpd);
+                        //* Random List Remove
+                        posXList.RemoveAt(itemRandIdx);
+                    }
+                }
                 break;
             }
         }

@@ -23,6 +23,8 @@ TagManager:
   - Banana
   - GoldBanana
   - PlayerNoCollideArea
+  - Obstacle
+  - Blueberry
   layers:
   - Default
   - TransparentFX
