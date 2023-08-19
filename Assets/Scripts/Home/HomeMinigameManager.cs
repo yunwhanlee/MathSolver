@@ -23,10 +23,10 @@ public class minigameInfo {
 }
 
 public class HomeMinigameManager : MonoBehaviour {
-    UnityAction[] onInits = new UnityAction[2];
+    UnityAction[] onInits = new UnityAction[3];
 
     [SerializeField] GameObject minigameLvPopUp;   public GameObject MinigameLvPopUp {get => minigameLvPopUp;}
-    [SerializeField] Image topFrame1Img, topFrame2Img, labelImg;
+    [SerializeField] Image minigameImg ,topFrame1Img, topFrame2Img, labelImg;
     [SerializeField] TextMeshProUGUI nameTxt;
     [SerializeField] TextMeshProUGUI titleTxt;
 
@@ -76,6 +76,10 @@ public class HomeMinigameManager : MonoBehaviour {
         mg2InfoData.NormalVals = Config.MINIGAME2_NORMAL_OBJ_DATA;
         mg2InfoData.HardVals = Config.MINIGAME2_HARD_OBJ_DATA;
 
+        mg3InfoData.EasyVals = Config.MINIGAME3_EASY_OBJ_DATA;
+        mg3InfoData.NormalVals = Config.MINIGAME3_NORMAL_OBJ_DATA;
+        mg3InfoData.HardVals = Config.MINIGAME3_HARD_OBJ_DATA;
+
         //TODO mg3
 
         //* Delegate Callback 初期化 購読
@@ -87,7 +91,10 @@ public class HomeMinigameManager : MonoBehaviour {
             , DB.Dt.Minigame2BestScore, Config.MINIGAME2_UNLOCK_SCORES
             , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL, mg2InfoData
         );
-        //TODO Tundra onInits[2]
+        onInits[2] = () => init(Enum.MG.Minigame3.ToString(), "Snow sledding!"
+            , DB.Dt.Minigame3BestScore, Config.MINIGAME3_UNLOCK_SCORES
+            , DB.Dt.Minigame3RewardTriggers, Config.MINIGAME3_MAX_VAL, mg3InfoData
+        );
     }
 
 
@@ -99,6 +106,7 @@ public class HomeMinigameManager : MonoBehaviour {
             NORMAL = (int)Enum.MINIGAME_LV.Normal, 
             HARD = (int)Enum.MINIGAME_LV.Hard;
 
+        minigameImg.sprite = infoData.MinigameSpr;
         topFrame1Img.color = infoData.FrameColor;
         topFrame2Img.color = infoData.FrameColor;
         labelImg.sprite = infoData.LabelSpr;
@@ -168,7 +176,7 @@ public class HomeMinigameManager : MonoBehaviour {
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
             int[] unlockScores = (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame1)? Config.MINIGAME1_UNLOCK_SCORES
                 : (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame2)? Config.MINIGAME2_UNLOCK_SCORES
-                : null;
+                : Config.MINIGAME3_UNLOCK_SCORES;
             HM._.ui.showErrorMsgPopUp($"Achieve {unlockScores[difficultyLvIdx]} Score!");
             return;
         }

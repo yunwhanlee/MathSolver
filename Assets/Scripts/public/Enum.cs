@@ -17,7 +17,8 @@ public class Enum {
         GoGame, IconBtnGroupArea, Player, Pet, Funiture, Box, Obj,
         TableDecoArea,
         Apple, Bomb, GoldApple, Diamond, //* MiniGame1
-        JumpingPad, EraseObjLine, Banana, GoldBanana, PlayerNoCollideArea  //* MiniGame2
+        JumpingPad, EraseObjLine, Banana, GoldBanana, PlayerNoCollideArea,  //* MiniGame2
+        Obstacle, Blueberry, GoldBlueberry,
     };
     public enum ANIM {
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,

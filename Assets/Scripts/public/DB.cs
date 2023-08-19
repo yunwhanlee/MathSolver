@@ -33,7 +33,7 @@ public class Data {
     [Header("MINIGAME REWARD")]
     [SerializeField] bool[] minigame1RewardTriggers; public bool[] Minigame1RewardTriggers {get => minigame1RewardTriggers; set => minigame1RewardTriggers = value;}
     [SerializeField] bool[] minigame2RewardTriggers; public bool[] Minigame2RewardTriggers {get => minigame2RewardTriggers; set => minigame2RewardTriggers = value;}
-    //TODO [SerializeField] bool[] minigame3RewardTriggers; public bool[] Minigame3RewardTriggers {get => minigame3RewardTriggers; set => minigame3RewardTriggers = value;}
+    [SerializeField] bool[] minigame3RewardTriggers; public bool[] Minigame3RewardTriggers {get => minigame3RewardTriggers; set => minigame3RewardTriggers = value;}
 
     [Header("ACHIEVEMENT")]
     [SerializeField] int acvCorrectAnswerLv;  public int AcvCorrectAnswerLv {get => acvCorrectAnswerLv; set => acvCorrectAnswerLv = value;}
@@ -241,6 +241,7 @@ public class DB : MonoBehaviour {
         #region MINIGAME REWARD
         dt.Minigame1RewardTriggers = new bool[3] {false, false, false};
         dt.Minigame2RewardTriggers = new bool[3] {false, false, false};
+        dt.Minigame3RewardTriggers = new bool[3] {false, false, false};
         #endregion
 
         #region ACHIEVE

@@ -25,6 +25,7 @@ TagManager:
   - PlayerNoCollideArea
   - Obstacle
   - Blueberry
+  - GoldBlueberry
   layers:
   - Default
   - TransparentFX

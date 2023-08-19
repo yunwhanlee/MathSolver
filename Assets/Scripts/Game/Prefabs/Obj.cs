@@ -56,12 +56,15 @@ public class Obj : MonoBehaviour {
         //* 自分が🍌オブジェクトなら、処理しない
         if(CompareTag(Enum.TAG.Banana.ToString())) return;
         if(CompareTag(Enum.TAG.GoldBanana.ToString())) return;
+        if(CompareTag(Enum.TAG.Obstacle.ToString())) return;
+        if(CompareTag(Enum.TAG.Blueberry.ToString())) return;
+        if(CompareTag(Enum.TAG.GoldBlueberry.ToString())) return;
 
+        #region MINIGAME 2
         if(col.CompareTag(Enum.TAG.Player.ToString())) {
             Debug.Log($"<b>Obj:: OnTriggerExit2D(col= {col.tag}):: Obj.name= {name}, Player.velocity.dir= {MGM._.Pl.Rigid.velocity.normalized}</b>");
             GetComponent<BoxCollider2D>().isTrigger = false;
             // GetComponent<SpriteRenderer>().color = Color.red;
-
             //* 上から下へ落ちる時、橋場とぶつかったらTriggerExit()なので、PlayerへCollisionEnter2Dが有っても、ぶつからない問題があり、
             //* 動く方向を把握して、下向きならジャンプを直接させる。
             bool isDirDown = MGM._.Pl.Rigid.velocity.normalized.y < 0;
@@ -80,6 +83,7 @@ public class Obj : MonoBehaviour {
             // GetComponent<SpriteRenderer>().color = Color.white;
             MGM._.mgem.releaseObj(this.gameObject, (int)MGEM.IDX.JumpingPadObj);
         }
+        #endregion
     }
 #endregion
 #endregion

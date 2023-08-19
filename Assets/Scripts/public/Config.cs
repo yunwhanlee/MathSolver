@@ -25,4 +25,10 @@ public static class Config {
     public readonly static int[] MINIGAME2_EASY_OBJ_DATA = new int[2] {1, 3};
     public readonly static int[] MINIGAME2_NORMAL_OBJ_DATA = new int[3] {2, 5, 9};
     public readonly static int[] MINIGAME2_HARD_OBJ_DATA = new int[3] {3, 7, 10};
+
+    public readonly static int MINIGAME3_MAX_VAL = 200;
+    public readonly static int[] MINIGAME3_UNLOCK_SCORES = new int[3] {50, 100, MINIGAME3_MAX_VAL};
+    public readonly static int[] MINIGAME3_EASY_OBJ_DATA = new int[2] {1, 2};
+    public readonly static int[] MINIGAME3_NORMAL_OBJ_DATA = new int[3] {2, 4, 8};
+    public readonly static int[] MINIGAME3_HARD_OBJ_DATA = new int[3] {3, 6, 10};
 }

@@ -167,6 +167,10 @@ public class MGUI : MonoBehaviour {
             MGM._.Pl.jump();
             MGM._.FloorColliderObj.SetActive(false);
         }
+        else if(MGM._.Type == MGM.TYPE.MINIGAME3) {
+            MGM._.Pl.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
+            MGM._.PlSnowParticleEF.SetActive(true);
+        }
 
         yield return Util.time1;
         titleTxt.gameObject.SetActive(false);

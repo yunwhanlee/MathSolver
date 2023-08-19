@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
+using Unity.Mathematics;
 
 public class MGM : MonoBehaviour { //* MiniGame Manager
     const int MIN_X = -2, MAX_X =2;
@@ -57,7 +58,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
     [Space(10)]
     [Header("MINIGAME 3 VALUE")]
+    [SerializeField] GameObject minigame3ResultBG;  public GameObject Minigame3ResultBG {get => minigame3ResultBG;}
     [SerializeField] GameObject snowFloorBG;
+    [SerializeField] GameObject plSnowParticleEF;   public GameObject PlSnowParticleEF {get => plSnowParticleEF;}
     [SerializeField] float snowFloorSpd;
 
     void Awake() {
@@ -133,6 +136,12 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         //* ゲーム終了
         if(status == STATUS.FINISH && !isFinish) {
             isFinish = true;
+            if(DB._ == null) {
+                Debug.Log("<color=red>FINISH!</color>");
+                //* 残るオブジェクト全て破壊
+                mgem.releaseAllObj();
+                return; //! TEST
+            }
             //* Update Best Score
             if(type == TYPE.MINIGAME1 && score > DB.Dt.Minigame1BestScore) {
                 DB.Dt.Minigame1BestScore = score;
@@ -159,9 +168,12 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             mgrm.setReward(EXP_VAL * score, COIN_VAL * score);
             StartCoroutine(mgrm.coDisplayResultPanel());
 
-            //* Minigame2の場合
+            //* Result画面 準備
             if(type == TYPE.MINIGAME2) {
                 StartCoroutine(coSetResultMinigame2()); 
+            }
+            else if(type == TYPE.MINIGAME3) {
+                StartCoroutine(coSetResultMinigame3());
             }
             return;
         }
@@ -310,7 +322,20 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                         int itemRandIdx = Random.Range(0, posXList.Count);
                         float posX = posXList[itemRandIdx];
                         //* Create
-                        Obj item = mgem.createObj((int)MGEM.IDX.BlueberryObj, new Vector2(posX, createPosY * 1.25f), Util.time8).GetComponent<Obj>();
+                        int rand = Random.Range(0, 100);
+                        int objIdx = 0;
+                        if(mode == MODE.EASY)
+                            objIdx = (rand <= 70)? (int)MGEM.IDX.BlueberryObj
+                                : (int)MGEM.IDX.GoldBlueberryObj;
+                        else
+                            objIdx = (rand <= 60)? (int)MGEM.IDX.BlueberryObj
+                                : (rand <= 80)? (int)MGEM.IDX.GoldBlueberryObj
+                                : (int)MGEM.IDX.DiamondObj;
+
+                        Obj item = mgem.createObj(objIdx, new Vector2(posX, createPosY * 1.25f), Util.time8).GetComponent<Obj>();
+                        if(objIdx == (int)MGEM.IDX.DiamondObj) {
+                            item.Rigid.bodyType = RigidbodyType2D.Static;
+                        }
                         item.activeMoving(snowFloorSpd);
                         //* Random List Remove
                         posXList.RemoveAt(itemRandIdx);
@@ -375,7 +400,16 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             pl.transform.position = new Vector2(0, 5);
             pl.Rigid.gravityScale = 0.1f;
         }
-        
+    }
+    IEnumerator coSetResultMinigame3() {
+        yield return Util.time1_5;
+        minigame3ResultBG.SetActive(true);
+        snowFloorBG.SetActive(false);
+        plSnowParticleEF.SetActive(false);  
+        pl.transform.rotation = quaternion.identity;
+        pl.Rigid.bodyType = RigidbodyType2D.Static;
+        pl.transform.localPosition = new Vector2(0, -4.5f);
+        pl.transform.localScale = Vector2.one;
     }
 #endregion
 }

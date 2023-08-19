@@ -8,10 +8,10 @@ public class MGEM : MonoBehaviour {
         //* Obj
         AppleObj, GoldAppleObj, BombObj, DiamondObj // Minigame 1
         ,JumpingPadObj, BananaObj, GoldBananaObj // Minigame 2
-        ,ObstacleObj, BlueberryObj // Minigame 3
+        ,ObstacleObj, BlueberryObj, GoldBlueberryObj // Minigame 3
         //* EF
         ,StunEF, BasketCatchEF, ExplosionBombEF, ShineSpoutGoldEF
-        ,DecalWoodEF, FireworkBlueEF,
+        ,DecalWoodEF, FireworkBlueEF, HitSnowRockEF,
     }
 
     //* MiniGame1
@@ -25,18 +25,18 @@ public class MGEM : MonoBehaviour {
     //* MiniGame3
     [SerializeField] GameObject obstacleObj;
     [SerializeField] GameObject blueberryObj;
-
+    [SerializeField] GameObject goldBlueberryObj;
     //* 共通
     [SerializeField] GameObject diamondObj;
 
-
+    //* EFFECT
     [SerializeField] GameObject stunEF;
     [SerializeField] GameObject basketCatchEF;
     [SerializeField] GameObject explosionBombEF;
     [SerializeField] GameObject shineSpoutGoldEF;
     [SerializeField] GameObject decalWoodEF;
     [SerializeField] GameObject fireworkBlueEF;
-
+    [SerializeField] GameObject hitSnowRockEF;
 
     List<IObjectPool<GameObject>> pool = new List<IObjectPool<GameObject>>();
     [SerializeField] Transform objectGroup;  public Transform ObjectGroup {get => objectGroup; set => objectGroup = value;}
@@ -53,6 +53,7 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(goldBananaObj, max: 5, objectGroup));
         pool.Add(initEF(obstacleObj, max: 15, objectGroup));
         pool.Add(initEF(blueberryObj, max: 10, objectGroup));
+        pool.Add(initEF(goldBlueberryObj, max: 5, objectGroup));
 
         pool.Add(initEF(stunEF, max: 1, effectGroup));
         pool.Add(initEF(basketCatchEF, max: 4, effectGroup));
@@ -60,6 +61,7 @@ public class MGEM : MonoBehaviour {
         pool.Add(initEF(shineSpoutGoldEF, max: 2, effectGroup));
         pool.Add(initEF(decalWoodEF, max: 4, effectGroup));
         pool.Add(initEF(fireworkBlueEF, max: 3, effectGroup));
+        pool.Add(initEF(hitSnowRockEF, max: 1, effectGroup));
     }
 
 /// -----------------------------------------------------------------------------------------------------------------
@@ -100,6 +102,7 @@ public class MGEM : MonoBehaviour {
             : (idx == 6)? IDX.GoldBananaObj.ToString()
             : (idx == 7)? IDX.ObstacleObj.ToString()
             : (idx == 8)? IDX.BlueberryObj.ToString()
+            : (idx == 9)? IDX.GoldBlueberryObj.ToString()
             : null;
         if(obj.name == null) {
             Debug.LogError("ERROR: MGEM:: createObjで、オブジェクト名がNULLです！");
@@ -152,6 +155,7 @@ public class MGEM : MonoBehaviour {
                 : (name == IDX.GoldBananaObj.ToString())? 6
                 : (name == IDX.ObstacleObj.ToString())? 7
                 : (name == IDX.BlueberryObj.ToString())? 8
+                : (name == IDX.GoldBlueberryObj.ToString())? 9
                 : -1;
             //* 戻す
             if (obj != null && obj.activeSelf) {

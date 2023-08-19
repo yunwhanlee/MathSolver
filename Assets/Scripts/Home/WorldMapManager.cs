@@ -162,7 +162,7 @@ public class WorldMapManager : MonoBehaviour {
         HM._.ui.MapUnlockPopUpCttTxt.text = 
             (name == Enum.MG.Minigame1.ToString())? "Catch Falling apples!"
             : (name == Enum.MG.Minigame2.ToString())? "Jump to the sky!"
-            : (name == Enum.MG.Minigame3.ToString())? "TODO"
+            : (name == Enum.MG.Minigame3.ToString())? "Snow sledding!"
             : isMapUnlock? "Found a new map!"
             : !isMapUnlock? "New place open!"
             : null;

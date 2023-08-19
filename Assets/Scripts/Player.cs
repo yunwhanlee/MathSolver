@@ -49,7 +49,6 @@ public class Player : MonoBehaviour {
         if(HM._ != null && HM._.state != HM.STATE.NORMAL) return;
         if(MGM._) return; //* MiniGame時には以下処理しない
         if(isSit) return;
-
         //* レイヤー
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y + tbDecoAreaSortingAddVal;
 
@@ -96,6 +95,15 @@ public class Player : MonoBehaviour {
         else {
             animSit(false);
         }
+    }
+    public void flyByhitObstacle(int power) {
+        rigid.bodyType = RigidbodyType2D.Dynamic;
+        float xDir = (transform.localPosition.x < 0)? -1 : 1;
+        var dir = new Vector2(xDir, 1);
+        dir = dir.normalized;
+        int rotPower = 500;
+        rigid.AddForce(dir * power * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        rigid.AddTorque(rotPower * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
     public float calcLvBonusPer() {
         float lvBonusPer = Config.LV_BONUS_PER;

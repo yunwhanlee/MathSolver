@@ -34,13 +34,30 @@ public class Basket : MonoBehaviour {
         else if(col.gameObject.CompareTag(Enum.TAG.Banana.ToString())) {
             MGM._.Score += MGM._.GeneralPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, col.transform.position, Util.time999);
-            MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.BananaObj);
+            releaseAndBounce(col.gameObject, (int)MGEM.IDX.BananaObj);
         }
         else if(col.gameObject.CompareTag(Enum.TAG.GoldBanana.ToString())) {
             MGM._.Score += MGM._.GoldPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
-            MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.GoldBananaObj);
+            releaseAndBounce(col.gameObject, (int)MGEM.IDX.GoldBananaObj);
+        }
+        //* Minigame 3
+        else if(col.gameObject.CompareTag(Enum.TAG.Obstacle.ToString())) {
+            MGM._.Pl.flyByhitObstacle(power: 1300);
+            MGM._.mgem.showEF((int)MGEM.IDX.HitSnowRockEF, transform.position, Util.time2);
+            MGM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
+        }
+        else if(col.gameObject.CompareTag(Enum.TAG.Blueberry.ToString())) {
+            MGM._.Score += MGM._.GeneralPoint;
+            MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, col.transform.position, Util.time999);
+            releaseAndBounce(col.gameObject, (int)MGEM.IDX.BlueberryObj);
+        }
+        else if(col.gameObject.CompareTag(Enum.TAG.GoldBlueberry.ToString())) {
+            MGM._.Score += MGM._.GoldPoint;
+            MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
+            MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
+            releaseAndBounce(col.gameObject, (int)MGEM.IDX.GoldBlueberryObj);
         }
         //* Public
         else if(col.CompareTag(Enum.TAG.Diamond.ToString())) {
@@ -56,8 +73,15 @@ public class Basket : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     private void releaseAndBounce(GameObject obj, int idx) {
         MGM._.mgem.releaseObj(obj, idx);
+        StartCoroutine(myCo()); //* 二つが重なったら、Scale戻らないバグ対応
+    }
+    IEnumerator myCo() {
+        float originSc = MGM._.Pl.transform.localScale.x;
         StartCoroutine(Util.coPlayBounceAnim(this.transform));
-        StartCoroutine(Util.coPlayBounceAnim(MGM._.Pl.transform));
+        yield return Util.coPlayBounceAnim(MGM._.Pl.transform);
+        //* スケールを戻す
+        if(MGM._.Pl.transform.localScale.x > originSc) 
+            MGM._.Pl.transform.localScale = new Vector2(originSc, originSc);
     }
 #endregion
 }
