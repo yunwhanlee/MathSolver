@@ -49,6 +49,10 @@ public class GameTalkManager : TalkManager {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    protected override void setBG() {
+        //なし
+    }
+
     protected override string setEvent(int id) {
         Debug.Log($"GameTalkManager:: setEvent(id={id}):: talkIdx= {talkIdx}");
         string rawMsg = "";

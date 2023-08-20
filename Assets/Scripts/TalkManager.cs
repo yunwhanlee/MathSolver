@@ -21,6 +21,7 @@ public abstract class TalkManager : MonoBehaviour {
         Seal_Idle, Seal_Happy, Seal_Sad,
         TundraBear_Idle, TundraBear_Happy, TundraBear_Sad,
         SnowRabbit_Idle, SnowRabbit_Happy, SnowRabbit_Sad,
+        BabyDragon,
     };
 
     IEnumerator coTxtTeleTypeID;
@@ -31,11 +32,14 @@ public abstract class TalkManager : MonoBehaviour {
     protected Dictionary<int, string[]> talkDt;
     [SerializeField] protected List<Sprite> spkSprDtList; //* Inspector viewで
 
+
     //* Value
     [SerializeField] protected bool isAction; public bool IsAction {get => isAction;}
     [SerializeField] protected int curId;
     [SerializeField] protected int talkIdx;
     [SerializeField] protected GameObject talkDialog;
+    [SerializeField] protected Image bgImg;
+    
     private Animator talkDialogAnim;
     [SerializeField] protected TextMeshProUGUI talkTxt;
     [SerializeField] protected Image[] spkImgs;
@@ -99,6 +103,8 @@ public abstract class TalkManager : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    protected abstract void setBG();
+
     protected virtual string setEvent(int id) { //* イベント 処理
         Debug.Log("processMsg:: setEvent:: override必要！");
         return getMsg(id, talkIdx);
@@ -108,6 +114,7 @@ public abstract class TalkManager : MonoBehaviour {
     public void action(int id) {
         Debug.Log($"TalkManager:: action(id= {id})::");
         curId = id;
+        setBG();
         play(); //* 最初スタート
     }
 
@@ -260,6 +267,11 @@ public abstract class TalkManager : MonoBehaviour {
                     case (int)SPK.SnowRabbit_Idle: case (int)SPK.SnowRabbit_Happy: case (int)SPK.SnowRabbit_Sad: {
                         tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 50);
                         setOtherPortrait(spkImg, "눈토끼", key, tf.anchoredPosition, isFlip);
+                        break;
+                    }
+                    case (int)SPK.BabyDragon: {
+                        tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 100);
+                        setOtherPortrait(spkImg, "아기드래곤", key, tf.anchoredPosition, isFlip);
                         break;
                     }
                 }

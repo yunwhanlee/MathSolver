@@ -29,10 +29,20 @@ public class HomeTalkManager : TalkManager {
         UNLOCK_MAP3_BG2_ACCEPT, UNLOCK_MAP3_BG2_REWARD,
         UNLOCK_MAP3_BG3_ACCEPT, UNLOCK_MAP3_BG3_REWARD,
         UNLOCK_MAP3_MINIGAME,
+        //* Map 4
+        COMING_SOON,
     };
 
     [Header("EXTRA")]
     [SerializeField] GameObject TutorialRoomPanelBtn;
+    [SerializeField] Sprite noneBgSpr;
+    [SerializeField] Sprite orchardBgSpr;
+    [SerializeField] Sprite swampBgSpr;
+    [SerializeField] Sprite monkeywatBgSpr;
+    [SerializeField] Sprite tundraEntraceSpr;
+    [SerializeField] Sprite snowMountainSpr;
+    [SerializeField] Sprite iceDragonBgSpr;
+
 
     // void Start() {
     //     TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
@@ -138,7 +148,7 @@ public class HomeTalkManager : TalkManager {
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT, new string[] {
             $"이제 과수원 지역도 도와주면서\n레벨을 10을 달성해보자!:{(int)SPK.Pl_Idle}"
         });
-        talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] { //* Orchard BG ON
             $"이야 벌써 레벨10을 달성했구나!\n대단해!:{(int)SPK.Pl_Happy}"
             , $"선생님, 정말 감사합니다!!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
             , $"주민들이 선물을 준비했어요. 받아주세요!:{(int)SPK.Bear_Happy}"
@@ -167,7 +177,7 @@ public class HomeTalkManager : TalkManager {
             , $"새로운 정글맵이 오픈했어!:{(int)SPK.Pl_Happy}"
             , $"흠.. 우선 늪지대 지역을 도와주며 레벨 14를 달성하자!:{(int)SPK.Pl_Idle}"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] {
+        talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] { //* Swamp BG ON
             $"도와줘서 너무 감사개굴.:{(int)SPK.Frog_Happy}"
             , $"이제 어디로 갔는지 당장 말해!:{(int)SPK.Pl_Happy}"
             , $"원숭이들은 몽키와트라는 신전에서 생활해개굴:{(int)SPK.Frog_Idle}"
@@ -207,7 +217,7 @@ public class HomeTalkManager : TalkManager {
             , $"미리 길을 열어두었개미. 그리로 가면된다개미!:{(int)SPK.Ant_Idle}"
             , $"고마워! 드디어 찾았다! 기다려라 몽키와트 신전!:{(int)SPK.Pl_Idle}"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP2_MINIGAME, new string[] { //* #2
+        talkDt.Add((int)ID.UNLOCK_MAP2_MINIGAME, new string[] {
             $"잠깐!!:{(int)SPK.WarriorMonkey_Idle}"
             , $"네..넹?:{(int)SPK.Pl_Sad}"
             , $"우리 신전에서는 하늘로 올라가는 전통행사가 있지:{(int)SPK.WarriorMonkey_Idle}"
@@ -219,7 +229,7 @@ public class HomeTalkManager : TalkManager {
         #endregion
 
         #region MAP3 TUNDRA
-        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT, new string[] { //* #1
+        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT, new string[] { //* #1 MonkeyWat BG ON
             $"흠..여기가 몽키와트 신전인가..:{(int)SPK.Pl_Idle}"
             , $"룰루랄라~ 우끼~:{(int)SPK.Monkey_Idle}"
             , $"아닛! 드디어 찾았다 이 녀석!!:{(int)SPK.Pl_Happy}"
@@ -241,7 +251,7 @@ public class HomeTalkManager : TalkManager {
             , $"히익 제가 도와드려야지요!\n(사..살았다..):{(int)SPK.Pl_Idle}"
             , $"신전도 도와주면서 친밀도를 쌓고, 레벨 20을 달성하자.:{(int)SPK.Pl_Idle}"
         });
-        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] {
+        talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] { //* #1 MonkeyWat BG ON
             $"고맙다! 수학선생!!:{(int)SPK.WarriorMonkey_Idle}"
             , $"하하! 별말씀을요!:{(int)SPK.Pl_Idle}"
             , $"신전의 수학고민을 해결해준 덕분에:{(int)SPK.WarriorMonkey_Happy}"
@@ -275,12 +285,15 @@ public class HomeTalkManager : TalkManager {
             , $"우끼!!!:{(int)SPK.Pl_Happy}:{(int)SPK.Frog_Idle}_FLIP:{(int)SPK.Ant_Idle}_FLIP"
             , $"--정글 퀘스트 끝--:{(int)SPK.Empty}"
 
-            , $"으어어 선생님..:{(int)SPK.Mole_Sad}"
-            , $"곰돌이가 전설의 사파이어 사과를 찾는다고 툰드라지역에 갔는데:{(int)SPK.Mole_Idle}"
-            , $"지금까지 아무런 소식이 없어요.. 혹시 무슨일이 생긴건 아닐까요?:{(int)SPK.Mole_Idle}"
+            , $"으어어 선생님..:{(int)SPK.Mole_Sad}" 
+            , $"곰돌이가 어디선가 고대서적을 구하더니,:{(int)SPK.Mole_Idle}"
+            , $"갑자기 전설의 용을 보겠다고 툰드라지역에 갔어요..:{(int)SPK.Mole_Idle}"
+            , $"그런데, 전혀 아무런 소식이 없어요.. 혹시 무슨일이 생긴건 아닐까요?:{(int)SPK.Mole_Idle}"
             , $"저는 추운데가면 하루도 못버텨서.. 선생님께서 한번 가주시면 안될까요?:{(int)SPK.Mole_Sad}"
-            , $"정말로요? 제가 한번 가보겠습니다.:{(int)SPK.Pl_Idle}"
-            , $"(툰드라 지역):{(int)SPK.Empty}"
+            , $"에? 용이요? 그건 전설의 동물 아닌가요?:{(int)SPK.Pl_Idle}"
+            , $"흠.. 일단 제가 찾으러 가보겠습니다.:{(int)SPK.Pl_Idle}"
+            , $"감사합니다 선생님..:{(int)SPK.Mole_Sad}"
+            , $"(툰드라 지역):{(int)SPK.Empty}" //* Tundra Entrance BG ON
             , $"(휘이이잉...):{(int)SPK.Empty}"
             , $"으.. 춥다..여기가.. 툰드라지역 입구인가?:{(int)SPK.Pl_Sad}"
             , $"엉엉.. 엉엉!:{(int)SPK.Seal_Idle}"
@@ -298,31 +311,36 @@ public class HomeTalkManager : TalkManager {
             , $"모두가 당신을 만나고싶어했덩! 우리를 도와주면:{(int)SPK.Seal_Idle}"
             , $"곰돌이 친구가 있는 곳을 말해주겠덩!:{(int)SPK.Seal_Idle}"
             , $"크흣.. 알겠습니다!:{(int)SPK.Pl_Idle}"
-            , $"툰드라 입구지역을 도와주면서 레벨 24를 달성하자!:{(int)SPK.Pl_Happy}"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
+            $"툰드라 입구지역을 도와주면서 레벨 24를 달성하자!:{(int)SPK.Pl_Happy}"
+
+        });
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG2_REWARD, new string[] {
             $"너무너무 고맙덩!!! 주민들이 평화를 되찾았엉!:{(int)SPK.Seal_Idle}"
             , $"하하 다행이군요!:{(int)SPK.Pl_Happy}"
-            , $"곰돌이는 전설의 사과를 찾는다고 설산으로 올라갔엉! 엉!:{(int)SPK.Seal_Idle}"
+            , $"곰돌이는 전설의 용를 찾는다고 설산으로 올라갔엉! 엉!:{(int)SPK.Seal_Idle}"
             , $"텐트랑 여러가지 채비를 하고갔으니 분명 아직 있을거덩!:{(int)SPK.Seal_Idle}"
             , $"그렇구나! 감사합니다!!:{(int)SPK.Pl_Idle}"
             , $"바로 설산으로 가보자!:{(int)SPK.Pl_Idle}"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP3_BG2_REWARD, new string[] {
-            $"허억..허억.. 으어 정말 높은 설산이다..:{(int)SPK.Pl_Sad}"
+
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG3_ACCEPT, new string[] { //* SnowMountain BG ON
+            $"허억..허억.. 으어 정말 높은산이다..:{(int)SPK.Pl_Sad}"
             , $"곰돌이는 어디있지.. 설마...:{(int)SPK.Pl_Idle}"
             , $"곰돌아! 곰돌아~!!:{(int)SPK.Pl_Happy}"
             , $"넹? 저 부르셨나요?:{(int)SPK.TundraBear_Idle}"
             , $"으아닛!:{(int)SPK.Pl_Sad}"
             , $"잘 지내셨나요? 그런데 여기까지 무슨일로?:{(int)SPK.TundraBear_Idle}"
-            , $"아니! 왜 설산으로 가고나서 아무런 연락이 없었거니?!:{(int)SPK.Pl_Happy}"
+            , $"아니! 왜 그동안 아무런 연락이 없었거니?!:{(int)SPK.Pl_Happy}"
             , $"아아.. 죄송해요..:{(int)SPK.TundraBear_Idle}"
             , $"아무튼 무사하니 다행이다! 자 같이 돌아가자!:{(int)SPK.Pl_Happy}"
-            , $"안되요! 저는 전설의 사파이어 사과를 꼭 찾아야 되요!:{(int)SPK.TundraBear_Sad}"
+            , $"안되요! 저는 전설의 용을 꼭 봐야되요!:{(int)SPK.TundraBear_Sad}"
             , $"이곳 설산지역 주민들은 분명히 알고있는데,:{(int)SPK.TundraBear_Idle}"
-            , $"수학고민을 도와주지 않으면, 알려주지 않겠데요..:{(int)SPK.TundraBear_Sad}"
-            , $"그래서, 여기에 텐트치고 수학공부 중이었어요..:{(int)SPK.TundraBear_Idle}"
+            , $"계속 모른척하고, 알려주지 않아요..:{(int)SPK.TundraBear_Sad}"
+            , $"가만히보니 주민들의 수학고민이 많은거같아서,:{(int)SPK.TundraBear_Idle}"
+            , $"여기에 텐트를 치고 수학공부 중이었어요..:{(int)SPK.TundraBear_Idle}"
             , $"여어! 계시묘?:{(int)SPK.SnowRabbit_Idle}_FLIP"
             , $"앗! 드디어 손님이 왔어요! 잠시만요.:{(int)SPK.TundraBear_Happy}"
             , $"(후다닥):{(int)SPK.Empty}"
@@ -342,27 +360,76 @@ public class HomeTalkManager : TalkManager {
             , $"맞습니다! 그리고 저의 절친이죠!:{(int)SPK.TundraBear_Happy}"
             , $"이럴수묘! 안그래도 우리지역에 수학고민이 많아서 힘들었묘.:{(int)SPK.SnowRabbit_Happy}_FLIP"
             , $"당연히 도와드려야죠! 그리고.. 혹시..:{(int)SPK.TundraBear_Idle}"
-            , $"전설의 사파이어 사과에 대해서도 알수 있나요?..:{(int)SPK.TundraBear_Idle}"
+            , $"전설의 용에 대해서도 알 수 있나요?..:{(int)SPK.TundraBear_Idle}"
             , $"물론이묘! 설산지역을 도와만준다면 알려주겠다묘!:{(int)SPK.SnowRabbit_Happy}_FLIP"
             , $"크아아! 들으셨죠 선생님?!:{(int)SPK.TundraBear_Happy}"
             , $"하..하하! 네! 제가 도와드리겠습니다!:{(int)SPK.Pl_Idle}_FLIP"
             , $"휴.. 설산지역도 도와주면서 레벨 27을 달성하자!:{(int)SPK.Pl_Idle}"
         });
-
-        talkDt.Add((int)ID.UNLOCK_MAP3_BG3_ACCEPT, new string[] {
-            "TODO UNLOCK_MAP3_BG3_ACCEPT:0"
+        talkDt.Add((int)ID.UNLOCK_MAP3_BG3_REWARD, new string[] { //* SnowMountain BG ON
+            $"묘묘! 정말 고맙다묘!:{(int)SPK.SnowRabbit_Happy}"
+            , $"하하 당연한걸 한겁니다!:{(int)SPK.Pl_Happy}"
+            , $"크흠.. 그럼 전설의 용에 대해서는..:{(int)SPK.TundraBear_Idle}_FLIP"
+            , $"..그래그래 알려주겠다묘. 너희들은 나쁜사람이 아닌것 같다묘:{(int)SPK.SnowRabbit_Idle}"
+            , $"따라오라묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"(누군가 알려주지 않으면 알수없는 길로 계속 올라간다.):{(int)SPK.Empty}"
+            , $"(빙산 꼭대기):{(int)SPK.Empty}" //* Ice Dragon BG ON
+            , $"오오!! 저건.. 진짜 용?!:{(int)SPK.TundraBear_Happy}_FLIP"
+            , $"다 왔다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"이 툰드라 정상에는 용이 산다는 전설이 있다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"저 용은 우리 툰드라를 지켜주던 빙룡님이다묘:{(int)SPK.SnowRabbit_Idle}"
+            , $"하지만, 지금은 보다시피 얼음속에서 잠들어계신다묘:{(int)SPK.SnowRabbit_Idle}"
+            , $"... 크흠..:{(int)SPK.SnowRabbit_Idle}"
+            , $"자! 나와도 된다묘! 이분들은 우리를 도와주신 착한 분이다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"(스윽..):{(int)SPK.Empty}"
+            , $"꾸아앙..아..안녕..:{(int)SPK.BabyDragon}"
+            , $"이럴수가! 아기 용이다..:{(int)SPK.Pl_Idle}"
+            , $"그렇다묘. 갑자기 무슨일에선지 빙룡님은 빙하에서 잠이드셨고,:{(int)SPK.SnowRabbit_Idle}"
+            , $"처음엔 작은 알만 덩그러니 놓여있었다묘..:{(int)SPK.SnowRabbit_Idle}"
+            , $"우리들은 그 동안, 이 아기용을 지키기위해서, 이 모든걸 비밀로 간직했다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"거기까지는 좋았는데, 아기용이 부화하고, 수학을 알고싶어하는데:{(int)SPK.SnowRabbit_Idle}"
+            , $"우리들은 수학을 못한다묘..:{(int)SPK.SnowRabbit_Sad}"
+            , $"아하.. 그래서 수학고민이 많았던 거군요?:{(int)SPK.TundraBear_Idle}_FLIP"
+            , $"맞다묘..:{(int)SPK.SnowRabbit_Idle}"
+            , $"수학선생님께 부탁이 있다묘. 우리 아기용에게도 수학을 알려줄 수 있겠냐묘:{(int)SPK.SnowRabbit_Idle}"
+            , $"그렇게 아기용이 수학을 만족하게되면 큰 사례를 하겠다묘!:{(int)SPK.SnowRabbit_Idle}"
+            , $"당연히 해드려야죠! 걱정하지마세요:{(int)SPK.Pl_Idle}"
+            , $"크흑.. 정말 고맙다묘.:{(int)SPK.SnowRabbit_Sad}"
+            , $"꾸어..고..마우엉..:{(int)SPK.BabyDragon}"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP3_BG3_REWARD, new string[] {
-            "TODO UNLOCK_MAP3_BG3_REWARD:0"
+        talkDt.Add((int)ID.UNLOCK_MAP3_MINIGAME, new string[] { //* NoneMapBG ON
+            $"우리 툰드라지역 주민들은 썰매타기 게임을 좋아한다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"썰매를 타면서 블루배리를 줍는 것이 낙이다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"특히 우리 아기용이 썰매를 잘타는 동물을 좋아한다묘.:{(int)SPK.SnowRabbit_Idle}"
+            , $"썰매타기를 모두 완료하면, 정말 많이 친해질 수 있을거다묘!:{(int)SPK.SnowRabbit_Happy}"
+            , $"우와! 이제 미니게임 썰매타기를 할 수 있어요!!:{(int)SPK.TundraBear_Happy}"
         });
-        talkDt.Add((int)ID.UNLOCK_MAP3_MINIGAME, new string[] {
-            "TODO UNLOCK_MAP3_MINIGAME"
+        talkDt.Add((int)ID.COMING_SOON, new string[] {
+            $"현재 개발된 게임 스토리는 여기까지입니다.:{(int)SPK.Empty}"
+            ,$"끝까지 플레이 해주셔서 진심으로 감사합니다.:{(int)SPK.Empty}"
         });
         #endregion
     }
-///---------------------------------------------------------------------------------------------------------------------------------------------------
-#region SET EVENT
-///---------------------------------------------------------------------------------------------------------------------------------------------------
+
+    ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    #region SET EVENT
+    ///---------------------------------------------------------------------------------------------------------------------------------------------------
+
+    protected override void setBG(){
+        if(curId == (int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD)
+            bgImg.sprite = orchardBgSpr;
+        else if(curId == (int)ID.UNLOCK_MAP2_BG2_REWARD)
+            bgImg.sprite = swampBgSpr;
+        else if(curId == (int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT || curId == (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD)
+            bgImg.sprite = monkeywatBgSpr;
+        else if(curId == (int)ID.UNLOCK_MAP3_BG2_REWARD)
+            bgImg.sprite = tundraEntraceSpr;
+        else if(curId == (int)ID.UNLOCK_MAP3_BG3_ACCEPT || curId == (int)ID.UNLOCK_MAP3_BG3_REWARD)
+            bgImg.sprite = snowMountainSpr;
+        else 
+            bgImg.sprite = noneBgSpr;
+    }
+
     protected override string setEvent(int id) {
         Debug.Log($"GameTalkManager:: setEvent(id={id}):: talkIdx= {talkIdx}");
 
@@ -430,11 +497,16 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.UNLOCK_MAP2_MINIGAME:          break;
 
             case (int)ID.OPEN_MAP3_UNLOCK_BG1_ACCEPT:   break;
-            case (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD:   break;
+            case (int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD:
+                if(talkIdx == 32) bgImg.sprite = noneBgSpr;
+                else if(talkIdx == 40) bgImg.sprite = tundraEntraceSpr;
+                break;
             case (int)ID.UNLOCK_MAP3_BG2_ACCEPT:        break;
             case (int)ID.UNLOCK_MAP3_BG2_REWARD:        break;
             case (int)ID.UNLOCK_MAP3_BG3_ACCEPT:        break;
-            case (int)ID.UNLOCK_MAP3_BG3_REWARD:        break;
+            case (int)ID.UNLOCK_MAP3_BG3_REWARD:
+                if(talkIdx == 6) bgImg.sprite = iceDragonBgSpr;
+                break;
             case (int)ID.UNLOCK_MAP3_MINIGAME:          break;
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;

@@ -34,6 +34,10 @@ public class QuestManager : MonoBehaviour {
 #region FUNC
 /// -----------------------------------------------------------------------------------------------------------------
     private void updateMainQuestBox() { //* InvokeRepeating
+        if(DB.Dt.MainQuestID >= mainQuests.Length) {
+            Debug.Log("NO MORE MAIN QUEST");
+            return;
+        }
         var mq = mainQuests[DB.Dt.MainQuestID];
         mq.updateStatusGauge();
         //* MainQuestBox At Home
