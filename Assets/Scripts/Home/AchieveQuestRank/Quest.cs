@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class Quest : MonoBehaviour {
-    public enum TYPE {MainQuest, RepeatQuest};
+    public enum TYPE {Tutorial ,MainQuest, RepeatQuest};
 
     [Header("VALUE")]
     [SerializeField] TYPE type;                 public TYPE Type {get => type;}
@@ -111,7 +111,9 @@ public class Quest : MonoBehaviour {
     private void setStatusGauge(int val) {
         clearCurVal = val;
         statusGauge.value = (float)clearCurVal / clearMaxVal;
-        cttTxt.text = contentStr + $" {clearCurVal} / {clearMaxVal}";
+        
+        cttTxt.text = LM._.localize(contentStr) + $": {clearCurVal} / {clearMaxVal}";
+
         //* リワードボタン 活性化
         bool isFinish = clearCurVal >= clearMaxVal;
         rewardBtn.interactable = isFinish;

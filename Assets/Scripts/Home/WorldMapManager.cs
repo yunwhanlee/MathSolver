@@ -156,15 +156,15 @@ public class WorldMapManager : MonoBehaviour {
 
         HM._.ui.MapUnlockPopUpNameTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
         HM._.ui.MapUnlockPopUpCttTxt.color = isMapUnlock? goldenFontClr : normalFontClr;
-        HM._.ui.MapUnlockPopUpNameTxt.text = name;
+        HM._.ui.MapUnlockPopUpNameTxt.text = LM._.localize(name);
 
         //* Content Text
         HM._.ui.MapUnlockPopUpCttTxt.text = 
-            (name == Enum.MG.Minigame1.ToString())? "Catch Falling apples!"
-            : (name == Enum.MG.Minigame2.ToString())? "Jump to the sky!"
-            : (name == Enum.MG.Minigame3.ToString())? "Snow sledding!"
-            : isMapUnlock? "Found a new map!"
-            : !isMapUnlock? "New place open!"
+            (name == Enum.MG.Minigame1.ToString())? LM._.localize(Config.MINIGAME1_TITLE)
+            : (name == Enum.MG.Minigame2.ToString())? LM._.localize(Config.MINIGAME2_TITLE)
+            : (name == Enum.MG.Minigame3.ToString())? LM._.localize(Config.MINIGAME3_TITLE)
+            : isMapUnlock? LM._.localize("Found a new map!")
+            : !isMapUnlock? LM._.localize("New place open!")
             : null;
 
         //* Sprite

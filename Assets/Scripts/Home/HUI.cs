@@ -204,7 +204,7 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickWoodSignArrowBtn(int dirVal) { //* directionValue : -1 or 1にすること。
         if(HM._.qm.IsFinishMainQuest) {
-            showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
+            showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
             return;
         }
 
@@ -310,11 +310,11 @@ public class HUI : MonoBehaviour {
         }
         public void onClickDecorateModeIconBtn() {
             if(HM._.qm.IsFinishMainQuest) {
-                showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
+                showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
                 return;
             }
             if(roomObjectGroupTf.childCount == 0) {
-                HM._.ui.showErrorMsgPopUp("조정할 가구가 없습니다.");
+                HM._.ui.showErrorMsgPopUp(LM._.localize("No furniture to control"));
                 return;
             }
             setDecorationMode(isActive: true);
@@ -371,7 +371,7 @@ public class HUI : MonoBehaviour {
     }
     public void onClickNickNameOkBtn() {
         if(nickNameInputField.text.Length == 0) {
-            showErrorMsgPopUp("Please Input Nickname!");
+            showErrorMsgPopUp(LM._.localize("Please Input Nickname."));
             return;
         }
         //* 処理
@@ -502,6 +502,7 @@ public class HUI : MonoBehaviour {
     public void setInfoDlgData(Item item) {
         Debug.Log($"setInfoDlgData(item):: item.Name= {item.Name}, item.Price= {item.Price}");
         const int CLOTH_ICON = 0, QUEST_ICON = 1, MINIGAME_ICON = 2, FAME_ICON = 3;
+        bool isQuest = false;
         string moveBtncontent = "";
         Sprite moveBtnIconSpr = null;
         UnityAction onClickMoveBtn = () => {};
@@ -510,13 +511,13 @@ public class HUI : MonoBehaviour {
         //* 例外1（スキン）
         switch(item.Name) {
             case "GoldApple Pet":
-                moveBtncontent = "Minigame1 Clear";
+                moveBtncontent = LM._.localize("Minigame1 Clear");
                 moveBtnIconSpr = infoMoveBtnIconSprs[MINIGAME_ICON];
                 onClickMoveBtn = onClickGoGameDialogYesBtn;
                 
                 break;
             default: 
-                moveBtncontent = "Go Clothshop";
+                moveBtncontent = LM._.localize("Go Clothshop");
                 moveBtnIconSpr = infoMoveBtnIconSprs[CLOTH_ICON];
                 onClickMoveBtn = onClickGoClothShop;
                 break;
@@ -530,6 +531,7 @@ public class HUI : MonoBehaviour {
             //* キーワードで、アイコンとイベント適用
             switch(keyword) {
                 case "quest":
+                    isQuest = true;
                     moveBtnIconSpr = infoMoveBtnIconSprs[QUEST_ICON];
                     onClickMoveBtn = onClickAchiveRankIconBtn;
                     break;
@@ -540,7 +542,7 @@ public class HUI : MonoBehaviour {
                         if(DB.Dt.Fame >= neededFame) 
                             item.purchase(isFree: true);
                         else
-                            showErrorMsgPopUp($"Not enough fame(now {DB.Dt.Fame})");
+                            showErrorMsgPopUp($"{LM._.localize("Not enough fame. now")} : {DB.Dt.Fame}");
                     };
                     
                     break;
@@ -558,7 +560,7 @@ public class HUI : MonoBehaviour {
 
         //* MoveBtn
         infoDlgMoveIconImg.sprite = moveBtnIconSpr;
-        infoDlgMoveCttTxt.text = moveBtncontent;
+        infoDlgMoveCttTxt.text = isQuest? LM._.localize(moveBtncontent) : moveBtncontent;
     }
 
     /// <summary>
@@ -620,7 +622,7 @@ public class HUI : MonoBehaviour {
             Debug.LogError("<color=red>Null Error : 探したMap名と一致する画像がないです。</color>");
             return;
         }
-        goMapPopUpTitleTxt.text = mapName;
+        goMapPopUpTitleTxt.text = LM._.localize(mapName);
     }
     private void displayNewItemPopUp(Item item) {
         Time.timeScale = 0;
@@ -687,7 +689,7 @@ public class HUI : MonoBehaviour {
     public void activeNewFuniturePopUp(Sprite spr, string name) {
         newFuniturePopUp.SetActive(true);
         newFuniturePopUpImg.sprite = spr;
-        newFuniturePopUpTitleTxt.text = name;
+        newFuniturePopUpTitleTxt.text = LM._.localize(name);
     }
     private IEnumerator coCreateRewardItemList(Dictionary<RewardItemSO, int> rewardDic, Transform itemGroupTf) {
         const int SEPCIAL_EF = 0, SPRITE = 1, VAL = 2;

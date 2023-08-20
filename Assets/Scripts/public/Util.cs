@@ -61,9 +61,9 @@ public class Util : MonoBehaviour
         Debug.Log($"coPlayBounceAnim:: {objTf}");
         //* Value
         bool isDecreasing = false;
-        float originSc = objTf.transform.localScale.x; //1.0f;
+        float originSc = 1.0f;
         float spd = 2f * Time.deltaTime;
-        float maxSc = originSc * 1.15f;//1.15f;
+        float maxSc = originSc * 1.15f;
 
         //* Scale Bounce
         while(true) {

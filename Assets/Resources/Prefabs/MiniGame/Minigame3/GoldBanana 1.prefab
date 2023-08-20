@@ -4913,7 +4913,7 @@ GameObject:
   - component: {fileID: 757380777400454188}
   m_Layer: 6
   m_Name: GoldBanana 1
-  m_TagString: GoldBanana
+  m_TagString: GoldBlueberry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

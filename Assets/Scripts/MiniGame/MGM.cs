@@ -11,7 +11,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] STATUS status; public STATUS Status {get => status; set => status = value;}
     public enum TYPE {MINIGAME1, MINIGAME2, MINIGAME3};
     [SerializeField] TYPE type; public TYPE Type {get => type; set => type = value;}
-    public enum MODE {EASY, NORMAL, HARD};
+    public enum MODE {Easy, Normal, Hard};
     [SerializeField] MODE mode; public MODE Mode {get => mode;}
 
     //* OUTSIDE
@@ -88,7 +88,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
         //* 選択した 難易度(モード)
         if(DB._ == null) mode = mode; //! TEST
-        else mode = (DB._.MinigameLv == 0)? MODE.EASY : (DB._.MinigameLv == 1)? MODE.NORMAL : MODE.HARD;
+        else mode = (DB._.MinigameLv == 0)? MODE.Easy : (DB._.MinigameLv == 1)? MODE.Normal : MODE.Hard;
 
         //* タイプ
         switch(type) {
@@ -210,7 +210,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                     //* ランダム種類 設定
                     int rand = Random.Range(0, 100);
                     int objIdx = 0;
-                    if(mode == MODE.EASY)
+                    if(mode == MODE.Easy)
                         objIdx = (rand <= 60)? (int)MGEM.IDX.AppleObj
                             : (rand <= 80)? (int)MGEM.IDX.GoldAppleObj
                             : (int)MGEM.IDX.BombObj;
@@ -254,7 +254,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                     //* ランダム種類 設定
                     int rand = Random.Range(0, 100);
                     int objIdx = 0;
-                    if(mode == MODE.EASY)
+                    if(mode == MODE.Easy)
                         objIdx = (rand <= 70)? (int)MGEM.IDX.BananaObj
                             : (int)MGEM.IDX.GoldBananaObj;
                     else
@@ -279,13 +279,13 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 //* SnowFloor PosY Speed
                 const float startBgPosY = -24, maxBgPosY = 24;
                 const float createPosY = -9;
-                snowFloorSpd = (mode == MODE.EASY)? 4 : (mode == MODE.NORMAL)? 5 : 6;
+                snowFloorSpd = (mode == MODE.Easy)? 4 : (mode == MODE.Normal)? 5 : 6;
                 snowFloorBG.transform.Translate(0, snowFloorSpd * Time.deltaTime, 0);
                 if(snowFloorBG.transform.localPosition.y > maxBgPosY) 
                     snowFloorBG.transform.localPosition = new Vector2(0, startBgPosY);
 
                 //* Create Object
-                float createSpan = (mode == MODE.EASY)? 1 : (mode == MODE.NORMAL)? 0.75f : 0.5f;
+                float createSpan = (mode == MODE.Easy)? 1 : (mode == MODE.Normal)? 0.75f : 0.5f;
 
                 if(curTime >= createSpan) {
                     curTime = 0;
@@ -324,7 +324,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                         //* Create
                         int rand = Random.Range(0, 100);
                         int objIdx = 0;
-                        if(mode == MODE.EASY)
+                        if(mode == MODE.Easy)
                             objIdx = (rand <= 70)? (int)MGEM.IDX.BlueberryObj
                                 : (int)MGEM.IDX.GoldBlueberryObj;
                         else
@@ -350,16 +350,16 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     private void setPoint(int[] easyDts, int[] normalDts, int[] hardDts) {
-        if(mode == MODE.EASY) {
+        if(mode == MODE.Easy) {
             generalPoint = easyDts[0];
             goldPoint = easyDts[1];
         }
-        else if(mode == MODE.NORMAL) {
+        else if(mode == MODE.Normal) {
             generalPoint = normalDts[0];
             goldPoint = normalDts[1];
             diamondPoint = normalDts[2];
         }
-        else if(mode == MODE.HARD) {
+        else if(mode == MODE.Hard) {
             generalPoint = hardDts[0];
             goldPoint = hardDts[1];
             diamondPoint = hardDts[2];

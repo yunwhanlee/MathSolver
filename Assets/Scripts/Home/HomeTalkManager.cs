@@ -118,7 +118,7 @@ public class HomeTalkManager : TalkManager {
         #region MAP1 FOREST
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_ACCEPT, new string[] {
             $"자 이제 본격적으로\n해결사 일을 진행해볼까?:{(int)SPK.Pl_Idle}",
-            $"문제를 풀면서, 레벨4를 달성해보자!:{(int)SPK.Pl_Idle}"
+            $"문제를 풀면서, 레벨3를 달성해보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_REWARD, new string[] {
             $"안녕하세요.\n해결사 선생님!:{(int)SPK.Mole_Idle}"
@@ -128,7 +128,7 @@ public class HomeTalkManager : TalkManager {
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_ACCEPT, new string[] {
-            $"풍차지역도 도와주면서\n레벨을 7까지 올려보자!:{(int)SPK.Pl_Idle}"
+            $"풍차지역도 도와주면서\n레벨을 5까지 올려보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_REWARD, new string[] {
             $"해결사 선생님!!:{(int)SPK.Bear_Idle}"
@@ -146,10 +146,10 @@ public class HomeTalkManager : TalkManager {
         #endregion
         #region MAP2 JUNGLE
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT, new string[] {
-            $"이제 과수원 지역도 도와주면서\n레벨을 10을 달성해보자!:{(int)SPK.Pl_Idle}"
+            $"이제 과수원 지역도 도와주면서\n레벨을 7을 달성해보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] { //* Orchard BG ON
-            $"이야 벌써 레벨10을 달성했구나!\n대단해!:{(int)SPK.Pl_Happy}"
+            $"이야 벌써 레벨{DB.Dt.Lv}을 달성했구나!\n대단해!:{(int)SPK.Pl_Happy}"
             , $"선생님, 정말 감사합니다!!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
             , $"주민들이 선물을 준비했어요. 받아주세요!:{(int)SPK.Bear_Happy}"
             , $"허허허, 뭐 이런것까지!..:{(int)SPK.Pl_Happy}"
@@ -175,7 +175,7 @@ public class HomeTalkManager : TalkManager {
             , $"저는 정글 늪지대주민인디,\n저희 수학문제를 도와주면:{(int)SPK.Frog_Idle}"
             , $"원숭이가 어디로 갔는지 알려드릴개굴.:{(int)SPK.Frog_Happy}"
             , $"새로운 정글맵이 오픈했어!:{(int)SPK.Pl_Happy}"
-            , $"흠.. 우선 늪지대 지역을 도와주며 레벨 14를 달성하자!:{(int)SPK.Pl_Idle}"
+            , $"흠.. 우선 늪지대 지역을 도와주며 레벨 9를 달성하자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] { //* Swamp BG ON
             $"도와줘서 너무 감사개굴.:{(int)SPK.Frog_Happy}"
@@ -207,7 +207,7 @@ public class HomeTalkManager : TalkManager {
             , $"크아..:{(int)SPK.Pl_Sad}"
             , $"어쩔수없다! 수학이 필요한 곳을 외면할 수는 없는법:{(int)SPK.Pl_Happy}"
             , $"고맙개미!:{(int)SPK.Ant_Happy}"
-            , $"덤불마을도 도와주며 레벨 17을 달성하자!:{(int)SPK.Pl_Idle}"
+            , $"덤불마을도 도와주며 레벨 11을 달성하자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG3_REWARD, new string[] {
             $"정말 고맙개미!!:{(int)SPK.Ant_Happy}"
@@ -249,7 +249,7 @@ public class HomeTalkManager : TalkManager {
             , $"몽키신님이 화나셧는지 날씨가 좋지않다.:{(int)SPK.WarriorMonkey_Idle}"
             , $"우리신전을 도와주면 믿도록하지!:{(int)SPK.WarriorMonkey_Idle}"
             , $"히익 제가 도와드려야지요!\n(사..살았다..):{(int)SPK.Pl_Idle}"
-            , $"신전도 도와주면서 친밀도를 쌓고, 레벨 20을 달성하자.:{(int)SPK.Pl_Idle}"
+            , $"신전도 도와주면서 친밀도를 쌓고, 레벨 13을 달성하자.:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] { //* #1 MonkeyWat BG ON
             $"고맙다! 수학선생!!:{(int)SPK.WarriorMonkey_Idle}"
@@ -314,7 +314,7 @@ public class HomeTalkManager : TalkManager {
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
-            $"툰드라 입구지역을 도와주면서 레벨 24를 달성하자!:{(int)SPK.Pl_Happy}"
+            $"툰드라 입구지역을 도와주면서 레벨 15를 달성하자!:{(int)SPK.Pl_Happy}"
 
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_REWARD, new string[] {
@@ -364,7 +364,7 @@ public class HomeTalkManager : TalkManager {
             , $"물론이묘! 설산지역을 도와만준다면 알려주겠다묘!:{(int)SPK.SnowRabbit_Happy}_FLIP"
             , $"크아아! 들으셨죠 선생님?!:{(int)SPK.TundraBear_Happy}"
             , $"하..하하! 네! 제가 도와드리겠습니다!:{(int)SPK.Pl_Idle}_FLIP"
-            , $"휴.. 설산지역도 도와주면서 레벨 27을 달성하자!:{(int)SPK.Pl_Idle}"
+            , $"휴.. 설산지역도 도와주면서 레벨 17을 달성하자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_BG3_REWARD, new string[] { //* SnowMountain BG ON
             $"묘묘! 정말 고맙다묘!:{(int)SPK.SnowRabbit_Happy}"
@@ -396,6 +396,7 @@ public class HomeTalkManager : TalkManager {
             , $"당연히 해드려야죠! 걱정하지마세요:{(int)SPK.Pl_Idle}"
             , $"크흑.. 정말 고맙다묘.:{(int)SPK.SnowRabbit_Sad}"
             , $"꾸어..고..마우엉..:{(int)SPK.BabyDragon}"
+            , $"빙산지역도 도와주면서 레벨 19을 달성하자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_MINIGAME, new string[] { //* NoneMapBG ON
             $"우리 툰드라지역 주민들은 썰매타기 게임을 좋아한다묘.:{(int)SPK.SnowRabbit_Idle}"

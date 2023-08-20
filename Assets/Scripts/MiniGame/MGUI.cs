@@ -45,24 +45,24 @@ public class MGUI : MonoBehaviour {
         if(DB._ == null) playerLvTxt.text = "99"; //! TEST
         else playerLvTxt.text = DB.Dt.Lv.ToString();
 
-        if(DB._ == null) modeTxt.text = MGM.MODE.NORMAL.ToString(); //! TEST
-        else modeTxt.text = (DB._.MinigameLv == 0)? MGM.MODE.EASY.ToString()
-            : (DB._.MinigameLv == 1)? MGM.MODE.NORMAL.ToString()
-            : MGM.MODE.HARD.ToString();
+        if(DB._ == null) modeTxt.text = LM._.localize(MGM.MODE.Normal.ToString()); //! TEST
+        else modeTxt.text = (DB._.MinigameLv == 0)? LM._.localize(MGM.MODE.Easy.ToString())
+            : (DB._.MinigameLv == 1)? LM._.localize(MGM.MODE.Normal.ToString())
+            : LM._.localize(MGM.MODE.Hard.ToString());
 
         scoreTxt.text = "";
         leftArrowBtn.gameObject.SetActive(false);
         rightArrowBtn.gameObject.SetActive(false);
 
         //* タイトル
-        titleTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? "Catch falling apples!"
-            : (mgm.Type == MGM.TYPE.MINIGAME2)? "Jump to the sky!"
-            : "Snow sledding!";
+        titleTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? LM._.localize(Config.MINIGAME1_TITLE)
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? LM._.localize(Config.MINIGAME2_TITLE)
+            : LM._.localize(Config.MINIGAME3_TITLE);
 
         //* コンテンツ
-        contentTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? "Collect as many apples as you can!"
-            : (mgm.Type == MGM.TYPE.MINIGAME2)? "Collect bananas without falling off!"
-            : "Collect blueberries avoiding obstacles.";
+        contentTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? LM._.localize(Config.MINIGAME1_CONTENT)
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? LM._.localize(Config.MINIGAME2_CONTENT)
+            : LM._.localize(Config.MINIGAME3_CONTENT);
 
         //* Score Txt
         scoreTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? $"<sprite name=apple>: {mgm.Score}"
@@ -162,12 +162,12 @@ public class MGUI : MonoBehaviour {
     }
     
     private IEnumerator coReadyStartCount() {
-        titleTxt.text = "Ready";
+        titleTxt.text = LM._.localize("Ready");
         contentTxt.text = "";
 
         yield return Util.time1;
         MGM._.Status = MGM.STATUS.PLAY;
-        titleTxt.text = "Start!";
+        titleTxt.text = $"{LM._.localize("Start")}!";
 
         //* ミニーゲーム 最初のアクション
         if(MGM._.Type == MGM.TYPE.MINIGAME2) {

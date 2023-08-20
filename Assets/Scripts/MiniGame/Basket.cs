@@ -51,20 +51,21 @@ public class Basket : MonoBehaviour {
         else if(col.gameObject.CompareTag(Enum.TAG.Blueberry.ToString())) {
             MGM._.Score += MGM._.GeneralPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, col.transform.position, Util.time999);
-            releaseAndBounce(col.gameObject, (int)MGEM.IDX.BlueberryObj);
+            MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.BlueberryObj);
         }
         else if(col.gameObject.CompareTag(Enum.TAG.GoldBlueberry.ToString())) {
             MGM._.Score += MGM._.GoldPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.ShineSpoutGoldEF, transform.position, Util.time2);
-            releaseAndBounce(col.gameObject, (int)MGEM.IDX.GoldBlueberryObj);
+            MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.GoldBlueberryObj);
         }
         //* Public
         else if(col.CompareTag(Enum.TAG.Diamond.ToString())) {
             MGM._.Score += MGM._.DiamondPoint;
             MGM._.mgem.showEF((int)MGEM.IDX.BasketCatchEF, transform.position, Util.time2);
             MGM._.mgem.showEF((int)MGEM.IDX.FireworkBlueEF, transform.position, Util.time2);
-            releaseAndBounce(col.gameObject, (int)MGEM.IDX.DiamondObj);
+            // releaseAndBounceMinigame3(col.gameObject, (int)MGEM.IDX.DiamondObj);
+            MGM._.mgem.releaseObj(col.gameObject, (int)MGEM.IDX.DiamondObj);
         }
     }
 #endregion
@@ -73,15 +74,8 @@ public class Basket : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     private void releaseAndBounce(GameObject obj, int idx) {
         MGM._.mgem.releaseObj(obj, idx);
-        StartCoroutine(myCo()); //* 二つが重なったら、Scale戻らないバグ対応
-    }
-    IEnumerator myCo() {
-        float originSc = MGM._.Pl.transform.localScale.x;
         StartCoroutine(Util.coPlayBounceAnim(this.transform));
-        yield return Util.coPlayBounceAnim(MGM._.Pl.transform);
-        //* スケールを戻す
-        if(MGM._.Pl.transform.localScale.x > originSc) 
-            MGM._.Pl.transform.localScale = new Vector2(originSc, originSc);
+        StartCoroutine(Util.coPlayBounceAnim(MGM._.Pl.transform));
     }
 #endregion
 }

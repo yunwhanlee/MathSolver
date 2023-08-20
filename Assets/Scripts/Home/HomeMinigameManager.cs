@@ -11,7 +11,6 @@ using UnityEngine.Events;
 /// </summary>
 [System.Serializable]
 public class minigameInfo {
-
     [SerializeField] Color frameColor;  public Color FrameColor {get => frameColor;}
     [SerializeField] Sprite minigameSpr;   public Sprite MinigameSpr {get => minigameSpr;}
     [SerializeField] Sprite labelSpr;   public Sprite LabelSpr {get => labelSpr;}
@@ -83,15 +82,15 @@ public class HomeMinigameManager : MonoBehaviour {
         //TODO mg3
 
         //* Delegate Callback 初期化 購読
-        onInits[0] = () => init(Enum.MG.Minigame1.ToString(), "Catch Falling apples!"
+        onInits[0] = () => init(Enum.MG.Minigame1.ToString(), LM._.localize(Config.MINIGAME1_TITLE)
             , DB.Dt.Minigame1BestScore, Config.MINIGAME1_UNLOCK_SCORES
             , DB.Dt.Minigame1RewardTriggers, Config.MINIGAME1_MAX_VAL, mg1InfoData
         );
-        onInits[1] = () => init(Enum.MG.Minigame2.ToString(), "Jump to the sky!"
+        onInits[1] = () => init(Enum.MG.Minigame2.ToString(), LM._.localize(Config.MINIGAME2_TITLE)
             , DB.Dt.Minigame2BestScore, Config.MINIGAME2_UNLOCK_SCORES
             , DB.Dt.Minigame2RewardTriggers, Config.MINIGAME2_MAX_VAL, mg2InfoData
         );
-        onInits[2] = () => init(Enum.MG.Minigame3.ToString(), "Snow sledding!"
+        onInits[2] = () => init(Enum.MG.Minigame3.ToString(), LM._.localize(Config.MINIGAME3_TITLE)
             , DB.Dt.Minigame3BestScore, Config.MINIGAME3_UNLOCK_SCORES
             , DB.Dt.Minigame3RewardTriggers, Config.MINIGAME3_MAX_VAL, mg3InfoData
         );
@@ -112,11 +111,11 @@ public class HomeMinigameManager : MonoBehaviour {
         labelImg.sprite = infoData.LabelSpr;
         rewardIconBtns[2].GetComponent<Image>().sprite = infoData.FinalRewardSpr;
 
-        nameTxt.text = name;
+        nameTxt.text = LM._.localize(name);
         titleTxt.text = title;
 
         if(bestScore == 0) {
-            playPriceTxt.text = "Free";
+            playPriceTxt.text = LM._.localize("Free");
             HM._.wmm.displayMapUnlockPopUp(null, name, true);
         }
         else 
@@ -132,8 +131,8 @@ public class HomeMinigameManager : MonoBehaviour {
         lvBtnLockFrames[HARD].SetActive(!(bestScore >= normalScore));
 
         //* Slider Data
-        unlockScoreTxts[EASY].text = easyScore.ToString() + "\nNormal";
-        unlockScoreTxts[NORMAL].text = normalScore.ToString() + "\nHard";
+        unlockScoreTxts[EASY].text = easyScore.ToString() + $"\n{LM._.localize("Normal")}";
+        unlockScoreTxts[NORMAL].text = normalScore.ToString() + $"\n{LM._.localize("Hard")}";
         unlockScoreTxts[HARD].text = hardScore.ToString();
 
         onClickMinigameLvPopUpLvBtn(0);
@@ -177,7 +176,7 @@ public class HomeMinigameManager : MonoBehaviour {
             int[] unlockScores = (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame1)? Config.MINIGAME1_UNLOCK_SCORES
                 : (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame2)? Config.MINIGAME2_UNLOCK_SCORES
                 : Config.MINIGAME3_UNLOCK_SCORES;
-            HM._.ui.showErrorMsgPopUp($"Achieve {unlockScores[difficultyLvIdx]} Score!");
+            HM._.ui.showErrorMsgPopUp($"{LM._.localize("Goal to achieve")} : {unlockScores[difficultyLvIdx]}{LM._.localize("Score")}!");
             return;
         }
 

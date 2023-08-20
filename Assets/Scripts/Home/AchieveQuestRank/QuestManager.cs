@@ -42,7 +42,7 @@ public class QuestManager : MonoBehaviour {
         mq.updateStatusGauge();
         //* MainQuestBox At Home
         HM._.ui.MainQuestBoxIconImg.sprite = mq.IconImg.sprite;
-        HM._.ui.MainQuestBoxTitleTxt.text = mq.ContentStr;
+        HM._.ui.MainQuestBoxTitleTxt.text = LM._.localize(mq.ContentStr);
         HM._.ui.MainQuestBoxSlider.value = (float)mq.ClearCurVal / mq.ClearMaxVal;
         
         //* Hand Focus
