@@ -21,6 +21,7 @@ public class Enum {
         Obstacle, Blueberry, GoldBlueberry,
     };
     public enum ANIM {
+        DoSkipTitleAnim,
         IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
         BlackInOut, BlackIn, BlackOut,
         DoCamShake, DoWindMillScrollDown, 
@@ -28,7 +29,7 @@ public class Enum {
         HelpFraction, HelpGCD,
         DoTalk, DoShock,
         DoSwitchBG, 
-        DoFirstActive,
+        DoFirstActive        
     };
     public enum BOX_NAME {
         Box , LeftBox, RightBox, _Blink, _QuestionMark,
