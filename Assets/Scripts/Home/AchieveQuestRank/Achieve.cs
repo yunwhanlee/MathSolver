@@ -8,12 +8,11 @@ public class Achieve : MonoBehaviour {
     [Header("VALUE")]
     [SerializeField] int id;            public int Id {get => id;} //* 業績
     [SerializeField] int lv;            public int Lv {get => lv;} //* 段階
-    [SerializeField] string aName;              public string Name {get => name;}
-    [HideInInspector] string contentStr;         public string ContentStr {get => contentStr;}
+    [SerializeField] string name;              public string Name {get => base.name;}
+    // [HideInInspector] string contentStr;         public string ContentStr {get => contentStr;}
     [SerializeField] int clearCurVal;           public int ClearCurVal {get => clearCurVal; set => clearCurVal = value;}
     [SerializeField] int[] clearMaxVals;           public int[] ClearMaxVals {get => clearMaxVals;}
-    [SerializeField] int rwdCoinUnit = 100;
-
+    [SerializeField] int rewardCoinUnit = 100;
     [Header("UI")]
     [SerializeField] TextMeshProUGUI titleTxt;    public TextMeshProUGUI TitleTxt {get => titleTxt;}
     [SerializeField] Slider statusGauge;        public Slider StatusGauge {get => statusGauge;}
@@ -70,7 +69,7 @@ public class Achieve : MonoBehaviour {
         statusGauge.value = (float)clearCurVal / max;
         // statusGauge.maxValue = max;
         cttTxt.text = $" {clearCurVal} / {max}";
-        priceTxt.text = $"{rwdCoinUnit * lv}";
+        priceTxt.text = $"{rewardCoinUnit * lv}";
         rewardBtn.interactable = (clearCurVal >= max);
     }
 /// -----------------------------------------------------------------------------------------------------------------
@@ -80,16 +79,16 @@ public class Achieve : MonoBehaviour {
         var dt = DB.Dt;
         switch(id) {
             case (int)AchieveManager.ID.CorrectAnswerCnt:
-                setRewardList(dt.AcvCorrectAnswerLv++ * rwdCoinUnit);
+                setRewardList(dt.AcvCorrectAnswerLv++ * rewardCoinUnit);
                 break;
             case (int)AchieveManager.ID.SkinCnt:
-                setRewardList(dt.AcvSkinLv++ * rwdCoinUnit);
+                setRewardList(dt.AcvSkinLv++ * rewardCoinUnit);
                 break;
             case (int)AchieveManager.ID.PetCnt:
-                setRewardList(dt.AcvPetLv++ * rwdCoinUnit);
+                setRewardList(dt.AcvPetLv++ * rewardCoinUnit);
                 break;
             case (int)AchieveManager.ID.CoinAmount:
-                setRewardList(dt.AcvCoinAmountLv++ * rwdCoinUnit);
+                setRewardList(dt.AcvCoinAmountLv++ * rewardCoinUnit);
                 break;
         }
         updateLvAndStatusGauge(); //* 最新化
