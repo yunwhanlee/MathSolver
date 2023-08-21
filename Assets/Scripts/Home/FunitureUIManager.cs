@@ -32,7 +32,7 @@ public class FunitureUIManager : MonoBehaviour
 
     void Start() {
         //* アイテムボタン 割り当て
-        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3, PRICE = 4; //* Index
+        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3, PRICE = 4, LEGACY = 5; //* Index
         page = 0;
         itemBtns = new FunitureShopItemBtn[content.childCount];
         for(int i = 0; i < content.childCount; i++) {
@@ -44,6 +44,7 @@ public class FunitureUIManager : MonoBehaviour
                 lockFrameObj: tf.GetChild(LOCKFRAME).gameObject,
                 notifyObj: tf.GetChild(NOTIFY).gameObject,
                 arrangeFrameObj: tf.GetChild(ARRANGE).gameObject,
+                legacyIconObj: tf.GetChild(LEGACY).gameObject,
                 //* 子（追加） 要素
                 priceTxt: tf.GetChild(PRICE).GetComponentInChildren<TextMeshProUGUI>(),
                 priceIconImg: tf.GetChild(PRICE).GetComponentInChildren<Image>()

@@ -10,30 +10,34 @@ using UnityEngine.U2D.Animation;
 #region (UI) アイテム フレーム ボタン
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 [System.Serializable]
-public abstract class ItemFrameBtn {
+public abstract class ItemFrameBtn { //* 親
     [SerializeField] GameObject obj; public GameObject Obj {get => obj; set => obj = value;}
     [SerializeField] Image img; public Image Img {get => img; set => img = value;}
     [SerializeField] GameObject lockFrameObj; public GameObject LockFrameObj {get => lockFrameObj; set => lockFrameObj = value;}
     [SerializeField] GameObject notifyObj; public GameObject NotifyObj {get => notifyObj; set => notifyObj = value;}
     [SerializeField] GameObject arrangeFrameObj; public GameObject ArrangeFrameObj {get => arrangeFrameObj; set => arrangeFrameObj = value;} 
-    public ItemFrameBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj) {
+    [SerializeField] GameObject legacyIconObj;  public GameObject LegacyIconObj {get => legacyIconObj; set => legacyIconObj = value;}
+    public ItemFrameBtn(GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj, GameObject legacyIconObj) {
         this.obj = obj;
         this.img = img;
         this.lockFrameObj = lockFrameObj;
         this.notifyObj = notifyObj;
         this.arrangeFrameObj = arrangeFrameObj; // ✓ 表示
+        this.legacyIconObj = legacyIconObj;
     }
     public virtual void init() {
         img.sprite = null;
         lockFrameObj.SetActive(true);
         notifyObj.SetActive(false);
         arrangeFrameObj.SetActive(false);
+        legacyIconObj.SetActive(false);
     }
     public virtual void updateItemFrame(Item item) {
         Img.sprite = item.Spr;
         LockFrameObj.SetActive(item.IsLock);
         NotifyObj.SetActive(item.IsNotify);
         ArrangeFrameObj.SetActive(item.IsArranged);
+        LegacyIconObj.SetActive(item.Grade == Item.GRADE.Special);
         Obj.GetComponent<Image>().sprite = HM._.ui.ItemBtnFrameSprs[(int)item.Grade];
     }
 }
@@ -47,9 +51,9 @@ public class FunitureShopItemBtn : ItemFrameBtn {
     [SerializeField] Image priceIconImg;
 
     public FunitureShopItemBtn( //* 親 param
-    GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj
+    GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj, GameObject legacyIconObj
     ,TextMeshProUGUI priceTxt, Image priceIconImg) //* 子 param
-    :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj) { //* 親 コンストラクター 呼出し
+    :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj, legacyIconObj) { //* 親 コンストラクター 呼出し
         //* 子 要素
         this.priceTxt = priceTxt;
         this.priceIconImg = priceIconImg;
@@ -97,8 +101,8 @@ public class FunitureShopItemBtn : ItemFrameBtn {
 public class InventoryItemBtn : ItemFrameBtn {
 
     public InventoryItemBtn( //* 親 param
-    GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj)
-    :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj) { //* 親 コンストラクター 呼出し
+    GameObject obj, Image img, GameObject lockFrameObj, GameObject notifyObj, GameObject arrangeFrameObj, GameObject legacyIconObj)
+    :base(obj, img, lockFrameObj, notifyObj, arrangeFrameObj, legacyIconObj) { //* 親 コンストラクター 呼出し
         //* 子 要素
     }
     public override void init() {

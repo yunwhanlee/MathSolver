@@ -28,7 +28,7 @@ public class InventoryUIManager : MonoBehaviour
 
     void Start() {
         //* アイテムボタン 割り当て
-        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3; //* Index
+        const int IMG = 0, LOCKFRAME = 1, NOTIFY = 2, ARRANGE = 3, LEGACY = 5; //* Index
 
         itemBtns = new InventoryItemBtn[content.childCount];
         for(int i = 0; i < content.childCount; i++) {
@@ -38,7 +38,8 @@ public class InventoryUIManager : MonoBehaviour
                 img: tf.GetChild(IMG).GetComponent<Image>(),
                 lockFrameObj: tf.GetChild(LOCKFRAME).gameObject,
                 notifyObj: tf.GetChild(NOTIFY).gameObject,
-                arrangeFrameObj: tf.GetChild(ARRANGE).gameObject
+                arrangeFrameObj: tf.GetChild(ARRANGE).gameObject,
+                legacyIconObj: tf.GetChild(LEGACY).gameObject 
                 //* 子 要素
                 //TODO アウトラインするかしないか？毛メルコと。-> arrangeFrameObj「✓」なので、しなくてもいいかも。
             );
