@@ -95,7 +95,7 @@ public class ResultManager : MonoBehaviour {
         }
         // TODO Regacy Item Bonus
         //* 遺物 ボーナス
-        float legacyBonus = 0;
+        float legacyBonus = GM._.Pl.calcLegacyBonusPer();
 
 
         //* 総合

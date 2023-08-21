@@ -6,6 +6,7 @@ public static class Config {
     //* PLAYER
     public readonly static int LV_EXP_UNIT = 100;
     public readonly static float LV_BONUS_PER = 0.1f;
+    public readonly static float LEGACY_BONUS_PER = 0.2f;
     //* HOME
     public readonly static Color CATE_SELECT_COLOR = new Color(0.1f, 0.3f, 0.55f, 1);
     //* GAME

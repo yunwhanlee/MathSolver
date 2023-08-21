@@ -128,6 +128,7 @@ public class DB : MonoBehaviour {
     [SerializeField] int selectMapIdx;   public int SelectMapIdx {get => selectMapIdx; set => selectMapIdx = value;}
     [SerializeField] int selectMinigameIdx;   public int SelectMinigameIdx {get => selectMinigameIdx; set => selectMinigameIdx = value;}
     [SerializeField] int minigameLv;    public int MinigameLv {get => minigameLv; set => minigameLv = value;} //* Minigame 難易度
+    [SerializeField] int legacyCnt; public int LegacyCnt {get => legacyCnt; set => legacyCnt = value;}
 
     const string Database = "DB";
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}

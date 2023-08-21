@@ -149,7 +149,7 @@ public class HomeTalkManager : TalkManager {
             $"이제 과수원 지역도 도와주면서\n레벨을 7을 달성해보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] { //* Orchard BG ON
-            $"이야 벌써 레벨{DB.Dt.Lv}을 달성했구나!\n대단해!:{(int)SPK.Pl_Happy}"
+            $"벌써 이만큼 레벨을 달성하다니!\n대단해!:{(int)SPK.Pl_Happy}"
             , $"선생님, 정말 감사합니다!!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
             , $"주민들이 선물을 준비했어요. 받아주세요!:{(int)SPK.Bear_Happy}"
             , $"허허허, 뭐 이런것까지!..:{(int)SPK.Pl_Happy}"

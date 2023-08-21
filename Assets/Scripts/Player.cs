@@ -106,12 +106,12 @@ public class Player : MonoBehaviour {
         rigid.AddTorque(rotPower * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
     public float calcLvBonusPer() {
-        float lvBonusPer = Config.LV_BONUS_PER;
-        return DB.Dt.Lv * lvBonusPer - lvBonusPer; // 2 * 0.1f - 0.1f = 0.1f
+        return DB.Dt.Lv * Config.LV_BONUS_PER - Config.LV_BONUS_PER; // 2 * 0.1f - 0.1f = 0.1f
     }
     public float calcLegacyBonusPer() {
-        //TODO
-        return 0;
+        float res = DB._.LegacyCnt * Config.LEGACY_BONUS_PER;
+        Debug.Log($"<color=yellow>calcLegacyBonusPer():: res= {res}</color>");
+        return res;
     }
     private void collideWithChair(bool isTrigger, Collider2D col) {
         if(HM._.isChair(col.gameObject)) {

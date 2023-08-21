@@ -31,9 +31,9 @@ public class WorldMapManager : MonoBehaviour {
         List<Button> lockBtnList = new List<Button>();
 
         //* マップ 初期化
-        lockBtnList.AddRange(m1.init(1, 4, 7));
-        lockBtnList.AddRange(m2.init(10, 14, 17));
-        lockBtnList.AddRange(m3.init(20, 24, 27));
+        lockBtnList.AddRange(m1.init(1, 3, 5));
+        lockBtnList.AddRange(m2.init(7, 9, 11));
+        lockBtnList.AddRange(m3.init(13, 15, 17));
 
         //* LockBtnList グレーグラデーション処理
         const float DEF_CLR = 0.5f;

@@ -49,6 +49,20 @@ public class HM : MonoBehaviour {
         createFunitureItemsBySaveData(DB.Dt.Mats);
         setCharaSpriteLibraryBySaveData(DB.Dt.PlSkins);
         setCharaSpriteLibraryBySaveData(DB.Dt.PtSkins);
+
+        //* LEGACY BONUS VAL
+        int legacyCnt = 0;
+        Array.ForEach(DB.Dt.Decorations, deco => {
+            if(deco.IsLock == false && deco.Grade == Item.GRADE.Special)
+                legacyCnt++;
+        });
+        Array.ForEach(DB.Dt.PtSkins, pet => {
+            if(pet.IsLock == false && pet.Grade == Item.GRADE.Special)
+                legacyCnt++;
+        });
+        //* Apply
+        DB._.LegacyCnt = legacyCnt;
+        
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region FUNC
