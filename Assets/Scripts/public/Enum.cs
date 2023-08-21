@@ -48,6 +48,9 @@ public class Enum {
         Coin, Exp, WoodChair, FrogChair, 
         WoodenWolfStatue, GoldenMonkeyStatue, IceDragonStatue
     };
+    public enum SPC_PET {
+        GoldApple, BabyMonkey, BabyDragon
+    }
 
     internal static IEnumerable<QuestManager.MQ_ID> GetValues(Type type)
     {

@@ -112,11 +112,11 @@ public class ResultManager : MonoBehaviour {
 
         //* Bonus UI
         lvBonusMsg.SetActive(lvBonus != 0);
-        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Level Bonus <color=green><size=60>+{lvBonus * 100}%</size></color>";
+        lvBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"{LM._.localize("Level")}{LM._.localize("Bonus")} <color=green><size=60>+{lvBonus * 100}%</size></color>";
         answerCntBonusMsg.SetActive(answerCntBonus != 0);
-        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Answer Bonus <color=green><size=60>+{answerCntBonus * 100}%</size></color>";
+        answerCntBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"{LM._.localize("Answer")}{LM._.localize("Bonus")} <color=green><size=60>+{answerCntBonus * 100}%</size></color>";
         legacyBonusMsg.SetActive(legacyBonus != 0);
-        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"Lecagy Bonus <color=green><size=60>+{legacyBonus * 100}%</size></color>";
+        legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"{LM._.localize("Lecagy")}{LM._.localize("Bonus")} <color=green><size=60>+{legacyBonus * 100}%</size></color>";
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());

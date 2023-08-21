@@ -51,6 +51,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI nickName;      public TextMeshProUGUI NickName {get => nickName;}
     [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
     [SerializeField] TextMeshProUGUI fameValTxt;   public TextMeshProUGUI FameValTxt {get => fameValTxt; set => fameValTxt = value;}
+    [SerializeField] TextMeshProUGUI levelBonusValTxt;    public TextMeshProUGUI LevelBonusValTxt {get => levelBonusValTxt; set => levelBonusValTxt = value;}
+    [SerializeField] TextMeshProUGUI correctAnswerCntTxt;
     [SerializeField] TextMeshProUGUI legacyBonusValTxt;   public TextMeshProUGUI LegacyBonusValTxt {get => legacyBonusValTxt; set => legacyBonusValTxt = value;}
     [SerializeField] Image expFilledCircleBar;      public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] Slider settingExpSliderBar;    public Slider SettingExpSliderBar {get => settingExpSliderBar; set => settingExpSliderBar = value;}
@@ -481,12 +483,16 @@ public class HUI : MonoBehaviour {
                 //* コイン
                 coinTxt.text = DB.Dt.Coin.ToString();
 
-                //* 
+                //* LV
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
+                //* FAME
                 fameValTxt.text = DB.Dt.Fame.ToString();//$"+{HM._.pl.calcLvBonusPer() * 100}%";
+                //* LEVEL BONUS
+                correctAnswerCntTxt.text = levelBonusValTxt.text = $"+{HM._.pl.calcLvBonusPer() * 100}%";
+                //* LEGACY
                 legacyBonusValTxt.text = $"+{HM._.pl.calcLegacyBonusPer() * 100}%";
-
-                //* 
+                //* CORRECT ANSWER CNT
+                correctAnswerCntTxt.text = DB.Dt.AcvCorrectAnswerCnt.ToString();
                 
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 settingExpSliderBar.value = DB.Dt.getExpPer();
@@ -511,10 +517,12 @@ public class HUI : MonoBehaviour {
         //* 例外1（スキン）
         switch(item.Name) {
             case "GoldApple Pet":
-                moveBtncontent = LM._.localize("Minigame1 Clear");
+            case "BabyMonkey Pet":
+            case "BabyDragon Pet":
+                int num = item.Name.Contains(Enum.SPC_PET.GoldApple.ToString())? 1 : item.Name.Contains(Enum.SPC_PET.BabyMonkey.ToString())? 2 : 3;
+                moveBtncontent = $"{LM._.localize("Minigame")}{num} {LM._.localize("Clear")}";
                 moveBtnIconSpr = infoMoveBtnIconSprs[MINIGAME_ICON];
                 onClickMoveBtn = onClickGoGameDialogYesBtn;
-                
                 break;
             default: 
                 moveBtncontent = LM._.localize("Go Clothshop");
