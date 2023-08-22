@@ -13,9 +13,9 @@ public class Lang {
 }
 
 public class LM : MonoBehaviour { //* Language Manager
+    public enum LANG_IDX {EN, KR, JP}
     public static LM _;
     [Header("VALUE")]
-    const int EN = 0, KR = 1, JP = 2;
     const string LangIndex = "LangIndex";
     const string langURL = "https://docs.google.com/spreadsheets/d/1wQ_3T5is4x7eUoq68VBMmJmRRuZyF8Gjg0TiQUyj1cA/export?format=tsv";
     public event Action actLocalizechanged = () => {};
@@ -56,7 +56,7 @@ public class LM : MonoBehaviour { //* Language Manager
         const int NOTHING = -1;
         int langIndex = PlayerPrefs.GetInt(LangIndex, NOTHING);
         int systemIndex = langs.FindIndex(x => x.lang.ToLower() == Application.systemLanguage.ToString().ToLower());
-        if(systemIndex == NOTHING) systemIndex = EN;
+        if(systemIndex == NOTHING) systemIndex = (int)LM.LANG_IDX.EN;
         int index = (langIndex == NOTHING)? systemIndex : langIndex;
 
         setLangIndex(index);
@@ -98,8 +98,8 @@ public class LM : MonoBehaviour { //* Language Manager
             langs.Add(lang);
         }
     }
-    public string localize(string key) {
-        int keyIndex = langs[0].value.FindIndex(i => i.ToLower() == key.ToLower());
+    public string localize(string key, int standardlangIdx = 0) {
+        int keyIndex = langs[standardlangIdx].value.FindIndex(i => i.ToLower() == key.ToLower());
         try {
             return langs[curLangIndex].value[keyIndex];
         }

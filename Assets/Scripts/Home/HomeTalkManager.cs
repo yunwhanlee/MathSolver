@@ -56,10 +56,11 @@ public class HomeTalkManager : TalkManager {
         #region TUTORIAL
         //* チュートリアル用
         talkDt.Add((int)ID.TUTO_ROOM, new string[] {
-            $"만나서 반가워!\n새로온 수학조수구나!:{(int)SPK.Pl_Idle}" // -> talkIdx[1]
+             $"만나서 반가워! 새로운 수학조수구나!:{(int)SPK.Pl_Idle}" // -> talkIdx[1]
             , $"이름이 어떻게되니?:{(int)SPK.Pl_Idle}"
             , $"...:{(int)SPK.Pl_Idle}"
-            , $"NICKNAME!\n정말 멋진 이름이야!:{(int)SPK.Pl_Happy}"
+            , $"NICKNAME!:{(int)SPK.Pl_Idle}"
+            , $"정말 멋진 이름이야.:{(int)SPK.Pl_Happy}"
             , $"나는 이 마을 수학해결사 늑선생이야. 잘 부탁해!:{(int)SPK.Pl_Idle}"
             , $"사실... 비밀인데...:{(int)SPK.Pl_Idle}"
             , $"돌부리에 걸려 넘어진 뒤로 머리를 다쳐서:{(int)SPK.Pl_Idle}"
@@ -67,35 +68,35 @@ public class HomeTalkManager : TalkManager {
             , $"나와함께 여러지역의 수학문제를 해결하고:{(int)SPK.Pl_Idle}"
             , $"잊어버린 수학의기억조각 찾는 것을 도와줘!:{(int)SPK.Pl_Idle}"
             , $"이곳은 우리 사무실!:{(int)SPK.Pl_Idle}"
-            , $"여러가구를 구입하고\n꾸밀 수 있어!:{(int)SPK.Pl_Idle}"
+            , $"여러가구를 구입하고<br>꾸밀 수 있어!:{(int)SPK.Pl_Idle}"
             , $"위쪽 나무판 화살표를 눌러보겠니?:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.TUTO_FUNITURESHOP, new string[] {
             $"이곳은 장인 도톨씨의 가구점이야.:{(int)SPK.Pl_Idle}" // -> talkIdx[1]
             , $"어서오시게!:{(int)SPK.DotalMan}"
             , $"의자와 탁자, 장식품, 벽지, 매트 등:{(int)SPK.DotalMan}"
-            , $"다양한 가구를 판매하고있으니\n자주 들러주게나!:{(int)SPK.DotalMan}"
-            , $"알겠지?\n다시 화살표를 눌러줘!:{(int)SPK.Pl_Idle}"
+            , $"다양한 가구를 판매하고있으니<br>자주 들러주게나!:{(int)SPK.DotalMan}"
+            , $"알겠지?<br>다시 화살표를 눌러줘!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.TUTO_CLOTHSHOP, new string[] {
             $"이곳은 뭉이어멈의 의류점이야.:{(int)SPK.Pl_Idle}"
             , $"어머어머 반가워요~!:{(int)SPK.MoongMom}"
             , $"저희가게는 스킨과 펫을 팔고있어요. 호호:{(int)SPK.MoongMom}"
-            , $"그때그때 물건이\n들어오는게 랜덤이라:{(int)SPK.MoongMom}"
+            , $"그때그때 물건이<br>들어오는게 랜덤이라:{(int)SPK.MoongMom}"
             , $"뭐가 나올지 저도 모른답니다. 호호:{(int)SPK.MoongMom}"
-            , $"자주 놀러와요~!\n호홍:{(int)SPK.MoongMom}"
-            , $"자!\n다시 화살표를 눌러줘!:{(int)SPK.Pl_Idle}"
+            , $"자주 놀러와요~!<br>호홍:{(int)SPK.MoongMom}"
+            , $"자!<br>다시 화살표를 눌러줘!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.TUTO_INV, new string[] {
             $"여기는 인벤토리야.:{(int)SPK.Pl_Idle}"
-            , $"스킨과 펫의\n변경이 가능해!:{(int)SPK.Pl_Idle}"
-            , $"화살표를 눌러\n처음으로 돌아가자!:{(int)SPK.Pl_Idle}"
+            , $"스킨과 펫의<br>변경이 가능해!:{(int)SPK.Pl_Idle}"
+            , $"화살표를 눌러<br>처음으로 돌아가자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.TUTO_GOGAME, new string[] {
             $"흠.. 어디보자..:{(int)SPK.Pl_Idle}"
-            , $"동물친구들을\n도와주러 갈겸,:{(int)SPK.Pl_Idle}"
-            , $"수학실력을\n한 번 파악해볼까?:{(int)SPK.Pl_Happy}"
-            , $"대화가 종료되면\n손가락이 발판을 가리킬거야.:{(int)SPK.Pl_Idle}"
+            , $"동물친구들을<br>도와주러 갈겸,:{(int)SPK.Pl_Idle}"
+            , $"수학실력을<br>한 번 파악해볼까?:{(int)SPK.Pl_Happy}"
+            , $"대화가 종료되면<br>손가락이 발판을 가리킬거야.:{(int)SPK.Pl_Idle}"
             , $"자 그럼.. 가볼까?!:{(int)SPK.Pl_Happy}"
         });
         talkDt.Add((int)ID.TUTO_WORLDMAP, new string[] {
@@ -103,13 +104,13 @@ public class HomeTalkManager : TalkManager {
             , $"지금은 한 지역만 갈 수 있지만:{(int)SPK.Pl_Sad}"
             , $"레벨이 오를수록 더 많은 지역이 열릴거야!:{(int)SPK.Pl_Idle}"
             , $"돌아가고 싶다면, 우측 아래의 집을 클릭하면되!:{(int)SPK.Pl_Idle}"
-            , $"자 그럼, 손가락이\n가리킨 지역을 클릭해 줘!:{(int)SPK.Pl_Idle}"
+            , $"자 그럼, 손가락이<br>가리킨 지역을 클릭해 줘!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.TUTO_FINISH, new string[] {
             $"수고 많았어!:{(int)SPK.Pl_Idle}"
-            , $"첫 해결사 일인데도\n잘 하던데?!:{(int)SPK.Pl_Happy}"
-            , $"보상을 받으러 가볼까?\n퀘스트창을 열어보자.:{(int)SPK.Pl_Idle}"
-            , $"손가락이 가리키는\n아이콘을 누른 뒤,:{(int)SPK.Pl_Idle}"
+            , $"첫 해결사 일인데도<br>잘 하던데?!:{(int)SPK.Pl_Happy}"
+            , $"보상을 받으러 가볼까?<br>퀘스트창을 열어보자.:{(int)SPK.Pl_Idle}"
+            , $"손가락이 가리키는<br>아이콘을 누른 뒤,:{(int)SPK.Pl_Idle}"
             , $"퀘스트 카테고리 선택.:{(int)SPK.Pl_Idle}"
             , $"보상버튼을 클릭해 줘!:{(int)SPK.Pl_Idle}"
         });
@@ -117,39 +118,39 @@ public class HomeTalkManager : TalkManager {
 
         #region MAP1 FOREST
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_ACCEPT, new string[] {
-            $"자 이제 본격적으로\n해결사 일을 진행해볼까?:{(int)SPK.Pl_Idle}",
+            $"자 이제 본격적으로<br>해결사 일을 진행해볼까?:{(int)SPK.Pl_Idle}",
             $"문제를 풀면서, 레벨3를 달성해보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_REWARD, new string[] {
-            $"안녕하세요.\n해결사 선생님!:{(int)SPK.Mole_Idle}"
-            , $"괜찮으시면,풍차농장에도\n꼭 들러주세요!:{(int)SPK.Mole_Happy}"
+            $"안녕하세요.<br>해결사 선생님!:{(int)SPK.Mole_Idle}"
+            , $"괜찮으시면,풍차농장에도<br>꼭 들러주세요!:{(int)SPK.Mole_Happy}"
             , $"오오.. 다른곳에서도 소문이 났나봐:{(int)SPK.Pl_Idle}"
-            , $"월드맵으로 가보자\n이제 풍차농장에도 갈수 있어!:{(int)SPK.Pl_Happy}"
+            , $"월드맵으로 가보자<br>이제 풍차농장에도 갈수 있어!:{(int)SPK.Pl_Happy}"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_ACCEPT, new string[] {
-            $"풍차지역도 도와주면서\n레벨을 5까지 올려보자!:{(int)SPK.Pl_Idle}"
+            $"풍차지역도 도와주면서<br>레벨을 5까지 올려보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_REWARD, new string[] {
             $"해결사 선생님!!:{(int)SPK.Bear_Idle}"
             , $"얼마나 찾고 있었는지 몰라요:{(int)SPK.Bear_Sad}"
             , $"저희 과수원에도 꼭 놀러와주세요!:{(int)SPK.Bear_Happy}"
-            , $"월드맵으로 가보자\n이제 과수원에도 갈수 있어!:{(int)SPK.Pl_Happy}"
+            , $"월드맵으로 가보자<br>이제 과수원에도 갈수 있어!:{(int)SPK.Pl_Happy}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_MINIGAME, new string[] {
             $"저희 과수원에서 사과따기 체험을 진행하고 있는데요.:{(int)SPK.Bear_Idle}"
             , $"떨어지는 사과를 받는 게임이에요!:{(int)SPK.Bear_Idle}"
             , $"모두 클리어하면 엄청난 보상도 있답니다!:{(int)SPK.Bear_Happy}"
-            , $"과수원지역 <size=100><sprite name=exclamation></size>를 찾아주세요.\n첫회는 무료에요!:{(int)SPK.Bear_Happy}"
+            , $"과수원지역 <size=100><sprite name=exclamation></size>를 찾아주세요.<br>첫회는 무료에요!:{(int)SPK.Bear_Happy}"
             , $"사과따기 미니게임이 오픈했어!:{(int)SPK.Pl_Happy}"
         });
         #endregion
         #region MAP2 JUNGLE
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT, new string[] {
-            $"이제 과수원 지역도 도와주면서\n레벨을 7을 달성해보자!:{(int)SPK.Pl_Idle}"
+            $"이제 과수원 지역도 도와주면서<br>레벨을 7을 달성해보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] { //* Orchard BG ON
-            $"벌써 이만큼 레벨을 달성하다니!\n대단해!:{(int)SPK.Pl_Happy}"
+            $"벌써 이만큼 레벨을 달성하다니!<br>대단해!:{(int)SPK.Pl_Happy}"
             , $"선생님, 정말 감사합니다!!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
             , $"주민들이 선물을 준비했어요. 받아주세요!:{(int)SPK.Bear_Happy}"
             , $"허허허, 뭐 이런것까지!..:{(int)SPK.Pl_Happy}"
@@ -161,18 +162,18 @@ public class HomeTalkManager : TalkManager {
             , $"뭐야?! 처음보는 원숭이인데?:{(int)SPK.Pl_Idle}"
             , $"(머리 콩!):{(int)SPK.Monkey_Happy}"
             , $"아악! 또 때렷어!:{(int)SPK.Pl_Sad}"
-            , $"우끼! 나 잡아봐라!\n(후다닥):{(int)SPK.Monkey_Idle}"
+            , $"우끼! 나 잡아봐라!<br>(후다닥):{(int)SPK.Monkey_Idle}"
             , $"잡아! 당장 잡아!!:{(int)SPK.Pl_Happy}"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP2_BG2_ACCEPT, new string[] {
-            $"으...\n정글로 도망가버렸어..:{(int)SPK.Pl_Sad}"
+            $"으...<br>정글로 도망가버렸어..:{(int)SPK.Pl_Sad}"
             , $"(톡톡..):{(int)SPK.Empty}"
-            , $"저기.. 안녕하세유?\n혹시 수학해결사 맞개굴?:{(int)SPK.Frog_Idle}"
-            , $"맞는데..\n누..누구시죠?:{(int)SPK.Pl_Idle}"
+            , $"저기.. 안녕하세유?<br>혹시 수학해결사 맞개굴?:{(int)SPK.Frog_Idle}"
+            , $"맞는데..<br>누..누구시죠?:{(int)SPK.Pl_Idle}"
             , $"혹시, 머리를 두번때리고 간 원숭이를 찾으시개굴?:{(int)SPK.Frog_Idle}"
             , $"아앗..맞아요!:{(int)SPK.Pl_Sad}"
-            , $"저는 정글 늪지대주민인디,\n저희 수학문제를 도와주면:{(int)SPK.Frog_Idle}"
+            , $"저는 정글 늪지대주민인디,<br>저희 수학문제를 도와주면:{(int)SPK.Frog_Idle}"
             , $"원숭이가 어디로 갔는지 알려드릴개굴.:{(int)SPK.Frog_Happy}"
             , $"새로운 정글맵이 오픈했어!:{(int)SPK.Pl_Happy}"
             , $"흠.. 우선 늪지대 지역을 도와주며 레벨 9를 달성하자!:{(int)SPK.Pl_Idle}"
@@ -199,8 +200,8 @@ public class HomeTalkManager : TalkManager {
             , $"음..뭐지 누가 날 불렀는데 아무도 없..:{(int)SPK.Pl_Idle}"
             , $"발 아래개미! :{(int)SPK.Ant_Sad}"
             , $"앗! 왠 개미가?!:{(int)SPK.Pl_Sad}"
-            , $"개구리 친구한테 부탁받았개미\n원숭이를 찾고있다개미?:{(int)SPK.Ant_Idle}"
-            , $"맞아요! 어딧나요\n원숭이는!!:{(int)SPK.Pl_Happy}"
+            , $"개구리 친구한테 부탁받았개미<br>원숭이를 찾고있다개미?:{(int)SPK.Ant_Idle}"
+            , $"맞아요! 어딧나요<br>원숭이는!!:{(int)SPK.Pl_Happy}"
             , $"잠시만개미, 우리 덤불마을 지금 수학문제 때문에 힘들개미:{(int)SPK.Ant_Sad}"
             , $"수학해결사님 우리들도 좀 도와줘개미:{(int)SPK.Ant_Sad}"
             , $"그럼 알려주개미!! :{(int)SPK.Ant_Idle}"
@@ -241,14 +242,14 @@ public class HomeTalkManager : TalkManager {
             , $"그게 아니..:{(int)SPK.Pl_Sad}"
             , $"몽키킬러가 확실하다! 체포하라!!:{(int)SPK.WarriorMonkey_Idle}"
             , $"안돼! 멈춰!! :{(int)SPK.Ant_Idle}_FLIP:{(int)SPK.Frog_Idle}_FLIP"
-            , $"너희들은 마음씨 착한\n개구리와개미?!:{(int)SPK.WarriorMonkey_Idle}"
+            , $"너희들은 마음씨 착한<br>개구리와개미?!:{(int)SPK.WarriorMonkey_Idle}"
             , $"이 분은! 몽키킬러가 아니개굴! :{(int)SPK.Frog_Idle}_FLIP"
             , $"저희 정글을 도와주시는 수학해결사다개미! :{(int)SPK.Ant_Idle}_FLIP"
             , $"음.. 하지만 증거가 없다! 마침잘됫군.:{(int)SPK.WarriorMonkey_Idle}"
             , $"우리신전의 수학고민이 날이가는대로 쌓여서:{(int)SPK.WarriorMonkey_Idle}"
             , $"몽키신님이 화나셧는지 날씨가 좋지않다.:{(int)SPK.WarriorMonkey_Idle}"
             , $"우리신전을 도와주면 믿도록하지!:{(int)SPK.WarriorMonkey_Idle}"
-            , $"히익 제가 도와드려야지요!\n(사..살았다..):{(int)SPK.Pl_Idle}"
+            , $"히익 제가 도와드려야지요!<br>(사..살았다..):{(int)SPK.Pl_Idle}"
             , $"신전도 도와주면서 친밀도를 쌓고, 레벨 13을 달성하자.:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] { //* #1 MonkeyWat BG ON
@@ -260,14 +261,14 @@ public class HomeTalkManager : TalkManager {
             , $"아 맞다! 그 아기원숭이는 어딧나요?:{(int)SPK.Pl_Happy}"
             , $"흠.. 그러고보니 나도 그 이후 본적이 없다..:{(int)SPK.WarriorMonkey_Idle}"
             , $"스으윽..(정글 신전 높은 곳에서) :{(int)SPK.Empty}"
-            , $"허.허.허.허\n나를 찾고 있는가.끼?..:{(int)SPK.Monkey_Idle}"
+            , $"허.허.허.허<br>나를 찾고 있는가.끼?..:{(int)SPK.Monkey_Idle}"
             , $"아앗?! 너는!!:{(int)SPK.Pl_Happy}"
             , $"(퍼엉!):{(int)SPK.Empty}"
             , $"우끼끼....:{(int)SPK.Monkey_God}"
             , $"다 당신은?! 몽키신님??!!:{(int)SPK.WarriorMonkey_Sad}_FLIP"
             , $"!!!:{(int)SPK.Pl_Sad}"
             , $"황금바나나 몽키신님을 위하여.. 우끼!:{(int)SPK.WarriorMonkey_Happy}_FLIP:{(int)SPK.Frog_Idle}_FLIP:{(int)SPK.Ant_Idle}_FLIP"
-            , $"허.허.. 미안하게 됫끼.\n정글에 수학고민이 쌓여가,:{(int)SPK.Monkey_God}"
+            , $"허.허.. 미안하게 됫끼.<br>정글에 수학고민이 쌓여가,:{(int)SPK.Monkey_God}"
             , $"스트레스로 인해 날씨가 안좋아졌끼..:{(int)SPK.Monkey_God}"
             , $"하지만, 우리원숭이들은 정글밖에 나가본적이 없끼..:{(int)SPK.Monkey_God}"
             , $"그래서 이 내가 직접 수학해결사를 찾아나섯다.끼.:{(int)SPK.Monkey_God}"
@@ -279,7 +280,7 @@ public class HomeTalkManager : TalkManager {
             , $"나는 다시 하늘로 올라가겠다끼..:{(int)SPK.Monkey_God}"
             , $"수학영웅이여, 부디 이 선물을 받아주게끼!:{(int)SPK.Monkey_God}"
             , $"우리 정글의 수호자이며 친구라는 증표다끼!:{(int)SPK.Monkey_God}"
-            , $"그럼...\n(스르르륵..):{(int)SPK.Monkey_God}"
+            , $"그럼...<br>(스르르륵..):{(int)SPK.Monkey_God}"
             , $"(정글과 이 세계의 평화를 부탁한디끼..끼...끼....):{(int)SPK.Empty}"
             , $"몽키신님을 위하여.. 우끼!:{(int)SPK.WarriorMonkey_Happy}_FLIP"
             , $"우끼!!!:{(int)SPK.Pl_Happy}:{(int)SPK.Frog_Idle}_FLIP:{(int)SPK.Ant_Idle}_FLIP"
@@ -445,7 +446,7 @@ public class HomeTalkManager : TalkManager {
                 }
                 else if(talkIdx == 3) {
                     string msg = talkDt[(int)ID.TUTO_ROOM][3];
-                    rawMsg = msg.Replace("NICKNAME", $"<color=blue>{DB.Dt.NickName}</color>");
+                    rawMsg = msg.Replace("NICKNAME", $"NICKNAME<color=blue>{DB.Dt.NickName}</color>");
                     Time.timeScale = 0;
                 }
                 if(talkIdx == 12) HM._.ui.activeHandFocus(WOOD_ARROW_POS);

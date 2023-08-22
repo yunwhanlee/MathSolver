@@ -153,7 +153,13 @@ public abstract class TalkManager : MonoBehaviour {
             Array.ForEach(spkKeys, key => Debug.Log("key: " + key));
 
             //* メッセージ
-            talkTxt.text = msg;
+            if(msg.Contains("NICKNAME")) {//* 例外
+                string nickname = msg.Replace("NICKNAME", "");
+                talkTxt.text = nickname;
+            }
+            else {
+                talkTxt.text = LM._.localize(msg, (int)LM.LANG_IDX.KR); //? 僕は韓国人だから、クエストは韓国語を基準で言語変換する。
+            }
 
             //* テレタイプ
             talkDialogAnim.SetTrigger(Enum.ANIM.DoTalk.ToString());
