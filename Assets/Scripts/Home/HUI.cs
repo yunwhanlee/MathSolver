@@ -204,6 +204,14 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void onClickLevelUpTestBtn() { //! TEST
+        Debug.Log("GetKeyDown(KeyCode.W)");
+        StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
+            {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+            {rwdSOList[(int)Enum.RWD_IDX.Exp], DB.Dt.MaxExp},
+        }));
+    }
+    
     public void onClickWoodSignArrowBtn(int dirVal) { //* directionValue : -1 or 1にすること。
         if(HM._.qm.IsFinishMainQuest) {
             showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
