@@ -17,7 +17,7 @@ public class AnimEvent : MonoBehaviour {
 
     //* GAME
     public void setGCD_ContentTxt(string str) {
-        GCD_ContentTxt.text = str;
+        GCD_ContentTxt.text = LM._.localize(str);
     }
     public void setGCD_Val1CommonDivisorTxt(string str) {
         GCD_Val1CommonDivisorTxt.text = str;

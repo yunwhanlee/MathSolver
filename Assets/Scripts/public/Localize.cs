@@ -6,7 +6,9 @@ using TMPro;
 using static LM;
 
 public class Localize : MonoBehaviour
+
 {
+    [TextArea(2 ,6)]
     public string textKey;
 
     void Start() {

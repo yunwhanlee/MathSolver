@@ -42,11 +42,11 @@ public class LoadingManager : MonoBehaviour
             yield return null;
             if(loadingBar.value < 1f){
                 loadingBar.value = Mathf.MoveTowards(loadingBar.value, 1f, Time.deltaTime); 
-                loadingTxt.text = $"해결하러 가는 중... {loadingBar.value}%";
+                loadingTxt.text = $"{LM._.localize("On my way to solve")}... {loadingBar.value}%";
             }
             else{
                 loadingBar.value = MAX;
-                loadingTxt.text = "도착완료! 화면을 터치해주세요.";
+                loadingTxt.text = $"{LM._.localize("Arrived complete")}! {LM._.localize("Pls Touch Screen!")}";
                 TouchScreenPanel.SetActive(true);
             }
         }

@@ -156,7 +156,7 @@ public class GM : MonoBehaviour {
         List<string> rightSideList = new List<string>(); //* 右辺
 
         //TODO 現在は 単一演算のみ対応
-        string lOpr = null; //* 左演算子 
+        string lOpr = null; //* 左演算子
         string rOpr = null; //* 右演算子
 
         List<string> lNums = new List<string>(); //* 左定数

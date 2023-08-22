@@ -6,8 +6,8 @@ using TMPro;
 using UnityEngine.U2D.Animation; //* SpriteLibrary
 
 public class Animal : MonoBehaviour {
-    string[] TALK_CORRECT_STRS = {"대단해!", "우와!", "역시!", "만세!", "고마워요!"};
-    string[] TALK_WRONG_STRS = {"헉!", "안돼..", "끄아아", "앗?!", "선생님?!"};
+    string[] TALK_CORRECT_STRS = {LM._.localize("Great!") , LM._.localize("Wow!"), LM._.localize("Yeah!"), LM._.localize("Thanks!")};
+    string[] TALK_WRONG_STRS = {LM._.localize("Oops!"), LM._.localize("No.."), LM._.localize("Omg"), LM._.localize("Sir?!")};
 
     [Header("OUTSIDE")]
     Animator anim; public Animator Anim {get => anim;}
