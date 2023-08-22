@@ -527,7 +527,10 @@ public class HUI : MonoBehaviour {
             case "GoldApple Pet":
             case "BabyMonkey Pet":
             case "BabyDragon Pet":
-                int num = item.Name.Contains(Enum.SPC_PET.GoldApple.ToString())? 1 : item.Name.Contains(Enum.SPC_PET.BabyMonkey.ToString())? 2 : 3;
+                int num = item.Name.Contains(Enum.SPC_PET.GoldApple.ToString())? 1
+                : item.Name.Contains(Enum.SPC_PET.BabyMonkey.ToString())? 2
+                : item.Name.Contains(Enum.SPC_PET.BabyMonkey.ToString())? 3 : -1;
+
                 moveBtncontent = $"{LM._.localize("Minigame")}{num} {LM._.localize("Clear")}";
                 moveBtnIconSpr = infoMoveBtnIconSprs[MINIGAME_ICON];
                 onClickMoveBtn = onClickGoGameDialogYesBtn;
