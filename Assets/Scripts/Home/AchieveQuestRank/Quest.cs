@@ -86,6 +86,11 @@ public class Quest : MonoBehaviour {
                 if(!DB.Dt.IsUnlockMap3BG3Arr[ACCEPT])
                     HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_ACCEPT);
                 break;
+            case (int)QuestManager.MQ_ID.ComingSoon:
+                    HM._.htm.action((int)HomeTalkManager.ID.COMING_SOON);
+                    acceptBtn.gameObject.SetActive(true);
+                    rewardBtn.gameObject.SetActive(false);
+                break;
         }
         updateStatusGauge();
     }

@@ -19,6 +19,8 @@ public class QuestManager : MonoBehaviour {
         OpenTundraMap3,
         UnlockMap3SnowMountain,
         UnlockMap3IceDragon,
+
+        ComingSoon
     }
 
     //* Quests
@@ -153,6 +155,9 @@ public class QuestManager : MonoBehaviour {
                 setMainQuestReward(getExtraReward(Enum.RWD_IDX.IceDragonStatue));
                 if(!DB.Dt.IsUnlockMap3BG3Arr[REWARD])
                     HM._.ui.OnAcceptRewardPopUp += () => HM._.htm.action((int)HomeTalkManager.ID.UNLOCK_MAP3_BG3_REWARD);
+                break;
+            case (int)MQ_ID.ComingSoon:
+                Debug.Log("Coming Soon");
                 break;
         }
         

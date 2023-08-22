@@ -42,7 +42,7 @@ public class HomeTalkManager : TalkManager {
     [SerializeField] Sprite tundraEntraceSpr;
     [SerializeField] Sprite snowMountainSpr;
     [SerializeField] Sprite iceDragonBgSpr;
-
+    [SerializeField] GameObject thankYouForPlayingGroup;
 
     // void Start() {
     //     TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
@@ -408,8 +408,9 @@ public class HomeTalkManager : TalkManager {
             , $"우와! 이제 미니게임 썰매타기를 할 수 있어요!!:{(int)SPK.TundraBear_Happy}"
         });
         talkDt.Add((int)ID.COMING_SOON, new string[] {
-            $"현재 개발된 게임 스토리는 여기까지입니다.:{(int)SPK.Empty}"
-            ,$"끝까지 플레이 해주셔서 진심으로 감사합니다.:{(int)SPK.Empty}"
+            $"현재 개발된 게임 스토리는 여기까지입니다.:{(int)SPK.Pl_Idle}"
+            ,$"업데이트하여 더 좋은 모습으로 찾아 뵙겠습니다!:{(int)SPK.Pl_Idle}"
+            ,$"플레이 해주셔서 진심으로 감사합니다!!:{(int)SPK.Empty}"
         });
         #endregion
     }
@@ -511,6 +512,11 @@ public class HomeTalkManager : TalkManager {
                 if(talkIdx == 6) bgImg.sprite = iceDragonBgSpr;
                 break;
             case (int)ID.UNLOCK_MAP3_MINIGAME:          break;
+            case (int)ID.COMING_SOON:
+                if(talkIdx == 2) {
+                    thankYouForPlayingGroup.SetActive(true);
+                }
+                break;
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
     }
@@ -633,6 +639,9 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.UNLOCK_MAP3_MINIGAME:
                 DB.Dt.IsUnlockMinigame3 = true;
                 HM._.qm.MainQuests[DB.Dt.MainQuestID].onClickAcceptBtn();
+                break;
+            case (int)ID.COMING_SOON:
+                thankYouForPlayingGroup.SetActive(false);
                 break;
             #endregion
         }
