@@ -253,11 +253,11 @@ public class ResultManager : MonoBehaviour {
         //* Set MsgTxt
         int correctCnt = 0;
         Array.ForEach(quizAnswerResultArr, arr => {if(arr == "Y") correctCnt++;});
-        msgAnimTxt.text = (correctCnt >= 8)? "판타스틱!"
-            : (correctCnt >= 6)? "대단해요!"
-            : (correctCnt >= 4)? "훌륭해요!"
-            : (correctCnt >= 2)? "잘했어요!"
-            : "괜찮아요!";
+        msgAnimTxt.text = (correctCnt >= 8)? $"{LM._.localize("Fantastic")}!"
+            : (correctCnt >= 6)? $"{LM._.localize("Great")}!"
+            : (correctCnt >= 4)? $"{LM._.localize("Fine")}!"
+            : (correctCnt >= 2)? $"{LM._.localize("Good Job")}!"
+            : $"{LM._.localize("That`s right")}!";
 
         yield return Util.time0_5;
         msgAnimTxt.gameObject.SetActive(true); //* 結果メッセージアニメー 表示

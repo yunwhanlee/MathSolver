@@ -145,7 +145,7 @@ public abstract class TalkManager : MonoBehaviour {
             Time.timeScale = 0;
             //* 分析 :「メッセージ」と「スピーカー画像」
             string[] splits = rawMsg.Split(":");
-            
+
             string msg = splits[0];
             string[] spkKeys = splits.Skip(1).ToArray(); //* [0]Index除外
             bool[] isFlips = new bool[spkKeys.Length];
