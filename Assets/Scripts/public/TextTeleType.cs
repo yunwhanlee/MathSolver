@@ -5,7 +5,7 @@ using TMPro;
 
 public class TextTeleType : MonoBehaviour {
     [SerializeField] GameObject endCursor;
-    public IEnumerator coTextVisible(TextMeshProUGUI teleTxt) {
+    public IEnumerator coTextVisible(TextMeshProUGUI teleTxt, string voice) {
         teleTxt.ForceMeshUpdate();
         int totalVisibleChars = teleTxt.text.Length;
         int cnt = 0;
@@ -13,7 +13,7 @@ public class TextTeleType : MonoBehaviour {
 
         //* Tele Type Anim
         while(true) {
-            if(cnt % 4 == 0) SM._.sfxPlay(SM.SFX.Talk.ToString());
+            if(cnt % 4 == 0) SM._.sfxPlay(voice);
                 
             int visibleCnt = cnt % (totalVisibleChars + 1);
             teleTxt.maxVisibleCharacters = visibleCnt;

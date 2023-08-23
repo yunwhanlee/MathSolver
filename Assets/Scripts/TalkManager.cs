@@ -164,7 +164,7 @@ public abstract class TalkManager : MonoBehaviour {
             //* テレタイプ
             talkDialogAnim.SetTrigger(Enum.ANIM.DoTalk.ToString());
             if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID); //! 以前のコルーチンが生きていたら、停止
-            coTxtTeleTypeID = txtTeleType.coTextVisible(talkTxt);
+            coTxtTeleTypeID = txtTeleType.coTextVisible(talkTxt, SM.SFX.Talk.ToString());
             StartCoroutine(coTxtTeleTypeID);
 
             //* スピーカー (複数：最大３まで可能)

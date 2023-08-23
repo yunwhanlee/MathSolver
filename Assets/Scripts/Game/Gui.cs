@@ -62,10 +62,12 @@ public class GUI : MonoBehaviour
 #region EVENT
 //-------------------------------------------------------------------------------------------------------------
     public void onclickBtnBackToHome() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public void onClickHelpPanelAnimBtn() {
         Debug.Log("onClickHelpPanelAnimBtn");
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         if(GM._.qm.HelpAnimType == "frac") {
             const int MAX_IDX = 2;
             GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpFraction.ToString(), GM._.qm.HelpAnimPlayIdx++);
@@ -95,7 +97,7 @@ public class GUI : MonoBehaviour
         StartCoroutine(GM._.coMakeQuiz(analList));
 
         //* テレタイプ
-        coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt);
+        coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt, SM.SFX.Talk2.ToString());
         StartCoroutine(coTxtTeleTypeID);
         
         yield return new WaitForSeconds(1.5f);

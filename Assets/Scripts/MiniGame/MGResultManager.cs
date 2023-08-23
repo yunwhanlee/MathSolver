@@ -29,6 +29,7 @@ public class MGResultManager : MonoBehaviour {
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
     public IEnumerator coGoHome() {
+        SM._.sfxPlay(SM.SFX.Transition.ToString());
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         MGM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;
@@ -53,6 +54,7 @@ public class MGResultManager : MonoBehaviour {
         MGM._.ui.LeftArrowBtn.gameObject.SetActive(false);
         MGM._.ui.RightArrowBtn.gameObject.SetActive(false);
         
+        SM._.sfxPlay(SM.SFX.Transition.ToString());
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         MGM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
         yield return Util.time1;

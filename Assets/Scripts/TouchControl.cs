@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro.EditorUtilities;
 
 public class TouchControl : MonoBehaviour
 {
@@ -46,8 +47,9 @@ public class TouchControl : MonoBehaviour
                     HM._.pl.setSit(hit.transform); // 座る・立つ
                     return;
                 }
-                //* その以外
+                //* その以外 歩く
                 else {
+                    SM._.sfxPlay(SM.SFX.BtnClick.ToString());
                     HM._.pl.animSit(false); // 座る状態なら、立つ
                     // プレイヤー 移動位置
                     HM._.pl.TgPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);

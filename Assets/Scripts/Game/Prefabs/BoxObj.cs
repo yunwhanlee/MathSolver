@@ -32,6 +32,7 @@ public class BoxObj : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
     void OnCollisionEnter2D(Collision2D col) {
         if(!isBlockMerge && col.gameObject.CompareTag(Enum.TAG.Obj.ToString())) {
+            SM._.sfxPlay(SM.SFX.BubblePop.ToString());
             val++;
             Destroy(col.gameObject);
         }

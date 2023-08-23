@@ -74,6 +74,7 @@ public class HM : MonoBehaviour {
         pl.transform.gameObject.SetActive(false);
         pet.transform.gameObject.SetActive(false);
 
+        SM._.sfxPlay(SM.SFX.Transition.ToString());
         HM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         HM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;

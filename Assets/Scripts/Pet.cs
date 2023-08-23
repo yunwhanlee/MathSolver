@@ -81,6 +81,9 @@ public class Pet : MonoBehaviour {
     public void setInitSpr() => sr.sprite = idleSpr;
     public void animIdle() => anim.SetBool(Enum.ANIM.IsWalk.ToString(), false);    
     public void animWalk() => anim.SetBool(Enum.ANIM.IsWalk.ToString(), true);
-    public void animDance() => anim.SetTrigger(Enum.ANIM.DoDance.ToString());
+    public void animDance() {
+        SM._.sfxPlay(SM.SFX.PetClick.ToString());
+        anim.SetTrigger(Enum.ANIM.DoDance.ToString());
+    }
 #endregion
 }

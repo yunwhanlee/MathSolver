@@ -86,6 +86,7 @@ public class QuizManager : MonoBehaviour {
 #region EVENT BUTTON
 //-------------------------------------------------------------------------------------------------------------
     public void onClickDiagChooseDifficultyBtn(int diffLevel) { //* #2
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         //* (BUG) 重なって実行すること対応
         Array.ForEach(diagSelectDiffBtn, diffBtn => diffBtn.gameObject.SetActive(false));
         //* 選択レベルの診断評価 スタート
@@ -95,6 +96,7 @@ public class QuizManager : MonoBehaviour {
         wj_connector.FirstRun_Diagnosis(diffLevel); //* サーバから通信し、GetDiagnosis()呼び出す
     }
     public void onClickGetLearningBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         Debug.Log($"onClickGetLearningBtn():: 学習 スタート");
         getLearningButton.gameObject.SetActive(false);
         status = Status.LEARNING;
@@ -227,6 +229,7 @@ public class QuizManager : MonoBehaviour {
     }
 
     IEnumerator coShowStageTxt() {
+        SM._.sfxPlay(SM.SFX.StartDrum.ToString());
         int stageNum = curQuestionIndex + 1;
         stageTxt.text = $"STAGE {stageNum} / 8";
         stageTxt.gameObject.SetActive(true);
@@ -277,6 +280,7 @@ public class QuizManager : MonoBehaviour {
     //* 답을 고르고 맞았는 지 체크
     /// </summary>
     IEnumerator SelectAnswer(int idx) {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         if(GM._.IsSelectCorrectAnswer) {
             Debug.Log($"SelectAnswer(idx= {idx}):: 正解なので他のボタン選択できないように。 ➝ GM._.IsSelectCorrectAnswer= {GM._.IsSelectCorrectAnswer}");
             yield break;
@@ -381,6 +385,9 @@ public class QuizManager : MonoBehaviour {
         Array.ForEach(answerBtn, btn => btn.interactable = isActive);
     }
     public IEnumerator coSuccessAnswer(int idx) {
+        SM._.sfxPlay(SM.SFX.WolfRoar.ToString());
+        SM._.sfxPlay(SM.SFX.ChildYeah.ToString());
+        SM._.sfxPlay(SM.SFX.CorrectAnswer.ToString());
         DB.Dt.AcvCorrectAnswerCnt++;
         helpSpeachBtn.SetActive(false);
         StartCoroutine(GM._.Pl.coRoarEF());
@@ -443,6 +450,7 @@ public class QuizManager : MonoBehaviour {
         */
     }
     public IEnumerator coFailAnswer(int idx) {
+        SM._.sfxPlay(SM.SFX.WrongAnswer.ToString());
         GM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
         StartCoroutine(GM._.Anm.coWrongEF());
         answerBtn[idx].GetComponent<Image>().color = Color.red;

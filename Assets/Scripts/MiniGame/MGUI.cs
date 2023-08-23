@@ -103,20 +103,24 @@ public class MGUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickStartBtn() {
         Debug.Log("onClickStartBtn():: Status: READY ➝ PLAY");
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         startScrBtn.gameObject.SetActive(false);
         leftArrowBtn.gameObject.SetActive(true);
         rightArrowBtn.gameObject.SetActive(true);
         StartCoroutine(coReadyStartCount());
     }
     public void onClickExitIconBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         Time.timeScale = 0;
         giveUpPopUp.SetActive(true);
     }
     public void onClickGiveUpPopUpYesBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         Time.timeScale = 1;
         StartCoroutine(MGM._.mgrm.coGoHome());
     }
     public void onClickGiveUpPopUpNoBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         Time.timeScale = 1;
         giveUpPopUp.SetActive(false);
     }
@@ -162,10 +166,12 @@ public class MGUI : MonoBehaviour {
     }
     
     private IEnumerator coReadyStartCount() {
+        SM._.sfxPlay(SM.SFX.Ready.ToString());
         titleTxt.text = LM._.localize("Ready");
         contentTxt.text = "";
 
         yield return Util.time1;
+        SM._.sfxPlay(SM.SFX.Start.ToString());
         MGM._.Status = MGM.STATUS.PLAY;
         titleTxt.text = $"{LM._.localize("Start")}!";
 

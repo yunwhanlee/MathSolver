@@ -271,7 +271,7 @@ public class HUI : MonoBehaviour {
     }
 
     public void onClickGoRoom() {
-        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
+        // SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         if(canvasWorldMap.gameObject.activeSelf) {
             Debug.Log("onClickGoRoom():: From Select World Map");
             Time.timeScale = 1;
@@ -338,6 +338,7 @@ public class HUI : MonoBehaviour {
             onClickWoodSignArrowBtn(dirVal: +1);
         }
         public void onClickDecorateModeIconBtn() {
+            Debug.Log("onClickDecorateModeIconBtn()::");
             if(HM._.qm.IsFinishMainQuest) {
                 showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
                 return;
@@ -392,6 +393,7 @@ public class HUI : MonoBehaviour {
         selectLangDialog.SetActive(true);
     }
     public void onClickResetBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         // DB.Dt.IsTutoRoomTrigger = true; DB.Dt.IsTutoFunitureShopTrigger = true; DB.Dt.IsTutoClothShopTrigger = true; DB.Dt.IsTutoInventoryTrigger = true; DB.Dt.IsTutoGoGameTrigger = true; DB.Dt.IsTutoWorldMapTrigger = true; DB.Dt.IsTutoFinishTrigger = true; DB.Dt.IsTutoDiagChoiceDiffTrigger = true; DB.Dt.IsTutoDiagFirstQuizTrigger = true; DB.Dt.IsTutoDiagFirstAnswerTrigger = true; DB.Dt.IsTutoDiagResultTrigger = true;
         DB._.reset();
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
@@ -403,9 +405,11 @@ public class HUI : MonoBehaviour {
         }
     }
     public void onClickChangeNickNameBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         showNickNamePopUp(isActive: true);
     }
     public void onClickNickNameOkBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         if(nickNameInputField.text.Length == 0) {
             showErrorMsgPopUp(LM._.localize("Please Input Nickname."));
             return;
@@ -420,11 +424,13 @@ public class HUI : MonoBehaviour {
         showNickNamePopUp(isActive: false);
     }
     public void onClickLevelUpPopUpAcceptBtn() {
+        SM._.sfxPlay(SM.SFX.GetReward.ToString());
         HM._.state = HM.STATE.NORMAL;
         lvUpPopUp.SetActive(false);
     }
     public void onClickRewardPopUpAcceptBtn() {
         Debug.Log("onClickRewardPopUpAcceptBtn():: ");
+        SM._.sfxPlay(SM.SFX.GetReward.ToString());
         HM._.state = HM.STATE.NORMAL;
         rewardPopUp.SetActive(false);
 
@@ -435,6 +441,7 @@ public class HUI : MonoBehaviour {
 
     #region SELECT MAP
     public void onClickGoGameDialogYesBtn() { // Choose Map
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         Debug.Log("onClickGoGameDialogYesBtn()::");
         // if(HM._.qm.IsFinishMainQuest) {
             // showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
@@ -461,10 +468,12 @@ public class HUI : MonoBehaviour {
         // onClickAchiveRankCloseBtn();
     }
     public void onClickGoGameDialogNoBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.state = HM.STATE.NORMAL;
         goGamePopUp.SetActive(false);
     }
     public void onClickBgArea(int idx) {
+        SM._.sfxPlay(SM.SFX.TinyBubblePop.ToString());
         DB._.SelectMapIdx = idx;
         var map = HM._.wmm.getMap(idx);
         Array.ForEach(map.BgBtns, bgBtn => {
@@ -475,10 +484,12 @@ public class HUI : MonoBehaviour {
     }
 
     public void onClickGoMapPupUpYesBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         Time.timeScale = 1;
         StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.Loading.ToString()));
     }
     public void onClickGoMapPupUpCloseBtn() {
+        // SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         var map = HM._.wmm.getMap(DB._.SelectMapIdx);
         Array.ForEach(map.BgBtns, bgBtn => {
             bgBtn.GetComponent<Image>().color = Color.white;
@@ -817,6 +828,7 @@ public class HUI : MonoBehaviour {
 #region CANVAS ANIM
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void playSwitchScreenAnim() {
+        SM._.sfxPlay(SM.SFX.Transition.ToString());
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
         // StartCoroutine(coPlaySwitchScreenAnim());
     }

@@ -68,6 +68,7 @@ public class ResultManager : MonoBehaviour {
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
     private IEnumerator coGoHome() {
+        SM._.sfxPlay(SM.SFX.Transition.ToString());
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;
@@ -118,10 +119,12 @@ public class ResultManager : MonoBehaviour {
         legacyBonusMsg.SetActive(legacyBonus != 0);
         legacyBonusMsg.GetComponentInChildren<TextMeshProUGUI>().text = $"{LM._.localize("Lecagy")}{LM._.localize("Bonus")} <color=green><size=60>+{legacyBonus * 100}%</size></color>";
 
+        SM._.sfxPlay(SM.SFX.Transition.ToString());
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
         yield return Util.time1;
 
+        SM._.sfxPlay(SM.SFX.Fanfare.ToString());
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
 
         yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr); //* 下のテーブル★
@@ -132,6 +135,25 @@ public class ResultManager : MonoBehaviour {
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(true);
+
+        yield return Util.time0_2;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_1;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_8;
+        yield return Util.time0_2;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+        yield return Util.time0_1;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+
     }
     public void setReward(int exp, int coin) {
         rewardExp += exp;
@@ -158,6 +180,8 @@ public class ResultManager : MonoBehaviour {
 
         //* Add DataBase Coin
         DB.Dt.setCoin(rewardCoin);
+
+        
     }
 
     IEnumerator coPlayExpCollectionAnim() {
@@ -247,6 +271,7 @@ public class ResultManager : MonoBehaviour {
             if(quizAnswerResultArr[i] == "Y") {
                 effectObj.SetActive(true);
                 yield return Util.time0_2;
+                SM._.sfxPlay(SM.SFX.CorrectAnswer.ToString());
                 StartCoroutine(coEnableStarImg(i));
             }
         }

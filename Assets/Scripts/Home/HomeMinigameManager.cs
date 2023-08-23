@@ -168,6 +168,7 @@ public class HomeMinigameManager : MonoBehaviour {
         Debug.Log($"onClickMinigameExclamationMarkBtn(idx={idx}):: ");
         SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         DB._.SelectMinigameIdx = idx;
+        SM._.sfxPlay(SM.SFX.Tada.ToString());
         minigameLvPopUp.SetActive(true);
         onInits[idx].Invoke(); //* Init
     }

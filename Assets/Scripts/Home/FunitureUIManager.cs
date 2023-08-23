@@ -107,7 +107,7 @@ public class FunitureUIManager : MonoBehaviour
         item.purchase(); //* 購入
     }
     public void onClickNewFuniturePopUpCloseBtn() {
-        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
+        // SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.ui.NewFuniturePopUp.SetActive(false);
         //* 最新化
         updateItemList();

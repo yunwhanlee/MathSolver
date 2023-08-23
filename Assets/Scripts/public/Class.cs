@@ -138,6 +138,7 @@ public abstract class Item {
     public abstract void create();
     //* 仮想
     public virtual void display() {
+        if(this is not Funiture) SM._.sfxPlay(SM.SFX.FeatherPop.ToString());
         create();
         this.IsArranged = true;
         this.isNotify = false;
@@ -172,7 +173,7 @@ public abstract class Item {
     }
     public virtual void arrange() {
         const int PURCHASE_BTN = 0, MOVE_BTN = 1;
-        Debug.Log($"<color=white>Item:: arrange():: name= {name} ,Price= {Price}</color>");
+        Debug.Log($"<color=white>Item:: arrange():: name= {name} ,Price= {Price}, isLock= {isLock}</color>");
         var hui = HM._.ui;
         //* ロック
         if(isLock) {
@@ -214,8 +215,9 @@ public abstract class Item {
         }
     }
     protected void backHome() {
+        Debug.Log("backHome():: " + this);
         HM._.ui.InfoDialog.SetActive(false);
-        HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
+        if(this is Funiture) HM._.ui.onClickDecorateModeIconBtn(); //* FUNITUREモード
         HM._.ui.onClickDecorateModeCloseBtn();
         HM._.ui.onClickWoodSignArrowBtn(dirVal: 1); //* プレイヤーが動かないこと対応
         HM._.ui.onClickWoodSignArrowBtn(dirVal: -1);
@@ -270,6 +272,7 @@ public class Funiture : Item {
     }
 
     public override void display() {
+        Debug.Log("display():: " + this);
         base.display();
         HM._.ui.onClickDecorateModeIconBtn(); //* デコレーションモード
     }
