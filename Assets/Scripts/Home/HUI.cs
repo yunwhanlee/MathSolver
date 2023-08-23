@@ -312,6 +312,11 @@ public class HUI : MonoBehaviour {
             handFocusTf.gameObject.SetActive(false);
         }
         public void onClickAchiveRankCloseBtn() {
+            const int ACCEPT = 0;
+            if(!DB.Dt.IsUnlockMap1BG2Arr[ACCEPT]) {
+                showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
+                return;
+            }
             topGroup.SetActive(true);
             achiveRankPanel.SetActive(false);
             //* 前の場所によった表示に 最新化
