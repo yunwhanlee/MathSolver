@@ -126,8 +126,9 @@ public class ResultManager : MonoBehaviour {
 
         yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr); //* 下のテーブル★
         yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr); //* 空の回る★
-        yield return coPlayCoinCollectAnim();
-        yield return coPlayExpCollectionAnim();
+        StartCoroutine(coPlayCoinCollectAnim());
+        yield return Util.time0_8;
+        StartCoroutine(coPlayExpCollectionAnim());
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(true);
