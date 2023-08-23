@@ -9,16 +9,16 @@ using Random = UnityEngine.Random;
 public class ClothShopUIManager : MonoBehaviour
 {
     Animator anim;
-
     const int REWARD_PET_PER = 30;
-    const int GACHA_PRICE = 300;
 
     [SerializeField] bool isGachaOn;    public bool IsGachaOn {get => isGachaOn; set => isGachaOn = value;}
+    [SerializeField] int price;     public int Price {get => price; set => price = value;}
 
     Sprite rewardSpr; 
 
     [Header("PURCHASE BTN")]
     [SerializeField] TextMeshProUGUI priceTxt;  public TextMeshProUGUI PriceBtn {get => priceTxt; set => priceTxt = value;}
+    [SerializeField] GameObject purchaseNotifyIcon;  public GameObject PurchaseNotifyIcon {get => purchaseNotifyIcon;}
 
     [Header("REWARD ANIM PANEL")]
     [SerializeField] GameObject gachaAnimPanel;    public GameObject GachaRewardAnimPanel {get => gachaAnimPanel; set => gachaAnimPanel = value;}
@@ -30,7 +30,7 @@ public class ClothShopUIManager : MonoBehaviour
     void Start() {
         anim = gachaAnimPanel.GetComponent<Animator>();
         gachaAnimPanel.SetActive(false);
-        priceTxt.text = $"{GACHA_PRICE * DB.Dt.GachaCnt}";
+        setPrice();
     }
 
 /// -----------------------------------------------------------------------------------------------------------------
@@ -46,7 +46,6 @@ public class ClothShopUIManager : MonoBehaviour
             return;
         } 
 
-        int price = GACHA_PRICE * DB.Dt.GachaCnt;
         if(DB.Dt.Coin >= price) {
             isGachaOn = true;
             HM._.ui.playSwitchScreenAnim();
@@ -54,13 +53,21 @@ public class ClothShopUIManager : MonoBehaviour
             DB.Dt.setCoin(-price);
             //* 上がる値段 最新化
             DB.Dt.GachaCnt++;
-            priceTxt.text = $"{GACHA_PRICE * DB.Dt.GachaCnt}";
+            StartCoroutine(coDelayUpdatePriceTxt());
             //* GachaAnimPanel 表示
             HM._.ui.TopGroup.SetActive(false);
         }
         else {
             HM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
         }
+    }
+    private IEnumerator coDelayUpdatePriceTxt() {
+        yield return Util.time1;
+        setPrice();
+    }
+    private void setPrice() {
+        price = Config.CLOTH_PRICE_UNIT * DB.Dt.GachaCnt;
+        priceTxt.text = price.ToString();
     }
     public void onClickTapScreenBtn() {
         //* カーテン開ける アニメーション

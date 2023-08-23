@@ -33,7 +33,12 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject ikeaShopPanel; public GameObject IkeaShopPanel {get => ikeaShopPanel; set => ikeaShopPanel = value;}
     [SerializeField] GameObject clothShopPanel; public GameObject ClothShopPanel {get => clothShopPanel; set => clothShopPanel = value;}
     [SerializeField] GameObject inventoryPanel; public GameObject InventoryPanel {get => inventoryPanel; set => inventoryPanel = value;}
-    [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}
+    [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}    
+
+    [Header("ROOM GO TO ICONS")]
+    [SerializeField] GameObject funitureNotifyIcon;   public GameObject FunitureNotifyIcon {get => funitureNotifyIcon; set => funitureNotifyIcon = value;}
+    [SerializeField] GameObject clothShopNotifyIcon;   public GameObject ClothShopNotifyIcon {get => clothShopNotifyIcon; set => clothShopNotifyIcon = value;}
+    [SerializeField] GameObject inventoryNotifyIcon;   public GameObject InventoryNotifyIcon {get => inventoryNotifyIcon; set => inventoryNotifyIcon = value;}
 
     [Header("MAIN QUEST BOX (AT HOME)")]
     [SerializeField] Button mainQuestBoxBtn;    public Button MainQuestBoxBtn {get => mainQuestBoxBtn;}
@@ -145,6 +150,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
 
     void Start() {
+        switchScreenAnim.gameObject.SetActive(true);
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
         StartCoroutine(coUpdateUI());
@@ -157,11 +163,6 @@ public class HUI : MonoBehaviour {
         langBtns[EN].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(EN));
         langBtns[KR].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(KR));
         langBtns[JP].onClick.AddListener(() => LM._.onClickLanguageSettingBtn(JP));
-
-        //* Current Country Txt
-        // curLangTxt.text = (LM._.curLangIndex == EN)? "English"
-        //     :(LM._.curLangIndex == KR)? "한국어"
-        //     : "日本語";
 
         //* Current Country Icon
         curLangImg.sprite = (LM._.curLangIndex == EN)? HM._.conturiesIcons[EN] 
@@ -286,12 +287,21 @@ public class HUI : MonoBehaviour {
         }
 
     }
-    public void onClickGoClothShop() {
-        Debug.Log("onClickGoClothShop()::");
+    
+    public void onClickGoFunitureShop() {
         infoDialog.SetActive(false);
+        onClickWoodSignArrowBtn(dirVal: +1);
+    }
+    public void onClickGoClothShop() {
+        infoDialog.SetActive(false);
+        curHomeSceneIdx = 3;
         while(curHomeSceneIdx > (int)Enum.HOME.ClothShop) {
             onClickWoodSignArrowBtn(dirVal: -1);
         }
+    }
+    public void onClickGoInventory() {
+        infoDialog.SetActive(false);
+        onClickWoodSignArrowBtn(dirVal: -1);
     }
 
     #region HOME ICON EVENT
@@ -495,7 +505,20 @@ public class HUI : MonoBehaviour {
             try {
                 //* コイン
                 coinTxt.text = DB.Dt.Coin.ToString();
-
+                //* Funiture Icon Notify
+                bool isNewFn = Array.Exists(DB.Dt.Funitures, fn => fn.IsNotify);
+                bool isNewDc = Array.Exists(DB.Dt.Decorations, dc => dc.IsNotify);
+                bool isNewBg = Array.Exists(DB.Dt.Bgs, bg => bg.IsNotify);
+                bool isNewMt = Array.Exists(DB.Dt.Mats, mt => mt.IsNotify);
+                funitureNotifyIcon.SetActive(isNewFn || isNewDc || isNewBg || isNewMt);
+                //* ClothShop Icon Notify
+                bool isCanPurchase = DB.Dt.Coin >= HM._.cUI.Price;
+                ClothShopNotifyIcon.SetActive(isCanPurchase);
+                HM._.cUI.PurchaseNotifyIcon.SetActive(isCanPurchase);
+                //* Inventory Icon Notify
+                bool isNewSkin = Array.Exists(DB.Dt.PlSkins, pl => pl.IsNotify);
+                bool isNewPet = Array.Exists(DB.Dt.PtSkins, pet => pet.IsNotify);
+                inventoryNotifyIcon.SetActive(isNewSkin || isNewPet);
                 //* LV
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
                 //* FAME

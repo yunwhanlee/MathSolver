@@ -9,6 +9,7 @@ public static class Config {
     public readonly static float LEGACY_BONUS_PER = 0.2f;
     //* HOME
     public readonly static Color CATE_SELECT_COLOR = new Color(0.1f, 0.3f, 0.55f, 1);
+    public readonly static int CLOTH_PRICE_UNIT = 300;
     //* GAME
     public readonly static string OPERATION_REGEX_PATTERN = @"[+\-]|minus|times|frac|underline|left";
     public readonly static string TEXTDRAW_REGEX_PATTERN = @"[-+x=?]|minus|times|frac|underline|left|\d+";
