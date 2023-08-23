@@ -166,11 +166,13 @@ public class HomeMinigameManager : MonoBehaviour {
     #region MINIGAME LEVEL POPUP
     public void onClickMinigameExclamationMarkBtn(int idx) {
         Debug.Log($"onClickMinigameExclamationMarkBtn(idx={idx}):: ");
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         DB._.SelectMinigameIdx = idx;
         minigameLvPopUp.SetActive(true);
         onInits[idx].Invoke(); //* Init
     }
     public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* ロックしたら、解禁条件のお知らせ、以下処理しない
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
             int[] unlockScores = (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame1)? Config.MINIGAME1_UNLOCK_SCORES
@@ -218,6 +220,7 @@ public class HomeMinigameManager : MonoBehaviour {
         }
     }
     public void onClickMinigamePlayBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         int price = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv]; 
         if(DB.Dt.Minigame1BestScore == 0) { //* 最初は無料
             StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
@@ -231,6 +234,7 @@ public class HomeMinigameManager : MonoBehaviour {
         }
     }
     public void onClickSliderRewardIconBtn(int idx) {
+        SM._.sfxPlay(SM.SFX.GainItem.ToString());
         switch(idx) {
             case 0: 
                 DB.Dt.Fame += 20;

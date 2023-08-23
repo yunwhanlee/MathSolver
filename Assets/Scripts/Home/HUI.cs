@@ -218,7 +218,7 @@ public class HUI : MonoBehaviour {
             showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
             return;
         }
-
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* 現在シーン パンネル INDEX
         if(dirVal == -1 || dirVal == 1) {
             curHomeSceneIdx += dirVal; // Left or Right
@@ -271,6 +271,7 @@ public class HUI : MonoBehaviour {
     }
 
     public void onClickGoRoom() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         if(canvasWorldMap.gameObject.activeSelf) {
             Debug.Log("onClickGoRoom():: From Select World Map");
             Time.timeScale = 1;
@@ -285,14 +286,15 @@ public class HUI : MonoBehaviour {
                 onClickWoodSignArrowBtn(dirVal: -1);
             }
         }
-
     }
     
     public void onClickGoFunitureShop() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         infoDialog.SetActive(false);
         onClickWoodSignArrowBtn(dirVal: +1);
     }
     public void onClickGoClothShop() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         infoDialog.SetActive(false);
         curHomeSceneIdx = 3;
         while(curHomeSceneIdx > (int)Enum.HOME.ClothShop) {
@@ -300,6 +302,7 @@ public class HUI : MonoBehaviour {
         }
     }
     public void onClickGoInventory() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         infoDialog.SetActive(false);
         onClickWoodSignArrowBtn(dirVal: -1);
     }
@@ -314,6 +317,7 @@ public class HUI : MonoBehaviour {
         }
         public void onClickAchiveRankIconBtn() {
             Debug.Log("onClickAchiveRankIconBtn()::");
+            SM._.sfxPlay(SM.SFX.BtnClick.ToString());
             topGroup.SetActive(false);
             infoDialog.SetActive(false);
             roomPanel.SetActive(true);
@@ -342,15 +346,18 @@ public class HUI : MonoBehaviour {
                 HM._.ui.showErrorMsgPopUp(LM._.localize("No furniture to control"));
                 return;
             }
+            SM._.sfxPlay(SM.SFX.BubblePop.ToString());
             setDecorationMode(isActive: true);
         }
         public void onClickDecorateModeCloseBtn() {
+            SM._.sfxPlay(SM.SFX.BtnClick.ToString());
             HM._.fUI.setUpFunitureModeItem(isCancel: true);
             setDecorationMode(isActive: false);
         }
     #endregion
 
     public void onClickAchiveRankTypeBtn(int idx) {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* Title
         achiveRankTitleTxt.text = (idx == 0)? LM._.localize("Achivement")
             : (idx == 1)? LM._.localize("Quest")//Enum.ACHIVERANK.Mission.ToString()
@@ -363,21 +370,25 @@ public class HUI : MonoBehaviour {
         }
     }
     public void onClickInventoryItemListBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         infoDialog.SetActive(true);
     }
     public void onClickPortraitBtn() {
         Debug.Log("onClickPortraitBtn()::");
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.state = HM.STATE.SETTING;
         topGroup.SetActive(false);
         infoDialog.SetActive(false);
         settingPanel.SetActive(true);
     }
     public void onClickSettingPanelCloseBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.state = HM.STATE.NORMAL;
         topGroup.SetActive(true);
         settingPanel.SetActive(false);
     }
     public void onClickLanguageBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         selectLangDialog.SetActive(true);
     }
     public void onClickResetBtn() {
@@ -688,7 +699,10 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region POP UP
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void showErrorMsgPopUp(string msg) => StartCoroutine(coErrorMsgPopUp(msg));
+    public void showErrorMsgPopUp(string msg) {
+        SM._.sfxPlay(SM.SFX.Error.ToString());
+        StartCoroutine(coErrorMsgPopUp(msg));
+    }
     IEnumerator coErrorMsgPopUp(string msg) {
         errorMsgPopUp.SetActive(true);
         errorMsgTxt.text = msg;
@@ -699,6 +713,7 @@ public class HUI : MonoBehaviour {
     }
     public void showSuccessMsgPopUp(string msg) => StartCoroutine(coSuccessMsgPopUp(msg));
     IEnumerator coSuccessMsgPopUp(string msg) {
+        SM._.sfxPlay(SM.SFX.Success.ToString());
         successMsgPopUp.SetActive(true);
         successMsgTxt.text = msg;
         yield return Util.realTime1;
@@ -707,6 +722,7 @@ public class HUI : MonoBehaviour {
         successMsgTxt.text = "";
     }
     public void showNickNamePopUp(bool isActive) {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         HM._.state = (isActive)? HM.STATE.SETTING : HM.STATE.NORMAL;
         nickNamePopUp.SetActive(isActive);
         settingPanel.SetActive(!isActive); //* BUG なぜかこらが表示されたら、InputFeild入力できない
@@ -715,17 +731,19 @@ public class HUI : MonoBehaviour {
     }
     IEnumerator coActiveLevelUpPopUp(Dictionary<RewardItemSO, int> rewardDic) {
         yield return Util.time1;
+        SM._.sfxPlay(SM.SFX.LevelUp.ToString());
+        SM._.sfxPlay(SM.SFX.Yooo.ToString());
         HM._.state = HM.STATE.SETTING;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
         int curBonus = (int)(HM._.pl.calcLvBonusPer() * 100);
         int addBonus = (int)(Config.LV_BONUS_PER * 100);
-        
         lvUpPopUpBonusTxt.text = $"{LM._.localize("Coin")} & {LM._.localize("Exp")} {LM._.localize("Bonus")} {curBonus}%\n<color=green>(+{addBonus}%)</color>";
         yield return coCreateRewardItemList(rewardDic, lvUpItemGroup);
     }
     public IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
         Debug.Log($"coActiveRewardPopUp(fame= {fame}, rewardDic= {rewardDic}):: ");
+        SM._.sfxPlay(SM.SFX.Fanfare.ToString());
         HM._.state = HM.STATE.SETTING;
         rewardPopUp.SetActive(true);
         rewardPopUpFameValTxt.text = $"+{fame}";
@@ -734,6 +752,7 @@ public class HUI : MonoBehaviour {
         yield return coCreateRewardItemList(rewardDic, rewardItemGroup);
     }
     public void activeNewFuniturePopUp(Sprite spr, string name) {
+        SM._.sfxPlay(SM.SFX.Tada.ToString());
         newFuniturePopUp.SetActive(true);
         newFuniturePopUpImg.sprite = spr;
         newFuniturePopUpTitleTxt.text = LM._.localize(name);
@@ -750,6 +769,7 @@ public class HUI : MonoBehaviour {
         //* Instantiate
         foreach(var pair in rewardDic) {
             yield return Util.time0_2;
+            SM._.sfxPlay(SM.SFX.TinyBubblePop.ToString());
             RewardItemSO rwdInfo = pair.Key;
             int val = pair.Value;
             Debug.Log($"coCreateRewardItemList():: rwdInfo= {rwdInfo}");
@@ -807,6 +827,7 @@ public class HUI : MonoBehaviour {
         switchScreenAnim.gameObject.SetActive(false);
     }
     IEnumerator coPlayMenuToogleBtnMoveAnim(bool isToggle) {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         float targetX = isToggle ? 250f : 0f; // 移動する位置
         float duration = 0.2f; // 掛かる時間
         float elapsed = 0f; // 結果時間

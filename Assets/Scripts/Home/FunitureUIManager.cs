@@ -59,6 +59,7 @@ public class FunitureUIManager : MonoBehaviour
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickCategoryBtn(int idx) {
         Debug.Log($"onClickCategoryBtn(idx: {idx})");
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* 初期化
         page = 0;
         Array.ForEach(itemBtns, itemBtn => itemBtn.init());
@@ -80,14 +81,17 @@ public class FunitureUIManager : MonoBehaviour
         updateItemList();
     }
     public void onClickShopLeftArrow() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         setPageByArrowBtn(pageDir: -1); //* ページ
         updateItemList(); //* アイテムリスト 並べる
     }
     public void onClickShopRightArrow() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         setPageByArrowBtn(pageDir: +1); //* ページ
         updateItemList(); //* アイテムリスト 並べる
     }
     public void onClickItemListBtn(int idx) {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         //* ペースも含めた 実際のINDEX
         HM._.ui.CurSelectedItemIdx = idx + (page * ITEM_BTN_CNT);
         //* Pattern Matching (Child Class)
@@ -98,10 +102,12 @@ public class FunitureUIManager : MonoBehaviour
         }
     }
     public void onClickInfoDialogPurchaseBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         Item item = getSelectedItem(HM._.ui.CurSelectedItemIdx); //* Get Item
         item.purchase(); //* 購入
     }
     public void onClickNewFuniturePopUpCloseBtn() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.ui.NewFuniturePopUp.SetActive(false);
         //* 最新化
         updateItemList();
@@ -120,6 +126,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         Debug.Log($"onClickFunitureModeItemDeleteBtn():: curSelectedObj.tag= {curSelectedObj.tag}");
+        SM._.sfxPlay(SM.SFX.FeatherPop.ToString());
         Funiture itemDt = getCurSelectObjToItem(curSelectedObj) as Funiture;
 
         //* アイテムが無かったら、BUGなので終了
@@ -138,6 +145,7 @@ public class FunitureUIManager : MonoBehaviour
             HM._.ui.showErrorMsgPopUp(LM._.localize("Please select an item!"));
             return;
         }
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         var sprRdr = curSelectedObj.GetComponent<SpriteRenderer>();
         sprRdr.flipX = !sprRdr.flipX;
 
@@ -149,6 +157,7 @@ public class FunitureUIManager : MonoBehaviour
         }
 
         Debug.Log($"onClickFunitureModeItemSetUpBtn():: {getCurSelectObjToItem(curSelectedObj)}");
+        SM._.sfxPlay(SM.SFX.FeatherPop.ToString());
         HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, curSelectedObj.transform.position, Util.time2);
         setUpFunitureModeItem();
         HM._.ui.setDecorationMode(isActive: false);

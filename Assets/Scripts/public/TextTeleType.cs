@@ -13,6 +13,8 @@ public class TextTeleType : MonoBehaviour {
 
         //* Tele Type Anim
         while(true) {
+            if(cnt % 4 == 0) SM._.sfxPlay(SM.SFX.Talk.ToString());
+                
             int visibleCnt = cnt % (totalVisibleChars + 1);
             teleTxt.maxVisibleCharacters = visibleCnt;
 

@@ -53,6 +53,7 @@ public class InventoryUIManager : MonoBehaviour
 #region INV EVENT
 /// -----------------------------------------------------------------------------------------------------------------
     public void onClickCategoryBtn(int idx) {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* 初期化
         page = 0;
         Array.ForEach(itemBtns, itemBtn => itemBtn.init());
@@ -72,14 +73,17 @@ public class InventoryUIManager : MonoBehaviour
         showItemList();
     }
     public void onClickInvLeftArrow() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         setPageByArrowBtn(pageDir: -1); //* ページ
         showItemList(); //* アイテムリスト 並べる
     }
     public void onClickInvRightArrow() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         setPageByArrowBtn(pageDir: +1); //* ページ
         showItemList(); //* アイテムリスト 並べる
     }
     public void onClickItemListBtn(int idx) {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         testUnlockItem(idx); //! TEST
         //* ペースも含めた 実際のINDEX
         HM._.ui.CurSelectedItemIdx = idx + (page * ITEM_BTN_CNT);

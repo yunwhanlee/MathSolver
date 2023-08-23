@@ -39,14 +39,15 @@ public class ClothShopUIManager : MonoBehaviour
     public void onClickPurchaseBtn() {
         if(isGachaOn) return;
 
-        PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock);
-        PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock);
+        PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock && pl.Grade == Item.GRADE.Normal);
+        PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock && pet.Grade == Item.GRADE.Normal);
         if(lockedPlSks.Length == 0 && lockedPtSks.Length == 0) {
             HM._.ui.showErrorMsgPopUp(LM._.localize("Nothing more to buy."));
             return;
         } 
 
         if(DB.Dt.Coin >= price) {
+            SM._.sfxPlay(SM.SFX.BubblePop.ToString());
             isGachaOn = true;
             HM._.ui.playSwitchScreenAnim();
             StartCoroutine(coPlayGachaPanelAnimIdle());
@@ -70,9 +71,13 @@ public class ClothShopUIManager : MonoBehaviour
         priceTxt.text = price.ToString();
     }
     public void onClickTapScreenBtn() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         //* カーテン開ける アニメーション
         anim.SetBool(Enum.ANIM.IsShowGachaReward.ToString(), true);
         if(!rewardSpr) {
+            SM._.sfxPlay(SM.SFX.Grinding.ToString(), delay: 0.45f);
+            SM._.sfxPlay(SM.SFX.Tada.ToString(), delay: 2.5f);
+
             PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock && pet.Grade == Item.GRADE.Normal);
             PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock && pl.Grade == Item.GRADE.Normal);
 
