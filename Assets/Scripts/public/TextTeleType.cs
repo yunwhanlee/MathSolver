@@ -28,6 +28,7 @@ public class TextTeleType : MonoBehaviour {
 
         //* Tele Type Done
         Debug.Log($"coTextVisible:: TeleType Done!");
+        SM._.sfxStop(voice);
         if(endCursor) endCursor.SetActive(true); //* QuizTxtの場合は、endCursor要らない。
     }
 }

@@ -13,6 +13,38 @@ public class AnimEvent : MonoBehaviour {
     [SerializeField] TextMeshProUGUI GCD_Val2CommonDivisorTxt;
     [SerializeField] Button btn;
 
+    //* Title
+    //* Intro Anim
+    public void playOpenBoxSFX() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
+    }
+    public void playShinyGlassesSFX() {
+        SM._.sfxPlay(SM.SFX.GetReward.ToString());
+    }
+    public void playOpenDoorSFX() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
+    }
+    public void playHitLegSFX() {
+        SM._.sfxPlay(SM.SFX.Explosion.ToString());
+    }
+    public void playFallSFX() {
+        SM._.sfxPlay(SM.SFX.Fall.ToString());
+        SM._.sfxPlay(SM.SFX.WolfRoar.ToString());
+    }
+    public void playHitCameraSFX() {
+        SM._.sfxPlay(SM.SFX.FeatherPop.ToString());
+    }
+    //* Title Anim
+    public void playHelpLogoSpawnSFX() {
+        SM._.sfxPlay(SM.SFX.Jump.ToString());
+    }
+    public void playTitleLogoSpawnSFX() {
+        SM._.sfxPlay(SM.SFX.StartDrum.ToString());
+    }
+    public void playFrogComeToCameraSFX() {
+        SM._.sfxPlay(SM.SFX.CorrectAnswer.ToString());
+    }
+
     //* GAME
     public void setGCD_ContentTxt(string str) {
         GCD_ContentTxt.text = LM._.localize(str);
