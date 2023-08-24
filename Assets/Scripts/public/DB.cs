@@ -15,6 +15,10 @@ public class Data {
     [SerializeField] string myAuthorization;   public string MyAuthorization {get => myAuthorization; set => myAuthorization = value;}
     [SerializeField] string myMBR_ID;   public string MyMBR_ID {get => myMBR_ID; set => myMBR_ID = value;}
 
+    //* Setting
+    [SerializeField] bool isActiveSound;    public bool IsActiveSound {get => isActiveSound; set => isActiveSound = value;}
+    [SerializeField] bool isActiveMusic;    public bool IsActiveMusic {get => isActiveMusic; set => isActiveMusic = value;}
+
     //* Player
     [SerializeField] string nickName; public string NickName {get => nickName; set => nickName = value;}
     [SerializeField] int lv; public int Lv {get => lv; set => lv = value;}
@@ -224,6 +228,10 @@ public class DB : MonoBehaviour {
         //* Mathpid-API-info
         dt.MyAuthorization = "";
         dt.MyMBR_ID = "";
+
+        //* Setting
+        dt.IsActiveSound = true;
+        dt.IsActiveMusic = true;
 
         dt.NickName = "";
         dt.Lv = 1;

@@ -15,6 +15,10 @@ public class SM : MonoBehaviour {
         else
             Destroy(this.gameObject);
     }
+    public enum BGM {
+        Title, Home, Forest
+    }
+
     public enum SFX {
         //* UI
         BtnClick, Error, Success ,
@@ -29,7 +33,14 @@ public class SM : MonoBehaviour {
         Ready, Start, Explosion, Jump,
         SceneSpawn, Stun, PaperScroll, Fall,
     }
+    [Header("BGM")][Header("__________________________")]
+    [SerializeField] AudioSource bgmAudio;  public AudioSource BgmAudio {get => bgmAudio;}
+    [SerializeField] AudioClip titleBGM;
+    [SerializeField] AudioClip homeBGM;
+    [SerializeField] AudioClip forestBGM;
+
     [Header("UI")][Header("__________________________")]
+    [SerializeField] GameObject soundGroup; public GameObject SoundGroup {get => soundGroup;}
     [SerializeField] AudioSource btnClickSFX;
     [SerializeField] AudioSource errorSFX;
     [SerializeField] AudioSource successSFX;
@@ -71,6 +82,18 @@ public class SM : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    public void bgmPlay(string name) {
+        bgmAudio.clip = (name == BGM.Title.ToString())? titleBGM
+            : (name == BGM.Home.ToString())? homeBGM
+            : (name == BGM.Forest.ToString())? forestBGM : null;
+        bgmAudio.volume = (name == BGM.Title.ToString())? 0.5f
+            : (name == BGM.Home.ToString())? 0.2f
+            : (name == BGM.Forest.ToString())? 0.4f : 0;
+        bgmAudio.time = 0;
+        bgmAudio.Play();
+    }
+    public void setBgmTime(float _time) => bgmAudio.time = _time;
+
     public void sfxPlay(string name, float delay = 0) {
         //* UI
         if(name == SFX.BtnClick.ToString()) btnClickSFX.Play();

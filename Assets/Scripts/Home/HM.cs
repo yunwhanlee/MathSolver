@@ -42,6 +42,7 @@ public class HM : MonoBehaviour {
     void Awake() => _ = this;
 
     void Start() {
+        SM._.bgmPlay(SM.BGM.Home.ToString());
         Debug.Log("ロードデータ:: 配置した家具を生成");
         createFunitureItemsBySaveData(DB.Dt.Funitures);
         createFunitureItemsBySaveData(DB.Dt.Decorations);

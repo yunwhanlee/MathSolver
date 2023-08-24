@@ -8,8 +8,11 @@ using TMPro;
 using System;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using System.Data.Common;
 
 public class HUI : MonoBehaviour {
+    const int ON = 0, OFF = 1;
+
     UnityAction onAcceptRewardPopUp;   public UnityAction OnAcceptRewardPopUp {get => onAcceptRewardPopUp; set => onAcceptRewardPopUp = value;}
     UnityAction onDisplayNewItemPopUp; public UnityAction OnDisplayNewItemPopUp {get => onDisplayNewItemPopUp; set => onDisplayNewItemPopUp = value;}
     [SerializeField] Color selectedTypeBtnClr;
@@ -62,10 +65,15 @@ public class HUI : MonoBehaviour {
     [SerializeField] Image expFilledCircleBar;      public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] Slider settingExpSliderBar;    public Slider SettingExpSliderBar {get => settingExpSliderBar; set => settingExpSliderBar = value;}
     [SerializeField] TextMeshProUGUI settingExpSliderTxt;    public TextMeshProUGUI SettingExpSliderTxt {get => settingExpSliderTxt; set => settingExpSliderTxt = value;}
-
+    //* Language
     [SerializeField] TextMeshProUGUI curLangTxt;  public TextMeshProUGUI CurLangTxt {get => curLangTxt; set => curLangTxt = value;}
     [SerializeField] Image curLangImg;  public Image CurLangImg {get => curLangImg; set => curLangImg = value;}
     [SerializeField] Button[] langBtns; public Button[] LangBtns {get => langBtns; set => langBtns = value;}
+    //* Sound option
+    [SerializeField] Sprite[] soundIconSprs;
+    [SerializeField] Sprite[] musicIconSprs;
+    [SerializeField] Image soundIconImg;
+    [SerializeField] Image musicIconImg;
 
     [Header("ACHIVE & RANK")]
     [SerializeField] TextMeshProUGUI achiveRankTitleTxt; public TextMeshProUGUI AchiveRankTitleTxt {get => achiveRankTitleTxt; set => achiveRankTitleTxt = value;}
@@ -150,6 +158,12 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
 
     void Start() {
+        //* Setting
+        soundIconImg.sprite = DB.Dt.IsActiveSound? soundIconSprs[ON] : soundIconSprs[OFF];
+        musicIconImg.sprite = DB.Dt.IsActiveMusic? musicIconSprs[ON] : musicIconSprs[OFF];
+        SM._.SoundGroup.SetActive(DB.Dt.IsActiveSound);
+        SM._.BgmAudio.gameObject.SetActive(DB.Dt.IsActiveMusic);
+
         switchScreenAnim.gameObject.SetActive(true);
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         StartCoroutine(coShowTutorialFinish());
@@ -374,6 +388,8 @@ public class HUI : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         infoDialog.SetActive(true);
     }
+
+    #region SETTING PANEL
     public void onClickPortraitBtn() {
         Debug.Log("onClickPortraitBtn()::");
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
@@ -423,6 +439,21 @@ public class HUI : MonoBehaviour {
     public void onClickNickNamePopUpExitBtn() {
         showNickNamePopUp(isActive: false);
     }
+    public void onClickSoundIconBtn() {
+        var dt = DB.Dt;
+        dt.IsActiveSound = !dt.IsActiveSound;
+        soundIconImg.sprite = dt.IsActiveSound? soundIconSprs[ON] : soundIconSprs[OFF];
+        SM._.SoundGroup.SetActive(dt.IsActiveSound);
+    }
+    public void onClickMusicIconBtn() {
+        var dt = DB.Dt;
+        dt.IsActiveMusic = !dt.IsActiveMusic;
+        musicIconImg.sprite = dt.IsActiveMusic? musicIconSprs[ON] : musicIconSprs[OFF];
+        SM._.BgmAudio.gameObject.SetActive(dt.IsActiveMusic);
+        if(dt.IsActiveMusic) SM._.BgmAudio.Play();
+    }
+    #endregion
+
     public void onClickLevelUpPopUpAcceptBtn() {
         SM._.sfxPlay(SM.SFX.GetReward.ToString());
         HM._.state = HM.STATE.NORMAL;

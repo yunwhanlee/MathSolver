@@ -98,6 +98,7 @@ public class GM : MonoBehaviour {
     }
 
     void Start() {
+        SM._.bgmPlay(SM.BGM.Forest.ToString());
 
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
