@@ -101,7 +101,9 @@ public class LM : MonoBehaviour { //* Language Manager
     public string localize(string key, int standardlangIdx = 0) {
         int keyIndex = langs[standardlangIdx].value.FindIndex(i => i.ToLower() == key.ToLower());
         try {
-            return langs[curLangIndex].value[keyIndex];
+            string str = langs[curLangIndex].value[keyIndex];
+            if(str.Contains('\r')) str = str.Replace("\r", "");
+            return str;
         }
         catch(Exception err) {
             Debug.Log($"localize(key= <b>{key}</b>):: curLangIndex= {curLangIndex}, keyIndex= <color=red>{keyIndex}</color>");

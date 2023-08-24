@@ -285,6 +285,7 @@ public class ResultManager : MonoBehaviour {
             : $"{LM._.localize("That`s right")}!";
 
         yield return Util.time0_5;
+        SM._.sfxPlay(SM.SFX.Fanfare.ToString());
         msgAnimTxt.gameObject.SetActive(true); //* 結果メッセージアニメー 表示
     }
     private IEnumerator coEnableStarImg(int idx) {
