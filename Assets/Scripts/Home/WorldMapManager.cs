@@ -146,6 +146,8 @@ public class WorldMapManager : MonoBehaviour {
     }
     public void displayMapUnlockPopUp(Button btn, string name, bool isMapUnlock = false) {
         Debug.Log($"displayMapUnlockPopUp(btn == null? {btn == null}, {name}):: ");
+        SM._.sfxPlay(SM.SFX.Tada.ToString());
+
         Time.timeScale = 0;
         if(btn) btn.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoFirstActive.ToString());
         if(btn) {

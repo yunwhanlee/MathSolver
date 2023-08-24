@@ -50,6 +50,7 @@ public class Basket : MonoBehaviour {
         }
         //* Minigame 3
         else if(col.gameObject.CompareTag(Enum.TAG.Obstacle.ToString())) {
+            SM._.sfxPlay(SM.SFX.Fall.ToString());
             SM._.sfxPlay(SM.SFX.Explosion.ToString());
             MGM._.Pl.flyByhitObstacle(power: 1300);
             MGM._.mgem.showEF((int)MGEM.IDX.HitSnowRockEF, transform.position, Util.time2);

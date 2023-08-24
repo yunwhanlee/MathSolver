@@ -141,6 +141,7 @@ public class Player : MonoBehaviour {
         roarEF.SetActive(false);
     }
     public IEnumerator coLevelUpEF() {
+        SM._.sfxPlay(SM.SFX.GetReward.ToString());
         levelUpEF.SetActive(true);
         yield return Util.time1;
         levelUpEF.SetActive(false);
@@ -191,6 +192,7 @@ public class Player : MonoBehaviour {
             HM._.ui.GoGamePopUp.SetActive(true);
         }
         else if(col.gameObject.CompareTag(Enum.TAG.EraseObjLine.ToString())) {
+            SM._.sfxPlay(SM.SFX.Fall.ToString());
             MGM._.Status = MGM.STATUS.FINISH;
         }
         else if(col.gameObject.CompareTag(Enum.TAG.PlayerNoCollideArea.ToString())) {

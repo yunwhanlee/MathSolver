@@ -20,14 +20,14 @@ public class SM : MonoBehaviour {
         BtnClick, Error, Success ,
         TinyBubblePop, BubblePop,
         LevelUp, Yooo, 
-        Talk, Talk2,
+        Talk, Talk2, Talk3, Talk4, Talk5,
         Fanfare, Tada, FeatherPop, Grinding,
         GainItem, PetClick, GetReward, Transition,
         //* IN GAME
         StartDrum, WolfRoar, ChildYeah, CorrectAnswer, WrongAnswer,
         GetCoin, GetExp, Result,
         Ready, Start, Explosion, Jump,
-        SceneSpawn, Stun, PaperScroll,
+        SceneSpawn, Stun, PaperScroll, Fall,
     }
     [Header("UI")][Header("__________________________")]
     [SerializeField] AudioSource btnClickSFX;
@@ -39,6 +39,9 @@ public class SM : MonoBehaviour {
     [SerializeField] AudioSource yoooSFX;
     [SerializeField] AudioSource talkSFX;
     [SerializeField] AudioSource talk2SFX;
+    [SerializeField] AudioSource talk3SFX;
+    [SerializeField] AudioSource talk4SFX;
+    [SerializeField] AudioSource talk5SFX;
     [SerializeField] AudioSource fanfareSFX;
     [SerializeField] AudioSource tadaSFX;
     [SerializeField] AudioSource featherPopSFX;
@@ -63,6 +66,7 @@ public class SM : MonoBehaviour {
     [SerializeField] AudioSource sceneSpawnSFX;
     [SerializeField] AudioSource stunSFX;
     [SerializeField] AudioSource paperScrollSFX;
+    [SerializeField] AudioSource fallSFX;
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
@@ -78,6 +82,10 @@ public class SM : MonoBehaviour {
         if(name == SFX.Yooo.ToString()) yoooSFX.Play();
         if(name == SFX.Talk.ToString()) talkSFX.Play();
         if(name == SFX.Talk2.ToString()) talk2SFX.Play();
+        if(name == SFX.Talk3.ToString()) talk3SFX.Play();
+        if(name == SFX.Talk4.ToString()) talk4SFX.Play();
+        if(name == SFX.Talk5.ToString()) talk5SFX.Play();
+
         if(name == SFX.Fanfare.ToString()) fanfareSFX.Play();
         if(name == SFX.Tada.ToString()) tadaSFX.PlayDelayed(delay);
         if(name == SFX.FeatherPop.ToString()) featherPopSFX.Play();
@@ -102,6 +110,7 @@ public class SM : MonoBehaviour {
         if(name == SFX.SceneSpawn.ToString()) sceneSpawnSFX.Play();
         if(name == SFX.Stun.ToString()) stunSFX.Play();
         if(name == SFX.PaperScroll.ToString()) paperScrollSFX.Play();
+        if(name == SFX.Fall.ToString()) fallSFX.Play();
 
 
     }

@@ -150,18 +150,18 @@ public class HomeTalkManager : TalkManager {
             $"이제 과수원 지역도 도와주면서<br>레벨을 7을 달성해보자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] { //* Orchard BG ON
-            $"벌써 이만큼 레벨을 달성하다니!<br>대단해!:{(int)SPK.Pl_Happy}"
-            , $"선생님, 정말 감사합니다!!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
+            $"벌써 이만큼 레벨달성이라니<br>대단해!:{(int)SPK.Pl_Happy}"
+            , $"선생님, 감사합니다!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
             , $"주민들이 선물을 준비했어요. 받아주세요!:{(int)SPK.Bear_Happy}"
-            , $"허허허, 뭐 이런것까지!..:{(int)SPK.Pl_Happy}"
+            , $"하하, 뭐 이런것까지!.:{(int)SPK.Pl_Happy}"
             //* 초원 퀘스트 끝.
 
             //* 정글 퀘스트 시작.
-            , $"(어디선가 머리 콩!):-{(int)SPK.Pl_Happy}"
+            , $"(어디선가 머리 콩!):-{(int)SPK.Pl_Happy}" // 4
             , $"아얏!:{(int)SPK.Pl_Sad}"
             , $"우끼끼!!:{(int)SPK.Monkey_Idle}"
             , $"뭐야?! 처음보는 원숭이인데?:{(int)SPK.Pl_Idle}"
-            , $"(머리 콩!):{(int)SPK.Monkey_Happy}"
+            , $"(머리 콩!):{(int)SPK.Monkey_Happy}" // 8
             , $"아악! 또 때렷어!:{(int)SPK.Pl_Sad}"
             , $"우끼! 나 잡아봐라!<br>(후다닥):{(int)SPK.Monkey_Idle}"
             , $"잡아! 당장 잡아!!:{(int)SPK.Pl_Happy}"
@@ -493,7 +493,10 @@ public class HomeTalkManager : TalkManager {
             case (int)ID.UNLOCK_MAP1_MINIGAME:     break;
 
             case (int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT:   break;
-            case (int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD:   break;
+            case (int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD:
+                if(talkIdx == 5 || talkIdx == 9)
+                    SM._.sfxPlay(SM.SFX.Explosion.ToString());
+                break;
             case (int)ID.UNLOCK_MAP2_BG2_ACCEPT:        break;
             case (int)ID.UNLOCK_MAP2_BG2_REWARD:        break;
             case (int)ID.UNLOCK_MAP2_BG3_ACCEPT:        break;
