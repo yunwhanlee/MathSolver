@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: Android
-      m_MaxTextureSize: 1024
+      m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
       m_TextureFormat: 65
       m_TextureCompression: 1
@@ -54,86 +54,65 @@ SpriteAtlas:
     - 5cb13990a2f90a94e9b520afb9f2db26: 21300000
     - 1853b5010e7a13d49906fbbae889c0f9: 21300000
     - 0c4d1531eafe0d241802bf900856c9f3: 21300000
-    - 0abcb5915dc29b848a6c53f4a9ecbc50: 21300000
     - dc31dba293208fc4296343146e6bc764: 21300000
     - d71212c2cfae3154c8d64705549940dc: 21300000
-    - 1245c6d3e9c17f34cbaecb6463c98f05: 21300000
-    - 13fe3984b39ce474abab2f8c203df645: 21300000
     - f1e01a943833c394f83a8774979ebda5: 21300000
     - f7d73e656a2094b4382757403edab935: 21300000
     - 2ecdbae78e37b4c4c8321b4497db5a1a: 21300000
-    - 4c84145899bedb54e9eb51d97247574b: 21300000
-    - 21fe6f190a44f6e4aa94f53f6d1e76be: 21300000
     - 7914d429362afae4b8ba477f92511806: 21300000
-    - 7a61b0399d8665e4bacf314dfca3d935: 21300000
     - 885437a934ed3fa459e2b4c9b066472c: 21300000
     - c387407a3692e914d9302dcc01272bde: 21300000
-    - de5cb2da5da7f274ab7756663ae1d43c: 21300000
     - 4516ec0c2d6648d48aef65528141e539: 21300000
-    - 55d45e8cf4a229e40a2e98fed443a2b2: 21300000
-    - 57a1d99ceb8947c4788c1046e694c676: 21300000
+    - 6b8bf22c1ffb14447bc83b81c40afa9e: 21300000
     - 9a3d87ccea84025408621b867ec2ca18: 21300000
-    - 606f24befe143e24c8cf4240dda0c7b2: 21300000
+    - 6d7f92ed9996c7840a50dde0d1582e7b: 21300000
     - 6c979a0fdb7b01a4d8a51b773405a254: -678144114
     - 6c979a0fdb7b01a4d8a51b773405a254: -1536967082
     - 6c979a0fdb7b01a4d8a51b773405a254: -1679202842
+    - 7389ffcf5e094894ebfa51eaa3022c44: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 29537e70797498943a4fc71a5b9b888a, type: 3}
   - {fileID: 21300000, guid: 5cb13990a2f90a94e9b520afb9f2db26, type: 3}
   - {fileID: 21300000, guid: 1853b5010e7a13d49906fbbae889c0f9, type: 3}
   - {fileID: 21300000, guid: 0c4d1531eafe0d241802bf900856c9f3, type: 3}
-  - {fileID: 21300000, guid: 0abcb5915dc29b848a6c53f4a9ecbc50, type: 3}
   - {fileID: 21300000, guid: dc31dba293208fc4296343146e6bc764, type: 3}
   - {fileID: 21300000, guid: d71212c2cfae3154c8d64705549940dc, type: 3}
-  - {fileID: 21300000, guid: 1245c6d3e9c17f34cbaecb6463c98f05, type: 3}
-  - {fileID: 21300000, guid: 13fe3984b39ce474abab2f8c203df645, type: 3}
   - {fileID: 21300000, guid: f1e01a943833c394f83a8774979ebda5, type: 3}
   - {fileID: 21300000, guid: f7d73e656a2094b4382757403edab935, type: 3}
   - {fileID: 21300000, guid: 2ecdbae78e37b4c4c8321b4497db5a1a, type: 3}
-  - {fileID: 21300000, guid: 4c84145899bedb54e9eb51d97247574b, type: 3}
-  - {fileID: 21300000, guid: 21fe6f190a44f6e4aa94f53f6d1e76be, type: 3}
   - {fileID: 21300000, guid: 7914d429362afae4b8ba477f92511806, type: 3}
-  - {fileID: 21300000, guid: 7a61b0399d8665e4bacf314dfca3d935, type: 3}
   - {fileID: 21300000, guid: 885437a934ed3fa459e2b4c9b066472c, type: 3}
   - {fileID: 21300000, guid: c387407a3692e914d9302dcc01272bde, type: 3}
-  - {fileID: 21300000, guid: de5cb2da5da7f274ab7756663ae1d43c, type: 3}
   - {fileID: 21300000, guid: 4516ec0c2d6648d48aef65528141e539, type: 3}
-  - {fileID: 21300000, guid: 55d45e8cf4a229e40a2e98fed443a2b2, type: 3}
-  - {fileID: 21300000, guid: 57a1d99ceb8947c4788c1046e694c676, type: 3}
+  - {fileID: 21300000, guid: 6b8bf22c1ffb14447bc83b81c40afa9e, type: 3}
   - {fileID: 21300000, guid: 9a3d87ccea84025408621b867ec2ca18, type: 3}
-  - {fileID: 21300000, guid: 606f24befe143e24c8cf4240dda0c7b2, type: 3}
+  - {fileID: 21300000, guid: 6d7f92ed9996c7840a50dde0d1582e7b, type: 3}
   - {fileID: -678144114, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
   - {fileID: -1536967082, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
   - {fileID: -1679202842, guid: 6c979a0fdb7b01a4d8a51b773405a254, type: 3}
+  - {fileID: 21300000, guid: 7389ffcf5e094894ebfa51eaa3022c44, type: 3}
   m_PackedSpriteNamesToIndex:
   - Deco_SpaceEnemyFigure
   - Deco_GlassSeahorse
   - Deco_GoldenMonkeyStatue
   - Deco_DumbBell
-  - Funi_FrogChair
   - Deco_GoryeoCeladon
   - Deco_KettleBell
-  - Funi_LionKingChair
-  - Funi_OrangeSofa
   - Deco_MountainVase
   - Deco_SpaceWarriorFigure
   - Deco_IceDragonStatue
-  - Funi_DotoryWorkshopGamingchair
-  - Funi_LogDesk
   - Deco_GlassRhinoceros
-  - Funi_FineSofa
   - Deco_WoodenWolfStatue
   - Deco_KettleVase
-  - Funi_Bookcase
   - Deco_Glasselephant
-  - Funi_OldStoolChair
-  - Funi_QuestionMarkChair
+  - Deco_Light
   - Deco_BallonPuppy
-  - Funi_WoodChair
+  - Deco_Cassette
   - Deco_TrophySprites_0
   - Deco_TrophySprites_1
   - Deco_TrophySprites_2
+  - Deco_LampLight
   m_RenderDataMap: {}
   m_Tag: DecorationsSpriteAtlas
   m_IsVariant: 0
