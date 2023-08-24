@@ -206,6 +206,7 @@ public class QuizManager : MonoBehaviour {
         interactableAnswerBtns(false);
         hintFrame.SetActive(false);
         helpSpeachBtn.SetActive(false);
+        quizTxt.text = "";
         // GM._.initObjList();
 
         //* 背景 切り替え
