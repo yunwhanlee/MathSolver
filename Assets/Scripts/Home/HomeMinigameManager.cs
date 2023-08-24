@@ -221,9 +221,14 @@ public class HomeMinigameManager : MonoBehaviour {
         }
     }
     public void onClickMinigamePlayBtn() {
-        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
-        int price = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv]; 
-        if(DB.Dt.Minigame1BestScore == 0) { //* 最初は無料
+        int selectMinigameIdx = DB._.SelectMinigameIdx;
+        int price = Config.MINIGMAE_PLAY_PRICES[DB._.MinigameLv];
+        int bestScore = (selectMinigameIdx == (int)MGM.TYPE.MINIGAME1)? DB.Dt.Minigame1BestScore
+            : (selectMinigameIdx == (int)MGM.TYPE.MINIGAME2)? DB.Dt.Minigame2BestScore
+            : (selectMinigameIdx == (int)MGM.TYPE.MINIGAME3)? DB.Dt.Minigame3BestScore
+            : -1;
+        if(bestScore == 0) { //* 最初は無料
+            SM._.sfxPlay(SM.SFX.BubblePop.ToString());
             StartCoroutine(HM._.GoToLoadingScene(Enum.SCENE.MiniGame.ToString()));
         }
         else if(DB.Dt.Coin >= price) {

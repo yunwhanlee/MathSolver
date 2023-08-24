@@ -62,9 +62,9 @@ public class MGResultManager : MonoBehaviour {
 
         MGM._.ui.ResultPanel.SetActive(true);
         StartCoroutine(coRepeatPlayerSuccessAnim());
-        yield return coPlayCoinCollectAnim();
+        StartCoroutine(coPlayCoinCollectAnim());
         yield return Util.time0_8;
-        yield return coPlayExpCollectionAnim();
+        StartCoroutine(coPlayExpCollectionAnim());
 
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(true);

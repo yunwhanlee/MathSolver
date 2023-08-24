@@ -75,6 +75,12 @@ public class MGUI : MonoBehaviour {
         #region MINIGAME1 & MINIGAME 2
         if(MGM._.Status != MGM.STATUS.PLAY) return;
         if(MGM._.IsStun) return;
+        var mgm = MGM._;
+        
+        //* Score Txt
+        scoreTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? $"<sprite name=apple>: {mgm.Score}"
+            : (mgm.Type == MGM.TYPE.MINIGAME2)? $"<sprite name=banana>: {mgm.Score}"
+            : $"<sprite name=blueberry>: {mgm.Score}";
 
         //* Btn onPressed
         isLeftArrowBtnPressed = leftArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);

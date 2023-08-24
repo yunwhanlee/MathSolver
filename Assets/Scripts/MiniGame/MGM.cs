@@ -135,6 +135,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     void Update() {
         //* ゲーム終了
         if(status == STATUS.FINISH && !isFinish) {
+            SM._.sfxPlay(SM.SFX.CorrectAnswer.ToString());
             isFinish = true;
             if(DB._ == null) {
                 Debug.Log("<color=red>FINISH!</color>");
@@ -388,6 +389,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
             yield return Util.time1;
             yield return Util.time0_3;
+            SM._.sfxPlay(SM.SFX.Explosion.ToString());
             pl.Anim.SetTrigger(Enum.ANIM.DoFail.ToString());
             cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());
             Util.coPlayBounceAnim(pl.transform);
