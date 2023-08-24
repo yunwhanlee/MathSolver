@@ -36,6 +36,7 @@ public class MGUI : MonoBehaviour {
     void Start() {
         var mgm = MGM._;
         resultPanel.SetActive(false);
+        SM._.sfxPlay(SM.SFX.SceneSpawn.ToString());
         Array.ForEach(switchScreenImgs, img => 
             img.sprite = (mgm.Type == MGM.TYPE.MINIGAME1)? switchScreenSprs[0]
             : (mgm.Type == MGM.TYPE.MINIGAME2)? switchScreenSprs[1]

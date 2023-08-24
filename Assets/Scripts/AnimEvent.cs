@@ -13,8 +13,6 @@ public class AnimEvent : MonoBehaviour {
     [SerializeField] TextMeshProUGUI GCD_Val2CommonDivisorTxt;
     [SerializeField] Button btn;
 
-
-
     //* GAME
     public void setGCD_ContentTxt(string str) {
         GCD_ContentTxt.text = LM._.localize(str);
@@ -24,6 +22,15 @@ public class AnimEvent : MonoBehaviour {
     }
     public void setGCD_Val2CommonDivisorTxt(string str) {
         GCD_Val2CommonDivisorTxt.text = str;
+    }
+    public void playJumpSFX() {
+        SM._.sfxPlay(SM.SFX.Jump.ToString());
+    }
+    public void playBubblePopSFX() {
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
+    }
+    public void playStartDrumSFX() {
+        SM._.sfxPlay(SM.SFX.Success.ToString());
     }
 
     //* HOME

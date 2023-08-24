@@ -216,68 +216,68 @@ public abstract class TalkManager : MonoBehaviour {
                         //* 名前
                         // spkName.text = "늑선생"; 
                         // setNameCardDir(isLeft: true); // left
-                        setOtherPortrait(spkImg, "늑선생", key, tf.anchoredPosition, !isFlip, isPlayer: true);
+                        setOtherPortrait(spkImg, LM._.localize("Teacher Wolf"), key, tf.anchoredPosition, !isFlip, isPlayer: true);
                         break;
                     }
                     case (int)SPK.Mole_Idle: case (int)SPK.Mole_Happy: case (int)SPK.Mole_Sad: {
-                        setOtherPortrait(spkImg, "두더지", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Mole"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Bear_Idle: case (int)SPK.Bear_Happy: case (int)SPK.Bear_Sad: {
-                        setOtherPortrait(spkImg, "곰돌이", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Bear"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Duck_Happy: {
-                        setOtherPortrait(spkImg, "오리", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Duck"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.DotalMan: {
-                        setOtherPortrait(spkImg, "도톨아저씨", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Uncle Dotol"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.MoongMom: {
-                        setOtherPortrait(spkImg, "뭉이어멈", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Moong Mom"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Monkey_Idle: case (int)SPK.Monkey_Happy: case (int)SPK.Monkey_Sad: {
-                        setOtherPortrait(spkImg, "원숭이", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Monkey"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Frog_Idle: case (int)SPK.Frog_Happy: case (int)SPK.Frog_Sad: {
-                        setOtherPortrait(spkImg, "개구리", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Frog"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Ant_Idle: case (int)SPK.Ant_Happy: case (int)SPK.Ant_Sad: {
                         tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 50);
-                        setOtherPortrait(spkImg, "개미", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Ant"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.WarriorMonkey_Idle: case (int)SPK.WarriorMonkey_Happy: case (int)SPK.WarriorMonkey_Sad:{
-                        setOtherPortrait(spkImg, "전사원숭이", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Warroir Monkey"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Monkey_God: {
                         tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 150);
-                        setOtherPortrait(spkImg, "몽키신", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("God Monkey"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.Seal_Idle: case (int)SPK.Seal_Happy: case (int)SPK.Seal_Sad: {
                         tf.anchoredPosition = new Vector2(DEF_X + 50, DEF_Y);
-                        setOtherPortrait(spkImg, "물개", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Seal"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.TundraBear_Idle: case (int)SPK.TundraBear_Happy: case (int)SPK.TundraBear_Sad: {
-                        setOtherPortrait(spkImg, "곰돌이", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Bear"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.SnowRabbit_Idle: case (int)SPK.SnowRabbit_Happy: case (int)SPK.SnowRabbit_Sad: {
                         tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 50);
-                        setOtherPortrait(spkImg, "눈토끼", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Snow Rabbit"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                     case (int)SPK.BabyDragon: {
                         tf.anchoredPosition = new Vector2(DEF_X, DEF_Y + 100);
-                        setOtherPortrait(spkImg, "아기드래곤", key, tf.anchoredPosition, isFlip);
+                        setOtherPortrait(spkImg, LM._.localize("Baby Dragon"), key, tf.anchoredPosition, isFlip);
                         break;
                     }
                 }

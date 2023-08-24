@@ -106,6 +106,7 @@ public class QuizManager : MonoBehaviour {
     }
     public void onClickSelectAnswerBtn(int idx) => StartCoroutine(SelectAnswer(idx));
     public void onClickHelpSpeachBtn() {
+        SM._.sfxPlay(SM.SFX.Jump.ToString());
         Time.timeScale = 0;
         helpAnimPlayIdx = 0; //* 初期化
         GM._.gui.HelpPanelAnim.gameObject.SetActive(true);

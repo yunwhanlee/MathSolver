@@ -48,6 +48,7 @@ public class GUI : MonoBehaviour
         switchScreenAnim.SetTrigger(Enum.ANIM.BlackOut.ToString());
         //* BG Spawn Anim
         yield return Util.time0_2;
+        SM._.sfxPlay(SM.SFX.SceneSpawn.ToString());
         bgDirectorAnim.gameObject.SetActive(true);
 
         //* チュートリアル
@@ -67,7 +68,7 @@ public class GUI : MonoBehaviour
     }
     public void onClickHelpPanelAnimBtn() {
         Debug.Log("onClickHelpPanelAnimBtn");
-        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
+        SM._.sfxPlay(SM.SFX.PaperScroll.ToString());
         if(GM._.qm.HelpAnimType == "frac") {
             const int MAX_IDX = 2;
             GM._.gui.HelpPanelAnim.SetInteger(Enum.ANIM.HelpFraction.ToString(), GM._.qm.HelpAnimPlayIdx++);

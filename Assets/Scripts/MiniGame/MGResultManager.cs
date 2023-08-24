@@ -36,7 +36,7 @@ public class MGResultManager : MonoBehaviour {
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public IEnumerator coDisplayResultPanel() {
-        yield return Util.time1;
+        yield return Util.time1;        
         //* レベール ボーナス
         float lvBonus = 0;
 
@@ -58,15 +58,34 @@ public class MGResultManager : MonoBehaviour {
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         MGM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
         yield return Util.time1;
+        SM._.sfxPlay(SM.SFX.Result.ToString());
 
         MGM._.ui.ResultPanel.SetActive(true);
         StartCoroutine(coRepeatPlayerSuccessAnim());
         yield return coPlayCoinCollectAnim();
-        yield return Util.time0_5;
+        yield return Util.time0_8;
         yield return coPlayExpCollectionAnim();
 
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(true);
+
+        yield return Util.time0_2;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_1;
+        SM._.sfxPlay(SM.SFX.GetCoin.ToString());
+        yield return Util.time0_8;
+        yield return Util.time0_2;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+        yield return Util.time0_05;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
+        yield return Util.time0_1;
+        SM._.sfxPlay(SM.SFX.GetExp.ToString());
     }
     public void setReward(int exp, int coin) {
         rewardExp += exp;

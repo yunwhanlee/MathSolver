@@ -25,8 +25,9 @@ public class SM : MonoBehaviour {
         GainItem, PetClick, GetReward, Transition,
         //* IN GAME
         StartDrum, WolfRoar, ChildYeah, CorrectAnswer, WrongAnswer,
-        GetCoin, GetExp, 
-        Ready, Start, Explosion,
+        GetCoin, GetExp, Result,
+        Ready, Start, Explosion, Jump,
+        SceneSpawn, Stun, PaperScroll,
     }
     [Header("UI")][Header("__________________________")]
     [SerializeField] AudioSource btnClickSFX;
@@ -54,9 +55,14 @@ public class SM : MonoBehaviour {
     [SerializeField] AudioSource wrongAnswerSFX;
     [SerializeField] AudioSource getCoinSFX;
     [SerializeField] AudioSource getExpSFX;
+    [SerializeField] AudioSource resultSFX;
     [SerializeField] AudioSource readySFX;
     [SerializeField] AudioSource startSFX;
     [SerializeField] AudioSource explosionSFX;
+    [SerializeField] AudioSource jumpSFX;
+    [SerializeField] AudioSource sceneSpawnSFX;
+    [SerializeField] AudioSource stunSFX;
+    [SerializeField] AudioSource paperScrollSFX;
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
@@ -88,9 +94,15 @@ public class SM : MonoBehaviour {
         if(name == SFX.WrongAnswer.ToString()) wrongAnswerSFX.Play();
         if(name == SFX.GetCoin.ToString()) getCoinSFX.Play();
         if(name == SFX.GetExp.ToString()) getExpSFX.Play();
+        if(name == SFX.Result.ToString()) resultSFX.Play();
         if(name == SFX.Ready.ToString()) readySFX.Play();
         if(name == SFX.Start.ToString()) startSFX.Play();
         if(name == SFX.Explosion.ToString()) explosionSFX.Play();
+        if(name == SFX.Jump.ToString()) jumpSFX.Play();
+        if(name == SFX.SceneSpawn.ToString()) sceneSpawnSFX.Play();
+        if(name == SFX.Stun.ToString()) stunSFX.Play();
+        if(name == SFX.PaperScroll.ToString()) paperScrollSFX.Play();
+
 
     }
 #endregion

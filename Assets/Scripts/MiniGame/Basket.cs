@@ -17,6 +17,7 @@ public class Basket : MonoBehaviour {
             releaseAndBounce(col.gameObject, (int)MGEM.IDX.AppleObj);
         }
         else if(col.CompareTag(Enum.TAG.Bomb.ToString())) {
+            SM._.sfxPlay(SM.SFX.Stun.ToString());
             SM._.sfxPlay(SM.SFX.Explosion.ToString());
             MGM._.Score = Mathf.Clamp((int)(MGM._.Score * 0.9f), 0, 999);
             MGM._.cam.Anim.SetTrigger(Enum.ANIM.DoCamShake.ToString());

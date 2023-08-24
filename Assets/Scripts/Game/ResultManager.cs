@@ -124,7 +124,7 @@ public class ResultManager : MonoBehaviour {
         GM._.gui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackInOut.ToString());
         yield return Util.time1;
 
-        SM._.sfxPlay(SM.SFX.Fanfare.ToString());
+        SM._.sfxPlay(SM.SFX.Result.ToString());
         StartCoroutine(coPlayObjAnim(GM._.Pl, GM._.Pet));
 
         yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr); //* 下のテーブル★
@@ -153,7 +153,6 @@ public class ResultManager : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.GetExp.ToString());
         yield return Util.time0_1;
         SM._.sfxPlay(SM.SFX.GetExp.ToString());
-
     }
     public void setReward(int exp, int coin) {
         rewardExp += exp;

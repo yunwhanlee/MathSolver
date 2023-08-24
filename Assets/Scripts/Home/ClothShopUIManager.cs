@@ -76,7 +76,7 @@ public class ClothShopUIManager : MonoBehaviour
         anim.SetBool(Enum.ANIM.IsShowGachaReward.ToString(), true);
         if(!rewardSpr) {
             SM._.sfxPlay(SM.SFX.Grinding.ToString(), delay: 0.45f);
-            SM._.sfxPlay(SM.SFX.Tada.ToString(), delay: 2.5f);
+            SM._.sfxPlay(SM.SFX.Tada.ToString(), delay: 2.875f);
 
             PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock && pet.Grade == Item.GRADE.Normal);
             PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock && pl.Grade == Item.GRADE.Normal);

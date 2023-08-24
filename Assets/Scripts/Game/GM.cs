@@ -748,6 +748,7 @@ public class GM : MonoBehaviour {
         //* Switchアニメー 処理
         if(bgIdx > 0) {
             //* Switch Anim
+            SM._.sfxPlay(SM.SFX.SceneSpawn.ToString());
             GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
             yield return Util.time0_8;
         }

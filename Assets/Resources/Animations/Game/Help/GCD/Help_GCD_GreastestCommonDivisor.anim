@@ -3852,7 +3852,14 @@ AnimationClip:
   m_Events:
   - time: 0.33333334
     functionName: setGCD_ContentTxt
-    data: <size=45>STEP3. Greatest common divisor?</size> The largest common divisor.
+    data: <size=44>STEP3. Greatest common divisor?</size> The largest common divisor.
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.65
+    functionName: playBubblePopSFX
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -3867,6 +3874,34 @@ AnimationClip:
   - time: 1.5
     functionName: setGCD_Val2CommonDivisorTxt
     data: ': 4'
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.8
+    functionName: playBubblePopSFX
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.9666667
+    functionName: playBubblePopSFX
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.5833333
+    functionName: playJumpSFX
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 4.85
+    functionName: playStartDrumSFX
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

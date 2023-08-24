@@ -74,6 +74,7 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     public void jump() {
         Debug.Log($"Player:: jump():: ");
+        SM._.sfxPlay(SM.SFX.Jump.ToString());
         float val = MGM._.JumpPower * Time.fixedDeltaTime;
         rigid.velocity = Vector2.zero;
         rigid.AddForce(Vector2.up * val, ForceMode2D.Impulse);
