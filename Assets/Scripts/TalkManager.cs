@@ -246,6 +246,7 @@ public abstract class TalkManager : MonoBehaviour {
                         spkImg.sprite = spkSprDtList[key];
                         spkImg.rectTransform.anchoredPosition = new Vector2(-Mathf.Abs(tf.anchoredPosition.x), tf.anchoredPosition.y);
                         if(key == (int)SPK.Pl_Sad) {
+                            SM._.sfxPlay(SM.SFX.WrongAnswer.ToString());
                             talkDialogAnim.SetTrigger(Enum.ANIM.DoShock.ToString());
                             Camera.main.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoCamShake.ToString());
                         }
