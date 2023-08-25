@@ -112,7 +112,7 @@ public class SM : MonoBehaviour {
         if(name == SFX.Fanfare.ToString()) fanfareSFX.Play();
         if(name == SFX.Tada.ToString()) tadaSFX.PlayDelayed(delay);
         if(name == SFX.FeatherPop.ToString()) featherPopSFX.Play();
-        if(name == SFX.Grinding.ToString()) grindingSFX.PlayDelayed(delay);
+        if(name == SFX.Grinding.ToString()) grindingSFX.Play();
         if(name == SFX.GainItem.ToString()) gainItemSFX.Play();
         if(name == SFX.PetClick.ToString()) petClickSFX.Play();
         if(name == SFX.GetReward.ToString()) getRewardSFX.Play();
@@ -121,7 +121,7 @@ public class SM : MonoBehaviour {
         if(name == SFX.StartDrum.ToString()) startDrumSFX.Play();
         if(name == SFX.WolfRoar.ToString()) wolfRoarSFX.Play();
         if(name == SFX.ChildYeah.ToString()) childYeahSFX.Play();
-        if(name == SFX.CorrectAnswer.ToString()) correctAnswerSFX.Play();
+        if(name == SFX.CorrectAnswer.ToString()) correctAnswerSFX.PlayDelayed(delay);
         if(name == SFX.WrongAnswer.ToString()) wrongAnswerSFX.Play();
         if(name == SFX.GetCoin.ToString()) getCoinSFX.Play();
         if(name == SFX.GetExp.ToString()) getExpSFX.Play();

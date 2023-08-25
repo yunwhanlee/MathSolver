@@ -69,5 +69,8 @@ public class AnimEvent : MonoBehaviour {
     public void setBtnInteractable(int active) {
         btn.interactable = (active == 0)? false : true;
     }
+    public void playUnlockMapBgSFX() {
+        SM._.sfxPlay(SM.SFX.CorrectAnswer.ToString());
+    }
 
 }
