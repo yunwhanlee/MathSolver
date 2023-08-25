@@ -98,6 +98,12 @@ public class LM : MonoBehaviour { //* Language Manager
             langs.Add(lang);
         }
     }
+    /// <summary>
+    /// 言語切り替え
+    /// </summary>
+    /// <param name="key">テキスト</param>
+    /// <param name="standardlangIdx">国 : (0=EN default, 1=KR, 2=JP)</param>
+    /// <returns></returns>
     public string localize(string key, int standardlangIdx = 0) {
         int keyIndex = langs[standardlangIdx].value.FindIndex(i => i.ToLower() == key.ToLower());
         try {
