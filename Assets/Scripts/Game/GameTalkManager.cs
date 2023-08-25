@@ -32,7 +32,7 @@ public class GameTalkManager : TalkManager {
         });
         talkDt.Add((int)ID.TUTO_DIAG_FIRST_ANSWER, new string[] {
             $"결과는...?!:{(int)SPK.Pl_Idle}"
-            , $"ANSWER:{(int)SPK.Pl_Idle}"
+            , $"ANSWER:{(int)SPK.Pl_Happy}"
             , $"정답을 맞추면, 화면 맨아래 별을 획득!:{(int)SPK.Pl_Idle}"
             , $"동시에 물체도 정답에 맞게 정돈 되.:{(int)SPK.Pl_Idle}"
             , $"틀렸어도 괜찮아!:{(int)SPK.Pl_Idle}"
@@ -60,7 +60,9 @@ public class GameTalkManager : TalkManager {
             case (int)ID.TUTO_DIAG_FIRST_ANSWER:
                 if(talkIdx == 1) {
                     string msg = talkDt[(int)ID.TUTO_DIAG_FIRST_ANSWER][1];
-                    rawMsg = msg.Replace("ANSWER", isTutoQuizAnswerCorret? "와우 정답!" : "아쉽게 틀렸어..");
+                    rawMsg = msg.Replace("ANSWER", isTutoQuizAnswerCorret?
+                        "<color=blue>와우 정답!</color>"
+                        : "<color=red>아쉽게 틀렸어..</color>");
                 }
                 break;
         }
@@ -68,6 +70,7 @@ public class GameTalkManager : TalkManager {
     }
 
     protected override void endSwitchProccess(int id) {
+        SM._.disableTalk();
         switch(id) {
             case 0:
                 DB.Dt.IsTutoDiagChoiceDiffTrigger = false;

@@ -102,9 +102,11 @@ public class Data {
     [SerializeField] PlayerSkin[] plSkins;    public PlayerSkin[] PlSkins {get => plSkins; set => plSkins = value;}
     [SerializeField] PetSkin[] petSkins;   public PetSkin[] PtSkins {get => petSkins; set => petSkins = value;}
 
-
     public void setCoin(int value) {
-        acvCoinAmount++;
+        if(value > 0) {
+            Debug.Log($"setCoin({value}):: Earn Coin +acvCoinAmount");
+            acvCoinAmount += value;
+        }
         coin += value;
         if(coin < 0) coin = 0;
     }

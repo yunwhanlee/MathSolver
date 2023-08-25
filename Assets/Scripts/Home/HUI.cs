@@ -308,6 +308,10 @@ public class HUI : MonoBehaviour {
         onClickWoodSignArrowBtn(dirVal: +1);
     }
     public void onClickGoClothShop() {
+        if(DB.Dt.IsTutoWorldMapTrigger) {
+            showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
+            return;
+        }
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         infoDialog.SetActive(false);
         curHomeSceneIdx = 3;
@@ -331,6 +335,10 @@ public class HUI : MonoBehaviour {
         }
         public void onClickAchiveRankIconBtn() {
             Debug.Log("onClickAchiveRankIconBtn()::");
+            if(DB.Dt.IsTutoWorldMapTrigger) {
+                showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
+                return;
+            }
             SM._.sfxPlay(SM.SFX.BtnClick.ToString());
             topGroup.SetActive(false);
             infoDialog.SetActive(false);

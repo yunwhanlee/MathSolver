@@ -31,46 +31,53 @@ public class Achieve : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 #region UPDATE
 /// -----------------------------------------------------------------------------------------------------------------
-    public void updateLvAndStatusGauge() {
-        Debug.Log("Achieve:: updateLvAndStatusGauge()::");
+    public bool updateLvAndStatusGauge() {
+        bool isAcceptable = false;
         var dt = DB.Dt;
         switch(id) {
             case (int)AchieveManager.ID.CorrectAnswerCnt:
-                setAchievement(dt.AcvCorrectAnswerLv, dt.AcvCorrectAnswerCnt);
+                isAcceptable = setAchievement(dt.AcvCorrectAnswerLv, dt.AcvCorrectAnswerCnt);
                 break;
             case (int)AchieveManager.ID.SkinCnt:
-                setAchievement(dt.AcvSkinLv, dt.AcvSkinCnt);
+                isAcceptable = setAchievement(dt.AcvSkinLv, dt.AcvSkinCnt);
                 break;
             case (int)AchieveManager.ID.PetCnt:
-                setAchievement(dt.AcvPetLv, dt.AcvPetCnt);
+                isAcceptable = setAchievement(dt.AcvPetLv, dt.AcvPetCnt);
                 break;
             case (int)AchieveManager.ID.CoinAmount:
-                setAchievement(dt.AcvCoinAmountLv, dt.AcvCoinAmount);
+                isAcceptable = setAchievement(dt.AcvCoinAmountLv, dt.AcvCoinAmount);
                 break;
         }
+        return isAcceptable;
     }
-    private void setAchievement(int lv, int CurVal) {
+    private bool setAchievement(int lv, int CurVal) {
+        bool isAcceptable = false;
         int maxLv = clearMaxVals.Length + 1;
-        Debug.Log($"setAchievement(lv: {lv}, CurVal: {CurVal}):: maxLv= {maxLv}");
         lv = Mathf.Clamp(lv, 1, maxLv);
         int ldx = lv - 1;
+
+        //* Done (No More Levvel)
         if(ldx >= clearMaxVals.Length) {
             rewardIconImg.gameObject.SetActive(false);
             rewardBtn.interactable = false;
             rewardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "<color=white>Done</color>";
             rewardBtn.GetComponent<Image>().color = Color.gray;
             cttTxt.text = "";
-            return;
         }
-        
-        int max = clearMaxVals[ldx];
-        clearCurVal = CurVal;
+        else {
+            int max = clearMaxVals[ldx];
+            clearCurVal = CurVal;
+            statusGauge.value = (float)clearCurVal / max;
+            isAcceptable = (clearCurVal >= max);
 
-        statusGauge.value = (float)clearCurVal / max;
-        // statusGauge.maxValue = max;
-        cttTxt.text = $" {clearCurVal} / {max}";
-        priceTxt.text = $"{rewardCoinUnit * lv}";
-        rewardBtn.interactable = (clearCurVal >= max);
+            cttTxt.text = $" {clearCurVal} / {max}";
+            priceTxt.text = $"{rewardCoinUnit * lv}";
+            rewardBtn.interactable = isAcceptable;
+        }
+        //* ログ
+        string log = $"updateLvAndStatusGauge():: setAchievement():: {name}: lv= {lv}, CurVal= {CurVal}";
+        Debug.Log(isAcceptable? $"<color=blue>{log}</color>" : log);
+        return isAcceptable;
     }
 /// -----------------------------------------------------------------------------------------------------------------
 #region REWARD
