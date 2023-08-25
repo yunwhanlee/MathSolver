@@ -93,7 +93,7 @@ public abstract class TalkManager : MonoBehaviour {
             //? これが有っている
             int lastIdx = talkDt[curId].Length - 1;
             Debug.Log($"TalkManager:: onClickSkipBtn():: talkDt[curId({curId})], lastIdx= {lastIdx}-> {talkDt[curId][lastIdx]}");
-            if(talkIdx == 1) talkIdx = lastIdx;
+            if(talkIdx < lastIdx) talkIdx = lastIdx;
             play();
         }
         
