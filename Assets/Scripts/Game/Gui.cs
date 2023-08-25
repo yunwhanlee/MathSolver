@@ -98,6 +98,7 @@ public class GUI : MonoBehaviour
         StartCoroutine(GM._.coMakeQuiz(analList));
 
         //* テレタイプ
+        SM._.enabledTalk(SM.SFX.Talk2.ToString());
         coTxtTeleTypeID = txtTeleType.coTextVisible(GM._.qm.QuizTxt, SM.SFX.Talk2.ToString());
         StartCoroutine(coTxtTeleTypeID);
         
