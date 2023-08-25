@@ -529,6 +529,7 @@ public class HomeTalkManager : TalkManager {
         var enumValArr = (ID[])System.Enum.GetValues(typeof(ID));
         ID idVal = Array.Find(enumValArr, value => (int)value == id);
         Debug.Log($"<color=yellow>endSwitchProccess( id=> {id}. {idVal}):: </color>");
+        SM._.disableTalk();
         
         switch(id) {
             #region TUTORIAL

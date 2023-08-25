@@ -70,6 +70,7 @@ public class GameTalkManager : TalkManager {
     }
 
     protected override void endSwitchProccess(int id) {
+        SM._.disableTalk();
         switch(id) {
             case 0:
                 DB.Dt.IsTutoDiagChoiceDiffTrigger = false;

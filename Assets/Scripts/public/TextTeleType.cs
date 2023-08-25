@@ -6,19 +6,21 @@ using TMPro;
 public class TextTeleType : MonoBehaviour {
     [SerializeField] GameObject endCursor;
     public IEnumerator coTextVisible(TextMeshProUGUI teleTxt, string voice) {
+        Debug.Log($"coTextVisible:: charLen= {teleTxt.text.Length}, teleTxt= {teleTxt}, voice= {voice}");
         teleTxt.ForceMeshUpdate();
-        int totalVisibleChars = teleTxt.text.Length;
+        int charLen = teleTxt.text.Length;
         int cnt = 0;
+        const int voiceSpan = 4;
         if(endCursor) endCursor.SetActive(false); //* QuizTxtの場合は、endCursor要らない。
 
         //* Tele Type Anim
         while(true) {
-            if(cnt % 4 == 0) SM._.sfxPlay(voice);
+            if(Mathf.Clamp(cnt, 0, charLen - voiceSpan) % voiceSpan == 0) SM._.sfxPlay(voice);
                 
-            int visibleCnt = cnt % (totalVisibleChars + 1);
+            int visibleCnt = cnt % (charLen + 1);
             teleTxt.maxVisibleCharacters = visibleCnt;
 
-            if (visibleCnt >= totalVisibleChars) {
+            if (visibleCnt >= charLen) {
                 break;
             }
 
@@ -28,7 +30,6 @@ public class TextTeleType : MonoBehaviour {
 
         //* Tele Type Done
         Debug.Log($"coTextVisible:: TeleType Done!");
-        SM._.sfxStop(voice);
         if(endCursor) endCursor.SetActive(true); //* QuizTxtの場合は、endCursor要らない。
     }
 }

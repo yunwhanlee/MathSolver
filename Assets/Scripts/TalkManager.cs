@@ -166,7 +166,11 @@ public abstract class TalkManager : MonoBehaviour {
 
             //* テレタイプ
             talkDialogAnim.SetTrigger(Enum.ANIM.DoTalk.ToString());
-            if(coTxtTeleTypeID != null) StopCoroutine(coTxtTeleTypeID); //! 以前のコルーチンが生きていたら、停止
+            if(coTxtTeleTypeID != null) {
+                Debug.Log("TalkManager:: STOP Before talk -> StopCoroutine(coTxtTeleTypeID)");
+                SM._.disableTalk();
+                StopCoroutine(coTxtTeleTypeID); //! 以前のコルーチンが生きていたら、停止
+            } 
             // 転換
             string[] spkIDStrs = spkKeys.Select(str => str.Contains("_") ? str.Split('_')[0] : str).ToArray();
             int[] spkIDs = Array.ConvertAll(spkIDStrs, int.Parse);
@@ -174,33 +178,22 @@ public abstract class TalkManager : MonoBehaviour {
             int spk = spkIDs[0];
             // bool isPlayer = Array.Exists(spkIDs, id => (id <= (int)TalkManager.SPK.Pl_Sad));
             //*適用
-            coTxtTeleTypeID = txtTeleType.coTextVisible( talkTxt, 
-                //* Voice
-                (spk == (int)TalkManager.SPK.Empty
-                || spk == (int)TalkManager.SPK.Pl_Idle
-                || spk == (int)TalkManager.SPK.Pl_Happy
-                || spk == (int)TalkManager.SPK.Pl_Sad)? 
+            string voice = (spk == (int)SPK.Empty
+                || spk == (int)SPK.Pl_Idle || spk == (int)SPK.Pl_Happy || spk == (int)SPK.Pl_Sad)? 
                     SM.SFX.Talk.ToString()
-                : (spk == (int)TalkManager.SPK.DotalMan
-                || spk == (int)TalkManager.SPK.WarriorMonkey_Idle
-                || spk == (int)TalkManager.SPK.WarriorMonkey_Happy
-                || spk == (int)TalkManager.SPK.WarriorMonkey_Sad
-                || spk == (int)TalkManager.SPK.SnowRabbit_Idle
-                || spk == (int)TalkManager.SPK.SnowRabbit_Happy
-                || spk == (int)TalkManager.SPK.SnowRabbit_Sad)? 
+                : (spk == (int)SPK.DotalMan
+                || spk == (int)SPK.WarriorMonkey_Idle || spk == (int)SPK.WarriorMonkey_Happy || spk == (int)SPK.WarriorMonkey_Sad
+                || spk == (int)SPK.SnowRabbit_Idle || spk == (int)SPK.SnowRabbit_Happy || spk == (int)SPK.SnowRabbit_Sad)? 
                     SM.SFX.Talk3.ToString()
-                : (spk == (int)TalkManager.SPK.Monkey_God)?
+                : (spk == (int)SPK.Monkey_God)?
                     SM.SFX.Talk4.ToString()
-                : (spk == (int)TalkManager.SPK.Mole_Idle
-                || spk == (int)TalkManager.SPK.Mole_Happy
-                || spk == (int)TalkManager.SPK.Mole_Sad
-                || spk == (int)TalkManager.SPK.Ant_Idle
-                || spk == (int)TalkManager.SPK.Ant_Happy
-                || spk == (int)TalkManager.SPK.Ant_Sad
-                || spk == (int)TalkManager.SPK.BabyDragon)?
-                    SM.SFX.Talk5.ToString()
-                : SM.SFX.Talk2.ToString()
-            );
+                : (spk == (int)SPK.Mole_Idle || spk == (int)SPK.Mole_Happy || spk == (int)SPK.Mole_Sad
+                || spk == (int)SPK.Ant_Idle || spk == (int)SPK.Ant_Happy || spk == (int)SPK.Ant_Sad
+                || spk == (int)SPK.BabyDragon)?
+                    SM.SFX.Talk5.ToString() 
+                : SM.SFX.Talk2.ToString(); //* 残りは全て
+            SM._.enabledTalk(voice);
+            coTxtTeleTypeID = txtTeleType.coTextVisible(talkTxt, voice);
             StartCoroutine(coTxtTeleTypeID);
 
             //* スピーカー (複数：最大３まで可能)
