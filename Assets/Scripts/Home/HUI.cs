@@ -335,7 +335,7 @@ public class HUI : MonoBehaviour {
         }
         public void onClickAchiveRankIconBtn() {
             Debug.Log("onClickAchiveRankIconBtn()::");
-            if(DB.Dt.IsTutoWorldMapTrigger) {
+            if(DB.Dt.IsTutoFinishTrigger) {
                 showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
                 return;
             }

@@ -112,7 +112,7 @@ public class SM : MonoBehaviour {
         if(name == SFX.Fanfare.ToString()) fanfareSFX.Play();
         if(name == SFX.Tada.ToString()) tadaSFX.PlayDelayed(delay);
         if(name == SFX.FeatherPop.ToString()) featherPopSFX.Play();
-        if(name == SFX.Grinding.ToString()) grindingSFX.Play();
+        if(name == SFX.Grinding.ToString()) grindingSFX.PlayDelayed(delay);
         if(name == SFX.GainItem.ToString()) gainItemSFX.Play();
         if(name == SFX.PetClick.ToString()) petClickSFX.Play();
         if(name == SFX.GetReward.ToString()) getRewardSFX.Play();
