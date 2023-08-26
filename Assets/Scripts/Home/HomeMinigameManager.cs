@@ -147,7 +147,7 @@ public class HomeMinigameManager : MonoBehaviour {
 
         //* Best Score Slider
         bestScoreSlider.value = bestScore;
-        bestScoreSliderValTxt.text = $"<color=white>{bestScore}</color> / {maxVal}";
+        bestScoreSliderValTxt.text = $"<color=yellow>{bestScore}</color> / {maxVal}";
     }
     private void activeRewardIcon(int idx, bool rewardTrigger) {
         bool isTrigger = !rewardTrigger;
@@ -168,18 +168,17 @@ public class HomeMinigameManager : MonoBehaviour {
         Debug.Log($"onClickMinigameExclamationMarkBtn(idx={idx}):: ");
         SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         DB._.SelectMinigameIdx = idx;
-        SM._.sfxPlay(SM.SFX.Tada.ToString());
         minigameLvPopUp.SetActive(true);
         onInits[idx].Invoke(); //* Init
     }
     public void onClickMinigameLvPopUpLvBtn(int difficultyLvIdx) {
-        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
+        // SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* ロックしたら、解禁条件のお知らせ、以下処理しない
         if(lvBtnLockFrames[difficultyLvIdx].activeSelf) {
             int[] unlockScores = (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame1)? Config.MINIGAME1_UNLOCK_SCORES
                 : (DB._.SelectMinigameIdx == (int)Enum.MG.Minigame2)? Config.MINIGAME2_UNLOCK_SCORES
                 : Config.MINIGAME3_UNLOCK_SCORES;
-            HM._.ui.showErrorMsgPopUp($"{LM._.localize("Goal to achieve")} : {unlockScores[difficultyLvIdx]}{LM._.localize("Score")}!");
+            HM._.ui.showErrorMsgPopUp($"{LM._.localize("Goal to achieve")} : {unlockScores[difficultyLvIdx-1]}{LM._.localize("Score")}!");
             return;
         }
 
