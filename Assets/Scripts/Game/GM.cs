@@ -703,9 +703,9 @@ public class GM : MonoBehaviour {
     private void deleteLockedBG() {
         //* ロック背景 削除
         switch(DB._.SelectMapIdx) {
-            case 0: destroyBG(4, 7);    break;
-            case 1: destroyBG(14, 17);  break;
-            case 2: destroyBG(24, 27);  break;
+            case 0: destroyBG(Config.MAP1_BG_UNLOCK_LVS[1], Config.MAP1_BG_UNLOCK_LVS[2]);    break;
+            case 1: destroyBG(Config.MAP2_BG_UNLOCK_LVS[1], Config.MAP2_BG_UNLOCK_LVS[2]);    break;
+            case 2: destroyBG(Config.MAP3_BG_UNLOCK_LVS[1], Config.MAP3_BG_UNLOCK_LVS[2]);    break;
         }
     }
 
@@ -750,7 +750,7 @@ public class GM : MonoBehaviour {
         if(bgIdx > 0) {
             //* Switch Anim
             SM._.sfxPlay(SM.SFX.SceneSpawn.ToString());
-            GM._.gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
+            gui.BgDirectorAnim.SetTrigger(Enum.ANIM.DoSwitchBG.ToString());
             yield return Util.time0_8;
         }
 

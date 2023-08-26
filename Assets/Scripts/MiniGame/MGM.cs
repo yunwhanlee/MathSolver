@@ -64,6 +64,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] float snowFloorSpd;
 
     void Awake() {
+        SM._.bgmPlay(SM.BGM.Forest.ToString());
         _ = this;
         cam = Camera.main.GetComponent<Cam>();
         ui = GameObject.Find("MinigameUIManager").GetComponent<MGUI>();
