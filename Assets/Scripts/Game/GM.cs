@@ -99,7 +99,13 @@ public class GM : MonoBehaviour {
     }
 
     void Start() {
-        SM._.bgmPlay(SM.BGM.Forest.ToString());
+        //* BGM
+        if(DB._.SelectMapIdx == (int)Enum.MAP.Forest)
+            SM._.bgmPlay(SM.BGM.Forest.ToString());
+        else if(DB._.SelectMapIdx == (int)Enum.MAP.Jungle)
+            SM._.bgmPlay(SM.BGM.Jungle.ToString());
+        else if(DB._.SelectMapIdx == (int)Enum.MAP.Tundra)
+            SM._.bgmPlay(SM.BGM.Tundra.ToString());
 
         //* 曇り移動
         StartCoroutine(coUpdateCloudMoving());
@@ -797,6 +803,9 @@ public class GM : MonoBehaviour {
         //* ジャングルの花 BG
         else if(bgStatus == BG_STT.Bush) {
             Debug.Log("bgStatus= " + bgStatus);
+            if(comboCnt >= 2)
+                StartCoroutine(codelayActiveBurningEF());
+
             // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
             pet.transform.position = new Vector2(pet.TgPos.x - 4.5f, pl.TgPos.y);
@@ -834,6 +843,11 @@ public class GM : MonoBehaviour {
         if(bgIdx > 0) {
             yield return Util.time0_8;
         }
+    }
+    IEnumerator codelayActiveBurningEF() {
+        gem.PlBurningEF.SetActive(false);
+        yield return Util.time1_5;
+        gem.PlBurningEF.SetActive(true);
     }
 #endregion
 }

@@ -64,15 +64,22 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] float snowFloorSpd;
 
     void Awake() {
-        SM._.bgmPlay(SM.BGM.Forest.ToString());
         _ = this;
+
         cam = Camera.main.GetComponent<Cam>();
         ui = GameObject.Find("MinigameUIManager").GetComponent<MGUI>();
         mgem = GameObject.Find("MinigameEffectManager").GetComponent<MGEM>();
         mgrm = GameObject.Find("MinigameResultManager").GetComponent<MGResultManager>();
 
+        //* BGM
+        if(DB._.SelectMapIdx == (int)Enum.MAP.Forest)
+            SM._.bgmPlay(SM.BGM.Forest.ToString());
+        else if(DB._.SelectMapIdx == (int)Enum.MAP.Jungle)
+            SM._.bgmPlay(SM.BGM.Jungle.ToString());
+        else if(DB._.SelectMapIdx == (int)Enum.MAP.Tundra)
+            SM._.bgmPlay(SM.BGM.Tundra.ToString());
+
         score = 0;
-        // maxTime = 60;
 
         //* 選択したゲーム(ID)
         idx = (DB._ == null)? (int)TYPE.MINIGAME3 : DB._.SelectMinigameIdx;

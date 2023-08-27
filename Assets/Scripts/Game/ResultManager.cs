@@ -17,6 +17,8 @@ public class ResultManager : MonoBehaviour {
 
     [Header("SPRITE")]
     [SerializeField] Sprite starSpr;
+    [SerializeField] SpriteRenderer resultBGSr;
+    [SerializeField] Sprite[] resultBGSprs;
 
     [Header("OBJECT")]
     [SerializeField] GameObject worldSpaceResultGroup;
@@ -41,6 +43,9 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] GameObject expAttractionEF;
 
     void Start() {
+        //* ReaultBG
+        resultBGSr.sprite = resultBGSprs[DB._.SelectMapIdx];
+
         //* 以前のコイン量 表示
         topCoinTxt.text = DB.Dt.Coin.ToString();
         lvTxt.text = DB.Dt.Lv.ToString();

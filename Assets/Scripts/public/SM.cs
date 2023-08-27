@@ -16,7 +16,7 @@ public class SM : MonoBehaviour {
             Destroy(this.gameObject);
     }
     public enum BGM {
-        Title, Home, Forest
+        Title, Home, Forest, Jungle, Tundra,
     }
 
     public enum SFX {
@@ -38,6 +38,8 @@ public class SM : MonoBehaviour {
     [SerializeField] AudioClip titleBGM;
     [SerializeField] AudioClip homeBGM;
     [SerializeField] AudioClip forestBGM;
+    [SerializeField] AudioClip jungleBGM;
+    [SerializeField] AudioClip tundraBGM;
 
     [Header("UI")][Header("__________________________")]
     [SerializeField] GameObject soundGroup; public GameObject SoundGroup {get => soundGroup;}
@@ -86,10 +88,17 @@ public class SM : MonoBehaviour {
     public void bgmPlay(string name) {
         bgmAudio.clip = (name == BGM.Title.ToString())? titleBGM
             : (name == BGM.Home.ToString())? homeBGM
-            : (name == BGM.Forest.ToString())? forestBGM : null;
+            : (name == BGM.Forest.ToString())? forestBGM
+            : (name == BGM.Jungle.ToString())? jungleBGM
+            : (name == BGM.Tundra.ToString())? tundraBGM
+            : null;
         bgmAudio.volume = (name == BGM.Title.ToString())? 0.5f
             : (name == BGM.Home.ToString())? 0.2f
-            : (name == BGM.Forest.ToString())? 0.4f : 0;
+            : (name == BGM.Forest.ToString())? 0.6f
+            : (name == BGM.Jungle.ToString())? 0.6f
+            : (name == BGM.Tundra.ToString())? 0.6f
+            : 0;
+        
         bgmAudio.time = 0;
         bgmAudio.Play();
     }

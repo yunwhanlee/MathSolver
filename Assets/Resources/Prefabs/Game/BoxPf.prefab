@@ -159,6 +159,17 @@ MonoBehaviour:
   isBlockMerge: 0
   valueTxt: {fileID: 6015910379710780412}
   objImg: {fileID: 6015910379979293015}
+  sr: {fileID: 6015910379572323596}
+  iconCardImg: {fileID: 5956706592789637410}
+  txtCardImg: {fileID: 6227243551608499714}
+  boxSprs:
+  - {fileID: 21300000, guid: ffdd759829ff4ff4cbcdef67b97c98fa, type: 3}
+  - {fileID: 21300000, guid: 45611f9c0479f444881b04936bce3b38, type: 3}
+  - {fileID: 21300000, guid: 485c9e0b41ac22048bdd4d8df150cf33, type: 3}
+  boxNameCardSprs:
+  - {fileID: 21300000, guid: 9d5dbacdb32e4d1449df5d1468ba4d5e, type: 3}
+  - {fileID: 21300000, guid: e1f7a2bafb9189747b70b6cd374c9832, type: 3}
+  - {fileID: 21300000, guid: 1c77b2cb6562249448087d06bdc70381, type: 3}
 --- !u!212 &6015910379572323596
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -201,7 +212,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 14
   m_Sprite: {fileID: 21300000, guid: ffdd759829ff4ff4cbcdef67b97c98fa, type: 3}
-  m_Color: {r: 0.9725491, g: 0.8235295, b: 0.21176472, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -525,7 +536,7 @@ GameObject:
   - component: {fileID: 3762982812495696391}
   - component: {fileID: 5956706592789637410}
   m_Layer: 0
-  m_Name: ImgCardFrame
+  m_Name: iconCardFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

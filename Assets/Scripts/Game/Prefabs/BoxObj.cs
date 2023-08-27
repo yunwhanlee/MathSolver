@@ -11,9 +11,15 @@ public class BoxObj : MonoBehaviour {
     [SerializeField] bool isBlockMerge;  public bool IsBlockMerge {get => isBlockMerge; set => isBlockMerge = value;}
     [SerializeField] TextMeshProUGUI valueTxt;  public TextMeshProUGUI ValueTxt {get => valueTxt; set => valueTxt = value;}
     [SerializeField] Image objImg;  public Image ObjImg {get => objImg; set => objImg = value;}
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] Image iconCardImg;
+    [SerializeField] Image txtCardImg;
+    [SerializeField] Sprite[] boxSprs;   public Sprite[] BoxSprs {get => boxSprs; set => boxSprs = value;}
+    [SerializeField] Sprite[] boxNameCardSprs;
 
     void Start() {
         anim = GetComponent<Animator>();
+        setBoxSpr(DB._.SelectMapIdx);
     }
 
     void Update() {
@@ -26,6 +32,12 @@ public class BoxObj : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    void setBoxSpr(int selectMapIdx) {
+        Debug.Log($"setBoxSpr({selectMapIdx})");
+        sr.sprite = boxSprs[selectMapIdx];
+        iconCardImg.sprite = boxNameCardSprs[selectMapIdx];
+        txtCardImg.sprite = boxNameCardSprs[selectMapIdx];
+    }
 #endregion
 //-------------------------------------------------------------------------------------------------------------
 #region COLLIDER
