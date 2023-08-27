@@ -221,7 +221,7 @@ public class GM : MonoBehaviour {
 
         //* キーワード 切り替え
         var quiz = qm.QuizTxt;
-        quiz.text = "미 지원..";
+        quiz.text = "DO NOT SUPPORT";
 
         initObjList();
         qSO.Obj1Name = Util.getStuffObjRandomList(qSO.ObjNameList);
@@ -251,9 +251,9 @@ public class GM : MonoBehaviour {
                         quiz.text += replaceExtraOprKeyword(rOpr, rNums[1]);
                     }
                     else {
-                        quiz.text += "가 됫어요.";
+                        quiz.text += LM._.localize("가 됫어요.", (int)LM.LANG_IDX.KR);
                     }
-                    quiz.text += "\n친구는 몇 개를 주었나요?";
+                    quiz.text += LM._.localize("<br>친구는 몇 개를 주었나요?", (int)LM.LANG_IDX.KR);
 
                     //* オブジェクト
                     const float POS_X = 0.65f;
@@ -305,7 +305,7 @@ public class GM : MonoBehaviour {
                 quiz.text = replaceTxtKeyword(qSO.QstDivide, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
-                    quiz.text += "\n나머지는요?\n(분수로 알려주세요.)";
+                    quiz.text += LM._.localize("(분수로)", (int)LM.LANG_IDX.KR);//"\n나머지는요?\n(분수로 알려주세요.)";
 
                 yield return coCreateObj(qSO.Obj1Name, lN1);
                 //* Callback
@@ -350,9 +350,10 @@ public class GM : MonoBehaviour {
         return equationList;
     }
     private string replaceTxtKeyword(string sentence, string[] keys) {
-        Debug.Log($"replaceTxtKeyword:: keys.Length= {keys.Length} : {string.Join(", ", keys)}");
+        Debug.Log($"replaceTxtKeyword:: keys.Length= {keys.Length} : {string.Join(", ", keys)}, sentence= {sentence}");
         const int OBJ1 = 0, N1 = 1, N2 = 2, OBJ2 = 3;
         //* Keyword 変換
+        sentence = LM._.localize(sentence, (int)LM.LANG_IDX.KR);
         string res = sentence.Replace("OBJ1", $"<sprite name={keys[OBJ1]}>");
         res = res.Replace("N1", keys[N1]);
         res = res.Replace("N2", keys[N2]);
@@ -365,12 +366,13 @@ public class GM : MonoBehaviour {
         string res = "";
         switch(rOpr) {
             case "+":
-                res = $"...\n<color=blue>앗! {key}개 더 있네요.</color>";
+                res = LM._.localize("...<color=blue>앗! KEY개 더 있네요.</color>", (int)LM.LANG_IDX.KR);
                 break;
             case "-": // case "minus":
-                res = $"...\n<color=red>앗! 죄송.. {key}개 빼야되요.</color>";
+                res = LM._.localize("...<color=red>앗! KEY개 빼야되요.</color>", (int)LM.LANG_IDX.KR);
                 break;
         }
+        res = res.Replace("KEY", key);
         Debug.Log($"replaceExtraOprKeyword(rOpr= {rOpr}, key= {key}):: res= {res}");
         return res;
     }
