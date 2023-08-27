@@ -791,6 +791,11 @@ public class GM : MonoBehaviour {
 
         //* 特別背景 処理
         var curBg = map.GetChild(bgIdx);
+
+        //* Burning EF
+        if(comboCnt >= 2)
+            StartCoroutine(codelayActiveBurningEF());
+
         //* 風車 BG
         if(bgStatus == BG_STT.Windmill) {
             // 雲
@@ -803,8 +808,6 @@ public class GM : MonoBehaviour {
         //* ジャングルの花 BG
         else if(bgStatus == BG_STT.Bush) {
             Debug.Log("bgStatus= " + bgStatus);
-            if(comboCnt >= 2)
-                StartCoroutine(codelayActiveBurningEF());
 
             // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;

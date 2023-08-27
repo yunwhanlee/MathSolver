@@ -134,7 +134,11 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 break;
             }
             case TYPE.MINIGAME3: {
-                //TODO
+                //* モード Info データ設定
+                setPoint(Config.MINIGAME3_EASY_OBJ_DATA
+                    , Config.MINIGAME3_NORMAL_OBJ_DATA
+                    , Config.MINIGAME3_HARD_OBJ_DATA
+                );
                 break;
             }
         }
@@ -288,7 +292,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 //* SnowFloor PosY Speed
                 const float startBgPosY = -24, maxBgPosY = 24;
                 const float createPosY = -9;
-                snowFloorSpd = (mode == MODE.Easy)? 3 : (mode == MODE.Normal)? 4 : 5;
+                snowFloorSpd = (mode == MODE.Easy)? 4 : (mode == MODE.Normal)? 5 : 6;
                 snowFloorBG.transform.Translate(0, snowFloorSpd * Time.deltaTime, 0);
                 if(snowFloorBG.transform.localPosition.y > maxBgPosY) 
                     snowFloorBG.transform.localPosition = new Vector2(0, startBgPosY);

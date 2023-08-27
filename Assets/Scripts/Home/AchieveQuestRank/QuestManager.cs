@@ -51,9 +51,12 @@ public class QuestManager : MonoBehaviour {
         bool isFinish = mq.ClearCurVal >= mq.ClearMaxVal;
         bool isActiveAchivePanel = HM._.ui.AchiveRankPanel.activeSelf;
         bool isActiveHandFocues = HM._.ui.HandFocusTf.gameObject.activeSelf;
-        if(!isActiveAchivePanel && !isActiveHandFocues && isFinish) {
-            var homeMainQuestBoxPos = new Vector2(-300, 650);
-            HM._.ui.activeHandFocus(homeMainQuestBoxPos);
+        bool isMainQuestEnd = DB.Dt.MainQuestID == (int)MQ_ID.ComingSoon;
+        if(!isMainQuestEnd) {
+            if(!isActiveAchivePanel && !isActiveHandFocues && isFinish) {
+                var homeMainQuestBoxPos = new Vector2(-300, 650);
+                HM._.ui.activeHandFocus(homeMainQuestBoxPos);
+            }
         }
         //* メインクエストの達成：MainQuestBoxクリックのみできるように制限をかける
         isFinishMainQuest = isActiveHandFocues;

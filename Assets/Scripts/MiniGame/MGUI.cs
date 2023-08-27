@@ -69,7 +69,8 @@ public class MGUI : MonoBehaviour {
         //* Score Txt
         scoreTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? $"<sprite name=apple>: {mgm.Score}"
             : (mgm.Type == MGM.TYPE.MINIGAME2)? $"<sprite name=banana>: {mgm.Score}"
-            : $"<sprite name=blueberry>: {mgm.Score}";
+            : (mgm.Type == MGM.TYPE.MINIGAME3)? $"<sprite name=blueberry>: {mgm.Score}"
+            : "ERROR";
     }
 
     void Update() {
@@ -81,7 +82,8 @@ public class MGUI : MonoBehaviour {
         //* Score Txt
         scoreTxt.text = (mgm.Type == MGM.TYPE.MINIGAME1)? $"<sprite name=apple>: {mgm.Score}"
             : (mgm.Type == MGM.TYPE.MINIGAME2)? $"<sprite name=banana>: {mgm.Score}"
-            : $"<sprite name=blueberry>: {mgm.Score}";
+            : (mgm.Type == MGM.TYPE.MINIGAME3)? $"<sprite name=blueberry>: {mgm.Score}"
+            : "ERROR";
 
         //* Btn onPressed
         isLeftArrowBtnPressed = leftArrowBtn.targetGraphic.canvasRenderer.GetColor() == new Color(0.7f, 0.7f, 0.7f);
