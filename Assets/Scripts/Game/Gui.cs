@@ -20,6 +20,7 @@ public class GUI : MonoBehaviour
     [SerializeField] GameObject successResultFrame;  public GameObject SuccessResultFrame {get => successResultFrame; set => successResultFrame = value;}
     [SerializeField] GameObject successEffectFrame;  public GameObject SuccessEffectFrame {get => successEffectFrame; set => successEffectFrame = value;}
     [SerializeField] GameObject giveUpPopUp;    public GameObject GiveUpPopUp {get => giveUpPopUp; set => giveUpPopUp = value;}
+    [SerializeField] GameObject exitBtn;        public GameObject ExitBtn {get => exitBtn; set => exitBtn = value;}
 
     [Header("CANVAS ANIM")] 
     [SerializeField] GameObject blackPanel;

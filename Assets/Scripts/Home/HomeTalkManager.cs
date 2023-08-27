@@ -477,7 +477,7 @@ public class HomeTalkManager : TalkManager {
                 }
                 else if(talkIdx == 4) {
                     talkFrameTf.anchoredPosition = new Vector2(0, 0);
-                    HM._.ui.onClickAchiveRankIconBtn();
+                    HM._.ui.displayAchiveRankPanel();
                     HM._.ui.onClickAchiveRankTypeBtn(1);
                     HM._.ui.activeHandFocus(QUEST_CATE_POS);
                 }

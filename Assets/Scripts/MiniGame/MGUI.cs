@@ -35,6 +35,7 @@ public class MGUI : MonoBehaviour {
 
     void Start() {
         var mgm = MGM._;
+        playTimerTxt.text = MGM._.MaxTime.ToString();
         resultPanel.SetActive(false);
         SM._.sfxPlay(SM.SFX.SceneSpawn.ToString());
         Array.ForEach(switchScreenImgs, img => 

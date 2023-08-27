@@ -339,14 +339,9 @@ public class HUI : MonoBehaviour {
                 showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
                 return;
             }
-            SM._.sfxPlay(SM.SFX.BtnClick.ToString());
-            topGroup.SetActive(false);
-            infoDialog.SetActive(false);
-            roomPanel.SetActive(true);
-            achiveRankPanel.SetActive(true);
-            HM._.qm.updateMainQuestList();
-            handFocusTf.gameObject.SetActive(false);
+            displayAchiveRankPanel();
         }
+
         public void onClickAchiveRankCloseBtn() {
             const int ACCEPT = 0;
             if(!DB.Dt.IsUnlockMap1BG2Arr[ACCEPT]) {
@@ -540,6 +535,15 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void displayAchiveRankPanel() {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
+        topGroup.SetActive(false);
+        infoDialog.SetActive(false);
+        roomPanel.SetActive(true);
+        achiveRankPanel.SetActive(true);
+        HM._.qm.updateMainQuestList();
+        handFocusTf.gameObject.SetActive(false);
+    }
     public void activeHandFocus(Vector2 pos) {
         handFocusTf.gameObject.SetActive(true);
         handFocusTf.anchoredPosition = pos;

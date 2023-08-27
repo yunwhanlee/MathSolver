@@ -21,6 +21,9 @@ public class GEM : MonoBehaviour { //* Game Effect Manager
     [SerializeField] GameObject minusBlinkBoxBurstEF;    public GameObject MinusBlinkBoxBurstEF {get => minusBlinkBoxBurstEF; set => minusBlinkBoxBurstEF = value;}
     [SerializeField] GameObject questionMarkBoxBurstEF; public GameObject QuestionMarkBoxBurstEF {get => questionMarkBoxBurstEF; set => questionMarkBoxBurstEF = value;}
 
+    [Header("CHILD ON/OFF TYPE")]
+    [SerializeField] GameObject plBurningEF;    public GameObject PlBurningEF {get => plBurningEF; set => plBurningEF = value;}
+
     void Awake() {
         //* 順番合わせること
         pool.Add(initEF(dropItemTxtEF, max: 5));

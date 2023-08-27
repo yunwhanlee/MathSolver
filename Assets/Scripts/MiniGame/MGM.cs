@@ -31,7 +31,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
     [SerializeField] int score;         public int Score {get => score; set => score = value;}
     [SerializeField] float curTime;
     [SerializeField] float totalTime;
-    [SerializeField] float maxTime;
+    [SerializeField] float maxTime;     public float MaxTime {get => maxTime;}
     [SerializeField] GameObject[] mapGroups;
     [SerializeField] GameObject newBestScoreEF;
     [SerializeField] int generalPoint;       public int GeneralPoint {get => generalPoint;}
@@ -207,7 +207,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 if(curTime >= appleSpan) {
                     curTime = 0;
                     Vector2 pos = new Vector2(Random.Range(MIN_X, MAX_X), 6);
-                    float spd = Random.Range(100, 200) * Time.deltaTime;
+                    float spd = Random.Range(100, 200) * Time.fixedDeltaTime; //* Velocityで速度調整するため
 
                     //* ランダム種類 設定
                     int rand = Random.Range(0, 100);
@@ -281,7 +281,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
                 //* SnowFloor PosY Speed
                 const float startBgPosY = -24, maxBgPosY = 24;
                 const float createPosY = -9;
-                snowFloorSpd = (mode == MODE.Easy)? 4 : (mode == MODE.Normal)? 5 : 6;
+                snowFloorSpd = (mode == MODE.Easy)? 3 : (mode == MODE.Normal)? 4 : 5;
                 snowFloorBG.transform.Translate(0, snowFloorSpd * Time.deltaTime, 0);
                 if(snowFloorBG.transform.localPosition.y > maxBgPosY) 
                     snowFloorBG.transform.localPosition = new Vector2(0, startBgPosY);

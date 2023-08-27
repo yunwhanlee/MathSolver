@@ -31,7 +31,7 @@ public class SM : MonoBehaviour {
         StartDrum, WolfRoar, ChildYeah, CorrectAnswer, WrongAnswer,
         GetCoin, GetExp, Result,
         Ready, Start, Explosion, Jump,
-        SceneSpawn, Stun, PaperScroll, Fall,
+        SceneSpawn, Stun, PaperScroll, Fall, WoodFlame,
     }
     [Header("BGM")][Header("__________________________")]
     [SerializeField] AudioSource bgmAudio;  public AudioSource BgmAudio {get => bgmAudio;}
@@ -78,6 +78,7 @@ public class SM : MonoBehaviour {
     [SerializeField] AudioSource stunSFX;
     [SerializeField] AudioSource paperScrollSFX;
     [SerializeField] AudioSource fallSFX;
+    [SerializeField] AudioSource woodFlameSFX;
 
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC

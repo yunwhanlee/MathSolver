@@ -42,6 +42,7 @@ public class GM : MonoBehaviour {
 
     [Header("VALUE")]
     [SerializeField] bool isSelectCorrectAnswer;    public bool IsSelectCorrectAnswer {get => isSelectCorrectAnswer; set => isSelectCorrectAnswer = value;}
+    [SerializeField] int comboCnt;  public int ComboCnt {get => comboCnt; set => comboCnt = value;}
 
     [Header("WORLD SPACE")]
     [SerializeField] GameObject worldSpaceQuizGroup;    public GameObject WorldSpaceQuizGroup {get => worldSpaceQuizGroup;}
@@ -798,7 +799,7 @@ public class GM : MonoBehaviour {
             Debug.Log("bgStatus= " + bgStatus);
             // ペット
             pet.TgPos = curBg.GetChild(PETPOS).transform.localPosition;
-            pet.transform.position = new Vector2(pet.TgPos.x - 5, pl.TgPos.y);
+            pet.transform.position = new Vector2(pet.TgPos.x - 4.5f, pl.TgPos.y);
             pet.Sr.sortingLayerName = Enum.SORTING_LAYER.FrontDecoObj.ToString();
             // プレイヤー
             pl.TgPos = curBg.GetChild(PALYERPOS).transform.localPosition;

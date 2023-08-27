@@ -76,6 +76,10 @@ public class ResultManager : MonoBehaviour {
     }
     public IEnumerator coDisplayResultPanel(WJ_Connector connector = null) {
         GM._.GameStatus = GM.GAME_STT.RESULT;
+        GM._.gui.ExitBtn.SetActive(false);
+        if(GM._.Pl.transform.localScale.x > 1) {
+            GM._.Pl.transform.localScale = Vector3.one;
+        }
 
         //* チュートリアル 結果
         if(DB.Dt.IsTutoDiagResultTrigger) {
