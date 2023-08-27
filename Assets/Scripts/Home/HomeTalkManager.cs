@@ -123,9 +123,9 @@ public class HomeTalkManager : TalkManager {
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_REWARD, new string[] {
             $"안녕하세요.<br>해결사 선생님!:{(int)SPK.Mole_Idle}"
-            , $"괜찮으시면,풍차농장에도<br>꼭 들러주세요!:{(int)SPK.Mole_Happy}"
+            , $"괜찮으시면,풍차농장도<br>들러주세요!:{(int)SPK.Mole_Happy}"
             , $"오오.. 다른곳에서도 소문이 났나봐:{(int)SPK.Pl_Idle}"
-            , $"월드맵으로 가보자<br>이제 풍차농장에도 갈수 있어!:{(int)SPK.Pl_Happy}"
+            , $"이제 풍차농장에도 갈 수 있어!:{(int)SPK.Pl_Happy}"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP1_BG3_ACCEPT, new string[] {
@@ -138,7 +138,7 @@ public class HomeTalkManager : TalkManager {
             , $"월드맵으로 가보자<br>이제 과수원에도 갈수 있어!:{(int)SPK.Pl_Happy}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_MINIGAME, new string[] {
-            $"저희 과수원에서 사과따기 체험을 진행하고 있는데요.:{(int)SPK.Bear_Idle}"
+            $"과수원에서 사과따기 체험을 진행하고 있는데요.:{(int)SPK.Bear_Idle}"
             , $"떨어지는 사과를 받는 게임이에요!:{(int)SPK.Bear_Idle}"
             , $"모두 클리어하면 엄청난 보상도 있답니다!:{(int)SPK.Bear_Happy}"
             , $"과수원지역 <size=100><sprite name=exclamation></size>를 찾아주세요.<br>첫회는 무료에요!:{(int)SPK.Bear_Happy}"
@@ -147,10 +147,10 @@ public class HomeTalkManager : TalkManager {
         #endregion
         #region MAP2 JUNGLE
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_ACCEPT, new string[] {
-            $"이제 과수원 지역도 도와주면서<br>레벨을 7을 달성해보자!:{(int)SPK.Pl_Idle}"
+            $"과수원도 도와주면서<br>레벨을 7을 달성하자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP2_UNLOCK_BG1_REWARD, new string[] { //* Orchard BG ON
-            $"벌써 이만큼 레벨달성이라니<br>대단해!:{(int)SPK.Pl_Happy}"
+            $"벌써 이만큼 레벨달성하다니<br>정말 대단해!:{(int)SPK.Pl_Happy}"
             , $"선생님, 감사합니다!:{(int)SPK.Bear_Happy}:{(int)SPK.Mole_Happy}:{(int)SPK.Duck_Happy}"
             , $"주민들이 선물을 준비했어요. 받아주세요!:{(int)SPK.Bear_Happy}"
             , $"하하, 뭐 이런것까지!.:{(int)SPK.Pl_Happy}"
@@ -174,19 +174,19 @@ public class HomeTalkManager : TalkManager {
             , $"맞는데..<br>누..누구시죠?:{(int)SPK.Pl_Idle}"
             , $"혹시, 머리를 두번때리고 간 원숭이를 찾으시개굴?:{(int)SPK.Frog_Idle}"
             , $"아앗..맞아요!:{(int)SPK.Pl_Sad}"
-            , $"저는 정글 늪지대주민인디,<br>저희 수학문제를 도와주면:{(int)SPK.Frog_Idle}"
+            , $"정글 늪지대주민인데,<br>저희 수학문제를 도와주면:{(int)SPK.Frog_Idle}"
             , $"원숭이가 어디로 갔는지 알려드릴개굴.:{(int)SPK.Frog_Happy}"
             , $"새로운 정글맵이 오픈했어!:{(int)SPK.Pl_Happy}"
-            , $"흠.. 우선 늪지대 지역을 도와주며 레벨 9를 달성하자!:{(int)SPK.Pl_Idle}"
+            , $"흠.. 우선 늪지대를 도와주며 레벨9를 달성하자!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG2_REWARD, new string[] { //* Swamp BG ON
             $"도와줘서 너무 감사개굴.:{(int)SPK.Frog_Happy}"
-            , $"이제 어디로 갔는지 당장 말해!:{(int)SPK.Pl_Happy}"
+            , $"원숭이는 어딧나!:{(int)SPK.Pl_Happy}"
             , $"원숭이들은 몽키와트라는 신전에서 생활해개굴:{(int)SPK.Frog_Idle}"
             , $"아마 거기가시면 찾으실 수 있개굴.:{(int)SPK.Frog_Idle}"
             , $"덤불지대 근처라는 소문은 들었지만,:{(int)SPK.Frog_Idle}"
             , $"워낙 비밀에 쌓인 곳이라서 그 이상은 몰라개굴.:{(int)SPK.Frog_Sad}"
-            , $"덤불지대? 거긴 어디지?!:{(int)SPK.Pl_Idle}"
+            , $"덤불지대? 어디지?!:{(int)SPK.Pl_Idle}"
             , $"걱정마개굴! 착한 개미친구에게 부탁해놨개굴.:{(int)SPK.Frog_Idle}"
             , $"조만간 선생님을 찾아갈거라개굴.:{(int)SPK.Frog_Idle}"
             , $"좋았어!!:{(int)SPK.Pl_Happy}"
@@ -213,18 +213,18 @@ public class HomeTalkManager : TalkManager {
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_BG3_REWARD, new string[] {
             $"정말 고맙개미!!:{(int)SPK.Ant_Happy}"
-            , $"덕분에 덤불마을이 수학의힘으로 평화로워졌개미!:{(int)SPK.Ant_Happy}"
+            , $"덕분에 덤불마을이 수학으로 평화로워졌개미!:{(int)SPK.Ant_Happy}"
             , $"자 그럼 이제 원숭이가 있는 신전을 알려주세요!:{(int)SPK.Pl_Idle}"
-            , $"알고있개미. 그 신전은 몽키와트라는 곳이다개미.:{(int)SPK.Ant_Idle}"
+            , $"그 곳은 몽키와트라는 곳이다개미.:{(int)SPK.Ant_Idle}"
             , $"미리 길을 열어두었개미. 그리로 가면된다개미!:{(int)SPK.Ant_Idle}"
             , $"고마워! 드디어 찾았다! 기다려라 몽키와트 신전!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP2_MINIGAME, new string[] {
             $"잠깐!!:{(int)SPK.WarriorMonkey_Idle}"
             , $"네..넹?:{(int)SPK.Pl_Sad}"
-            , $"우리 신전에서는 하늘로 올라가는 전통행사가 있지:{(int)SPK.WarriorMonkey_Idle}"
-            , $"경건한 마음으로 바나나와 황금바나나를 획득한다!!:{(int)SPK.WarriorMonkey_Idle}"
-            , $"맞다개굴! 정글 전통행사 하늘로 점프! 미니게임이 열렸개굴.:{(int)SPK.Frog_Happy}"
+            , $"우리 신전에서는 하늘로 올라가는 행사가 있지:{(int)SPK.WarriorMonkey_Idle}"
+            , $"경건한 마음으로 바나나를 획득한다!:{(int)SPK.WarriorMonkey_Idle}"
+            , $"맞다개굴! 신전의행사 하늘로 점프! 미니게임이 열렸개굴.:{(int)SPK.Frog_Happy}"
             , $"전부클리어하면, 귀여운 펫 보상도 있다개굴!:{(int)SPK.Frog_Happy}"
             , $"신전지역 <size=100><sprite name=exclamation></size>를 클릭해봐개굴!:{(int)SPK.Frog_Idle}"
         });
@@ -250,14 +250,14 @@ public class HomeTalkManager : TalkManager {
             , $"우리신전의 수학고민이 날이가는대로 쌓여서:{(int)SPK.WarriorMonkey_Idle}"
             , $"몽키신님이 화나셧는지 날씨가 좋지않다.:{(int)SPK.WarriorMonkey_Idle}"
             , $"우리신전을 도와주면 믿도록하지!:{(int)SPK.WarriorMonkey_Idle}"
-            , $"히익 제가 도와드려야지요!<br>(사..살았다..):{(int)SPK.Pl_Idle}"
-            , $"신전도 도와주면서 친밀도를 쌓고, 레벨 13을 달성하자.:{(int)SPK.Pl_Idle}"
+            , $"제가 도와드려야지요!<br>(사..살았다..):{(int)SPK.Pl_Idle}"
+            , $"신전도 도와주면서, 레벨 13을 달성하자.:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.OPEN_MAP3_UNLOCK_BG1_REWARD, new string[] { //* #1 MonkeyWat BG ON
             $"고맙다! 수학선생!!:{(int)SPK.WarriorMonkey_Idle}"
             , $"하하! 별말씀을요!:{(int)SPK.Pl_Idle}"
             , $"신전의 수학고민을 해결해준 덕분에:{(int)SPK.WarriorMonkey_Happy}"
-            , $"몽키신님의 노여움이 사그라들어 날씨가 좋아졌다!:{(int)SPK.WarriorMonkey_Happy}"
+            , $"신님의 노여움이 사그라들어 날씨가 좋아졌다!:{(int)SPK.WarriorMonkey_Happy}"
             , $"처음엔 정말 미안했다. 아기원숭이를 때린다는 줄 알고.:{(int)SPK.WarriorMonkey_Sad}"
             , $"아 맞다! 그 아기원숭이는 어딧나요?:{(int)SPK.Pl_Happy}"
             , $"흠.. 그러고보니 나도 그 이후 본적이 없다..:{(int)SPK.WarriorMonkey_Idle}"
@@ -269,11 +269,11 @@ public class HomeTalkManager : TalkManager {
             , $"다 당신은?! 몽키신님??!!:{(int)SPK.WarriorMonkey_Sad}_FLIP"
             , $"!!!:{(int)SPK.Pl_Sad}"
             , $"황금바나나 몽키신님을 위하여.. 우끼!:{(int)SPK.WarriorMonkey_Happy}_FLIP:{(int)SPK.Frog_Idle}_FLIP:{(int)SPK.Ant_Idle}_FLIP"
-            , $"허.허.. 미안하게 됫끼.<br>정글에 수학고민이 쌓여가,:{(int)SPK.Monkey_God}"
+            , $"허.허.. 미안하게 됫끼.<br>정글에 수학고민이 쌓여:{(int)SPK.Monkey_God}"
             , $"스트레스로 인해 날씨가 안좋아졌끼..:{(int)SPK.Monkey_God}"
-            , $"하지만, 우리원숭이들은 정글밖에 나가본적이 없끼..:{(int)SPK.Monkey_God}"
+            , $"하지만, 원숭이들은 정글밖에 나가본적이 없끼.:{(int)SPK.Monkey_God}"
             , $"그래서 이 내가 직접 수학해결사를 찾아나섯다.끼.:{(int)SPK.Monkey_God}"
-            , $"아아.. 그런거였구나..(감동):{(int)SPK.Pl_Idle}"
+            , $"아아, 그런거구나..(감동):{(int)SPK.Pl_Idle}"
             , $"과격하게 행동한건 미안하끼.. 나에겐 시간이 별로 없었다네..:{(int)SPK.Monkey_God}"
             , $"아닙니다.. 정글을 위해서 하신건데요.:{(int)SPK.Pl_Idle}"
             , $"(주륵):{(int)SPK.WarriorMonkey_Sad}_FLIP"
@@ -288,23 +288,23 @@ public class HomeTalkManager : TalkManager {
             , $"--정글 퀘스트 끝--:{(int)SPK.Empty}"
 
             , $"으어어 선생님..:{(int)SPK.Mole_Sad}" 
-            , $"곰돌이가 어디선가 고대서적을 구하더니,:{(int)SPK.Mole_Idle}"
+            , $"곰돌이가 어디서 고대책을 구하더니,:{(int)SPK.Mole_Idle}"
             , $"갑자기 전설의 용을 보겠다고 툰드라지역에 갔어요..:{(int)SPK.Mole_Idle}"
             , $"그런데, 전혀 아무런 소식이 없어요.. 혹시 무슨일이 생긴건 아닐까요?:{(int)SPK.Mole_Idle}"
             , $"저는 추운데가면 하루도 못버텨서.. 선생님께서 한번 가주시면 안될까요?:{(int)SPK.Mole_Sad}"
-            , $"용이요? 그건 전설의 동물 아닌가요?:{(int)SPK.Pl_Idle}"
+            , $"용이요? 그저 전설 아닌가요?:{(int)SPK.Pl_Idle}"
             , $"흠.. 일단 제가 찾으러 가보겠습니다.:{(int)SPK.Pl_Idle}"
             , $"감사합니다 선생님..:{(int)SPK.Mole_Sad}"
             , $"(툰드라 지역):{(int)SPK.Empty}" //* Tundra Entrance BG ON
             , $"(휘이이잉...):{(int)SPK.Empty}"
             , $"으.. 춥다..여기가.. 툰드라지역 입구인가?:{(int)SPK.Pl_Sad}"
             , $"엉엉.. 엉엉!:{(int)SPK.Seal_Idle}"
-            , $"아닛! 물개다! 저기 혹시 곰돌이를 보신적이 있나요?:{(int)SPK.Pl_Idle}"
+            , $"아닛! 물개다! 저기 혹시 곰돌을 보신적이 있나요?:{(int)SPK.Pl_Idle}"
             , $"엉엉! 엉!:{(int)SPK.Seal_Idle}"
             , $"음...설마 말을 못하는건가?..:{(int)SPK.Pl_Idle}"
             , $"엉! 봤다고 엉엉!:{(int)SPK.Seal_Sad}"
-            , $"커헉! ”엉엉”이 ”어어”라는 말이었구나..:{(int)SPK.Pl_Sad}"
-            , $"착한 곰돌이 친구였엉!:{(int)SPK.Seal_Idle}"
+            , $"”엉엉”이 ”어어”라는 말이었구나..:{(int)SPK.Pl_Sad}"
+            , $"착한 곰돌친구였엉!:{(int)SPK.Seal_Idle}"
             , $"아아.. 그렇군요! 혹시 어디로 갔나요?:{(int)SPK.Pl_Idle}"
             , $"근데 혹시, 유명한 수학영웅 맞엉?!:{(int)SPK.Seal_Idle}"
             , $"하하.. 네! 맞습니다 제가 바로 그..:{(int)SPK.Pl_Happy}"
@@ -316,20 +316,19 @@ public class HomeTalkManager : TalkManager {
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_ACCEPT, new string[] {
-            $"툰드라 입구지역을 도와주면서 레벨 15를 달성하자!:{(int)SPK.Pl_Happy}"
-
+            $"입구지역을 도와주면서 레벨 15를 달성하자!:{(int)SPK.Pl_Happy}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP3_BG2_REWARD, new string[] {
             $"너무너무 고맙덩!!! 주민들이 평화를 되찾았엉!:{(int)SPK.Seal_Idle}"
             , $"하하 다행이군요!:{(int)SPK.Pl_Happy}"
             , $"곰돌이는 전설의 용를 찾는다고 설산으로 올라갔엉! 엉!:{(int)SPK.Seal_Idle}"
             , $"텐트랑 여러가지 채비를 하고갔으니 분명 아직 있을거덩!:{(int)SPK.Seal_Idle}"
-            , $"그렇구나! 감사합니다!!:{(int)SPK.Pl_Idle}"
-            , $"바로 설산으로 가보자!:{(int)SPK.Pl_Idle}"
+            , $"감사합니다!!:{(int)SPK.Pl_Idle}"
+            , $"바로 설산으로 가자!:{(int)SPK.Pl_Idle}"
         });
 
         talkDt.Add((int)ID.UNLOCK_MAP3_BG3_ACCEPT, new string[] { //* SnowMountain BG ON
-            $"허억..허억.. 으어 정말 높은산이다..:{(int)SPK.Pl_Sad}"
+            $"허억..허억.. 정말 높은산이다..:{(int)SPK.Pl_Sad}"
             , $"곰돌이는 어디있지.. 설마...:{(int)SPK.Pl_Idle}"
             , $"곰돌아! 곰돌아~!!:{(int)SPK.Pl_Happy}"
             , $"넹? 저 부르셨나요?:{(int)SPK.TundraBear_Idle}"
@@ -376,7 +375,7 @@ public class HomeTalkManager : TalkManager {
             , $"따라오라묘.:{(int)SPK.SnowRabbit_Idle}"
             , $"(누군가 알려주지 않으면 알수없는 길로 계속 올라간다.):{(int)SPK.Empty}"
             , $"(빙산 꼭대기):{(int)SPK.Empty}" //* Ice Dragon BG ON
-            , $"오오!! 저건.. 진짜 용?!:{(int)SPK.TundraBear_Happy}_FLIP"
+            , $"오오!! 저건.. 용?!:{(int)SPK.TundraBear_Happy}_FLIP"
             , $"다 왔다묘.:{(int)SPK.SnowRabbit_Idle}"
             , $"이 툰드라 정상에는 용이 산다는 전설이 있다묘.:{(int)SPK.SnowRabbit_Idle}"
             , $"저 용은 우리 툰드라를 지켜주던 빙룡님이다묘:{(int)SPK.SnowRabbit_Idle}"
@@ -391,7 +390,7 @@ public class HomeTalkManager : TalkManager {
             , $"우리들은 그 동안, 이 아기용을 지키기위해서, 이 모든걸 비밀로 간직했다묘.:{(int)SPK.SnowRabbit_Idle}"
             , $"거기까지는 좋았는데, 아기용이 부화하고, 수학을 알고싶어하는데:{(int)SPK.SnowRabbit_Idle}"
             , $"우리들은 수학을 못한다묘..:{(int)SPK.SnowRabbit_Sad}"
-            , $"아하.. 그래서 수학고민이 많았던 거군요?:{(int)SPK.TundraBear_Idle}_FLIP"
+            , $"아하 그래서 수학고민이 많았던 거군요?:{(int)SPK.TundraBear_Idle}_FLIP"
             , $"맞다묘..:{(int)SPK.SnowRabbit_Idle}"
             , $"수학선생님께 부탁이 있다묘. 우리 아기용에게도 수학을 알려줄 수 있겠냐묘:{(int)SPK.SnowRabbit_Idle}"
             , $"그렇게 아기용이 수학을 만족하게되면 큰 사례를 하겠다묘!:{(int)SPK.SnowRabbit_Idle}"
