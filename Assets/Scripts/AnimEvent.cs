@@ -14,6 +14,11 @@ public class AnimEvent : MonoBehaviour {
     [SerializeField] TextMeshProUGUI GCD_Val2CommonDivisorTxt;
     [SerializeField] Button btn;
 
+    [Header("TITLE")]
+    [SerializeField] Sprite engHelpLogoSpr;
+    [SerializeField] Sprite engLogoWgiteSpr;
+    [SerializeField] Sprite engTitleLogoSpr;
+
     //* Title
     //* Intro Anim
     public void playOpenBoxSFX() {
@@ -36,7 +41,18 @@ public class AnimEvent : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.FeatherPop.ToString());
     }
     //* Title Anim
+    public void setTitleEnglishSprs() {
+        Debug.Log($"playHelpLogoSpawnSFX():: curLangIndex= {LM._.curLangIndex}");
+        if(LM._.curLangIndex == (int)LM.LANG_IDX.EN) {
+            TitleManager._.helpLogoImg.sprite = engHelpLogoSpr;
+            TitleManager._.logoWgiteImg.sprite = engLogoWgiteSpr;
+            TitleManager._.titleLogoImg.sprite = engTitleLogoSpr;
+            TitleManager._.helpLogoTxtPtcImg.texture = engHelpLogoSpr.texture;
+        }
+    }
+
     public void playHelpLogoSpawnSFX() {
+        
         SM._.sfxPlay(SM.SFX.Jump.ToString());
     }
     public void playTitleLogoSpawnSFX() {
