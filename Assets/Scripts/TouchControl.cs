@@ -36,6 +36,7 @@ public class TouchControl : MonoBehaviour
                 }
                 //* ペット
                 else if(isPet) {
+                    if(HM._.pet.Sr == null) return; //* ペットがないときには、音など処理がしないように
                     HM._.pet.animDance(); // 踊る
                     return; // プレイヤー移動させない
                 }
