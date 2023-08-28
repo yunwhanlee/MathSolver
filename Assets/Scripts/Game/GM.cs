@@ -366,10 +366,10 @@ public class GM : MonoBehaviour {
         string res = "";
         switch(rOpr) {
             case "+":
-                res = LM._.localize("...<color=blue>앗! KEY개 더 있네요.</color>", (int)LM.LANG_IDX.KR);
+                res = $"<br><color=blue>{LM._.localize("앗! KEY개 더 있네요.", (int)LM.LANG_IDX.KR)}</color>";
                 break;
             case "-": // case "minus":
-                res = LM._.localize("...<color=red>앗! KEY개 빼야되요.</color>", (int)LM.LANG_IDX.KR);
+                res = $"<br><color=red>{LM._.localize("앗! KEY개 빼야되요.", (int)LM.LANG_IDX.KR)}</color>";
                 break;
         }
         res = res.Replace("KEY", key);
