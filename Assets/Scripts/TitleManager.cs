@@ -8,7 +8,6 @@ public class TitleManager : MonoBehaviour
 {
     public Button screenPanelBtn;
     public Animator canvasAnim;
-
     void Start() {
         SM._.bgmPlay(SM.BGM.Title.ToString());
     }
