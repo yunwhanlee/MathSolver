@@ -180,7 +180,10 @@ public class WorldMapManager : MonoBehaviour {
 
         HM._.ui.MapImageOutlineFrame.GetComponent<Image>().sprite = isMapUnlock? goldenEdgeSpr : normalEdgeSpr;
         HM._.ui.MapImageOutlineFrame.sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE, OUTLINE_FRAME_SIZE) : new Vector2(INNER_FRAME_SIZE, INNER_FRAME_SIZE);
-        HM._.ui.MapImageOutlineFrame.GetChild(0).GetComponent<RectTransform>().sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE - 50, OUTLINE_FRAME_SIZE - 50) : new Vector2(INNER_FRAME_SIZE - 50, INNER_FRAME_SIZE - 50);
+        RectTransform frameMaskRectTf = HM._.ui.MapImageOutlineFrame.GetChild(0).GetComponent<RectTransform>();
+        RectTransform mapImgRectTf = frameMaskRectTf.GetChild(0).GetComponent<RectTransform>();
+        frameMaskRectTf.sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE - 50, OUTLINE_FRAME_SIZE - 50) : new Vector2(INNER_FRAME_SIZE - 50, INNER_FRAME_SIZE - 50);
+        mapImgRectTf.sizeDelta = isMapUnlock? new Vector2(OUTLINE_FRAME_SIZE - 50, OUTLINE_FRAME_SIZE - 50) : new Vector2(INNER_FRAME_SIZE, INNER_FRAME_SIZE);
     }
 
     public void showUnlockBg(int mapIdx, int bgIdx) {
