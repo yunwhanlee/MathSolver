@@ -6,6 +6,7 @@ using TMPro;
 
 public class AnimEvent : MonoBehaviour {   
     //? PARAM 可能：int, float, string
+    const int NORMAL = 0, GOLD = 1;
 
     //* GCDFrame
     [SerializeField] TextMeshProUGUI GCD_ContentTxt;
@@ -72,5 +73,4 @@ public class AnimEvent : MonoBehaviour {
     public void playUnlockMapBgSFX() {
         SM._.sfxPlay(SM.SFX.CorrectAnswer.ToString());
     }
-
 }

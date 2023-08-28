@@ -22,14 +22,15 @@ public class Enum {
     };
     public enum ANIM {
         DoSkipTitleAnim,
-        IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, IsShowGachaReward,
+        IsWalk, DoBounce, DoSuccess, DoFail, IsSit, DoDance, 
+        IsShowGachaReward, DoSweetPotato, IsGoldSweetPotato,
         BlackInOut, BlackIn, BlackOut,
-        DoCamShake, DoWindMillScrollDown, 
+        DoCamShake, DoWindMillScrollDown,
         DoBlinkAdd, DoBlinkMinus,
         HelpFraction, HelpGCD,
         DoTalk, DoShock,
-        DoSwitchBG, 
-        DoFirstActive        
+        DoSwitchBG,
+        DoFirstActive
     };
     public enum BOX_NAME {
         Box , LeftBox, RightBox, _Blink, _QuestionMark,

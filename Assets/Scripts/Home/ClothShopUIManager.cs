@@ -5,12 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Random = UnityEngine.Random;
+using Coffee.UIExtensions;
 
 public class ClothShopUIManager : MonoBehaviour
 {
     Animator anim;
     const int REWARD_PET_PER = 30;
+    const int GOLD_SWEETPOTATE_PER = 20;
 
+    [SerializeField] bool isGoldSweetPotato;       public bool IsGoldSweetPotato {get => isGoldSweetPotato; set => isGoldSweetPotato = value;}
     [SerializeField] bool isGachaOn;    public bool IsGachaOn {get => isGachaOn; set => isGachaOn = value;}
     [SerializeField] int price;     public int Price {get => price; set => price = value;}
 
@@ -21,6 +24,8 @@ public class ClothShopUIManager : MonoBehaviour
     [SerializeField] GameObject purchaseNotifyIcon;  public GameObject PurchaseNotifyIcon {get => purchaseNotifyIcon;}
 
     [Header("REWARD ANIM PANEL")]
+    [SerializeField] GameObject goldSparkleEF;
+    
     [SerializeField] GameObject gachaAnimPanel;    public GameObject GachaRewardAnimPanel {get => gachaAnimPanel; set => gachaAnimPanel = value;}
     [SerializeField] Image rewardImg;    public Image RewardImg {get => rewardImg; set => rewardImg = value;}
     [SerializeField] TextMeshProUGUI rewardNameTxt;   public TextMeshProUGUI RewardNameTxt {get => rewardNameTxt; set => rewardNameTxt = value;}
@@ -46,6 +51,7 @@ public class ClothShopUIManager : MonoBehaviour
             return;
         } 
 
+        //* 購入してから、SweetPotato Gacha Panelへ移動
         if(DB.Dt.Coin >= price) {
             SM._.sfxPlay(SM.SFX.BubblePop.ToString());
             isGachaOn = true;
@@ -131,7 +137,20 @@ public class ClothShopUIManager : MonoBehaviour
     }
     IEnumerator coPlayGachaPanelAnimIdle() {
         yield return Util.time0_5;
-        gachaAnimPanel.SetActive(true); 
+        gachaAnimPanel.SetActive(true);
+
+        //* Gold SweetPotato
+        int rand = Random.Range(0, 100);
+        isGoldSweetPotato = (rand <= GOLD_SWEETPOTATE_PER);
+        Debug.Log($"coPlayGachaPanelAnimIdle():: rand= {rand}, isGoldSweetPotato= {isGoldSweetPotato}");
+        if(isGoldSweetPotato) {
+            anim.SetBool(Enum.ANIM.IsGoldSweetPotato.ToString(), true);
+            goldSparkleEF.SetActive(true);
+        }
+        else {
+            anim.SetBool(Enum.ANIM.IsGoldSweetPotato.ToString(), false);
+            goldSparkleEF.SetActive(false);
+        }
     }
 #endregion
 }
