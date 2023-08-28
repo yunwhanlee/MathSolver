@@ -21,7 +21,6 @@ public class TitleManager : MonoBehaviour
 
     void Start() {
         SM._.bgmPlay(SM.BGM.Title.ToString());
-
     }
 
     public void onClickScreenPanelBtn() {

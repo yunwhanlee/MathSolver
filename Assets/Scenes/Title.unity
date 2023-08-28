@@ -919,6 +919,7 @@ GameObject:
   - component: {fileID: 190603470}
   - component: {fileID: 190603473}
   - component: {fileID: 190603472}
+  - component: {fileID: 190603474}
   m_Layer: 0
   m_Name: Txt
   m_TagString: Untagged
@@ -1042,6 +1043,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190603469}
   m_CullTransparentMesh: 1
+--- !u!114 &190603474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190603469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a11f1e439361f44a9f3efc3fe228617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textKey: Skip
 --- !u!1 &216014734
 GameObject:
   m_ObjectHideFlags: 0
@@ -37561,7 +37575,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 15
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -38970,7 +38984,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 5
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
@@ -40404,7 +40418,7 @@ MonoBehaviour:
   _bursts:
   - time: 0
     count: 1
-    used: 1
+    used: 0
   _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
