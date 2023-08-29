@@ -56,7 +56,7 @@ public class LM : MonoBehaviour { //* Language Manager
         const int NOTHING = -1;
         int langIndex = PlayerPrefs.GetInt(LangIndex, NOTHING);
         int systemIndex = langs.FindIndex(x => x.lang.ToLower() == Application.systemLanguage.ToString().ToLower());
-        if(systemIndex == NOTHING) systemIndex = (int)LM.LANG_IDX.EN; //* 設定言語なかったら、初期設定言語
+        if(systemIndex == NOTHING) systemIndex = (int)LM.LANG_IDX.KR; //* 設定言語なかったら、初期設定言語
         int index = (langIndex == NOTHING)? systemIndex : langIndex;
 
         setLangIndex(index);
