@@ -41,10 +41,39 @@ public class Enum {
     public enum SORTING_LAYER {Mat, Default, FrontDecoObj};
     public enum HOME_EF_IDX {FunitureSetupEF};
     public enum OBJ_SPR_IDX {
-        //* 小さい
-        SunFlowerSeed, Cherry, Blueberry, Dotory, Leaf,
-        //* 一般
-        Apple, Carrot, Banana, Onion, Orange, Potato, Branch, Rock,
+        //* FOREST
+        Apple,
+        Onion,
+        Carrot,
+        Lemon,
+        Potato,
+        Strawberry,
+        WaterMelon,
+        GreenApple,
+        Pear,
+        Pumkin,
+        Grape,
+        //* JUNGLE SMALL BUSH
+        SunFlowerSeed, 
+        Cherry, 
+        Dotory, 
+        //* JUNGLE
+        Coconut,
+        DragonFruit,
+        Mango,
+        Mushroom,
+        MushroomDot,
+        //* HOUSE BUILD
+        Clover,
+        Branch,
+        Leaf,
+        Rock,
+        Feather,
+        //* CALCULATION MONEY
+        Coin,
+        SilverCoin,
+        //* Minigame
+        Exclamation, 
     };
     public enum RWD_IDX {
         Coin, Exp, WoodChair, FrogChair, 

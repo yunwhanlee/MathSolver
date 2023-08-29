@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb9ba2c961a4514d9abed031d0c9232, type: 3}
+  m_Name: Question3
+  m_EditorClassIdentifier: 
+  qstPlus: "\uC5C4\uB9C8\uAC00 \uC6A9\uB3C8 OBJ1N1\uC6D0\uC744 \uC8FC\uC2DC\uACE0,
+    \uD560\uC544\uBC84\uC9C0\uAC00 N2\uC6D0\uC744 \uC8FC\uC168\uC5B4\uC694, \uCD1D
+    \uC81C\uAC00 \uC5BC\uB9C8\uB97C \uBC1B\uC740\uAC74\uAC00\uC694?"
+  qstPlus_XEqu: "\uADF8 \uB3D9\uC548 \uBAA8\uC740 OBJN1\uC6D0\uC5D0 \uC624\uB298
+    \uC6A9\uB3C8\uBC1B\uC740\uAC78 \uD569\uD558\uB2C8, N2\uC6D0"
+  qstPlus_XEqu_Add: "\uC557! KEY\uAC1C \uB354 \uC788\uB124\uC694."
+  qstPlus_XEqu_Minus: "\uC557! KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
+  qstPlus_XEqu_End: "\uAC00 \uB42B\uC5B4\uC694."
+  qstPlus_XEqu_Ask: "\uC624\uB298 \uBC1B\uC740 \uC6A9\uB3C8\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?"
+  qstMinus: "\uC5C4\uB9C8\uAC00 \uC6A9\uB3C8 OBJN1\uC6D0\uC744 \uC8FC\uC154\uC11C,
+    N2\uC6D0\uC9DC\uB9AC \uC544\uC774\uC2A4\uD06C\uB9BC\uC744 \uC0AC\uBA39\uC5C8\uC5B4\uC694.
+    \uB0A8\uC740 \uB3C8\uC774 \uC5BC\uB9C8\uC778\uAC00\uC694?"
+  qstMultiply: "\uC5B4\uB974\uC2E0 N1\uBD84\uC5D0\uAC8C\uC11C N2\uC6D0\uC529 \uC6A9\uB3C8\uC744
+    \uBC1B\uC558\uC5B4\uC694. \uCD1D \uC81C\uAC00 \uC5BC\uB9C8\uB97C \uBC1B\uC740\uAC74\uAC00\uC694?"
+  qstDivide: "\uC6A9\uB3C8\uC73C\uB85C N1\uC6D0\uC744 \uBC1B\uC544\uC11C N2\uB9C8\uB9AC
+    \uB3D9\uC0DD\uC5D0\uAC8C \uB611\uAC19\uC774 \uB098\uB220\uC8FC\uACE0\uC2F6\uC5B4\uC694.
+    \uC5BC\uB9C8 \uC529 \uB098\uB220\uC8FC\uBA74 \uB418\uC8E0?"
+  qstGreatestCommonDivisor: "OBJ1N1\uAC1C\uC640 OBJ2N2\uAC1C\uB97C \uCD5C\uB300\uD55C
+    \uAC19\uAC8C \uB098\uB204\uC5B4, \uB3D9\uC0DD\uB4E4\uC5D0\uAC8C \uC8FC\uACE0\uC2F6\uC5B4\uC694.
+    \uCD5C\uB300 \uBA87\uB9C8\uB9AC \uB3D9\uC0DD\uC5D0\uAC8C \uC904 \uC218 \uC788\uB098\uC694?"
+  defObjNames:
+  - coin
+  - silvercoin
+  - coin
+  - silvercoin
+  - coin
+  - silvercoin
+  - coin
+  - silvercoin
+  jungleObjNames:
+  - coin
+  - silvercoin
+  - coin
+  - silvercoin
+  - coin
+  objNameList:
+  - coin
+  - silvercoin
+  - coin
+  - silvercoin
+  - coin
+  - silvercoin
+  obj1Name: coin
+  obj2Name: silvercoin
