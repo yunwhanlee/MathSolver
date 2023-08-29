@@ -72,6 +72,12 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
 #region FUNC
 ///------------------------------------------------------------------------------------------
+    public void initPos() {
+        idle();
+        Vector2 INIT_POS = new Vector2(0, -4);
+        tgPos = INIT_POS; //* 玄関の前に位置させる
+        transform.position = INIT_POS;
+    }
     public void jump() {
         Debug.Log($"Player:: jump():: ");
         SM._.sfxPlay(SM.SFX.Jump.ToString());
@@ -188,7 +194,7 @@ public class Player : MonoBehaviour {
 ///------------------------------------------------------------------------------------------
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.CompareTag(Enum.TAG.GoGame.ToString())) {
-            HM._.state = HM.STATE.SETTING;
+            HM._.state = HM.STATE.POPUP;
             HM._.ui.GoGamePopUp.SetActive(true);
         }
         else if(col.gameObject.CompareTag(Enum.TAG.EraseObjLine.ToString())) {

@@ -6,7 +6,7 @@ using System;
 
 public class HM : MonoBehaviour {
     public static HM _;
-    public enum STATE {NORMAL, DECORATION_MODE, SETTING};
+    public enum STATE {NORMAL, DECORATION_MODE, POPUP};
     public STATE state;
 
     [Header("OUTSIDE")]

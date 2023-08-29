@@ -290,6 +290,7 @@ public class HUI : MonoBehaviour {
             Debug.Log("onClickGoRoom():: From Select World Map");
             Time.timeScale = 1;
             HM._.state = HM.STATE.NORMAL;
+            HM._.pl.initPos();
             canvasStatic.gameObject.SetActive(true);
             canvasWorldMap.gameObject.SetActive(false);
             goGamePopUp.SetActive(false);
@@ -339,6 +340,7 @@ public class HUI : MonoBehaviour {
                 showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
                 return;
             }
+            HM._.state = HM.STATE.POPUP;
             displayAchiveRankPanel();
         }
 
@@ -348,6 +350,7 @@ public class HUI : MonoBehaviour {
                 showErrorMsgPopUp(LM._.localize("Please complete the main quest first."));
                 return;
             }
+            HM._.state = HM.STATE.NORMAL;
             topGroup.SetActive(true);
             achiveRankPanel.SetActive(false);
             //* 前の場所によった表示に 最新化
@@ -396,7 +399,7 @@ public class HUI : MonoBehaviour {
     public void onClickPortraitBtn() {
         Debug.Log("onClickPortraitBtn()::");
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
-        HM._.state = HM.STATE.SETTING;
+        HM._.state = HM.STATE.POPUP;
         topGroup.SetActive(false);
         infoDialog.SetActive(false);
         settingPanel.SetActive(true);
@@ -481,8 +484,7 @@ public class HUI : MonoBehaviour {
             // showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
             // return;
         // }
-
-        HM._.state = HM.STATE.NORMAL;
+        HM._.state = HM.STATE.POPUP;
         canvasWorldMap.gameObject.SetActive(true);
         canvasStatic.gameObject.SetActive(false);
         goGamePopUp.gameObject.SetActive(false);
@@ -777,7 +779,7 @@ public class HUI : MonoBehaviour {
     }
     public void showNickNamePopUp(bool isActive) {
         SM._.sfxPlay(SM.SFX.BubblePop.ToString());
-        HM._.state = (isActive)? HM.STATE.SETTING : HM.STATE.NORMAL;
+        HM._.state = (isActive)? HM.STATE.POPUP : HM.STATE.NORMAL;
         nickNamePopUp.SetActive(isActive);
         settingPanel.SetActive(!isActive); //* BUG なぜかこらが表示されたら、InputFeild入力できない
         if(HM._.htm.IsAction) settingPanel.SetActive(false);
@@ -787,7 +789,7 @@ public class HUI : MonoBehaviour {
         yield return Util.time1;
         SM._.sfxPlay(SM.SFX.LevelUp.ToString());
         SM._.sfxPlay(SM.SFX.Yooo.ToString());
-        HM._.state = HM.STATE.SETTING;
+        HM._.state = HM.STATE.POPUP;
         lvUpPopUp.SetActive(true);
         lvUpPopUpValTxt.text = DB.Dt.Lv.ToString();
         int curBonus = (int)(HM._.pl.calcLvBonusPer() * 100);
@@ -800,7 +802,7 @@ public class HUI : MonoBehaviour {
     public IEnumerator coActiveRewardPopUp(int fame, Dictionary<RewardItemSO, int> rewardDic) {
         Debug.Log($"coActiveRewardPopUp(fame= {fame}, rewardDic= {rewardDic}):: ");
         SM._.sfxPlay(SM.SFX.Fanfare.ToString());
-        HM._.state = HM.STATE.SETTING;
+        HM._.state = HM.STATE.POPUP;
         rewardPopUp.SetActive(true);
         rewardPopUpFameValTxt.text = $"+{fame}";
         DB.Dt.Fame += fame;
