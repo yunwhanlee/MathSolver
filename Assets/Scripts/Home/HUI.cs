@@ -40,8 +40,11 @@ public class HUI : MonoBehaviour {
 
     [Header("ROOM GO TO ICONS")]
     [SerializeField] GameObject funitureNotifyIcon;   public GameObject FunitureNotifyIcon {get => funitureNotifyIcon; set => funitureNotifyIcon = value;}
+    [SerializeField] GameObject funitureIconShineEF;
     [SerializeField] GameObject clothShopNotifyIcon;   public GameObject ClothShopNotifyIcon {get => clothShopNotifyIcon; set => clothShopNotifyIcon = value;}
+    [SerializeField] GameObject clothShopIconShineEF;
     [SerializeField] GameObject inventoryNotifyIcon;   public GameObject InventoryNotifyIcon {get => inventoryNotifyIcon; set => inventoryNotifyIcon = value;}
+    [SerializeField] GameObject inventoryIconShineEF;
 
     [Header("MAIN QUEST BOX (AT HOME)")]
     [SerializeField] Button mainQuestBoxBtn;    public Button MainQuestBoxBtn {get => mainQuestBoxBtn;}
@@ -582,15 +585,19 @@ public class HUI : MonoBehaviour {
                 bool isNewDc = Array.Exists(DB.Dt.Decorations, dc => dc.IsNotify);
                 bool isNewBg = Array.Exists(DB.Dt.Bgs, bg => bg.IsNotify);
                 bool isNewMt = Array.Exists(DB.Dt.Mats, mt => mt.IsNotify);
-                funitureNotifyIcon.SetActive(isNewFn || isNewDc || isNewBg || isNewMt);
+                bool isNewFuniture = (isNewFn || isNewDc || isNewBg || isNewMt);
+                funitureNotifyIcon.SetActive(isNewFuniture);
+                funitureIconShineEF.SetActive(isNewFuniture);
                 //* ClothShop Icon Notify
                 bool isCanPurchase = DB.Dt.Coin >= HM._.cUI.Price;
-                ClothShopNotifyIcon.SetActive(isCanPurchase);
+                clothShopNotifyIcon.SetActive(isCanPurchase);
+                clothShopIconShineEF.SetActive(isCanPurchase);
                 HM._.cUI.PurchaseNotifyIcon.SetActive(isCanPurchase);
                 //* Inventory Icon Notify
                 bool isNewSkin = Array.Exists(DB.Dt.PlSkins, pl => pl.IsNotify);
                 bool isNewPet = Array.Exists(DB.Dt.PtSkins, pet => pet.IsNotify);
                 inventoryNotifyIcon.SetActive(isNewSkin || isNewPet);
+                inventoryIconShineEF.SetActive(isNewSkin || isNewPet);
                 //* LV
                 Array.ForEach(levelTxts, lvTxt => lvTxt.text = DB.Dt.Lv.ToString());
                 //* FAME
