@@ -352,6 +352,8 @@ public class DB : MonoBehaviour {
         dt.PtSkins[0].IsLock = false;
         dt.PtSkins[0].IsArranged = true;
         #endregion
+
+        // SceneManager.LoadScene(Enum.SCENE.Title.ToString());
     }
     #endregion
     /// -----------------------------------------------------------------------------------------------------------------
