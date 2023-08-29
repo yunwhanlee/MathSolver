@@ -251,9 +251,9 @@ public class GM : MonoBehaviour {
                         quiz.text += replaceExtraOprKeyword(rOpr, rNums[1]);
                     }
                     else {
-                        quiz.text += LM._.localize("가 됫어요.", (int)LM.LANG_IDX.KR);
+                        quiz.text += LM._.localize(qSO.QstPlus_XEqu_End, (int)LM.LANG_IDX.KR);
                     }
-                    quiz.text += LM._.localize("<br>친구는 몇 개를 주었나요?", (int)LM.LANG_IDX.KR);
+                    quiz.text += "<br>" + LM._.localize(qSO.QstPlus_XEqu_Ask, (int)LM.LANG_IDX.KR);
 
                     //* オブジェクト
                     const float POS_X = 0.65f;
@@ -366,10 +366,10 @@ public class GM : MonoBehaviour {
         string res = "";
         switch(rOpr) {
             case "+":
-                res = $"<br><color=blue>{LM._.localize("앗! KEY개 더 있네요.", (int)LM.LANG_IDX.KR)}</color>";
+                res = $"<br><color=blue>{LM._.localize(qSO.QstPlus_XEqu_Add, (int)LM.LANG_IDX.KR)}</color>";
                 break;
             case "-": // case "minus":
-                res = $"<br><color=red>{LM._.localize("앗! KEY개 빼야되요.", (int)LM.LANG_IDX.KR)}</color>";
+                res = $"<br><color=red>{LM._.localize(qSO.QstPlus_XEqu_Minus, (int)LM.LANG_IDX.KR)}</color>";
                 break;
         }
         res = res.Replace("KEY", key);
