@@ -12,6 +12,7 @@ using System;
 public class Data {
     [Header("VALUE")]
     //* Math-Pid-Info
+    [SerializeField] bool isFinishDiagnosis;   public bool IsFinishDiagnosis {get => isFinishDiagnosis; set => isFinishDiagnosis = value;}
     [SerializeField] string myAuthorization;   public string MyAuthorization {get => myAuthorization; set => myAuthorization = value;}
     [SerializeField] string myMBR_ID;   public string MyMBR_ID {get => myMBR_ID; set => myMBR_ID = value;}
 
@@ -228,6 +229,7 @@ public class DB : MonoBehaviour {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
         //* Mathpid-API-info
+        dt.IsFinishDiagnosis = false;
         dt.MyAuthorization = "";
         dt.MyMBR_ID = "";
 

@@ -107,7 +107,6 @@ public class ResultManager : MonoBehaviour {
         //* 遺物 ボーナス
         float legacyBonus = GM._.Pl.calcLegacyBonusPer();
 
-
         //* 総合
         const float OFFSET_100PER = 1.0f;
         float totalBonus = OFFSET_100PER + lvBonus + answerCntBonus + legacyBonus;

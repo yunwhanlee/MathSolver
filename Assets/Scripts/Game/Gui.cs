@@ -90,6 +90,7 @@ public class GUI : MonoBehaviour
     public void onClickGiveUpPopUpYesBtn() {
         SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         Time.timeScale = 1;
+        
         SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public void onClickGiveUpPopUpNoBtn() {

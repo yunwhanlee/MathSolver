@@ -125,7 +125,7 @@ public class QuizManager : MonoBehaviour {
         switch (status) {
             case Status.WAITING:
                 //* 診断評価がまだなら
-                if(DB.Dt.MyAuthorization == "" && DB.Dt.MyMBR_ID == "") {
+                if(!DB.Dt.IsFinishDiagnosis) { // && DB.Dt.MyAuthorization == "" && DB.Dt.MyMBR_ID == "") {
                     diagChooseDiffPanel.SetActive(true);
                 }
                 //* 診断評価をもう受けたら
@@ -162,6 +162,7 @@ public class QuizManager : MonoBehaviour {
                 Debug.Log("진단평가 끝! 학습 단계로 넘어갑니다.");
                 wj_displayText.SetState("진단평가 완료", "", "", "");
                 status = Status.LEARNING;
+                DB.Dt.IsFinishDiagnosis = true;
                 // getLearningButton.interactable = true;
 
                 //* 結果パンネル 表示
