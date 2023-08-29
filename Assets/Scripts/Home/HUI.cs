@@ -77,6 +77,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] Sprite[] musicIconSprs;
     [SerializeField] Image soundIconImg;
     [SerializeField] Image musicIconImg;
+    //* Login
+    [SerializeField] Button loginBtn;   public Button LoginBtn {get => loginBtn;}
 
     [Header("ACHIVE & RANK")]
     [SerializeField] TextMeshProUGUI achiveRankTitleTxt; public TextMeshProUGUI AchiveRankTitleTxt {get => achiveRankTitleTxt; set => achiveRankTitleTxt = value;}
@@ -161,6 +163,9 @@ public class HUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI newFuniturePopUpTitleTxt;   public TextMeshProUGUI NewFuniturePopUpTitleTxt {get => newFuniturePopUpTitleTxt;}
     [Space(10)]
     [SerializeField] GameObject resetPopUp;
+    [Space(10)]
+    [SerializeField] GameObject loginPopUp;
+    [SerializeField] GameObject registerPopUp;
 
     void Start() {
         //* Setting
@@ -541,10 +546,30 @@ public class HUI : MonoBehaviour {
         goMapPopUp.SetActive(false);
     }
     #endregion
+    public void onClickSettingPanelLoginBtn() {
+        displayLoginPopUp();
+    }
+    public void onClickLoginPopUpRegisterTxtBtn() {
+        registerPopUp.SetActive(true);
+        loginPopUp.SetActive(false);
+    }
+    public void onClickRegisterPopUpLoginTxtBtn() {
+        displayLoginPopUp();
+    }
+    // public void onClickLoginPopUpExitBtn() {
+    //     loginPopUp.SetActive(false);
+    // }
+    // public void onClickRegisterPopUpExitBtn() {
+    //     registerPopUp.SetActive(false);
+    // }
 #endregion
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    private void displayLoginPopUp() {
+        loginPopUp.SetActive(true);
+        registerPopUp.SetActive(false);
+    }
     public void displayAchiveRankPanel() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         topGroup.SetActive(false);
