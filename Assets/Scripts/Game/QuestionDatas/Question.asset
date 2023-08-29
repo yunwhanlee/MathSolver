@@ -32,25 +32,33 @@ MonoBehaviour:
     \uC904\uC218 \uC788\uC8E0?"
   defObjNames:
   - apple
-  - banana
-  - carrot
   - onion
+  - carrot
   - orange
+  - lemon
   - potato
-  - branch
-  - rock
+  - strawberry
+  - watermelon
+  - greenapple
+  - pear
+  - pumkin
+  - grape
   jungleObjNames:
+  - banana
+  - coconut
+  - dragonfruit
+  - mango
+  - mushroom
+  - mushroomdot
+  jungleBushNames:
   - sunflowerseed
   - cherry
   - blueberry
   - dotory
-  - leaf
   objNameList:
   - apple
   - onion
   - orange
   - potato
-  - branch
-  - rock
   obj1Name: banana
   obj2Name: carrot

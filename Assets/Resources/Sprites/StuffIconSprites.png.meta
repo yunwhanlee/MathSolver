@@ -417,7 +417,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pear
+      name: pear
       rect:
         serializedVersion: 2
         x: 256
@@ -763,7 +763,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Pear: 228615907
       apple: -221108179
       banana: -1056093916
       blueberry: -623533278
@@ -786,6 +785,7 @@ TextureImporter:
       mushroomDot: 1844104560
       onion: -1390743791
       orange: 1675970767
+      pear: 228615907
       potato: -1667832429
       pumkin: -2121738660
       rock: 472174279

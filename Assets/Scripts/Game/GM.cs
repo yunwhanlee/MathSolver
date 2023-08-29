@@ -34,7 +34,7 @@ public class GM : MonoBehaviour {
     public QuizManager qm;
     public ResultManager rm;
     public GameTalkManager gtm;
-    public QuestionSO qSO;
+    public QuestionSO[] qSOs;
 
     [Header("ACTION")]
     [SerializeField] UnityAction onAnswerObjAction; public UnityAction OnAnswerObjAction {get => onAnswerObjAction; set => onAnswerObjAction = value;}
@@ -224,74 +224,74 @@ public class GM : MonoBehaviour {
         quiz.text = "DO NOT SUPPORT";
 
         initObjList();
-        qSO.Obj1Name = Util.getStuffObjRandomList(qSO.ObjNameList);
-        qSO.Obj2Name = Util.getStuffObjRandomList(qSO.ObjNameList);
+        qSOs[0].Obj1Name = Util.getStuffObjRandomList(qSOs[0].ObjNameList);
+        qSOs[0].Obj2Name = Util.getStuffObjRandomList(qSOs[0].ObjNameList);
         int lN1 = int.Parse(lNums[0]); 
         int lN2 = lNums.Count > 1? int.Parse(lNums[1]) : 0;
         int rN1 = rNums.Count > 0? int.Parse(rNums[0]) : 0;
         int rN2 = rNums.Count > 1? int.Parse(rNums[1]) : 0;
-        Debug.Log($"coMakeQuiz:: OBJ1= {qSO.Obj1Name}, OBJ2= {qSO.Obj2Name}, lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
+        Debug.Log($"coMakeQuiz:: OBJ1= {qSOs[0].Obj1Name}, OBJ2= {qSOs[0].Obj2Name}, lN1= {lN1}, lN2= {lN2}, rN1= {rN1}, rN2= {rN2}");
         switch(lOpr) {
             case "+": {
                 //* (定数式) N1 + N2 = ?
                 if(!isXEquation) {
-                    quiz.text = replaceTxtKeyword(qSO.QstPlus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                    yield return coCreateObj(qSO.Obj1Name, lN1);
-                    yield return coCreateOprBlinkBox(lOpr, qSO.Obj1Name, lN2);
+                    quiz.text = replaceTxtKeyword(qSOs[0].QstPlus, new string[]{qSOs[0].Obj1Name, lNums[0], lNums[1]});
+                    yield return coCreateObj(qSOs[0].Obj1Name, lN1);
+                    yield return coCreateOprBlinkBox(lOpr, qSOs[0].Obj1Name, lN2);
                     //* Callback
-                    OnAnswerObjAction += () => addObj(qSO.Obj1Name, befNum: lN1, lN2);
+                    OnAnswerObjAction += () => addObj(qSOs[0].Obj1Name, befNum: lN1, lN2);
                 }
                 //* (X方程式) N1 + X = N2
                 else {
                     //* 文章
-                    quiz.text = replaceTxtKeyword(qSO.QstPlus_XEqu, new string[]{qSO.Obj1Name, lNums[0], rNums[0]});
+                    quiz.text = replaceTxtKeyword(qSOs[0].QstPlus_XEqu, new string[]{qSOs[0].Obj1Name, lNums[0], rNums[0]});
                     //* ± N3
                     if(rNums.Count > 1) {
                         rOpr = (rOpr == "minus")? "-" : rOpr; //* 言語➝記号に変更
                         quiz.text += replaceExtraOprKeyword(rOpr, rNums[1]);
                     }
                     else {
-                        quiz.text += LM._.localize(qSO.QstPlus_XEqu_End, (int)LM.LANG_IDX.KR);
+                        quiz.text += LM._.localize(qSOs[0].QstPlus_XEqu_End, (int)LM.LANG_IDX.KR);
                     }
-                    quiz.text += "<br>" + LM._.localize(qSO.QstPlus_XEqu_Ask, (int)LM.LANG_IDX.KR);
+                    quiz.text += "<br>" + LM._.localize(qSOs[0].QstPlus_XEqu_Ask, (int)LM.LANG_IDX.KR);
 
                     //* オブジェクト
                     const float POS_X = 0.65f;
-                    yield return coCreateObj(qSO.Obj1Name, rN1, POS_X);
-                    yield return coCreateQuestionMarkBox(qSO.Obj1Name, lN1, -POS_X);
+                    yield return coCreateObj(qSOs[0].Obj1Name, rN1, POS_X);
+                    yield return coCreateQuestionMarkBox(qSOs[0].Obj1Name, lN1, -POS_X);
                     //* ± N3
                     if(rNums.Count > 1) {
-                        yield return coCreateOprBlinkBox(rOpr, qSO.Obj1Name, rN2, POS_X);
+                        yield return coCreateOprBlinkBox(rOpr, qSOs[0].Obj1Name, rN2, POS_X);
                         //* Callback Right BlinkBox Operation
                         Debug.Log($"± N3 rOpr-> {rOpr}");
                         switch(rOpr) {
                             case "+":
-                                OnAnswerObjAction += () => addObj(qSO.Obj1Name, befNum: 0, rN2, POS_X);
+                                OnAnswerObjAction += () => addObj(qSOs[0].Obj1Name, befNum: 0, rN2, POS_X);
                                 break;
                             case "-":
-                                OnAnswerObjAction += () => substractObj(qSO.Obj1Name, rN2, tgBoxOpt: "RightBox");
+                                OnAnswerObjAction += () => substractObj(qSOs[0].Obj1Name, rN2, tgBoxOpt: "RightBox");
                                 break;
                         }
                     }
                     //* Callback: Left ?MarkBox Operation 
                     OnAnswerBoxAction += showQuestionMarkAnswerBox;
-                    OnAnswerBoxAction += (answer) => addObj(qSO.Obj1Name + "?", befNum: 0, answer, -POS_X);
+                    OnAnswerBoxAction += (answer) => addObj(qSOs[0].Obj1Name + "?", befNum: 0, answer, -POS_X);
                 }
                 break;
             }
             case "-": { //* 38 - 13 = ?
-                quiz.text = replaceTxtKeyword(qSO.QstMinus, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                yield return coCreateObj(qSO.Obj1Name, lN1);// createObj(qSO.Obj1Name, lN1);
-                yield return coCreateOprBlinkBox(lOpr, qSO.Obj1Name, lN2);
+                quiz.text = replaceTxtKeyword(qSOs[0].QstMinus, new string[]{qSOs[0].Obj1Name, lNums[0], lNums[1]});
+                yield return coCreateObj(qSOs[0].Obj1Name, lN1);// createObj(qSO.Obj1Name, lN1);
+                yield return coCreateOprBlinkBox(lOpr, qSOs[0].Obj1Name, lN2);
                 //* Callback
-                OnAnswerObjAction += () => substractObj(qSO.Obj1Name, lN2, tgBoxOpt: "LastBox");
+                OnAnswerObjAction += () => substractObj(qSOs[0].Obj1Name, lN2, tgBoxOpt: "LastBox");
                 break;
             }
             case "times": { //* 31 times 2
-                quiz.text = replaceTxtKeyword(qSO.QstMultiply, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
-                yield return coCreateObj(qSO.Obj1Name, lN1);
+                quiz.text = replaceTxtKeyword(qSOs[0].QstMultiply, new string[]{qSOs[0].Obj1Name, lNums[0], lNums[1]});
+                yield return coCreateObj(qSOs[0].Obj1Name, lN1);
                 //* Callback
-                OnAnswerObjAction += () => multiplyObj(qSO.Obj1Name, lN1, lN2);
+                OnAnswerObjAction += () => multiplyObj(qSOs[0].Obj1Name, lN1, lN2);
                 break;
             }
             case "frac": {
@@ -302,14 +302,14 @@ public class GM : MonoBehaviour {
                 int rest = lN1 % lN2;
                 Debug.Log($"value= {value}, rest= {rest}");
 
-                quiz.text = replaceTxtKeyword(qSO.QstDivide, new string[]{qSO.Obj1Name, lNums[0], lNums[1]});
+                quiz.text = replaceTxtKeyword(qSOs[0].QstDivide, new string[]{qSOs[0].Obj1Name, lNums[0], lNums[1]});
                 //* 残りが有ったら、分数で表記
                 if(rest != 0)
                     quiz.text += LM._.localize("(분수로)", (int)LM.LANG_IDX.KR);//"\n나머지는요?\n(분수로 알려주세요.)";
 
-                yield return coCreateObj(qSO.Obj1Name, lN1);
+                yield return coCreateObj(qSOs[0].Obj1Name, lN1);
                 //* Callback
-                OnAnswerObjAction += () => divideObj(qSO.Obj1Name, befNum: lN1, lN2);
+                OnAnswerObjAction += () => divideObj(qSOs[0].Obj1Name, befNum: lN1, lN2);
                 break;
             }
             case "underline":
@@ -319,12 +319,12 @@ public class GM : MonoBehaviour {
 
                 const float POS_X = 0.65f;
                 int gcd = Util.getGreatestCommonDivisor(lN1, lN2);
-                quiz.text = replaceTxtKeyword(qSO.QstGreatestCommonDivisor, new string[]{qSO.Obj1Name, lNums[0], lNums[1], qSO.Obj2Name});
-                yield return coCreateObj(qSO.Obj1Name, lN1, posX: -POS_X);
-                yield return coCreateObj(qSO.Obj2Name, lN2, posX: POS_X);
+                quiz.text = replaceTxtKeyword(qSOs[0].QstGreatestCommonDivisor, new string[]{qSOs[0].Obj1Name, lNums[0], lNums[1], qSOs[0].Obj2Name});
+                yield return coCreateObj(qSOs[0].Obj1Name, lN1, posX: -POS_X);
+                yield return coCreateObj(qSOs[0].Obj2Name, lN2, posX: POS_X);
                 //* Callback
-                OnAnswerObjAction += () => greatestCommonDivisorObj(qSO.Obj1Name, lN1, gcd, -POS_X);
-                OnAnswerObjAction += () => greatestCommonDivisorObj(qSO.Obj2Name, lN2, gcd, POS_X);
+                OnAnswerObjAction += () => greatestCommonDivisorObj(qSOs[0].Obj1Name, lN1, gcd, -POS_X);
+                OnAnswerObjAction += () => greatestCommonDivisorObj(qSOs[0].Obj2Name, lN2, gcd, POS_X);
                 break;
             }
         }
@@ -333,9 +333,9 @@ public class GM : MonoBehaviour {
     }
 
     public void initObjList() {
-        string[] resList = (bgStatus == BG_STT.Bush)? qSO.JungleObjNames : qSO.DefObjNames;
+        string[] resList = (bgStatus == BG_STT.Bush)? qSOs[0].JungleObjNames : qSOs[0].DefObjNames;
         Debug.Log($"initObjList():: bgStatus= <b>{bgStatus}</b>, resList.Length= {resList.Length}");
-        qSO.ObjNameList = new List<string>(resList);
+        qSOs[0].ObjNameList = new List<string>(resList);
         destroyAllObj();
     }
     private void destroyAllObj() {
@@ -366,10 +366,10 @@ public class GM : MonoBehaviour {
         string res = "";
         switch(rOpr) {
             case "+":
-                res = $"<br><color=blue>{LM._.localize(qSO.QstPlus_XEqu_Add, (int)LM.LANG_IDX.KR)}</color>";
+                res = $"<br><color=blue>{LM._.localize(qSOs[0].QstPlus_XEqu_Add, (int)LM.LANG_IDX.KR)}</color>";
                 break;
             case "-": // case "minus":
-                res = $"<br><color=red>{LM._.localize(qSO.QstPlus_XEqu_Minus, (int)LM.LANG_IDX.KR)}</color>";
+                res = $"<br><color=red>{LM._.localize(qSOs[0].QstPlus_XEqu_Minus, (int)LM.LANG_IDX.KR)}</color>";
                 break;
         }
         res = res.Replace("KEY", key);
@@ -388,7 +388,7 @@ public class GM : MonoBehaviour {
             if (enumName == objName) {
                 int idx = (int)val;
                 res =  objSprs[idx];
-                Debug.Log($"getObjSprite({objName}):: enumName= {enumName}, res= {res}");
+                Debug.Log($"getObjSprite():: objName({objName}) == enumName({enumName}), res= {res}");
             }
         }
         return res;

@@ -40,40 +40,36 @@ public class Enum {
     public enum LAYER {Chair};
     public enum SORTING_LAYER {Mat, Default, FrontDecoObj};
     public enum HOME_EF_IDX {FunitureSetupEF};
-    public enum OBJ_SPR_IDX {
-        //* FOREST
+    public enum OBJ_SPR_IDX { //! GMスクリプトのobjSprsと順番を合わせること！
         Apple,
-        Onion,
+        Banana,
+        Blueberry,
+        Branch,
         Carrot,
-        Lemon,
-        Potato,
-        Strawberry,
-        WaterMelon,
-        GreenApple,
-        Pear,
-        Pumkin,
-        Grape,
-        //* JUNGLE SMALL BUSH
-        SunFlowerSeed, 
-        Cherry, 
-        Dotory, 
-        //* JUNGLE
+        Cherry,
+        Clover,
         Coconut,
+        Coin,
+        Dotory,
         DragonFruit,
+        Feather,
+        Grape,
+        GreenApple,
+        Leaf,
+        Lemon,
         Mango,
         Mushroom,
         MushroomDot,
-        //* HOUSE BUILD
-        Clover,
-        Branch,
-        Leaf,
+        Onion,
+        Orange,
+        Pear,
+        Potato,
+        Pumkin,
         Rock,
-        Feather,
-        //* CALCULATION MONEY
-        Coin,
         SilverCoin,
-        //* Minigame
-        Exclamation, 
+        Strawberry,
+        SunFlowerSeed,
+        WaterMelon,
     };
     public enum RWD_IDX {
         Coin, Exp, WoodChair, FrogChair, 

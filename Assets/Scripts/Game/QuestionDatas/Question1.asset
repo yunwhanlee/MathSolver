@@ -33,25 +33,26 @@ MonoBehaviour:
     OBJ1N1\uAC1C\uC640 OBJ2N2\uAC1C\uB97C \uCD5C\uB300\uD55C \uB611\uAC19\uC774 \uB098\uB204\uACE0\uC2F6\uC5B4\uC694,
     \uCD5C\uB300 \uBA87\uC77C\uC774 \uB418\uB098\uC694?"
   defObjNames:
-  - leaf
-  - branch
-  - rock
+  - clover
   - branch
   - leaf
   - rock
+  - feather
   jungleObjNames:
+  - clover
+  - branch
   - leaf
   - rock
+  - feather
+  jungleBushNames:
+  - clover
   - leaf
-  - branch
-  - rock
-  - branch
+  - feather
   objNameList:
-  - leaf
+  - clover
   - branch
   - leaf
   - rock
-  - potato
-  - rock
+  - feather
   obj1Name: rock
-  obj2Name: branch
+  obj2Name: leaf

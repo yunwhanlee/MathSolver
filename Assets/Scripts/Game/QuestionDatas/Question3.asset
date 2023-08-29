@@ -47,6 +47,11 @@ MonoBehaviour:
   - coin
   - silvercoin
   - coin
+  - silvercoin
+  jungleBushNames:
+  - coin
+  - silvercoin
+  - coin
   objNameList:
   - coin
   - silvercoin
