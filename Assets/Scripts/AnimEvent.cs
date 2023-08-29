@@ -52,7 +52,6 @@ public class AnimEvent : MonoBehaviour {
     }
 
     public void playHelpLogoSpawnSFX() {
-        
         SM._.sfxPlay(SM.SFX.Jump.ToString());
     }
     public void playTitleLogoSpawnSFX() {

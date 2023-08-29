@@ -484,7 +484,7 @@ public class HUI : MonoBehaviour {
             // showErrorMsgPopUp("먼저 메인퀘스트 달성을 완료해주세요.");
             // return;
         // }
-        HM._.state = HM.STATE.POPUP;
+        HM._.state = HM.STATE.NORMAL;
         canvasWorldMap.gameObject.SetActive(true);
         canvasStatic.gameObject.SetActive(false);
         goGamePopUp.gameObject.SetActive(false);
