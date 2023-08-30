@@ -21,9 +21,11 @@ public class HM : MonoBehaviour {
     public HomeTalkManager htm;
     public AchieveManager am;
     public QuestManager qm;
+    public RankManager rm;
     public WorldMapManager wmm;
     public HomeMinigameManager hmgm;
     public AccountManager actm;
+
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;
