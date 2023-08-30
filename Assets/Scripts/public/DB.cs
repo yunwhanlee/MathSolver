@@ -168,15 +168,7 @@ public class DB : MonoBehaviour {
         }
 
         //* ロードする前に代入したcopyDtで、保存できないタイプのデータを設定
-        //* 家具
-        setFunitureTypeData(dt.Funitures, copyDt.Funitures);
-        setFunitureTypeData(dt.Decorations, copyDt.Decorations);
-        setFunitureTypeData(dt.Mats, copyDt.Mats);
-        setBgFunitureTypeData(dt.Bgs, copyDt.Bgs);
-        //* プレイヤー
-        setPlayerSkinData(dt.PlSkins, copyDt.PlSkins);
-        //* ペット
-        setPetSkinData(dt.PtSkins, copyDt.PtSkins);
+        resetItem(copyDt);
     }
     /// -----------------------------------------------------------------------------------------------------------------
     #region QUIT APP EVENT
@@ -225,6 +217,18 @@ public class DB : MonoBehaviour {
     /// -----------------------------------------------------------------------------------------------------------------
     #region RESET
     /// -----------------------------------------------------------------------------------------------------------------
+    public void resetItem(Data copyDt) {
+        Debug.Log("resetItem()::");
+        //* 家具
+        setFunitureTypeData(dt.Funitures, copyDt.Funitures);
+        setFunitureTypeData(dt.Decorations, copyDt.Decorations);
+        setFunitureTypeData(dt.Mats, copyDt.Mats);
+        setBgFunitureTypeData(dt.Bgs, copyDt.Bgs);
+        //* プレイヤー
+        setPlayerSkinData(dt.PlSkins, copyDt.PlSkins);
+        //* ペット
+        setPetSkinData(dt.PtSkins, copyDt.PtSkins);
+    }
     public void reset() {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
@@ -317,6 +321,18 @@ public class DB : MonoBehaviour {
         Array.ForEach(dt.Bgs, bg => bg.IsLock = true);
         Array.ForEach(dt.Mats, mt => mt.IsLock = true);
 
+        //* Notify
+        Array.ForEach(dt.Funitures, ft => ft.IsNotify = false);
+        Array.ForEach(dt.Decorations, dc => dc.IsNotify = false);
+        Array.ForEach(dt.Bgs, bg => bg.IsNotify = false);
+        Array.ForEach(dt.Mats, mt => mt.IsNotify = false);
+
+        //* Arrange
+        Array.ForEach(dt.Funitures, ft => ft.IsArranged = false);
+        Array.ForEach(dt.Decorations, dc => dc.IsArranged = false);
+        Array.ForEach(dt.Bgs, bg => bg.IsArranged = false);
+        Array.ForEach(dt.Mats, mt => mt.IsArranged = false);
+
         //* 位置
         Array.ForEach(dt.Funitures, ft => ft.Pos = Vector3.zero);
         Array.ForEach(dt.Decorations, dc => dc.Pos = Vector3.zero);
@@ -352,8 +368,6 @@ public class DB : MonoBehaviour {
         dt.PtSkins[0].IsLock = false;
         dt.PtSkins[0].IsArranged = true;
         #endregion
-
-        // SceneManager.LoadScene(Enum.SCENE.Title.ToString());
     }
     #endregion
     /// -----------------------------------------------------------------------------------------------------------------
