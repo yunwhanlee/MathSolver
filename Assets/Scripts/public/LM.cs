@@ -21,20 +21,20 @@ public class LM : MonoBehaviour { //* Language Manager
     public event Action actLocalizechanged = () => {};
     public int curLangIndex;
     public List<Lang> langs;
-    // public TMP_FontAsset krFt;
-    // public TMP_FontAsset jpFt;
 
     #region SINGLETON
     void Awake() {
         if(_ == null) {
             _ = this;
             DontDestroyOnLoad(this);
+            initLang();
         }
         else Destroy(this);
-        initLang();
     }
     #endregion
 
+    //! Titleシーンで最新化しても、際読み込むと元に戻る。。
+    //* HomeシーンのLM(Script)Componentをコピーして、Titleシーンに貼り付けると解決できる。
     [ContextMenu("GOOGLE スプレッドシート 最新化")]
     void getLang() => StartCoroutine(coGetLang());
 
@@ -50,7 +50,7 @@ public class LM : MonoBehaviour { //* Language Manager
 ///------------------------------------------------------------------------------------------
 #region FUNC
 ///------------------------------------------------------------------------------------------
-    void initLang() {
+    private void initLang() {
         //* LOAD APPLICATION SYSTEM LANGUAGE DATA
         Debug.Log("initLang():: Application.systemLanguage= " + Application.systemLanguage);
         const int NOTHING = -1;
@@ -72,7 +72,7 @@ public class LM : MonoBehaviour { //* Language Manager
         yield return www.SendWebRequest();
         setLangList(www.downloadHandler.text);
     }
-    void setLangList(string tsv) {
+    private void setLangList(string tsv) {
         //* 2次元配列
         string[] row = tsv.Split('\n');
         int rowSize = row.Length;

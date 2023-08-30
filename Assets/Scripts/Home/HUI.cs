@@ -167,7 +167,12 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject loginPopUp;
     [SerializeField] GameObject registerPopUp;
 
+    //* DEBUG
+    public TextMeshProUGUI googleSheetLangLenTxt;
+
     void Start() {
+        googleSheetLangLenTxt.text = $"GSVLCnt= {LM._.langs[0].value.Count}";
+
         //* Setting
         soundIconImg.sprite = DB.Dt.IsActiveSound? soundIconSprs[ON] : soundIconSprs[OFF];
         musicIconImg.sprite = DB.Dt.IsActiveMusic? musicIconSprs[ON] : musicIconSprs[OFF];
