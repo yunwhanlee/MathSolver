@@ -13,6 +13,7 @@ public class UserInfo {
     [HideInInspector] string password; public string Password {get => password;}
     [SerializeField] string info; public string Info {get => info;}
 
+	[SerializeField] string rankNum;	public string RankNum {get => rankNum; set => rankNum = value;}
 	[SerializeField] string lv;	public string Lv {get => lv;}
 	[SerializeField] string fame;	public string Fame {get => fame;}
 	[SerializeField] string skinName;	public string SkinName {get => skinName;}
@@ -79,7 +80,7 @@ public class AccountManager : MonoBehaviour {
 	public void reqAutoLogin() => StartCoroutine(coAutoLogin());
 	public void reqGetAllUsers() => StartCoroutine(coGetAllUsers());
 
-	IEnumerator coGetAllUsers() {
+	IEnumerator coGetAllUsers() { //* サーバから、登録したユーザリスト習得
 		WWWForm form = new WWWForm();
 		form.AddField("command", "get_all_users");
 		form.AddField("id", "");
@@ -97,12 +98,32 @@ public class AccountManager : MonoBehaviour {
 			string res = www.downloadHandler.text;
 			Debug.Log("coGetAllUsers():: <color=yellow>res= " + res + "</color>");
 
-        	UserData userDt = JsonUtility.FromJson<UserData>("{\"data\":" + res + "}");
+			//* ユーザリストをクラス化 (リスト)
+			UserData userDt = JsonUtility.FromJson<UserData>("{\"data\":" + res + "}");
 			foreach (UserInfo userInfo in userDt.data) {
 				Debug.Log("id: " + userInfo.Id);
 				Debug.Log("info: " + userInfo.Info);
 				userInfoList.Add(new UserInfo(userInfo.Id, userInfo.Info));
 			}
+
+			//* Sort
+			Debug.Log("userInfoList レベルで SORT");
+			userInfoList.Sort((a, b) => {
+				int levelComparison = a.Lv.CompareTo(b.Lv);
+				if (levelComparison != 0) {
+					return levelComparison; // 레벨로 우선 정렬
+				}
+				else {
+					return a.Fame.CompareTo(b.Fame); // 레벨이 같을 경우 Fame으로 정렬
+				}
+			});
+			userInfoList.Reverse();
+
+			for(int i=0; i<userInfoList.Count; i++)
+				userInfoList[i].RankNum = $"{i + 1}";
+
+			//* クラスリストをRankPanelのContentとして、生成
+			HM._.rm.createRankUserList();
 		}
 	}
 
