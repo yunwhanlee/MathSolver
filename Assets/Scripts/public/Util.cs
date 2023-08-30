@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class Util : MonoBehaviour
 {
@@ -77,5 +78,24 @@ public class Util : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public static bool preventInputTxtBug(string str, bool isOnlyEng = false) {
+        bool res = false;
+        if(str.Contains(" ")) {
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Can not use Space."));
+            res = true;
+        }
+        else if(str == "") {
+            HM._.ui.showErrorMsgPopUp(LM._.localize("Please Input Text."));
+            res = true;
+        }
+        else if(isOnlyEng) {
+            if(!Regex.IsMatch(str, "^[a-zA-Z0-9]*$")) {
+                HM._.ui.showErrorMsgPopUp(LM._.localize("Only the English and Number."));
+                res = true;
+            }
+        }
+        return res;
     }
 }

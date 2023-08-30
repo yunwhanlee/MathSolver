@@ -53,10 +53,15 @@ public class AccountManager : MonoBehaviour {
 #region EVENT
 /// -----------------------------------------------------------------------------------------------------------------
 	public void onClickSignInLoginBtn() {
+		if(Util.preventInputTxtBug(idInputs[LOGIN].text, isOnlyEng: true)) return;
+		if(Util.preventInputTxtBug(passwordInputs[LOGIN].text, true)) return;
+
 		SM._.sfxPlay(SM.SFX.BtnClick.ToString());
 		reqLogin();
 	}
 	public void onClickSignUpRegisterBtn() {
+		if(Util.preventInputTxtBug(idInputs[LOGIN].text, true)) return;
+		if(Util.preventInputTxtBug(passwordInputs[LOGIN].text, true)) return;
 		SM._.sfxPlay(SM.SFX.BtnClick.ToString());
 		reqRegister();
 	} 
