@@ -79,6 +79,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] Image musicIconImg;
     //* Login
     [SerializeField] Button loginBtn;   public Button LoginBtn {get => loginBtn;}
+    [SerializeField] Button logoutBtn;   public Button LogoutBtn {get => logoutBtn;}
+    [SerializeField] TextMeshProUGUI loginUserIDTxt;    public TextMeshProUGUI LoginUserIDTxt {get => loginUserIDTxt;}
 
     [Header("ACHIVE & RANK")]
     [SerializeField] TextMeshProUGUI achiveRankTitleTxt; public TextMeshProUGUI AchiveRankTitleTxt {get => achiveRankTitleTxt; set => achiveRankTitleTxt = value;}
@@ -123,8 +125,6 @@ public class HUI : MonoBehaviour {
     [SerializeField] Animator switchScreenAnim; public Animator SwitchScreenAnim {get => switchScreenAnim;}
     [SerializeField] RectTransform handFocusTf;   public RectTransform HandFocusTf {get => handFocusTf;}
 
-    
-
     [Header("POP UP")]
     [SerializeField] GameObject goGamePopUp; public GameObject GoGamePopUp {get => goGamePopUp; set => goGamePopUp = value;}
     [SerializeField] GameObject errorMsgPopUp;  public GameObject ErrorMsgPopUp {get => errorMsgPopUp; set => errorMsgPopUp = value;}
@@ -164,8 +164,8 @@ public class HUI : MonoBehaviour {
     [Space(10)]
     [SerializeField] GameObject resetPopUp;
     [Space(10)]
-    [SerializeField] GameObject loginPopUp;
-    [SerializeField] GameObject registerPopUp;
+    [SerializeField] GameObject loginPopUp;     public GameObject LoginPopUp {get => loginPopUp;}
+    [SerializeField] GameObject registerPopUp;     public GameObject RegisterPopUp {get => registerPopUp;}
 
     //* DEBUG
     public TextMeshProUGUI googleSheetLangLenTxt;
@@ -221,16 +221,16 @@ public class HUI : MonoBehaviour {
         achiveRankTitleTxt.text = LM._.localize("Achivement");//Enum.ACHIVERANK.Achivement.ToString();
     }
 
-    void Update() {
+    // void Update() {
         //! TEST
-        if(Input.GetKeyDown(KeyCode.W)) {
-            Debug.Log("GetKeyDown(KeyCode.W)");
-            StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
-                {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
-                {rwdSOList[(int)Enum.RWD_IDX.Exp], DB.Dt.MaxExp},
-            }));
-        }
-    }
+        // if(Input.GetKeyDown(KeyCode.W)) {
+        //     Debug.Log("GetKeyDown(KeyCode.W)");
+        //     StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
+        //         {rwdSOList[(int)Enum.RWD_IDX.Coin], 100},
+        //         {rwdSOList[(int)Enum.RWD_IDX.Exp], DB.Dt.MaxExp},
+        //     }));
+        // }
+    // }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -418,6 +418,7 @@ public class HUI : MonoBehaviour {
         topGroup.SetActive(false);
         infoDialog.SetActive(false);
         settingPanel.SetActive(true);
+        nickName.text = DB.Dt.NickName;
     }
     public void onClickSettingPanelCloseBtn() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());

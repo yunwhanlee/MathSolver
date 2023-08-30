@@ -23,6 +23,7 @@ public class HM : MonoBehaviour {
     public QuestManager qm;
     public WorldMapManager wmm;
     public HomeMinigameManager hmgm;
+    public AccountManager actm;
 
     [Header("MATERIAL")]
     public Material sprUnlitMt;
@@ -50,6 +51,9 @@ public class HM : MonoBehaviour {
         createFunitureItemsBySaveData(DB.Dt.Mats);
         setCharaSpriteLibraryBySaveData(DB.Dt.PlSkins);
         setCharaSpriteLibraryBySaveData(DB.Dt.PtSkins);
+
+        if(DB.Dt.IsLogin)
+            actm.reqAutoLogin();
 
         //* LEGACY BONUS VAL
         int legacyCnt = 0;

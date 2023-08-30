@@ -19,6 +19,10 @@ public class Data {
     //* Setting
     [SerializeField] bool isActiveSound;    public bool IsActiveSound {get => isActiveSound; set => isActiveSound = value;}
     [SerializeField] bool isActiveMusic;    public bool IsActiveMusic {get => isActiveMusic; set => isActiveMusic = value;}
+    [Header("ACCOUNT")]
+    [SerializeField] bool isLogin;          public bool IsLogin {get => isLogin; set => isLogin = value;}
+    [SerializeField] string accountID;      public string AccountID {get => accountID; set => accountID = value;}
+    [SerializeField] string accountPassword;      public string AccountPassword {get => accountPassword; set => accountPassword = value;}
 
     //* Player
     [SerializeField] string nickName; public string NickName {get => nickName; set => nickName = value;}
@@ -240,6 +244,9 @@ public class DB : MonoBehaviour {
         //* Setting
         dt.IsActiveSound = true;
         dt.IsActiveMusic = true;
+        dt.IsLogin = false;
+        dt.AccountID = "";
+        dt.AccountPassword = "";
 
         dt.NickName = "";
         dt.Lv = 1;
