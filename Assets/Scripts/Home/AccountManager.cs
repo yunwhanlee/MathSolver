@@ -15,6 +15,10 @@ public class AccountManager : MonoBehaviour {
 	[SerializeField] string infoDtStr;
 	[SerializeField] TextMeshProUGUI autoLoginLogTxt;
 	private string serverURL = "https://4ruh0zv0zf.execute-api.ap-northeast-1.amazonaws.com/default/Lambda";
+
+	void Start() {
+		autoLoginLogTxt.gameObject.SetActive(false);
+	}
 /// -----------------------------------------------------------------------------------------------------------------
 #region EVENT
 /// -----------------------------------------------------------------------------------------------------------------
@@ -35,6 +39,10 @@ public class AccountManager : MonoBehaviour {
 	public void reqRegister() => StartCoroutine(coAccount(Type.register));
 	public void reqSaveInfo(string infoDtStr) => StartCoroutine(coAccount(Type.save, infoDtStr));
 	public void reqAutoLogin() => StartCoroutine(coAutoLogin());
+	public void clearAllInputFieldTxt() {
+		Array.ForEach(idInputs, idInput => idInput.text = "");
+		Array.ForEach(passwordInputs, pwInput => pwInput.text = "");
+	}
 	IEnumerator coAccount(Type command, string infoDtStr = "") {
 		WWWForm form = new WWWForm();
 		int idx = (command == Type.login || command == Type.save)? LOGIN: REGISTER;
@@ -49,6 +57,7 @@ public class AccountManager : MonoBehaviour {
 		string res = www.downloadHandler.text;
 		Debug.Log("AccountManager():: <color=yellow>res= " + res + "</color>");
 
+		//* 結果
 		if(res.Contains("Fail")) {
 			string msg = res.Split(":")[1];
 			HM._.ui.showErrorMsgPopUp(msg);
@@ -85,7 +94,6 @@ public class AccountManager : MonoBehaviour {
 		}
 	}
 	public IEnumerator coAutoLogin() {
-		Debug.Log("<color=red>coAutoLogin()::</color>");
 		var dt = DB.Dt;
 		Item curSkin = Array.Find(dt.PlSkins, skin => skin.IsArranged);
 		infoDtStr = $"{dt.NickName}_{dt.Lv}_{dt.Fame}_{curSkin.Name}";
@@ -100,24 +108,27 @@ public class AccountManager : MonoBehaviour {
 
 		yield return www.SendWebRequest();
 		string res = www.downloadHandler.text;
-		Debug.Log("AccountManager():: <color=yellow>res= " + res + "</color>");
+		Debug.Log("coAutoLogin():: <color=yellow>res= " + res + "</color>");
 
+		//* 結果
 		if(res.Contains("Fail")) {
 			string msg = res.Split(":")[1];
-			HM._.ui.showErrorMsgPopUp(msg);
+			StartCoroutine(coDisplayAutoLoginLog(msg, "red"));
 		}
 		else if(res.Contains("Succeed")) {
 			string msg = res.Split(":")[1];
-			//* AutoLoginログ 表示
-			autoLoginLogTxt.gameObject.SetActive(true);
-			autoLoginLogTxt.text = msg;
-			yield return Util.time3;
-			autoLoginLogTxt.gameObject.SetActive(false);
+			StartCoroutine(coDisplayAutoLoginLog(msg, "blue"));
 
 			//* SettingPanalで、ログアウトボタンに切り替え
 			HM._.ui.LoginBtn.gameObject.SetActive(false);
 			HM._.ui.LogoutBtn.gameObject.SetActive(true);
 		}
+	}
+	private IEnumerator coDisplayAutoLoginLog(string msg, string fontClr) {
+		autoLoginLogTxt.gameObject.SetActive(true);
+		autoLoginLogTxt.text = $"<color={fontClr}>{msg}</color>";
+		yield return Util.time2;
+		autoLoginLogTxt.gameObject.SetActive(false);
 	}
 #endregion
 }

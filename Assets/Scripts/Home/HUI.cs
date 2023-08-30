@@ -555,14 +555,13 @@ public class HUI : MonoBehaviour {
     }
     #endregion
     public void onClickSettingPanelLoginBtn() {
-        displayLoginPopUp();
+        displaySignInUpPopUp(isSginIn: true);
     }
     public void onClickLoginPopUpRegisterTxtBtn() {
-        registerPopUp.SetActive(true);
-        loginPopUp.SetActive(false);
+        displaySignInUpPopUp(isSginIn: false);
     }
     public void onClickRegisterPopUpLoginTxtBtn() {
-        displayLoginPopUp();
+        displaySignInUpPopUp(isSginIn: true);
     }
     // public void onClickLoginPopUpExitBtn() {
     //     loginPopUp.SetActive(false);
@@ -574,9 +573,10 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    private void displayLoginPopUp() {
-        loginPopUp.SetActive(true);
-        registerPopUp.SetActive(false);
+    private void displaySignInUpPopUp(bool isSginIn) {
+        HM._.actm.clearAllInputFieldTxt();
+        loginPopUp.SetActive(isSginIn);
+        registerPopUp.SetActive(!isSginIn);
     }
     public void displayAchiveRankPanel() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());

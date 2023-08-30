@@ -1209,6 +1209,9 @@ MonoBehaviour:
     - Good Job
     - That`s right
     - Login
+    - Logout
+    - Now ranking registration is possible!
+    - Login success
     - Please select an item!
     - Not enough coin!
     - Already in use!
@@ -1839,6 +1842,9 @@ MonoBehaviour:
     - "\uC798\uD588\uC5B4\uC694"
     - "\uAD1C\uCC2E\uC544\uC694"
     - "\uB85C\uADF8\uC778"
+    - "\uB85C\uADF8\uC544\uC6C3"
+    - "\uC774\uC81C \uB7AD\uD0B9\uB4F1\uB85D\uC774 \uAC00\uB2A5\uD569\uB2C8\uB2E4!"
+    - "\uB85C\uADF8\uC778 \uC131\uACF5"
     - "\uC544\uC774\uD0EC\uC744 \uC120\uD0DD\uD574\uC8FC\uC138\uC694!"
     - "\uCF54\uC778\uC774 \uBD80\uC871\uD569\uB2C8\uB2E4!"
     - "\uC774\uBBF8 \uC0AC\uC6A9 \uC911\uC785\uB2C8\uB2E4."
@@ -2616,6 +2622,9 @@ MonoBehaviour:
     - "\u30CA\u30A4\u30B9\r"
     - "\u5927\u4E08\u592B\r"
     - "\u30ED\u30B0\u30A4\u30F3\r"
+    - "\u30ED\u30B0\u30A2\u30A6\u30C8\r"
+    - "\u30E9\u30F3\u30AF\u30A2\u30C3\u30D7\u30C7\u30FC\u30C8\u304C\u53EF\u80FD\u3067\u3059!\r"
+    - "\u30ED\u30B0\u30A4\u30F3\u5B8C\u4E86\r"
     - "\u30A2\u30A4\u30C6\u30E0\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\uFF01\r"
     - "\u30B3\u30A4\u30F3\u304C\u8DB3\u308A\u306A\u3044\u3067\u3059\uFF01\r"
     - "\u3059\u3067\u306B\u4F7F\u7528\u4E2D\u3067\u3059\uFF01\r"
