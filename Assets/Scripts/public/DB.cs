@@ -115,14 +115,16 @@ public class Data {
         coin += value;
         if(coin < 0) coin = 0;
     }
-    public float getExpPer() {
+    public float 
+    getExpPer() {
         maxExp = Config.LV_EXP_UNIT * lv;
         //* Level Up!
         if(exp >= maxExp) {
             lv++;
             DB._.LvUpCnt++;
-            exp -= maxExp;
-            return exp;
+            return 1; //* 必ず１を渡すことでレベルアップ確保！
+            // exp -= maxExp;
+            // return exp;
         }
         return ((float)exp) / ((float)maxExp);
     }

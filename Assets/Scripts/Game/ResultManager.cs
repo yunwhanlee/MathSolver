@@ -193,18 +193,18 @@ public class ResultManager : MonoBehaviour {
 
     IEnumerator coPlayExpCollectionAnim() {
         Debug.Log("ResultManager:: coPlayExpCollectionAnim():: rewardExp= " + rewardExp);
-
         bool isExpUp = true;
         int expVal = 0;
-
         expAttractionEF.SetActive(true);
+
         while(isExpUp) {
             expVal++;
             if(expVal <= rewardExp) {
+                Debug.Log($"coPlayExpCollectionAnim():: expVal= {expVal}, fillAmount= {expFilledCircleBar.fillAmount}");
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 if(expFilledCircleBar.fillAmount == 1) {
-                    Debug.Log("ResultManager:: coPlayExpCollectionAnim():: LevelUp!");
+                    Debug.Log("coPlayExpCollectionAnim():: LevelUp!");
                     StartCoroutine(GM._.Pl.coLevelUpEF());
                     lvTxt.text = DB.Dt.Lv.ToString();
                 }

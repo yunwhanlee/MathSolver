@@ -4,9 +4,13 @@ using UnityEngine;
 
 public static class Config {
     //* PLAYER
-    public readonly static int LV_EXP_UNIT = 70;
+    public readonly static int LV_EXP_UNIT = 60;
     public readonly static float LV_BONUS_PER = 0.1f;
     public readonly static float LEGACY_BONUS_PER = 0.2f;
+    //* CLOTH
+    public readonly static int GACHA_SWEETPOTATO_PER = 20;
+    public readonly static int GACHA_PET_PER = 30;
+
     //* HOME
     public readonly static Color CATE_SELECT_COLOR = new Color(0.1f, 0.3f, 0.55f, 1);
     public readonly static int CLOTH_PRICE_UNIT = 300;

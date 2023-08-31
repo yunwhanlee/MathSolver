@@ -84,8 +84,8 @@ public class ClothShopUIManager : MonoBehaviour
             SM._.sfxPlay(SM.SFX.Grinding.ToString(), delay: 0.45f);
             SM._.sfxPlay(SM.SFX.Tada.ToString(), delay: 2.875f);
 
-            PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock && pet.Grade == Item.GRADE.Normal);
             PlayerSkin[] lockedPlSks = Array.FindAll(DB.Dt.PlSkins, pl => pl.IsLock && pl.Grade == Item.GRADE.Normal);
+            PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock && pet.Grade == Item.GRADE.Normal);
 
             //* 残る数が有るか確認
             bool isPlayerSkin = (lockedPlSks.Length == 0)? false : (lockedPtSks.Length == 0)? true : Random.Range(0, 100) < REWARD_PET_PER;
