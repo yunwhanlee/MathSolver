@@ -201,8 +201,10 @@ public class ResultManager : MonoBehaviour {
             if(expVal <= rewardExp) {
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
-                if(expFilledCircleBar.fillAmount == 1)
+                if(expFilledCircleBar.fillAmount == 1) {
                     StartCoroutine(GM._.Pl.coLevelUpEF());
+                    lvTxt.text = DB.Dt.Lv.ToString();
+                }
             }
             else
                 isExpUp = false;

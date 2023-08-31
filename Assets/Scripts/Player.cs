@@ -147,7 +147,7 @@ public class Player : MonoBehaviour {
         roarEF.SetActive(false);
     }
     public IEnumerator coLevelUpEF() {
-        SM._.sfxPlay(SM.SFX.GetReward.ToString());
+        SM._.sfxPlay(SM.SFX.LevelUp.ToString());
         levelUpEF.SetActive(true);
         yield return Util.time1;
         levelUpEF.SetActive(false);
