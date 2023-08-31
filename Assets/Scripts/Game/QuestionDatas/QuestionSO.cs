@@ -27,7 +27,7 @@ public class QuestionSO : ScriptableObject { //* データ
     [Header("RANDOM OBJS")]
     [SerializeField] string[] defObjNames; public string[] DefObjNames {get => defObjNames; set => defObjNames = value;}
     [SerializeField] string[] jungleObjNames; public string[] JungleObjNames {get => jungleObjNames; set => jungleObjNames = value;}
-    [SerializeField] string[] jungleBushNames; public string[] JungleBushNames {get => JungleBushNames; set => JungleBushNames = value;}
+    [SerializeField] string[] jungleBushNames; public string[] JungleBushNames {get => jungleBushNames; set => jungleBushNames = value;}
 
     [SerializeField] List<string> objNameList;      public List<string> ObjNameList {get => objNameList; set => objNameList = value;}
     [SerializeField] string obj1Name;  public string Obj1Name {get => obj1Name; set => obj1Name = value;}

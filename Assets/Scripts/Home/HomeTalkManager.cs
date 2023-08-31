@@ -64,7 +64,7 @@ public class HomeTalkManager : TalkManager {
             , $"나는 이 마을 수학해결사 늑선생이야. 잘 부탁해!:{(int)SPK.Pl_Idle}"
             , $"사실... 비밀인데...:{(int)SPK.Pl_Idle}"
             , $"돌부리에 걸려 넘어진 뒤로 머리를 다쳐서:{(int)SPK.Pl_Idle}"
-            , $"수학 기억이 잘 안나..:{(int)SPK.Pl_Sad}"
+            , $"수학 기억이 안나..:{(int)SPK.Pl_Sad}"
             , $"나와함께 여러지역의 수학문제를 해결하고:{(int)SPK.Pl_Idle}"
             , $"잊어버린 수학의기억조각 찾는 것을 도와줘!:{(int)SPK.Pl_Idle}"
             , $"이곳은 우리 사무실!:{(int)SPK.Pl_Idle}"
@@ -104,7 +104,7 @@ public class HomeTalkManager : TalkManager {
             , $"지금은 한 지역만 갈 수 있지만:{(int)SPK.Pl_Sad}"
             , $"레벨이 오를수록 더 많은 지역이 열릴거야!:{(int)SPK.Pl_Idle}"
             , $"돌아가고 싶다면, 우측 아래의 집을 클릭하면되!:{(int)SPK.Pl_Idle}"
-            , $"자 그럼, 손가락이<br>가리킨 지역을 클릭해 줘!:{(int)SPK.Pl_Idle}"
+            , $"자 그럼, 손가락이<br>가리킨 곳을 클릭해!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.TUTO_FINISH, new string[] {
             $"수고 많았어!:{(int)SPK.Pl_Idle}"

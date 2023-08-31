@@ -28,6 +28,7 @@ public class LM : MonoBehaviour { //* Language Manager
             _ = this;
             DontDestroyOnLoad(this);
             initLang();
+            getLang();
         }
         else Destroy(this);
     }
@@ -68,6 +69,7 @@ public class LM : MonoBehaviour { //* Language Manager
     }
 
     IEnumerator coGetLang() {
+        Debug.Log("<color=green>LM:: coGetLang():: Google Sheet 最新化スタート</color>");
         UnityWebRequest www = UnityWebRequest.Get(langURL);
         yield return www.SendWebRequest();
         setLangList(www.downloadHandler.text);

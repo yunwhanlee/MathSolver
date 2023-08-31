@@ -367,7 +367,11 @@ public class DB : MonoBehaviour {
         #region INVENTORY
         //* ロック
         Array.ForEach(dt.PlSkins, plSk => plSk.IsLock = true);
+        Array.ForEach(dt.PlSkins, plSk => plSk.IsNotify = false);
+        Array.ForEach(dt.PlSkins, plSk => plSk.IsArranged = false);
         Array.ForEach(dt.PtSkins, ptSk => ptSk.IsLock = true);
+        Array.ForEach(dt.PtSkins, ptSk => ptSk.IsNotify = false);
+        Array.ForEach(dt.PtSkins, ptSk => ptSk.IsArranged = false);
 
         //* Player 最初IDXのみ ON
         dt.PlSkins[0].IsLock = false;

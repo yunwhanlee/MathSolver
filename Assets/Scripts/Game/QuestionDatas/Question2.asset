@@ -19,8 +19,8 @@ MonoBehaviour:
     \uD569\uD558\uB2C8, N2\uAC1C"
   qstPlus_XEqu_Add: "\uC557! KEY\uAC1C \uB354 \uC788\uB124\uC694."
   qstPlus_XEqu_Minus: "\uC557! KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
-  qstPlus_XEqu_End: "\uAC00 \uB42B\uC5B4\uC694."
-  qstPlus_XEqu_Ask: "\uCD1D \uBA87\uAC1C\uB97C \uC8FC\uBB38\uD55C\uAC74\uAC00\uC694?"
+  qstPlus_XEqu_End: "\uAC00(\uC774) \uB42B\uC5B4\uC694."
+  qstPlus_XEqu_Ask: "\uBA87\uAC1C\uB97C \uCD94\uAC00\uB85C \uC8FC\uBB38\uD55C\uAC74\uAC00\uC694?"
   qstMinus: "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C\uB97C \uC8FC\uBB38\uD574\uC11C
     N2\uAC1C\uB294 \uBA39\uC5B4\uBC84\uB838\uC5B4\uC694. \uB0A8\uC740\uAC74 \uBA87
     \uAC1C\uC778\uAC00\uC694?"
@@ -59,7 +59,6 @@ MonoBehaviour:
   - blueberry
   - dotory
   objNameList:
-  - apple
   - carrot
   - orange
   - lemon
@@ -69,5 +68,6 @@ MonoBehaviour:
   - greenapple
   - pear
   - pumkin
-  obj1Name: onion
-  obj2Name: grape
+  - grape
+  obj1Name: apple
+  obj2Name: onion

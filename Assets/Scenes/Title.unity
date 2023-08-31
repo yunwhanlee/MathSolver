@@ -1208,17 +1208,33 @@ MonoBehaviour:
     - Fine
     - Good Job
     - That`s right
+    - Sign in
+    - Sign up
+    - Register
+    - Please log in and register your abilities on the ranking server!
+    - Already have an account? <#34adfc>Login
     - Login
     - Logout
     - Now ranking registration is possible!
     - Login success
+    - 'Your Account : Need to Login'
+    - Do not exist ID
+    - Incorrect password
+    - Can not use Space.
+    - Please Input Text.
+    - Only the English and Number.
+    - Login success
+    - Register success
+    - ID is already exist
     - Please select an item!
     - Not enough coin!
     - Already in use!
     - Nothing more to buy.
     - Please complete the main quest first.
     - No furniture to control
+    - Nickname
     - Please Input Nickname.
+    - NickName Change Success!
     - Not enough fame. now
     - Goal to achieve
     - Please touch screen
@@ -1287,6 +1303,29 @@ MonoBehaviour:
     - White Wolf
     - OverPower Wolf
     - Divide Wolf
+    - Angel
+    - Bronze Angel
+    - Goblin
+    - Green Goblin
+    - Green Spirit
+    - KingSlime Angel
+    - Olive Angel
+    - OrangeNeon Goblin
+    - PinkNeon Goblin
+    - PinkNeon Spirit
+    - Pink Spirit
+    - Purple Angel
+    - PurpleNeon Goblin
+    - QueenSlime Angel
+    - Red Goblin
+    - Red Spirit
+    - Sand Spirit
+    - Snow Angel
+    - Spirit
+    - Top Angel
+    - Top Angel Blue
+    - White Spirit
+    - YellowNeon Spirit
     - Mango Pet
     - SweetPotato Pet
     - Lemon Pet
@@ -1741,7 +1780,7 @@ MonoBehaviour:
     - Oh, We have to take out KEY.
     - 
     - How many did a friend give me?
-    - I collected OBJ1N1 dogs to build a house. My friend gave me more N2.
+    - I gathered OBJ1N1 to build a house. My friend gave me more N2.
     - I put it together in OBJ1N1 to build a house, so N2
     - I collected OBJ1N1 pieces to build a house, but I used N2. How many are the
       remaining?
@@ -1753,7 +1792,7 @@ MonoBehaviour:
     - I ordered OBJ1N1 at the restaurant and the boss gave N2 as a service. How many
       are you in total?
     - In combination, the restaurant adds to OBJ1N1, so N2
-    - How many have you ordered a total of a total?
+    - How many additional order did you order?
     - I ordered OBJ1N1 at the restaurant and ate N2. How many are left?
     - In the restaurant, my friend N1 decided to eat OBJ1N2 each. How many OBJ1s
       are you to order?
@@ -1762,11 +1801,11 @@ MonoBehaviour:
       sets can you make?
     - My mom gave me a pocket money OBJ1N1 won, and my grandfather gave OBJ1N2 won,
       how much did I get?
-    - I summarized that I received my allowance today for OBJ1N1 won, OBJ1N2 won
-    - What is your allowance today?
+    - The pocket money I received today at OBJ1N1 won for a while, OBJ1N2 won
+    - How much have you saved in the meantime?
     - My mom gave me a pocket money OBJ1N1 won, so I bought an OBJ1N2 won ice cream.
       What is the remaining money left?
-    - I received an OBJ1N2 pocket money from the elderly N1. How much did I receive?
+    - OBJ1N1 I received a pocket money from the elderly N2. How much did I receive?
     - I received OBJ1N1 won for pocket money, but I will share the same to my N2
       brother. How much can I give me?
     - I want to divide OBJ1N1 and OBJ2N2 as much as possible and give it to my brothers.
@@ -1841,17 +1880,34 @@ MonoBehaviour:
     - "\uD6CC\uB96D\uD574\uC694"
     - "\uC798\uD588\uC5B4\uC694"
     - "\uAD1C\uCC2E\uC544\uC694"
+    - "\uD68C\uC6D0 \uB85C\uADF8\uC778"
+    - "\uD68C\uC6D0\uAC00\uC785"
+    - "\uC2E0\uADDC\uB4F1\uB85D"
+    - "\uB85C\uADF8\uC778\uD558\uC5EC \uB7AD\uD0B9\uC11C\uBC84\uC5D0 \uC5EC\uB7EC\uBD84\uC758
+      \uB2A5\uB825\uC744 \uBCF4\uC5EC\uC8FC\uC138\uC694!"
+    - "\uC774\uBBF8 \uAC00\uC785\uD558\uC168\uB098\uC694? <#34adfc>\uB85C\uADF8\uC778"
     - "\uB85C\uADF8\uC778"
     - "\uB85C\uADF8\uC544\uC6C3"
     - "\uC774\uC81C \uB7AD\uD0B9\uB4F1\uB85D\uC774 \uAC00\uB2A5\uD569\uB2C8\uB2E4!"
     - "\uB85C\uADF8\uC778 \uC131\uACF5"
+    - "\uACC4\uC815: \uB85C\uADF8\uC778 \uD544\uC694"
+    - "\uC874\uC7AC\uD558\uC9C0 \uC54A\uB294 \uC544\uC774\uB514\uC785\uB2C8\uB2E4."
+    - "\uC798\uBABB\uB41C \uD328\uC2A4\uC6CC\uB4DC\uC785\uB2C8\uB2E4."
+    - "\uC2A4\uD398\uC774\uC2A4\uB97C \uC0AC\uC6A9\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+    - "\uD14D\uC2A4\uD2B8\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694."
+    - "\uC601\uC5B4\uC640 \uC22B\uC790\uB9CC \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+    - "\uB85C\uADF8\uC778 \uC131\uACF5"
+    - "\uD68C\uC6D0\uAC00\uC785 \uC131\uACF5"
+    - "\uC774\uBBF8 \uC874\uC7AC\uD558\uB294 \uC544\uC774\uB514\uC785\uB2C8\uB2E4."
     - "\uC544\uC774\uD0EC\uC744 \uC120\uD0DD\uD574\uC8FC\uC138\uC694!"
     - "\uCF54\uC778\uC774 \uBD80\uC871\uD569\uB2C8\uB2E4!"
     - "\uC774\uBBF8 \uC0AC\uC6A9 \uC911\uC785\uB2C8\uB2E4."
     - "\uB354 \uC774\uC0C1 \uAD6C\uB9E4\uD560 \uAC8C \uC5C6\uC2B5\uB2C8\uB2E4."
     - "\uBA3C\uC800 \uBA54\uC778\uD018\uC2A4\uD2B8\uB97C \uC644\uB8CC\uD574\uC8FC\uC138\uC694."
     - "\uC870\uC815\uD560 \uAC00\uAD6C\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4."
+    - "\uB2C9\uB124\uC784"
     - "\uB2C9\uB124\uC784\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694."
+    - "\uB2C9\uB124\uC784 \uBCC0\uACBD\uC644\uB8CC."
     - "\uBA85\uC131 \uBD80\uC871. \uD604\uC7AC"
     - "\uB2EC\uC131 \uBAA9\uD45C"
     - "\uD654\uBA74\uC744 \uD130\uCE58\uD574\uC8FC\uC138\uC694."
@@ -1922,6 +1978,29 @@ MonoBehaviour:
     - "\uD770 \uB291\uB300"
     - "\uC624\uBC84\uD30C\uC6CC \uB291\uB300"
     - "\uB098\uB204\uAE30 \uB291\uB300"
+    - "\uCC9C\uC0AC"
+    - "\uBE0C\uB860\uC988 \uCC9C\uC0AC"
+    - "\uB3C4\uAE68\uBE44"
+    - "\uCD08\uB85D \uB3C4\uAE68\uBE44"
+    - "\uCD08\uB85D \uC815\uB839"
+    - "\uD0B9\uC2AC\uB77C\uC784 \uCC9C\uC0AC"
+    - "\uC62C\uB9AC\uBE0C \uCC9C\uC0AC"
+    - "\uC624\uB80C\uC9C0\uB124\uC628 \uB3C4\uAE68\uBE44"
+    - "\uD551\uD06C\uB124\uC628 \uB3C4\uAE68\uBE44"
+    - "\uD551\uD06C\uB124\uC628 \uC815\uB839"
+    - "\uD551\uD06C \uC815\uB839"
+    - "\uBCF4\uB77C \uCC9C\uC0AC"
+    - "\uBCF4\uB77C\uB124\uC628 \uB3C4\uAE68\uBE44"
+    - "\uD038\uC2AC\uB77C\uC784 \uCC9C\uC0AC"
+    - "\uBD89\uC740 \uB3C4\uAE68\uBE44"
+    - "\uBD89\uC740 \uC815\uB839"
+    - "\uBAA8\uB798 \uC815\uB839"
+    - "\uACA8\uC6B8 \uCC9C\uC0AC"
+    - "\uC815\uB839"
+    - "\uC0C1\uAE09 \uCC9C\uC0AC"
+    - "\uD478\uB978\uC0C1\uAE09 \uCC9C\uC0AC"
+    - "\uBE5B \uC815\uB839"
+    - "\uB178\uB780\uB124\uC628 \uC815\uB839"
     - "\uB9DD\uACE0 \uD3AB"
     - "\uACE0\uAD6C\uB9C8 \uD3AB"
     - "\uB808\uBAAC \uD3AB"
@@ -2498,10 +2577,10 @@ MonoBehaviour:
     - "(\uBD84\uC218\uB85C)"
     - "\uC557! KEY\uAC1C \uB354 \uC788\uB124\uC694."
     - "\uC557! KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
-    - "\uAC00 \uB42B\uC5B4\uC694."
+    - "\uAC00(\uC774) \uB42B\uC5B4\uC694."
     - "\uCE5C\uAD6C\uB294 \uBA87 \uAC1C\uB97C \uC8FC\uC5C8\uB098\uC694?"
-    - "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uB97C \uBAA8\uC558\uC5B4\uC694.
-      \uCE5C\uAD6C\uAC00 N2\uAC1C \uB354 \uC8FC\uC5C8\uB294\uB370, \uCD1D \uBA87\uAC1C\uC778\uAC00\uC694?"
+    - "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C \uBAA8\uC558\uC5B4\uC694. \uCE5C\uAD6C\uAC00
+      N2\uAC1C \uB354 \uC8FC\uC5C8\uB294\uB370, \uCD1D \uBA87\uAC1C\uC778\uAC00\uC694?"
     - "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uC5D0 \uC624\uB298 \uD55C\uAC83\uC744
       \uD569\uD558\uB2C8, N2\uAC1C"
     - "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uB97C \uBAA8\uC558\uB294\uB370,
@@ -2522,7 +2601,7 @@ MonoBehaviour:
       \uCD1D \uBA87\uAC1C \uC778\uAC00\uC694?"
     - "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C\uC5D0 \uCD94\uAC00\uD55C \uAC83\uC744
       \uD569\uD558\uB2C8, N2\uAC1C"
-    - "\uCD1D \uBA87\uAC1C\uB97C \uC8FC\uBB38\uD55C\uAC74\uAC00\uC694?"
+    - "\uBA87\uAC1C\uB97C \uCD94\uAC00\uB85C \uC8FC\uBB38\uD55C\uAC74\uAC00\uC694?"
     - "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C\uB97C \uC8FC\uBB38\uD574\uC11C N2\uAC1C\uB294
       \uBA39\uC5B4\uBC84\uB838\uC5B4\uC694. \uB0A8\uC740\uAC74 \uBA87 \uAC1C\uC778\uAC00\uC694?"
     - "\uC2DD\uB2F9\uC5D0\uC11C \uCE5C\uAD6C N1\uB9C8\uB9AC\uAC00 \uAC01\uAC01 OBJ1N2\uAC1C\uC529
@@ -2537,13 +2616,13 @@ MonoBehaviour:
     - "\uC5C4\uB9C8\uAC00 \uC6A9\uB3C8 OBJ1N1\uC6D0\uC744 \uC8FC\uC2DC\uACE0, \uD560\uC544\uBC84\uC9C0\uAC00
       OBJ1N2\uC6D0\uC744 \uC8FC\uC168\uC5B4\uC694, \uCD1D \uC81C\uAC00 \uC5BC\uB9C8\uB97C
       \uBC1B\uC740\uAC74\uAC00\uC694?"
-    - "\uADF8 \uB3D9\uC548 \uBAA8\uC740 OBJ1N1\uC6D0\uC5D0 \uC624\uB298 \uC6A9\uB3C8\uBC1B\uC740\uAC78
-      \uD569\uD558\uB2C8, OBJ1N2\uC6D0"
-    - "\uC624\uB298 \uBC1B\uC740 \uC6A9\uB3C8\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?"
+    - "\uC624\uB298 \uBC1B\uC740 \uC6A9\uB3C8 OBJ1N1\uC6D0\uC5D0 \uADF8 \uB3D9\uC548
+      \uBAA8\uC740\uAC78 \uD569\uD558\uB2C8, OBJ1N2\uC6D0"
+    - "\uADF8 \uB3D9\uC548 \uBAA8\uC740 \uB3C8\uC740 \uC5BC\uB9C8\uC778\uAC00\uC694?"
     - "\uC5C4\uB9C8\uAC00 \uC6A9\uB3C8 OBJ1N1\uC6D0\uC744 \uC8FC\uC154\uC11C, OBJ1N2\uC6D0\uC9DC\uB9AC
       \uC544\uC774\uC2A4\uD06C\uB9BC\uC744 \uC0AC\uBA39\uC5C8\uC5B4\uC694. \uB0A8\uC740
       \uB3C8\uC774 \uC5BC\uB9C8\uC778\uAC00\uC694?"
-    - "\uC5B4\uB974\uC2E0 N1\uBD84\uC5D0\uAC8C\uC11C OBJ1N2\uC6D0\uC529 \uC6A9\uB3C8\uC744
+    - "OBJ1N1\uC6D0\uC529 \uC5B4\uB974\uC2E0 N2\uBD84\uC5D0\uAC8C \uC6A9\uB3C8\uC744
       \uBC1B\uC558\uC5B4\uC694. \uCD1D \uC81C\uAC00 \uC5BC\uB9C8\uB97C \uBC1B\uC740\uAC74\uAC00\uC694?"
     - "\uC6A9\uB3C8\uC73C\uB85C OBJ1N1\uC6D0\uC744 \uBC1B\uC558\uB294\uB370 N2\uB9C8\uB9AC
       \uB3D9\uC0DD\uC5D0\uAC8C \uB611\uAC19\uC774 \uB098\uB220\uC904\uB798\uC694.
@@ -2621,17 +2700,33 @@ MonoBehaviour:
     - "\u3059\u3070\u3089\u3057\u3044\r"
     - "\u30CA\u30A4\u30B9\r"
     - "\u5927\u4E08\u592B\r"
+    - "\u30A2\u30AB\u30A6\u30F3\u30C8\u30ED\u30B0\u30A4\u30F3\r"
+    - "ID\u751F\u6210\r"
+    - "\u65B0\u898F\u767B\u9332\r"
+    - "\u30ED\u30B0\u30A4\u30F3\u3057\u3066\u3001\u30E9\u30F3\u30AD\u30F3\u30B0\u30B5\u30FC\u30D0\u3078\u767B\u9332\u3057\u3066\u304F\u3060\u3055\u3044\uFF01\r"
+    - "\u3082\u3046ID\u304C\u3042\u308A\u307E\u3059\u304B\uFF1F<#34adfc>\u30ED\u30B0\u30A4\u30F3\r"
     - "\u30ED\u30B0\u30A4\u30F3\r"
     - "\u30ED\u30B0\u30A2\u30A6\u30C8\r"
     - "\u30E9\u30F3\u30AF\u30A2\u30C3\u30D7\u30C7\u30FC\u30C8\u304C\u53EF\u80FD\u3067\u3059!\r"
     - "\u30ED\u30B0\u30A4\u30F3\u5B8C\u4E86\r"
+    - "\u30A2\u30AB\u30A6\u30F3\u30C8\uFF1A\u30ED\u30B0\u30A4\u30F3\u3072\u3064\u3088\u3046\r"
+    - "ID\u304C\u306A\u3044\u3067\u3059\u3002\r"
+    - "\u307E\u3061\u304C\u3048\u305F\u30D1\u30B9\u30EF\u30FC\u30C9\u3067\u3059\u3002\r"
+    - "\u30B9\u30DA\u30FC\u30B9\u306F\u3067\u304D\u307E\u305B\u3093\u3002\r"
+    - "\u30C6\u30AD\u30B9\u30C8\u3092\u5165\u308C\u3066\u304F\u3060\u3055\u3044\u3002\r"
+    - "\u82F1\u8A9E\u3068\u6570\u5B57\u306E\u307F\u3067\u304D\u307E\u3059\u3002\r"
+    - "\u30ED\u30B0\u30A4\u30F3\u5B8C\u4E86\r"
+    - "\u65B0\u898F\u767B\u9332\u5B8C\u4E86\r"
+    - "\u3059\u3067\u306B\u3042\u308BID\u3067\u3059\u3002\r"
     - "\u30A2\u30A4\u30C6\u30E0\u3092\u9078\u3093\u3067\u304F\u3060\u3055\u3044\uFF01\r"
     - "\u30B3\u30A4\u30F3\u304C\u8DB3\u308A\u306A\u3044\u3067\u3059\uFF01\r"
     - "\u3059\u3067\u306B\u4F7F\u7528\u4E2D\u3067\u3059\uFF01\r"
     - "\u8CFC\u5165\u3059\u308B\u3082\u306E\u304C\u3042\u308A\u307E\u305B\u3093\u3002\r"
     - "\u5148\u306B\u30E1\u30A4\u30F3\u30AF\u30A8\u30B9\u30C8\u306E\u5B8C\u4E86\u3057\u3066\u304F\u3060\u3055\u3044\u3002\r"
     - "\u8ABF\u6574\u3059\u308B\u5BB6\u5177\u304C\u306A\u3044\u3067\u3059\u3002\r"
+    - "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\r"
     - "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002\r"
+    - "\u30CB\u30C3\u30AF\u30CD\u30FC\u30E0\u5909\u66F4\u5B8C\u4E86\u3002\r"
     - "\u540D\u58F0\u8DB3\u308A\u306A\u3044. \u73FE\u5728\r"
     - "\u9054\u6210\u76EE\u6A19\r"
     - "\u753B\u9762\u3092\u30BF\u30C3\u30C1\u3057\u3066\u304F\u3060\u3055\u3044\u3002\r"
@@ -2700,6 +2795,29 @@ MonoBehaviour:
     - "\u30DB\u30EF\u30A4\u30C8\u30AA\u30AA\u30AB\u30DF\r"
     - "\u30AA\u30FC\u30D0\u30FC\u30D1\u30EF\u30FC\u30AA\u30AA\u30AB\u30DF\r"
     - "\u5272\u308B\u30AA\u30AA\u30AB\u30DF\r"
+    - "\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30D6\u30ED\u30F3\u30BA\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30AA\u30D0\u30B1\r"
+    - "\u7DD1\u30AA\u30D0\u30B1\r"
+    - "\u7DD1\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u30AD\u30F3\u30B0\u30B9\u30E9\u30A4\u30E0\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30AA\u30EA\u30FC\u30D6\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30AA\u30EC\u30F3\u30B8\u30CD\u30AA\u30F3\u30AA\u30D0\u30B1\r"
+    - "\u30D4\u30F3\u30AF\u30CD\u30AA\u30F3\u30AA\u30D0\u30B1\r"
+    - "\u30D4\u30F3\u30AF\u30CD\u30AA\u30F3\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u30D4\u30F3\u30AF\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u30E0\u30E9\u30B5\u30AD\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30E0\u30E9\u30B5\u30AD\u30CD\u30AA\u30F3\u30AA\u30D0\u30B1\r"
+    - "\u30AF\u30A3\u30FC\u30F3\u30B9\u30E9\u30A4\u30E0\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u8D64\u3044\u30AA\u30D0\u30B1\r"
+    - "\u8D64\u3044\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u3059\u306A\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u96EA\u306E\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u4E0A\u4F4D\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u30D6\u30EB\u30FC\u4E0A\u4F4D\u30A8\u30F3\u30BC\u30EB\r"
+    - "\u3072\u304B\u308A\u306E\u30D5\u30A7\u30A2\u30EA\u30FC\r"
+    - "\u30AD\u30A4\u30ED\u30CD\u30AA\u30F3\u30D5\u30A7\u30A2\u30EA\u30FC\r"
     - "\u30DE\u30F3\u30B4\u30DA\u30C3\u30C8\r"
     - "\u30B5\u30C4\u30DE\u30A4\u30E2\u30DA\u30C3\u30C8\r"
     - "\u30EC\u30E2\u30F3\u30DA\u30C3\u30C8\r"

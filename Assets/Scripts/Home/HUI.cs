@@ -437,9 +437,10 @@ public class HUI : MonoBehaviour {
         // DB.Dt.IsTutoRoomTrigger = true; DB.Dt.IsTutoFunitureShopTrigger = true; DB.Dt.IsTutoClothShopTrigger = true; DB.Dt.IsTutoInventoryTrigger = true; DB.Dt.IsTutoGoGameTrigger = true; DB.Dt.IsTutoWorldMapTrigger = true; DB.Dt.IsTutoFinishTrigger = true; DB.Dt.IsTutoDiagChoiceDiffTrigger = true; DB.Dt.IsTutoDiagFirstQuizTrigger = true; DB.Dt.IsTutoDiagFirstAnswerTrigger = true; DB.Dt.IsTutoDiagResultTrigger = true;
     }
     public void onClickResetPopUpYesBtn() {
-        Data copyDt = DB.Dt;
         DB._.reset();
+        Data copyDt = DB.Dt;
         DB._.resetItem(copyDt);
+        
         SceneManager.LoadScene(Enum.SCENE.Title.ToString());
     }
     public void onLimitLengthNickNameInputTxt() {
