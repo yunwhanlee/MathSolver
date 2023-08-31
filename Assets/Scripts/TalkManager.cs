@@ -32,7 +32,6 @@ public abstract class TalkManager : MonoBehaviour {
     protected Dictionary<int, string[]> talkDt;
     [SerializeField] protected List<Sprite> spkSprDtList; //* Inspector viewで
 
-
     //* Value
     [SerializeField] protected bool isAction; public bool IsAction {get => isAction;}
     [SerializeField] protected int curId;
@@ -51,6 +50,18 @@ public abstract class TalkManager : MonoBehaviour {
         talkDialogAnim = talkDialog.GetComponent<Animator>();
         talkDt = new Dictionary<int, string[]>(); //* 対話データ
         generateData();
+    }
+    void Start() {
+        //* Update Player Portraite Sprites
+        // Debug.Log("Pl_Idle= " + HM._.pl.SprLib.spriteLibraryAsset.GetSprite("Idle", "Entry"));
+        // Debug.Log("Pl_Success= " + HM._.pl.SprLib.spriteLibraryAsset.GetSprite("Success", "Entry"));
+        // Debug.Log("Pl_Fail= " + HM._.pl.SprLib.spriteLibraryAsset.GetSprite("Fail", "Entry"));
+        var plSprLibAsset = HM._.pl.SprLib.spriteLibraryAsset;
+        if(HM._) plSprLibAsset = HM._.pl.SprLib.spriteLibraryAsset;
+        else if(GM._) plSprLibAsset = GM._.Pl.SprLib.spriteLibraryAsset;
+        spkSprDtList[(int)SPK.Pl_Idle] = plSprLibAsset.GetSprite("Idle", "Entry");
+        spkSprDtList[(int)SPK.Pl_Happy] = plSprLibAsset.GetSprite("Success", "Entry");
+        spkSprDtList[(int)SPK.Pl_Sad] = plSprLibAsset.GetSprite("Fail", "Entry");
     }
 
     /// <summary>
@@ -244,8 +255,6 @@ public abstract class TalkManager : MonoBehaviour {
                             Camera.main.GetComponent<Animator>().SetTrigger(Enum.ANIM.DoCamShake.ToString());
                         }
                         //* 名前
-                        // spkName.text = "늑선생"; 
-                        // setNameCardDir(isLeft: true); // left
                         setOtherPortrait(spkImg, LM._.localize("Teacher Wolf"), key, tf.anchoredPosition, !isFlip, isPlayer: true);
                         break;
                     }
