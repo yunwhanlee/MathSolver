@@ -122,8 +122,8 @@ public class Data {
         if(exp >= maxExp) {
             lv++;
             DB._.LvUpCnt++;
+            exp -= maxExp;
             return 1; //* 必ず１を渡すことでレベルアップ確保！
-            // exp -= maxExp;
             // return exp;
         }
         return ((float)exp) / ((float)maxExp);
