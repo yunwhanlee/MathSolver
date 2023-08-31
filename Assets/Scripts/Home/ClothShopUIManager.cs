@@ -10,8 +10,6 @@ using Coffee.UIExtensions;
 public class ClothShopUIManager : MonoBehaviour
 {
     Animator anim;
-    const int REWARD_PET_PER = 30;
-    const int GOLD_SWEETPOTATE_PER = 20;
 
     [SerializeField] bool isGoldSweetPotato;       public bool IsGoldSweetPotato {get => isGoldSweetPotato; set => isGoldSweetPotato = value;}
     [SerializeField] bool isGachaOn;    public bool IsGachaOn {get => isGachaOn; set => isGachaOn = value;}
@@ -88,7 +86,9 @@ public class ClothShopUIManager : MonoBehaviour
             PetSkin[] lockedPtSks = Array.FindAll(DB.Dt.PtSkins, pet => pet.IsLock && pet.Grade == Item.GRADE.Normal);
 
             //* 残る数が有るか確認
-            bool isPlayerSkin = (lockedPlSks.Length == 0)? false : (lockedPtSks.Length == 0)? true : Random.Range(0, 100) < REWARD_PET_PER;
+            bool isPlayerSkin = (lockedPlSks.Length == 0)? false
+                : (lockedPtSks.Length == 0)? true
+                : Random.Range(0, 100) >= Config.GACHA_PET_PER;
             bool isPetSkin = !isPlayerSkin;
 
             //* ガチャー
@@ -141,7 +141,7 @@ public class ClothShopUIManager : MonoBehaviour
 
         //* Gold SweetPotato
         int rand = Random.Range(0, 100);
-        isGoldSweetPotato = (rand <= GOLD_SWEETPOTATE_PER);
+        isGoldSweetPotato = (rand <= Config.GACHA_SWEETPOTATO_PER);
         Debug.Log($"coPlayGachaPanelAnimIdle():: rand= {rand}, isGoldSweetPotato= {isGoldSweetPotato}");
         if(isGoldSweetPotato) {
             anim.SetBool(Enum.ANIM.IsGoldSweetPotato.ToString(), true);

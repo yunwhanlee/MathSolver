@@ -111,8 +111,8 @@ public class HomeTalkManager : TalkManager {
             , $"첫 해결사 일인데도<br>잘 하던데?!:{(int)SPK.Pl_Happy}"
             , $"보상을 받으러 가볼까?<br>퀘스트창을 열어보자.:{(int)SPK.Pl_Idle}"
             , $"손가락이 가리키는<br>아이콘을 누른 뒤,:{(int)SPK.Pl_Idle}"
-            , $"퀘스트 카테고리 선택.:{(int)SPK.Pl_Idle}"
-            , $"보상버튼을 클릭해 줘!:{(int)SPK.Pl_Idle}"
+            , $"퀘스트 아이콘 선택.:{(int)SPK.Pl_Idle}"
+            , $"보상버튼을 클릭해!:{(int)SPK.Pl_Idle}"
         });
         #endregion
 

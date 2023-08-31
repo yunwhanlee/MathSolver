@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qstPlus: "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uB97C \uBAA8\uC558\uC5B4\uC694.
     \uCE5C\uAD6C\uAC00 N2\uAC1C \uB354 \uC8FC\uC5C8\uB294\uB370, \uCD1D \uBA87\uAC1C\uC778\uAC00\uC694?"
-  qstPlus_XEqu: "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uC5D0 \uC624\uB298
-    \uD55C\uAC83\uC744 \uD569\uD558\uB2C8, N2\uAC1C"
-  qstPlus_XEqu_Add: "\uC557! KEY\uAC1C \uB354 \uC788\uB124\uC694."
-  qstPlus_XEqu_Minus: "\uC557! KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
-  qstPlus_XEqu_End: "\uAC00(\uC774) \uB42B\uC5B4\uC694."
-  qstPlus_XEqu_Ask: "\uC624\uB298 \uC77C\uD55C \uC591\uC740 \uC5B4\uB5BB\uAC8C \uB418\uB098\uC694?"
+  qstPlus_XEqu: "\uC9D1\uC9D3\uB294\uB370 \uC624\uB298OBJ1N1\uAC1C,<br>\uC5B4\uC81C
+    \uC4F4 \uAC83\uAE4C\uC9C0 \uCD1D N2\uAC1C"
+  qstPlus_XEqu_Add: "\uC557! \uC2E4\uC218 KEY\uAC1C \uB354 \uC788\uB124\uC694."
+  qstPlus_XEqu_Minus: "\uC557! \uC2E4\uC218 KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
+  qstPlus_XEqu_End: "\uC5D0\uC694."
+  qstPlus_XEqu_Ask: "\uC5B4\uC81C \uC0AC\uC6A9\uD55C \uAC74 \uBA87\uAC1C\uC8E0?"
   qstMinus: "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uB97C \uBAA8\uC558\uB294\uB370,
     N2\uAC1C\uB97C \uC0AC\uC6A9\uD588\uC5B4\uC694. \uB0A8\uC740 \uAC1C\uC218\uB294
     \uBA87 \uAC1C\uC778\uAC00\uC694?"
@@ -50,7 +50,7 @@ MonoBehaviour:
   - feather
   objNameList:
   - clover
-  - leaf
+  - branch
   - rock
-  obj1Name: branch
-  obj2Name: feather
+  obj1Name: feather
+  obj2Name: leaf

@@ -42,8 +42,8 @@ public class GameTalkManager : TalkManager {
         });
         talkDt.Add((int)ID.TUTO_DIAG_RESULT, new string[] {
             $"와우, 8문제를 전부 해결했어!:{(int)SPK.Pl_Idle}"
-            , $"처음인데 잘해주었어!:{(int)SPK.Pl_Happy}"
-            , $"이제 결과를 확인하러 가자!!:{(int)SPK.Pl_Idle}"
+            , $"처음인데 대단해!:{(int)SPK.Pl_Happy}"
+            , $"결과를 확인하러 가자!:{(int)SPK.Pl_Idle}"
         });
     }
 ///---------------------------------------------------------------------------------------------------------------------------------------------------

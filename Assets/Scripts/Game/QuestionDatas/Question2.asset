@@ -15,18 +15,18 @@ MonoBehaviour:
   qstPlus: "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C\uB97C \uC8FC\uBB38\uD588\uB294\uB370
     \uC0AC\uC7A5\uB2D8\uC774 \uC11C\uBE44\uC2A4\uB85C N2\uAC1C\uB97C \uC8FC\uC5C8\uC5B4\uC694.
     \uCD1D \uBA87\uAC1C \uC778\uAC00\uC694?"
-  qstPlus_XEqu: "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C\uC5D0 \uCD94\uAC00\uD55C \uAC83\uC744
-    \uD569\uD558\uB2C8, N2\uAC1C"
-  qstPlus_XEqu_Add: "\uC557! KEY\uAC1C \uB354 \uC788\uB124\uC694."
-  qstPlus_XEqu_Minus: "\uC557! KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
-  qstPlus_XEqu_End: "\uAC00(\uC774) \uB42B\uC5B4\uC694."
+  qstPlus_XEqu: "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C,<br>\uCD94\uAC00\uD55C \uAC83\uC744
+    \uD569\uD558\uB2C8 N2\uAC1C"
+  qstPlus_XEqu_Add: "\uC557! \uC2E4\uC218 KEY\uAC1C \uB354 \uC788\uB124\uC694."
+  qstPlus_XEqu_Minus: "\uC557! \uC2E4\uC218 KEY\uAC1C \uBE7C\uC57C\uB418\uC694."
+  qstPlus_XEqu_End: "\uC5D0\uC694."
   qstPlus_XEqu_Ask: "\uBA87\uAC1C\uB97C \uCD94\uAC00\uB85C \uC8FC\uBB38\uD55C\uAC74\uAC00\uC694?"
   qstMinus: "\uC2DD\uB2F9\uC5D0\uC11C OBJ1N1\uAC1C\uB97C \uC8FC\uBB38\uD574\uC11C
     N2\uAC1C\uB294 \uBA39\uC5B4\uBC84\uB838\uC5B4\uC694. \uB0A8\uC740\uAC74 \uBA87
     \uAC1C\uC778\uAC00\uC694?"
   qstMultiply: "\uC2DD\uB2F9\uC5D0\uC11C \uCE5C\uAD6C N1\uB9C8\uB9AC\uAC00 \uAC01\uAC01
-    OBJ1N2\uAC1C\uC529 \uBA39\uAE30\uB85C \uD588\uC5B4\uC694. \uCD1D \uC8FC\uBB38\uD560
-    OBJ1\uB294 \uBA87\uAC1C\uC778\uAC00\uC694?"
+    OBJ1N2\uAC1C\uC529 \uBA39\uAE30\uB85C \uD588\uC5B4\uC694.<br>\uB2E4 \uD569\uCCD0\uC11C
+    OBJ1\uC740 \uBA87 \uAC1C\uC778\uAC00\uC694?"
   qstDivide: "OBJ1N1\uAC1C\uB97C \uCE5C\uAD6C N2\uB9C8\uB9AC\uC5D0\uAC8C \uB611\uAC19\uC774
     \uB098\uB220\uC8FC\uACE0 \uC2F6\uC5B4\uC694. \uBA87 \uAC1C\uC529 \uC8FC\uBA74
     \uB420\uAE4C\uC694?"
@@ -59,15 +59,15 @@ MonoBehaviour:
   - blueberry
   - dotory
   objNameList:
+  - apple
+  - onion
   - carrot
   - orange
   - lemon
-  - potato
   - strawberry
   - watermelon
-  - greenapple
   - pear
   - pumkin
   - grape
-  obj1Name: apple
-  obj2Name: onion
+  obj1Name: potato
+  obj2Name: greenapple
