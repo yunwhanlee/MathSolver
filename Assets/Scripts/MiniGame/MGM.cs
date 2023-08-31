@@ -91,6 +91,13 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
 
         //* ミニゲームによって、オブジェクト処理
         pl = mapGroups[idx].GetComponentInChildren<Player>(); //* Set Player
+
+        if(DB._) {
+            //* プレイヤーのSpriteLibraryAssetだけ適用
+            Player loadPlayer = DB._.transform.GetChild(0).GetComponent<Player>();
+            pl.SprLib.spriteLibraryAsset = loadPlayer.SprLib.spriteLibraryAsset;
+        }
+
         camMinigame2Group.SetActive(type == TYPE.MINIGAME2); //* MiniGame2：CamChildGroup 活性化
         cam.Anim.enabled = !(type == TYPE.MINIGAME2); //* カメラー Yを動かすために、MiniGame2ならOFF
 
