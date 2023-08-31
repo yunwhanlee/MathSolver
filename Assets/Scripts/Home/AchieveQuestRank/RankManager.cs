@@ -46,6 +46,7 @@ public class RankManager : MonoBehaviour {
             }
             //* RankNum
             ins.transform.GetChild(RANK).GetComponent<TextMeshProUGUI>().text = $"{rankNum}";
+
             //* My RankNum
             if(DB.Dt.AccountID != "" && user.Id == DB.Dt.AccountID) {
                 myRankInfoObj.transform.GetChild(RANK).GetComponent<TextMeshProUGUI>().text = $"{rankNum}";
@@ -60,10 +61,13 @@ public class RankManager : MonoBehaviour {
         Debug.Log("setMyRankInfo():: infoDtStr= " + infoDtStr);
         string[] userInfoArr = infoDtStr.Split("_");
 
-        var tf = myRankInfoObj.transform;
-        tf.GetChild(ID).GetComponent<TextMeshProUGUI>().text = DB.Dt.AccountID;
-        tf.GetChild(LV).GetComponent<TextMeshProUGUI>().text = "LV" + userInfoArr[LV];
-        tf.GetChild(FAME).GetComponent<TextMeshProUGUI>().text = userInfoArr[FAME];
+        var myTf = myRankInfoObj.transform;
+        myTf.GetChild(ID).GetComponent<TextMeshProUGUI>().text = DB.Dt.AccountID;
+        myTf.GetChild(LV).GetComponent<TextMeshProUGUI>().text = "LV" + userInfoArr[LV];
+        myTf.GetChild(FAME).GetComponent<TextMeshProUGUI>().text = userInfoArr[FAME];
+        PlayerSkin plSkin = Array.Find(DB.Dt.PlSkins, sk => sk.Name == userInfoArr[SKIN]);
+        var skinImg = myTf.GetChild(SKIN).GetComponentsInChildren<Image>()[1];
+        skinImg.sprite = plSkin.Spr;
         // tf.GetChild(SKIN).GetComponentInChildren<Image>().sprite = 
         // int myRankNum = HM._.actm.UserInfoList.FindIndex(user => user.Id == DB.Dt.AccountID);
         // tf.GetChild(RANK).GetComponent<TextMeshProUGUI>().text = (myRankNum).ToString();
