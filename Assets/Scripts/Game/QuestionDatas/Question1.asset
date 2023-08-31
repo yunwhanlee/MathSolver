@@ -26,7 +26,7 @@ MonoBehaviour:
   qstMultiply: "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1\uB97C \uD558\uB8E8 N1\uAC1C\uC529,
     N2\uC77C\uAC04 \uBAA8\uC544\uC57C\uB418\uC694. \uCD1D \uBA87\uAC1C\uB97C \uBAA8\uC544\uC57C
     \uB418\uB098\uC694?"
-  qstDivide: "\uC9D1\uC744 \uC9D3\uB294\uB370 OBJ1\uB97C N1\uAC1C \uBAA8\uC558\uB294\uB370,
+  qstDivide: "\uC9D1 \uC9D3\uB294\uB370 OBJ1N1\uAC1C\uB97C \uBAA8\uC558\uB294\uB370,
     \uD558\uB8E8 N2\uAC1C\uC529 \uC0AC\uC6A9\uD574\uC694. \uCD1D \uBA87\uC77C\uC774
     \uAC78\uB9B4\uAE4C\uC694?"
   qstGreatestCommonDivisor: "\uC9D1\uC744 \uC9D3\uB294\uB370 \uD558\uB8E8\uC5D0 \uD560\uB2F9\uCE58\uB85C
@@ -49,8 +49,8 @@ MonoBehaviour:
   - leaf
   - feather
   objNameList:
+  - clover
   - leaf
   - rock
-  - feather
   obj1Name: branch
-  obj2Name: clover
+  obj2Name: feather
