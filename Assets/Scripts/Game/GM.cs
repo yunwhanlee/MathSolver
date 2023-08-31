@@ -337,6 +337,7 @@ public class GM : MonoBehaviour {
     }
 
     public void initObjList(QuestionSO qst) {
+        Debug.Log($"initObjList():: qst= {qst}");
         string[] resList = (bgStatus == BG_STT.Bush)? qst.JungleBushNames //* ブッシュ
             : (bgStatus == BG_STT.Swamp || bgStatus == BG_STT.MonkeyWat)? qst.JungleObjNames //* ジャンゲル
             : qst.DefObjNames; //* これ以外
