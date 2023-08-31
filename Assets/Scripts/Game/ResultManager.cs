@@ -138,7 +138,7 @@ public class ResultManager : MonoBehaviour {
         yield return coPlayAnswerProgressFrameStarAnim(GM._.qm.QuizAnswerResultArr); //* 下のテーブル★
         yield return coPlayStarAndMsgAnim(GM._.qm.QuizAnswerResultArr); //* 空の回る★
         StartCoroutine(coPlayCoinCollectAnim());
-        yield return Util.time0_8;
+        yield return Util.time0_5;
         StartCoroutine(coPlayExpCollectionAnim());
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
@@ -152,7 +152,7 @@ public class ResultManager : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.GetCoin.ToString());
         yield return Util.time0_1;
         SM._.sfxPlay(SM.SFX.GetCoin.ToString());
-        yield return Util.time0_8;
+        yield return Util.time0_5;
         yield return Util.time0_2;
         SM._.sfxPlay(SM.SFX.GetExp.ToString());
         yield return Util.time0_05;
@@ -192,6 +192,8 @@ public class ResultManager : MonoBehaviour {
     }
 
     IEnumerator coPlayExpCollectionAnim() {
+        Debug.Log("ResultManager:: coPlayExpCollectionAnim():: rewardExp= " + rewardExp);
+
         bool isExpUp = true;
         int expVal = 0;
 
@@ -207,8 +209,9 @@ public class ResultManager : MonoBehaviour {
                     lvTxt.text = DB.Dt.Lv.ToString();
                 }
             }
-            else
+            else {
                 isExpUp = false;
+            }
             yield return Util.time0_01;
         }
     }
