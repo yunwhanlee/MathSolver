@@ -39,6 +39,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject settingPanel;   public GameObject SettingPanel {get => settingPanel; set => settingPanel = value;}    
 
     [Header("ROOM GO TO ICONS")]
+    [SerializeField] Image portraitImg;               public Image PortraitImg {get => portraitImg;}
     [SerializeField] GameObject funitureNotifyIcon;   public GameObject FunitureNotifyIcon {get => funitureNotifyIcon; set => funitureNotifyIcon = value;}
     [SerializeField] GameObject funitureIconShineEF;
     [SerializeField] GameObject clothShopNotifyIcon;   public GameObject ClothShopNotifyIcon {get => clothShopNotifyIcon; set => clothShopNotifyIcon = value;}
@@ -58,7 +59,7 @@ public class HUI : MonoBehaviour {
 
     [Header("SETTING")]
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
-
+    [SerializeField] Image settingPanelPortraitImg; public Image SettingPanelPortraitImg {get => settingPanelPortraitImg;}
     [SerializeField] TextMeshProUGUI nickName;      public TextMeshProUGUI NickName {get => nickName;}
     [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
     [SerializeField] TextMeshProUGUI fameValTxt;   public TextMeshProUGUI FameValTxt {get => fameValTxt; set => fameValTxt = value;}
@@ -220,6 +221,9 @@ public class HUI : MonoBehaviour {
             achiveRankScrollFrames[i].SetActive(i == QUEST);
         }
         achiveRankTitleTxt.text = LM._.localize("Achivement");//Enum.ACHIVERANK.Achivement.ToString();
+
+        //* Set My Portrait Image
+        setMyPortraitsImg(HM._.pl.IdleSpr);
     }
 
     // void Update() {
@@ -579,6 +583,10 @@ public class HUI : MonoBehaviour {
         HM._.actm.clearAllInputFieldTxt();
         loginPopUp.SetActive(isSginIn);
         registerPopUp.SetActive(!isSginIn);
+    }
+    public void setMyPortraitsImg(Sprite spr) {
+        portraitImg.sprite = spr;
+        settingPanelPortraitImg.sprite = spr;
     }
     public void displayAchiveRankPanel() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());

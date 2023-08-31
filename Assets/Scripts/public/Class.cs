@@ -323,18 +323,21 @@ public class PlayerSkin : Item {
         //* ホームに戻す
         backHome();
         //* 効果
-        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.time2);
+        HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.time2);        
     }
 
     #region Priavate Func
     private Transform setSpriteLibrary() {
         Debug.Log($"PlayerSkin:: setSpriteLibrary():: HM._.ui.CurSelectedItemIdx= {HM._.ui.CurSelectedItemIdx}");
         PlayerSkin[] items = DB.Dt.PlSkins;
-        SpriteLibrary sprLib = HM._.pl.GetComponent<SpriteLibrary>();
+        SpriteLibrary sprLib = HM._.pl.SprLib;
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false); 
         //* 適用
         sprLib.spriteLibraryAsset = items[HM._.ui.CurSelectedItemIdx].SprLibraryAsset;
+        //* Portrait変更
+        HM._.pl.IdleSpr = sprLib.spriteLibraryAsset.GetSprite("Idle", "Entry");
+        HM._.ui.setMyPortraitsImg(HM._.pl.IdleSpr);
         //* EFに位置を与えるため、リターン
         return sprLib.transform;
     }
