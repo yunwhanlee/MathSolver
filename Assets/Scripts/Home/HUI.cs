@@ -185,7 +185,8 @@ public class HUI : MonoBehaviour {
         StartCoroutine(coUpdateUI());
 
         //* Level Up Check
-        checkLevelUp();
+        if(!DB.Dt.IsTutoFinishTrigger) //! (チュートリアル途中でレベールすると、画面が止まるバグ対応)
+            checkLevelUp();
 
         //* Setting Add Event Listener
         const int EN = 0, KR = 1, JP = 2;

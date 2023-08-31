@@ -202,6 +202,7 @@ public class ResultManager : MonoBehaviour {
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 if(expFilledCircleBar.fillAmount == 1) {
+                    Debug.Log("ResultManager:: coPlayExpCollectionAnim():: LevelUp!");
                     StartCoroutine(GM._.Pl.coLevelUpEF());
                     lvTxt.text = DB.Dt.Lv.ToString();
                 }
