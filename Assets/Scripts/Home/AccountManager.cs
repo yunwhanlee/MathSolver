@@ -60,8 +60,8 @@ public class AccountManager : MonoBehaviour {
 		reqLogin();
 	}
 	public void onClickSignUpRegisterBtn() {
-		if(Util.preventInputTxtBug(idInputs[LOGIN].text, true)) return;
-		if(Util.preventInputTxtBug(passwordInputs[LOGIN].text, true)) return;
+		if(Util.preventInputTxtBug(idInputs[REGISTER].text, true)) return;
+		if(Util.preventInputTxtBug(passwordInputs[REGISTER].text, true)) return;
 		SM._.sfxPlay(SM.SFX.BtnClick.ToString());
 		reqRegister();
 	} 
