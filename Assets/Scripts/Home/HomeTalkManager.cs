@@ -119,7 +119,9 @@ public class HomeTalkManager : TalkManager {
         #region MAP1 FOREST
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_ACCEPT, new string[] {
             $"자 이제 본격적으로<br>해결사 일을 진행해볼까?:{(int)SPK.Pl_Idle}",
-            $"문제를 풀면서, 레벨3를 달성해보자!:{(int)SPK.Pl_Idle}"
+            $"문제를 풀면서, 레벨3를 달성해보자!:{(int)SPK.Pl_Idle}",
+            $"아! 보상으로 얻은 가구를 배치하고, 랜덤뽑기도 해보자!:{(int)SPK.Pl_Happy}",
+            $"화면 오른쪽 위에 빛나는 아이콘이 있어!:{(int)SPK.Pl_Idle}"
         });
         talkDt.Add((int)ID.UNLOCK_MAP1_BG2_REWARD, new string[] {
             $"안녕하세요.<br>해결사 선생님!:{(int)SPK.Mole_Idle}"
