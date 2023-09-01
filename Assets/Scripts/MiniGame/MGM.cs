@@ -184,8 +184,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             mgem.releaseAllObj();
 
             //* Exp & Coin Reward
-            const int EXP_VAL = 5, COIN_VAL = 10;
-            mgrm.setReward(EXP_VAL * score, COIN_VAL * score);
+            mgrm.setReward(Config.MINGAME_RES_EXP_UNIT * score, Config.MINGAME_RES_COIN_UNIT * score);
             StartCoroutine(mgrm.coDisplayResultPanel());
 
             //* Result画面 準備

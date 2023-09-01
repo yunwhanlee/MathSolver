@@ -133,7 +133,7 @@ public class SM : MonoBehaviour {
         if(name == SFX.ChildYeah.ToString()) childYeahSFX.Play();
         if(name == SFX.CorrectAnswer.ToString()) correctAnswerSFX.PlayDelayed(delay);
         if(name == SFX.WrongAnswer.ToString()) wrongAnswerSFX.Play();
-        if(name == SFX.GetCoin.ToString()) getCoinSFX.Play();
+        if(name == SFX.GetCoin.ToString()) getCoinSFX.PlayDelayed(delay);
         if(name == SFX.GetExp.ToString()) getExpSFX.Play();
         if(name == SFX.Result.ToString()) resultSFX.Play();
         if(name == SFX.Ready.ToString()) readySFX.Play();

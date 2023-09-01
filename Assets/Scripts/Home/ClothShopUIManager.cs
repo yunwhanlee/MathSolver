@@ -19,10 +19,12 @@ public class ClothShopUIManager : MonoBehaviour
 
     [Header("PURCHASE BTN")]
     [SerializeField] TextMeshProUGUI priceTxt;  public TextMeshProUGUI PriceBtn {get => priceTxt; set => priceTxt = value;}
+    [SerializeField] TextMeshProUGUI sweetPotatoPercentTxt;
     [SerializeField] GameObject purchaseNotifyIcon;  public GameObject PurchaseNotifyIcon {get => purchaseNotifyIcon;}
 
     [Header("REWARD ANIM PANEL")]
     [SerializeField] GameObject goldSparkleEF;
+    [SerializeField] GameObject sweetPotatoAttractTopCoinEF;
     
     [SerializeField] GameObject gachaAnimPanel;    public GameObject GachaRewardAnimPanel {get => gachaAnimPanel; set => gachaAnimPanel = value;}
     [SerializeField] Image rewardImg;    public Image RewardImg {get => rewardImg; set => rewardImg = value;}
@@ -33,7 +35,9 @@ public class ClothShopUIManager : MonoBehaviour
     void Start() {
         anim = gachaAnimPanel.GetComponent<Animator>();
         gachaAnimPanel.SetActive(false);
+        sweetPotatoAttractTopCoinEF.SetActive(false);
         setPrice();
+        sweetPotatoPercentTxt.text = $"{Config.GACHA_SWEETPOTATO_PER}%";
     }
 
 /// -----------------------------------------------------------------------------------------------------------------
@@ -104,6 +108,13 @@ public class ClothShopUIManager : MonoBehaviour
             //* スプライト 適用
             Debug.Log($"Reward Sprite= {rewardSpr}");
             rewardImg.sprite = rewardSpr;
+
+            //* Gold SweetPotato Coin戻す
+            if(isGoldSweetPotato) {
+                sweetPotatoAttractTopCoinEF.SetActive(true);
+                DB.Dt.setCoin(+price);
+                SM._.sfxPlay(SM.SFX.GetCoin.ToString(), 3f);
+            }
         }
         //* ホームに戻る
         else {
@@ -150,6 +161,7 @@ public class ClothShopUIManager : MonoBehaviour
         else {
             anim.SetBool(Enum.ANIM.IsGoldSweetPotato.ToString(), false);
             goldSparkleEF.SetActive(false);
+            sweetPotatoAttractTopCoinEF.SetActive(false);
         }
     }
 #endregion

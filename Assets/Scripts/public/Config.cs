@@ -8,7 +8,7 @@ public static class Config {
     public readonly static float LV_BONUS_PER = 0.1f;
     public readonly static float LEGACY_BONUS_PER = 0.2f;
     //* CLOTH
-    public readonly static int GACHA_SWEETPOTATO_PER = 20;
+    public readonly static int GACHA_SWEETPOTATO_PER = 40;
     public readonly static int GACHA_PET_PER = 30;
 
     //* HOME
@@ -24,6 +24,8 @@ public static class Config {
     public readonly static string TEXTDRAW_REGEX_PATTERN = @"[-+x=?]|minus|times|frac|underline|left|\d+";
     //* MINIGAME
     public readonly static int[] MINIGMAE_PLAY_PRICES = new int[3] {500, 1000, 1500};
+    public readonly static int MINGAME_RES_EXP_UNIT = 2;
+    public readonly static int MINGAME_RES_COIN_UNIT = 5;
 
     public readonly static string MINIGAME1_TITLE = "Catch falling apples!";
     public readonly static string MINIGAME1_CONTENT = "Collect as many apples as you can.";

@@ -32,7 +32,6 @@ RectTransform:
   m_Children:
   - {fileID: 9093687916965823981}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -86,7 +85,7 @@ MonoBehaviour:
   _fitRect: 0
   _emitOnSurface: 1
   _emitterThickness: 0
-  _loop: 1
+  _loop: 0
   _duration: 2
   _playMode: 2
   _startSize:
@@ -189,6 +188,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_GradientMax:
@@ -218,6 +218,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
@@ -285,6 +286,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_GradientMax:
@@ -314,6 +316,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
@@ -347,6 +350,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_GradientMax:
@@ -376,6 +380,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
@@ -1217,7 +1222,7 @@ MonoBehaviour:
   - time: 0
     count: 50
     used: 1
-  _trailRenderer: {fileID: 0}
+  _particleTrailRenderer: {fileID: 0}
   _trailModule:
     enabled: 0
   _trailWidth:
@@ -1286,6 +1291,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_GradientMax:
@@ -1315,6 +1321,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
@@ -1348,6 +1355,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_GradientMax:
@@ -1377,6 +1385,7 @@ MonoBehaviour:
       atime6: 0
       atime7: 0
       m_Mode: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     m_ColorMin: {r: 0, g: 0, b: 0, a: 1}
@@ -1436,7 +1445,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2091289065652973313}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

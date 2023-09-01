@@ -200,13 +200,12 @@ public class ResultManager : MonoBehaviour {
         while(isExpUp) {
             expVal++;
             if(expVal <= rewardExp) {
-                Debug.Log($"coPlayExpCollectionAnim():: expVal= {expVal}, fillAmount= {expFilledCircleBar.fillAmount}");
+                
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 if(expFilledCircleBar.fillAmount == 1) {
                     Debug.Log("coPlayExpCollectionAnim():: LevelUp!");
-                    StartCoroutine(GM._.Pl.coLevelUpEF());
-                    lvTxt.text = DB.Dt.Lv.ToString();
+                    // StartCoroutine(GM._.Pl.coLevelUpEF());
                 }
             }
             else {
@@ -214,6 +213,7 @@ public class ResultManager : MonoBehaviour {
             }
             yield return Util.time0_01;
         }
+        lvTxt.text = DB.Dt.Lv.ToString();
     }
 
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {

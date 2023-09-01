@@ -112,7 +112,7 @@ public class MGResultManager : MonoBehaviour {
         // yield return Util.time1;
         int myCoin = DB.Dt.Coin;
         while(isCoinUP) {
-            coinVal += 5;
+            coinVal += 5; //* Counting Unit
             if(coinVal <= rewardCoin) topCoinTxt.text = $"{coinVal + myCoin}";
             else    isCoinUP = false;
 
@@ -131,13 +131,17 @@ public class MGResultManager : MonoBehaviour {
         while(isExpUp) {
             expVal++;
             if(expVal <= rewardExp) {
+                Debug.Log($"coPlayExpCollectionAnim():: expVal= {expVal}, fillAmount= {expFilledCircleBar.fillAmount}");
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
-                if(expFilledCircleBar.fillAmount == 1)
+                if(expFilledCircleBar.fillAmount == 1) {
+                    Debug.Log("coPlayExpCollectionAnim():: LevelUp!");
                     StartCoroutine(GM._.Pl.coLevelUpEF());
+                }
             }
-            else
+            else {
                 isExpUp = false;
+            }
             yield return Util.time0_01;
         }
     }
