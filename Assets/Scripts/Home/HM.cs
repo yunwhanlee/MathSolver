@@ -54,8 +54,7 @@ public class HM : MonoBehaviour {
         setCharaSpriteLibraryBySaveData(DB.Dt.PlSkins);
         setCharaSpriteLibraryBySaveData(DB.Dt.PtSkins);
 
-        if(DB.Dt.IsLogin)
-            actm.reqAutoLogin();
+        actm.reqAutoLogin();
 
         //* LEGACY BONUS VAL
         int legacyCnt = 0;

@@ -20,6 +20,10 @@ public class RankManager : MonoBehaviour {
     public void createRankUserList() {
         //* Rank リスト 生成
         Debug.Log("RankManager:: HM._.actm.UserInfoList.Count= " + HM._.actm.UserInfoList.Count);
+        //* オブジェクト 初期化
+        for (int i = RankScrollContentTf.childCount - 1; i >= 0; i--)
+            Destroy(RankScrollContentTf.GetChild(i).gameObject);
+
         int rankNum = 1;
         HM._.actm.UserInfoList.ForEach(user => {
             Debug.Log($"RankManager:: Instantiate UserInfoList id={user.Id}, lv={user.Lv}, fame={user.Fame}, skin={user.SkinName}");
@@ -29,8 +33,7 @@ public class RankManager : MonoBehaviour {
             ins.transform.GetChild(FAME).GetComponent<TextMeshProUGUI>().text = user.Fame;
             //* Skin
             PlayerSkin plSkin = Array.Find(DB.Dt.PlSkins, sk => sk.Name == user.SkinName);
-            var skinImg = ins.transform.GetChild(SKIN).GetComponentsInChildren<Image>()[1];
-            skinImg.sprite = plSkin.Spr;
+            ins.transform.GetChild(SKIN).GetComponentsInChildren<Image>()[1].sprite = plSkin.Spr;
             //* Ranker Styling (1st, 2nd, 3rd)
             if(rankNum == 1) {
                 rankerSkinImgs[0].sprite = plSkin.Spr;
@@ -66,8 +69,7 @@ public class RankManager : MonoBehaviour {
         myTf.GetChild(LV).GetComponent<TextMeshProUGUI>().text = "LV" + userInfoArr[LV];
         myTf.GetChild(FAME).GetComponent<TextMeshProUGUI>().text = userInfoArr[FAME];
         PlayerSkin plSkin = Array.Find(DB.Dt.PlSkins, sk => sk.Name == userInfoArr[SKIN]);
-        var skinImg = myTf.GetChild(SKIN).GetComponentsInChildren<Image>()[1];
-        skinImg.sprite = plSkin.Spr;
+        myTf.GetChild(SKIN).GetComponentsInChildren<Image>()[1].sprite = plSkin.Spr;
         // tf.GetChild(SKIN).GetComponentInChildren<Image>().sprite = 
         // int myRankNum = HM._.actm.UserInfoList.FindIndex(user => user.Id == DB.Dt.AccountID);
         // tf.GetChild(RANK).GetComponent<TextMeshProUGUI>().text = (myRankNum).ToString();

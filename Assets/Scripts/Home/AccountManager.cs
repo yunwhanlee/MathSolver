@@ -39,7 +39,6 @@ public class AccountManager : MonoBehaviour {
 	[SerializeField] TMP_InputField[] idInputs;
 	[SerializeField] TMP_InputField[] passwordInputs;
 	[Header("ユーザデータ：ID_LEVEL_FAME_SKIN")]
-	[SerializeField] string infoDtStr;	public string InfoDtStr {get => infoDtStr; set => infoDtStr = value;}
 	[SerializeField] TextMeshProUGUI autoLoginLogTxt;
 	[Header("サーバから、Rankへ表示するuserInfoListを受け取る")]
 	[SerializeField] List<UserInfo> userInfoList;	public List<UserInfo> UserInfoList {get => userInfoList;}
@@ -81,11 +80,19 @@ public class AccountManager : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
 	public void reqLogin() => StartCoroutine(coAccount(Type.login));
 	public void reqRegister() => StartCoroutine(coAccount(Type.register));
-	public void reqSaveInfo(string infoDtStr) => StartCoroutine(coAccount(Type.save, infoDtStr));
+	public void reqSaveMyInfo() {
+		if(!DB.Dt.IsLogin) return; //* ログインしたかったら、処理しない
+		Item curSkin = Array.Find(DB.Dt.PlSkins, skin => skin.IsArranged);
+		string updatedinfoDt = $"{DB.Dt.NickName}_{DB.Dt.Lv}_{DB.Dt.Fame}_{curSkin.Name}";
+		StartCoroutine(coAccount(Type.save, updatedinfoDt));
+		HM._.rm.setMyRankInfo(updatedinfoDt);
+	} 
 	public void reqAutoLogin() => StartCoroutine(coAutoLogin());
 	public void reqGetAllUsers() => StartCoroutine(coGetAllUsers());
 
 	IEnumerator coGetAllUsers() { //* サーバから、登録したユーザリスト習得
+
+		//! 何か GETができないから、POSTに一旦した。
 		WWWForm form = new WWWForm();
 		form.AddField("command", "get_all_users");
 		form.AddField("id", "");
@@ -93,7 +100,6 @@ public class AccountManager : MonoBehaviour {
 		form.AddField("info", "");
 
 		UnityWebRequest www = UnityWebRequest.Post(serverURL, form);
-
 		yield return www.SendWebRequest();
 
 		if (www.result != UnityWebRequest.Result.Success) {
@@ -102,6 +108,9 @@ public class AccountManager : MonoBehaviour {
 		else {
 			string res = www.downloadHandler.text;
 			Debug.Log("coGetAllUsers():: <color=yellow>res= " + res + "</color>");
+			//* 初期化
+			userInfoList = new List<UserInfo>(); 
+
 
 			//* ユーザリストをクラス化 (リスト)
 			UserData userDt = JsonUtility.FromJson<UserData>("{\"data\":" + res + "}");
@@ -132,29 +141,45 @@ public class AccountManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator coAccount(Type command, string infoDtStr = "") {
+	/// <summary>
+	/// アカウントに関した処理関数をサーバへ送信
+	/// </summary>
+	/// <param name="cmd">LOGINとREGISTERとSAVEタイプを指定。</param>
+	/// <param name="infoDtStr">SAVEの場合のみ、infoDtStrへ値が入ってくる。</param>
+	/// <returns></returns>
+	IEnumerator coAccount(Type cmd, string infoDtStr = "") {
 		WWWForm form = new WWWForm();
-		int idx = (command == Type.login || command == Type.save)? LOGIN: REGISTER;
-		form.AddField("command", command.ToString());
-		form.AddField("id", idInputs[idx].text);
-		form.AddField("password", passwordInputs[idx].text);
+		//* ID
+		string id = (cmd == Type.login)? idInputs[LOGIN].text
+			: (cmd == Type.register)? idInputs[REGISTER].text
+			: DB.Dt.AccountID;
+		//* PW
+		string pw = (cmd == Type.login)? passwordInputs[LOGIN].text
+			: (cmd == Type.register)? passwordInputs[REGISTER].text
+			: DB.Dt.AccountPassword;
+		
+		Debug.Log($"coAccount():: REQUEST TO SERVER FROM -> <color=yellow>cmd={cmd}, id= {id}, pw= {pw}, infoDt= {infoDtStr}</color>");
+		//* サーバに投げる フォーム作成
+		form.AddField("command", cmd.ToString());
+		form.AddField("id", id);
+		form.AddField("password", pw);
 		form.AddField("info", infoDtStr);
-
 		UnityWebRequest www = UnityWebRequest.Post(serverURL, form);
 
 		yield return www.SendWebRequest();
 		string res = www.downloadHandler.text;
-		Debug.Log("AccountManager():: <color=yellow>res= " + res + "</color>");
+		Debug.Log($"coAccount(command= {cmd}, infoDtStr= {infoDtStr}):: <color=yellow> res= " + res + "</color>");
 
 		//* 結果
 		if(res.Contains("Fail")) {
 			string msg = res.Split(":")[1];
-			HM._.ui.showErrorMsgPopUp(msg);
+			HM._.ui.showErrorMsgPopUp(msg + " : " + www.downloadHandler.error);
+			Debug.Log("FAIL= " + www.downloadHandler.error);
 		}
 		else if(res.Contains("Succeed")) {
 			string msg = res.Split(":")[1];
 
-			if(command == Type.save) Debug.Log("<color=blue>Save Info Data to Server!</color>");
+			if(cmd == Type.save) Debug.Log("<color=blue>Save Info Data to Server!</color>");
 			else HM._.ui.showSuccessMsgPopUp(msg);
 
 			//* ログイン
@@ -165,40 +190,38 @@ public class AccountManager : MonoBehaviour {
 				//* 処理
 				HM._.ui.LoginBtn.gameObject.SetActive(false);
 				HM._.ui.LogoutBtn.gameObject.SetActive(true);
-				HM._.ui.LoginUserIDTxt.text = "ID: " + DB.Dt.AccountID;
+				// HM._.ui.LoginUserIDTxt.text = "ID: " + DB.Dt.AccountID;
 				dt.IsLogin = true;
-				dt.AccountID = idInputs[idx].text;
-				dt.AccountPassword = passwordInputs[idx].text;
+				dt.AccountID = id;
+				dt.AccountPassword = pw;
 
-				//* Infoデータ サーバへ保存
-				Item curSkin = Array.Find(dt.PlSkins, skin => skin.IsArranged);
-				infoDtStr = $"{dt.NickName}_{dt.Lv}_{dt.Fame}_{curSkin.Name}";
-				print($"onClickSignInLoginBtn():: infoDtStr= {infoDtStr}");
-				reqSaveInfo(infoDtStr);
+				//? ログインできたら、一回 Myデータを保存
+				reqSaveMyInfo();
 
 				//* MyRank Info
 				HM._.rm.MyRankInfoObj.SetActive(true);
 				HM._.rm.NeedToLoginTxtObj.SetActive(false);
-				HM._.rm.setMyRankInfo(infoDtStr);
 			}
 			//* 新規登録
 			else if(msg == "Register success") {
 				HM._.ui.RegisterPopUp.SetActive(false);
 				HM._.ui.LoginPopUp.SetActive(true);
+				//* 新規登録したら、ログインID表示してパスワードのみ入力するように
 			}
 		}
 	}
 
 	public IEnumerator coAutoLogin() {
 		var dt = DB.Dt;
+		if(!dt.IsLogin) yield break;
 		Item curSkin = Array.Find(dt.PlSkins, skin => skin.IsArranged);
-		infoDtStr = $"{dt.NickName}_{dt.Lv}_{dt.Fame}_{curSkin.Name}";
+		string updatedinfoDt = $"{dt.NickName}_{dt.Lv}_{dt.Fame}_{curSkin.Name}";
 
 		WWWForm form = new WWWForm();
 		form.AddField("command", Type.login.ToString());
 		form.AddField("id", DB.Dt.AccountID);
 		form.AddField("password", DB.Dt.AccountPassword);
-		form.AddField("info", infoDtStr);
+		form.AddField("info", updatedinfoDt);
 
 		UnityWebRequest www = UnityWebRequest.Post(serverURL, form);
 
@@ -218,12 +241,14 @@ public class AccountManager : MonoBehaviour {
 			//* SettingPanalで、ログアウトボタンに切り替え
 			HM._.ui.LoginBtn.gameObject.SetActive(false);
 			HM._.ui.LogoutBtn.gameObject.SetActive(true);
-			HM._.ui.LoginUserIDTxt.text = "ID: " + DB.Dt.AccountID;
+			// HM._.ui.LoginUserIDTxt.text = "ID: " + DB.Dt.AccountID;
+
+			//? AUTOログインができたら、一回 Myデータを保存
+			reqSaveMyInfo();
 
 			//* MyRank Info
 			HM._.rm.MyRankInfoObj.SetActive(true);
 			HM._.rm.NeedToLoginTxtObj.SetActive(false);
-			HM._.rm.setMyRankInfo(infoDtStr);
 		}
 	}
 	private IEnumerator coDisplayAutoLoginLog(string res, string fontClr) {
@@ -233,7 +258,7 @@ public class AccountManager : MonoBehaviour {
 		yield return Util.time2;
 		autoLoginLogTxt.gameObject.SetActive(false);
 	}
-	public void clearAllInputFieldTxt() {
+	public void clearAllInputFieldTxt() { //* => HUI:: displaySignInUpPopUp()
 		Array.ForEach(idInputs, idInput => idInput.text = "");
 		Array.ForEach(passwordInputs, pwInput => pwInput.text = "");
 	}

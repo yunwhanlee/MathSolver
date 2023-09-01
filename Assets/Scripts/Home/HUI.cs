@@ -401,14 +401,18 @@ public class HUI : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         //* Title
         achiveRankTitleTxt.text = (idx == 0)? LM._.localize("Achivement")
-            : (idx == 1)? LM._.localize("Quest")//Enum.ACHIVERANK.Mission.ToString()
-            : LM._.localize("Rank");//Enum.ACHIVERANK.Rank.ToString(); // idx == 2
+            : (idx == 1)? LM._.localize("Quest")
+            : LM._.localize("Rank");
 
         //* Display
         for(int i = 0; i < achiveRankTypeBtns.Length; i++) {
             achiveRankTypeBtns[i].GetComponent<Image>().color = (i == idx)? selectedTypeBtnClr : Color.white;
             achiveRankScrollFrames[i].SetActive(i == idx);
         }
+
+        //* サーバから Myデータ保存（最新化）
+        HM._.actm.reqSaveMyInfo();
+        HM._.actm.reqGetAllUsers();
     }
     public void onClickInventoryItemListBtn() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
