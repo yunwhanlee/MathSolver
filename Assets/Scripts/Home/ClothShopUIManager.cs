@@ -111,6 +111,7 @@ public class ClothShopUIManager : MonoBehaviour
 
             //* Gold SweetPotato Coin戻す
             if(isGoldSweetPotato) {
+                sweetPotatoAttractTopCoinEF.SetActive(false);
                 sweetPotatoAttractTopCoinEF.SetActive(true);
                 DB.Dt.setCoin(+price);
                 SM._.sfxPlay(SM.SFX.GetCoin.ToString(), 3f);
