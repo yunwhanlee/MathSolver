@@ -61,6 +61,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
     [SerializeField] Image settingPanelPortraitImg; public Image SettingPanelPortraitImg {get => settingPanelPortraitImg;}
     [SerializeField] TextMeshProUGUI nickName;      public TextMeshProUGUI NickName {get => nickName;}
+    [SerializeField] TextMeshProUGUI myRankTxt;     public TextMeshProUGUI MyRankTxt {get => myRankTxt;}
     [SerializeField] TextMeshProUGUI[] levelTxts;   public TextMeshProUGUI[] LevelTxts {get => levelTxts; set => levelTxts = value;}
     [SerializeField] TextMeshProUGUI fameValTxt;   public TextMeshProUGUI FameValTxt {get => fameValTxt; set => fameValTxt = value;}
     [SerializeField] TextMeshProUGUI levelBonusValTxt;    public TextMeshProUGUI LevelBonusValTxt {get => levelBonusValTxt; set => levelBonusValTxt = value;}
@@ -507,6 +508,12 @@ public class HUI : MonoBehaviour {
         SM._.BgmAudio.gameObject.SetActive(dt.IsActiveMusic);
         if(dt.IsActiveMusic) SM._.BgmAudio.Play();
     }
+    public void onClickGoRankBtn() {
+        //* ログインしたら、ラングボタン表示して、クリックで移動
+        settingPanel.SetActive(false);
+        onClickAchiveRankIconBtn();
+        onClickAchiveRankTypeBtn(2);
+    }
     #endregion
 
     public void onClickLevelUpPopUpAcceptBtn() {
@@ -602,6 +609,7 @@ public class HUI : MonoBehaviour {
 #region FUNC
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     private void displaySignInUpPopUp(bool isSginIn) {
+        SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.actm.clearAllInputFieldTxt();
         loginPopUp.SetActive(isSginIn);
         registerPopUp.SetActive(!isSginIn);

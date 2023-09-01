@@ -52,6 +52,7 @@ public class RankManager : MonoBehaviour {
 
             //* My RankNum
             if(DB.Dt.AccountID != "" && user.Id == DB.Dt.AccountID) {
+                HM._.ui.MyRankTxt.text = $"{rankNum}";
                 myRankInfoObj.transform.GetChild(RANK).GetComponent<TextMeshProUGUI>().text = $"{rankNum}";
             }
             rankNum++;
