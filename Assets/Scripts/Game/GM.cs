@@ -803,7 +803,7 @@ public class GM : MonoBehaviour {
 
         //* Burning EF
         if(comboCnt >= 2)
-            StartCoroutine(codelayActiveBurningEF());
+            GM._.gem.activeDelayBurningEF();//StartCoroutine(GM._.gem.codelayActiveBurningEF());
 
         //* 風車 BG
         if(bgStatus == BG_STT.Windmill) {
@@ -855,11 +855,6 @@ public class GM : MonoBehaviour {
         if(bgIdx > 0) {
             yield return Util.time0_8;
         }
-    }
-    IEnumerator codelayActiveBurningEF() {
-        gem.PlBurningEF.SetActive(false);
-        yield return Util.time1_5;
-        gem.PlBurningEF.SetActive(true);
     }
 #endregion
 }

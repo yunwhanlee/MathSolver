@@ -21,8 +21,9 @@ public class GEM : MonoBehaviour { //* Game Effect Manager
     [SerializeField] GameObject minusBlinkBoxBurstEF;    public GameObject MinusBlinkBoxBurstEF {get => minusBlinkBoxBurstEF; set => minusBlinkBoxBurstEF = value;}
     [SerializeField] GameObject questionMarkBoxBurstEF; public GameObject QuestionMarkBoxBurstEF {get => questionMarkBoxBurstEF; set => questionMarkBoxBurstEF = value;}
 
-    [Header("CHILD ON/OFF TYPE")]
+    [Header("CHILD ON/OFF ACTIVE TYPE")]
     [SerializeField] GameObject plBurningEF;    public GameObject PlBurningEF {get => plBurningEF; set => plBurningEF = value;}
+    [SerializeField] GameObject comboEF;    public GameObject ComboEF {get => comboEF;}
 
     void Awake() {
         //* 順番合わせること
@@ -73,6 +74,23 @@ public class GEM : MonoBehaviour { //* Game Effect Manager
 
         yield return Util.time1;
         pool[(int)IDX.DropItemTxtEF].Release(effect);
+    }
+#endregion
+/// -----------------------------------------------------------------------------------------------------------------
+#region FUNCTION (ON / OFF TYPE)
+/// -----------------------------------------------------------------------------------------------------------------
+    public void activeComboEF() => StartCoroutine(coActiveComboEF());
+    public void activeDelayBurningEF() => StartCoroutine(codelayActiveBurningEF());
+    public IEnumerator coActiveComboEF() {
+        SM._.sfxPlay(SM.SFX.Jump.ToString());
+        comboEF.SetActive(true);
+        yield return Util.time1;
+        comboEF.SetActive(false);
+    }
+    public IEnumerator codelayActiveBurningEF() {
+        plBurningEF.SetActive(false);
+        yield return Util.time1_5;
+        plBurningEF.SetActive(true);
     }
 #endregion
 }

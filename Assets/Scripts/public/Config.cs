@@ -15,6 +15,7 @@ public static class Config {
     public readonly static Color CATE_SELECT_COLOR = new Color(0.1f, 0.3f, 0.55f, 1);
     public readonly static int CLOTH_PRICE_UNIT = 300;
     //* GAME
+    public readonly static int COMBO_ACTIVE_CNT = 2;
     public readonly static int[] MAP1_BG_UNLOCK_LVS = new int[3] {1, 3, 5};
     public readonly static int[] MAP2_BG_UNLOCK_LVS = new int[3] {7, 9, 11};
     public readonly static int[] MAP3_BG_UNLOCK_LVS = new int[3] {13, 15, 17};

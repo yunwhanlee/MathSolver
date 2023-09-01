@@ -399,8 +399,10 @@ public class QuizManager : MonoBehaviour {
         GM._.ComboCnt++;
 
         //* コンボ BurningEF
-        if(GM._.ComboCnt >= 2 && !GM._.gem.PlBurningEF.activeSelf)
-            GM._.gem.PlBurningEF.SetActive(true);
+        if(GM._.ComboCnt >= Config.COMBO_ACTIVE_CNT) {
+            GM._.gem.activeComboEF();
+            if(!GM._.gem.PlBurningEF.activeSelf) GM._.gem.PlBurningEF.SetActive(true);
+        }
 
         //* 演算子によって登録した関数 コールバック
         if(GM._.OnAnswerObjAction != null) {
@@ -463,7 +465,7 @@ public class QuizManager : MonoBehaviour {
         StartCoroutine(GM._.Anm.coWrongEF());
         answerBtn[idx].GetComponent<Image>().color = Color.red;
         GM._.charaAnimByAnswer(isCorret: false);
-        GM._.ComboCnt = 0;
+        GM._.ComboCnt = -1;
         GM._.gem.PlBurningEF.SetActive(false);
         hintFrame.SetActive(true);
         interactableAnswerBtns(false);
