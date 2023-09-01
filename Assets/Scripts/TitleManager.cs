@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 using AssetKits.ParticleImage;
 
 public class TitleManager : MonoBehaviour
 {
     public static TitleManager _;
+    public TextMeshProUGUI versionTxt;
     public Image helpLogoImg;
     public Image logoWgiteImg;
     public Image titleLogoImg;
@@ -20,6 +22,7 @@ public class TitleManager : MonoBehaviour
     }
 
     void Start() {
+        versionTxt.text = $"{Config.VER_MAJOR}.{Config.VER_MINOR}.{Config.VER_RESOLUTION}-{Config.VER_STATUS}";
         SM._.bgmPlay(SM.BGM.Title.ToString());
     }
 

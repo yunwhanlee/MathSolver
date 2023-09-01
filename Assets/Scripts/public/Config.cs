@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Config {
+    //* Version
+    public readonly static string VER_STATUS = "demo";
+    public readonly static string VER_MAJOR = "1";
+    public readonly static string VER_MINOR = "0";
+    public readonly static string VER_RESOLUTION = "0";
+
     //* PLAYER
     public readonly static int LV_EXP_UNIT = 70;
     public readonly static float LV_BONUS_PER = 0.1f;
