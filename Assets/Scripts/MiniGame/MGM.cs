@@ -96,6 +96,7 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
             //* プレイヤーのSpriteLibraryAssetだけ適用
             Player loadPlayer = DB._.transform.GetChild(0).GetComponent<Player>();
             pl.SprLib.spriteLibraryAsset = loadPlayer.SprLib.spriteLibraryAsset;
+            // HM._.em.createPlayerSkinAuraEF();
         }
 
         camMinigame2Group.SetActive(type == TYPE.MINIGAME2); //* MiniGame2：CamChildGroup 活性化

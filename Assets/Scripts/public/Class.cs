@@ -326,7 +326,7 @@ public class PlayerSkin : Item {
         HM._.em.showEF((int)HEM.IDX.FunitureSetupEF, objTf.position, Util.time2);        
     }
 
-    #region Priavate Func
+    #region Private Func
     private Transform setSpriteLibrary() {
         Debug.Log($"PlayerSkin:: setSpriteLibrary():: HM._.ui.CurSelectedItemIdx= {HM._.ui.CurSelectedItemIdx}");
         PlayerSkin[] items = DB.Dt.PlSkins;
@@ -335,6 +335,7 @@ public class PlayerSkin : Item {
         Array.ForEach(items, item => item.IsArranged = false); 
         //* 適用
         sprLib.spriteLibraryAsset = items[HM._.ui.CurSelectedItemIdx].SprLibraryAsset;
+        HM._.em.createPlayerSkinAuraEF();
         //* Portrait変更
         HM._.pl.IdleSpr = sprLib.spriteLibraryAsset.GetSprite("Idle", "Entry");
         HM._.ui.setMyPortraitsImg(HM._.pl.IdleSpr);

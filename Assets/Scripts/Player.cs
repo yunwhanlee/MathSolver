@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     [Header("ACTIVE EF")]
     [SerializeField] GameObject roarEF;
     [SerializeField] GameObject levelUpEF;
+    [SerializeField] Transform auraEFGroup;   public Transform AuraEFGroup {get => auraEFGroup;}
 
     [Header("VALUE")]    
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}

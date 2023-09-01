@@ -9575,7 +9575,7 @@ GameObject:
   - component: {fileID: 3703302178432478801}
   - component: {fileID: 5924712469624708220}
   m_Layer: 0
-  m_Name: PurpleNeonGolbinAura
+  m_Name: PurpleNeonGolbinAuraEF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

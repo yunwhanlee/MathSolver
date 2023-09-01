@@ -117,14 +117,15 @@ public class HM : MonoBehaviour {
         //* Pattern Matching
         switch(curSkin) {
             case PlayerSkin plSk:
-                HM._.pl.IdleSpr = plSk.Spr;
-                HM._.pl.SprLib.spriteLibraryAsset = plSk.SprLibraryAsset;
+                pl.IdleSpr = plSk.Spr;
+                pl.SprLib.spriteLibraryAsset = plSk.SprLibraryAsset;
+                em.createPlayerSkinAuraEF();
                 break;
             case PetSkin ptSk:
-                HM._.pet.SprLib.spriteLibraryAsset = ptSk.SprLibraryAsset;
+                pet.SprLib.spriteLibraryAsset = ptSk.SprLibraryAsset;
                 //* Sprite Libraryがなかったら、SpriteRenderer 非表示
                 if(!ptSk.SprLibraryAsset)
-                    HM._.pet.Sr.sprite = null;
+                    pet.Sr.sprite = null;
                 break;
         }
     }
