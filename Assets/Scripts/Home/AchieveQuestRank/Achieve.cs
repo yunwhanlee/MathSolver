@@ -56,13 +56,14 @@ public class Achieve : MonoBehaviour {
         lv = Mathf.Clamp(lv, 1, maxLv);
         int ldx = lv - 1;
 
-        //* Done (No More Levvel)
+        //* Done (No More Level)
         if(ldx >= clearMaxVals.Length) {
             rewardIconImg.gameObject.SetActive(false);
             rewardBtn.interactable = false;
-            rewardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "<color=white>Done</color>";
+            rewardBtn.GetComponentInChildren<TextMeshProUGUI>().text = "";//"<color=white>Done</color>";
             rewardBtn.GetComponent<Image>().color = Color.gray;
             cttTxt.text = "";
+            priceTxt.text = LM._.localize("Done");
         }
         else {
             int max = clearMaxVals[ldx];
