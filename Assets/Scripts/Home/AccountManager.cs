@@ -180,7 +180,7 @@ public class AccountManager : MonoBehaviour {
 			string msg = res.Split(":")[1];
 
 			if(cmd == Type.save) Debug.Log("<color=blue>Save Info Data to Server!</color>");
-			else HM._.ui.showSuccessMsgPopUp(msg);
+			else HM._.ui.showSuccessMsgPopUp(LM._.localize(msg));
 
 			//* ログイン
 			if(msg == "Login success") {
