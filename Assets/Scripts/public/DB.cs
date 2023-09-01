@@ -136,7 +136,7 @@ public class Data {
 //* -----------------------------------------------------------------------------------------------------------------
 public class DB : MonoBehaviour {
     public static DB _ {get; private set;}
-    [SerializeField] bool isReset;
+    [SerializeField] bool isReset;  //public bool IsReset {get => isReset; set => isReset = value;}
     [SerializeField] int lvUpCnt;   public int LvUpCnt {get => lvUpCnt; set => lvUpCnt = value;}
     [SerializeField] int selectMapIdx;   public int SelectMapIdx {get => selectMapIdx; set => selectMapIdx = value;}
     [SerializeField] int selectMinigameIdx;   public int SelectMinigameIdx {get => selectMinigameIdx; set => selectMinigameIdx = value;}
@@ -147,7 +147,11 @@ public class DB : MonoBehaviour {
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
         Application.targetFrameRate = 60;
-        if(isReset) reset();
+        if(isReset) {
+            Debug.Log($"isReset= {isReset} -> RESET!");
+            reset();
+            isReset = false;
+        }
 
         #region SINGLETON
         Debug.Log($"Awake {_ == null}");
@@ -177,22 +181,19 @@ public class DB : MonoBehaviour {
         resetItem(copyDt);
     }
     /// -----------------------------------------------------------------------------------------------------------------
-    #region QUIT APP EVENT
+    #region QUIT APP & PC EVENT
     /// -----------------------------------------------------------------------------------------------------------------
-    #if UNITY_EDITOR
-        void OnApplicationQuit() {
-            Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
+    void OnApplicationQuit() {
+        Debug.Log("<color=yellow>QUIT APP(PC)::OnApplicationQuit():: SAVE</color>");
+        this.save();
+    }
+    void OnApplicationPause(bool paused){
+        //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
+        if(paused == true) {
+            Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
             this.save();
         }
-    #elif UNITY_ANDROID
-        void OnApplicationPause(bool paused){
-            //* ゲームが開くとき（paused == true）にも起動されるので注意が必要。
-            if(paused == true) {
-                Debug.Log("<color=yellow>QUIT APP(Mobile)::OnApplicationPause( "+paused+" ):: Scene= " + SceneManager.GetActiveScene().name);
-                this.save();
-            }
-        }
-    #endif
+    }
     #endregion
     /// -----------------------------------------------------------------------------------------------------------------
     #region SAVE
@@ -238,6 +239,7 @@ public class DB : MonoBehaviour {
     public void reset() {
         Debug.Log($"★RESET:: The Key: {Database} Exists? {PlayerPrefs.HasKey(Database)}");
         PlayerPrefs.DeleteAll();
+        Debug.Log($"★RESET After DeleteAll, PlayerPrefs Count: {PlayerPrefs.GetInt("SomeKey", -1)}");
         //* Mathpid-API-info
         dt.IsFinishDiagnosis = false;
         dt.MyAuthorization = "";
