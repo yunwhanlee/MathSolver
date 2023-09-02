@@ -177,6 +177,9 @@ public class HUI : MonoBehaviour {
     public TextMeshProUGUI googleSheetLangLenTxt;
 
     void Start() {
+        //! Test
+        testGroupObj.SetActive(DB._.IsActiveTestMode);
+        testModeActiveBtn.GetComponentInChildren<TextMeshProUGUI>().color = DB._.IsActiveTestMode? Color.green : Color.black;
         googleSheetLangLenTxt.text = $"GSVLCnt= {LM._.langs[0].value.Count}";
 
         //* Setting
@@ -245,8 +248,9 @@ public class HUI : MonoBehaviour {
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
     public void onClickSettingTestModeBtn() {
-        testGroupObj.SetActive(!testGroupObj.activeSelf);
-        testModeActiveBtn.GetComponentInChildren<TextMeshProUGUI>().color = testGroupObj.activeSelf? Color.green : Color.black;
+        DB._.IsActiveTestMode = !DB._.IsActiveTestMode;
+        testGroupObj.SetActive(DB._.IsActiveTestMode);
+        testModeActiveBtn.GetComponentInChildren<TextMeshProUGUI>().color = DB._.IsActiveTestMode? Color.green : Color.black;
     }
 
     public void onClickLevelUpTestBtn() { //! TEST
@@ -884,7 +888,7 @@ public class HUI : MonoBehaviour {
         if(isActive) nickNameInputField.text = DB.Dt.NickName;
     }
     IEnumerator coActiveLevelUpPopUp(Dictionary<RewardItemSO, int> rewardDic) {
-        yield return Util.time1;
+        yield return Util.time0_3;
         SM._.sfxPlay(SM.SFX.LevelUp.ToString());
         SM._.sfxPlay(SM.SFX.Yooo.ToString());
         HM._.state = HM.STATE.POPUP;

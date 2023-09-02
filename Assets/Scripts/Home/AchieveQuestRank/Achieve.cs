@@ -106,6 +106,7 @@ public class Achieve : MonoBehaviour {
         //* Add Reward List
         var rwdList = new Dictionary<RewardItemSO, int> {
             { HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Coin], coinVal},
+            { HM._.ui.RwdSOList[(int)Enum.RWD_IDX.Exp], 50},
         };
         StartCoroutine(HM._.ui.coActiveRewardPopUp(fame: 5, rwdList));
     }
