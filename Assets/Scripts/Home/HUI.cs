@@ -46,6 +46,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject clothShopIconShineEF;
     [SerializeField] GameObject inventoryNotifyIcon;   public GameObject InventoryNotifyIcon {get => inventoryNotifyIcon; set => inventoryNotifyIcon = value;}
     [SerializeField] GameObject inventoryIconShineEF;
+    [SerializeField] GameObject testGroupObj;
 
     [Header("MAIN QUEST BOX (AT HOME)")]
     [SerializeField] Button mainQuestBoxBtn;    public Button MainQuestBoxBtn {get => mainQuestBoxBtn;}
@@ -58,6 +59,7 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject menuTapFrameObjCollider;
 
     [Header("SETTING")]
+    [SerializeField] Button testModeActiveBtn;
     [SerializeField] GameObject selectLangDialog;   public GameObject SelectLangDialog {get => selectLangDialog; set => selectLangDialog = value;}
     [SerializeField] Image settingPanelPortraitImg; public Image SettingPanelPortraitImg {get => settingPanelPortraitImg;}
     [SerializeField] TextMeshProUGUI nickName;      public TextMeshProUGUI NickName {get => nickName;}
@@ -242,6 +244,11 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void onClickSettingTestModeBtn() {
+        testGroupObj.SetActive(!testGroupObj.activeSelf);
+        testModeActiveBtn.GetComponentInChildren<TextMeshProUGUI>().color = testGroupObj.activeSelf? Color.green : Color.black;
+    }
+
     public void onClickLevelUpTestBtn() { //! TEST
         Debug.Log("GetKeyDown(KeyCode.W)");
         StartCoroutine(coActiveRewardPopUp(fame: 5, new Dictionary<RewardItemSO, int>() {
