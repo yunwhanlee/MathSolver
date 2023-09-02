@@ -27,7 +27,9 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] InventoryItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
 
+    [Header("SORTING LIST : DBデータを持ってきて活用")]
     [SerializeField] PlayerSkin[] sortPlayerSkins;  public PlayerSkin[] SortPlayerSkins {get => sortPlayerSkins; set => sortPlayerSkins = value;}
+    //? PlayerSkin[] sortPlayerSkins; -> 一旦ペットは少ないからしない。
 
     void Start() {
         //* アイテムボタン 割り当て

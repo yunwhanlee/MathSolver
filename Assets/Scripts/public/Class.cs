@@ -243,9 +243,9 @@ public class Funiture : Item {
         int idx = HM._.ui.CurSelectedItemIdx;
 
         //* 生成するPrefab 用意
-        GameObject pref = (HM._.fUI.Category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx].Prefab
-            : (HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx].Prefab
-            : pref = DB.Dt.Mats[idx].Prefab;
+        GameObject pref = (HM._.fUI.Category == Enum.FUNITURE_CATE.Funiture)? HM._.fUI.SortFunitures[idx].Prefab //DB.Dt.Funitures[idx].Prefab
+            : (HM._.fUI.Category == Enum.FUNITURE_CATE.Decoration)? HM._.fUI.SortDecorations[idx].prefab //DB.Dt.Decorations[idx].Prefab
+            : HM._.fUI.SortMats[idx].Prefab; //DB.Dt.Mats[idx].Prefab;
 
         //* 生成
         GameObject ins = Util.instantiateObj(pref, HM._.ui.RoomObjectGroupTf);
@@ -298,11 +298,11 @@ public class BgFuniture : Item {
     #region Priavate Func
     private Transform setSpriteByType() {
         SpriteRenderer sr = (this.type == TYPE.Wall)? HM._.wallSr : HM._.floorSr;
-        BgFuniture[] items = Array.FindAll(DB.Dt.Bgs, item => item.Type == this.type);
+        BgFuniture[] items = Array.FindAll(HM._.fUI.SortBgs, item => item.Type == this.type); //DB.Dt.Bgs, item => item.Type == this.type);
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false); 
         //* 適用
-        sr.sprite = DB.Dt.Bgs[HM._.ui.CurSelectedItemIdx].Spr; 
+        sr.sprite = HM._.fUI.SortBgs[HM._.ui.CurSelectedItemIdx].Spr; //DB.Dt.Bgs[HM._.ui.CurSelectedItemIdx].Spr;
         //* EFに位置を与えるため、リターン
         return sr.transform;
     }

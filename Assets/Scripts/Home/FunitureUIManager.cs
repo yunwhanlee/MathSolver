@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using UnityEngine.UI.Extensions;
 using TMPro;
 
@@ -29,6 +30,12 @@ public class FunitureUIManager : MonoBehaviour
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] FunitureShopItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
+
+    [Header("SORTING LIST : DBデータを持ってきて活用")]
+    [SerializeField] Funiture[] sortFunitures;    public Funiture[] SortFunitures {get => sortFunitures; set => sortFunitures = value;}
+    [SerializeField] Funiture[] sortDecorations;    public Funiture[] SortDecorations {get => sortDecorations; set => sortDecorations = value;}
+    [SerializeField] BgFuniture[] sortBgs;    public BgFuniture[] SortBgs {get => sortBgs; set => sortBgs = value;}
+    [SerializeField] Funiture[] sortMats;    public Funiture[] SortMats {get => sortMats; set => sortMats = value;}
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -78,17 +85,17 @@ public class FunitureUIManager : MonoBehaviour
             categoryBtns[i].image.color = (i == idx)? Config.CATE_SELECT_COLOR : Color.white;
 
         //* アイテム リスト 最新化して並べる
-        updateItemList();
+        showItemList();
     }
     public void onClickShopLeftArrow() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         setPageByArrowBtn(pageDir: -1); //* ページ
-        updateItemList(); //* アイテムリスト 並べる
+        showItemList(); //* アイテムリスト 並べる
     }
     public void onClickShopRightArrow() {
         SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         setPageByArrowBtn(pageDir: +1); //* ページ
-        updateItemList(); //* アイテムリスト 並べる
+        showItemList(); //* アイテムリスト 並べる
     }
     public void onClickItemListBtn(int idx) {
         SM._.sfxPlay(SM.SFX.BubblePop.ToString());
@@ -110,7 +117,7 @@ public class FunitureUIManager : MonoBehaviour
         // SM._.sfxPlay(SM.SFX.BtnClick.ToString());
         HM._.ui.NewFuniturePopUp.SetActive(false);
         //* 最新化
-        updateItemList();
+        showItemList();
 
         //* 次のアクション 読込 (WorldMapNamager:: init()イベントで使われる場合)
         HM._.wmm.callbackOnActionList();
@@ -138,7 +145,7 @@ public class FunitureUIManager : MonoBehaviour
         HM._.ui.onClickDecorateModeCloseBtn();
 
         //* 最新化
-        updateItemList();
+        showItemList();
     }
     public void onClickFunitureModeItemFlatBtn() {
         if(!curSelectedObj) {
@@ -200,10 +207,10 @@ public class FunitureUIManager : MonoBehaviour
             : DB.Dt.Mats.Length;
     }
     private Item getSelectedItem(int idx) {
-        return (category == Enum.FUNITURE_CATE.Funiture)? DB.Dt.Funitures[idx]
-            : (category == Enum.FUNITURE_CATE.Decoration)? DB.Dt.Decorations[idx]
-            : (category == Enum.FUNITURE_CATE.Bg)? DB.Dt.Bgs[idx] as BgFuniture
-            : DB.Dt.Mats[idx];
+        return (category == Enum.FUNITURE_CATE.Funiture)? sortFunitures[idx] //DB.Dt.Funitures[idx]
+            : (category == Enum.FUNITURE_CATE.Decoration)? sortDecorations[idx] //DB.Dt.Decorations[idx]
+            : (category == Enum.FUNITURE_CATE.Bg)? sortBgs[idx] as BgFuniture //DB.Dt.Bgs[idx] as BgFuniture
+            : sortMats[idx]; //DB.Dt.Mats[idx];
     }
     private void setPageByArrowBtn(int pageDir) { // @param pageDir : -1(Left) or 1(Right)
         //* 初期化
@@ -215,7 +222,7 @@ public class FunitureUIManager : MonoBehaviour
         page = Mathf.Clamp(page, 0, (len - 1) / ITEM_BTN_CNT);
         Debug.Log($"onClickPageArrowBtn():: category= {category}, len= {len}, page= {page}");
     }
-    private void updateItemList() {
+    private void showItemList() {
         int len = getCategoryItemLenght();
         int start = page * ITEM_BTN_CNT;
         int end = Mathf.Clamp(start + ITEM_BTN_CNT, min: start, max: len);
@@ -226,6 +233,12 @@ public class FunitureUIManager : MonoBehaviour
         //* ページ 表示
         const int PG_IDX_OFFSET = 1;
         pageTxt.text = $"{page + PG_IDX_OFFSET} / {((len - 1) / ITEM_BTN_CNT) + PG_IDX_OFFSET}";
+
+        //* Sort
+        sortFunitures = DB.Dt.Funitures.OrderBy(fn => fn.IsLock).ToArray();
+        sortDecorations = DB.Dt.Decorations.OrderBy(dc => dc.IsLock).ToArray();
+        sortBgs = DB.Dt.Bgs.OrderBy(bg => bg.IsLock).ToArray();
+        sortMats = DB.Dt.Mats.OrderBy(mat => mat.IsLock).ToArray();
 
         //* 画像 表示
         for(int i = start; i < end; i++) {
