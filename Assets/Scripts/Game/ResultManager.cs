@@ -212,6 +212,7 @@ public class ResultManager : MonoBehaviour {
                 if(expFilledCircleBar.fillAmount == 1) {
                     Debug.Log("coPlayExpCollectionAnim():: LevelUp!");
                     StartCoroutine(GM._.Pl.coLevelUpEF());
+                    lvTxt.text = DB.Dt.Lv.ToString(); //* レベルアップ 反映
                 }
             }
             else {
@@ -219,7 +220,6 @@ public class ResultManager : MonoBehaviour {
             }
             yield return Util.time0_01;
         }
-        lvTxt.text = DB.Dt.Lv.ToString(); //* レベルアップ 反映
     }
 
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {

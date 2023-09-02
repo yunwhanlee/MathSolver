@@ -153,6 +153,7 @@ public class MGResultManager : MonoBehaviour {
                 if(expFilledCircleBar.fillAmount == 1) {
                     Debug.Log($"coPlayExpCollectionAnim():: LevelUp! MGM._.Pl.name= {MGM._.Pl.name}");
                     StartCoroutine(MGM._.Pl.coLevelUpEF(delay: 1));
+                    lvTxt.text = DB.Dt.Lv.ToString(); //* レベルアップ 反映
                 }
             }
             else {
@@ -160,7 +161,6 @@ public class MGResultManager : MonoBehaviour {
             }
             yield return Util.time0_01;
         }
-        lvTxt.text = DB.Dt.Lv.ToString(); //* レベルアップ 反映
     }
 #endregion
 }
