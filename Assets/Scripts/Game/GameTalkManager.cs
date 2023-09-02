@@ -34,7 +34,7 @@ public class GameTalkManager : TalkManager {
             $"결과는...?!:{(int)SPK.Pl_Idle}"
             , $"ANSWER:{(int)SPK.Pl_Happy}"
             , $"정답을 맞추면, 화면 맨아래 별을 획득!:{(int)SPK.Pl_Idle}"
-            , $"동시에 물체도 정답에 맞게 정돈 되.:{(int)SPK.Pl_Idle}"
+            , $"동시에 물체도 정답에 맞게 정돈 돼.:{(int)SPK.Pl_Idle}"
             , $"틀렸어도 괜찮아!:{(int)SPK.Pl_Idle}"
             , $"힌트와 함께<br>다시 정답을 선택 할 수 있어.:{(int)SPK.Pl_Happy}"
             , $"그럼 이제<br>남은 문제를 해결해볼까?:{(int)SPK.Pl_Idle}"

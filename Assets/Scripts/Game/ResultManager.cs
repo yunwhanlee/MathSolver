@@ -26,6 +26,7 @@ public class ResultManager : MonoBehaviour {
     [SerializeField] Transform resPetSpot;
 
     [Header("UI")]
+    [SerializeField] Image portraitImg;
     [SerializeField] Transform starGroupTf;
     [SerializeField] TextMeshProUGUI msgAnimTxt;
     [SerializeField] TextMeshProUGUI topCoinTxt;    public TextMeshProUGUI TopCoinTxt {get => topCoinTxt;}
@@ -56,6 +57,7 @@ public class ResultManager : MonoBehaviour {
         rewardCoin = 0;
         msgAnimTxt.gameObject.SetActive(false);
         goHomePanelBtn.SetActive(false);
+        setMyPortraitsImg(HM._.pl.IdleSpr);
     }
 
     void Update() {
@@ -72,6 +74,9 @@ public class ResultManager : MonoBehaviour {
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    private void setMyPortraitsImg(Sprite spr) {
+        portraitImg.sprite = spr;
+    }
     private IEnumerator coGoHome() {
         SM._.sfxPlay(SM.SFX.Transition.ToString());
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(true);
