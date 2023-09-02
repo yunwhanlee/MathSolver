@@ -424,12 +424,15 @@ public class QuizManager : MonoBehaviour {
         const int OFFSET_Y = 2;
         var plPos = GM._.Pl.transform.position;
 
-        //TODO Calculatiate Exp & Coin with LV & Item...
-        int exp = (isY)? EXP_RWD_UNIT : (int)(EXP_RWD_UNIT * RETRY_PANELTY_PER);
-        int coin = (isY)? COIN_RWD_UNIT : (int)(COIN_RWD_UNIT * RETRY_PANELTY_PER);
+        //* Mapによって、もらえる単位 設定
+        int expUnit = Util.getExpUnitByMap();
+        int coinUnit = Util.getCoinUnitByMap();
+
+        int exp = isY? expUnit : (int)(expUnit * RETRY_PANELTY_PER);
+        int coin = isY? coinUnit : (int)(coinUnit * RETRY_PANELTY_PER);
         Debug.Log("exp= " + exp + ", coin= " + coin);
 
-        GM._.rm.setReward(exp, coin);
+        GM._.rm.addReward(exp, coin);
         Vector2 pos1 = new Vector2(plPos.x, plPos.y + OFFSET_Y);
         Vector2 pos2 = new Vector2(plPos.x, plPos.y + OFFSET_Y + 0.325f);
         GM._.gem.showDropItemTxtEF(exp, pos1, Color.green);

@@ -8,7 +8,6 @@ public static class Config {
     public readonly static string VER_MAJOR = "1";
     public readonly static string VER_MINOR = "0";
     public readonly static string VER_RESOLUTION = "0";
-
     //* PLAYER
     public readonly static int LV_EXP_UNIT = 60;
     public readonly static float LV_BONUS_PER = 0.1f;
@@ -16,11 +15,19 @@ public static class Config {
     //* CLOTH
     public readonly static int GACHA_SWEETPOTATO_PER = 40;
     public readonly static int GACHA_PET_PER = 30;
-
     //* HOME
     public readonly static Color CATE_SELECT_COLOR = new Color(0.1f, 0.3f, 0.55f, 1);
     public readonly static int CLOTH_PRICE_UNIT = 300;
     //* GAME
+    public readonly static int FOREST_EXP_RWD_UNIT = 12;
+    public readonly static int FOREST_COIN_RWD_UNIT = 120;
+
+    public readonly static int JUNGLE_EXP_RWD_UNIT = 15;
+    public readonly static int JUNGLE_COIN_RWD_UNIT = 150;
+
+    public readonly static int TUNDRA_EXP_RWD_UNIT = 18;
+    public readonly static int TUNDRA_COIN_RWD_UNIT = 180;
+
     public readonly static int COMBO_ACTIVE_CNT = 2;
     public readonly static int[] MAP1_BG_UNLOCK_LVS = new int[3] {1, 3, 5};
     public readonly static int[] MAP2_BG_UNLOCK_LVS = new int[3] {7, 9, 11};

@@ -167,7 +167,7 @@ public class ResultManager : MonoBehaviour {
         yield return Util.time0_1;
         SM._.sfxPlay(SM.SFX.GetExp.ToString());
     }
-    public void setReward(int exp, int coin) {
+    public void addReward(int exp, int coin) {
         rewardExp += exp;
         rewardCoin += coin;
     }

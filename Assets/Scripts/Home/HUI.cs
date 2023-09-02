@@ -159,6 +159,8 @@ public class HUI : MonoBehaviour {
     [SerializeField] GameObject goMapPopUp;   public GameObject GoMapPopUp {get => goMapPopUp; set => goMapPopUp = value;}
     [SerializeField] Image goMapPopUpMapImg;     public Image GoMapPopUpMapImg {get => goMapPopUpMapImg; set => goMapPopUpMapImg = value;}
     [SerializeField] TextMeshProUGUI goMapPopUpTitleTxt;   public TextMeshProUGUI GoMapPopUpTitleTxt {get => goMapPopUpTitleTxt; set => goMapPopUpTitleTxt = value;}
+    [SerializeField] TextMeshProUGUI mapQuizRwdExpValTxt;  public TextMeshProUGUI MapQuizRwdExpValTxt {get => mapQuizRwdExpValTxt; set => mapQuizRwdExpValTxt = value;}
+    [SerializeField] TextMeshProUGUI mapQuizRwdCoinValTxt;  public TextMeshProUGUI MapQuizRwdCoinValTxt {get => mapQuizRwdCoinValTxt; set => mapQuizRwdCoinValTxt = value;}
     [Space(10)]
     [SerializeField] GameObject newFuniturePopUp;   public GameObject NewFuniturePopUp {get => newFuniturePopUp;}
     [SerializeField] Image newFuniturePopUpImg;   public Image NewFuniturePopUpImg {get => newFuniturePopUpImg;}
@@ -822,6 +824,10 @@ public class HUI : MonoBehaviour {
             return;
         }
         goMapPopUpTitleTxt.text = LM._.localize(mapName);
+
+        //* Exp & Coin Reward Unit
+        mapQuizRwdExpValTxt.text = $"+{LM._.localize("Exp")} {Util.getExpUnitByMap()}";
+        mapQuizRwdCoinValTxt.text = $"+{LM._.localize("Coin")} {Util.getCoinUnitByMap()}";
     }
     private void displayNewItemPopUp(Item item) {
         Time.timeScale = 0;

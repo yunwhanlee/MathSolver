@@ -98,4 +98,19 @@ public class Util : MonoBehaviour
         }
         return res;
     }
+
+    public static int getExpUnitByMap() {
+        int unit =(DB._.SelectMapIdx == (int)Enum.MAP.Forest)? Config.FOREST_EXP_RWD_UNIT
+            : (DB._.SelectMapIdx == (int)Enum.MAP.Jungle)? Config.JUNGLE_EXP_RWD_UNIT
+            : (DB._.SelectMapIdx == (int)Enum.MAP.Tundra)? Config.TUNDRA_EXP_RWD_UNIT : -1;
+        if(unit == -1) Debug.LogError("getExpRewardUnitByMap():: Exp Set Value ERROR");
+        return unit;
+    }
+    public static int getCoinUnitByMap() {
+        int unit = (DB._.SelectMapIdx == (int)Enum.MAP.Forest)? Config.FOREST_COIN_RWD_UNIT
+            : (DB._.SelectMapIdx == (int)Enum.MAP.Jungle)? Config.JUNGLE_COIN_RWD_UNIT
+            : (DB._.SelectMapIdx == (int)Enum.MAP.Tundra)? Config.TUNDRA_COIN_RWD_UNIT : -1;
+        if(unit == -1) Debug.LogError("getCoinRewardUnitByMap():: Coin Set Value ERROR");
+        return unit;
+    }
 }
