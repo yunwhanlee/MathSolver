@@ -9,9 +9,11 @@ public class Player : MonoBehaviour {
     const float WALK_STOP_VAL = 0.05f;
     const float MIN_Y = -5;
     const float MAX_Y = 2;
-    const float OFFSET_SIT_X = 0.15f;
-    const float OFFSET_SIT_Y = 0.5f;
+    // const float OFFSET_SIT_X = 0.15f;
+    // const float OFFSET_SIT_Y = 0.5f;
     const int OFFSET_SIT_FRONT_SORTING = 3;
+    const float TARGET_POS_Y_MAX = 1.3f;
+
 
     [Header("OUTSIDE")]
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
@@ -54,6 +56,8 @@ public class Player : MonoBehaviour {
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y + tbDecoAreaSortingAddVal;
 
         if(tgPos.x != tf.position.x || tgPos.y != tf.position.y) {
+            //* 家具クリックで、壁まで行くバグ対応
+            if(tgPos.y >= TARGET_POS_Y_MAX) tgPos.y = TARGET_POS_Y_MAX;
             //* プレイヤー方向
             Vector2 dir = new Vector2(tgPos.x - tf.position.x, tgPos.y - tf.position.y).normalized;
             bool isLeft = ((dir.x < 0 && 0 <= dir.y) || (dir.x < 0 && dir.y < 0));
