@@ -87,6 +87,7 @@ public class ResultManager : MonoBehaviour {
     public IEnumerator coDisplayResultPanel(WJ_Connector connector = null) {
         GM._.GameStatus = GM.GAME_STT.RESULT;
         GM._.gui.ExitBtn.SetActive(false);
+
         if(GM._.Pl.transform.localScale.x > 1) {
             GM._.Pl.transform.localScale = Vector3.one;
         }
@@ -205,12 +206,12 @@ public class ResultManager : MonoBehaviour {
         while(isExpUp) {
             expVal++;
             if(expVal <= rewardExp) {
-                
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
+                Debug.Log($"coPlayExpCollectionAnim():: expVal / rewardExp = {expVal} / {rewardExp}, fill= {expFilledCircleBar.fillAmount}");
                 if(expFilledCircleBar.fillAmount == 1) {
                     Debug.Log("coPlayExpCollectionAnim():: LevelUp!");
-                    // StartCoroutine(GM._.Pl.coLevelUpEF());
+                    StartCoroutine(GM._.Pl.coLevelUpEF());
                 }
             }
             else {
@@ -218,7 +219,7 @@ public class ResultManager : MonoBehaviour {
             }
             yield return Util.time0_01;
         }
-        lvTxt.text = DB.Dt.Lv.ToString();
+        lvTxt.text = DB.Dt.Lv.ToString(); //* レベルアップ 反映
     }
 
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {

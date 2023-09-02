@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
 
     [Header("ACTIVE EF")]
     [SerializeField] GameObject roarEF;
-    [SerializeField] GameObject levelUpEF;
+    [SerializeField] GameObject levelUpEF;    public GameObject LevelUpEF {get => levelUpEF;}
     [SerializeField] Transform auraEFGroup;   public Transform AuraEFGroup {get => auraEFGroup;}
 
     [Header("VALUE")]    
@@ -147,7 +147,9 @@ public class Player : MonoBehaviour {
         yield return Util.time2;
         roarEF.SetActive(false);
     }
-    public IEnumerator coLevelUpEF() {
+    public IEnumerator coLevelUpEF(float delay = 0) {
+        // yield return delay == 1? Util.time1 : null;
+        // Debug.Log($"coLevelUpEF():: levelUpEF.name= {levelUpEF.name}");
         SM._.sfxPlay(SM.SFX.LevelUp.ToString());
         levelUpEF.SetActive(true);
         yield return Util.time1;

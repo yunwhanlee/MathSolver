@@ -89,8 +89,9 @@ public class MGM : MonoBehaviour { //* MiniGame Manager
         for(int i = 0; i < mapGroups.Length; i++)
             mapGroups[i].SetActive(i == idx); 
 
-        //* ミニゲームによって、オブジェクト処理
+        //* ミニゲームによって、Playerオブジェクト処理
         pl = mapGroups[idx].GetComponentInChildren<Player>(); //* Set Player
+        pl.LevelUpEF.SetActive(false); //* レベルアップEF 非活性化 初期化
 
         if(DB._) {
             //* プレイヤーのSpriteLibraryAssetだけ適用

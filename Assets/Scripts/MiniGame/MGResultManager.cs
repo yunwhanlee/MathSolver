@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class MGResultManager : MonoBehaviour {
     [Header("VALUE")]
     [SerializeField] int rewardExp;     public int RewardExp {get => rewardExp; set => rewardExp = value;}
     [SerializeField] int rewardCoin;    public int RewardCoin {get => rewardCoin; set => rewardCoin = value;}
 
-    [SerializeField] TextMeshProUGUI msgAnimTxt;
+    // [SerializeField] TextMeshProUGUI msgAnimTxt;
     [SerializeField] TextMeshProUGUI topCoinTxt;    public TextMeshProUGUI TopCoinTxt {get => topCoinTxt;}
     [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
     [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
@@ -18,6 +19,7 @@ public class MGResultManager : MonoBehaviour {
 
     [SerializeField] Image expFilledCircleBar;  public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] GameObject goHomePanelBtn;  public GameObject GoHomePanelBtn {get => goHomePanelBtn; set => goHomePanelBtn = value;}
+    [SerializeField] Image portraitImg;
 
     [Header("EF")]
     [SerializeField] GameObject coinAttractionEF;
@@ -25,9 +27,23 @@ public class MGResultManager : MonoBehaviour {
 
     public void onClickResultGoHomePanelBtn() => StartCoroutine(coGoHome());
 
+
+    void Start() {
+        topCoinTxt.text = DB.Dt.Coin.ToString();
+        lvTxt.text = DB.Dt.Lv.ToString();
+        expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
+
+        //* Init
+        rewardExp = 0;
+        rewardCoin = 0;
+        setMyPortraitsImg(MGM._.Pl.IdleSpr);
+    }
 //-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
+    private void setMyPortraitsImg(Sprite spr) {
+        portraitImg.sprite = spr;
+    }
     public IEnumerator coGoHome() {
         SM._.sfxPlay(SM.SFX.Transition.ToString());
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
@@ -126,17 +142,17 @@ public class MGResultManager : MonoBehaviour {
     IEnumerator coPlayExpCollectionAnim() {
         bool isExpUp = true;
         int expVal = 0;
-
         expAttractionEF.SetActive(true);
+
         while(isExpUp) {
             expVal++;
             if(expVal <= rewardExp) {
-                Debug.Log($"coPlayExpCollectionAnim():: expVal= {expVal}, fillAmount= {expFilledCircleBar.fillAmount}");
                 DB.Dt.Exp++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
+                Debug.Log($"coPlayExpCollectionAnim():: expVal / rewardExp = {expVal} / {rewardExp}, fill= {expFilledCircleBar.fillAmount}");
                 if(expFilledCircleBar.fillAmount == 1) {
-                    Debug.Log("coPlayExpCollectionAnim():: LevelUp!");
-                    StartCoroutine(GM._.Pl.coLevelUpEF());
+                    Debug.Log($"coPlayExpCollectionAnim():: LevelUp! MGM._.Pl.name= {MGM._.Pl.name}");
+                    StartCoroutine(MGM._.Pl.coLevelUpEF(delay: 1));
                 }
             }
             else {
@@ -144,6 +160,7 @@ public class MGResultManager : MonoBehaviour {
             }
             yield return Util.time0_01;
         }
+        lvTxt.text = DB.Dt.Lv.ToString(); //* レベルアップ 反映
     }
 #endregion
 }
