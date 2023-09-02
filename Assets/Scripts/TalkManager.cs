@@ -56,12 +56,7 @@ public abstract class TalkManager : MonoBehaviour {
         // Debug.Log("Pl_Idle= " + HM._.pl.SprLib.spriteLibraryAsset.GetSprite("Idle", "Entry"));
         // Debug.Log("Pl_Success= " + HM._.pl.SprLib.spriteLibraryAsset.GetSprite("Success", "Entry"));
         // Debug.Log("Pl_Fail= " + HM._.pl.SprLib.spriteLibraryAsset.GetSprite("Fail", "Entry"));
-        var plSprLibAsset = HM._.pl.SprLib.spriteLibraryAsset;
-        if(HM._) plSprLibAsset = HM._.pl.SprLib.spriteLibraryAsset;
-        else if(GM._) plSprLibAsset = GM._.Pl.SprLib.spriteLibraryAsset;
-        spkSprDtList[(int)SPK.Pl_Idle] = plSprLibAsset.GetSprite("Idle", "Entry");
-        spkSprDtList[(int)SPK.Pl_Happy] = plSprLibAsset.GetSprite("Success", "Entry");
-        spkSprDtList[(int)SPK.Pl_Sad] = plSprLibAsset.GetSprite("Fail", "Entry");
+        setSpkPortrait();
     }
 
     /// <summary>
@@ -121,6 +116,15 @@ public abstract class TalkManager : MonoBehaviour {
         return getMsg(id, talkIdx);
     }
     protected abstract void endSwitchProccess(int id); //* 終了 処理
+
+    public void setSpkPortrait() {
+        var plSprLibAsset = HM._.pl.SprLib.spriteLibraryAsset;
+        if(HM._) plSprLibAsset = HM._.pl.SprLib.spriteLibraryAsset;
+        else if(GM._) plSprLibAsset = GM._.Pl.SprLib.spriteLibraryAsset;
+        spkSprDtList[(int)SPK.Pl_Idle] = plSprLibAsset.GetSprite("Idle", "Entry");
+        spkSprDtList[(int)SPK.Pl_Happy] = plSprLibAsset.GetSprite("Success", "Entry");
+        spkSprDtList[(int)SPK.Pl_Sad] = plSprLibAsset.GetSprite("Fail", "Entry");
+    }
 
     public void action(int id) {
         Debug.Log($"TalkManager:: action(id= {id})::");

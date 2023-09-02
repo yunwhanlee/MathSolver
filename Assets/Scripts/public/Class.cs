@@ -339,6 +339,7 @@ public class PlayerSkin : Item {
         //* Portrait変更
         HM._.pl.IdleSpr = sprLib.spriteLibraryAsset.GetSprite("Idle", "Entry");
         HM._.ui.setMyPortraitsImg(HM._.pl.IdleSpr);
+        HM._.htm.setSpkPortrait();
         //* EFに位置を与えるため、リターン
         return sprLib.transform;
     }

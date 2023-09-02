@@ -94,9 +94,9 @@ public class SM : MonoBehaviour {
             : null;
         bgmAudio.volume = (name == BGM.Title.ToString())? 0.5f
             : (name == BGM.Home.ToString())? 0.2f
-            : (name == BGM.Forest.ToString())? 0.6f
-            : (name == BGM.Jungle.ToString())? 0.6f
-            : (name == BGM.Tundra.ToString())? 0.6f
+            : (name == BGM.Forest.ToString())? 0.7f
+            : (name == BGM.Jungle.ToString())? 0.8f
+            : (name == BGM.Tundra.ToString())? 0.7f
             : 0;
         
         bgmAudio.time = 0;

@@ -47,8 +47,14 @@ public class Pet : MonoBehaviour {
         sr.sortingOrder = Mathf.RoundToInt(tf.position.y) * REVERSE_Y;
 
         //* メインゲーム 結果画面なら、プレイヤーより必ず後ろ
-        if(GM._ && GM._.GameStatus == GM.GAME_STT.RESULT)
-            sr.sortingOrder = Mathf.RoundToInt(GM._.Pl.Sr.sortingOrder -1);
+        // if(GM._ && GM._.GameStatus == GM.GAME_STT.RESULT)
+        //     sr.sortingOrder = Mathf.RoundToInt(GM._.Pl.Sr.sortingOrder -1);
+        if(GM._) {
+            sr.sortingOrder = Mathf.RoundToInt(GM._.Pl.Sr.sortingOrder -2);
+            if(GM._.GameStatus == GM.GAME_STT.RESULT) {
+                sr.sortingOrder = Mathf.RoundToInt(GM._.Pl.Sr.sortingOrder -2);
+            }
+        }
 
         //* プレイヤー 追いかける
         if(isChasePlayer) {

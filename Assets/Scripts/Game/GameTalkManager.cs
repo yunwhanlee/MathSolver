@@ -19,7 +19,7 @@ public class GameTalkManager : TalkManager {
         talkDt.Add((int)ID.TUTO_DIAG_CHOICE_DIFF, new string[] {
             $"왔구나!<br>첫 시간인 만큼..:{(int)SPK.Pl_Idle}"
             , $"수학실력 파악과 함께<br>플레이 방법을 설명할게:{(int)SPK.Pl_Idle}"
-            , $"위의 4가지 난이도 중:{(int)SPK.Pl_Idle}"
+            , $"위의 난이도 중:{(int)SPK.Pl_Idle}"
             , $"자신에게 맞는 것을<br>골라줘!:{(int)SPK.Pl_Happy}"
         });
         talkDt.Add((int)ID.TUTO_DIAG_FIRST_QUIZ, new string[] {
@@ -37,8 +37,8 @@ public class GameTalkManager : TalkManager {
             , $"동시에 물체도 정답에 맞게 정돈 되.:{(int)SPK.Pl_Idle}"
             , $"틀렸어도 괜찮아!:{(int)SPK.Pl_Idle}"
             , $"힌트와 함께<br>다시 정답을 선택 할 수 있어.:{(int)SPK.Pl_Happy}"
-            , $"그럼 이제<br>나머지 문제를 해결해볼까?:{(int)SPK.Pl_Idle}"
-            , $"화이팅!! 끼에에엑:{(int)SPK.Pl_Happy}"
+            , $"그럼 이제<br>남은 문제를 해결해볼까?:{(int)SPK.Pl_Idle}"
+            , $"화이팅!!:{(int)SPK.Pl_Happy}"
         });
         talkDt.Add((int)ID.TUTO_DIAG_RESULT, new string[] {
             $"와우, 8문제를 전부 해결했어!:{(int)SPK.Pl_Idle}"
