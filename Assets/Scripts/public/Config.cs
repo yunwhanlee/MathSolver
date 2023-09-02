@@ -10,7 +10,7 @@ public static class Config {
     public readonly static string VER_RESOLUTION = "0";
 
     //* PLAYER
-    public readonly static int LV_EXP_UNIT = 70;
+    public readonly static int LV_EXP_UNIT = 60;
     public readonly static float LV_BONUS_PER = 0.1f;
     public readonly static float LEGACY_BONUS_PER = 0.2f;
     //* CLOTH
