@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.UI.Extensions;
+using System.Linq;
 using TMPro;
 public class InventoryUIManager : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class InventoryUIManager : MonoBehaviour
     [SerializeField] Transform content; //* 初期化するため、親になるオブジェクト用意 ↓
     [SerializeField] InventoryItemBtn[] itemBtns; //* 親になるオブジェクトを通じて、子の要素を割り当てる。
     [SerializeField] GameObject curSelectedObj;    public GameObject CurSelectedObj {get => curSelectedObj; set => curSelectedObj = value;}
+
+    [SerializeField] PlayerSkin[] sortPlayerSkins;  public PlayerSkin[] SortPlayerSkins {get => sortPlayerSkins; set => sortPlayerSkins = value;}
 
     void Start() {
         //* アイテムボタン 割り当て
@@ -115,7 +118,7 @@ public class InventoryUIManager : MonoBehaviour
         return (category == Enum.INV_CATE.Player)? DB.Dt.PlSkins.Length : DB.Dt.PtSkins.Length;
     }
     private Item getSelectedItem(int idx) {
-        return (category == Enum.INV_CATE.Player)? DB.Dt.PlSkins[idx] : DB.Dt.PtSkins[idx];
+        return (category == Enum.INV_CATE.Player)? sortPlayerSkins[idx] : DB.Dt.PtSkins[idx];
     }
     private void setPageByArrowBtn(int pageDir) { // @param pageDir : -1(Left) or 1(Right)
         //* 初期化
@@ -136,6 +139,9 @@ public class InventoryUIManager : MonoBehaviour
         //* ページ 表示
         const int PG_IDX_OFFSET = 1;
         pageTxt.text = $"{page + PG_IDX_OFFSET} / {((len - 1) / ITEM_BTN_CNT) + PG_IDX_OFFSET}";
+
+        // SORT Player Skin 
+        sortPlayerSkins = DB.Dt.PlSkins.OrderBy(plsk => plsk.IsLock).ToArray();
 
         //* 画像 表示
         for(int i = start; i < end; i++) {

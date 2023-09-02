@@ -329,7 +329,7 @@ public class PlayerSkin : Item {
     #region Private Func
     private Transform setSpriteLibrary() {
         Debug.Log($"PlayerSkin:: setSpriteLibrary():: HM._.ui.CurSelectedItemIdx= {HM._.ui.CurSelectedItemIdx}");
-        PlayerSkin[] items = DB.Dt.PlSkins;
+        PlayerSkin[] items = HM._.iUI.SortPlayerSkins;//DB.Dt.PlSkins;
         SpriteLibrary sprLib = HM._.pl.SprLib;
         //* 単一だからInArrange全てFalseに初期化
         Array.ForEach(items, item => item.IsArranged = false); 
