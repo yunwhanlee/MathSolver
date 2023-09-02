@@ -410,7 +410,7 @@ public class HomeTalkManager : TalkManager {
         });
         talkDt.Add((int)ID.COMING_SOON, new string[] {
             $"현재 개발된 게임 스토리는 여기까지입니다.:{(int)SPK.Pl_Idle}"
-            ,$"방금 개방된 썰매타기 미니게임과:{(int)SPK.Pl_Idle}"
+            ,$"방금 개방 된<br>썰매타기 미니게임과:{(int)SPK.Pl_Idle}"
             ,$"가구 및 스킨 등 나머지 컨텐츠를 즐겨주세요!:{(int)SPK.Pl_Idle}"
             ,$"추후 업데이트하여 더욱<br>좋은 모습으로<br>찾아뵙겠습니다!:{(int)SPK.Pl_Idle}"
             ,$"플레이 해주셔서<br>진심으로 감사합니다!!:{(int)SPK.Empty}"
