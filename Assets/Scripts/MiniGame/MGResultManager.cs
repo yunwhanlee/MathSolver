@@ -16,6 +16,7 @@ public class MGResultManager : MonoBehaviour {
     [SerializeField] TextMeshProUGUI expTxt;    public TextMeshProUGUI ExpTxt {get => expTxt; set => expTxt = value;}
     [SerializeField] TextMeshProUGUI coinTxt;    public TextMeshProUGUI CoinTxt {get => coinTxt; set => coinTxt = value;}
     [SerializeField] TextMeshProUGUI lvTxt;    public TextMeshProUGUI LvTxt {get => lvTxt; set => lvTxt = value;}
+    [SerializeField] TextMeshProUGUI replayPriceTxt;
 
     [SerializeField] Image expFilledCircleBar;  public Image ExpFilledCircleBar {get => expFilledCircleBar; set => expFilledCircleBar = value;}
     [SerializeField] GameObject goHomePanelBtn;  public GameObject GoHomePanelBtn {get => goHomePanelBtn; set => goHomePanelBtn = value;}
@@ -25,13 +26,15 @@ public class MGResultManager : MonoBehaviour {
     [SerializeField] GameObject coinAttractionEF;
     [SerializeField] GameObject expAttractionEF;
 
-    public void onClickResultGoHomePanelBtn() => StartCoroutine(coGoHome());
 
 
     void Start() {
         topCoinTxt.text = DB.Dt.Coin.ToString();
         lvTxt.text = DB.Dt.Lv.ToString();
         expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
+        replayPriceTxt.text = (MGM._.Mode == MGM.MODE.Easy)? Config.MINIGMAE_PLAY_PRICES[0].ToString()
+            : (MGM._.Mode == MGM.MODE.Normal)? Config.MINIGMAE_PLAY_PRICES[1].ToString()
+            : (MGM._.Mode == MGM.MODE.Hard)? Config.MINIGMAE_PLAY_PRICES[2].ToString() : "Error";
 
         //* Init
         rewardExp = 0;
@@ -39,17 +42,35 @@ public class MGResultManager : MonoBehaviour {
         setMyPortraitsImg(MGM._.Pl.IdleSpr);
     }
 //-------------------------------------------------------------------------------------------------------------
+#region EVENT
+//-------------------------------------------------------------------------------------------------------------
+    public void onClickResultGoHomePanelBtn() => StartCoroutine(coGoHome());
+    public void onClickReplayBtn() {
+        int price = int.Parse(replayPriceTxt.text);
+        if(DB.Dt.Coin < price) {
+            MGM._.ui.showErrorMsgPopUp(LM._.localize("Not enough coin!"));
+        }
+        else {
+            DB.Dt.setCoin(-price);
+            StartCoroutine(coGoHome(isReplay: true));
+        }
+    }
+#endregion
+//-------------------------------------------------------------------------------------------------------------
 #region FUNC
 //-------------------------------------------------------------------------------------------------------------
     private void setMyPortraitsImg(Sprite spr) {
         portraitImg.sprite = spr;
     }
-    public IEnumerator coGoHome() {
+    public IEnumerator coGoHome(bool isReplay = false) {
         SM._.sfxPlay(SM.SFX.Transition.ToString());
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(true);
         MGM._.ui.SwitchScreenAnim.SetTrigger(Enum.ANIM.BlackIn.ToString());
         yield return Util.time0_5;
-        SceneManager.LoadScene(Enum.SCENE.Home.ToString());
+        if(isReplay)
+            SceneManager.LoadScene(Enum.SCENE.MiniGame.ToString());
+        else 
+            SceneManager.LoadScene(Enum.SCENE.Home.ToString());
     }
     public IEnumerator coDisplayResultPanel() {
         yield return Util.time1;        

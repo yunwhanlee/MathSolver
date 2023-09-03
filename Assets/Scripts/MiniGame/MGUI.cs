@@ -21,6 +21,9 @@ public class MGUI : MonoBehaviour {
     [SerializeField] TextMeshProUGUI titleTxt;      public TextMeshProUGUI TitleTxt {get => titleTxt;}
     [SerializeField] TextMeshProUGUI contentTxt;    public TextMeshProUGUI ContentTxt {get => contentTxt;}
 
+    [SerializeField] GameObject errorMsgPopUp;
+    [SerializeField] TextMeshProUGUI errorMsgTxt;
+
     [SerializeField] bool isLeftArrowBtnPressed;
     [SerializeField] bool isRightArrowBtnPressed;
 
@@ -198,8 +201,18 @@ public class MGUI : MonoBehaviour {
         yield return Util.time1;
         titleTxt.gameObject.SetActive(false);
         contentTxt.gameObject.SetActive(false);
+    }
+    public void showErrorMsgPopUp(string msg) {
+        SM._.sfxPlay(SM.SFX.Error.ToString());
+        StartCoroutine(coErrorMsgPopUp(msg));
+    }
+    IEnumerator coErrorMsgPopUp(string msg) {
+        errorMsgPopUp.SetActive(true);
+        errorMsgTxt.text = msg;
+        yield return Util.realTime1;
 
-
+        errorMsgPopUp.SetActive(false);
+        errorMsgTxt.text = "";
     }
 #endregion
 }
