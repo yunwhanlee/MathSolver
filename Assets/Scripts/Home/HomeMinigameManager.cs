@@ -239,27 +239,41 @@ public class HomeMinigameManager : MonoBehaviour {
         }
     }
     public void onClickSliderRewardIconBtn(int idx) {
+        const int FIRST_REWARD = 0, SECOND_REWARD = 1, FINAL_REWARD = 2;
+        const int MG1 = 0, MG2 = 1, MG3 = 2;
         SM._.sfxPlay(SM.SFX.GainItem.ToString());
         switch(idx) {
             case 0: 
                 DB.Dt.Fame += 20;
-                DB.Dt.Minigame1RewardTriggers[0] = true;
-                rewardIconBtns[0].interactable = false;
-                rewardCheckIcons[0].gameObject.SetActive(true);
+                if(DB._.SelectMinigameIdx == MG1) DB.Dt.Minigame1RewardTriggers[FIRST_REWARD] = true;
+                if(DB._.SelectMinigameIdx == MG2) DB.Dt.Minigame2RewardTriggers[FIRST_REWARD] = true;
+                if(DB._.SelectMinigameIdx == MG3) DB.Dt.Minigame3RewardTriggers[FIRST_REWARD] = true;
+
+                rewardIconBtns[MG1].interactable = false;
+                rewardCheckIcons[MG1].gameObject.SetActive(true);
                 break;
             case 1: 
                 DB.Dt.Fame += 40;
-                DB.Dt.Minigame1RewardTriggers[1] = true;
-                rewardIconBtns[1].interactable = false;
-                rewardCheckIcons[1].gameObject.SetActive(true);
+                if(DB._.SelectMinigameIdx == MG1) DB.Dt.Minigame1RewardTriggers[SECOND_REWARD] = true;
+                if(DB._.SelectMinigameIdx == MG2) DB.Dt.Minigame2RewardTriggers[SECOND_REWARD] = true;
+                if(DB._.SelectMinigameIdx == MG3) DB.Dt.Minigame3RewardTriggers[SECOND_REWARD] = true;
+
+                rewardIconBtns[MG2].interactable = false;
+                rewardCheckIcons[MG2].gameObject.SetActive(true);
                 break;
-            case 2: 
-                PetSkin goldApplePet = Array.Find(DB.Dt.PtSkins, pet => pet.Name == "GoldApple Pet");
-                HM._.cUI.setReward(goldApplePet);
-                HM._.ui.activeNewFuniturePopUp(goldApplePet.Spr, goldApplePet.Name);
-                DB.Dt.Minigame1RewardTriggers[2] = true;
-                rewardIconBtns[2].interactable = false;
-                rewardCheckIcons[2].gameObject.SetActive(true);
+            case 2:
+                string rewardPetName = (DB._.SelectMinigameIdx == MG1)? "GoldApple Pet"
+                    : (DB._.SelectMinigameIdx == MG2)? "BabyMonkey Pet"
+                    : "BabyDragon Pet";
+                PetSkin rewardPet = Array.Find(DB.Dt.PtSkins, pet => pet.Name == rewardPetName);
+                HM._.cUI.setReward(rewardPet);
+                HM._.ui.activeNewFuniturePopUp(rewardPet.Spr, rewardPet.Name);
+                if(DB._.SelectMinigameIdx == MG1) DB.Dt.Minigame1RewardTriggers[FINAL_REWARD] = true;
+                if(DB._.SelectMinigameIdx == MG2) DB.Dt.Minigame2RewardTriggers[FINAL_REWARD] = true;
+                if(DB._.SelectMinigameIdx == MG3) DB.Dt.Minigame3RewardTriggers[FINAL_REWARD] = true;
+
+                rewardIconBtns[MG3].interactable = false;
+                rewardCheckIcons[MG3].gameObject.SetActive(true);
                 break;
         }
     }
