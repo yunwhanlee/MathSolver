@@ -180,6 +180,9 @@ public class ResultManager : MonoBehaviour {
         bool isCoinUP = true;
         int coinVal = 0;
 
+        //* Add DataBase Coin
+        DB.Dt.setCoin(rewardCoin);
+
         coinAttractionEF.SetActive(true);
         // yield return Util.time1;
         int myCoin = int.Parse(topCoinTxt.text);
@@ -190,11 +193,6 @@ public class ResultManager : MonoBehaviour {
 
             yield return Util.time0_005;
         }
-
-        //* Add DataBase Coin
-        DB.Dt.setCoin(rewardCoin);
-
-        
     }
 
     IEnumerator coPlayExpCollectionAnim() {

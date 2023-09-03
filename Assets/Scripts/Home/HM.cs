@@ -81,7 +81,6 @@ public class HM : MonoBehaviour {
             Destroy(DB._.transform.GetChild(i).gameObject);
 
         //* PlayerとPetデータDBへ移動。
-        
         pl.transform.SetParent(DB._.transform);
         pet.transform.SetParent(DB._.transform);
         pl.transform.gameObject.SetActive(false);

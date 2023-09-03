@@ -305,3 +305,4 @@ QualitySettings:
     Android: 1
     Server: 0
     Standalone: 1
+    iPhone: 0

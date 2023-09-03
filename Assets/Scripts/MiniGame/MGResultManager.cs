@@ -124,6 +124,9 @@ public class MGResultManager : MonoBehaviour {
         bool isCoinUP = true;
         int coinVal = 0;
 
+        //* Add DataBase Coin
+        DB.Dt.setCoin(rewardCoin);
+
         coinAttractionEF.SetActive(true);
         // yield return Util.time1;
         int myCoin = DB.Dt.Coin;
@@ -134,9 +137,6 @@ public class MGResultManager : MonoBehaviour {
 
             yield return Util.time0_005;
         }
-
-        //* Add DataBase Coin
-        DB.Dt.setCoin(rewardCoin);
     }
 
     IEnumerator coPlayExpCollectionAnim() {
