@@ -120,16 +120,16 @@ public class AccountManager : MonoBehaviour {
 				userInfoList.Add(new UserInfo(userInfo.Id, userInfo.Info));
 			}
 
+			userInfoList.ForEach(info => {
+				Debug.Log($"userInfoList:: id={info.Id} lv={info.Lv} fame={info.Fame}");
+			});
+
 			//* Sort
 			Debug.Log("userInfoList レベルで SORT");
 			userInfoList.Sort((a, b) => {
-				int levelComparison = a.Lv.CompareTo(b.Lv);
-				if (levelComparison != 0) {
-					return levelComparison; // 레벨로 우선 정렬
-				}
-				else {
-					return a.Fame.CompareTo(b.Fame); // 레벨이 같을 경우 Fame으로 정렬
-				}
+				int levelComparison = int.Parse(a.Lv).CompareTo(int.Parse(b.Lv));
+				if (levelComparison != 0) return levelComparison; // 레벨로 우선 정렬
+				else return int.Parse(a.Fame).CompareTo(int.Parse(b.Fame)); // 레벨이 같을 경우 Fame으로 정렬
 			});
 			userInfoList.Reverse();
 
