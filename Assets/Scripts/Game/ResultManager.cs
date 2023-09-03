@@ -148,7 +148,7 @@ public class ResultManager : MonoBehaviour {
         StartCoroutine(coPlayExpCollectionAnim());
 
         GM._.gui.SwitchScreenAnim.gameObject.SetActive(false);
-        goHomePanelBtn.SetActive(true);
+        // goHomePanelBtn.SetActive(true);
 
         yield return Util.time0_2;
         SM._.sfxPlay(SM.SFX.GetCoin.ToString());
@@ -201,10 +201,13 @@ public class ResultManager : MonoBehaviour {
         int expVal = 0;
         expAttractionEF.SetActive(true);
 
+        int cntSpeed = 2 + rewardExp / 100;
+        Debug.Log($"Result:: EXP cntSpeed= {cntSpeed}");
+
         while(isExpUp) {
-            expVal++;
+            expVal += cntSpeed;//++;
             if(expVal <= rewardExp) {
-                DB.Dt.Exp++;
+                DB.Dt.Exp += cntSpeed;//++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 Debug.Log($"coPlayExpCollectionAnim():: expVal / rewardExp = {expVal} / {rewardExp}, fill= {expFilledCircleBar.fillAmount}");
                 if(expFilledCircleBar.fillAmount == 1) {
@@ -216,8 +219,9 @@ public class ResultManager : MonoBehaviour {
             else {
                 isExpUp = false;
             }
-            yield return Util.time0_01;
+            yield return null;//Util.time0_005;
         }
+        goHomePanelBtn.SetActive(true);
     }
 
     IEnumerator coPlayObjAnim(Player pl, Pet pet) {

@@ -115,8 +115,7 @@ public class Data {
         coin += value;
         if(coin < 0) coin = 0;
     }
-    public float 
-    getExpPer() {
+    public float getExpPer() {
         maxExp = Config.LV_EXP_UNIT * lv;
         //* Level Up!
         if(exp >= maxExp) {

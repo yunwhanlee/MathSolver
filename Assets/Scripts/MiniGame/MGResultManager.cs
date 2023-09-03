@@ -100,11 +100,11 @@ public class MGResultManager : MonoBehaviour {
         MGM._.ui.ResultPanel.SetActive(true);
         StartCoroutine(coRepeatPlayerSuccessAnim());
         StartCoroutine(coPlayCoinCollectAnim());
-        yield return Util.time0_8;
+        yield return Util.time0_5;
         StartCoroutine(coPlayExpCollectionAnim());
 
         MGM._.ui.SwitchScreenAnim.gameObject.SetActive(false);
-        goHomePanelBtn.SetActive(true);
+        // goHomePanelBtn.SetActive(true);
 
         yield return Util.time0_2;
         SM._.sfxPlay(SM.SFX.GetCoin.ToString());
@@ -114,7 +114,7 @@ public class MGResultManager : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.GetCoin.ToString());
         yield return Util.time0_1;
         SM._.sfxPlay(SM.SFX.GetCoin.ToString());
-        yield return Util.time0_8;
+        yield return Util.time0_5;
         yield return Util.time0_2;
         SM._.sfxPlay(SM.SFX.GetExp.ToString());
         yield return Util.time0_05;
@@ -165,10 +165,13 @@ public class MGResultManager : MonoBehaviour {
         int expVal = 0;
         expAttractionEF.SetActive(true);
 
+        int cntSpeed = 2 + rewardExp / 100;
+        Debug.Log($"Result:: EXP cntSpeed= {cntSpeed}");
+
         while(isExpUp) {
-            expVal++;
+            expVal += cntSpeed;//++;
             if(expVal <= rewardExp) {
-                DB.Dt.Exp++;
+                DB.Dt.Exp += cntSpeed;//++;
                 expFilledCircleBar.fillAmount = DB.Dt.getExpPer();
                 Debug.Log($"coPlayExpCollectionAnim():: expVal / rewardExp = {expVal} / {rewardExp}, fill= {expFilledCircleBar.fillAmount}");
                 if(expFilledCircleBar.fillAmount == 1) {
@@ -180,8 +183,9 @@ public class MGResultManager : MonoBehaviour {
             else {
                 isExpUp = false;
             }
-            yield return Util.time0_01;
+            yield return null;//Util.time0_01;
         }
+        goHomePanelBtn.SetActive(true);
     }
 #endregion
 }
