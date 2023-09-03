@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class Pet : MonoBehaviour {
     [SerializeField] BoxCollider2D col; public BoxCollider2D Col {get => col;}
 
     [Header("VALUE")]
+    [SerializeField] string name;    public string Name {get => name; set => name = value;}
     [SerializeField] SpriteLibrary sprLib;  public SpriteLibrary SprLib {get => sprLib; set => sprLib = value;}
     [SerializeField] SpriteRenderer sr; public SpriteRenderer Sr {get => sr; set => sr = value;}
     [SerializeField] Sprite idleSpr;    public Sprite IdleSpr {get => idleSpr;}
@@ -24,6 +26,7 @@ public class Pet : MonoBehaviour {
     [SerializeField] SpriteRenderer shadowSr;
     [SerializeField] float moveSpeed;
     [SerializeField] Vector2 tgPos;  public Vector2 TgPos {get => tgPos; set => tgPos = value;}
+    [SerializeField] GameObject petShinyAuraEF;
 
     Transform tf;
     Transform plTf;
@@ -33,6 +36,10 @@ public class Pet : MonoBehaviour {
         plTf = HM._.pl.transform;
         anim = GetComponent<Animator>();
         col = GetComponent<BoxCollider2D>();
+        var pet = Array.Find(DB.Dt.PtSkins, ptsk => ptsk.IsArranged);
+        Debug.Log("pet.name= " + pet.Name);
+        name = pet.Name;
+        activeShinyAuraEF();
     }
 
     void Update() {
@@ -91,5 +98,10 @@ public class Pet : MonoBehaviour {
         SM._.sfxPlay(SM.SFX.PetClick.ToString());
         anim.SetTrigger(Enum.ANIM.DoDance.ToString());
     }
+
+    public void activeShinyAuraEF() {
+        petShinyAuraEF.SetActive(name == "GoldApple Pet" || name == "BabyMonkey Pet" || name == "BabyDragon Pet");
+    }
+
 #endregion
 }

@@ -151,6 +151,10 @@ public abstract class Item {
             HM._.pet.Anim.SetTrigger(Enum.ANIM.DoSuccess.ToString());
             HM._.iUI.onClickInvLeftArrow();
         }
+        if(this is PetSkin) {
+            HM._.pet.Name = name;
+            HM._.pet.activeShinyAuraEF();
+        }
     }
     public virtual void purchase(bool isFree = false) {
         if(isFree){
