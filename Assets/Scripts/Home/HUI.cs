@@ -247,7 +247,8 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
-    public void onClickSettingTestModeBtn() {
+    public void onClickSettingTestModeBtn() { //! TEST
+        SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         DB._.IsActiveTestMode = !DB._.IsActiveTestMode;
         testGroupObj.SetActive(DB._.IsActiveTestMode);
         testModeActiveBtn.GetComponentInChildren<TextMeshProUGUI>().color = DB._.IsActiveTestMode? Color.green : Color.black;

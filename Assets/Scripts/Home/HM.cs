@@ -75,6 +75,13 @@ public class HM : MonoBehaviour {
 /// -----------------------------------------------------------------------------------------------------------------
     public IEnumerator GoToLoadingScene(string name) {
         Debug.Log("GoToLoadingScene()::");
+
+        //* 初期化 (MiniGame移動の場合は、PlayerとPetデータを移すものではなく、PlayerのSpriteLibraryAssetのみ使うので)
+        for(int i = 0; i < DB._.transform.childCount; i++)
+            Destroy(DB._.transform.GetChild(i).gameObject);
+
+        //* PlayerとPetデータDBへ移動。
+        
         pl.transform.SetParent(DB._.transform);
         pet.transform.SetParent(DB._.transform);
         pl.transform.gameObject.SetActive(false);

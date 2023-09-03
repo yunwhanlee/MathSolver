@@ -148,7 +148,7 @@ public class DB : MonoBehaviour {
     const string Database = "DB";
     [SerializeField] Data dt;   public static Data Dt {get => _.dt; set => _.dt = value;}
     void Awake() {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 55;
         if(isReset) {
             Debug.Log($"isReset= {isReset} -> RESET!");
             reset();

@@ -19,8 +19,8 @@ public static class Config {
     public readonly static Color CATE_SELECT_COLOR = new Color(0.1f, 0.3f, 0.55f, 1);
     public readonly static int CLOTH_PRICE_UNIT = 300;
     //* GAME
-    public readonly static int FOREST_EXP_RWD_UNIT = 12;
-    public readonly static int FOREST_COIN_RWD_UNIT = 120;
+    public readonly static int FOREST_EXP_RWD_UNIT = 10;
+    public readonly static int FOREST_COIN_RWD_UNIT = 100;
 
     public readonly static int JUNGLE_EXP_RWD_UNIT = 15;
     public readonly static int JUNGLE_COIN_RWD_UNIT = 150;
