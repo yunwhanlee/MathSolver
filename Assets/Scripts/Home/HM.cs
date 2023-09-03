@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 public class HM : MonoBehaviour {
     public static HM _;
@@ -41,10 +42,15 @@ public class HM : MonoBehaviour {
     public GameObject roomObjectGroup;
     public SpriteRenderer wallSr;
     public SpriteRenderer floorSr;
+    public TextMeshProUGUI debugLogTxt;
 
     void Awake() => _ = this;
 
     void Start() {
+        int i = 0;
+        Debug.Log(i++);
+        debugLogTxt.text = i.ToString();
+
         SM._.bgmPlay(SM.BGM.Home.ToString());
         Debug.Log("ロードデータ:: 配置した家具を生成");
         createFunitureItemsBySaveData(DB.Dt.Funitures);
