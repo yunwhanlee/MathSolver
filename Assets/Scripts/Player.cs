@@ -212,6 +212,10 @@ public class Player : MonoBehaviour {
             Debug.Log("<color=red>Player:: OnTriggerEnter2D():: PlayerNoCollideArea</color>");
             col.isTrigger = true;
         }
+        else if(col.gameObject.CompareTag("ToZhenyi")) {
+            Debug.Log("ToZhenyi");
+            HM._.htm.onClickRegistActionBtn((int)HomeTalkManager.ID.ToZhenyi);
+        }
 
     }
     private void OnTriggerStay2D(Collider2D col) {

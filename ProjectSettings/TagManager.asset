@@ -26,6 +26,7 @@ TagManager:
   - Obstacle
   - Blueberry
   - GoldBlueberry
+  - ToZhenyi
   layers:
   - Default
   - TransparentFX

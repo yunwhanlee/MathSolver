@@ -31,6 +31,8 @@ public class HomeTalkManager : TalkManager {
         UNLOCK_MAP3_MINIGAME,
         //* Map 4
         COMING_SOON,
+        //* Zhenyi
+        ToZhenyi
     };
 
     [Header("EXTRA")]
@@ -43,6 +45,15 @@ public class HomeTalkManager : TalkManager {
     [SerializeField] Sprite snowMountainSpr;
     [SerializeField] Sprite iceDragonBgSpr;
     [SerializeField] GameObject thankYouForPlayingGroup;
+
+    [Header("ZHENYI")]
+    [SerializeField] Sprite zhenyi1Spr;
+    [SerializeField] Sprite zhenyi2Spr;
+    [SerializeField] Sprite zhenyi3Spr;
+    [SerializeField] Sprite zhenyi4Spr;
+    [SerializeField] Sprite zhenyi5Spr;
+    [SerializeField] Sprite zhenyi6Spr;
+    [SerializeField] Sprite zhenyi7Spr;
 
     // void Start() {
     //     TutorialRoomPanelBtn.SetActive(DB.Dt.IsTutoRoomTrigger);
@@ -415,6 +426,83 @@ public class HomeTalkManager : TalkManager {
             ,$"추후 업데이트하여 더욱<br>좋은 모습으로<br>찾아뵙겠습니다!:{(int)SPK.Pl_Idle}"
             ,$"플레이 해주셔서<br>진심으로 감사합니다!!:{(int)SPK.Empty}"
         });
+        talkDt.Add((int)ID.ToZhenyi, new string[] {
+            $"안녕하세요 정이씨!:{(int)SPK.Pl_Idle}",
+            $"동물마을의 해결사 늑선생이에요!:{(int)SPK.Pl_Idle}",
+            $"우리 주인님이 정이씨를 너무 좋아하는데, 표현이 서툴러서 :{(int)SPK.Pl_Idle}",
+            $"제가 대신 전달을 해드리려고 해요.:{(int)SPK.Pl_Idle}",
+            //* Zhenyi1 (4)
+            $"외롭게 혼자 열심히 살고있는 주인님은 어느날 우연히 정이씨를 봤데요.:{(int)SPK.Pl_Idle}",
+            $"흰색드래스옷을 입은 정이씨가 마치 천사같았다네요.:{(int)SPK.Pl_Idle}",
+            $"하지만 용기가없어서 말을 못걸고 그렇게 헤어지고 후회했어요.:{(int)SPK.Pl_Sad}",
+            //* Zhenyi2 (7)
+            $"그런데 다음날 운명처럼 공원에서 다시 정이씨를 보게 되었어요.:{(int)SPK.Pl_Idle}",
+            $"그때 주인님은 용기를 내서, 연락처를 물어봤데요.:{(int)SPK.Pl_Idle}",
+            //* Zhenyi3 (9)
+            $"그 이후로 고기집도 가고 감자탕도 먹고.:{(int)SPK.Pl_Idle}",
+            $"주말에 용기를 내어서 만나자고해서, 방탈출카페랑 부엉이카페도 예약하고:{(int)SPK.Pl_Idle}",
+            $"전날에 미리가서 길 위치도 파악하고 열심히 준비도 했데요.:{(int)SPK.Pl_Idle}",
+            $"주인님은 항상 혼자서 외롭게 자기만의 길을 가고 있었는데,:{(int)SPK.Pl_Idle}",
+            $"어두웠던 세상이 정이씨를 만나면 밝게 빛이나고 너무 행복했데요.:{(int)SPK.Pl_Idle}",
+            $"하지만 욕심이었던 걸까요? 정이를 좋아하지만 정이씨는 친구이상으로는:{(int)SPK.Pl_Idle}",
+            $"생각하지 않는 것 같았고, 그런 부분이 점점 힘들고 슬퍼졌데요.:{(int)SPK.Pl_Idle}",
+            //* Zhenyi4 (16)
+            $"그래서 정이씨가 방콕에 간다고 한걸 듣고, 자기도 따라가서:{(int)SPK.Pl_Idle}",
+            $"같이 재밌게 놀고, 좋은 풍경에서 고백을 하고 싶었나봐요.:{(int)SPK.Pl_Idle}",
+            $"자기딴에는 그게 진심이고 멋있다고 생각했었데요. 참 바보같죠.:{(int)SPK.Pl_Sad}",
+            $"...그렇게 부담을 주게되고:{(int)SPK.Pl_Idle}",
+            //* Zhenyi5 (20)
+            $"9월에 연락이 끊기게되요, 참 많이 슬프고 또 슬펐데요.:{(int)SPK.Pl_Idle}",
+            $"그렇게 슬퍼만하다가, 사람들이랑 만나는 것이 다 부질없다는 생각이 들어요.:{(int)SPK.Pl_Idle}",
+            $"내가 멋이 없고, 보잘것없어서 진심도 부담으로 느꼇다고 생각했나봐요.:{(int)SPK.Pl_Idle}",
+            $"그렇게 정말 친한 사람 2명만 남기고 모든 지인들의 연락처를 다 지웠데요.:{(int)SPK.Pl_Idle}",
+            $"사람들을 만나봐야 결국 남는 건 아무것도 없다고 느꼈고,:{(int)SPK.Pl_Idle}",
+            $"그 모든 시간을 내가 멋있어지고, 성공할 수 있는 사람이 되는데 투자하기로 했어요.:{(int)SPK.Pl_Idle}",
+            //* Zhenyi6 (26)
+            $"그렇게 운동을 시작하고, 오로지 일과 게임 개발만 하기 시작햇어요.:{(int)SPK.Pl_Idle}",
+            $"그리고 다음해 1월달에 야구게임을 출시하게 되요.:{(int)SPK.Pl_Idle}",
+            $"WeChat은 지웠지만, 문득 LINE에 정이씨 연락처가 남아있는게 생각이나서.:{(int)SPK.Pl_Idle}",
+            $"답장 안올거라고 생각하면서도 게임 출시했다고 한번 보내봤데요.:{(int)SPK.Pl_Idle}",
+            $"주인님은 계속 미련을 가지고 있었나봐요.:{(int)SPK.Pl_Idle}",
+            //* Zhenyi7 (32)
+            $"그런데 이게 무슨일! 정이씨가 답장이 온거에요!:{(int)SPK.Pl_Idle}",
+            $"우와!!!:{(int)SPK.Pl_Happy}:{(int)SPK.Frog_Idle}_FLIP:{(int)SPK.Ant_Idle}_FLIP",
+            $"그렇게 기적처럼 다시 연락을 주고받게 되었고:{(int)SPK.Pl_Idle}",
+            //* Zhenyi8 (34)
+            $"낭만고기집에 가서 밥을 먹으면서, 정이씨에게 만들고 있는 게임도 보여주고:{(int)SPK.Pl_Idle}",
+            $"정이씨가 게임대회나 쇼에도 한번 나가보라고 해요.:{(int)SPK.Pl_Idle}",
+            $"주인님은 그렇게 대회에 나가서 우승하면 정이씨가 나를 다시볼거라고 생각했데요:{(int)SPK.Pl_Idle}",
+            $"그렇게 한국에서 큰 게임대회를 준비하게되요.:{(int)SPK.Pl_Idle}",
+            //
+            $"그리고 처음으로 정이씨가 먼저 교류회에 같이 가자고 연락이오고:{(int)SPK.Pl_Idle}",
+            $"대회준비로 바쁜와중에도 기쁜마음으로 같이 만나서 가요.:{(int)SPK.Pl_Idle}",
+            $"하지만 그때도 다른사람들에게 그저 친구라고만 하는 정이 말을 듣고,:{(int)SPK.Pl_Idle}",
+            $"주인님은 속으로 슬퍼했어요. 그래서 더 성공하고 멋있어져야 겠다라고 다짐해요.:{(int)SPK.Pl_Idle}",
+            //
+            $"이후로 철판코스요리집도 가고, 영화도 보고, 홍콩요리도 먹고:{(int)SPK.Pl_Idle}",
+            $"정이씨가 미국에 놀러가서, 고양이도 맡아주고:{(int)SPK.Pl_Idle}",
+            $"특히 홍콩요리가게에서 얘기하면서 정이가 예전과다르게 많이 웃어줘서:{(int)SPK.Pl_Idle}",
+            $"너무 행복해서 대회준비하면서 힘든 것들이 사라졌데요.:{(int)SPK.Pl_Idle}",
+            $"...:{(int)SPK.Pl_Idle}",
+            //
+            $"하지만 주인님은 정이씨를 진심으로 좋아해서,:{(int)SPK.Pl_Idle}",
+            $"자연스럽게 통화도 하고싶고, 손도 잡고싶고한데:{(int)SPK.Pl_Idle}",
+            $"항상 정이가 부담을 느낄까봐, 행동이 조심스러웠어요.:{(int)SPK.Pl_Idle}",
+            $"예전처럼 연락이 또 끊기면 어떻할까 항상 걱정했데요.:{(int)SPK.Pl_Idle}",
+            $"그렇지만 이렇게 계속 조심스럽게 행동하는 것도 벌써 2년이 다되가고,:{(int)SPK.Pl_Idle}",
+            $"좋아한다고 말한마디 못하는게 너무 지쳤나봐요.:{(int)SPK.Pl_Idle}",
+            // None
+            $"그래도 이번에 게임대회에서 1등도 하고, 인터뷰랑 기사도 나오면서:{(int)SPK.Pl_Idle}",
+            $"자신감을 얻었데요. 그렇게 2년 가까이 못했던 고백도 용기내서 했고:{(int)SPK.Pl_Idle}",
+            $"이제는 숨지않고 좋아한다고 말하고싶어요.:{(int)SPK.Pl_Idle}",
+            $"저는 앞으로도 더 성공하고 멋진 사람이 되기위해 노력할거에요.:{(int)SPK.Pl_Idle}",
+            $"하지만 이런 인생이 쉽지는 않아요. 남들이 다 놀때,:{(int)SPK.Pl_Idle}",
+            $"저는 언제나 혼자서 외로운 싸움을 하고있어요. 정말 너무 지칠때가 많은데:{(int)SPK.Pl_Idle}",
+            $"정이가 옆에 있어주면, 흑백이었던 세상이 환하게 빛이나고 너무나 행복해져요.:{(int)SPK.Pl_Idle}",
+            $"저는 처음만났을때부터 지금까지 거짓된 것은 단 하나도 없었어요.:{(int)SPK.Pl_Idle}",
+            $"정이씨 많이 좋아하고 행복하게 해주고싶은데,:{(int)SPK.Pl_Idle}",
+            $"정이씨 마음은 어떤가요?:{(int)SPK.Pl_Idle}",
+        });
         #endregion
     }
 
@@ -522,6 +610,15 @@ public class HomeTalkManager : TalkManager {
                 if(talkIdx == 4) {
                     thankYouForPlayingGroup.SetActive(true);
                 }
+                break;
+            case (int)ID.ToZhenyi:
+                if(talkIdx == 4) bgImg.sprite = zhenyi1Spr;
+                else if(talkIdx == 7) bgImg.sprite = zhenyi2Spr;
+                else if(talkIdx == 9) bgImg.sprite = zhenyi3Spr;
+                else if(talkIdx == 16) bgImg.sprite = zhenyi4Spr;
+                else if(talkIdx == 20) bgImg.sprite = zhenyi5Spr;
+                else if(talkIdx == 26) bgImg.sprite = zhenyi6Spr;
+                else if(talkIdx == 32) bgImg.sprite = zhenyi7Spr;
                 break;
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;

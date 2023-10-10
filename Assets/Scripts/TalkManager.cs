@@ -176,7 +176,8 @@ public abstract class TalkManager : MonoBehaviour {
                 talkTxt.text = nickname;
             }
             else {
-                talkTxt.text = LM._.localize(msg, (int)LM.LANG_IDX.KR); //? 僕は韓国人だから、クエストは韓国語を基準で言語変換する。
+                // talkTxt.text = LM._.localize(msg, (int)LM.LANG_IDX.KR); //? 僕は韓国人だから、クエストは韓国語を基準で言語変換する。
+                talkTxt.text = msg;
             }
 
             //* テレタイプ
