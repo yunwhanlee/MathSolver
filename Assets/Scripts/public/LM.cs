@@ -21,7 +21,6 @@ public class LM : MonoBehaviour { //* Language Manager
     public event Action actLocalizechanged = () => {};
     public int curLangIndex;
     public List<Lang> langs;
-
     #region SINGLETON
     void Awake() {
         if(_ == null) {

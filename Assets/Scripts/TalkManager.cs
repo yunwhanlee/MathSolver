@@ -45,6 +45,9 @@ public abstract class TalkManager : MonoBehaviour {
     [SerializeField] protected RectTransform nameFrame;
     [SerializeField] protected TextMeshProUGUI spkName;
 
+    [SerializeField] TMP_FontAsset notoSansKR;
+    [SerializeField] TMP_FontAsset notoSansSC;
+
     protected void Awake() {
         txtTeleType = GetComponent<TextTeleType>();
         talkDialogAnim = talkDialog.GetComponent<Animator>();
@@ -135,7 +138,15 @@ public abstract class TalkManager : MonoBehaviour {
 
     private void play() {
         if(HM._ && HM._.state != HM.STATE.NORMAL) return;
-        Debug.Log($"TalkManager:: play()::");
+        Debug.Log($"TalkManager:: play():: talkTxt.font= " + talkTxt.font);
+        
+        if(LM._.curLangIndex == (int)LM.LANG_IDX.JP) {
+            if(talkTxt.font != notoSansSC)  talkTxt.font = notoSansSC;
+        }
+        else {
+            if(talkTxt.font != notoSansKR)  talkTxt.font = notoSansKR;
+        }
+
         talk(curId);
         talkDialog.SetActive(isAction);
     }
@@ -176,8 +187,8 @@ public abstract class TalkManager : MonoBehaviour {
                 talkTxt.text = nickname;
             }
             else {
-                // talkTxt.text = LM._.localize(msg, (int)LM.LANG_IDX.KR); //? 僕は韓国人だから、クエストは韓国語を基準で言語変換する。
-                talkTxt.text = msg;
+                talkTxt.text = LM._.localize(msg, (int)LM.LANG_IDX.KR); //? 僕は韓国人だから、クエストは韓国語を基準で言語変換する。
+                // talkTxt.text = msg;
             }
 
             //* テレタイプ
