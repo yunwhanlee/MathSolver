@@ -445,7 +445,7 @@ public class HomeTalkManager : TalkManager {
             $"그 이후로 고기집도 가고 감자탕도 먹고:{(int)SPK.Pl_Idle}",
             $"주말에 용기도내서 만나자고해서, 방탈출카페랑 부엉이카페도 갔어요.:{(int)SPK.Pl_Idle}",
             $"전날에 길 위치도 미리가서 파악하고 열심히 준비도 했데요.:{(int)SPK.Pl_Idle}",
-            $"주인님은 항상 외로웠는데:{(int)SPK.Pl_Idle}",
+            $"주인님은 항상 외로웠는데:{(int)SPK.Pl_Sad}",
             $"zhengyi를 만나면, 어두웠던 세상이 밝게 빛이나고 너무 행복했데요.:{(int)SPK.Pl_Idle}",
             $"하지만 zhengyi는 남자가 아니라, 친구로만 생각했고:{(int)SPK.Pl_Idle}",
             $"그런 부분이 점점 초조하고 힘들어졌데요.:{(int)SPK.Pl_Idle}",
@@ -455,7 +455,7 @@ public class HomeTalkManager : TalkManager {
             $"자신은 그게 멋있다고 생각했었데요. 바보같죠.:{(int)SPK.Pl_Sad}",
             $"...그렇게 부담을 주게되고:{(int)SPK.Pl_Idle}",
             //* Zhenyi5 (20)
-            $"9월에 연락이 끊기게되요, 참 많이 슬프고 또 슬펐데요.:{(int)SPK.Pl_Idle}",
+            $"9월에 연락이 끊기게되요, 참 많이 슬프고 또 슬펐데요.:{(int)SPK.Pl_Sad}",
             $"그렇게 슬퍼만하다가, 사람들이랑 만나는 것이 다 부질없다는 생각이 들어요.:{(int)SPK.Pl_Idle}",
             $"내가 멋없고, 보잘것없어서 내 진심도 부담으로 느꼇다고 생각했어요.:{(int)SPK.Pl_Idle}",
             $"그렇게 그는 모든 지인들의 연락처를 다 지웠데요.:{(int)SPK.Pl_Idle}",
@@ -468,7 +468,7 @@ public class HomeTalkManager : TalkManager {
             $"답장 안올거라 생각하고, 게임 출시했다고 연락했데요.:{(int)SPK.Pl_Idle}",
             //* Zhenyi7 (30)
             $"그런데 이게 무슨일! zhengyi가 답장이 온거에요!:{(int)SPK.Pl_Idle}",
-            $"우와!!!:{(int)SPK.Pl_Happy}:{(int)SPK.Frog_Idle}_FLIP:{(int)SPK.Ant_Idle}_FLIP",
+            $"우와!!!:{(int)SPK.Pl_Happy}:{(int)SPK.WarriorMonkey_Happy}_FLIP:{(int)SPK.TundraBear_Happy}_FLIP",
             $"그렇게 기적처럼 다시 연락을 주고받게 되었고:{(int)SPK.Pl_Idle}",
             //* Zhenyi8 (33)
             $"낭만고기집에 가서 밥을 먹으면서, 만들고 있는 게임도 보여주고,:{(int)SPK.Pl_Idle}",
@@ -477,27 +477,27 @@ public class HomeTalkManager : TalkManager {
             $"그렇게 한국에서 큰 게임대회를 준비하게되요.:{(int)SPK.Pl_Idle}",
             //* Zhenyi9 (37)
             $"그 뒤에 처음으로 zhengyi가 먼저 교류회에 같이 가자고 연락이와서:{(int)SPK.Pl_Idle}",
-            $"대회준비로 바쁜와중에도 기쁜마음으로 갔어요.:{(int)SPK.Pl_Idle}",
+            $"대회준비로 바쁜와중에도 기쁜마음으로 갔어요.:{(int)SPK.Pl_Happy}",
             $"하지만 그때도 다른사람들에게 그저 친구라고만하는 zhengyi의 말을 듣고:{(int)SPK.Pl_Idle}",
-            $"주인님은 속으로 슬퍼했어요. 그리고 더 성공하고 멋있어져야 겠다라고 다짐해요.:{(int)SPK.Pl_Idle}",
+            $"주인님은 속으로 슬퍼했어요. 그리고 더 성공하고 멋있어져야 겠다라고 다짐해요.:{(int)SPK.Pl_Sad}",
             //* Zhenyi10 (41)
             $"이후로 철판코스요리집도 가고, 영화도 보고, 홍콩요리도 먹고:{(int)SPK.Pl_Idle}",
             $"zhengyi가 미국에 놀러가서, 고양이도 맡아주고:{(int)SPK.Pl_Idle}",
             $"특히 홍콩요리가게에서 얘기하면서 zhengyi가 예전과다르게 많이 웃어줘서:{(int)SPK.Pl_Idle}",
-            $"그날은 행복해서 대회준비하면서 힘든 것들이 사라졌데요.:{(int)SPK.Pl_Idle}",
+            $"그날은 행복해서 대회준비하면서 힘든 것들이 사라졌데요.:{(int)SPK.Pl_Happy}",
             $"...:{(int)SPK.Pl_Idle}",
             //* Zhenyi11 (47)
             $"하지만 주인님은 zhengyi를 진심으로 좋아해서:{(int)SPK.Pl_Idle}",
             $"자연스럽게 통화도 하고싶고, 손도 잡고싶고한데,:{(int)SPK.Pl_Idle}",
             $"zhengyi가 부담을 느낄까봐 행동이 조심스러웠어요.:{(int)SPK.Pl_Idle}",
-            $"예전처럼 연락이 또 끊길까봐 항상 걱정했데요.:{(int)SPK.Pl_Idle}",
+            $"예전처럼 연락이 또 끊길까봐 항상 걱정했데요.:{(int)SPK.Pl_Sad}",
             $"그렇지만 이렇게 계속 조심스럽게 행동하는 것도 벌써 2년이 다되가고,:{(int)SPK.Pl_Idle}",
             $"좋아한다고 말 한마디 못하는 자신이 너무 괴롭고 지쳤나봐요.:{(int)SPK.Pl_Idle}",
             //* None (50)
             $"그래도 이번에 게임대회에서 1등도 하고, 인터뷰랑 기사도 나오면서:{(int)SPK.Pl_Idle}",
             $"자신감을 얻었데요. 그렇게 2년 가까이 못했던 고백도 용기내서 했고:{(int)SPK.Pl_Idle}",
             $"이제는 숨지않고 좋아한다고 말하고싶어요.:{(int)SPK.Pl_Idle}",
-            $"저는 앞으로도 더 성공하고 멋진 사람이 되기위해 노력 할 거에요.:{(int)SPK.Pl_Idle}",
+            $"저는 앞으로도 더 성공하고 멋진 사람이 되기위해 노력 할 거에요.:{(int)SPK.Pl_Happy}",
             $"하지만 이런 인생이 쉽진 않아요. 남들 다 놀때,:{(int)SPK.Pl_Idle}",
             $"저는 언제나 혼자서 외로운 싸움을 하고있어요. 정말 지칠때가 많은데:{(int)SPK.Pl_Idle}",
             $"zhengyi가 옆에 있어주면, 어두웠던 세상이 환하게 빛이나고 너무 행복해져요.:{(int)SPK.Pl_Idle}",
@@ -615,18 +615,23 @@ public class HomeTalkManager : TalkManager {
                 }
                 break;
             case (int)ID.ToZhenyi:
-                if(talkIdx == 4) bgImg.sprite = zhenyi1Spr;
+                if(talkIdx == 4) {
+                    bgImg.sprite = zhenyi1Spr;
+                    SM._.bgmPlay(SM.BGM.Chenmilmil.ToString());
+                }
                 else if(talkIdx == 7) bgImg.sprite = zhenyi2Spr;
                 else if(talkIdx == 9) bgImg.sprite = zhenyi3Spr;
                 else if(talkIdx == 16) bgImg.sprite = zhenyi4Spr;
                 else if(talkIdx == 20) bgImg.sprite = zhenyi5Spr;
                 else if(talkIdx == 26) bgImg.sprite = zhenyi6Spr;
                 else if(talkIdx == 30) bgImg.sprite = zhenyi7Spr;
+                else if(talkIdx == 31) SM._.sfxPlay(SM.SFX.ChildYeah.ToString());
                 else if(talkIdx == 33) bgImg.sprite = zhenyi8Spr;
                 else if(talkIdx == 37) bgImg.sprite = zhenyi9Spr;
                 else if(talkIdx == 41) bgImg.sprite = zhenyi10Spr;
                 else if(talkIdx == 47) bgImg.sprite = zhenyi11Spr;
                 else if(talkIdx == 50) bgImg.sprite = noneBgSpr;
+                // else if(talkIdx == 63) HM._.ui.ZhenyiPopUp.SetActive(true);
                 break;
         }
         return (rawMsg == "")? getMsg(id, talkIdx) : rawMsg;
@@ -754,6 +759,9 @@ public class HomeTalkManager : TalkManager {
                 break;
             case (int)ID.COMING_SOON:
                 thankYouForPlayingGroup.SetActive(false);
+                break;
+            case (int)ID.ToZhenyi:
+                HM._.ui.ZhenyiPopUp.SetActive(true);
                 break;
             #endregion
         }

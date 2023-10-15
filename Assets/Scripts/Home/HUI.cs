@@ -172,6 +172,9 @@ public class HUI : MonoBehaviour {
     [Space(10)]
     [SerializeField] GameObject loginPopUp;     public GameObject LoginPopUp {get => loginPopUp;}
     [SerializeField] GameObject registerPopUp;     public GameObject RegisterPopUp {get => registerPopUp;}
+    [Space(10)]
+    [SerializeField] GameObject zhenyiPopUp;    public GameObject ZhenyiPopUp {get => zhenyiPopUp;}
+    [SerializeField] GameObject thankyouForZhenyiPanel;    public GameObject ThankyouForZhenyiPanel {get => thankyouForZhenyiPanel;}
 
     //* DEBUG
     public TextMeshProUGUI googleSheetLangLenTxt;
@@ -247,6 +250,14 @@ public class HUI : MonoBehaviour {
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
 #region EVENT
 ///---------------------------------------------------------------------------------------------------------------------------------------------------
+    public void onClickZhenyiPopUpYes() {
+        SM._.sfxPlay(SM.SFX.ChildYeah.ToString());
+        SM._.sfxPlay(SM.SFX.Fanfare.ToString());
+        thankyouForZhenyiPanel.SetActive(true);
+    }
+    public void onClickZhenyiPopUpNo() {
+        showErrorMsgPopUp("ダメです。");
+    }
     public void onClickSettingTestModeBtn() { //! TEST
         SM._.sfxPlay(SM.SFX.BubblePop.ToString());
         DB._.IsActiveTestMode = !DB._.IsActiveTestMode;

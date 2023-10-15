@@ -7451,6 +7451,7 @@ MonoBehaviour:
   forestBGM: {fileID: 8300000, guid: 6bf5f520fdcfddf4a84af4c6d6143bf8, type: 3}
   jungleBGM: {fileID: 8300000, guid: 60ad9bbe3dbd44f4f8db9eb55fff1b6b, type: 3}
   tundraBGM: {fileID: 8300000, guid: 4af9c5e4a25f4a741b4f7e5dc7ac9b61, type: 3}
+  chenmilmilBGM: {fileID: 8300000, guid: 67aa32a751a27354fa82e429f6ebbd79, type: 3}
   soundGroup: {fileID: 1134208512}
   btnClickSFX: {fileID: 1327878783}
   errorSFX: {fileID: 618085349}

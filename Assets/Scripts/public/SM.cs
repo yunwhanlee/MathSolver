@@ -16,7 +16,7 @@ public class SM : MonoBehaviour {
             Destroy(this.gameObject);
     }
     public enum BGM {
-        Title, Home, Forest, Jungle, Tundra,
+        Title, Home, Forest, Jungle, Tundra, Chenmilmil,
     }
 
     public enum SFX {
@@ -40,6 +40,7 @@ public class SM : MonoBehaviour {
     [SerializeField] AudioClip forestBGM;
     [SerializeField] AudioClip jungleBGM;
     [SerializeField] AudioClip tundraBGM;
+    [SerializeField] AudioClip chenmilmilBGM;
 
     [Header("UI")][Header("__________________________")]
     [SerializeField] GameObject soundGroup; public GameObject SoundGroup {get => soundGroup;}
@@ -91,13 +92,17 @@ public class SM : MonoBehaviour {
             : (name == BGM.Forest.ToString())? forestBGM
             : (name == BGM.Jungle.ToString())? jungleBGM
             : (name == BGM.Tundra.ToString())? tundraBGM
+            : (name == BGM.Chenmilmil.ToString())? chenmilmilBGM
             : null;
+        if(bgmAudio.clip == null)
+            HM._.ui.showErrorMsgPopUp($"ERR: bgm name={name}");
         bgmAudio.volume = (name == BGM.Title.ToString())? 0.5f
             : (name == BGM.Home.ToString())? 0.2f
             : (name == BGM.Forest.ToString())? 0.7f
             : (name == BGM.Jungle.ToString())? 0.8f
             : (name == BGM.Tundra.ToString())? 0.7f
-            : 0;
+            : (name == BGM.Chenmilmil.ToString())? 0.5f
+            : 0.4f;
         
         bgmAudio.time = 0;
         bgmAudio.Play();

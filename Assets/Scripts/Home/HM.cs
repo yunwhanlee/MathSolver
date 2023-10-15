@@ -26,6 +26,7 @@ public class HM : MonoBehaviour {
     public WorldMapManager wmm;
     public HomeMinigameManager hmgm;
     public AccountManager actm;
+    public SM sm;
 
 
     [Header("MATERIAL")]
